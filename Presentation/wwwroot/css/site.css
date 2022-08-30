@@ -1,18 +1,47 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+        font-family: monospace;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    line-height: normal;
+}
+
+.list {
+    height: 25px;
+    padding: 0px;
+    margin: 0px;
+    font-family:monospace;
+}
+
+ .ulclass {
+    line-height:normal;
+}
+.img-fluid{
+    width: 65%;
+}
+.navbar{
+     background-color:whitesmoke;
+}
+.mt-auto {
+    width: 50%;
+    line-height: normal;
+}
+.footer[b-fhvjq1vla1] {
+    line-height: normal !important;
+    font-family:'Global Monospace';
+    
 }

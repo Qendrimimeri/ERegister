@@ -5,6 +5,6 @@ namespace Presentation.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() => View();
+        public IActionResult HomePage() => View();
     }
 }
