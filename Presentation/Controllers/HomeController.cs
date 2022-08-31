@@ -8,6 +8,8 @@ namespace Presentation.Controllers
         public IActionResult Index() => View();
 
         public  IActionResult Forgot() => View();
+
+        public IActionResult AboutUs() => View();
     }
 
     
