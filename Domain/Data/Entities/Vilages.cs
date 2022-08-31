@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class Vilages
+    public class Vilages
     {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+
+        public ICollection<Addresses>? Addresses { get; set; }
     }
 }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class Streets
+    public class Streets
     {
+        public int Id { get; set; }
+        public string? StreetName { get; set; }
+
+        public ICollection<Addresses>? Addresses { get; set; }
+
     }
 }

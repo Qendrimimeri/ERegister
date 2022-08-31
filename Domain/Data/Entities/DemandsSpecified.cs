@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class DemandsSpecified
+    public class DemandsSpecified
     {
+        public int Id { get; set; }
+
+        public string? Description { get; set; }
+
+        public int? ApplicationUserId { get; set; }
+
+
+        // Navigation Properties
+        public ApplicationUser? AppliactionUsers { get; set; }
     }
 }

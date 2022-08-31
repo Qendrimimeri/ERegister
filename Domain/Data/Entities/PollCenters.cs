@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class PollCenters
+    public class PollCenters
     {
+        public int Id { get; set; }
+
+        public int? CenterNumber { get; set; }
+
+        public string? CenterName { get; set; }
+
+        public ICollection<Addresses>? Addresses { get; set; }
+
     }
 }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class Success
+    public class Success
     {
+        public int Id { get; set; }
+
+        public int? StartingSuccessChanceId { get; set; }
+
+        public int? CurrentSuccessChanceId { get; set; }
     }
 }

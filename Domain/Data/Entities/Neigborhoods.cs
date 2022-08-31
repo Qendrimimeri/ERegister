@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class GeneralDemands
+    public class Neigborhoods
     {
         public int Id { get; set; }
+        public string? Name { get; set; }
+        public int? MuniciplaityId { get; set; }
 
-        public string? Description { get; set; }
+        public ICollection<Addresses>? Addresses { get; set; }
+
     }
 }

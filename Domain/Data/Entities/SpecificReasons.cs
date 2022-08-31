@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class SpecificReasons
+    public class SpecificReasons
     {
+        public int Id { get; set; }
+        public string? Description { get; set; }
+
     }
 }

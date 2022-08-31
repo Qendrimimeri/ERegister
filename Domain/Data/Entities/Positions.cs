@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class Positions
+    public class Positions
     {
+        public int Id { get; set; }
+        public string? PositionName { get; set; }
     }
 }

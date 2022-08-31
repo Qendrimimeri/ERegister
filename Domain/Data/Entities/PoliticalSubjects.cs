@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class PoliticalSubjects
+    public class PoliticalSubjects
     {
+        public int Id { get; set; }
+
+        public string? SubjectName { get; set; }
     }
 }

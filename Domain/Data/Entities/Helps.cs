@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class Helps
+    public class Helps
     {
+        public int Id { get; set; }
+
+        public bool CanYouManage { get; set; }
+
+        public string? ActivitiesYouPlan { get; set; }
+
+        public bool NeedHelp { get; set; }
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class ReasonsUsers
+    public class ReasonsUsers
     {
+        public int Id { get; set; }
+        public int? GeneralReasonId { get; set; }
+        public int? ApplicationUserId { get; set; }
     }
 }

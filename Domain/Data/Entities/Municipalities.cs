@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    internal class Municipalities
+    public class Municipalities
     {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public int? RegionId { get; set; }
+
+
+        //Navigation propertiees
+        public Regions? Regions { get; set; }
+        public ICollection<Addresses>? Addresses { get; set; }
     }
 }
