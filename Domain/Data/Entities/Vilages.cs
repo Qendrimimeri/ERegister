@@ -12,5 +12,6 @@ namespace Domain.Data.Entities
         public string? Name { get; set; }
 
         public ICollection<Addresses>? Addresses { get; set; }
+
     }
 }
