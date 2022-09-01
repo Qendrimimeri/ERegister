@@ -21,5 +21,10 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+        public IActionResult Block()
+        {
+            return View();
+        }
     }
 }

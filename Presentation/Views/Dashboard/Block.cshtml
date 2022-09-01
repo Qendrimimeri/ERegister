@@ -1,0 +1,128 @@
+﻿
+@{
+     Layout = "_DashboardLayout";
+}
+
+<div class="d-flex justify-content-between">
+
+ 
+  <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+    <option selected>Qyteti...</option>
+    <option value="1">Prishtine</option>
+    <option value="2">Podujeve</option>
+    <option value="3">Viti</option>
+    <option value="3">Gllogovc</option>
+  </select>
+
+
+                  
+  <select class="custom-select btn-primary rounded" id="inputGroupSelect01">
+    <option selected>Lagjia/Fshati...</option>
+    <option value="1">Mati1</option>
+    <option value="2">Shajkofc</option>
+    <option value="3">Drobesh I Eperm</option>
+    <option value="3">Tic</option>
+  </select>
+
+
+
+
+    
+     <form>
+
+           <div class="d-flex">
+               <input type="text" class="form-control border-0" placeholder="Kërko sipas bllokut" aria-describedby="button-addon1" name="SearchPhrase">
+               <button type="submit" class="btn btn-primary text-white">Kërko</button>
+
+           </div>
+
+     </form>
+
+
+
+      <a type="button" class="btn btn-primary" asp-controller="Dashboard" asp-action="index">Shto+</a>
+
+
+
+
+</div>
+
+
+
+<div class="my-5">
+
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Emri i Bllokut</th>
+      <th scope="col">Actions</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mati 1</td>
+      <td> 
+          <ul class="list-inline m-0">
+               <li class="list-inline-item">
+                  <a class="btn btn-primary btn-sm rounded-0 bi bi-three-dots" type="button" data-toggle="tooltip" data-placement="top" title="Details"><i class="fa fa-table"></i></a>
+               </li>
+               <li class="list-inline-item">
+                  <a class="btn btn-success btn-sm rounded-0 bi bi-pencil-square" type="button" data-toggle="tooltip" data-placement="top" title="Edit" asp-controller="Dashboard" asp-action="#"><i class="fa fa-edit"></i></a>
+               </li>
+               <li class="list-inline-item">
+                  <button class="btn btn-danger btn-sm rounded-0 bi bi-trash" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+               </li>
+           </ul>
+       </td>
+    
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Drobesh I Eperm</td>
+      <td>
+          
+          <ul class="list-inline m-0">
+               <li class="list-inline-item">
+                  <button class="btn btn-primary btn-sm rounded-0 bi bi-three-dots" type="button" data-toggle="tooltip" data-placement="top" title="Details"><i class="fa fa-table"></i></button>
+               </li>
+               <li class="list-inline-item">
+                  <button class="btn btn-success btn-sm rounded-0 bi bi-pencil-square" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+               </li>
+               <li class="list-inline-item">
+                  <button class="btn btn-danger btn-sm rounded-0 bi bi-trash" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+               </li>
+           </ul>
+            
+      </td>
+     
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Shajkofc</td>
+      
+          <td> 
+          <ul class="list-inline m-0">
+               <li class="list-inline-item">
+                  <button class="btn btn-primary btn-sm rounded-0 bi bi-three-dots" type="button" data-toggle="tooltip" data-placement="top" title="Details"><i class="fa fa-table"></i></button>
+               </li>
+               <li class="list-inline-item">
+                  <button class="btn btn-success btn-sm rounded-0 bi bi-pencil-square" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+               </li>
+               <li class="list-inline-item">
+                  <button class="btn btn-danger btn-sm rounded-0 bi bi-trash" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+               </li>
+           </ul>
+       </td>
+      
+  
+    </tr>
+  </tbody>
+</table>
+
+
+</div>
+
+
