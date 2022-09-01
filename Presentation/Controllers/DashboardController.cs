@@ -21,6 +21,8 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult Performance() { return View(); }
+        public IActionResult Reports() { return View(); }
         public IActionResult ArsyejaPercaktuese()
         {
             return View();
