@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
      Layout = "_DashboardLayout";
 }
 
@@ -10,7 +9,7 @@
            
               <div class="card">
                 <div class="card-body p-5">
-                     <h5 class="card-title">Regjistro të dhënat për votuesin</h5>
+                     <h5 class="card-title">Krijo llogarinë për zyrtarin partisë dhe territorin përkatës</h5>
                     <form>
                        <div class="mb-4 d-flex justify-content-between">
                         <div class="col-6 pe-2">
@@ -67,79 +66,28 @@
                                 <input class="form-control">
                                 <span  class="text-danger"></span>
                             </div>
-                        </div>
+                       </div>
 
-                        <div class="mb-4 d-flex justify-content-between">
-                        
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Vendi i punës</label>
-                                <input class="form-control">
-                                <span  class="text-danger"></span>
-                            </div>
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Shërbimi:</label>
-                                <select class="form-select" id="inputGroupSelect04">
-                                    <option disabled selected>Zgjedh shërbimin..</option>
-                                    <option value="1">Publik</option>
-                                    <option value="2">Privat</option>
-                                 </select>
-                        </div>
-                            <div class="col-4">
-                                <label class="form-label">Detyra</label>
-                                <input class="form-control">
-                                <span  class="text-danger"></span>
-                            </div>
-                        </div>
-                     
-                      <hr/>
-
-                     
-                           
-                        <div class="mb-4 d-flex justify-content-between">
+                       <div class="mb-4 d-flex justify-content-between">
                             <div class="col-6 pe-2">
-                                <label for="FamilyMember" class = "form-label">Nr i Anetareve</label>
-                                 <input type="number" class="form-control" id="FamilyMember">
+                                <label class="form-label">Pozita ne parti</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh rolin..</option>
+                                    <option value="1">Admin</option>
+                                 </select>
                             </div>
                             <div class="col-6">
-                                 <label class="form-label">Gjasat e suksesit fillestar:</label>
-                                    <select class="form-select" id="inputGroupSelect05" placeorder = "Zgjedh gjasat..">
-                                 
-                                        <option value="1">0% (jo te mira)</option>
-                                        <option value="2">25% (mjaftueshem te mira)</option>
-                                        <option value="3">50% (mesatarisht te mira)</option>
-                                        <option value="4">75% (te mira)</option>
-                                        <option value="5">100% (shume te mira)</option>
-                                     </select>
+                                <label class="form-label">Zyrtari pergjegjës</label>
+                                <input class="form-control">
+                                <span  class="text-danger"></span>
                             </div>
                         </div>
-                 
-
-                      <div class="mb-4 d-flex justify-content-between">
-                        <div class="col-6 pe-2">
-                            <label class="form-label">Votues paraprak..</label>
-                            <select class="form-select" id="inputGroupSelect04">
-                                <option disabled selected>Zgjedh partinë..</option>
-                                <option value="1">VV</option>
-                                <option value="2">PDK</option>
-                                <option value="3">LDK</option>
-                             </select>
+                     
+                        <div class="col-4 mb-4">
+                                <label class="form-label">Qendra e votimit</label>
+                                <input class="form-control">
+                                <span  class="text-danger"></span>
                         </div>
-                            <div class="col-6">
-                                <label class="form-label">Votues i tanishëm..</label>
-                            <select class="form-select" id="inputGroupSelect04">
-                                <option disabled selected>Zgjedh partinë..</option>
-                                <option value="1">VV</option>
-                                <option value="2">PDK</option>
-                                <option value="3">LDK</option>
-                             </select>
-                            </div>
-                        </div>
-
-                        <div class="col-4 pe-2">
-                            
-                        </div>
-
-
                       
                       <button type="submit" class="btn btn-primary">Regjistro</button>
                     </form>
