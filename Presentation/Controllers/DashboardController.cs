@@ -21,5 +21,14 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult AddsAdmin()
+        {
+            return View();
+        }
+        public IActionResult EditAdmin()
+        {
+            return View();
+        }
+
     }
 }
