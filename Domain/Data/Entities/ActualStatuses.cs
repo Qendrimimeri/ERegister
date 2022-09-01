@@ -14,7 +14,7 @@ namespace Domain.Data.Entities
         // -> perfunduar, ne proces, pa perfunduar
         public string? Description { get; set; }
 
-        // se ni status aktual mun met me kan tek shume usera qata osht list mdfk
+        // se ni status aktual munet me kan tek shume usera qata osht list mdfk
         public ICollection<ApplicationUser>? ApplicationUsers { get; set; }
     }
 }
