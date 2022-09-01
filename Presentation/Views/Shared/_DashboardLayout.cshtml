@@ -299,10 +299,21 @@
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
-                  <i class="bi bi-clipboard"></i>
-                  <span>Adds & Admin</span>
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-subject">
+                  <i class="bi bi-person-square"></i> <span>Zyrtar partiak</span><i class="bi bi-chevron-down ms-auto"></i>
               </a>
+                  <ul id="components-subject" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                      <li>
+                          <a asp-controller="Dashboard" asp-action="AddsAdmin">
+                              <i class="bi bi-circle"></i><span>Shto zyrtar partiak</span>
+                          </a>
+                      </li>
+                       <li>
+                          <a asp-controller="Dashboard" asp-action="EditAdmin">
+                              <i class="bi bi-circle"></i><span>Shiko listën e zyrtarëve</span>
+                          </a>
+                      </li>
+                  </ul>
           </li>
 
            <li class="nav-item">
@@ -385,24 +396,6 @@
                  </li>
 
 
-
-    @*      <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-staf">
-                  <i class="bi bi-person-square"></i> <span>Stafi</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-                  <ul id="components-staf" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                      <li>
-                          <a asp-controller="Staff" asp-action="Index">
-                              <i class="bi bi-circle"></i><span>Lista e stafit</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a asp-controller="Staff" asp-action="Create">
-                              <i class="bi bi-circle"></i><span>Shto staf te ri</span>
-                          </a>
-                      </li>
-                  </ul>
-          </li>*@
 
       </ul>
 

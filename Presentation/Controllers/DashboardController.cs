@@ -27,6 +27,14 @@ namespace Presentation.Controllers
         }
         public IActionResult ArsyetEPercaktuara()
         {
+          return View();
+        }
+        public IActionResult AddsAdmin()
+        {
+            return View();
+        }
+        public IActionResult EditAdmin()
+        {
             return View();
         }
 
