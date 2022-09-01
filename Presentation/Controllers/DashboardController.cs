@@ -21,6 +21,18 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+
+        public IActionResult Block()
+        {
+            return View();
+        }
+
+        public IActionResult AddBlock()
+        {
+            return View();
+        }
+
         public IActionResult Performance() { return View(); }
         public IActionResult Reports() { return View(); }
         public IActionResult ArsyejaPercaktuese()
@@ -39,6 +51,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
 
     }
 }
