@@ -27,6 +27,7 @@
   <link href="~/dashboard-admin/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="~/dashboard-admin/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="~/dashboard-admin/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="~/dashboard-admin/css/style.css" rel="stylesheet">
@@ -363,6 +364,25 @@
                       </li>
                   </ul>
           </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-roles">
+                  <i class="bi bi-diagram-2"></i> <span>Rolet</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+                  <ul id="components-roles" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                      <li>
+                          <a asp-controller="Dashboard" asp-action="AddRole">
+                              <i class="bi bi-circle"></i><span> Shto rol te ri</span>
+                          </a>
+                      </li>
+                       <li>
+                          <a asp-controller="Dashboard" asp-action="AllRoles">
+                              <i class="bi bi-circle"></i><span> Lista me role</span>
+                          </a>
+                      </li>
+                  </ul>
+                </li>
+
 
 
       </ul>
