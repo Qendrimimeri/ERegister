@@ -13,13 +13,15 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        public IActionResult AddVoter()
+       public IActionResult AddRole()
         {
             return View();
         }
-        public IActionResult AddSubject()
+        public IActionResult AllRoles()
         {
             return View();
         }
+
+
     }
 }
