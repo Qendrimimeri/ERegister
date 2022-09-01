@@ -26,5 +26,10 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+        public IActionResult AddBlock()
+        {
+            return View();
+        }
     }
 }
