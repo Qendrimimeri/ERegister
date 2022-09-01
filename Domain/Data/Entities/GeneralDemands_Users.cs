@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class GeneralDemandsUser
+    public class GeneralDemands_Users
     {
         public int Id { get; set; }
 
@@ -16,9 +16,9 @@ namespace Domain.Data.Entities
 
 
         // Navigation Properties
-        public ICollection<GeneralDemands>? GeneralDemands { get; set; }
+        public GeneralDemands? GeneralDemands { get; set; }
 
-        public ICollection<ApplicationUser>? ApplicationUsers { get; set; }
+        public ApplicationUser? ApplicationUsers { get; set; }
 
     }
 }

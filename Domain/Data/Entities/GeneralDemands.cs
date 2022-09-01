@@ -11,5 +11,10 @@ namespace Domain.Data.Entities
         public int Id { get; set; }
 
         public string? Description { get; set; }
+
+
+
+        // Navigation Properties
+        public ICollection<GeneralDemands_Users>? GeneralDemands_Users { get; set; }
     }
 }

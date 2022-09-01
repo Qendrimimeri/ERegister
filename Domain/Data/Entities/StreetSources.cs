@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Success
+    public class StreetSources
     {
         public int Id { get; set; }
 
-        public int? StartingSuccessChanceId { get; set; }
+        public string? SourceName { get; set; }
 
-        public int? CurrentSuccessChanceId { get; set; }
+
+
+        // Navigation Properties
+        public ICollection<Streets>? Streets { get; set; }
     }
 }

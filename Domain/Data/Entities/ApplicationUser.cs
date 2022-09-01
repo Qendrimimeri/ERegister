@@ -16,19 +16,20 @@ namespace Domain.Data.Entities
 
         public string? SocialNetwork { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         public int? AddressId { get; set; }
 
         public int? ActualStatusId { get; set; }
 
-        public int? PositionId { get; set; }
+        public int? WorkId { get; set; }
 
 
 
         // Navigation Properties
-        public Addresses? Addresses { get; set; }
 
-        public ActualStatuses? ActualStatuses { get; set; }
+        public ICollection<GeneralDemands_Users>? GeneralDemands_Users { get; set; }
 
-
+        public ICollection<Reasons_Users>? Reasons_Users { get; set; }
     }
 }

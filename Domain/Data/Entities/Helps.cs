@@ -15,5 +15,8 @@ namespace Domain.Data.Entities
         public string? ActivitiesYouPlan { get; set; }
 
         public bool NeedHelp { get; set; }
+
+
+
     }
 }

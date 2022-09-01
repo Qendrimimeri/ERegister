@@ -11,5 +11,9 @@ namespace Domain.Data.Entities
         public int Id { get; set; }
 
         public string? SubjectName { get; set; }
+
+
+        // Navigation Properties
+        public ICollection<PollRelated>? PollRelateds { get; set; }
     }
 }

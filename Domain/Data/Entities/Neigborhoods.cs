@@ -9,10 +9,15 @@ namespace Domain.Data.Entities
     public class Neigborhoods
     {
         public int Id { get; set; }
+
         public string? Name { get; set; }
-        public int? MuniciplaityId { get; set; }
+
+        public int? MunicipalityId { get; set; }
+
+
+        //Navigation Properties
+        public Municipalities? Municipalities { get; set; }
 
         public ICollection<Addresses>? Addresses { get; set; }
-
     }
 }

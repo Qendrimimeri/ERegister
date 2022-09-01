@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Houses
+    public class Blocks
     {
         public int Id { get; set; }
 
-        public string? Number { get; set; }
+        public string? BlockName { get; set; }
+
+        public int? MunicipalityId { get; set; }
 
 
 
-        // Navigation Properties 
+
+        // Navigation properties
         public ICollection<Addresses>? Addresses { get; set; }
 
+        public Municipalities? Municipalities { get; set; }
     }
 }

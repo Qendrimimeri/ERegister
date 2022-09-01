@@ -17,6 +17,11 @@ namespace Domain.Data.Entities
         ///  75% t mira
         ///  100% shume te mira
         /// </summary>
+        /// 
         public string? Unit { get; set; }
+
+
+        // Navigation Propeties
+        public ICollection<PollRelated>? PollRelateds { get; set; }
     }
 }

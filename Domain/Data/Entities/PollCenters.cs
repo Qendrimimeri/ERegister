@@ -14,7 +14,9 @@ namespace Domain.Data.Entities
 
         public string? CenterName { get; set; }
 
-        public ICollection<Addresses>? Addresses { get; set; }
 
+
+        // Navigation properties
+        public ICollection<Addresses>? Addresses { get; set; }
     }
 }

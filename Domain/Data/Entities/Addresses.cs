@@ -22,14 +22,27 @@ namespace Domain.Data.Entities
 
         public int? PollCenterId { get; set; }
 
+        public int? BlockId { get; set; }
+
+
+
 
         // Navigation Properties
         public Municipalities? Municipalities { get; set; }
+
         public Vilages? Vilages { get; set; }
+
         public Neigborhoods? Neigborhoods { get; set; }
+
         public Houses? Houses { get; set; }
+
         public Streets? Streets { get; set; }
+
         public PollCenters? PollCenters { get; set; }
+
+        public Blocks? Blocks { get; set; }
+
+
         public ICollection<ApplicationUser>? ApplicationUsers { get; set; }
     }
 }

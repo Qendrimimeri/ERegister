@@ -9,9 +9,16 @@ namespace Domain.Data.Entities
     public class Streets
     {
         public int Id { get; set; }
+
         public string? StreetName { get; set; }
 
-        public ICollection<Addresses>? Addresses { get; set; }
+        public int? StreetSourceId { get; set; }
 
+
+
+        // Navigation Properties
+        public StreetSources? StreetSources { get; set; }
+
+        public ICollection<Addresses>? Addresses { get; set; }
     }
 }

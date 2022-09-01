@@ -9,7 +9,11 @@ namespace Domain.Data.Entities
     public class Regions
     {
         public int Id { get; set; }
+
         public string? Name { get; set; }
 
+
+        // Navigation Properties
+        public ICollection<Municipalities>? Municipalities { get; set; }
     }
 }

@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Positions
+    public class AdministrativeUnits
     {
         public int Id { get; set; }
-        public string? PositionName { get; set; }
+
+        public string? Description { get; set; }
+
+
+        // Navigation Properties
+
+        public ICollection<Works>? Works { get; set; }
     }
 }
