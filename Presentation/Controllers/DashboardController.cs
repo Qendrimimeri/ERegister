@@ -22,7 +22,6 @@ namespace Presentation.Controllers
             return View();
         }
 
-
         public IActionResult Block()
         {
             return View();
@@ -53,5 +52,9 @@ namespace Presentation.Controllers
         }
 
 
+        public IActionResult AddHouses()
+        {
+            return View();
+        }
     }
 }
