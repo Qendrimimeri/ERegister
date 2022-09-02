@@ -31,5 +31,35 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+        public IActionResult Street()
+        {
+            return View();
+        }
+
+        public IActionResult AddStreet()
+        {
+            return View();
+        }
+
+        public IActionResult Neighborhood()
+        {
+            return View();
+        }
+
+        public IActionResult AddNeighborhood()
+        {
+            return View();
+        }
+
+        public IActionResult Houses()
+        {
+            return View();
+        }
+
+        public IActionResult AddHouses()
+        {
+            return View();
+        }
     }
 }
