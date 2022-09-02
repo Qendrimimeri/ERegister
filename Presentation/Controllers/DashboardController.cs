@@ -33,7 +33,10 @@ namespace Presentation.Controllers
             return View();
         }
 
-        public IActionResult Performance() { return View(); }
+        public IActionResult Performance() 
+        { 
+            return View(); 
+        }
         public IActionResult Reports() { return View(); }
         public IActionResult ArsyejaPercaktuese()
         {
@@ -51,7 +54,21 @@ namespace Presentation.Controllers
         {
             return View();
         }
-
-
+        public IActionResult AddVoter()
+        {
+            return View();
+        }
+        public IActionResult AddSubject()
+        {
+            return View();
+        }
+        public IActionResult AddHelper()
+        {
+            return View();
+        }
+        public IActionResult EditHelper()
+        {
+            return View();
+        }
     }
 }
