@@ -383,20 +383,44 @@
                           </a>
                       </li>
                   </ul>
-                </li>
-                  <li class="nav-item">
-                 <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "ArsyejaPercaktuese">
-                  <i class="bi bi-graph-up"></i>
-                  <span>Arsyeja Percaktuese</span>
-                 </a>
-                 </li>
-                  <li class="nav-item">
-                 <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "ArsyetEPercaktuara">
-                  <i class="bi bi-graph-up"></i>
-                  <span>Arsyet e Percaktuara</span>
-                 </a>
-                 </li>
+            </li>
 
+             <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-reasons">
+                  <i class="bi bi-person-square"></i> <span>Arsyjet përcaktuese</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+                  <ul id="components-reasons" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                      <li>
+                          <a asp-controller="Dashboard" asp-action="ArsyejaPercaktuese">
+                              <i class="bi bi-circle"></i><span>Shto arsyje</span>
+                          </a>
+                      </li>
+                       <li>
+                          <a asp-controller="Dashboard" asp-action="ArsyetEPercaktuara">
+                              <i class="bi bi-circle"></i><span>Shiko listën e arsyjeve</span>
+                          </a>
+                      </li>
+                  </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-helper">
+                  <i class="bi bi-person-square"></i> <span>Ndihma e nevojshme</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+                  <ul id="components-helper" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                      <li>
+                          <a asp-controller="Dashboard" asp-action="AddHelper">
+                              <i class="bi bi-circle"></i><span>Shto ndihme te nevojshme</span>
+                          </a>
+                      </li>
+                       <li>
+                          <a asp-controller="Dashboard" asp-action="EditHelper">
+                              <i class="bi bi-circle"></i><span>Shiko listën e ndihmeve</span>
+                          </a>
+                      </li>
+                  </ul>
+            </li>
+                 
 
 
       </ul>

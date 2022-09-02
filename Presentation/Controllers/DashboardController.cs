@@ -32,6 +32,11 @@ namespace Presentation.Controllers
             return View();
         }
 
+        public IActionResult Performance() 
+        { 
+            return View(); 
+        }
+
 
         public IActionResult Street()
         {
@@ -51,6 +56,7 @@ namespace Presentation.Controllers
         public IActionResult AddNeighborhood()
 
         public IActionResult Performance() { return View(); }
+
         public IActionResult Reports() { return View(); }
         public IActionResult ArsyejaPercaktuese()
         {
@@ -81,8 +87,24 @@ namespace Presentation.Controllers
             return View();
         }
 
+        public IActionResult AddVoter()
+        {
+            return View();
+        }
+        public IActionResult AddSubject()
+        {
+            return View();
+        }
+        public IActionResult AddHelper()
+        {
+            return View();
+        }
+        public IActionResult EditHelper()
+
+
 
         public IActionResult AddHouses()
+
         {
             return View();
         }
