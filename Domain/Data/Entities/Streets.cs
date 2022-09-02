@@ -12,12 +12,12 @@ namespace Domain.Data.Entities
 
         public string? StreetName { get; set; }
 
-        public int? StreetSourceId { get; set; }
+        //public int? StreetSourceId { get; set; }
 
 
 
         // Navigation Properties
-        public StreetSources? StreetSources { get; set; }
+        public StreetSources? StreetSource { get; set; }
 
         public ICollection<Addresses>? Addresses { get; set; }
     }

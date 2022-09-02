@@ -10,15 +10,15 @@ namespace Domain.Data.Entities
     {
         public int Id { get; set; }
 
-        public int? GeneralReasonId { get; set; }
+        //public int? GeneralReasonId { get; set; }
 
-        public int? ApplicationUserId { get; set; }
+        //public int? ApplicationUserId { get; set; }
 
 
 
         // Navigation Properties
-        public GeneralReasons? GeneralReasons { get; set; }
+        public GeneralReasons? GeneralReason { get; set; }
 
-        public ApplicationUser? ApplicationUsers { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

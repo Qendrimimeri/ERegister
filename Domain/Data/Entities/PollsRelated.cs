@@ -14,25 +14,25 @@ namespace Domain.Data.Entities
 
         public DateTime? Date { get; set; }
 
-        public int? PoliticalSubjectId { get; set; }
+        //public int? PoliticalSubjectId { get; set; }
 
-        public int? ApplicationUserId { get; set; }
+        //public int? ApplicationUserId { get; set; }
 
-        public int? SuccessChancesId { get; set; }
+        //public int? SuccessChancesId { get; set; }
 
-        public int? WorkId { get; set; }
+        //public int? WorkId { get; set; }
 
-        public int? HelpId { get; set; }
+        //public int? HelpId { get; set; }
 
 
 
         // Navigation properties
-        public PoliticalSubjects? PoliticalSubjects { get; set; }
+        public PoliticalSubjects? PoliticalSubject { get; set; }
 
         public ApplicationUser? ApplicationUser { get; set; }
 
-        public SuccessChances? SuccessChances { get; set; }
+        public SuccessChances? SuccessChance { get; set; }
 
-        public Helps? Helps { get; set; }
+        public Helps? Help { get; set; }
     }
 }

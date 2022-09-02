@@ -12,11 +12,11 @@ namespace Domain.Data.Entities
 
         public string? Name { get; set; }
 
-        public int? RegionId { get; set; }
+        //public int? RegionId { get; set; }
 
 
         //Navigation propertiees
-        public Regions? Regions { get; set; }
+        public Regions? Region { get; set; }
 
 
         public ICollection<Addresses>? Addresses { get; set; }

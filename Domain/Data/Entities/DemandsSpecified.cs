@@ -12,10 +12,10 @@ namespace Domain.Data.Entities
 
         public string? Description { get; set; }
 
-        public int? ApplicationUserId { get; set; }
+        //public int? ApplicationUserId { get; set; }
 
 
         // Navigation Properties
-        public ApplicationUser? AppliactionUsers { get; set; }
+        public ApplicationUser? AppliactionUser { get; set; }
     }
 }

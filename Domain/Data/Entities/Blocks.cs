@@ -12,7 +12,7 @@ namespace Domain.Data.Entities
 
         public string? BlockName { get; set; }
 
-        public int? MunicipalityId { get; set; }
+        //public int? MunicipalityId { get; set; }
 
 
 
@@ -20,6 +20,6 @@ namespace Domain.Data.Entities
         // Navigation properties
         public ICollection<Addresses>? Addresses { get; set; }
 
-        public Municipalities? Municipalities { get; set; }
+        public Municipalities? Municipality{ get; set; }
     }
 }
