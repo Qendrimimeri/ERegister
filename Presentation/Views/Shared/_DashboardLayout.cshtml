@@ -27,6 +27,8 @@
   <link href="~/dashboard-admin/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="~/dashboard-admin/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="~/dashboard-admin/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="~/dashboard-admin/css/style.css" rel="stylesheet">
@@ -291,17 +293,28 @@
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
+              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "Performance">
                   <i class="bi bi-graph-up"></i>
                   <span>Performance & Reports</span>
               </a>
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
-                  <i class="bi bi-clipboard"></i>
-                  <span>Adds & Admin</span>
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-subject">
+                  <i class="bi bi-person-square"></i> <span>Zyrtar partiak</span><i class="bi bi-chevron-down ms-auto"></i>
               </a>
+                  <ul id="components-subject" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                      <li>
+                          <a asp-controller="Dashboard" asp-action="AddsAdmin">
+                              <i class="bi bi-circle"></i><span>Shto zyrtar partiak</span>
+                          </a>
+                      </li>
+                       <li>
+                          <a asp-controller="Dashboard" asp-action="EditAdmin">
+                              <i class="bi bi-circle"></i><span>Shiko listën e zyrtarëve</span>
+                          </a>
+                      </li>
+                  </ul>
           </li>
 
            <li class="nav-item">
@@ -354,24 +367,37 @@
                   </ul>
           </li>
 
-
-    @*      <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-staf">
-                  <i class="bi bi-person-square"></i> <span>Stafi</span><i class="bi bi-chevron-down ms-auto"></i>
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-roles">
+                  <i class="bi bi-diagram-2"></i> <span>Rolet</span><i class="bi bi-chevron-down ms-auto"></i>
               </a>
-                  <ul id="components-staf" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                  <ul id="components-roles" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                       <li>
-                          <a asp-controller="Staff" asp-action="Index">
-                              <i class="bi bi-circle"></i><span>Lista e stafit</span>
+                          <a asp-controller="Dashboard" asp-action="AddRole">
+                              <i class="bi bi-circle"></i><span> Shto rol te ri</span>
                           </a>
                       </li>
-                      <li>
-                          <a asp-controller="Staff" asp-action="Create">
-                              <i class="bi bi-circle"></i><span>Shto staf te ri</span>
+                       <li>
+                          <a asp-controller="Dashboard" asp-action="AllRoles">
+                              <i class="bi bi-circle"></i><span> Lista me role</span>
                           </a>
                       </li>
                   </ul>
-          </li>*@
+                </li>
+                  <li class="nav-item">
+                 <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "ArsyejaPercaktuese">
+                  <i class="bi bi-graph-up"></i>
+                  <span>Arsyeja Percaktuese</span>
+                 </a>
+                 </li>
+                  <li class="nav-item">
+                 <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "ArsyetEPercaktuara">
+                  <i class="bi bi-graph-up"></i>
+                  <span>Arsyet e Percaktuara</span>
+                 </a>
+                 </li>
+
+
 
       </ul>
 

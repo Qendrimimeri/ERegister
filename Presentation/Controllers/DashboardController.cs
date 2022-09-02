@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
@@ -13,14 +13,15 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        public IActionResult AddVoter()
+       public IActionResult AddRole()
         {
             return View();
         }
-        public IActionResult AddSubject()
+        public IActionResult AllRoles()
         {
             return View();
         }
+
 
         public IActionResult Block()
         {
@@ -31,6 +32,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
 
         public IActionResult Street()
         {
@@ -48,9 +50,27 @@ namespace Presentation.Controllers
         }
 
         public IActionResult AddNeighborhood()
+
+        public IActionResult Performance() { return View(); }
+        public IActionResult Reports() { return View(); }
+        public IActionResult ArsyejaPercaktuese()
         {
             return View();
         }
+        public IActionResult ArsyetEPercaktuara()
+        {
+          return View();
+        }
+        public IActionResult AddsAdmin()
+        {
+            return View();
+        }
+        public IActionResult EditAdmin()
+
+        {
+            return View();
+        }
+
 
         public IActionResult Houses()
         {
@@ -61,5 +81,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+
     }
 }
