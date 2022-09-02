@@ -1,89 +1,118 @@
 ﻿@{
-     Layout = "_DashboardLayout";
+    Layout = "_DashboardLayout";
 }
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
- <div class="btn float-end d-flex justify-content-end">
-    <button type="button" class="btn btn-primary" >Eksporto ne Excel</button>&nbsp <button type="button" class="btn btn-primary">Eksporto ne PDF</button>
-    </div>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script src="html2pdf.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="btn float-end d-flex justify-content-end">
+    <button onclick="ExportToExcel('xlsx')">Exporto ne Excel</button> &nbsp 	<button onclick="Export()">Download as PDF</button>
+</div>
 
 <div class="card">
 
     <div class="tblbody fs-20">
-       
- 
 
 
 
-        <table class="table w-auto small">
-
-             <thead>
-                  <tr>
-                      <th scope="col"></th>
-                        <th scope="col">Qyteti</th>
-                          <th scope="col">Emri dhe Mbiemri</th>
-                          <th scope="col">Numri i votuesve</th>
-                          <th scope="col">Numri i telefonit</th>
-                          <th scope="col">Qendra Votimit</th>
-                          <th scope="col">votues Paraprak</th>
-                          <th scope="col">votues i Tanishem</th>
-                          <th scope="col">Gjasat Fillestare</th>
-                          <th scope="col">Gjasat Aktuale</th>
-                          <th scope="col">Statusi Aktual</th>
-                          <th scope="col">Menaxho</th>
 
 
+        <table class="table w-auto small" id="test">
 
-                 </tr>
-                     </thead>
-             <tbody>
-                  <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td>mdo</td>
-                          <td><a class="" asp-controller = "Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-
-                 </tr>
+            <thead>
                 <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>fat</td>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>fat</td>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>fat</td>
-                          <td>Thornton</td>
-                          <td><a class="" asp-controller = "Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
+                    <th scope="col"></th>
+                    <th scope="col">Qyteti</th>
+                    <th scope="col">Emri dhe Mbiemri</th>
+                    <th scope="col">Numri i votuesve</th>
+                    <th scope="col">Numri i telefonit</th>
+                    <th scope="col">Qendra Votimit</th>
+                    <th scope="col">votues Paraprak</th>
+                    <th scope="col">votues i Tanishem</th>
+                    <th scope="col">Gjasat Fillestare</th>
+                    <th scope="col">Gjasat Aktuale</th>
+                    <th scope="col">Statusi Aktual</th>
+                    <th scope="col">Menaxho</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td>mdo</td>
+                    <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                    <td>Thornton</td>
+                    <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
 
 
                 </tr>
-               <tr>
-                          <th scope="row">3</th>
-                          <td colspan="2">Larry the Bird</td>
-                          <td>twitter</td>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>fat</td>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>fat</td>
-                          <td>Thornton</td>
-                          <td><a class="" asp-controller = "Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-               
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>twitter</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                    <td>Thornton</td>
+                    <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
+
 
                 </tr>
-             </tbody>
-   </table>
- </div>
+            </tbody>
+        </table>
+    </div>
 
 </div>
+<script>
+    function ExportToExcel(type, fn, dl) {
+           var elt = document.getElementById('test');
+           var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+           return dl ?
+             XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+             XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+        }
+       function Export() {
+            html2canvas(document.getElementById('test'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Table.pdf");
+                }
+            });
+        }
+</script>
+
