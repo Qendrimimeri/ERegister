@@ -28,5 +28,6 @@ namespace Domain.Data.Entities
         public virtual SpecificReason? SpecificReason { get; set; }
 
         public virtual Help? Help { get; set; }
+
     }
 }

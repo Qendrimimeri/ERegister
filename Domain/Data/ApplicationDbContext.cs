@@ -35,7 +35,6 @@ namespace ERegister.Data
         public virtual DbSet<Vilage> Vilages { get; set; } = null!;
         public virtual DbSet<Work> Works { get; set; } = null!;
 
-
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    // Configuring Many to many relationship with fluent API

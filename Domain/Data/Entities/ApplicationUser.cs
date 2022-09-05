@@ -26,5 +26,6 @@ namespace Domain.Data.Entities
         public virtual Work? Work { get; set; }
 
         public virtual ICollection<GeneralDemands_Users>? GeneralDemands_Users { get; set; }
+
     }
 }
