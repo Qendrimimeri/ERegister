@@ -8,19 +8,11 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="btn float-end d-flex justify-content-end">
-    <button onclick="ExportToExcel('xlsx')">Exporto ne Excel</button> &nbsp 	<button onclick="Export()">Download as PDF</button>
+    <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="button" class="btn btn-primary" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
 </div>
-
 <div class="card">
-
-    <div class="tblbody fs-20">
-
-
-
-
-
-        <table class="table w-auto small table table-responsive" id="test">
-
+    <div class="tblbody table-responsive">
+        <table class="table table-responsive table w-auto small"id="test">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -35,9 +27,6 @@
                     <th scope="col">Gjasat Aktuale</th>
                     <th scope="col">Statusi Aktual</th>
                     <th scope="col">Menaxho</th>
-
-
-
                 </tr>
             </thead>
             <tbody>
@@ -54,7 +43,6 @@
                     <td>mdo</td>
                     <td>mdo</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-
                 </tr>
                 <tr>
                     <th scope="row">2</th>
@@ -69,8 +57,6 @@
                     <td>fat</td>
                     <td>Thornton</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-
-
                 </tr>
                 <tr>
                     <th scope="row">3</th>
@@ -84,13 +70,10 @@
                     <td>fat</td>
                     <td>Thornton</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-
-
                 </tr>
             </tbody>
         </table>
     </div>
-
 </div>
 <script>
     function ExportToExcel(type, fn, dl) {
@@ -100,7 +83,7 @@
              XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
              XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
         }
-       function Export() {
+       function ExportToPdf() {
             html2canvas(document.getElementById('test'), {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
