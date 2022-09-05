@@ -4,7 +4,7 @@ namespace Presentation.Controllers
 {
     public class RoleController : Controller
     {
-        public IActionResult AddRole()
+        public IActionResult AddRoles()
         {
             return View();
         }

@@ -13,7 +13,7 @@ namespace Infrastructure.Services
 {
     public class SuperAdminInitializer
     {
-        public SuperAdminInitializer(Admin admin) => Admin = admin;
+        //public SuperAdminInitializer(Admin admin) => Admin = admin;
         public SuperAdminInitializer(ApplicationDbContext context) => Context = context;
 
         public ApplicationDbContext Context { get; }
