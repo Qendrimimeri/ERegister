@@ -2,6 +2,7 @@ using Application.Repository;
 using Domain.Data.Entities;
 using ERegister.Data;
 using ERegister.Data.Migrations;
+using Infrastructure.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,13 +10,13 @@ using Presentation;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddScoped<SuperAdminInitializer>();
+builder.Services.AddTransient<SuperAdminInitializer>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
