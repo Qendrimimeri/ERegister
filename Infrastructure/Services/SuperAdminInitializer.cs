@@ -8,12 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using ERegister.Data;
 using Infrastructure.Models;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Services
 {
     public class SuperAdminInitializer
     {
-        //public SuperAdminInitializer(Admin admin) => Admin = admin;
+
+      
+
+        //public SuperAdminInitializer(IOptionsSnapshot<Admin> admin) => Admin = admin.Value;
+
         public SuperAdminInitializer(ApplicationDbContext context) => Context = context;
 
         public ApplicationDbContext Context { get; }
@@ -39,13 +44,13 @@ namespace Infrastructure.Services
 
             var admin = new ApplicationUser
             {
-                FirstName = Admin.FirstName,
+                FirstName = "Eregister",
                 LastName = "Admin",
-                Email = Admin.Email,
+                Email = "admin@eregister.com",
                 NormalizedEmail = "ADMIN@EREGISTER.COM",
                 EmailConfirmed = true,
                 Address = null,
-                UserName = Admin.UserName,
+                UserName = "admin@eregister.com",
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 Work = null,
                 CreatedAt = DateTime.Now,
@@ -57,7 +62,7 @@ namespace Infrastructure.Services
 
             if (!Context.Users.Any(u => u.UserName == admin.UserName))
             {
-                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, Admin.Password);
+                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
                 admin.PasswordHash = password;
 
                 await userStore.CreateAsync(admin);
