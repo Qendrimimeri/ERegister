@@ -286,7 +286,7 @@
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "Crm">
+              <a class="nav-link collapsed" asp-controller = "Crm" asp-action= "Index">
                   <i class="bi bi-graph-up"></i>
                   <span>CRM</span>
               </a>
@@ -299,19 +299,19 @@
               </a>
           </li>
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-subject">
-                  <i class="bi bi-person-square"></i> <span>Zyrtar partiak</span><i class="bi bi-chevron-down ms-auto"></i>
+           <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">
+                  <i class="bi bi-person-square"></i> <span>Adds & Admin</span><i class="bi bi-chevron-down ms-auto"></i>
               </a>
-                  <ul id="components-subject" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                  <ul id="components-addsadmin" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                       <li>
-                          <a asp-controller="Dashboard" asp-action="AddsAdmin">
-                              <i class="bi bi-circle"></i><span>Shto zyrtar partiak</span>
+                          <a asp-controller="AddsAdmin" asp-action="AddVoter">
+                              <i class="bi bi-circle"></i><span>Regjistro votuesin e ri</span>
                           </a>
                       </li>
                        <li>
-                          <a asp-controller="Dashboard" asp-action="EditAdmin">
-                              <i class="bi bi-circle"></i><span>Shiko listën e zyrtarëve</span>
+                          <a asp-controller="AddsAdmin" asp-action="EditPoliticalSubject">
+                              <i class="bi bi-circle"></i><span>Zyrtaret partiak</span>
                           </a>
                       </li>
                   </ul>
@@ -323,13 +323,14 @@
                   <span>Regjistro votues</span>
               </a>
           </li>
-
-          <li class="nav-item">
+      
+          @*/E sheh vetem superAdmini*@
+       @*   <li class="nav-item">
               <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "AddSubject">
                   <i class="bi bi-people"></i>
                   <span>Regjistro partinë</span>
               </a>
-          </li>
+          </li>*@
 
           <li class="nav-item">
               <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-address">
@@ -341,55 +342,20 @@
                               <i class="bi bi-circle"></i><span>Blloqet</span>
                           </a>
                       </li>
+                       
                        <li>
-                          <a asp-controller="Staff" asp-action="Index">
-                              <i class="bi bi-circle"></i><span>Shtëpit</span>
-                          </a>
-                      </li>
-                       <li>
-                          <a asp-controller="Staff" asp-action="Index">
+                          <a asp-controller="Dashboard" asp-action="Neighborhood">
                               <i class="bi bi-circle"></i><span>Lagjet</span>
                           </a>
                       </li>
                       <li>
-                          <a asp-controller="Staff" asp-action="Create">
+                          <a asp-controller="Dashboard" asp-action="Street">
                               <i class="bi bi-circle"></i><span>Rrugët</span>
                           </a>
                       </li>
+                      
                   </ul>
           </li>
-
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-roles">
-                  <i class="bi bi-diagram-2"></i> <span>Rolet</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-                  <ul id="components-roles" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                      <li>
-                          <a asp-controller="Dashboard" asp-action="AddRole">
-                              <i class="bi bi-circle"></i><span> Shto rol te ri</span>
-                          </a>
-                      </li>
-                       <li>
-                          <a asp-controller="Dashboard" asp-action="AllRoles">
-                              <i class="bi bi-circle"></i><span> Lista me role</span>
-                          </a>
-                      </li>
-                  </ul>
-                </li>
-                  <li class="nav-item">
-                 <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "ArsyejaPercaktuese">
-                  <i class="bi bi-graph-up"></i>
-                  <span>Arsyeja Percaktuese</span>
-                 </a>
-                 </li>
-                  <li class="nav-item">
-                 <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "ArsyetEPercaktuara">
-                  <i class="bi bi-graph-up"></i>
-                  <span>Arsyet e Percaktuara</span>
-                 </a>
-                 </li>
-
-
 
       </ul>
 

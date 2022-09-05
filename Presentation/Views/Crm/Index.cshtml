@@ -1,0 +1,170 @@
+﻿@{
+    Layout = "_DashboardLayout";
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card ">
+                <div class="card-body p-5">
+
+                    <form>
+
+                        <div class="d-flex flex-row">
+                            <button class="btn text-dark" type="button" id="button-addon1">
+                                <i class="bi fs-5"></i>
+                            </button>
+                            <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
+                                   aria-describedby="button-addon1" name="SearchPhrase">
+                            <button type="submit" class="btn btn-primary text-white">Konfirmo</button>
+                        </div>
+                        <br />
+
+
+                        <div class="d-flex flex-row justify-content-around">
+                            <div class="table-responsive">
+                                <table class="table table-bordered "
+                                       id="dataTable"
+                                       width="100%"
+                                       cellspacing="0">
+
+                                    <tr>
+                                        <th>Emri dhe Mbiemri</th>
+                                        <td>Arbnora Veliqi</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Lagja e banimit</th>
+                                        <td>Dardani</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Blloku </th>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hyrja ose Shtepia</th>
+                                        <td>11</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Numri i telefonit</th>
+                                        <td>123456789</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email adresa</th>
+                                        <td>abc@gmail.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Facebook</th>
+                                        <td>abcabc</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered "
+                                       id="dataTable"
+                                       width="100%"
+                                       cellspacing="0">
+
+                                    <tr>
+                                        <th>Emri dhe Mbiemri</td>
+                                        <td>Arbnora Veliqi</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Lagja e banimit</th>
+                                        <td>Dardani</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Blloku </th>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hyrja ose Shtepia</th>
+                                        <td>11</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Numri i telefonit</th>
+                                        <td>123456789</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email adresa</th>
+                                        <td>abc@gmail.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Facebook</th>
+                                        <td>abcabc</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-content-around">
+                            
+                             <div class="col-6 pe-2">
+                                <label class="form-label"></label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Arsyeja percaktuese</option>
+                                    <option value="1">Bindja Politike</option>
+                                    <option value="2">Biznesi</option>
+                                    <option value="3">Familja</option>
+                                    <option value="4">Puna/Biznesi</option>
+
+                                </select>
+                                 <a asp-controller = "Crm" asp-action = "GeneralReasons"  class="link-primary">Shto +</a>
+                            </div>
+                            <div class="col-6 pe-2">
+                                <label class="form-label"></label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>A mund ta menaxhoni</option>
+                                    <option value="1">Po</option>
+                                    <option value="1">Jo</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group pb-3">
+                            <label class = "pt-4" for="InputFacebook">Aktivitetet qe planifikoni te ndermerrni per te menaxhuar ndryshimin</label>
+                            <textarea type="text" class="form-control" id="InputFacebook"> </textarea>
+                        </div>
+                        <div class="d-flex flex-row align-content-around pt-2">
+                            <div class="col-6 pe-2">
+
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>A keni nevoje per ndihme </option>
+                                    <option value="1">Po</option>
+                                    <option value="1">Jo</option>
+                                </select>
+                            </div>
+                            <div class="col-6 pe-2">
+
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Ndihma e nevojshme</option>
+                                    <option value="1">A</option>
+                                    <option value="1">B</option>
+                                </select>
+                                 <a asp-controller = "Crm" asp-action = "AddHelper"  class="link-primary">Shto +</a>
+                            </div>
+                        </div>
+                        <div class="form-group pb-3">
+                            <label class = "pt-4" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
+                            <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
+                        </div>
+                        <div class="d-flex flex-row justify-content-end">
+                        <button type="submit" class="btn btn-primary">Anulo</button>&nbsp
+                        <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp
+                        <button type="submit" class="btn btn-primary">Ruaj dhe mbyll</button>
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

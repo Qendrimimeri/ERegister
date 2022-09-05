@@ -4,6 +4,7 @@ using ERegister.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERegister.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220905092627_TestInit")]
+    partial class TestInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.ActualStatuse", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +56,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,6 @@ namespace ERegister.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("VilageId")
-
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -105,7 +104,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.AdministrativeUnit", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,7 +120,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,7 +141,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.GeneralDemand", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,12 +176,10 @@ namespace ERegister.Data.Migrations
 
                     b.HasIndex("GeneralDemandsId");
 
-
                     b.ToTable("GeneralDemands_Users");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.GeneralReason", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,7 +196,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Help", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,7 +234,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Municipality", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -263,7 +255,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Neigborhood", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -285,7 +276,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -356,13 +346,6 @@ namespace ERegister.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SuccessChancesId")
-                    b.Property<int?>("HelpId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PoliticalSubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SuccessChanceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -382,15 +365,11 @@ namespace ERegister.Data.Migrations
                     b.HasIndex("SpecificReasonId");
 
                     b.HasIndex("SuccessChancesId");
-                    b.HasIndex("HelpId");
 
-                    b.HasIndex("PoliticalSubjectId");
-
-                    b.HasIndex("SuccessChanceId");
+                    b.ToTable("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Region", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Reasons_Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -407,22 +386,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.SpecificDemand", b =>
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("GeneralReasonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("GeneralReasonId");
-
-                    b.ToTable("Reasons_Users");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Regions", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -431,7 +394,6 @@ namespace ERegister.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -440,10 +402,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.SpecificReason", b =>
-                    b.ToTable("Regions");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SpecificReasons", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -465,7 +423,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Streets", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -487,7 +444,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.StreetSource", b =>
-            modelBuilder.Entity("Domain.Data.Entities.StreetSources", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -504,7 +460,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.SuccessChance", b =>
-            modelBuilder.Entity("Domain.Data.Entities.SuccessChances", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -521,7 +476,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Vilage", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Vilages", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -543,7 +497,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Works", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -554,9 +507,6 @@ namespace ERegister.Data.Migrations
                     b.Property<string>("AdministrativeUnitId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Duty")
                         .HasColumnType("nvarchar(max)");
 
@@ -564,8 +514,6 @@ namespace ERegister.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Works");
                 });
@@ -784,15 +732,6 @@ namespace ERegister.Data.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ActualStatusesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AddressesId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -818,12 +757,6 @@ namespace ERegister.Data.Migrations
                     b.HasIndex("SpecificDemandId");
 
                     b.HasIndex("WorkId");
-                    b.Property<int?>("WorkId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ActualStatusesId");
-
-                    b.HasIndex("AddressesId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -831,16 +764,12 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("AdministrativeUnitWork", b =>
                 {
                     b.HasOne("Domain.Data.Entities.AdministrativeUnit", null)
-            modelBuilder.Entity("AdministrativeUnitsWorks", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.AdministrativeUnits", null)
                         .WithMany()
                         .HasForeignKey("AdministrativeUnitsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Data.Entities.Work", null)
-                    b.HasOne("Domain.Data.Entities.Works", null)
                         .WithMany()
                         .HasForeignKey("WorksId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -895,54 +824,6 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
-            modelBuilder.Entity("Domain.Data.Entities.Addresses", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.Blocks", "Blocks")
-                        .WithMany("Addresses")
-                        .HasForeignKey("BlocksId");
-
-                    b.HasOne("Domain.Data.Entities.Houses", "Houses")
-                        .WithMany("Addresses")
-                        .HasForeignKey("HousesId");
-
-                    b.HasOne("Domain.Data.Entities.Municipalities", "Municipalities")
-                        .WithMany("Addresses")
-                        .HasForeignKey("MunicipalitiesId");
-
-                    b.HasOne("Domain.Data.Entities.Neigborhoods", "Neigborhoods")
-                        .WithMany("Addresses")
-                        .HasForeignKey("NeigborhoodsId");
-
-                    b.HasOne("Domain.Data.Entities.PollCenters", "PollCenters")
-                        .WithMany("Addresses")
-                        .HasForeignKey("PollCentersId");
-
-                    b.HasOne("Domain.Data.Entities.Streets", "Streets")
-                        .WithMany("Addresses")
-                        .HasForeignKey("StreetsId");
-
-                    b.HasOne("Domain.Data.Entities.Vilages", "Vilages")
-                        .WithMany("Addresses")
-                        .HasForeignKey("VilagesId");
-
-                    b.Navigation("Blocks");
-
-                    b.Navigation("Houses");
-
-                    b.Navigation("Municipalities");
-
-                    b.Navigation("Neigborhoods");
-
-                    b.Navigation("PollCenters");
-
-                    b.Navigation("Streets");
-
-                    b.Navigation("Vilages");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Blocks", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.Municipalities", "Municipality")
                         .WithMany("Blocks")
                         .HasForeignKey("MunicipalityId");
 
@@ -967,33 +848,6 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Municipality", b =>
                 {
                     b.HasOne("Domain.Data.Entities.Region", "Region")
-            modelBuilder.Entity("Domain.Data.Entities.DemandsSpecified", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "AppliactionUser")
-                        .WithMany()
-                        .HasForeignKey("AppliactionUserId");
-
-                    b.Navigation("AppliactionUser");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.GeneralDemands_Users", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany("GeneralDemands_Users")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("Domain.Data.Entities.GeneralDemands", "GeneralDemand")
-                        .WithMany("GeneralDemands_Users")
-                        .HasForeignKey("GeneralDemandId");
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("GeneralDemand");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Municipalities", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.Regions", "Region")
                         .WithMany("Municipalities")
                         .HasForeignKey("RegionId");
 
@@ -1003,9 +857,6 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Neigborhood", b =>
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
-            modelBuilder.Entity("Domain.Data.Entities.Neigborhoods", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.Municipalities", "Municipality")
                         .WithMany("Neigborhoods")
                         .HasForeignKey("MunicipalityId");
 
@@ -1062,43 +913,6 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.SpecificReason", b =>
-                    b.HasOne("Domain.Data.Entities.Helps", "Help")
-                        .WithMany()
-                        .HasForeignKey("HelpId");
-
-                    b.HasOne("Domain.Data.Entities.PoliticalSubjects", "PoliticalSubject")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("PoliticalSubjectId");
-
-                    b.HasOne("Domain.Data.Entities.SuccessChances", "SuccessChance")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("SuccessChanceId");
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Help");
-
-                    b.Navigation("PoliticalSubject");
-
-                    b.Navigation("SuccessChance");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Reasons_Users", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany("Reasons_Users")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("Domain.Data.Entities.GeneralReasons", "GeneralReason")
-                        .WithMany("Reasons_Users")
-                        .HasForeignKey("GeneralReasonId");
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("GeneralReason");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SpecificReasons", b =>
                 {
                     b.HasOne("Domain.Data.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
@@ -1110,9 +924,6 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
                 {
                     b.HasOne("Domain.Data.Entities.StreetSource", "StreetSource")
-            modelBuilder.Entity("Domain.Data.Entities.Streets", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.StreetSources", "StreetSource")
                         .WithMany("Streets")
                         .HasForeignKey("StreetSourceId");
 
@@ -1122,22 +933,10 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Vilage", b =>
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
-            modelBuilder.Entity("Domain.Data.Entities.Vilages", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.Municipalities", "Municipality")
                         .WithMany("Vilages")
                         .HasForeignKey("MunicipalityId");
 
                     b.Navigation("Municipality");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Works", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1217,34 +1016,21 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.ActualStatuse", b =>
-                    b.HasOne("Domain.Data.Entities.ActualStatuses", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("ActualStatusesId");
-
-                    b.HasOne("Domain.Data.Entities.Addresses", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("AddressesId");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.ActualStatuses", b =>
                 {
                     b.Navigation("ApplicationUsers");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Addresses", b =>
                 {
                     b.Navigation("ApplicationUsers");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Blocks", b =>
                 {
                     b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.GeneralDemand", b =>
-            modelBuilder.Entity("Domain.Data.Entities.GeneralDemands", b =>
                 {
                     b.Navigation("GeneralDemands_Users");
                 });
@@ -1260,18 +1046,11 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.House", b =>
-            modelBuilder.Entity("Domain.Data.Entities.GeneralReasons", b =>
-                {
-                    b.Navigation("Reasons_Users");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Houses", b =>
                 {
                     b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Municipality", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Municipalities", b =>
                 {
                     b.Navigation("Addresses");
 
@@ -1283,25 +1062,21 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Neigborhood", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Neigborhoods", b =>
                 {
                     b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
-            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubjects", b =>
                 {
                     b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
-            modelBuilder.Entity("Domain.Data.Entities.PollCenters", b =>
                 {
                     b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Region", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Regions", b =>
                 {
                     b.Navigation("Municipalities");
                 });
@@ -1314,25 +1089,21 @@ namespace ERegister.Data.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Streets", b =>
                 {
                     b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.StreetSource", b =>
-            modelBuilder.Entity("Domain.Data.Entities.StreetSources", b =>
                 {
                     b.Navigation("Streets");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.SuccessChance", b =>
-            modelBuilder.Entity("Domain.Data.Entities.SuccessChances", b =>
                 {
                     b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Vilage", b =>
-            modelBuilder.Entity("Domain.Data.Entities.Vilages", b =>
                 {
                     b.Navigation("Addresses");
                 });
@@ -1345,11 +1116,6 @@ namespace ERegister.Data.Migrations
             modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("GeneralDemands_Users");
-            modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("GeneralDemands_Users");
-
-                    b.Navigation("Reasons_Users");
                 });
 #pragma warning restore 612, 618
         }

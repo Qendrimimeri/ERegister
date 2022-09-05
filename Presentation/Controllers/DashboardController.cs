@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
@@ -8,45 +8,19 @@ namespace Presentation.Controllers
         {
             return View();
         }
-
-        public IActionResult Crm()
+        public IActionResult Performance() 
+        { 
+            return View(); 
+        }
+        public IActionResult Reports() 
+        { 
+            return View(); 
+        }
+        public IActionResult AddSubject()
         {
             return View();
         }
-       public IActionResult AddRole()
-        {
-            return View();
-        }
-        public IActionResult AllRoles()
-        {
-            return View();
-        }
-
-
-        public IActionResult Block()
-        {
-            return View();
-        }
-
-        public IActionResult AddBlock()
-        {
-            return View();
-        }
-
-        public IActionResult Performance() { return View(); }
-        public IActionResult Reports() { return View(); }
-        public IActionResult ArsyejaPercaktuese()
-        {
-            return View();
-        }
-        public IActionResult ArsyetEPercaktuara()
-        {
-          return View();
-        }
-        public IActionResult AddsAdmin()
-        {
-            return View();
-        }
+      
         public IActionResult EditAdmin()
         {
             return View();
@@ -60,7 +34,5 @@ namespace Presentation.Controllers
         {
             return View();
         }
-
-
     }
 }

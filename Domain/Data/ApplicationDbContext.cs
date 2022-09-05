@@ -11,31 +11,29 @@ namespace ERegister.Data
 
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Addresses> Addresses { get; set; }
-        public DbSet<ActualStatuses> ActualStatuses { get; set; }
-        public DbSet<AdministrativeUnits> AdministrativeUnits { get; set; }
-        public DbSet<Blocks> Blocks { get; set; }
-        public DbSet<DemandsSpecified> DemandsSpecifieds { get; set; }
-        public DbSet<GeneralDemands> GeneralDemands { get; set; }
-        public DbSet<GeneralDemands_Users> GeneralDemands_Users { get; set; }
-        public DbSet<GeneralReasons> GeneralReasons { get; set; }
-        public DbSet<Helps> Helps { get; set; }
-        public DbSet<Houses> Houses { get; set; }
-        public DbSet<Municipalities> Municipalities { get; set; }
-        public DbSet<Neigborhoods> Neigborhoods { get; set; }
-        public DbSet<PoliticalSubjects> PoliticalSubjects { get; set; }
-        public DbSet<PollCenters> PollCenters { get; set; }
-        public DbSet<PollRelated> PollRelateds { get; set; }
-        public DbSet<Reasons_Users> Reasons_Users { get; set; }
-        public DbSet<Regions> Regions { get; set; }
-        public DbSet<SpecificReasons> SpecificReasons { get; set; }
-        public DbSet<Streets> Streets { get; set; }
-        public DbSet<StreetSources> StreetSources { get; set; }
-        public DbSet<SuccessChances> SuccessChances { get; set; }
-        public DbSet<Vilages> Vilages { get; set; }
-        public DbSet<Works> Works { get; set; }
-
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
+        public virtual DbSet<Address> Addresses { get; set; } = null!;
+        public virtual DbSet<ActualStatuse> ActualStatuses { get; set; } = null!;
+        public virtual DbSet<AdministrativeUnit> AdministrativeUnits { get; set; } = null!;
+        public virtual DbSet<Block> Blocks { get; set; } = null!;
+        public virtual DbSet<SpecificDemand> DemandsSpecifieds { get; set; } = null!;
+        public virtual DbSet<GeneralDemand> GeneralDemands { get; set; } = null!;
+        public virtual DbSet<GeneralDemands_Users> GeneralDemands_Users { get; set; } = null!;
+        public virtual DbSet<GeneralReason> GeneralReasons { get; set; } = null!;
+        public virtual DbSet<Help> Helps { get; set; } = null!;
+        public virtual DbSet<House> Houses { get; set; } = null!;
+        public virtual DbSet<Municipality> Municipalities { get; set; } = null!;
+        public virtual DbSet<Neigborhood> Neigborhoods { get; set; } = null!;
+        public virtual DbSet<PoliticalSubject> PoliticalSubjects { get; set; } = null!;
+        public virtual DbSet<PollCenter> PollCenters { get; set; } = null!;
+        public virtual DbSet<PollRelated> PollRelateds { get; set; } = null!;
+        public virtual DbSet<Region> Regions { get; set; } = null!;
+        public virtual DbSet<SpecificReason> SpecificReasons { get; set; } = null!;
+        public virtual DbSet<Street> Streets { get; set; } = null!;
+        public virtual DbSet<StreetSource> StreetSources { get; set; } = null!;
+        public virtual DbSet<SuccessChance> SuccessChances { get; set; } = null!;
+        public virtual DbSet<Vilage> Vilages { get; set; } = null!;
+        public virtual DbSet<Work> Works { get; set; } = null!;
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
