@@ -7,17 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ERegister.Data;
+using Infrastructure.Models;
 
 namespace Infrastructure.Services
 {
     public class SuperAdminInitializer
     {
-        public SuperAdminInitializer(ApplicationDbContext context)
+        public SuperAdminInitializer(ApplicationDbContext context, Admin admin)
         {
             Context = context;
+            Admin = admin;
         }
 
         public ApplicationDbContext Context { get; }
+        public Admin Admin { get; }
 
         public async void Initialize()
         {
@@ -35,25 +38,17 @@ namespace Infrastructure.Services
                 }
             }
 
-            //if (!Context.Municipalities.Any(m => m.Name == "Prishtina"))
-            //{
-            //    Context.Municipalities.Add(new Municipalities()
-            //    {
-            //        Name = "Prishtina"
-            //    });
-            //}
-
             Context.SaveChanges();
 
             var admin = new ApplicationUser
             {
-                FirstName = "ERegister",
+                FirstName = Admin.FirstName,
                 LastName = "Admin",
-                Email = "admin@eregister.com",
+                Email = Admin.Email,
                 NormalizedEmail = "ADMIN@EREGISTER.COM",
                 EmailConfirmed = true,
                 Address = null,
-                UserName = "admin@eregister.com",
+                UserName = Admin.UserName,
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 Work = null,
                 CreatedAt = DateTime.Now,
@@ -65,7 +60,7 @@ namespace Infrastructure.Services
 
             if (!Context.Users.Any(u => u.UserName == admin.UserName))
             {
-                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
+                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, Admin.Password);
                 admin.PasswordHash = password;
 
                 await userStore.CreateAsync(admin);
