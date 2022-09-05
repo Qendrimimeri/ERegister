@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class PollCenters
+    public class PollCenter
     {
         public int Id { get; set; }
 
@@ -17,6 +17,6 @@ namespace Domain.Data.Entities
 
 
         // Navigation properties
-        public ICollection<Addresses>? Addresses { get; set; }
+        public virtual ICollection<Address>? Addresses { get; set; }
     }
 }

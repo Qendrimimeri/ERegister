@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class GeneralDemands
+    public class AdministrativeUnit
     {
         public int Id { get; set; }
 
         public string? Description { get; set; }
 
-
-
         // Navigation Properties
-        public ICollection<GeneralDemands_Users>? GeneralDemands_Users { get; set; }
+        public virtual ICollection<Work>? Works { get; set; }
     }
 }

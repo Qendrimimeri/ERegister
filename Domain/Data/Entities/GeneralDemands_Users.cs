@@ -10,15 +10,10 @@ namespace Domain.Data.Entities
     {
         public int Id { get; set; }
 
-        public int? GeneralDemandId { get; set; }
-
-        public int? ApplicationUserId { get; set; }
-
-
         // Navigation Properties
-        public GeneralDemands? GeneralDemands { get; set; }
+        public virtual GeneralDemand? GeneralDemands { get; set; }
 
-        public ApplicationUser? ApplicationUsers { get; set; }
+        public virtual ApplicationUser? ApplicationUsers { get; set; }
 
     }
 }

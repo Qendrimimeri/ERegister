@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class SpecificReasons
+    public class Street
     {
         public int Id { get; set; }
 
-        public string? Description { get; set; }
-
-        public int? ApplicationUserId { get; set; }
-
+        public string? StreetName { get; set; }
 
         // Navigation Properties
-        public ApplicationUser? ApplicationUser { get; set; }
+        public virtual StreetSource? StreetSource { get; set; }
+
+        public virtual ICollection<Address>? Addresses { get; set; }
     }
 }

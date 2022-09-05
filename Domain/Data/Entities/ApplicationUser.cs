@@ -18,18 +18,13 @@ namespace Domain.Data.Entities
 
         public DateTime CreatedAt { get; set; }
 
-        public int? AddressId { get; set; }
-
-        public int? ActualStatusId { get; set; }
-
-        public int? WorkId { get; set; }
-
-
-
         // Navigation Properties
+        public virtual Address? Address { get; set; }
 
-        public ICollection<GeneralDemands_Users>? GeneralDemands_Users { get; set; }
+        public virtual ActualStatuse? ActualStatus { get; set; }
 
-        public ICollection<Reasons_Users>? Reasons_Users { get; set; }
+        public virtual Work? Work { get; set; }
+
+        public virtual ICollection<GeneralDemands_Users>? GeneralDemands_Users { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class SuccessChances
+    public class SuccessChance
     {
         public int Id { get; set; }
 
@@ -22,6 +22,6 @@ namespace Domain.Data.Entities
 
 
         // Navigation Propeties
-        public ICollection<PollRelated>? PollRelateds { get; set; }
+        public virtual ICollection<PollRelated>? PollRelateds { get; set; }
     }
 }

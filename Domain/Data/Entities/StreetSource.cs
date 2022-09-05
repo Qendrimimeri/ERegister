@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class PoliticalSubjects
+    public class StreetSource
     {
         public int Id { get; set; }
 
-        public string? SubjectName { get; set; }
+        public string? SourceName { get; set; }
 
 
         // Navigation Properties
-        public ICollection<PollRelated>? PollRelateds { get; set; }
+        public virtual ICollection<Street>? Streets { get; set; }
     }
 }

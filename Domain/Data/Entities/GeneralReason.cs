@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class DemandsSpecified
+    public class GeneralReason
     {
         public int Id { get; set; }
 
         public string? Description { get; set; }
 
-        public int? ApplicationUserId { get; set; }
-
 
         // Navigation Properties
-        public ApplicationUser? AppliactionUsers { get; set; }
+        public virtual ICollection<PollRelated>? PollRelateds { get; set; }
     }
 }

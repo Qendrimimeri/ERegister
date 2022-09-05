@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Helps
+    public class Help
     {
         public int Id { get; set; }
 
@@ -16,7 +16,6 @@ namespace Domain.Data.Entities
 
         public bool NeedHelp { get; set; }
 
-
-
+        public virtual ICollection<PollRelated>? PollRelateds { get; set; }
     }
 }

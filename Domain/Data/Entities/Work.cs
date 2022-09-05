@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Works
+    public class Work
     {
         public int Id { get; set; }
 
@@ -18,8 +18,8 @@ namespace Domain.Data.Entities
 
 
         // Navigation Properties
-        public ApplicationUser? ApplicationUser { get; set; }
+        public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
 
-        public ICollection<AdministrativeUnits>? AdministrativeUnits { get; set; }
+        public virtual ICollection<AdministrativeUnit>? AdministrativeUnits { get; set; }
     }
 }

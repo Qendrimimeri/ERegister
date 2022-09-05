@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class ActualStatuses
+    public class ActualStatuse
     {
         // Scalar Properties
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace Domain.Data.Entities
         public string? Description { get; set; }
 
         // se ni status aktual mun met me kan tek shume usera qata osht list mdfk
-        public ICollection<ApplicationUser>? ApplicationUsers { get; set; }
+        public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
     }
 }
