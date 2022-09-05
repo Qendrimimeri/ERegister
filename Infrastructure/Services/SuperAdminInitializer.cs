@@ -13,11 +13,8 @@ namespace Infrastructure.Services
 {
     public class SuperAdminInitializer
     {
-        public SuperAdminInitializer(ApplicationDbContext context, Admin admin)
-        {
-            Context = context;
-            Admin = admin;
-        }
+        public SuperAdminInitializer(Admin admin) => Admin = admin;
+        public SuperAdminInitializer(ApplicationDbContext context) => Context = context;
 
         public ApplicationDbContext Context { get; }
         public Admin Admin { get; }
