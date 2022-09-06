@@ -23,7 +23,7 @@ namespace Domain.Data.Entities
 
         public virtual GeneralDemand? GeneralDemand { get; set; }
 
-        public virtual SpecificDemand? MyProperty { get; set; }
+        public virtual SpecificDemand? SpecificDemand { get; set; }
 
         public virtual SpecificReason? SpecificReason { get; set; }
 
