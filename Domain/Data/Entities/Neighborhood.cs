@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Domain.Data.Entities
 {
-    public partial class Block
+    public partial class Neighborhood
     {
-        public Block()
+        public Neighborhood()
         {
             Addresses = new HashSet<Address>();
         }

@@ -1,14 +1,14 @@
 ﻿using System.Linq.Expressions;
+using Domain.Data;
 using ERegister.Application.Repository;
-using ERegister.Data;
 
 namespace Infrastructure.Services
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ERegisterDBContext _context;
 
-        public Repository(ApplicationDbContext context)
+        public Repository(ERegisterDBContext context)
         {
             _context = context;
         }

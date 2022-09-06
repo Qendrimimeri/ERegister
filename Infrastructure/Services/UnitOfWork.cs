@@ -11,7 +11,7 @@ namespace Infrastructure.Services
     {
         public IAccountRepository AccountRepository => throw new NotImplementedException();
 
-        public void Dispose() =>  throw new NotImplementedException();
+        public void Dispose() => throw new NotImplementedException();
 
         public int Done() => throw new NotImplementedException();
     }
