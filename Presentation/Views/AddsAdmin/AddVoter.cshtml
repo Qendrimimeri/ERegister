@@ -71,23 +71,25 @@
                         
                             <div class="col-4 pe-2">
                                 <label class="form-label">Lagja</label>
-                            <select class="form-select" id="inputGroupSelect04">
+                            <select class="form-select" id="inputGroupSelect04"  onchange="location=this.value;" >
                                 <option disabled selected>Zgjedh lagjen..</option>
-                                <option value="1">Dardani</option>
-                                <option value="2">Dragodan</option>
-                                <option value="3">Emshir</option>
+                                <option value="#">Dardani</option>
+                                <option value="#">Dragodan</option>
+                                <option value="#">Emshir</option>
+                                <option value="/AddsAdmin/AddNeighborhood">Shto +</option>
                              </select>
-                              <a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>
+                              @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
                             </div>
                              <div class="col-4 pe-2">
                                 <label class="form-label">Rruga/Blloku</label>
-                            <select class="form-select" id="inputGroupSelect04">
+                            <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
                                 <option disabled selected>Zgjedh rrugen/bllokun..</option>
-                                <option value="1">B2</option>
-                                <option value="2">Rr.Mehmet Dervisholli</option>
-                                <option value="3">Rr. Zahir Pajaziti</option>
+                                <option value="#">B2</option>
+                                <option value="#">Rr.Mehmet Dervisholli</option>
+                                <option value="#">Rr. Zahir Pajaziti</option>
+                                    <option value="/AddsAdmin/AddBlock">Shto +</option>
                              </select>
-                              <a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>
+                              @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
                             </div>
                             <div class="col-4 pe-2">
                                 <label class="form-label">Numri i shtëpisë</label>
