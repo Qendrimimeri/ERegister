@@ -36,7 +36,8 @@
                     }],
                     chart: {
                       type: 'bar',
-                      height: 350
+                      height: 350,
+                      colors:'red'
                     },
                     plotOptions: {
                       bar: {
@@ -51,14 +52,19 @@
                     stroke: {
                       show: true,
                       width: 2,
-                      colors: ['transparent']
+                      colors: ['transparent'],
+                 
                     },
                     xaxis: {
                       categories: ['LDK', 'PDK', 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
                     },
                     fill: {
                       opacity: 1,
+
                       colors: ['#339af0', '#f76707']
+
+                           backgroundColor:'red'
+
                     },
                     tooltip: {
                       y: {
@@ -152,9 +158,14 @@
                       data: [44, 55, 57, 56, 61, 58, 6, 66]
                     }, {
                       name: 'Tani',
+
                       data: [76, 85, 101, 98, 87, 105, 6, 94],
                       colors: '#f76707'
                     }],
+
+                      data: [76, 85, 101, 98, 87, 105, 91, 6, 94],
+                    },],
+
                     chart: {
                       type: 'bar',
                       height: 350
@@ -210,7 +221,12 @@
                   new ApexCharts(document.querySelector("#columnChart4"), {
                     series: [{
                       name: 'Viti 2021',
+
                       data: [44, 55, 57, 56, 61, 58, 6, 66]
+
+                      data: [44, 55, 57, 56, 61, 58, 63, 6, 66],
+                      backgroundColor:"#f38b4a"
+
                     }, {
                       name: 'Tani',
                       data: [76, 85, 101, 98, 87, 105, 6, 94]
@@ -288,7 +304,8 @@
                         markers: {
                           size: 4
                         },
-                        colors: ['#4154f1'],
+                        colors: ['#
+'],
                         fill: {
                           type: "gradient",
                           gradient: {

@@ -19,5 +19,18 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+        public IActionResult AddBlock()
+        {
+            return View();
+        }
+        public IActionResult AddStreet()
+        {
+            return View();
+        }
+        public IActionResult AddNeighborhood()
+        {
+            return View();
+        }
     }
 }
