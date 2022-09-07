@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Domain.Data.Entities
-{
+{ 
     public partial class Village
     {
         public Village()

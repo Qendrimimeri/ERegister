@@ -6,9 +6,9 @@ namespace Infrastructure.Services
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly ERegisterDBContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public Repository(ERegisterDBContext context)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
         }

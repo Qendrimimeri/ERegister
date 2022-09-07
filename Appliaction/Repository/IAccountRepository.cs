@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Application.Repository
 {
-    public interface IAccountRepository : IRepository<AspNetUser>
+    public interface IAccountRepository : IRepository<ApplicationUser>
     {
-        IEnumerable<AspNetUser> GetAppUsers();
+        IEnumerable<ApplicationUser> GetAppUsers();
         Task<bool> LoginAsync(LoginVM login);
     }
 }
