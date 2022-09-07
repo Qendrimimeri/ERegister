@@ -1,9 +1,9 @@
 ﻿using Application.Repository;
+using Domain.Data;
 using Domain.Data.Entities;
-using ERegister.Data;
+using ERegister.Application.Repository;
 using Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Presentation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,8 @@ namespace Infrastructure.Services
 
         // 
         public AccountRepository(ApplicationDbContext context,
-                                SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(context)
+                                SignInManager<ApplicationUser> signInManager, 
+                                UserManager<ApplicationUser> userManager) : base(context)
         {
             _signInManager = signInManager;
             _userManager = userManager;

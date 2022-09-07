@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
+using Domain.Data;
 using ERegister.Application.Repository;
-using ERegister.Data;
 
 namespace Infrastructure.Services
 {

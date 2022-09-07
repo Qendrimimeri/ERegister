@@ -1,7 +1,7 @@
+//using Application.Repository;
 using Application.Repository;
+using Domain.Data;
 using Domain.Data.Entities;
-using ERegister.Data;
-using ERegister.Data.Migrations;
 using Infrastructure.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
@@ -65,6 +65,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-var init = app.Services.CreateScope();
-new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>()).Initialize();
-app.Run(); 
+//var init = app.Services.CreateScope();
+//new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>()).Initialize();
+app.Run();

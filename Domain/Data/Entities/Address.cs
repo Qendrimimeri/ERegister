@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Address
+    public partial class Address
     {
+        public Address()
+        {
+            AspNetUsers = new HashSet<ApplicationUser>();
+        }
+
         public int Id { get; set; }
-
-        // Navigation Properties
-        public virtual Municipality? Municipality { get; set; }
-
-        public virtual Vilage? Vilage { get; set; }
-
-        public virtual Neigborhood? Neigborhood { get; set; }
-
-        public virtual House? House { get; set; }
-
-        public virtual Street? Street { get; set; }
-
-        public virtual PollCenter? PollCenter { get; set; }
+        public int? HouseNo { get; set; }
+        public int? MunicipalityId { get; set; }
+        public int? VillageId { get; set; }
+        public int? NeighborhoodId { get; set; }
+        public int? BlockId { get; set; }
+        public int? StreetId { get; set; }
+        public int? PollCenterId { get; set; }
 
         public virtual Block? Block { get; set; }
-
-
-        public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
+        public virtual Municipality? Municipality { get; set; }
+        public virtual Neighborhood? Neighborhood { get; set; }
+        public virtual PollCenter? PollCenter { get; set; }
+        public virtual Street? Street { get; set; }
+        public virtual Village? Village { get; set; }
+        public virtual ICollection<ApplicationUser> AspNetUsers { get; set; }
     }
 }

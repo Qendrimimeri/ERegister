@@ -1,7 +1,6 @@
 ﻿using Application.Repository;
 using Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.ViewModels;
 
 namespace Presentation.Controllers
 {
