@@ -4,16 +4,18 @@ using Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Domain.Migrations
 {
-    [DbContext(typeof(ERegisterDBContext))]
-    partial class ERegisterDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20220907114034_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,12 +33,11 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ActualStatus", (string)null);
+                    b.ToTable("ActualStatuses");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
@@ -68,9 +69,6 @@ namespace Domain.Migrations
                     b.Property<int?>("VillageId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WorkId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BlockId");
@@ -85,8 +83,6 @@ namespace Domain.Migrations
 
                     b.HasIndex("VillageId");
 
-                    b.HasIndex("WorkId");
-
                     b.ToTable("Addresses");
                 });
 
@@ -99,15 +95,14 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("AdministrativeUnits");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.AspNetUser", b =>
+            modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -115,7 +110,14 @@ namespace Domain.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("ActualStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -170,15 +172,26 @@ namespace Domain.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("WorkId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "NormalizedEmail" }, "EmailIndex");
+                    b.HasIndex("ActualStatusId");
 
-                    b.HasIndex(new[] { "NormalizedUserName" }, "UserNameIndex")
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasFilter("([NormalizedUserName] IS NOT NULL)");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.HasIndex("WorkId");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
@@ -193,8 +206,7 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -212,8 +224,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -232,9 +243,7 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("UserID");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -242,7 +251,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GeneralDemands_Users", (string)null);
+                    b.ToTable("GeneralDemandsUsers");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.GeneralReason", b =>
@@ -254,8 +263,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -293,8 +301,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -313,8 +320,7 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -332,8 +338,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -349,12 +354,10 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CenterName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CenterNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MunicipalitydId")
                         .HasColumnType("int");
@@ -375,14 +378,16 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("Date")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("FamMembers")
                         .HasColumnType("int");
 
                     b.Property<int?>("GeneralReasonId")
-                        .HasColumnType("int")
-                        .HasColumnName("GeneralReasonID");
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HelpId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PoliticalSubjectId")
                         .HasColumnType("int");
@@ -394,17 +399,16 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SuccessChancesId")
-                        .HasColumnType("int")
-                        .HasColumnName("SuccessChancesID");
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("UserID");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GeneralReasonId");
+
+                    b.HasIndex("HelpId");
 
                     b.HasIndex("PoliticalSubjectId");
 
@@ -428,8 +432,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -445,8 +448,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -465,8 +467,7 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StreetSourceId")
                         .HasColumnType("int");
@@ -489,8 +490,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -506,8 +506,7 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -526,8 +525,7 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -548,12 +546,10 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Duty")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkPlace")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -562,42 +558,164 @@ namespace Domain.Migrations
                     b.ToTable("Works");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
                 {
                     b.HasOne("Domain.Data.Entities.Block", "Block")
                         .WithMany("Addresses")
-                        .HasForeignKey("BlockId")
-                        .HasConstraintName("FK__Addresses__Block__66603565");
+                        .HasForeignKey("BlockId");
 
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
                         .WithMany("Addresses")
-                        .HasForeignKey("MunicipalityId")
-                        .HasConstraintName("FK__Addresses__Munic__6383C8BA");
+                        .HasForeignKey("MunicipalityId");
 
                     b.HasOne("Domain.Data.Entities.Neighborhood", "Neighborhood")
                         .WithMany("Addresses")
-                        .HasForeignKey("NeighborhoodId")
-                        .HasConstraintName("FK__Addresses__Neigh__656C112C");
+                        .HasForeignKey("NeighborhoodId");
 
                     b.HasOne("Domain.Data.Entities.PollCenter", "PollCenter")
                         .WithMany("Addresses")
-                        .HasForeignKey("PollCenterId")
-                        .HasConstraintName("FK__Addresses__PollC__68487DD7");
+                        .HasForeignKey("PollCenterId");
 
                     b.HasOne("Domain.Data.Entities.Street", "Street")
                         .WithMany("Addresses")
-                        .HasForeignKey("StreetId")
-                        .HasConstraintName("FK__Addresses__Stree__6754599E");
+                        .HasForeignKey("StreetId");
 
                     b.HasOne("Domain.Data.Entities.Village", "Village")
                         .WithMany("Addresses")
-                        .HasForeignKey("VillageId")
-                        .HasConstraintName("FK__Addresses__Villa__6477ECF3");
-
-                    b.HasOne("Domain.Data.Entities.Work", "Work")
-                        .WithMany("Addresses")
-                        .HasForeignKey("WorkId")
-                        .HasConstraintName("FK__Addresses__WorkI__693CA210");
+                        .HasForeignKey("VillageId");
 
                     b.Navigation("Block");
 
@@ -610,6 +728,31 @@ namespace Domain.Migrations
                     b.Navigation("Street");
 
                     b.Navigation("Village");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
+                {
+                    b.HasOne("Domain.Data.Entities.ActualStatus", "ActualStatus")
+                        .WithMany("AspNetUsers")
+                        .HasForeignKey("ActualStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Data.Entities.Address", "Address")
+                        .WithMany("AspNetUsers")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Data.Entities.Work", "Work")
+                        .WithMany("AspNetUsers")
+                        .HasForeignKey("WorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActualStatus");
+
+                    b.Navigation("Address");
 
                     b.Navigation("Work");
                 });
@@ -618,8 +761,7 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
                         .WithMany("Blocks")
-                        .HasForeignKey("MunicipalityId")
-                        .HasConstraintName("FK__Blocks__Municipa__5070F446");
+                        .HasForeignKey("MunicipalityId");
 
                     b.Navigation("Municipality");
                 });
@@ -628,13 +770,11 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.GeneralDemand", "GeneralDemand")
                         .WithMany("GeneralDemandsUsers")
-                        .HasForeignKey("GeneralDemandId")
-                        .HasConstraintName("FK__GeneralDe__Gener__02FC7413");
+                        .HasForeignKey("GeneralDemandId");
 
-                    b.HasOne("Domain.Data.Entities.AspNetUser", "User")
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
                         .WithMany("GeneralDemandsUsers")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK__GeneralDe__UserI__03F0984C");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("GeneralDemand");
 
@@ -645,8 +785,7 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
                         .WithMany("Neighborhoods")
-                        .HasForeignKey("MunicipalityId")
-                        .HasConstraintName("FK__Neighborh__Munic__534D60F1");
+                        .HasForeignKey("MunicipalityId");
 
                     b.Navigation("Municipality");
                 });
@@ -655,8 +794,7 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipalityd")
                         .WithMany("PollCenters")
-                        .HasForeignKey("MunicipalitydId")
-                        .HasConstraintName("FK__PollCente__Munic__5BE2A6F2");
+                        .HasForeignKey("MunicipalitydId");
 
                     b.Navigation("Municipalityd");
                 });
@@ -665,35 +803,35 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.GeneralReason", "GeneralReason")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("GeneralReasonId")
-                        .HasConstraintName("FK__PollRelat__Gener__7C4F7684");
+                        .HasForeignKey("GeneralReasonId");
+
+                    b.HasOne("Domain.Data.Entities.Help", "Help")
+                        .WithMany("PollRelateds")
+                        .HasForeignKey("HelpId");
 
                     b.HasOne("Domain.Data.Entities.PoliticalSubject", "PoliticalSubject")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("PoliticalSubjectId")
-                        .HasConstraintName("FK__PollRelat__Polit__7A672E12");
+                        .HasForeignKey("PoliticalSubjectId");
 
                     b.HasOne("Domain.Data.Entities.SpecificDemand", "SpecificDemand")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("SpecificDemandId")
-                        .HasConstraintName("FK__PollRelat__Speci__7E37BEF6");
+                        .HasForeignKey("SpecificDemandId");
 
                     b.HasOne("Domain.Data.Entities.SpecificReason", "SpecificReason")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("SpecificReasonId")
-                        .HasConstraintName("FK__PollRelat__Speci__7D439ABD");
+                        .HasForeignKey("SpecificReasonId");
 
                     b.HasOne("Domain.Data.Entities.SuccessChance", "SuccessChances")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("SuccessChancesId")
-                        .HasConstraintName("FK__PollRelat__Succe__7B5B524B");
+                        .HasForeignKey("SuccessChancesId");
 
-                    b.HasOne("Domain.Data.Entities.AspNetUser", "User")
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK__PollRelat__UserI__797309D9");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("GeneralReason");
+
+                    b.Navigation("Help");
 
                     b.Navigation("PoliticalSubject");
 
@@ -710,13 +848,11 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
                         .WithMany("Streets")
-                        .HasForeignKey("MunicipalityId")
-                        .HasConstraintName("FK__Streets__Municip__59063A47");
+                        .HasForeignKey("MunicipalityId");
 
                     b.HasOne("Domain.Data.Entities.StreetSource", "StreetSource")
                         .WithMany("Streets")
-                        .HasForeignKey("StreetSourceId")
-                        .HasConstraintName("FK__Streets__StreetS__5812160E");
+                        .HasForeignKey("StreetSourceId");
 
                     b.Navigation("Municipality");
 
@@ -727,8 +863,7 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
                         .WithMany("Villages")
-                        .HasForeignKey("MunicipalityId")
-                        .HasConstraintName("FK__Villages__Munici__4D94879B");
+                        .HasForeignKey("MunicipalityId");
 
                     b.Navigation("Municipality");
                 });
@@ -737,10 +872,70 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Data.Entities.AdministrativeUnit", "AdministrativeUnit")
                         .WithMany("Works")
-                        .HasForeignKey("AdministrativeUnitId")
-                        .HasConstraintName("FK__Works__Administr__60A75C0F");
+                        .HasForeignKey("AdministrativeUnitId");
 
                     b.Navigation("AdministrativeUnit");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.ActualStatus", b =>
+                {
+                    b.Navigation("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.Address", b =>
+                {
+                    b.Navigation("AspNetUsers");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.AdministrativeUnit", b =>
@@ -748,7 +943,7 @@ namespace Domain.Migrations
                     b.Navigation("Works");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.AspNetUser", b =>
+            modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("GeneralDemandsUsers");
 
@@ -766,6 +961,11 @@ namespace Domain.Migrations
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.GeneralReason", b =>
+                {
+                    b.Navigation("PollRelateds");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.Help", b =>
                 {
                     b.Navigation("PollRelateds");
                 });
@@ -832,7 +1032,7 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
                 {
-                    b.Navigation("Addresses");
+                    b.Navigation("AspNetUsers");
                 });
 #pragma warning restore 612, 618
         }

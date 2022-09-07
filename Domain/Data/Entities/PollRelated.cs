@@ -14,12 +14,14 @@ namespace Domain.Data.Entities
         public int? GeneralReasonId { get; set; }
         public int? SpecificReasonId { get; set; }
         public int? SpecificDemandId { get; set; }
+        public int? HelpId { get; set; }
 
         public virtual GeneralReason? GeneralReason { get; set; }
+        public virtual Help? Help { get; set; }
         public virtual PoliticalSubject? PoliticalSubject { get; set; }
         public virtual SpecificDemand? SpecificDemand { get; set; }
         public virtual SpecificReason? SpecificReason { get; set; }
         public virtual SuccessChance? SuccessChances { get; set; }
-        public virtual AspNetUser? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
     }
 }

@@ -14,11 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddTransient<SuperAdminInitializer>();
-builder.Services.AddDbContext<ERegisterDBContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
 
-builder.Services.AddIdentity<AspNetUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedEmail = false;
     options.Password.RequiredLength = 4;
@@ -28,8 +28,8 @@ builder.Services.AddIdentity<AspNetUser, IdentityRole>(options =>
 
 })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ERegisterDBContext>()
-    .AddSignInManager<SignInManager<AspNetUser>>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 

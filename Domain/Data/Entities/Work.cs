@@ -7,7 +7,7 @@ namespace Domain.Data.Entities
     {
         public Work()
         {
-            Addresses = new HashSet<Address>();
+            AspNetUsers = new HashSet<ApplicationUser>();
         }
 
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace Domain.Data.Entities
         public int? AdministrativeUnitId { get; set; }
 
         public virtual AdministrativeUnit? AdministrativeUnit { get; set; }
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<ApplicationUser> AspNetUsers { get; set; }
     }
 }

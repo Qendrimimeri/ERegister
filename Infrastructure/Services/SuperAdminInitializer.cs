@@ -19,9 +19,9 @@ namespace Infrastructure.Services
 
         //public SuperAdminInitializer(IOptionsSnapshot<Admin> admin) => Admin = admin.Value;
 
-        public SuperAdminInitializer(ERegisterDBContext context) => Context = context;
+        public SuperAdminInitializer(ApplicationDbContext context) => Context = context;
 
-        public ERegisterDBContext Context { get; }
+        public ApplicationDbContext Context { get; }
         public Admin Admin { get; }
 
         public async void Initialize()
@@ -42,7 +42,7 @@ namespace Infrastructure.Services
 
             Context.SaveChanges();
 
-            var admin = new AspNetUser
+            var admin = new ApplicationUser
             {
                 FirstName = "Eregister",
                 LastName = "Admin",
@@ -55,11 +55,11 @@ namespace Infrastructure.Services
                 SocialNetwork = "http://www.facebook.com/eregister"
             };
 
-            var userStore = new UserStore<AspNetUser>(Context);
+            var userStore = new UserStore<ApplicationUser>(Context);
 
             if (!Context.AspNetUsers.Any(u => u.UserName == admin.UserName))
             {
-                var password = new PasswordHasher<AspNetUser>().HashPassword(admin, "Eregister1");
+                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
                 admin.PasswordHash = password;
 
                 await userStore.CreateAsync(admin);

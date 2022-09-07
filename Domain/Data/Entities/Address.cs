@@ -5,6 +5,11 @@ namespace Domain.Data.Entities
 {
     public partial class Address
     {
+        public Address()
+        {
+            AspNetUsers = new HashSet<ApplicationUser>();
+        }
+
         public int Id { get; set; }
         public int? HouseNo { get; set; }
         public int? MunicipalityId { get; set; }
@@ -13,7 +18,6 @@ namespace Domain.Data.Entities
         public int? BlockId { get; set; }
         public int? StreetId { get; set; }
         public int? PollCenterId { get; set; }
-        public int? WorkId { get; set; }
 
         public virtual Block? Block { get; set; }
         public virtual Municipality? Municipality { get; set; }
@@ -21,6 +25,6 @@ namespace Domain.Data.Entities
         public virtual PollCenter? PollCenter { get; set; }
         public virtual Street? Street { get; set; }
         public virtual Village? Village { get; set; }
-        public virtual Work? Work { get; set; }
+        public virtual ICollection<ApplicationUser> AspNetUsers { get; set; }
     }
 }

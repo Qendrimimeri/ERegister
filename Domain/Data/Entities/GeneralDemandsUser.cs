@@ -10,6 +10,6 @@ namespace Domain.Data.Entities
         public string? UserId { get; set; }
 
         public virtual GeneralDemand? GeneralDemand { get; set; }
-        public virtual AspNetUser? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
     }
 }
