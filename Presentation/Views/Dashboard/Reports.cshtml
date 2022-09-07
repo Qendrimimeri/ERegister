@@ -1,0 +1,164 @@
+﻿@{
+    Layout = "_DashboardLayout";
+}
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<h3>Menaxho</h3>
+<div class="card" style="font-family: 'Montserrat';">
+    <div class="d-flex justify-content-around">
+        <div>
+            <p>Te dhenat nga regjistrimi</p>
+
+            <table class="table w-auto small" id="exceltbl">
+
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Emri dhe Mbiemri</th>
+                        <th scope="col">Numri Votuesve</th>
+                        <th scope="col">Votues Paraprak</th>
+                        <th scope="col">Gjasat Fillestare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Filan Fisteku</td>
+                        <td>1204</td>
+                        <td>LDK</td>
+                        <td>25%</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Hasan Fisteku</td>
+                        <td>3204</td>
+                        <td>VV</td>
+                        <td>75%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <p>Evidento Ndryshimet me te dhenat e reja</p>
+
+            <table class="table w-auto small">
+
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">
+                            Votues i Tanishem
+                        </th>
+                        <th scope="col">
+                            Gjasat Aktuale
+                        </th>
+                        <th scope="col">
+                            Statusi Aktual
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>
+                            <div class="dropdown">
+                                <label for="kqz"></label>
+
+                                <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+                                    <option value="volvo">VV</option>
+                                    <option value="saab">LDK</option>
+                                    <option value="mercedes">PDK</option>
+                                    <option value="audi">AAK</option>
+                                </select>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <label for="kqz"></label>
+
+                                <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+                                    <option value="volvo">0%</option>
+                                    <option value="saab">25%</option>
+                                    <option value="mercedes">50%</option>
+                                    <option value="audi">100%</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <label for="kqz"></label>
+
+                                <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+                                    <option value="volvo">Ne Proces</option>
+                                    <option value="saab">Perfunduar</option>
+                                    <option value="mercedes">To Do</option>
+                                </select>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <div class="dropdown">
+                                <label for="kqz"></label>
+
+                                <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+                                    <option value="volvo">VV</option>
+                                    <option value="saab">LDK</option>
+                                    <option value="mercedes">PDK</option>
+                                    <option value="audi">AAK</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <label for="kqz"></label>
+
+                                <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+                                    <option value="volvo">0%</option>
+                                    <option value="saab">25%</option>
+                                    <option value="mercedes">50%</option>
+                                    <option value="audi">100%</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <label for="kqz"></label>
+
+                                <select class="custom-select btn-light rounded" id="inputGroupSelect01">
+                                    <option value="volvo">Ne Proces</option>
+                                    <option value="saab">Perfunduar</option>
+                                    <option value="mercedes">To Do</option>
+                                </select>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mb-2 ml-5">
+        <label for="exampleFormControlTextarea1" class="form-label">Pershkruaj gjendjen ekzistuese dhe mundesit ose barrierat e suksesit</label>
+        <textarea class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+    </div>
+    <div class="d-flex justify-content-end mb-2 mt-2 p-2">
+
+        <button type="button" class="btn btn-dark">Anulo</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary">Ruaj dhe Mbyll</button>
+    </div>
+
+
+
+</div>
