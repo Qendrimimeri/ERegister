@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class Work
+    public partial class Work
     {
+        public Work()
+        {
+            Addresses = new HashSet<Address>();
+        }
+
         public int Id { get; set; }
-
         public string? WorkPlace { get; set; }
-
-        public string? AdministrativeUnitId { get; set; }
-
         public string? Duty { get; set; }
+        public int? AdministrativeUnitId { get; set; }
 
-
-        // Navigation Properties
-        public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
-
-        public virtual ICollection<AdministrativeUnit>? AdministrativeUnits { get; set; }
+        public virtual AdministrativeUnit? AdministrativeUnit { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

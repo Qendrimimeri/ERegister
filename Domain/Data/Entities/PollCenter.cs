@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Data.Entities
 {
-    public class PollCenter
+    public partial class PollCenter
     {
+        public PollCenter()
+        {
+            Addresses = new HashSet<Address>();
+        }
+
         public int Id { get; set; }
-
-        public int? CenterNumber { get; set; }
-
+        public string? CenterNumber { get; set; }
         public string? CenterName { get; set; }
+        public int? MunicipalitydId { get; set; }
 
-
-
-        // Navigation properties
-        public virtual ICollection<Address>? Addresses { get; set; }
+        public virtual Municipality? Municipalityd { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }
