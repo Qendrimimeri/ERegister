@@ -32,5 +32,13 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult EditPoliticalSubjectTest()
+        {
+            return View();
+        }
+        public IActionResult AddPoliticalSubjectTest()
+        {
+            return View();
+        }
     }
 }

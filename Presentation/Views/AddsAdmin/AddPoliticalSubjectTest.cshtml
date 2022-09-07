@@ -9,8 +9,9 @@
 
             <div class="card">
                 <div class="card-body p-5">
-
-                    <h5 class="card-title">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
+                    <div class="d-flex ">
+                           <div class="col-6 p-3">
+                          <h5 class="card-title">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                     <form>
                         <h6 class="pt-4">I - Të dhënat personale</h6><hr />
                         <div class="mb-4 d-flex justify-content-between">
@@ -42,8 +43,7 @@
                             <label for="InputFacebook">Facebook</label>
                             <input type="text" class="form-control" id="InputFacebook">
                         </div>
-                        <div class="mb-4 d-flex justify-content-between">
-                            <div class="col-6 pe-2">
+                        <div class="col-12 pe-2">
                                 <label class="form-label">Qyteti</label>
                                 <select class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>Zgjedh qytetin..</option>
@@ -52,17 +52,15 @@
                                     <option value="3">Drenas</option>
                                 </select>
                             </div>
+                        <div class="mb-4 d-flex justify-content-between pt-3">
+                            
                             <div class="col-6 pe-2">
-                                <label class="form-label">Fshati</label>
+                                <label >Fshati</label>
                                 <input class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-                        </div>
-
-                        <div class="mb-4 d-flex justify-content-between">
-
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Lagja</label>
+                             <div class="col-6 pe-3">
+                                <label >Lagja</label>
                                 <select class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>Zgjedh lagjen..</option>
                                     <option value="1">Dardani</option>
@@ -71,8 +69,14 @@
                                 </select>
                                 @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
                             </div>
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Rruga/Blloku</label>
+                        </div>
+                       
+
+                        <div class="mb-4 d-flex justify-content-between">
+
+                            
+                            <div class="col-6 pe-2">
+                                <label>Rruga/Blloku</label>
                                 <select class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>Zgjedh rrugen/bllokun..</option>
                                     <option value="1">B2</option>
@@ -81,17 +85,17 @@
                                 </select>
                                 @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
                             </div>
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Numri i shtëpisë</label>
+                            <div class="col-6 pe-2">
+                                <label>Numri i shtëpisë</label>
                                 <input class="form-control" placeholder="opsionale">
                                 <span class="text-danger"></span>
                             </div>
                         </div>
 
                         <h6 class="pt-4">II - Të dhënat partiake</h6><hr />
-                        <div class="mb-4 d-flex justify-content-between">
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Pozita ne parti</label>
+                        
+                            <div class="col-12 pb-3">
+                                <label>Pozita ne parti</label>
                                 <select class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>Zgjedh rolin..</option>
                                     <option value="1">Admin</option>
@@ -100,25 +104,26 @@
                                 @*<a asp-controller = "Role" asp-action = "AddRoles"  class="link-primary">Shto +</a>*@
                             </div>
 
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Zyrtari pergjegjës</label>
+                            <div class="col-12 pb-3">
+                                <label>Zyrtari pergjegjës</label>
                                 <input class="form-control">
                                 <span class="text-danger"></span>
                             </div>
 
-                            <div class="col-4 mb-4">
-                                <label class="form-label">Qendra e votimit</label>
+                            <div class="col-12 mb-4">
+                                <label>Qendra e votimit</label>
                                 <input class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-                        </div>
+                        
 
 
 
                         <button type="submit" class="btn btn-primary">Regjistro</button>
                     </form>
-                    <div class="col-6">
-                        <h5 class="card-title pt-4">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
+                    </div>
+                       <div class="col-6 p-3">
+                        <h5 class="card-title">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -172,6 +177,10 @@
                             </tbody>
                         </table>
                     </div>
+                    </div>
+                 
+                  
+                 
 
 
                 </div>
