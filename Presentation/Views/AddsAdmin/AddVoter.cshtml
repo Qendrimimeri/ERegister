@@ -10,19 +10,16 @@
            
               <div class="card">
                 <div class="card-body p-5">
-                     <h5 class="card-title">Regjistro të dhënat për votuesin</h5>
+                     <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
                     <form>
+                        <h6 class = "pt-4">I - Të dhënat personale</h6><hr/>
                        <div class="mb-4 d-flex justify-content-between">
-                        <div class="col-6 pe-2">
-                            <label class="form-label">Emri</label>
-                            <input  class="form-control" id="mbiemripersonal">
+                        <div class="col-12 pe-2">
+                            <label class="form-label">Emri dhe Mbiemri</label>
+                            <input  class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
                             <span class="text-danger"></span>
                         </div>
-                            <div class="col-6">
-                                <label class="form-label">Mbiemri</label>
-                                <input class="form-control">
-                                <span  class="text-danger"></span>
-                            </div>
+                            
                         </div>
 
                         <span>Nr.Tel</span>
@@ -30,17 +27,17 @@
                         <div class="mb-4">
                         <div class=" d-flex align-items-center mt-2">
                             <div class="col-2">
-                                <input type="text" class="form-control" id="prefix" value="+383">
+                                <input type="text" class="form-control" id="prefix" value="+383" >
                             </div>
                             <div class="col-10 ps-2">
-                                <input class="form-control" id="nrtel" type="number">
+                                <input class="form-control" id="nrtel" type="number" placeholder="49123123">
                             </div>
                         </div>
                          <span  class="text-danger"></span>
                         </div>
                       <div class="form-group pb-3">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1">
+                        <label for="exampleInputEmail1">Email adresa</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
                       </div>
                        <div class="form-group pb-3">
                         <label for="InputFacebook">Facebook</label>
@@ -98,6 +95,8 @@
                             </div>
                         </div>
 
+                        <h6 class = "pt-4">II - Të dhënat profesionale</h6><hr/>
+
                         <div class="mb-4 d-flex justify-content-between">
                         
                             <div class="col-4 pe-2">
@@ -120,10 +119,8 @@
                             </div>
                         </div>
                      
-                      <hr/>
+                      <h6 class = "pt-4">III - Të dhënat partiake<hr/></h6>
 
-                     
-                           
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-4 pe-2">
                                 <label for="FamilyMember" class = "form-label">Nr i Anetareve</label>
