@@ -10,9 +10,9 @@
 <div class="btn float-end d-flex justify-content-end">
     <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="button" class="btn btn-primary" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
 </div>
-<div class="card">
-    <div class="tblbody table-responsive">
-        <table class="table table-responsive table w-auto small"id="test">
+<div class="card col-12 pe-auto">
+    <div class="table table-responsive">
+        <table class="table table-responsive table w-auto small table table-bordered"id="test">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -20,33 +20,33 @@
                     <th scope="col">Emri dhe Mbiemri</th>
                     <th scope="col">Numri i votuesve</th>
                     <th scope="col">Numri i telefonit</th>
-                    <th scope="col">Qendra Votimit</th>
-                    <th scope="col">votues Paraprak</th>
-                    <th scope="col">votues i Tanishem</th>
-                    <th scope="col">Gjasat Fillestare</th>
-                    <th scope="col">Gjasat Aktuale</th>
-                    <th scope="col">Statusi Aktual</th>
+                    <th scope="col">Qendra votimit</th>
+                    <th scope="col">votues paraprak</th>
+                    <th scope="col">votues i tanishem</th>
+                    <th scope="col">Gjasat fillestare</th>
+                    <th scope="col">Gjasat aktuale</th>
+                    <th scope="col">Statusi aktual</th>
                     <th scope="col">Menaxho</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
-                    <td>mdo</td>
+                    <td>Prishtine</td>
+                    <td>John Doe</td>
+                    <td>37</td>
+                    <td>000123123</td>
+                    <td>1901</td>
+                    <td>LDK</td>
+                    <td>VV</td>
+                    <td>70%</td>
+                    <td>50%</td>
+                    <td>Ne proces</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>Jacob</td>
+                    <td>Viti</td>
                     <td>Thornton</td>
                     <td>fat</td>
                     <td>Jacob</td>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
+                    <td>Larry</td>
                     <td>twitter</td>
                     <td>Jacob</td>
                     <td>Thornton</td>
@@ -68,6 +68,7 @@
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>fat</td>
+                    <td>test</td>
                     <td>Thornton</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
                 </tr>
