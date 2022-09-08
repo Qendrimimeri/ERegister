@@ -45,16 +45,15 @@
                         <input type="text" class="form-control" id="InputFacebook">
                       </div>
                       <div class="mb-4 d-flex justify-content-between">
-                        <div class="col-6 pe-2">
-                            <label class="form-label">Qyteti</label>
-                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.municipalities">
-                                <option disabled selected>Zgjedh qytetin..</option>
-                             </select>
-                        </div>
-                        <div class="mb-4 d-flex justify-content-between ">
+                            <div class="col-6 pe-2">
+                                <label class="form-label">Qyteti</label>
+                                    <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.municipalities">
+                                    <option disabled selected>Zgjedh qytetin..</option>
+                                 </select>
+                            </div>
                             <div class="col-6 pe-2">
                                <label class="form-label">Fshati</label>
-                            <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.villages">
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.villages">
                                 <option disabled selected>Zgjedh fshatin..</option>
                              </select>
                             </div>
@@ -62,29 +61,29 @@
 
                         <div class="mb-4 d-flex justify-content-between ">
 
-                            <div class="col-4 pe-2">
-                                <label class="form-label">Lagja</label>
-                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.neigborhoods">
-                                <option disabled selected>Zgjedh lagjen..</option>
-                                <option value="/AddsAdmin/AddNeighborhood">Shto +</option>
-                             </select>
-                              @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
-                            </div>
-                             <div class="col-4 pe-2">
-                                <label class="form-label">Rruga/Blloku</label>
-                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.streets">
-                                <option disabled selected>Zgjedh rrugen/bllokun..</option>
-                                    <option value="/AddsAdmin/AddBlock">Shto +</option>
-                                </select>
-                            </div>
-                              @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
-                            </div>
-                            <div class="col-4 pe-2">
-                                <label class="">Numri i shtëpisë</label>
-                                <input class="form-control" placeholder="opsionale">
-                                <span class="text-danger"></span>
-                            </div>
+                                <div class="col-4 pe-2">
+
+                                    <label>Lagja</label>
+                                    <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.neigborhoods">
+                                        <option disabled selected>Zgjedh lagjen..</option>
+                                        <option value="shto">Shto +</option>
+                                     </select>
+                                </div>
+                                 <div class="col-4 pe-2">
+                                    <label>Rruga/Blloku</label>
+                                    <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.streets">
+                                    <option disabled selected>Zgjedh rrugen/bllokun..</option>
+                                        <option value="/AddsAdmin/AddBlock">Shto +</option>
+                                    </select>
+                                 </div>
+                               <div class="col-4 pe-2">
+                                    <label class="">Numri i shtëpisë</label>
+                                    <input class="form-control" placeholder="opsionale">
+                                    <span class="text-danger"></span>
+                                </div>  
                         </div>
+                         
+                    
 
                         <h6 class="pt-4">II - Të dhënat profesionale</h6><hr >
 
@@ -96,7 +95,7 @@
                                 <span class="text-danger"></span>
                             </div>
                             <div class="col-4 pe-2">
-                                <label class="form-label">Shërbimi:</label>
+                                <label>Shërbimi:</label>
                                 <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
                                     <option disabled selected>Zgjedh shërbimin..</option>
                                  </select>
@@ -115,16 +114,19 @@
                                 <label for="FamilyMember" class="">Nr i Anetareve</label>
                                 <input type="number" class="form-control" id="FamilyMember">
                             </div>
-                            <div class="col-4 pe-2">
-                                 <label class="form-label">Gjasat e suksesit fillestar:</label>
+                            <div class="col-6 pe-2">
+                                 <label >Gjasat e suksesit fillestar:</label>
                                 <select class="form-select" id="inputGroupSelect05" placeorder="Zgjedh gjasat.." asp-items="@ViewBag.successChances">
                                      </select>
                             </div>
-                            <div class="col-4">
-                                <label class="form-label">Votues i tanishëm..</label>
+                           
+                        </div>
+                         <div class="mb-4 d-flex justify-content-between ">
+                              <div class="col-6 pe-2">
+                                <label>Votues i tanishëm..</label>
                                 <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.PS">
-                                    <option disabled selected>Zgjedh partinë..</option>
-                                </select>
+                                <option disabled selected>Zgjedh partinë..</option>
+                             </select>
                         </div>
                          <div class="mb-4 d-flex justify-content-between ">
                             <div class="col-6 mb-2">
@@ -133,6 +135,7 @@
                                 <span class="text-danger"></span>
                             </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary pe-2" >Regjistro</button>
                     </form>
                 </div>
@@ -141,4 +144,26 @@
     </div>
 </section>
 
+@section Scripts{
+    <script>
+            const selectElement1 = document.querySelector('#inputGroupSelect05');
 
+    selectElement1.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto"){
+          prompt("Shto Rruge te re")
+      }
+    });
+
+                const selectElement2 = document.querySelector('#inputGroupSelect01');
+
+    selectElement2.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto1"){
+          prompt("Shto Lagje te re")
+      }
+    });
+
+</script>
+
+}
