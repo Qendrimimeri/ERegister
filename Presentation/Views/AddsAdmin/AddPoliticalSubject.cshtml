@@ -42,7 +42,7 @@
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-6 pe-2">
                                 <label class="form-label">Qyteti</label>
-                                <select class="form-select" id="inputGroupSelect04">
+                                <select class="form-select" id="inputGroupSelect01">
                                     <option disabled selected>Zgjedh qytetin..</option>
                                     <option value="1">Prishtinë</option>
                                     <option value="2">Podujevë</option>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-6 pe-2">
                                <label class="form-label">Fshati</label>
-                            <select class="form-select" id="inputGroupSelect04">
+                            <select class="form-select" id="inputGroupSelect02">
                                 <option disabled selected>Zgjedh fshatin..</option>
                                 <option value="1">Shajkoc</option>
                                 <option value="2">Lluzhan</option>
@@ -64,8 +64,8 @@
 
                             <div class="col-4 pe-2">
                                 <label class="form-label">Lagja</label>
-                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
-                                    <option value="/Address/AddNeighborhood">Shto +</option>
+                                <select class="form-select" id="inputGroupSelect03">
+                                  <option value="shto3">Shto +</option>
                                     <option disabled selected>Zgjedh lagjen..</option>
                                     <option value="#">Dardani</option>
                                     <option value="#">Dragodan</option>
@@ -75,10 +75,11 @@
                             </div>
                             <div class="col-4 pe-2">
                                 <label class="form-label">Rruga/Blloku</label>
-                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
-                                    <option value="/Address/AddBlock">Shto +</option>
+                                <select class="form-select" id="inputGroupSelect04" >
+                                   
                                    
                                     <option disabled selected>Zgjedh rrugen/bllokun..</option>
+                                     <option value="shto4">Shto +</option>
                                     <option value="#">B2</option>
                                     <option value="#">Rr.Mehmet Dervisholli</option>
                                     <option value="#">Rr. Zahir Pajaziti</option>
@@ -96,10 +97,11 @@
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-6 pe-2">
                                 <label class="form-label">Pozita ne parti</label>
-                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
+                                <select class="form-select" id="inputGroupSelect05">
                                     <option disabled selected>Zgjedh rolin..</option>
+                                    <option value="shto5">Shto +</option>
                                     <option value="1">Admin</option>
-                                       <option value="/Role/AddRoles">Shto +</option>
+                             
                                 </select>
                                 @*<a asp-controller = "Role" asp-action = "AddRoles"  class="link-primary">Shto +</a>*@
                             </div>
@@ -179,3 +181,33 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <script>
+            const selectElement3 = document.querySelector('#inputGroupSelect03');
+
+    selectElement3.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto3"){
+          prompt("Shto Lagje te re")
+      }
+    });
+
+                const selectElement4 = document.querySelector('#inputGroupSelect04');
+
+    selectElement4.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto4"){
+          prompt("Shto Rruge/Bllok te ri")
+      }
+    });
+
+                    const selectElement5 = document.querySelector('#inputGroupSelect05');
+
+    selectElement5.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto5"){
+          prompt("Shto Rol te ri")
+      }
+    });
+    </script>
+}

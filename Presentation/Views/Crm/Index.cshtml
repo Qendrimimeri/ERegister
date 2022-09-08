@@ -109,20 +109,22 @@
 
                             <div class="col-6 pe-2">
                                 <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
-                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
+                                <select class="form-select" id="inputGroupSelect01">
+                                  
                                     <option disabled selected>Arsyeja percaktuese</option>
-                                    <option value="#">Bindja Politike</option>
-                                    <option value="#">Biznesi</option>
-                                    <option value="#">Familja</option>
-                                    <option value="#">Puna/Biznesi</option>
-                                    <option value="Crm/GeneralReasons">Shto +</option>
+                                      <option value="shto">Shto +</option>
+                                    <option value="1">Bindja Politike</option>
+                                    <option value="2">Biznesi</option>
+                                    <option value="3">Familja</option>
+                                    <option value="4">Puna/Biznesi</option>
+
 
                                 </select>
 
                             </div>
                             <div class="col-6 pe-2">
                                 <label class="pt-3">A mund ta menaxhoni personin?</label>
-                                <select class="form-select" id="inputGroupSelect04">
+                                <select class="form-select" id="inputGroupSelect02">
                                     <option disabled selected>A mund ta menaxhoni personin?</option>
                                     <option value="1">Po</option>
                                     <option value="1">Jo</option>
@@ -140,17 +142,19 @@
                                     <option disabled selected>A keni nevoje per ndihme </option>
                                     <option value="#">Po</option>
                                     <option value="#">Jo</option>
-                                 
+
                                 </select>
                             </div>
                             <div class="col-6 pe-2">
 
                                 <label class="pt-3">Zgjedh/Shto ndihmen e nevojshme</label>
-                                <select class="form-select" id="inputGroupSelect04"onchange="location=this.value;">
+                                <select class="form-select" id="inputGroupSelect03">
+                             
                                     <option disabled selected>Ndihma e nevojshme</option>
+                                           <option value="shto3">Shto +</option>
                                     <option value="#">A</option>
                                     <option value="#">B</option>
-                                  <option value="Crm/AddHelper">Shto +</option>
+
                                 </select>
                             </div>
                         </div>
@@ -170,3 +174,26 @@
         </div>
     </div>
 </section>
+@section Scripts {
+<script>
+                     const selectElement1 = document.querySelector('#inputGroupSelect01');
+
+    selectElement1.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto"){
+          prompt("Shto Arsye percaktuese:")
+      }
+    });
+
+
+                     const selectElement2 = document.querySelector('#inputGroupSelect03');
+
+        selectElement2.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto3"){
+          prompt("Shto Arsye percaktuese:")
+      }
+    });
+</script>
+
+}
