@@ -75,12 +75,8 @@
                                 <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.streets">
                                 <option disabled selected>Zgjedh rrugen/bllokun..</option>
                                     <option value="/AddsAdmin/AddBlock">Shto +</option>
+                                </select>
                             </div>
-                                     
-
-                                </form>*@
-                                 
-                             </select>
                               @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
                             </div>
                             <div class="col-4 pe-2">
@@ -127,8 +123,8 @@
                             <div class="col-4">
                                 <label class="form-label">Votues i tanishëm..</label>
                                 <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.PS">
-                                <option disabled selected>Zgjedh partinë..</option>
-                             </select>
+                                    <option disabled selected>Zgjedh partinë..</option>
+                                </select>
                         </div>
                          <div class="mb-4 d-flex justify-content-between ">
                             <div class="col-6 mb-2">
