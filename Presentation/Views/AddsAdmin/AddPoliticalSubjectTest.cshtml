@@ -58,11 +58,12 @@
                              <div class="col-6 pe-3">
                                 <label >Lagja</label>
                                 <select class="form-select" id="inputGroupSelect04"  onchange="location=this.value;">
+                                    <option value="/Address/AddNeighborhood">Shto + </option>
+                                  
                                     <option disabled selected>Zgjedh lagjen..</option>
                                     <option value="#">Dardani</option>
                                     <option value="#">Dragodan</option>
                                     <option value="#">Emshir</option>
-                                    <option value="/Address/AddNeighborhood">Shto + </option>
 
                                 </select>
                                 @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
@@ -76,11 +77,12 @@
                             <div class="col-6 pe-2">
                                 <label>Rruga/Blloku</label>
                                 <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
+                                        <option value="/Address/AddBlock">Shto +</option>
+                                   
                                     <option disabled selected>Zgjedh rrugen/bllokun..</option>
                                     <option value="1">B2</option>
                                     <option value="2">Rr.Mehmet Dervisholli</option>
                                     <option value="3">Rr. Zahir Pajaziti</option>
-                                        <option value="/Address/AddBlock">Shto +</option>
                                 </select>
                                 @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
                             </div>
@@ -96,9 +98,10 @@
                             <div class="col-12 pb-3">
                                 <label>Pozita ne parti</label>
                                 <select class="form-select" id="inputGroupSelect04"onchange="location=this.value;">
+                                       <option value="/Role/AddRoles">Shto +</option>
+                                 
                                     <option disabled selected>Zgjedh rolin..</option>
                                     <option value="1">Admin</option>
-                                       <option value="/Role/AddRoles">Shto +</option>
                                 </select>
                                 @*<a asp-controller = "Role" asp-action = "AddRoles"  class="link-primary">Shto +</a>*@
                             </div>
