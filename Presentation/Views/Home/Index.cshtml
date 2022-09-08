@@ -1,25 +1,26 @@
 ﻿@using Infrastructure.ViewModels
 
 
-@*@{
+@{
  <style>
     .width50{
         width: 150px;
     }
+	
  </style>
-}*@
+}
 
 @model	LoginVM
 ﻿
-<div class="d-flex justify-content-center mt-5 pt-5 pt-lg-5">
+<div class="d-flex justify-content-around h-75 p-3 mt-5 pt-5 pt-lg-5">
 	<div class="w-65 p-5 text-center">
-		<img src="/images/harta.svg" class="d-md-block d-none" style="min-width:190px; max-width:350px;">
+		<img src="/images/harta.svg" class="harta d-md-block d-none rounded mx-auto d-block" style="min-width:190px; max-width:450px;">
 	</div>
-	<div class="p-5 mx-5 bg-light shadow-sm pt-5">
-		<h4 class="text-center">KYÇU</h4>
+	<div class="p-5 mx-5 bg-light box-shadow pt-5">
+		<h4 class="text-center pt-5">KYÇU</h4>
 		<form class="ml-5" asp-controller="Account" asp-action="Login" method="post">
 
-			<div class=" ml-5 mt-5 p-5">
+			<div class="h-50 ml-5 p-5">
 
 			<div class = "mb-3">
 			<label asp-for="Email" class="form-label">Përdoruesi</label>
@@ -33,11 +34,13 @@
 			
 			<div class="form-check mt-2 ml-20 mr-20">
 				 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-				 <label class="form-check-label ml-3" for="flexCheckDefault">
+				 <label class="form-check-label pr-3 mr-3" for="flexCheckDefault">
 						 Ruaj fjalëkalimin
 				 </label>
 
-				 <a style="float:right;" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
+
+				 <a style="px-4" style="float:right;text-decoration:none;" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
+
 
 			</div>
 			<button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">KYÇU</button>
@@ -45,6 +48,4 @@
 			</div>
 		</form>
 	</div>
-
-
 </div>

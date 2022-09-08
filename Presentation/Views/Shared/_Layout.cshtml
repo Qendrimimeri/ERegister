@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Presentation</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-	<link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css"  asp-append-version="true"/>
     <link rel="stylesheet" href="~/Presentation.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
 
 </head>
 <body class="d-flex flex-column">
 
     <header>
-        <nav class="px-3 navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="px-3 navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow">
             <div class="container-fluid d-flex justify-content-between">
                 <div class="width50">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="w-100" src="~/images/ERegisterLogo.png" /></a>
@@ -37,69 +36,62 @@
     </header>
 
 
+
+    <div class="d-flex flex-column min-vh-100">@RenderBody()</div>
+    <div style="margin-top:30px;">
+        <div class="container">
+            <hr />
+            <footer class="text-center text-lg-start bg-white text-muted">
+                <div class="row ps-6">
+
+                    <div class="col-12 col-md-2 mb-3">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:145px" src="~/images/ERegisterLogo.png" /></a>
+
+                    </div>
+
+                    <div class="col-6 col-md-2 mb-3">
+                        <h5 class="mb-2">ADRESA</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Bulevardi Bill Klinton</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">10000</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Prishtinë, Kosovë</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md-2 mb-3">
+                        <h5 class="mb-2">Kontakti</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">e-register@info.com</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 49 123-123</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 38 123-123</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4 mb-3 offset-md-1">
+                        <form>
+                            <h5>SUBSCRIBE</h5>
+                            <p>Do merrni informata për gjëra të reja</p>
+                            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                                <label for="newsletter1" class="visually-hidden">Email address</label>
+                                <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                                <button class="btn btn-primary text-white" type="button">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="h-100 text-center text-dark p-3 m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
+                    © eRegister 2022
+                </div>
+          
+            </footer>
+
+        </div>
+    </div>
     
 
 
 
-
-     
-           
-
-    @{
- <style>
-    .width50{
-        width: 150px;
-    }
- </style>
-}
-    <div class="vh-100">@RenderBody()</div>
-            
-<div class="container">
-	<footer class="py-5">
-	  <div class="row ps-6">
-
-		<div class="col-6 col-md-2 mb-3">
-		  <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:125px" src="~/images/ERegisterLogo.png" /></a>
-		 
-		</div>
-
-		<div class="col-6 col-md-2 mb-3">
-		  <h5 class="mb-2">ADRESA</h5>
-		  <ul class="nav flex-column">
-			<li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Bulevardi Bill Klinton</a></li>
-			<li class="nav-item mb-2"><a  class="nav-link p-0 text-muted" >10000</a></li>
-			<li class="nav-item mb-2"><a class="nav-link p-0 text-muted" >Prishtinë, Kosovë</a></li>
-		  </ul>
-		</div>
-
-		<div class="col-6 col-md-2 mb-3">
-		  <h5 class="mb-2">Kontakti</h5>
-		  <ul class="nav flex-column">
-			<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">e-register@info.com</a></li>
-			<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 49 123-123</a></li>
-			<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 38 123-123</a></li>
-		  </ul>
-		</div>
-
-		<div class="col-md-4 mb-3 offset-md-1">
-		  <form>
-			<h5>SUBSCRIBE</h5>
-			<p>Do merrni informata për gjëra të reja</p>
-			<div class="d-flex flex-column flex-sm-row w-100 gap-2">
-			  <label for="newsletter1" class="visually-hidden">Email address</label>
-			  <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-			  <button class="btn btn-primary text-white" type="button">Subscribe</button>
-			</div>
-		  </form>
-		</div>
-	  </div>
-
-	  <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center pt-2 border-top">
-		<p>&copy; 2022 E-Register</p>
-		
-	  </div>
-	</footer>
-  </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
