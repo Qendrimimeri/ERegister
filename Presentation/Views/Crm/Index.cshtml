@@ -109,12 +109,13 @@
 
                             <div class="col-6 pe-2">
                                 <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
-                                <select class="form-select" id="inputGroupSelect04">
+                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
                                     <option disabled selected>Arsyeja percaktuese</option>
-                                    <option value="1">Bindja Politike</option>
-                                    <option value="2">Biznesi</option>
-                                    <option value="3">Familja</option>
-                                    <option value="4">Puna/Biznesi</option>
+                                    <option value="#">Bindja Politike</option>
+                                    <option value="#">Biznesi</option>
+                                    <option value="#">Familja</option>
+                                    <option value="#">Puna/Biznesi</option>
+                                    <option value="Crm/GeneralReasons">Shto +</option>
 
                                 </select>
 
@@ -137,17 +138,19 @@
                                 <label class="pt-3">A keni nevojë për ndihmë?</label>
                                 <select class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>A keni nevoje per ndihme </option>
-                                    <option value="1">Po</option>
-                                    <option value="1">Jo</option>
+                                    <option value="#">Po</option>
+                                    <option value="#">Jo</option>
+                                 
                                 </select>
                             </div>
                             <div class="col-6 pe-2">
 
                                 <label class="pt-3">Zgjedh/Shto ndihmen e nevojshme</label>
-                                <select class="form-select" id="inputGroupSelect04">
+                                <select class="form-select" id="inputGroupSelect04"onchange="location=this.value;">
                                     <option disabled selected>Ndihma e nevojshme</option>
-                                    <option value="1">A</option>
-                                    <option value="1">B</option>
+                                    <option value="#">A</option>
+                                    <option value="#">B</option>
+                                  <option value="Crm/AddHelper">Shto +</option>
                                 </select>
                             </div>
                         </div>
