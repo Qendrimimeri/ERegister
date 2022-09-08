@@ -63,6 +63,7 @@
                         <div class="mb-4 d-flex justify-content-between ">
 
                             <div class="col-4 pe-2">
+
                                 <label class="form-label">Lagja</label>
                                 <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.neigborhoods">
                                 <option disabled selected>Zgjedh lagjen..</option>
@@ -76,6 +77,7 @@
                                 <option disabled selected>Zgjedh rrugen/bllokun..</option>
                                     <option value="/AddsAdmin/AddBlock">Shto +</option>
                             </div>
+
                                      
 
                                 </form>*@
@@ -137,6 +139,7 @@
                                 <span class="text-danger"></span>
                             </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary pe-2" >Regjistro</button>
                     </form>
                 </div>
@@ -145,4 +148,26 @@
     </div>
 </section>
 
+@section Scripts{
+    <script>
+            const selectElement1 = document.querySelector('#inputGroupSelect05');
 
+    selectElement1.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto"){
+          prompt("Shto Rruge te re")
+      }
+    });
+
+                const selectElement2 = document.querySelector('#inputGroupSelect01');
+
+    selectElement2.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto1"){
+          prompt("Shto Lagje te re")
+      }
+    });
+
+</script>
+
+}
