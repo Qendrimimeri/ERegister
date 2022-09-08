@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,16 +21,25 @@
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="w-100" src="~/images/ERegisterLogo.png" /></a>
                 </div>
                 <div class="">
-                    <ul class="list-unstyled m-0">
+                    <ul class="list-unstyled m-0 navbar-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-grey fw-30 fs-5 fw-800 pointer-event">Rreth Nesh</a>
+                            <a asp-controller="Home" asp-action="Index" class="nav-link text-grey fw-30 fs-5 fw-800 pointer-event">Ballina</a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="AboutUs" class="nav-link text-grey fw-30 fs-5 fw-800 pointer-event">Rreth Nesh</a>
+                        </li>
+
                     </ul>
                     @*<partial name="_LoginPartial" />*@
                 </div>
             </div>
         </nav>
     </header>
+
+
+    
+
+
 
 
      
