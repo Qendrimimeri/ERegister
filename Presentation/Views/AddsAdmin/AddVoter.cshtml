@@ -64,16 +64,16 @@
                                 <div class="col-4 pe-2">
 
                                     <label>Lagja</label>
-                                    <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.neigborhoods">
+                                    <select class="form-select" id="inputGroupSelect01"  asp-items="@ViewBag.neigborhoods">
                                         <option disabled selected>Zgjedh lagjen..</option>
-                                        <option value="shto">Shto +</option>
+                                        <option value="shto1">Shto +</option>
                                      </select>
                                 </div>
                                  <div class="col-4 pe-2">
                                     <label>Rruga/Blloku</label>
-                                    <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.streets">
+                                    <select class="form-select" id="inputGroupSelect05" asp-items="@ViewBag.streets">
                                     <option disabled selected>Zgjedh rrugen/bllokun..</option>
-                                        <option value="/AddsAdmin/AddBlock">Shto +</option>
+                                        <option value="shto">Shto +</option>
                                     </select>
                                  </div>
                                <div class="col-4 pe-2">
@@ -128,7 +128,6 @@
                                 <option disabled selected>Zgjedh partinë..</option>
                              </select>
                         </div>
-                         <div class="mb-4 d-flex justify-content-between ">
                             <div class="col-6 mb-2">
                                 <label>Qendra e vendvotimit</label>
                                 <input class="form-control">
@@ -160,8 +159,9 @@
     selectElement2.addEventListener('change', (event) => {
       const result = event.target.value;
       if (result === "shto1"){
-          prompt("Shto Lagje te re")
+          prompt("Shto Lagje te re");
       }
+
     });
 
 </script>
