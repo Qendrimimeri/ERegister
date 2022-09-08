@@ -1,7 +1,50 @@
-﻿@*@{
+﻿@using Infrastructure.ViewModels
+
+
+@*@{
  <style>
     .width50{
         width: 150px;
     }
  </style>
 }*@
+
+@model	LoginVM
+﻿
+<div class="d-flex justify-content-center mt-5 pt-5 pt-lg-5">
+	<div class="w-65 p-5 text-center">
+		<img src="/images/harta.svg" class="d-md-block d-none" style="min-width:190px; max-width:350px;">
+	</div>
+	<div class="p-5 mx-5 bg-light shadow-sm pt-5">
+		<h4 class="text-center">KYÇU</h4>
+		<form class="ml-5" asp-controller="Account" asp-action="Login" method="post">
+
+			<div class=" ml-5 mt-5 p-5">
+
+			<div class = "mb-3">
+			<label asp-for="Email" class="form-label">Përdoruesi</label>
+			<input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
+			</div>
+			<div>
+
+			<label asp-for="Password" class="form-label">Fjalëkalimi</label>
+			<input type="password" class="form-control"  asp-for="Password" aria-describedby="passwordHelp">
+			</div>
+			
+			<div class="form-check mt-2 ml-20 mr-20">
+				 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				 <label class="form-check-label ml-3" for="flexCheckDefault">
+						 Ruaj fjalëkalimin
+				 </label>
+
+				 <a style="float:right;" href="#">Keni harruar fjalëkalimin?</a>
+
+			</div>
+			<button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">KYÇU</button>
+
+			</div>
+		</form>
+	</div>
+
+
+</div>

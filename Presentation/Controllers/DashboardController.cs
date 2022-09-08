@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
@@ -8,8 +8,25 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult Performance() 
+        { 
+            return View(); 
+        }
+        public IActionResult Reports() 
+        { 
+            return View(); 
+        }
+        public IActionResult AddSubject()
+        {
+            return View();
+        }
+      
+        public IActionResult EditAdmin()
+        {
+            return View();
+        }
 
-        public IActionResult Crm()
+        public IActionResult AddVoter()
         {
             return View();
         }

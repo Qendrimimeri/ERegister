@@ -1,0 +1,166 @@
+﻿@{
+    Layout = "_DashboardLayout";
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <div class="card">
+                <div class="card-body p-5">
+                    <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
+                    <form>
+                        <h6 class="pt-4">I - Të dhënat personale</h6>
+                        <hr>
+                        <div class="mb-4 d-flex pe-2 justify-content-between" >
+                            <div class="col-12 p">
+                                <label class="">Emri dhe Mbiemri</label>
+                                <input class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
+                                <span class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <span>Nr.Tel</span>
+
+                        <div class="mb-4 pe-2" >
+                            <div class=" d-flex align-items-center mt-2">
+                                <div class="col-2">
+                                    <input type="text" class="form-control" id="prefix" value="+383">
+                                </div>
+                                <div class="col-10 ps-2">
+                                    <input class="form-control" id="nrtel" type="number" placeholder="49123123">
+                                </div>
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group pb-3 pe-2">
+                            <label for="exampleInputEmail1">Email adresa</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
+                        </div>
+                        <div class="form-group pb-3 pe-2">
+                            <label for="InputFacebook">Facebook</label>
+                            <input type="text" class="form-control" id="InputFacebook">
+                        </div>
+                        <div class="mb-4 d-flex justify-content-between ">
+                            <div class="col-6 pe-2">
+                                <label class="">Qyteti</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh qytetin..</option>
+                                    <option value="1">Prishtinë</option>
+                                    <option value="2">Podujevë</option>
+                                    <option value="3">Drenas</option>
+                                </select>
+                            </div>
+                            <div class="col-6 pe-2">
+                                <label class="">Fshati</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh fshatin..</option>
+                                    <option value="1">Shajkoc</option>
+                                    <option value="2">Lluzhan</option>
+                                    <option value="3">Batllavë</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4 d-flex justify-content-between ">
+
+                            <div class="col-4 pe-2">
+                                <label class="">Lagja</label>
+                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
+                                    <option disabled selected>Zgjedh lagjen..</option>
+                                    <option value="#">Dardani</option>
+                                    <option value="#">Dragodan</option>
+                                    <option value="#">Emshir</option>
+                                    <option value="/AddsAdmin/AddNeighborhood">Shto +</option>
+                                </select>
+                                @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
+                            </div>
+                             <div class="col-4 pe-2">
+                                <label>Rruga/Blloku</label>
+                            <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;">
+                                <option disabled selected>Zgjedh rrugen/bllokun..</option>
+                                <option value="#">B2</option>
+                                <option value="#">Rr.Mehmet Dervisholli</option>
+                                <option value="#">Rr. Zahir Pajaziti</option>
+                                <form asp-controller="Address" asp-action="AddBlock">
+                                       <option value="AddBlock">Shto +</option>
+
+                                </form>
+                                 
+                             </select>
+                              @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label class="">Numri i shtëpisë</label>
+                                <input class="form-control" placeholder="opsionale">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-4">II - Të dhënat profesionale</h6><hr >
+
+                        <div class="mb-4 d-flex justify-content-between ">
+
+                            <div class="col-4 pe-2">
+                                <label class="">Vendi i punës</label>
+                                <input class="form-control">
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label class="">Shërbimi:</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh shërbimin..</option>
+                                    <option value="1">Publik</option>
+                                   
+                                    <option value="2">Privat</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pe-2" >
+                                <label class="l">Detyra</label>
+                                <input class="form-control">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-4">III - Të dhënat partiake<hr ></h6>
+
+                        <div class="mb-4 d-flex justify-content-between ">
+                            <div class="col-4 pe-2">
+                                <label for="FamilyMember" class="">Nr i Anetareve</label>
+                                <input type="number" class="form-control" id="FamilyMember">
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label class="">Gjasat e suksesit fillestar:</label>
+                                <select class="form-select" id="inputGroupSelect05" placeorder="Zgjedh gjasat..">
+
+                                    <option value="1">0% (jo te mira)</option>
+                                    <option value="2">25% (mjaftueshem te mira)</option>
+                                    <option value="3">50% (mesatarisht te mira)</option>
+                                    <option value="4">75% (te mira)</option>
+                                    <option value="5">100% (shume te mira)</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label class="">Votues i tanishëm..</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh partinë..</option>
+                                    <option value="1">VV</option>
+                                    <option value="2">PDK</option>
+                                    <option value="3">LDK</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <button type="submit" class="btn btn-primary pe-2" >Regjistro</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

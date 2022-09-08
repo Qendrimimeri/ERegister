@@ -27,6 +27,8 @@
   <link href="~/dashboard-admin/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="~/dashboard-admin/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="~/dashboard-admin/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="~/dashboard-admin/css/style.css" rel="stylesheet">
@@ -46,7 +48,7 @@
 
     <div class="d-flex align-items-center justify-content-between gap-5">
       <a asp-controller="Home" asp-action="index" class="d-flex align-items-center">
-        <img src="~/images/ERegisterLogo.svg" style="width:150px" alt="">
+        <img src="~/images/ERegisterLogo.png" style="width:150px" alt="">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -284,60 +286,55 @@
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "Crm">
+              <a class="nav-link collapsed" asp-controller = "Crm" asp-action= "Index">
                   <i class="bi bi-graph-up"></i>
                   <span>CRM</span>
               </a>
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
+              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "Performance">
                   <i class="bi bi-graph-up"></i>
                   <span>Performance & Reports</span>
               </a>
           </li>
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
-                  <i class="bi bi-clipboard"></i>
-                  <span>Adds & Admin</span>
-              </a>
-          </li>
-
            <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
-                  <i class="bi bi-clipboard"></i>
-                  <span>Role</span>
+              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">
+                  <i class="bi bi-person-square"></i> <span>Adds & Admin</span><i class="bi bi-chevron-down ms-auto"></i>
               </a>
-          </li>
-
-
-    @*      <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-staf">
-                  <i class="bi bi-person-square"></i> <span>Stafi</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-                  <ul id="components-staf" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                  <ul id="components-addsadmin" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                       <li>
-                          <a asp-controller="Staff" asp-action="Index">
-                              <i class="bi bi-circle"></i><span>Lista e stafit</span>
+                          <a asp-controller="AddsAdmin" asp-action="AddVoter">
+                              <i class="bi bi-circle"></i><span>Regjistro votuesin e ri</span>
                           </a>
                       </li>
-                      <li>
-                          <a asp-controller="Staff" asp-action="Create">
-                              <i class="bi bi-circle"></i><span>Shto staf te ri</span>
+                       <li>
+                          <a asp-controller="AddsAdmin" asp-action="EditPoliticalSubject">
+                              <i class="bi bi-circle"></i><span>Zyrtaret partiak</span>
+                          </a>
+                      </li>
+                        <li>
+                          <a asp-controller="AddsAdmin" asp-action="EditPoliticalSubjectTest">
+                              <i class="bi bi-circle"></i><span>Zyrtaret partiak-test</span>
                           </a>
                       </li>
                   </ul>
+          </li>
+      
+          @*/E sheh vetem superAdmini*@
+       @*   <li class="nav-item">
+              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "AddSubject">
+                  <i class="bi bi-people"></i>
+                  <span>Regjistro partinë</span>
+              </a>
           </li>*@
 
-        
+          
 
       </ul>
 
  
-
-    
-
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -362,7 +359,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; <strong><span>REKA-S</span></strong>. Të  gjitha të drejtat e rezervuara
+      &copy; <strong><span>E-Register</span></strong>. Të  gjitha të drejtat e rezervuara
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

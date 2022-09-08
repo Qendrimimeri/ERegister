@@ -1,0 +1,180 @@
+﻿@{
+    Layout = "_DashboardLayout";
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <div class="card">
+                <div class="card-body p-5">
+                    <div class="d-flex ">
+                           <div class="col-6 p-3">
+                          <h5 class="card-title">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
+                    <form>
+                        <h6 class="pt-4">I - Të dhënat personale</h6><hr />
+                        <div class="mb-4 d-flex justify-content-between">
+                            <div class="col-12 pe-2">
+                                <label class="form-label">Emri dhe Mbiemri</label>
+                                <input class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <span>Nr.Tel</span>
+
+                        <div class="mb-4">
+                            <div class=" d-flex align-items-center mt-2">
+                                <div class="col-2">
+                                    <input type="text" class="form-control" id="prefix" value="+383">
+                                </div>
+                                <div class="col-10 ps-2">
+                                    <input class="form-control" id="nrtel" type="number">
+                                </div>
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group pb-3">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1">
+                        </div>
+                        <div class="col-12 pe-2">
+                                <label class="form-label">Qyteti</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh qytetin..</option>
+                                    <option value="1">Prishtinë</option>
+                                    <option value="2">Podujevë</option>
+                                    <option value="3">Drenas</option>
+                                </select>
+                            </div>
+                        <div class="mb-4 d-flex justify-content-between pt-3">
+                            
+                            <div class="col-6 pe-2">
+                                <label >Fshati</label>
+                                <input class="form-control">
+                                <span class="text-danger"></span>
+                            </div>
+                             <div class="col-6 pe-3">
+                                <label >Lagja</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh lagjen..</option>
+                                    <option value="1">Dardani</option>
+                                    <option value="2">Dragodan</option>
+                                    <option value="3">Emshir</option>
+                                </select>
+                                @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
+                            </div>
+                        </div>
+                       
+
+                        <div class="mb-4 d-flex justify-content-between">
+
+                            
+                            <div class="col-6 pe-2">
+                                <label>Rruga/Blloku</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh rrugen/bllokun..</option>
+                                    <option value="1">B2</option>
+                                    <option value="2">Rr.Mehmet Dervisholli</option>
+                                    <option value="3">Rr. Zahir Pajaziti</option>
+                                </select>
+                                @*<a asp-controller = "Address" asp-action = "AddBlock"  class="link-primary">Shto +</a>*@
+                            </div>
+                            <div class="col-6 pe-2">
+                                <label>Numri i shtëpisë</label>
+                                <input class="form-control" placeholder="opsionale">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-4">II - Të dhënat partiake</h6><hr />
+                        
+                            <div class="col-12 pb-3">
+                                <label>Pozita ne parti</label>
+                                <select class="form-select" id="inputGroupSelect04">
+                                    <option disabled selected>Zgjedh rolin..</option>
+                                    <option value="1">Admin</option>
+                                    @*   <option value="/AddsAdmin/AddBlock">Shto +</option>*@
+                                </select>
+                                @*<a asp-controller = "Role" asp-action = "AddRoles"  class="link-primary">Shto +</a>*@
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label>Qendra e votimit</label>
+                                <input class="form-control">
+                                <span class="text-danger"></span>
+                            </div>
+                        
+
+
+
+                        <button type="submit" class="btn btn-primary">Regjistro</button>
+                    </form>
+                    </div>
+                       <div class="col-6 p-3">
+                        <h5 class="card-title">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Numri i votuesëve</th>
+                                    <th scope="col">Total : 14600</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">VV</th>
+                                    <td>5,500</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">LDK</th>
+                                    <td>4,500</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">PDK</th>
+                                    <td colspan="2">4,000</td>
+
+                                </tr>
+                                     <tr>
+                                    <th scope="row">AAK</th>
+                                    <td colspan="2">500</td>
+
+                                </tr>
+                                     <tr>
+                                    <th scope="row">AKR</th>
+                                    <td colspan="2">50</td>
+
+                                </tr>
+                                     <tr>
+                                    <th scope="row">Nisma</th>
+                                    <td colspan="2">30</td>
+
+                                </tr>
+                                     <tr>
+                                    <th scope="row">Partite serbe</th>
+                                    <td colspan="2">10</td>
+
+                                </tr>
+                                     <tr>
+                                    <th scope="row">Partite joserbe</th>
+                                    <td colspan="2">10</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                 
+                  
+                 
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
