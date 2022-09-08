@@ -19,11 +19,8 @@
                                 <input class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
                                 <span class="text-danger"></span>
                             </div>
-
                         </div>
-
                         <span>Nr.Tel</span>
-
                         <div class="mb-4 pe-2" >
                             <div class=" d-flex align-items-center mt-2">
                                 <div class="col-2">
@@ -39,55 +36,48 @@
                             <label for="exampleInputEmail1">Email adresa</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
                         </div>
-                        <div class="form-group pb-3 pe-2">
-                            <label for="InputFacebook">Facebook</label>
-                            <input type="text" class="form-control" id="InputFacebook">
+                      <div class="form-group pb-3">
+                        <label for="exampleInputEmail1">Email adresa</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
+                      </div>
+                       <div class="form-group pb-3">
+                        <label for="InputFacebook">Facebook</label>
+                        <input type="text" class="form-control" id="InputFacebook">
+                      </div>
+                      <div class="mb-4 d-flex justify-content-between">
+                        <div class="col-6 pe-2">
+                            <label class="form-label">Qyteti</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.municipalities">
+                                <option disabled selected>Zgjedh qytetin..</option>
+                             </select>
                         </div>
                         <div class="mb-4 d-flex justify-content-between ">
                             <div class="col-6 pe-2">
-                                <label class="">Qyteti</label>
-                                <select class="form-select" id="inputGroupSelect04">
-                                    <option disabled selected>Zgjedh qytetin..</option>
-                                    <option value="1">Prishtinë</option>
-                                    <option value="2">Podujevë</option>
-                                    <option value="3">Drenas</option>
-                                </select>
-                            </div>
-                            <div class="col-6 pe-2">
-                                <label class="">Fshati</label>
-                                <select class="form-select" id="inputGroupSelect04">
-                                    <option disabled selected>Zgjedh fshatin..</option>
-                                    <option value="1">Shajkoc</option>
-                                    <option value="2">Lluzhan</option>
-                                    <option value="3">Batllavë</option>
-                                </select>
+                               <label class="form-label">Fshati</label>
+                            <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.villages">
+                                <option disabled selected>Zgjedh fshatin..</option>
+                             </select>
                             </div>
                         </div>
 
                         <div class="mb-4 d-flex justify-content-between ">
 
                             <div class="col-4 pe-2">
-                                <label class="">Lagja</label>
-                                <select class="form-select" id="inputGroupSelect01" >
-                                    <option value="shto1">Shto +</option>
 
-                                    <option disabled selected>Zgjedh lagjen..</option>
-                                    <option value="1">Dardani</option>
-                                    <option value="2">Dragodan</option>
-                                    <option value="3">Emshir</option>
-                                </select>  
-           
+                                <label class="form-label">Lagja</label>
+                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.neigborhoods">
+                                <option disabled selected>Zgjedh lagjen..</option>
+                                <option value="/AddsAdmin/AddNeighborhood">Shto +</option>
+                             </select>
+                              @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
                             </div>
                              <div class="col-4 pe-2">
-                                <label class="">Rruga/Blloku</label>
-                            <select class="form-select" id="inputGroupSelect05">
-                                  <option value="shto">Shto +</option>
-                              
+                                <label class="form-label">Rruga/Blloku</label>
+                                <select class="form-select" id="inputGroupSelect04" onchange="location=this.value;" asp-items="@ViewBag.streets">
                                 <option disabled selected>Zgjedh rrugen/bllokun..</option>
-                                <option value="1">B2</option>
-                                <option value="2">Rr.Mehmet Dervisholli</option>
-                                <option value="3">Rr. Zahir Pajaziti</option>
-                            @*    <form asp-controller="Address" asp-action="AddBlock">
+                                    <option value="/AddsAdmin/AddBlock">Shto +</option>
+                            </div>
+
                                      
 
                                 </form>*@
@@ -112,14 +102,11 @@
                                 <span class="text-danger"></span>
                             </div>
                             <div class="col-4 pe-2">
-                                <label class="">Shërbimi:</label>
-                                <select class="form-select" id="inputGroupSelect04">
+                                <label class="form-label">Shërbimi:</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
                                     <option disabled selected>Zgjedh shërbimin..</option>
-                                    <option value="1">Publik</option>
-                                   
-                                    <option value="2">Privat</option>
-                                </select>
-                            </div>
+                                 </select>
+                             </div>
                             <div class="col-4 pe-2" >
                                 <label class="l">Detyra</label>
                                 <input class="form-control">
@@ -130,39 +117,33 @@
                         <h6 class="pt-4">III - Të dhënat partiake<hr ></h6>
 
                         <div class="mb-4 d-flex justify-content-between ">
-                            <div class="col-4 pe-2">
+                            <div class="col-6 pe-2">
                                 <label for="FamilyMember" class="">Nr i Anetareve</label>
                                 <input type="number" class="form-control" id="FamilyMember">
                             </div>
                             <div class="col-4 pe-2">
-                                <label class="">Gjasat e suksesit fillestar:</label>
-                                <select class="form-select" id="inputGroupSelect05" placeorder="Zgjedh gjasat..">
-
-                                    <option value="1">0% (jo te mira)</option>
-                                    <option value="2">25% (mjaftueshem te mira)</option>
-                                    <option value="3">50% (mesatarisht te mira)</option>
-                                    <option value="4">75% (te mira)</option>
-                                    <option value="5">100% (shume te mira)</option>
-                                </select>
+                                 <label class="form-label">Gjasat e suksesit fillestar:</label>
+                                <select class="form-select" id="inputGroupSelect05" placeorder="Zgjedh gjasat.." asp-items="@ViewBag.successChances">
+                                     </select>
                             </div>
-                            <div class="col-4 pe-2">
-                                <label class="">Votues i tanishëm..</label>
-                                <select class="form-select" id="inputGroupSelect04">
-                                    <option disabled selected>Zgjedh partinë..</option>
-                                    <option value="1">VV</option>
-                                    <option value="2">PDK</option>
-                                    <option value="3">LDK</option>
-                                </select>
+                            <div class="col-4">
+                                <label class="form-label">Votues i tanishëm..</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.PS">
+                                <option disabled selected>Zgjedh partinë..</option>
+                             </select>
+                        </div>
+                         <div class="mb-4 d-flex justify-content-between ">
+                            <div class="col-6 mb-2">
+                                <label>Qendra e vendvotimit</label>
+                                <input class="form-control">
+                                <span class="text-danger"></span>
                             </div>
                         </div>
 
-
                         <button type="submit" class="btn btn-primary pe-2" >Regjistro</button>
                     </form>
-
                 </div>
             </div>
-
         </div>
     </div>
 </section>
