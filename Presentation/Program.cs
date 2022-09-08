@@ -1,4 +1,5 @@
 //using Application.Repository;
+using Appliaction.Repository;
 using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
@@ -38,6 +39,7 @@ builder.Services.AddControllersWithViews();
 //Repository Implementation 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAppService, AppService>();
 
 var app = builder.Build();
 
@@ -65,6 +67,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//var init = app.Services.CreateScope();
-//new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>()).Initialize();
+var init = app.Services.CreateScope();
+new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>()).Initialize();
 app.Run();

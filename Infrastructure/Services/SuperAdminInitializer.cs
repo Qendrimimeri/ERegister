@@ -28,17 +28,17 @@ namespace Infrastructure.Services
         {
             var roles = new List<string>() { "SuperAdmin", "MunicipalityAdmin", "LocalAdmin", "SimpleMember", "SimpleRole" };
 
-            //foreach (var role in roles)
-            //{
-            //    if (!Context.Roles.Any(r => r.Name == role))
-            //    {
-            //        await new RoleStore<IdentityRole>(Context).CreateAsync(new IdentityRole()
-            //        {
-            //            Name = role,
-            //            NormalizedName = role.ToUpper()
-            //        });
-            //    }
-            //}
+            foreach (var role in roles)
+            {
+                if (!Context.Roles.Any(r => r.Name == role))
+                {
+                    await new RoleStore<IdentityRole>(Context).CreateAsync(new IdentityRole()
+                    {
+                        Name = role,
+                        NormalizedName = role.ToUpper()
+                    });
+                }
+            }
 
             Context.SaveChanges();
 
@@ -52,7 +52,10 @@ namespace Infrastructure.Services
                 UserName = "admin@eregister.com",
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 CreatedAt = DateTime.Now,
-                SocialNetwork = "http://www.facebook.com/eregister"
+                SocialNetwork = "http://www.facebook.com/eregister",
+                WorkId = 1,
+                AddressId = 2,
+                ActualStatusId = 1
             };
 
             var userStore = new UserStore<ApplicationUser>(Context);
