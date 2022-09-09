@@ -57,16 +57,16 @@ namespace Infrastructure.Services
                 ActualStatus = "Ne Process"
             };
 
-            var userStore = new UserStore<ApplicationUser>(Context);
+            //var userstore = new userstore<applicationuser>(context);
 
-            if (!Context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
-            {
-                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
-                admin.PasswordHash = password;
+            //if (!context.applicationusers.any(u => u.username == admin.username))
+            //{
+            //    var password = new passwordhasher<applicationuser>().hashpassword(admin, "eregister1");
+            //    admin.passwordhash = password;
 
-                await userStore.CreateAsync(admin);
-                await userStore.AddToRoleAsync(admin, roles[0]);
-            }
+            //    await userstore.createasync(admin);
+            //    await userstore.addtoroleasync(admin, roles[0]);
+            //}
             await Context.SaveChangesAsync();
         }
     }

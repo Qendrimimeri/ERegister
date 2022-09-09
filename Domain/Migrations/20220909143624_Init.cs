@@ -145,27 +145,6 @@ namespace Domain.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Neighborhoods",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    MunicipalityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Neighborhoods", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Neighborhoods_Municipalities_MunicipalityId",
-                        column: x => x.MunicipalityId,
-                        principalTable: "Municipalities",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "PollCenters",
                 columns: table => new
                 {
@@ -228,6 +207,33 @@ namespace Domain.Migrations
                         name: "FK_Villages_Municipalities_MunicipalityId",
                         column: x => x.MunicipalityId,
                         principalTable: "Municipalities",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Neighborhoods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MunicipalityId = table.Column<int>(type: "int", nullable: true),
+                    VillageId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Neighborhoods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Neighborhoods_Municipalities_MunicipalityId",
+                        column: x => x.MunicipalityId,
+                        principalTable: "Municipalities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Neighborhoods_Villages_VillageId",
+                        column: x => x.VillageId,
+                        principalTable: "Villages",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -378,13 +384,13 @@ namespace Domain.Migrations
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Works_WorkId",
                         column: x => x.WorkId,
                         principalTable: "Works",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -647,6 +653,11 @@ namespace Domain.Migrations
                 name: "IX_Neighborhoods_MunicipalityId",
                 table: "Neighborhoods",
                 column: "MunicipalityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Neighborhoods_VillageId",
+                table: "Neighborhoods",
+                column: "VillageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PollCenters_MunicipalitydId",

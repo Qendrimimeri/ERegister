@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220909141828_Init")]
+    [Migration("20220909143624_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -263,9 +263,14 @@ namespace Domain.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("VillageId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MunicipalityId");
+
+                    b.HasIndex("VillageId");
 
                     b.ToTable("Neighborhoods");
                 });
@@ -650,7 +655,13 @@ namespace Domain.Migrations
                         .WithMany("Neighborhoods")
                         .HasForeignKey("MunicipalityId");
 
+                    b.HasOne("Domain.Data.Entities.Village", "Village")
+                        .WithMany("Neighborhoods")
+                        .HasForeignKey("VillageId");
+
                     b.Navigation("Municipality");
+
+                    b.Navigation("Village");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
@@ -820,6 +831,8 @@ namespace Domain.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("Kqzregisters");
+
+                    b.Navigation("Neighborhoods");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
