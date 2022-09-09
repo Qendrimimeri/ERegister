@@ -16,7 +16,6 @@ namespace Infrastructure.Services
         }
         public async Task SendEmailAsync(MailRequest mailRequest)
         {
-            //Konstruktimi i emailit
             var email = new MimeMessage();
 
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);

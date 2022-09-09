@@ -7,10 +7,10 @@ namespace Domain.Data.Entities
     {
         public Address()
         {
-            AspNetUsers = new HashSet<ApplicationUser>();
+            ApplicationUsers = new HashSet<ApplicationUser>();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
         public int? HouseNo { get; set; }
         public int? MunicipalityId { get; set; }
         public int? VillageId { get; set; }
@@ -25,6 +25,6 @@ namespace Domain.Data.Entities
         public virtual PollCenter? PollCenter { get; set; }
         public virtual Street? Street { get; set; }
         public virtual Village? Village { get; set; }
-        public virtual ICollection<ApplicationUser> AspNetUsers { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

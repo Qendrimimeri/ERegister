@@ -9,7 +9,7 @@ namespace Appliaction.Repository
 {
     public interface IAppService
     {
-        Task<List<PoliticalSubject>> GetAllPoliticalSubjectsAsync();
+        List<string> GetAllPoliticalSubjectsAsync();
 
         Task<List<Municipality>> GetAllMunicipalitiesAsync();
 
@@ -19,9 +19,9 @@ namespace Appliaction.Repository
 
         Task<List<Street>> GetAllStreetsAsync();
 
-        Task<List<AdministrativeUnit>> GetAllAdministrativeUnitsAsync();
+        string[] GetAllAdministrativeUnitsAsync();
 
-        Task<List<SuccessChance>> GetAllSuccessChancesAsync();
+        string[] GetAllSuccessChancesAsync();
 
         Task<List<Neighborhood>> GetAllNeigborhoodsAsync();
     }
