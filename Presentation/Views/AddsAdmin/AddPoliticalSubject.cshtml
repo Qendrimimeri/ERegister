@@ -67,7 +67,7 @@
                                     <option value="#">Dragodan</option>
                                     <option value="#">Emshir</option>
                                 </select>
-                              </div>
+                             </div>
                         </div>
 
                         <div class="mb-4 d-flex justify-content-between">
@@ -114,10 +114,15 @@
 
                         
 
-                            <div class="col-6 mb-2">
+                            <div class="col-6 pe-2">
                                 <label>Qendra e votimit</label>
-                                <input class="form-control">
-                                <span class="text-danger"></span>
+                                <select class="form-select" id="pollselector" >
+                                    <option disabled selected>Zgjedh qendren e votimit..</option>
+                                    <option value="shto6">Shto +</option>
+                                    <option value="#">1250E</option>
+                                    <option value="#">1222A</option>
+                                    <option value="#">3542Y</option>
+                                </select> 
                             </div>
                         </div>
 
@@ -213,6 +218,15 @@
       const result = event.target.value;
       if (result === "shto5"){
           prompt("Shto Rol te ri")
+      }
+    });
+
+    const selectElement6 = document.querySelector('#pollselector');
+
+    selectElement6.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto6"){
+          prompt("Shto qender te re votimi")
       }
     });
     </script>

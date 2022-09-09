@@ -8,7 +8,6 @@
         <div class="card p-5">
             <h2 class="card-title ps-4">Përshkruar numrin e votuesëve dhe rezultateve nga KQZ</h2>
             <div class="d-flex">
-
                 <div class="col-6">
                     <div class="card-body pt-2">
 
@@ -28,6 +27,26 @@
                             </div>
 
                             <div class="col-12">
+                                <label class = "pt-4">Lagja</label>
+                                <select class="form-select" id="inputGroupSelect03">
+                                  <option value="shto3">Shto +</option>
+                                    <option disabled selected>Zgjedh lagjen..</option>
+                                    <option value="#">Dardani</option>
+                                    <option value="#">Dragodan</option>
+                                    <option value="#">Emshir</option>
+                                </select>
+                             </div>
+
+                             <div class="col-12">
+                                <label class = "pt-4">Lloji i zgjedhjeve</label>
+                                <select class="form-select" id="inputGroupSelect03">
+                                    <option disabled selected>Zgjedh llojin e zgjedhjeve..</option>
+                                    <option value="#">Zgjedhjet Nacionale</option>
+                                    <option value="#">Zgjedhjet Lokale</option>
+                                </select>
+                             </div>
+
+                            <div class="col-12">
                                 <label class="pt-4">Viti e zgjedhjeve</label>
                                 <input class="form-control">
                                 <span class="text-danger"></span>
@@ -40,11 +59,11 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary ">Regjistro votimet</button>
+                            <button type="submit" class="btn btn-primary">Regjistro votimet</button>
                         </form>
                     </div>
                 </div>
-                <div class="col-6 pt-2 ps-4">
+                <div class="col-6 pt-5 ps-4">
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
