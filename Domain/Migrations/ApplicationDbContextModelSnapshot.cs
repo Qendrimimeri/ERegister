@@ -295,7 +295,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoliticalSubject");
+                    b.ToTable("PoliticalSubjects");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>

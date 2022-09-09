@@ -30,5 +30,6 @@ namespace Domain.Data
         public virtual DbSet<Street> Streets { get; set; } = null!;
         public virtual DbSet<Village> Villages { get; set; } = null!;
         public virtual DbSet<Work> Works { get; set; } = null!;
+        public virtual DbSet<PoliticalSubject> PoliticalSubjects { get; set; }
     }
 }

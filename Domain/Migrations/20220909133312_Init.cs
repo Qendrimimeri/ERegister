@@ -52,7 +52,7 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PoliticalSubject",
+                name: "PoliticalSubjects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,7 +61,7 @@ namespace Domain.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PoliticalSubject", x => x.Id);
+                    table.PrimaryKey("PK_PoliticalSubjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -273,9 +273,9 @@ namespace Domain.Migrations
                         principalTable: "Neighborhoods",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Kqzregisters_PoliticalSubject_PoliticialSubjectId",
+                        name: "FK_Kqzregisters_PoliticalSubjects_PoliticialSubjectId",
                         column: x => x.PoliticialSubjectId,
-                        principalTable: "PoliticalSubject",
+                        principalTable: "PoliticalSubjects",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Kqzregisters_PollCenters_PollCenterId",
@@ -449,9 +449,9 @@ namespace Domain.Migrations
                         principalTable: "Helps",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PollRelateds_PoliticalSubject_PoliticialSubjectId",
+                        name: "FK_PollRelateds_PoliticalSubjects_PoliticialSubjectId",
                         column: x => x.PoliticialSubjectId,
-                        principalTable: "PoliticalSubject",
+                        principalTable: "PoliticalSubjects",
                         principalColumn: "Id");
                 });
 
@@ -633,7 +633,7 @@ namespace Domain.Migrations
                 name: "Helps");
 
             migrationBuilder.DropTable(
-                name: "PoliticalSubject");
+                name: "PoliticalSubjects");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

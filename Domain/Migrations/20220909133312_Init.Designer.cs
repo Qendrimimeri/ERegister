@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220909132436_Init")]
+    [Migration("20220909133312_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -297,7 +297,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoliticalSubject");
+                    b.ToTable("PoliticalSubjects");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
