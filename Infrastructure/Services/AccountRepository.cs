@@ -105,7 +105,7 @@ namespace Infrastructure.Services
                 FamMembers = model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
-                PoliticalSubject = model.PoliticalSubject,
+                PoliticialSubjectId = 1,
                 SuccessChances = model.SuccessChance,
                 GeneralReason = "Unset",
                 GeneralDemand = "unset",

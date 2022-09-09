@@ -9,7 +9,7 @@ namespace Appliaction.Repository
 {
     public interface IAppService
     {
-        List<string> GetAllPoliticalSubjectsAsync();
+        //List<string> GetAllPoliticalSubjectsAsync();
 
         Task<List<Municipality>> GetAllMunicipalitiesAsync();
 

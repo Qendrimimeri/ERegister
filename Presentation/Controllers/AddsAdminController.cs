@@ -19,8 +19,8 @@ namespace Presentation.Controllers
         public async Task<IActionResult> AddVoter()
         {
             //PS ==> Political Subjects
-            var PS = new SelectList( _appService.GetAllPoliticalSubjectsAsync());
-            ViewBag.PS = PS;
+            //var PS = new SelectList( _appService.GetAllPoliticalSubjectsAsync());
+            //ViewBag.PS = PS;
 
             //var municipalities = new SelectList(await _appService.GetAllMunicipalitiesAsync(), "Id", "Name");
             //ViewBag.municipalities = municipalities;

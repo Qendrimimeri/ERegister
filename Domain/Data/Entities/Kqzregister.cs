@@ -6,7 +6,7 @@ namespace Domain.Data.Entities
     public partial class Kqzregister
     {
         public int Id { get; set; }
-        public string? PoliticialSubject { get; set; }
+        public int? PoliticialSubjectId { get; set; }
         public int? NoOfvotes { get; set; }
         public int? PollCenterId { get; set; }
         public string? DataCreated { get; set; }
@@ -17,6 +17,7 @@ namespace Domain.Data.Entities
 
         public virtual Municipality? Municipality { get; set; }
         public virtual Neighborhood? Neighborhood { get; set; }
+        public virtual PoliticalSubject? PoliticialSubject { get; set; }
         public virtual PollCenter? PollCenter { get; set; }
         public virtual Village? Village { get; set; }
     }

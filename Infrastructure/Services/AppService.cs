@@ -20,10 +20,10 @@ namespace Infrastructure.Services
             _context = context;
         }
 
-        public List<string> GetAllPoliticalSubjectsAsync()
-        {
-            return PoliticialSubjects();
-        }
+        //public List<string> GetAllPoliticalSubjectsAsync()
+        //{
+        //    return PoliticialSubjects();
+        //}
 
         public async Task<List<Municipality>> GetAllMunicipalitiesAsync()
             => await _context.Municipalities.ToListAsync();
@@ -53,21 +53,24 @@ namespace Infrastructure.Services
 
 
 
-        private static List<string> PoliticialSubjects()
-        {
-            //var psList = new List<KeyValuePair<string, int>>();
-            //psList.Add(new KeyValuePair<string, int>("VV", 1));
-            //psList.Add(new KeyValuePair<string, int>("PDK", 2));
-            //psList.Add(new KeyValuePair<string, int>("LDK", 3));
+        //private static List<string> PoliticialSubjects()
+        //{
+        //    var psList = new List<KeyValuePair<string, int>>();
+        //    psList.Add(new KeyValuePair<string, int>("VV", 1));
+        //    psList.Add(new KeyValuePair<string, int>("PDK", 2));
+        //    psList.Add(new KeyValuePair<string, int>("LDK", 3));
 
-            string[] politicalSubjects = { "VV", "PDK", "LDK", "AAK" };
-            List<string> psList = politicalSubjects.ToList();
-            return psList;
+        //    string[] politicalSubjects = { "VV", "PDK", "LDK", "AAK" };
+        //    List<string> psList = politicalSubjects.ToList();
+        //    return psList;
 
-            string[] months = { "January", "February", "March", "April",  "November", "December" };
-            var query = months.Select((r, index) => new { Text = r, Value = index });
-
-        }
+        //    List<SelectListItem> politicalSubjects = new List<SelectListItem>();
+        //    for (int i = 0; i <= postStatus.Length; i++)
+        //    {
+        //        postStatusList.Add(new SelectListItem { Text = postStatus[i], Value = postStatus[i] });
+        //    }
+        //    ViewData["postStatus"] = postStatusList;
+        //}
 
         private static string[] AdministrativeUnits()
         {

@@ -52,6 +52,19 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PoliticalSubject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PoliticalSubject", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Works",
                 columns: table => new
                 {
@@ -237,7 +250,7 @@ namespace Domain.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PoliticialSubject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PoliticialSubjectId = table.Column<int>(type: "int", nullable: true),
                     NoOfvotes = table.Column<int>(type: "int", nullable: true),
                     PollCenterId = table.Column<int>(type: "int", nullable: true),
                     DataCreated = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -258,6 +271,11 @@ namespace Domain.Migrations
                         name: "FK_Kqzregisters_Neighborhoods_NeighborhoodId",
                         column: x => x.NeighborhoodId,
                         principalTable: "Neighborhoods",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Kqzregisters_PoliticalSubject_PoliticialSubjectId",
+                        column: x => x.PoliticialSubjectId,
+                        principalTable: "PoliticalSubject",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Kqzregisters_PollCenters_PollCenterId",
@@ -407,27 +425,33 @@ namespace Domain.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FamMembers = table.Column<int>(type: "int", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PoliticalSubject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PoliticialSubjectId = table.Column<int>(type: "int", nullable: true),
                     SuccessChances = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GeneralReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GeneralDemand = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HelpId = table.Column<int>(type: "int", nullable: true),
                     SpecificReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SpecificDemand = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SpecificDemand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HelpId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationUsersId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PollRelateds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PollRelateds_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_PollRelateds_AspNetUsers_ApplicationUsersId",
+                        column: x => x.ApplicationUsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PollRelateds_Helps_HelpId",
                         column: x => x.HelpId,
                         principalTable: "Helps",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PollRelateds_PoliticalSubject_PoliticialSubjectId",
+                        column: x => x.PoliticialSubjectId,
+                        principalTable: "PoliticalSubject",
                         principalColumn: "Id");
                 });
 
@@ -526,6 +550,11 @@ namespace Domain.Migrations
                 column: "NeighborhoodId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Kqzregisters_PoliticialSubjectId",
+                table: "Kqzregisters",
+                column: "PoliticialSubjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Kqzregisters_PollCenterId",
                 table: "Kqzregisters",
                 column: "PollCenterId");
@@ -546,14 +575,19 @@ namespace Domain.Migrations
                 column: "MunicipalitydId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PollRelateds_ApplicationUsersId",
+                table: "PollRelateds",
+                column: "ApplicationUsersId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PollRelateds_HelpId",
                 table: "PollRelateds",
                 column: "HelpId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PollRelateds_UserId",
+                name: "IX_PollRelateds_PoliticialSubjectId",
                 table: "PollRelateds",
-                column: "UserId");
+                column: "PoliticialSubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Streets_MunicipalityId",
@@ -597,6 +631,9 @@ namespace Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Helps");
+
+            migrationBuilder.DropTable(
+                name: "PoliticalSubject");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220909094231_Init")]
+    [Migration("20220909132436_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,8 +223,8 @@ namespace Domain.Migrations
                     b.Property<int?>("NoOfvotes")
                         .HasColumnType("int");
 
-                    b.Property<string>("PoliticialSubject")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PoliticialSubjectId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PollCenterId")
                         .HasColumnType("int");
@@ -237,6 +237,8 @@ namespace Domain.Migrations
                     b.HasIndex("MunicipalityId");
 
                     b.HasIndex("NeighborhoodId");
+
+                    b.HasIndex("PoliticialSubjectId");
 
                     b.HasIndex("PollCenterId");
 
@@ -282,6 +284,22 @@ namespace Domain.Migrations
                     b.ToTable("Neighborhoods");
                 });
 
+            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PoliticalSubject");
+                });
+
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
                 {
                     b.Property<int>("Id")
@@ -314,6 +332,9 @@ namespace Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ApplicationUsersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
@@ -329,8 +350,8 @@ namespace Domain.Migrations
                     b.Property<int?>("HelpId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PoliticalSubject")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PoliticialSubjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("SpecificDemand")
                         .HasColumnType("nvarchar(max)");
@@ -342,13 +363,15 @@ namespace Domain.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUsersId");
+
                     b.HasIndex("HelpId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PoliticialSubjectId");
 
                     b.ToTable("PollRelateds");
                 });
@@ -627,6 +650,10 @@ namespace Domain.Migrations
                         .WithMany("Kqzregisters")
                         .HasForeignKey("NeighborhoodId");
 
+                    b.HasOne("Domain.Data.Entities.PoliticalSubject", "PoliticialSubject")
+                        .WithMany("Kqzregisters")
+                        .HasForeignKey("PoliticialSubjectId");
+
                     b.HasOne("Domain.Data.Entities.PollCenter", "PollCenter")
                         .WithMany("Kqzregisters")
                         .HasForeignKey("PollCenterId");
@@ -638,6 +665,8 @@ namespace Domain.Migrations
                     b.Navigation("Municipality");
 
                     b.Navigation("Neighborhood");
+
+                    b.Navigation("PoliticialSubject");
 
                     b.Navigation("PollCenter");
 
@@ -664,17 +693,23 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.PollRelated", b =>
                 {
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", "ApplicationUsers")
+                        .WithMany("PollRelateds")
+                        .HasForeignKey("ApplicationUsersId");
+
                     b.HasOne("Domain.Data.Entities.Help", "Help")
                         .WithMany("PollRelateds")
                         .HasForeignKey("HelpId");
 
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
+                    b.HasOne("Domain.Data.Entities.PoliticalSubject", "PoliticialSubject")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("PoliticialSubjectId");
+
+                    b.Navigation("ApplicationUsers");
 
                     b.Navigation("Help");
 
-                    b.Navigation("User");
+                    b.Navigation("PoliticialSubject");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
@@ -788,6 +823,13 @@ namespace Domain.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("Kqzregisters");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
+                {
+                    b.Navigation("Kqzregisters");
+
+                    b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
