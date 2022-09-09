@@ -119,25 +119,6 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Neighborhoods",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MunicipalityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Neighborhoods", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Neighborhoods_Municipalities_MunicipalityId",
-                        column: x => x.MunicipalityId,
-                        principalTable: "Municipalities",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PollCenters",
                 columns: table => new
                 {
@@ -193,6 +174,31 @@ namespace Domain.Migrations
                         name: "FK_Villages_Municipalities_MunicipalityId",
                         column: x => x.MunicipalityId,
                         principalTable: "Municipalities",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Neighborhoods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MunicipalityId = table.Column<int>(type: "int", nullable: true),
+                    VillageId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Neighborhoods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Neighborhoods_Municipalities_MunicipalityId",
+                        column: x => x.MunicipalityId,
+                        principalTable: "Municipalities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Neighborhoods_Villages_VillageId",
+                        column: x => x.VillageId,
+                        principalTable: "Villages",
                         principalColumn: "Id");
                 });
 
@@ -568,6 +574,11 @@ namespace Domain.Migrations
                 name: "IX_Neighborhoods_MunicipalityId",
                 table: "Neighborhoods",
                 column: "MunicipalityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Neighborhoods_VillageId",
+                table: "Neighborhoods",
+                column: "VillageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PollCenters_MunicipalitydId",
