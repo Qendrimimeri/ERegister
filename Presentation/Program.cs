@@ -11,10 +11,10 @@ using Presentation;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("Dev");
+
 
 builder.Services.AddTransient<SuperAdminInitializer>();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
 
@@ -32,6 +32,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+
+options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
