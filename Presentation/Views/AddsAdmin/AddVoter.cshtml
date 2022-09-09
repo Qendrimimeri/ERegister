@@ -15,7 +15,7 @@
                     <form asp-action="Register" asp-controller="AddsAdmin" method="post">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr>
-                        <div class="mb-4 d-flex pe-2 justify-content-between" >
+                        <div class="mb-4 d-flex pe-2 justify-content-between">
                             <div class="col-12 p">
                                 <label class="">Emri dhe Mbiemri</label>
                                 <input class="form-control" asp-for="FullName" placeholder="Shkruaj emrin dhe mbiemrin">
@@ -23,8 +23,8 @@
                             </div>
                         </div>
                         <span>Nr.Tel</span>
-                        <div class="mb-4 pe-2" >
-                            <div class=" d-flex align-items-center mt-2">
+                        <div class="mb-4 pe-2">
+                            <div class=" d-flex align-items-center">
                                 <div class="col-2">
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
@@ -34,56 +34,61 @@
                             </div>
                             <span class="text-danger"></span>
                         </div>
-                      <div class="form-group pb-3">
-                        <label for="exampleInputEmail1">Email adresa</label>
-                        <input type="email" class="form-control" asp-for="Email" placeholder="Shkruaj email adresen">
-                      </div>
-                       <div class="form-group pb-3">
-                        <label for="InputFacebook">Facebook</label>
-                        <input type="text" class="form-control" asp-for="Facebook">
-                      </div>
-                      <div class="mb-4 d-flex justify-content-between">
-                            <div class="col-6 pe-2">
-                                <label class="form-label">Qyteti</label>
-                                    <select class="form-select"   id="inputGroupSelect04" asp-for="Municipality" asp-items="@ViewBag.municipalities">
+                        <div class="form-group pb-3">
+                            <label for="exampleInputEmail1">Email adresa</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
+                        </div>
+                        <div class="form-group pb-3">
+                            <label for="InputFacebook">Facebook</label>
+                            <input type="text" class="form-control" id="InputFacebook">
+                        </div>
+                        <div class="mb-4 d-flex justify-content-between">
+                            <div class="col-4 pe-2">
+                                <label>Qyteti</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.municipalities">
                                     <option disabled selected>Zgjedh qytetin..</option>
-                                 </select>
+                                </select>
                             </div>
-                            <div class="col-6 pe-2">
-                               <label class="form-label">Fshati</label>
-                                <select class="form-select" id="inputGroupSelect04" asp-for="Village" asp-items="@ViewBag.villages">
-                                <option disabled selected>Zgjedh fshatin..</option>
-                             </select>
+                            <div class="col-4 pe-2">
+                                <label>Fshati</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.villages">
+                                    <option disabled selected>Zgjedh fshatin..</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select" id="inputGroupSelect01" asp-items="@ViewBag.neigborhoods">
+                                    <option disabled selected>Zgjedh lagjen..</option>
+                                    <option value="shto1">Shto +</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="mb-4 d-flex justify-content-between ">
-
-                                <div class="col-4 pe-2">
-
-                                    <label>Lagja</label>
-                                    <select class="form-select" id="inputGroupSelect01" asp-for="Neigborhood"  asp-items="@ViewBag.neigborhoods">
-                                        <option disabled selected>Zgjedh lagjen..</option>
-                                        <option value="shto1">Shto +</option>
-                                     </select>
-                                </div>
-                                 <div class="col-4 pe-2">
-                                    <label>Rruga/Blloku</label>
-                                    <select class="form-select" id="inputGroupSelect05" asp-for="StreetBlock" asp-items="@ViewBag.streets">
-                                    <option disabled selected>Zgjedh rrugen/bllokun..</option>
-                                        <option value="shto">Shto +</option>
-                                    </select>
-                                 </div>
-                               <div class="col-4 pe-2">
-                                    <label class="">Numri i shtëpisë</label>
-                                    <input asp-for="HouseNo" class="form-control" placeholder="opsionale">
-                                    <span class="text-danger"></span>
-                                </div>  
+                            <div class="col-4 pe-2">
+                                <label>Rruga</label>
+                                <select class="form-select" id="inputGroupSelect05" asp-items="@ViewBag.streets">
+                                    <option disabled selected>Zgjedh rrugën..</option>
+                                    <option value="shto">Shto +</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label>Blloku</label>
+                                <select class="form-select" id="inputGroupSelect05" asp-items="@ViewBag.streets">
+                                    <option disabled selected>Zgjedh bllokun..</option>
+                                    <option value="shto">Shto +</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label class="">Numri i shtëpisë</label>
+                                <input class="form-control" placeholder="opsionale">
+                                <span class="text-danger"></span>
+                            </div>
                         </div>
-                         
-                    
 
-                        <h6 class="pt-4">II - Të dhënat profesionale</h6><hr >
+
+
+                        <h6 class="pt-4">II - Të dhënat profesionale</h6><hr>
 
                         <div class="mb-4 d-flex justify-content-between ">
 
@@ -96,16 +101,16 @@
                                 <label>Shërbimi:</label>
                                 <select class="form-select" asp-for="AdministrativeUnit" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
                                     <option disabled selected>Zgjedh shërbimin..</option>
-                                 </select>
-                             </div>
-                            <div class="col-4 pe-2" >
+                                </select>
+                            </div>
+                            <div class="col-4 pe-2">
                                 <label class="l">Detyra</label>
                                 <input asp-for="Duty" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
                         </div>
 
-                        <h6 class="pt-4">III - Të dhënat partiake<hr ></h6>
+                        <h6 class="pt-4">III - Të dhënat partiake<hr></h6>
 
                         <div class="mb-4 d-flex justify-content-between ">
                             <div class="col-6 pe-2">
@@ -113,27 +118,32 @@
                                 <input asp-for="FamMembers" type="number" class="form-control" id="FamilyMember">
                             </div>
                             <div class="col-6 pe-2">
-                                 <label >Gjasat e suksesit fillestar:</label>
-                                <select class="form-select" asp-for="SuccessChance" placeorder="Zgjedh gjasat.." asp-items="@ViewBag.successChances">
-                                     </select>
+                                <label>Gjasat e suksesit fillestar:</label>
+                                <select class="form-select" id="inputGroupSelect05" placeorder="Zgjedh gjasat.." asp-items="@ViewBag.successChances">
+                                </select>
                             </div>
-                           
+
                         </div>
-                         <div class="mb-4 d-flex justify-content-between ">
-                              <div class="col-6 pe-2">
+                        <div class="mb-4 d-flex justify-content-between ">
+                            <div class="col-6 pe-2">
                                 <label>Votues i tanishëm..</label>
-                                <select class="form-select" asp-for="PoliticalSubject" id="inputGroupSelect04" asp-items="@ViewBag.PS">
-                                <option disabled selected>Zgjedh partinë..</option>
-                             </select>
-                        </div>
-                            <div class="col-6 mb-2">
-                                <label>Qendra e vendvotimit</label>
-                                <input asp-for="PollCenter" class="form-control">
-                                <span class="text-danger"></span>
+                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.PS">
+                                    <option disabled selected>Zgjedh partinë..</option>
+                                </select>
+                            </div>
+                            <div class="col-6 pe-2">
+                                <label>Qendra e votimit</label>
+                                <select class="form-select" id="pollselector" >
+                                    <option disabled selected>Zgjedh qendren e votimit..</option>
+                                    <option value="shto2">Shto +</option>
+                                    <option value="#">1250E</option>
+                                    <option value="#">1222A</option>
+                                    <option value="#">3542Y</option>
+                                </select> 
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary pe-2" >Regjistro</button>
+                        <button type="submit" class="btn btn-primary pe-2">Regjistro</button>
                     </form>
                 </div>
             </div>
@@ -142,8 +152,8 @@
 </section>
 
 @section Scripts{
-    <script>
-            const selectElement1 = document.querySelector('#inputGroupSelect05');
+<script>
+    const selectElement1 = document.querySelector('#inputGroupSelect05');
 
     selectElement1.addEventListener('change', (event) => {
       const result = event.target.value;
@@ -152,12 +162,22 @@
       }
     });
 
-                const selectElement2 = document.querySelector('#inputGroupSelect01');
+    const selectElement2 = document.querySelector('#inputGroupSelect01');
 
     selectElement2.addEventListener('change', (event) => {
       const result = event.target.value;
       if (result === "shto1"){
           prompt("Shto Lagje te re");
+      }
+
+    });
+
+    const selectElement3 = document.querySelector('#pollselector');
+
+    selectElement3.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto2"){
+          prompt("Shto qender të re votimi");
       }
 
     });

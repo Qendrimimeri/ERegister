@@ -15,7 +15,7 @@
                         <h6 class="pt-4">I - Të dhënat personale</h6><hr />
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-12 pe-2">
-                                <label class="form-label">Emri dhe Mbiemri</label>
+                                <label>Emri dhe Mbiemri</label>
                                 <input class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
                                 <span class="text-danger"></span>
                             </div>
@@ -24,7 +24,7 @@
                         <span>Nr.Tel</span>
 
                         <div class="mb-4">
-                            <div class=" d-flex align-items-center mt-2">
+                            <div class=" d-flex align-items-center">
                                 <div class="col-2">
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
@@ -36,12 +36,12 @@
                         </div>
                         <div class="form-group pb-3">
                             <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
                         </div>
                       
                         <div class="mb-4 d-flex justify-content-between">
-                            <div class="col-6 pe-2">
-                                <label class="form-label">Qyteti</label>
+                            <div class="col-4 pe-2">
+                                <label>Qyteti</label>
                                 <select class="form-select" id="inputGroupSelect01">
                                     <option disabled selected>Zgjedh qytetin..</option>
                                     <option value="1">Prishtinë</option>
@@ -49,8 +49,8 @@
                                     <option value="3">Drenas</option>
                                 </select>
                             </div>
-                            <div class="col-6 pe-2">
-                               <label class="form-label">Fshati</label>
+                            <div class="col-4 pe-2">
+                               <label>Fshati</label>
                             <select class="form-select" id="inputGroupSelect02">
                                 <option disabled selected>Zgjedh fshatin..</option>
                                 <option value="1">Shajkoc</option>
@@ -58,12 +58,8 @@
                                 <option value="3">Batllavë</option>
                              </select>
                             </div>
-                        </div>
-
-                        <div class="mb-4 d-flex justify-content-between">
-
                             <div class="col-4 pe-2">
-                                <label class="form-label">Lagja</label>
+                                <label>Lagja</label>
                                 <select class="form-select" id="inputGroupSelect03">
                                   <option value="shto3">Shto +</option>
                                     <option disabled selected>Zgjedh lagjen..</option>
@@ -71,23 +67,33 @@
                                     <option value="#">Dragodan</option>
                                     <option value="#">Emshir</option>
                                 </select>
-                                @*<a asp-controller = "Address" asp-action = "AddNeighborhood"  class="link-primary">Shto +</a>*@
-                            </div>
+                             </div>
+                        </div>
+
+                        <div class="mb-4 d-flex justify-content-between">
+
                             <div class="col-4 pe-2">
-                                <label class="form-label">Rruga/Blloku</label>
+                                <label>Rruga</label>
                                 <select class="form-select" id="inputGroupSelect04" >
-                                   
-                                   
-                                    <option disabled selected>Zgjedh rrugen/bllokun..</option>
-                                     <option value="shto4">Shto +</option>
+                                    <option disabled selected>Zgjedh rrugen..</option>
+                                    <option value="shto4">Shto +</option>
                                     <option value="#">B2</option>
                                     <option value="#">Rr.Mehmet Dervisholli</option>
                                     <option value="#">Rr. Zahir Pajaziti</option>
-                                </select>
-                            
+                                </select> 
                             </div>
                             <div class="col-4 pe-2">
-                                <label class="form-label">Numri i shtëpisë</label>
+                                <label>Blloku</label>
+                                <select class="form-select" id="inputGroupSelect04" >
+                                    <option disabled selected>Zgjedh bllokun..</option>
+                                    <option value="shto4">Shto +</option>
+                                    <option value="#">B2</option>
+                                    <option value="#">Rr.Mehmet Dervisholli</option>
+                                    <option value="#">Rr. Zahir Pajaziti</option>
+                                </select> 
+                            </div>
+                            <div class="col-4 pe-2">
+                                <label>Numri i shtëpisë</label>
                                 <input class="form-control" placeholder="opsionale">
                                 <span class="text-danger"></span>
                             </div>
@@ -96,7 +102,7 @@
                         <h6 class="pt-4">II - Të dhënat partiake</h6><hr />
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-6 pe-2">
-                                <label class="form-label">Pozita ne parti</label>
+                                <label>Pozita ne parti</label>
                                 <select class="form-select" id="inputGroupSelect05">
                                     <option disabled selected>Zgjedh rolin..</option>
                                     <option value="shto5">Shto +</option>
@@ -108,10 +114,15 @@
 
                         
 
-                            <div class="col-6 mb-2">
-                                <label class="form-label">Qendra e votimit</label>
-                                <input class="form-control">
-                                <span class="text-danger"></span>
+                            <div class="col-6 pe-2">
+                                <label>Qendra e votimit</label>
+                                <select class="form-select" id="pollselector" >
+                                    <option disabled selected>Zgjedh qendren e votimit..</option>
+                                    <option value="shto6">Shto +</option>
+                                    <option value="#">1250E</option>
+                                    <option value="#">1222A</option>
+                                    <option value="#">3542Y</option>
+                                </select> 
                             </div>
                         </div>
 
@@ -207,6 +218,15 @@
       const result = event.target.value;
       if (result === "shto5"){
           prompt("Shto Rol te ri")
+      }
+    });
+
+    const selectElement6 = document.querySelector('#pollselector');
+
+    selectElement6.addEventListener('change', (event) => {
+      const result = event.target.value;
+      if (result === "shto6"){
+          prompt("Shto qender te re votimi")
       }
     });
     </script>

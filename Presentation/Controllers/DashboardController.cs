@@ -30,5 +30,9 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult KqzResult()
+        {
+            return View();
+        }
     }
 }
