@@ -8,6 +8,7 @@ namespace Domain.Data.Entities
         public PollCenter()
         {
             Addresses = new HashSet<Address>();
+            Kqzregisters = new HashSet<Kqzregister>();
         }
 
         public int Id { get; set; }
@@ -17,5 +18,6 @@ namespace Domain.Data.Entities
 
         public virtual Municipality? Municipalityd { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Kqzregister> Kqzregisters { get; set; }
     }
 }

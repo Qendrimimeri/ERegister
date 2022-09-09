@@ -2,6 +2,8 @@
     Layout = "_DashboardLayout";
 }
 
+@model RegisterVM;
+
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -10,13 +12,13 @@
             <div class="card">
                 <div class="card-body p-5">
                     <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
-                    <form>
+                    <form asp-action="Register" asp-controller="AddsAdmin" method="post">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr>
                         <div class="mb-4 d-flex pe-2 justify-content-between">
                             <div class="col-12 p">
                                 <label class="">Emri dhe Mbiemri</label>
-                                <input class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
+                                <input class="form-control" asp-for="FullName" placeholder="Shkruaj emrin dhe mbiemrin">
                                 <span class="text-danger"></span>
                             </div>
                         </div>
@@ -27,7 +29,7 @@
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-10 ps-2">
-                                    <input class="form-control" id="nrtel" type="number" placeholder="49123123">
+                                    <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="49123123">
                                 </div>
                             </div>
                             <span class="text-danger"></span>
@@ -63,7 +65,6 @@
                         </div>
 
                         <div class="mb-4 d-flex justify-content-between ">
-
                             <div class="col-4 pe-2">
                                 <label>Rruga</label>
                                 <select class="form-select" id="inputGroupSelect05" asp-items="@ViewBag.streets">
@@ -93,18 +94,18 @@
 
                             <div class="col-4 pe-2">
                                 <label class="">Vendi i punës</label>
-                                <input class="form-control">
+                                <input asp-for="WorkPlace" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
                             <div class="col-4 pe-2">
                                 <label>Shërbimi:</label>
-                                <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
+                                <select class="form-select" asp-for="AdministrativeUnit" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
                                     <option disabled selected>Zgjedh shërbimin..</option>
                                 </select>
                             </div>
                             <div class="col-4 pe-2">
                                 <label class="l">Detyra</label>
-                                <input class="form-control">
+                                <input asp-for="Duty" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
                         </div>
@@ -114,7 +115,7 @@
                         <div class="mb-4 d-flex justify-content-between ">
                             <div class="col-6 pe-2">
                                 <label for="FamilyMember" class="">Nr i Anetareve</label>
-                                <input type="number" class="form-control" id="FamilyMember">
+                                <input asp-for="FamMembers" type="number" class="form-control" id="FamilyMember">
                             </div>
                             <div class="col-6 pe-2">
                                 <label>Gjasat e suksesit fillestar:</label>

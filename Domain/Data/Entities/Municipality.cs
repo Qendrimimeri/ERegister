@@ -9,6 +9,7 @@ namespace Domain.Data.Entities
         {
             Addresses = new HashSet<Address>();
             Blocks = new HashSet<Block>();
+            Kqzregisters = new HashSet<Kqzregister>();
             Neighborhoods = new HashSet<Neighborhood>();
             PollCenters = new HashSet<PollCenter>();
             Streets = new HashSet<Street>();
@@ -20,6 +21,7 @@ namespace Domain.Data.Entities
 
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Block> Blocks { get; set; }
+        public virtual ICollection<Kqzregister> Kqzregisters { get; set; }
         public virtual ICollection<Neighborhood> Neighborhoods { get; set; }
         public virtual ICollection<PollCenter> PollCenters { get; set; }
         public virtual ICollection<Street> Streets { get; set; }

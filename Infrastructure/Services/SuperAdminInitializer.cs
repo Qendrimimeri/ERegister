@@ -44,8 +44,7 @@ namespace Infrastructure.Services
 
             var admin = new ApplicationUser
             {
-                FirstName = "Eregister",
-                LastName = "Admin",
+                FullName = "Admin",
                 Email = "admin@eregister.com",
                 NormalizedEmail = "ADMIN@EREGISTER.COM",
                 EmailConfirmed = true,
@@ -53,14 +52,14 @@ namespace Infrastructure.Services
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 CreatedAt = DateTime.Now,
                 SocialNetwork = "http://www.facebook.com/eregister",
-                WorkId = 1,
-                AddressId = 2,
-                ActualStatusId = 1
+                WorkId = "c04ad72d-f47e-411d-a483-6907ca2582a0",
+                AddressId = "f22643af-9cfd-4c42-9f5d-19cbaabfc660",
+                ActualStatus = "Ne Process"
             };
 
             var userStore = new UserStore<ApplicationUser>(Context);
 
-            if (!Context.AspNetUsers.Any(u => u.UserName == admin.UserName))
+            if (!Context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
             {
                 var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
                 admin.PasswordHash = password;

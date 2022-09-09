@@ -8,6 +8,7 @@ namespace Domain.Data.Entities
         public Neighborhood()
         {
             Addresses = new HashSet<Address>();
+            Kqzregisters = new HashSet<Kqzregister>();
         }
 
         public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace Domain.Data.Entities
 
         public virtual Municipality? Municipality { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Kqzregister> Kqzregisters { get; set; }
     }
 }

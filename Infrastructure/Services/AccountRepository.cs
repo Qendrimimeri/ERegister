@@ -23,7 +23,7 @@ namespace Infrastructure.Services
 
         // 
         public AccountRepository(ApplicationDbContext context,
-                                SignInManager<ApplicationUser> signInManager, 
+                                SignInManager<ApplicationUser> signInManager,
                                 UserManager<ApplicationUser> userManager) : base(context)
         {
             _context = context;
@@ -49,8 +49,12 @@ namespace Infrastructure.Services
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            var getLastRowIdOfAddress =  _context.Addresses.ToList().OrderByDescending(x => x.Id).FirstOrDefault();
-            int addressId = getLastRowIdOfAddress.Id + 1;
+            // Let test this shit
+            var indexOfSpace = model.FullName.IndexOf(" ");
+            string firstName = model.FullName.Substring(0, indexOfSpace);
+            string lastName = model.FullName.Substring(indexOfSpace + 1);
+
+            string addressId = new Guid().ToString();
 
             var address = new Address()
             {
@@ -67,13 +71,12 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
 
 
-            var getLastRowIdOfWork = _context.Addresses.ToList().OrderByDescending(x => x.Id).FirstOrDefault();
-            int workId = getLastRowIdOfWork.Id + 1;
+            string workId = new Guid().ToString();
             var work = new Work()
             {
                 Id = workId,
                 WorkPlace = model.WorkPlace,
-                AdministrativeUnitId = model.AdministrativeUnit,
+                AdministrativeUnit = model.AdministrativeUnit,
                 Duty = model.Duty,
             };
 
@@ -82,18 +85,37 @@ namespace Infrastructure.Services
             await _context.Works.AddAsync(work);
             await _context.SaveChangesAsync();
 
+
             var simpleUser = new ApplicationUser()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                FullName = model.FullName,
                 Email = model.Email,
                 UserName = model.Email,
                 WorkId = workId,
                 AddressId = addressId,
-                ActualStatusId = 1,
+                ActualStatus = "unset",
             };
+
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "");
             await _context.SaveChangesAsync();
+
+            var userId = await _userManager.FindByEmailAsync(model.Email);
+            var pollRelated = new PollRelated()
+            {
+                FamMembers = model.FamMembers,
+                Date = DateTime.Now,
+                UserId = userId.Id,
+                PoliticalSubject = model.PoliticalSubject,
+                SuccessChances = model.SuccessChance,
+                GeneralReason = "Unset",
+                GeneralDemand = "unset",
+                SpecificDemand = "unset",
+                HelpId = 1
+            };
+
+            await _context.PollRelateds.AddAsync(pollRelated);
+            await _context.SaveChangesAsync();
+
             return true;
         }
 

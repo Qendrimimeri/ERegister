@@ -22,29 +22,10 @@ namespace Domain.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Domain.Data.Entities.ActualStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ActualStatuses");
-                });
-
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("BlockId")
                         .HasColumnType("int");
@@ -84,22 +65,6 @@ namespace Domain.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.AdministrativeUnit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdministrativeUnits");
-                });
-
             modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -108,11 +73,13 @@ namespace Domain.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("ActualStatusId")
-                        .HasColumnType("int");
+                    b.Property<string>("ActualStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
+                    b.Property<string>("AddressId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -128,10 +95,7 @@ namespace Domain.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -170,12 +134,11 @@ namespace Domain.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("WorkId")
-                        .HasColumnType("int");
+                    b.Property<string>("WorkId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActualStatusId");
 
                     b.HasIndex("AddressId");
 
@@ -213,61 +176,6 @@ namespace Domain.Migrations
                     b.ToTable("Blocks");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.GeneralDemand", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GeneralDemands");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.GeneralDemandsUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("GeneralDemandId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GeneralDemandId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GeneralDemandsUsers");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.GeneralReason", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GeneralReasons");
-                });
-
             modelBuilder.Entity("Domain.Data.Entities.Help", b =>
                 {
                     b.Property<int>("Id")
@@ -288,6 +196,51 @@ namespace Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Helps");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.Kqzregister", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("DataCreated")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ElectionType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MunicipalityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NeighborhoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NoOfvotes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PoliticialSubject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PollCenterId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VillageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MunicipalityId");
+
+                    b.HasIndex("NeighborhoodId");
+
+                    b.HasIndex("PollCenterId");
+
+                    b.HasIndex("VillageId");
+
+                    b.ToTable("Kqzregisters");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Municipality", b =>
@@ -325,22 +278,6 @@ namespace Domain.Migrations
                     b.HasIndex("MunicipalityId");
 
                     b.ToTable("Neighborhoods");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PoliticalSubjects");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
@@ -381,76 +318,37 @@ namespace Domain.Migrations
                     b.Property<int?>("FamMembers")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GeneralReasonId")
-                        .HasColumnType("int");
+                    b.Property<string>("GeneralDemand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralReason")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("HelpId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PoliticalSubjectId")
-                        .HasColumnType("int");
+                    b.Property<string>("PoliticalSubject")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SpecificDemandId")
-                        .HasColumnType("int");
+                    b.Property<string>("SpecificDemand")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SpecificReasonId")
-                        .HasColumnType("int");
+                    b.Property<string>("SpecificReason")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SuccessChancesId")
-                        .HasColumnType("int");
+                    b.Property<string>("SuccessChances")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GeneralReasonId");
-
                     b.HasIndex("HelpId");
-
-                    b.HasIndex("PoliticalSubjectId");
-
-                    b.HasIndex("SpecificDemandId");
-
-                    b.HasIndex("SpecificReasonId");
-
-                    b.HasIndex("SuccessChancesId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("PollRelateds");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SpecificDemand", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SpecificDemands");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SpecificReason", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SpecificReasons");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
@@ -467,48 +365,14 @@ namespace Domain.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StreetSourceId")
-                        .HasColumnType("int");
+                    b.Property<string>("StreetSource")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MunicipalityId");
 
-                    b.HasIndex("StreetSourceId");
-
                     b.ToTable("Streets");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.StreetSource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StreetSources");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SuccessChance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SuccessChances");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Village", b =>
@@ -534,14 +398,11 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("AdministrativeUnitId")
-                        .HasColumnType("int");
+                    b.Property<string>("AdministrativeUnit")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Duty")
                         .HasColumnType("nvarchar(max)");
@@ -550,8 +411,6 @@ namespace Domain.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdministrativeUnitId");
 
                     b.ToTable("Works");
                 });
@@ -730,25 +589,17 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("Domain.Data.Entities.ActualStatus", "ActualStatus")
-                        .WithMany("AspNetUsers")
-                        .HasForeignKey("ActualStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Data.Entities.Address", "Address")
-                        .WithMany("AspNetUsers")
+                        .WithMany("ApplicationUsers")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Data.Entities.Work", "Work")
-                        .WithMany("AspNetUsers")
+                        .WithMany("ApplicationUsers")
                         .HasForeignKey("WorkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ActualStatus");
 
                     b.Navigation("Address");
 
@@ -764,19 +615,31 @@ namespace Domain.Migrations
                     b.Navigation("Municipality");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.GeneralDemandsUser", b =>
+            modelBuilder.Entity("Domain.Data.Entities.Kqzregister", b =>
                 {
-                    b.HasOne("Domain.Data.Entities.GeneralDemand", "GeneralDemand")
-                        .WithMany("GeneralDemandsUsers")
-                        .HasForeignKey("GeneralDemandId");
+                    b.HasOne("Domain.Data.Entities.Municipality", "Municipality")
+                        .WithMany("Kqzregisters")
+                        .HasForeignKey("MunicipalityId");
 
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
-                        .WithMany("GeneralDemandsUsers")
-                        .HasForeignKey("UserId");
+                    b.HasOne("Domain.Data.Entities.Neighborhood", "Neighborhood")
+                        .WithMany("Kqzregisters")
+                        .HasForeignKey("NeighborhoodId");
 
-                    b.Navigation("GeneralDemand");
+                    b.HasOne("Domain.Data.Entities.PollCenter", "PollCenter")
+                        .WithMany("Kqzregisters")
+                        .HasForeignKey("PollCenterId");
 
-                    b.Navigation("User");
+                    b.HasOne("Domain.Data.Entities.Village", "Village")
+                        .WithMany("Kqzregisters")
+                        .HasForeignKey("VillageId");
+
+                    b.Navigation("Municipality");
+
+                    b.Navigation("Neighborhood");
+
+                    b.Navigation("PollCenter");
+
+                    b.Navigation("Village");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Neighborhood", b =>
@@ -799,45 +662,15 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.PollRelated", b =>
                 {
-                    b.HasOne("Domain.Data.Entities.GeneralReason", "GeneralReason")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("GeneralReasonId");
-
                     b.HasOne("Domain.Data.Entities.Help", "Help")
                         .WithMany("PollRelateds")
                         .HasForeignKey("HelpId");
-
-                    b.HasOne("Domain.Data.Entities.PoliticalSubject", "PoliticalSubject")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("PoliticalSubjectId");
-
-                    b.HasOne("Domain.Data.Entities.SpecificDemand", "SpecificDemand")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("SpecificDemandId");
-
-                    b.HasOne("Domain.Data.Entities.SpecificReason", "SpecificReason")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("SpecificReasonId");
-
-                    b.HasOne("Domain.Data.Entities.SuccessChance", "SuccessChances")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("SuccessChancesId");
 
                     b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
                         .WithMany("PollRelateds")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("GeneralReason");
-
                     b.Navigation("Help");
-
-                    b.Navigation("PoliticalSubject");
-
-                    b.Navigation("SpecificDemand");
-
-                    b.Navigation("SpecificReason");
-
-                    b.Navigation("SuccessChances");
 
                     b.Navigation("User");
                 });
@@ -848,13 +681,7 @@ namespace Domain.Migrations
                         .WithMany("Streets")
                         .HasForeignKey("MunicipalityId");
 
-                    b.HasOne("Domain.Data.Entities.StreetSource", "StreetSource")
-                        .WithMany("Streets")
-                        .HasForeignKey("StreetSourceId");
-
                     b.Navigation("Municipality");
-
-                    b.Navigation("StreetSource");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Village", b =>
@@ -864,15 +691,6 @@ namespace Domain.Migrations
                         .HasForeignKey("MunicipalityId");
 
                     b.Navigation("Municipality");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.Work", b =>
-                {
-                    b.HasOne("Domain.Data.Entities.AdministrativeUnit", "AdministrativeUnit")
-                        .WithMany("Works")
-                        .HasForeignKey("AdministrativeUnitId");
-
-                    b.Navigation("AdministrativeUnit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -926,41 +744,19 @@ namespace Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.ActualStatus", b =>
-                {
-                    b.Navigation("AspNetUsers");
-                });
-
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
                 {
-                    b.Navigation("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.AdministrativeUnit", b =>
-                {
-                    b.Navigation("Works");
+                    b.Navigation("ApplicationUsers");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("GeneralDemandsUsers");
-
                     b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
                 {
                     b.Navigation("Addresses");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.GeneralDemand", b =>
-                {
-                    b.Navigation("GeneralDemandsUsers");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.GeneralReason", b =>
-                {
-                    b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Help", b =>
@@ -974,6 +770,8 @@ namespace Domain.Migrations
 
                     b.Navigation("Blocks");
 
+                    b.Navigation("Kqzregisters");
+
                     b.Navigation("Neighborhoods");
 
                     b.Navigation("PollCenters");
@@ -986,26 +784,15 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Neighborhood", b =>
                 {
                     b.Navigation("Addresses");
-                });
 
-            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
-                {
-                    b.Navigation("PollRelateds");
+                    b.Navigation("Kqzregisters");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
                 {
                     b.Navigation("Addresses");
-                });
 
-            modelBuilder.Entity("Domain.Data.Entities.SpecificDemand", b =>
-                {
-                    b.Navigation("PollRelateds");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SpecificReason", b =>
-                {
-                    b.Navigation("PollRelateds");
+                    b.Navigation("Kqzregisters");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
@@ -1013,24 +800,16 @@ namespace Domain.Migrations
                     b.Navigation("Addresses");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.StreetSource", b =>
-                {
-                    b.Navigation("Streets");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.SuccessChance", b =>
-                {
-                    b.Navigation("PollRelateds");
-                });
-
             modelBuilder.Entity("Domain.Data.Entities.Village", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Kqzregisters");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
                 {
-                    b.Navigation("AspNetUsers");
+                    b.Navigation("ApplicationUsers");
                 });
 #pragma warning restore 612, 618
         }
