@@ -47,5 +47,19 @@ namespace Infrastructure.Services
             };
             return yesNo;
         }
+
+
+        public static IEnumerable<SuccessChance> SuccessChances()
+        {
+            var successChance = new List<SuccessChance>() {
+                new SuccessChance { Key = "0", Value = "0" },
+                new SuccessChance { Key = "25", Value = "25" },
+                new SuccessChance { Key = "50", Value = "50" },
+                new SuccessChance { Key = "75", Value = "75" },
+                new SuccessChance { Key = "100", Value = "100" },
+            };
+            return successChance;
+        }
+
     }
 }

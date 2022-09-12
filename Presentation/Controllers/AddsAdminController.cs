@@ -10,56 +10,59 @@ namespace Presentation.Controllers
 {
     public class AddsAdminController : Controller
     {
-        private readonly IAppService _appService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddsAdminController(IAppService appService, IUnitOfWork unitOfWork)
+        public AddsAdminController( IUnitOfWork unitOfWork)
         {
-            _appService = appService;
             _unitOfWork = unitOfWork;
         }
+
         public async Task<IActionResult> AddVoter()
         {
             //PS ==> Political Subjects
-            //var PS = new SelectList( _appService.GetAllPoliticalSubjectsAsync());
-            //ViewBag.PS = PS;
+            var PS = new SelectList( await _unitOfWork.AppService.GetAllPoliticalSubjectsAsync(), "Id", "Name");
+            ViewBag.PS = PS;
 
-            //var municipalities = new SelectList(await _appService.GetAllMunicipalitiesAsync(), "Id", "Name");
-            //ViewBag.municipalities = municipalities;
+            var municipalities = new SelectList(await _unitOfWork.AppService.GetAllMunicipalitiesAsync(), "Id", "Name");
+            ViewBag.municipalities = municipalities;
 
-            //var villages = new SelectList(await _appService.GetAllVillagesAsync(), "Id", "Name");
-            //ViewBag.villages = villages;
+            var villages = new SelectList(await _unitOfWork.AppService.GetAllVillagesAsync(), "Id", "Name");
+            ViewBag.villages = villages;
 
-            //var neigborhoods = new SelectList(await _appService.GetAllNeigborhoodsAsync(), "Id", "Name");
-            //ViewBag.neigborhoods = neigborhoods;
+            var neigborhoods = new SelectList(await _unitOfWork.AppService.GetAllNeigborhoodsAsync(), "Id", "Name");
+            ViewBag.neigborhoods = neigborhoods;
 
-            //var blocks = new SelectList(await _appService.GetAllBlocksAsync(), "Id", "Name");
-            //ViewBag.blocks = blocks;
+            var pollCenters = new SelectList(await _unitOfWork.AppService.GetAllPollCentersAsync(), "Id", "CenterNumber");
+            ViewBag.pollCenters = pollCenters;
 
-            //var streets = new SelectList(await _appService.GetAllStreetsAsync(), "Id", "Name");
-            //ViewBag.streets = streets;
+            var blocks = new SelectList(await _unitOfWork.AppService.GetAllBlocksAsync(), "Id", "Name");
+            ViewBag.blocks = blocks;
+
+            var streets = new SelectList(await _unitOfWork.AppService.GetAllStreetsAsync(), "Id", "Name");
+            ViewBag.streets = streets;
 
             var administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
             ViewBag.administrativeUnits = administrativeUnits;
 
-            //var successChances = new SelectList(await _appService.GetAllSuccessChancesAsync(), "Id", "Name");
-            //ViewBag.successChances = successChances;
+            var successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+            ViewBag.successChances = successChances;
 
             return View();
         }
 
 
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterVM register)
         {
             if (ModelState.IsValid)
             {
-                var res = await _unitOfWork.AccountRepository.RegisterVoterAsync(register);
-                if (res == true)
+                var res = await _unitOfWork.Account.RegisterVoterAsync(register);
+                if (res)
                 {
                     return RedirectToAction("Index", "dashboard");
                 }
             }
-            return View(ModelState);
+            return RedirectToAction("AddVoter");
         }
 
         public IActionResult AddPoliticalSubject()

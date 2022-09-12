@@ -1,4 +1,5 @@
 ﻿using Domain.Data.Entities;
+using ERegister.Application.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Appliaction.Repository
 {
-    public interface IAppService
+    public interface IAppService : IRepository<ApplicationUser>
     {
-        //List<string> GetAllPoliticalSubjectsAsync();
+        Task<List<PoliticalSubject>> GetAllPoliticalSubjectsAsync();
 
         Task<List<Municipality>> GetAllMunicipalitiesAsync();
 
@@ -24,5 +25,7 @@ namespace Appliaction.Repository
         string[] GetAllSuccessChancesAsync();
 
         Task<List<Neighborhood>> GetAllNeigborhoodsAsync();
+
+        Task<List<PollCenter>> GetAllPollCentersAsync();
     }
 }

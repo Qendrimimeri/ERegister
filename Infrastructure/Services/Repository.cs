@@ -2,6 +2,7 @@
 using Domain.Data;
 using Domain.Data.Entities;
 using ERegister.Application.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -12,12 +13,15 @@ namespace Infrastructure.Services
         
         protected readonly ApplicationDbContext _context;
         protected readonly ILogger _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+
         protected DbSet<T> DbSet { get; set; }
 
-        public Repository(ApplicationDbContext context , ILogger logger)
+        public Repository(ApplicationDbContext context , ILogger logger, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         public void Add(T entity) => _context.Set<T>().AddAsync(entity);

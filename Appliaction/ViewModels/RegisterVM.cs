@@ -15,14 +15,15 @@ namespace Appliaction.ViewModels
         public int Municipality { get; set; }
         public int Village { get; set; }
         public int Neigborhood { get; set; }
-        public int StreetBlock { get; set; }
+        public int Street { get; set; }
+        public int block { get; set; }
         public int HouseNo { get; set; }
         public string WorkPlace { get; set; }
         public string AdministrativeUnit { get; set; }
         public string Duty { get; set; }
         public int FamMembers { get; set; }
         public string SuccessChance { get; set; }
-        public string PoliticalSubject { get; set; }
-        public int PollCenter { get; set; }
+        public int PoliticalSubject { get; set; }
+        public string PollCenter { get; set; }
     }
 }

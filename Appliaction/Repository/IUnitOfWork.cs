@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appliaction.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ namespace Application.Repository
 {
     public interface IUnitOfWork 
     {
-        IAccountRepository AccountRepository { get; }
+        IAccountRepository Account { get; }
+
+        IAppService AppService { get; }
 
         Task Done();
     }

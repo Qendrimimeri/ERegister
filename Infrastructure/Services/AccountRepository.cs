@@ -19,26 +19,21 @@ namespace Infrastructure.Services
     public class AccountRepository : Repository<ApplicationUser>, IAccountRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
-        public AccountRepository(ApplicationDbContext context, ILogger logger) : base(context, logger)
-        {
-        }
-
-        // 
-        public AccountRepository(ApplicationDbContext context,
-                                SignInManager<ApplicationUser> signInManager,
-                                UserManager<ApplicationUser> userManager,
-                                ILogger logger 
-                                ) : base(context, logger)
+        public AccountRepository(ApplicationDbContext context, 
+                                 ILogger logger,
+                                 UserManager<ApplicationUser> userManager) : base(context, logger, userManager)
         {
             _context = context;
-            _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
         }
+
+        // 
 
         public IEnumerable<ApplicationUser> GetAppUsers() => throw new NotImplementedException();
 
@@ -58,29 +53,23 @@ namespace Infrastructure.Services
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            // Let test this shit
-            var indexOfSpace = model.FullName.IndexOf(" ");
-            string firstName = model.FullName.Substring(0, indexOfSpace);
-            string lastName = model.FullName.Substring(indexOfSpace + 1);
-
-            string addressId = new Guid().ToString();
-
+            string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
                 MunicipalityId = model.Municipality,
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
-                BlockId = model.StreetBlock,
-                StreetId = model.StreetBlock,
-                PollCenterId = model.PollCenter,
+                BlockId = model.block,
+                StreetId = model.Street,
+                PollCenterId = int.Parse(model.PollCenter),
             };
 
             await _context.Addresses.AddAsync(address);
             await _context.SaveChangesAsync();
 
 
-            string workId = new Guid().ToString();
+            string workId = Guid.NewGuid().ToString();
             var work = new Work()
             {
                 Id = workId,
@@ -105,7 +94,7 @@ namespace Infrastructure.Services
                 ActualStatus = "unset",
             };
 
-            IdentityResult result = await _userManager.CreateAsync(simpleUser, "");
+            IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
             await _context.SaveChangesAsync();
 
             var userId = await _userManager.FindByEmailAsync(model.Email);
@@ -114,7 +103,7 @@ namespace Infrastructure.Services
                 FamMembers = model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
-                PoliticialSubjectId = 1,
+                PoliticialSubjectId = model.PoliticalSubject,
                 SuccessChances = model.SuccessChance,
                 GeneralReason = "Unset",
                 GeneralDemand = "unset",

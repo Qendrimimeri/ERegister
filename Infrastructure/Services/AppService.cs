@@ -1,7 +1,9 @@
 ﻿using Appliaction.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,19 +13,22 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class AppService : IAppService
+    public class AppService : Repository<ApplicationUser> ,IAppService
     {
         private readonly ApplicationDbContext _context;
+        private ILogger _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AppService(ApplicationDbContext context)
+        public AppService(ApplicationDbContext context, ILogger logger, 
+                          UserManager<ApplicationUser> userManager) : base(context, logger, userManager)
         {
+            _logger = logger;
+            _userManager = userManager;
             _context = context;
         }
 
-        //public List<string> GetAllPoliticalSubjectsAsync()
-        //{
-        //    return PoliticialSubjects();
-        //}
+        public async Task<List<PoliticalSubject>> GetAllPoliticalSubjectsAsync()
+            => await _context.PoliticalSubjects.ToListAsync();
 
         public async Task<List<Municipality>> GetAllMunicipalitiesAsync()
             => await _context.Municipalities.ToListAsync();
@@ -39,6 +44,9 @@ namespace Infrastructure.Services
 
         public async Task<List<Street>> GetAllStreetsAsync()
             => await _context.Streets.ToListAsync();
+
+        public async Task<List<PollCenter>> GetAllPollCentersAsync()
+            => await _context.PollCenters.ToListAsync();
 
         public string[] GetAllAdministrativeUnitsAsync()
         {

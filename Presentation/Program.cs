@@ -38,7 +38,6 @@ options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAppService, AppService>();
 
 var app = builder.Build();
 

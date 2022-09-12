@@ -16,6 +16,7 @@ namespace Application.Repository
     {
         //IEnumerable<ApplicationUser> GetAppUsers();
         Task<bool> LoginAsync(LoginVM login);
+
         Task<bool> RegisterVoterAsync(RegisterVM register);
     }
 }
