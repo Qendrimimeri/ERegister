@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Repository
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         IAccountRepository AccountRepository { get; }
-        int Done();
+
+        Task Done();
     }
 }

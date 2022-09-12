@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace ERegister.Application.Repository
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<T> where T : class
     {
-        TEntity GetById(int id);
-        TEntity GetByName(string name);
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> expression);
+        T GetById(int id);
+        T GetByName(string name);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> FindAll(Expression<Func<T, bool>> expression);
 
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        void Add(T entity);
+        void AddRange(IEnumerable<T> entities);
 
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
+        void Update(T entity);
+        void Delete(T entity);
+        void DeleteRange(IEnumerable<T> entities);
     }
 }

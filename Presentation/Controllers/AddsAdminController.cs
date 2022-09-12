@@ -1,20 +1,22 @@
 ﻿using Appliaction.Repository;
 using Appliaction.ViewModels;
 using Application.Repository;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace Presentation.Controllers
 {
     public class AddsAdminController : Controller
     {
         private readonly IAppService _appService;
-        private readonly IAccountRepository _accountRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AddsAdminController(IAppService appService, IAccountRepository accountRepository)
+        public AddsAdminController(IAppService appService, IUnitOfWork unitOfWork)
         {
             _appService = appService;
-            _accountRepository = accountRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<IActionResult> AddVoter()
         {
@@ -37,8 +39,8 @@ namespace Presentation.Controllers
             //var streets = new SelectList(await _appService.GetAllStreetsAsync(), "Id", "Name");
             //ViewBag.streets = streets;
 
-            //var administrativeUnits = new SelectList(await _appService.GetAllAdministrativeUnitsAsync(), "Id", "Description");
-            //ViewBag.administrativeUnits = administrativeUnits;
+            var administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
+            ViewBag.administrativeUnits = administrativeUnits;
 
             //var successChances = new SelectList(await _appService.GetAllSuccessChancesAsync(), "Id", "Name");
             //ViewBag.successChances = successChances;
@@ -51,7 +53,7 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var res = await _accountRepository.RegisterVoterAsync(register);
+                var res = await _unitOfWork.AccountRepository.RegisterVoterAsync(register);
                 if (res == true)
                 {
                     return RedirectToAction("Index", "dashboard");

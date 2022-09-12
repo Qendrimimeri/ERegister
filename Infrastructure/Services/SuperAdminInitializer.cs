@@ -52,21 +52,21 @@ namespace Infrastructure.Services
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 CreatedAt = DateTime.Now,
                 SocialNetwork = "http://www.facebook.com/eregister",
-                WorkId = "c04ad72d-f47e-411d-a483-6907ca2582a0",
-                AddressId = "f22643af-9cfd-4c42-9f5d-19cbaabfc660",
+                WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
+                AddressId = "e2a1b84a-f828-408e-b130-c61abce41111",
                 ActualStatus = "Ne Process"
             };
 
-            //var userstore = new userstore<applicationuser>(context);
+            var userstore = new UserStore<ApplicationUser>(Context);
 
-            //if (!context.applicationusers.any(u => u.username == admin.username))
-            //{
-            //    var password = new passwordhasher<applicationuser>().hashpassword(admin, "eregister1");
-            //    admin.passwordhash = password;
+            if (!Context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
+                admin.PasswordHash = password;
 
-            //    await userstore.createasync(admin);
-            //    await userstore.addtoroleasync(admin, roles[0]);
-            //}
+                await userstore.CreateAsync(admin);
+                await userstore.AddToRoleAsync(admin, roles[0]);
+            }
             await Context.SaveChangesAsync();
         }
     }

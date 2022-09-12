@@ -6,6 +6,7 @@ using ERegister.Application.Repository;
 using Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,15 +21,23 @@ namespace Infrastructure.Services
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger _logger;
+
+        public AccountRepository(ApplicationDbContext context, ILogger logger) : base(context, logger)
+        {
+        }
 
         // 
         public AccountRepository(ApplicationDbContext context,
                                 SignInManager<ApplicationUser> signInManager,
-                                UserManager<ApplicationUser> userManager) : base(context)
+                                UserManager<ApplicationUser> userManager,
+                                ILogger logger 
+                                ) : base(context, logger)
         {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _logger = logger;
         }
 
         public IEnumerable<ApplicationUser> GetAppUsers() => throw new NotImplementedException();

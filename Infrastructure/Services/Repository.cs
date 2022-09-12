@@ -2,34 +2,40 @@
 using Domain.Data;
 using Domain.Data.Entities;
 using ERegister.Application.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _context;
+        
+        protected readonly ApplicationDbContext _context;
+        protected readonly ILogger _logger;
+        protected DbSet<T> DbSet { get; set; }
 
-        public Repository(ApplicationDbContext context)
+        public Repository(ApplicationDbContext context , ILogger logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public void Add(TEntity entity) => _context.Set<TEntity>().AddAsync(entity);
+        public void Add(T entity) => _context.Set<T>().AddAsync(entity);
 
-        public void AddRange(IEnumerable<TEntity> entities) => _context.Set<TEntity>().AddRangeAsync(entities);
+        public void AddRange(IEnumerable<T> entities) => _context.Set<T>().AddRangeAsync(entities);
 
-        public void Delete(TEntity entity) => _context.Set<TEntity>().Remove(entity);
+        public void Delete(T entity) => _context.Set<T>().Remove(entity);
 
-        public void DeleteRange(IEnumerable<TEntity> entities) => _context.Set<TEntity>().RemoveRange(entities);
+        public void DeleteRange(IEnumerable<T> entities) => _context.Set<T>().RemoveRange(entities);
 
-        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> expression) => _context.Set<TEntity>().Where(expression);
+        public IEnumerable<T> FindAll(Expression<Func<T, bool>> expression) => _context.Set<T>().Where(expression);
 
-        public IEnumerable<TEntity> GetAll() => _context.Set<TEntity>().ToList();
+        public IEnumerable<T> GetAll() => _context.Set<T>().ToList();
 
-        public TEntity GetById(int id) => _context.Set<TEntity>().Find(id);
+        public T GetById(int id) => _context.Set<T>().Find(id);
 
-        public TEntity GetByName(string name) => _context.Set<TEntity>().Find(name);
+        public T GetByName(string name) => _context.Set<T>().Find(name);
 
-        public void Update(TEntity entity) => _context.Set<TEntity>().Update(entity);
+        public void Update(T entity) => _context.Set<T>().Update(entity);
     }
 }
