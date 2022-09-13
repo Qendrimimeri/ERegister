@@ -1,5 +1,4 @@
-﻿using Appliaction.Repository;
-using Appliaction.ViewModels;
+﻿using Application.ViewModels;
 using Application.Repository;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;

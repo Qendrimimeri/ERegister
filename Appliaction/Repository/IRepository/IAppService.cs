@@ -1,12 +1,13 @@
-﻿using Domain.Data.Entities;
-using ERegister.Application.Repository;
+﻿using Application.Repository.IRepository;
+using Domain.Data.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appliaction.Repository
+namespace Application.Repository
 {
     public interface IAppService : IRepository<ApplicationUser>
     {

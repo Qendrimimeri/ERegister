@@ -1,4 +1,5 @@
 ﻿using Appliaction.Repository;
+using Application.Models;
 using Infrastructure.Models;
 using Infrastructure.Settings;
 using MailKit.Net.Smtp;

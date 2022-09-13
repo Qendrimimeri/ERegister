@@ -1,9 +1,8 @@
-﻿using Appliaction.ViewModels;
+﻿using Application.ViewModels;
 using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
-using ERegister.Application.Repository;
-using Infrastructure.ViewModels;
+using Application.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

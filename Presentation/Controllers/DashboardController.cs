@@ -1,9 +1,16 @@
+using Application.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DashboardController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public IActionResult Index()
         {
             return View();
