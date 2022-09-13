@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
+using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
-using ERegister.Application.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,14 +10,14 @@ namespace Infrastructure.Services
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        
+
         protected readonly ApplicationDbContext _context;
         protected readonly ILogger _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
         protected DbSet<T> DbSet { get; set; }
 
-        public Repository(ApplicationDbContext context , ILogger logger, UserManager<ApplicationUser> userManager)
+        public Repository(ApplicationDbContext context, ILogger logger, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _logger = logger;
@@ -41,5 +41,20 @@ namespace Infrastructure.Services
         public T GetByName(string name) => _context.Set<T>().Find(name);
 
         public void Update(T entity) => _context.Set<T>().Update(entity);
+
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRange(IEnumerable<T> entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

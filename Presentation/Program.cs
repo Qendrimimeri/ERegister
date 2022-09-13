@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Presentation;
 using System;
+using Application.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -17,6 +18,11 @@ var connectionString = builder.Configuration.GetConnectionString("Dev");
 builder.Services.AddTransient<SuperAdminInitializer>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
+
+
+//Adding Dependency Injection for every Repository
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {

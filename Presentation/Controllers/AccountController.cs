@@ -1,14 +1,18 @@
 ﻿using Application.Repository;
-using Infrastructure.ViewModels;
+using Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
     public class AccountController : Controller
     {
-        public AccountController(IAccountRepository accountRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AccountController(IAccountRepository accountRepository,
+                                   IUnitOfWork unitOfWork)
         {
             AccountRepository = accountRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public IAccountRepository AccountRepository { get; }
@@ -17,6 +21,7 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM login)
         {
+            
             if (ModelState.IsValid)
             {
                 var res = await AccountRepository.LoginAsync(login);

@@ -1,4 +1,5 @@
 ﻿using Appliaction.Repository;
+using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,6 +110,21 @@ namespace Infrastructure.Services
         {
             string[] streetSources = { "Qytet", "Fshat", "Lagje" };
             return streetSources;
+        }
+
+        public ApplicationUser GetFirstOrDefault(Expression<Func<ApplicationUser, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(ApplicationUser entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRange(IEnumerable<ApplicationUser> entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

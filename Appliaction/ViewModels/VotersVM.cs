@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appliaction.ViewModels
+namespace Application.ViewModels
 {
     public class VoterDetailsVM
     {
