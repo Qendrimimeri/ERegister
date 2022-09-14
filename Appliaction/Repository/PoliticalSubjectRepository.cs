@@ -19,7 +19,10 @@ namespace Application.Repository
             _db = db;
         }
 
-        public async Task<IEnumerable<PoliticalSubject>> GetPoliticalSubjectsAsync() => await _db.PoliticalSubjects.ToListAsync();
+        public async Task<IEnumerable<PoliticalSubject>> GetPoliticalSubjectsAsync() 
+            => await _db.PoliticalSubjects.ToListAsync();
+
+
 
         public void Save()
         {

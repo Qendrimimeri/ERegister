@@ -2,7 +2,6 @@
 using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
-using Application.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -116,6 +115,20 @@ namespace Infrastructure.Services
             return true;
         }
 
+        IEnumerable<ApplicationUser> IAccountRepository.GetAppUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IAccountRepository.LoginAsync(LoginVM login)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IAccountRepository.RegisterVoterAsync(RegisterVM register)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

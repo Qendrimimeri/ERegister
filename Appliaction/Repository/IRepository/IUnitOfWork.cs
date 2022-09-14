@@ -11,7 +11,6 @@ namespace Application.Repository
     public interface IUnitOfWork:IDisposable
     {
         IAccountRepository Account { get; }
-        IAppService AppService { get; }
         IAddressRepository Address { get; }
         IApplicationUserRepository ApplicationUser { get; }
         IBlockRepository Block { get; }

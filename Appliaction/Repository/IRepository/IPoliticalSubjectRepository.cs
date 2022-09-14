@@ -9,6 +9,6 @@ namespace Application.Repository.IRepository
 {
     public interface IPoliticalSubjectRepository: IRepository<PoliticalSubject>
     {
-        Task<IEnumerable<PoliticalSubject>> GetPoliticalSubjectsAsync()
+        Task<IEnumerable<PoliticalSubject>> GetPoliticalSubjectsAsync();
     }
 }

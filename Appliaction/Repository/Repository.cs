@@ -15,8 +15,6 @@ namespace Application.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _db;
-        internal DbSet<T> dbSet;
         private ILogger logger;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext db;
@@ -30,32 +28,20 @@ namespace Application.Repository
         {
             this.logger = logger;
             this.userManager = userManager;
-            _db = db; 
-            this.dbSet = _db.Set<T>();
+            this.db = db; 
         }
 
-        public void Add(T entity)
-        {
-            dbSet.Add(entity);
-        }
-        public IEnumerable<T> GetAll()
-        {
-            IQueryable<T> query = dbSet;
-            return query.ToList();
-        }
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
-        {
-            IQueryable<T> query = dbSet;
-            query = query.Where(filter);
-            return query.FirstOrDefault();
-        }
-        public void Remove(T entity)
-        {
-            dbSet.Remove(entity);
-        }
-        public void RemoveRange(IEnumerable<T> entity)
-        {
-            dbSet.RemoveRange(entity);
-        }
+        public async Task Add(T entity) 
+            => await db.Set<T>().AddAsync(entity);
+
+        public async Task<IEnumerable<T>> GetAll() 
+            => db.Set<T>().ToList();
+
+        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter) 
+            => await db.Set<T>().Where(filter).FirstOrDefaultAsync();
+
+        public void Remove(T entity) => db.Set<T>().Remove(entity);
+
+        public void RemoveRange(IEnumerable<T> entity) => db.Set<T>().RemoveRange(entity);
     }
 }

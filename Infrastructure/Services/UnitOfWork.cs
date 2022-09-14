@@ -1,15 +1,9 @@
-﻿using Appliaction.Repository;
-using Application.Repository;
+﻿using Application.Repository;
 using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -29,7 +23,6 @@ namespace Infrastructure.Services
             _userManager = userManager;
             _logger = logger.CreateLogger("logs");
             Account = new AccountRepository(_dbContext, _logger, _userManager);
-            AppService = new AppService(_dbContext, _logger, userManager);
             Address = new AddressRepository(_dbContext);
             ApplicationUser = new ApplicationUserRepository(_dbContext);
             Block = new BlockRepository(_dbContext);
@@ -47,7 +40,6 @@ namespace Infrastructure.Services
         }
         public IAccountRepository Account { get; private set; }
 
-        public IAppService AppService { get; private set; }
 
         public IAddressRepository Address { get; }
         public IApplicationUserRepository ApplicationUser { get; }

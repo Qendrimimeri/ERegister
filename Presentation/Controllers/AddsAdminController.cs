@@ -19,25 +19,25 @@ namespace Presentation.Controllers
         public async Task<IActionResult> AddVoter()
         {
             //PS ==> Political Subjects
-            var PS = new SelectList( await _unitOfWork.AppService.GetAllPoliticalSubjectsAsync(), "Id", "Name");
+            var PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.PS = PS;
 
-            var municipalities = new SelectList(await _unitOfWork.AppService.GetAllMunicipalitiesAsync(), "Id", "Name");
+            var municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
             ViewBag.municipalities = municipalities;
 
-            var villages = new SelectList(await _unitOfWork.AppService.GetAllVillagesAsync(), "Id", "Name");
+            var villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
             ViewBag.villages = villages;
 
-            var neigborhoods = new SelectList(await _unitOfWork.AppService.GetAllNeigborhoodsAsync(), "Id", "Name");
+            var neigborhoods = new SelectList(await _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
             ViewBag.neigborhoods = neigborhoods;
 
-            var pollCenters = new SelectList(await _unitOfWork.AppService.GetAllPollCentersAsync(), "Id", "CenterNumber");
+            var pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
             ViewBag.pollCenters = pollCenters;
 
-            var blocks = new SelectList(await _unitOfWork.AppService.GetAllBlocksAsync(), "Id", "Name");
+            var blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
             ViewBag.blocks = blocks;
 
-            var streets = new SelectList(await _unitOfWork.AppService.GetAllStreetsAsync(), "Id", "Name");
+            var streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.streets = streets;
 
             var administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
