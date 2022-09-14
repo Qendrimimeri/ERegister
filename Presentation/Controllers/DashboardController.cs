@@ -1,4 +1,5 @@
 using Application.Repository;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -16,9 +17,11 @@ namespace Presentation.Controllers
             return View();
         }
         public IActionResult Performance() 
-        { 
-            return View(); 
+        {
+            var users = _unitOfWork.ApplicationUser.GetUsersInRoleAsync();
+            return View(users); 
         }
+
         public IActionResult Reports() 
         { 
             return View(); 
