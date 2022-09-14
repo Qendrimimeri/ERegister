@@ -11,18 +11,21 @@ namespace Infrastructure.Services
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
 
 
 
         public UnitOfWork(ApplicationDbContext dbContext,
                           ILoggerFactory logger,
-                          UserManager<ApplicationUser> userManager)
+                          UserManager<ApplicationUser> userManager,
+                          SignInManager<ApplicationUser> signInManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _signInManager = signInManager;
             _logger = logger.CreateLogger("logs");
-            Account = new AccountRepository(_dbContext, _logger, _userManager);
+            Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager);
             Address = new AddressRepository(_dbContext);
             ApplicationUser = new ApplicationUserRepository(_dbContext);
             Block = new BlockRepository(_dbContext);

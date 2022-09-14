@@ -8,14 +8,11 @@ namespace Presentation.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccountController(IAccountRepository accountRepository,
-                                   IUnitOfWork unitOfWork)
+        public AccountController( IUnitOfWork unitOfWork )
         {
-            AccountRepository = accountRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public IAccountRepository AccountRepository { get; }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -24,7 +21,7 @@ namespace Presentation.Controllers
             
             if (ModelState.IsValid)
             {
-                var res = await AccountRepository.LoginAsync(login);
+                var res = await _unitOfWork.Account.LoginAsync(login);
                 if (res == true)
                     return RedirectToAction("Index", "Dashboard");
                 //returnUrl = returnUrl ?? Url.Content("~/Dashboard/index");

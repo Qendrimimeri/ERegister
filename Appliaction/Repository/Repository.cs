@@ -17,6 +17,7 @@ namespace Application.Repository
     {
         private ILogger logger;
         private UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private ApplicationDbContext db;
 
         public Repository(ApplicationDbContext db)
@@ -24,10 +25,14 @@ namespace Application.Repository
             this.db = db;
         }
 
-        public Repository(ApplicationDbContext db, ILogger logger, UserManager<ApplicationUser> userManager) : this(db)
+        public Repository( ApplicationDbContext db, 
+                           ILogger logger, 
+                           UserManager<ApplicationUser> userManager, 
+                           SignInManager<ApplicationUser> signInManager) : this(db)
         {
             this.logger = logger;
             this.userManager = userManager;
+            _signInManager = signInManager;
             this.db = db; 
         }
 
