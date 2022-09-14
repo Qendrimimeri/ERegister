@@ -1,6 +1,7 @@
 ﻿using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,9 @@ namespace Application.Repository
         {
             _db = db;
         }
+
+        public async Task<IEnumerable<PoliticalSubject>> GetPoliticalSubjectsAsync() => await _db.PoliticalSubjects.ToListAsync();
+
         public void Save()
         {
             _db.SaveChanges();
