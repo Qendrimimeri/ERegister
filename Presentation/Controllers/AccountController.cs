@@ -14,11 +14,14 @@ namespace Presentation.Controllers
         }
 
 
+        
+        public IAccountRepository AccountRepository { get; }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM login)
         {
-            
             if (ModelState.IsValid)
             {
                 var res = await _unitOfWork.Account.LoginAsync(login);
