@@ -4,6 +4,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Presentation.Controllers
 {
@@ -18,6 +19,7 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> AddVoter()
         {
+
             //PS ==> Political Subjects
             var PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.PS = PS;
@@ -64,15 +66,47 @@ namespace Presentation.Controllers
             return RedirectToAction("AddVoter");
         }
 
-        public IActionResult AddPoliticalSubject()
+        public IActionResult PoliticalOffical()
         {
+            return View();
+        }
 
+        [HttpPost()]
+        public async Task<IActionResult> PoliticalOffical(PoliticalOfficalVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
+                if (res)
+                {
+
+                }
+            }
             return View();
         }
 
 
-        public IActionResult EditPoliticalSubject()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public IActionResult AddPoliticalSubject()
         {
+
             return View();
         }
 

@@ -12,5 +12,6 @@ namespace Application.ViewModels
         public string Name { get; set; }
         public string Village { get; set; }
         public string City { get; set; }
+        public int? FamMembers { get; set; }
     }
 }
