@@ -27,7 +27,7 @@ namespace Infrastructure.Services
             _logger = logger.CreateLogger("logs");
             Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager);
             Address = new AddressRepository(_dbContext);
-            ApplicationUser = new ApplicationUserRepository(_dbContext);
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager);
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
             KqzRegister = new KqzRegisterRepository(_dbContext);
