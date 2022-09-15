@@ -1,4 +1,5 @@
-﻿using Domain.Data.Entities;
+﻿using Application.ViewModels;
+using Domain.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Application.Repository.IRepository
     public interface IApplicationUserRepository
     {
         Task<IList<ApplicationUser>> GetUsersInRoleAsync();
+        Task<List<PersonVM>> GetPersonInfoAsync();
     }
 }
