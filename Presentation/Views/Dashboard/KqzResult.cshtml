@@ -1,18 +1,14 @@
 ﻿@{
     Layout = "_DashboardLayout";
 }
-
 <section class="section">
-
     <div class="row">
         <div class="card p-5">
             <h2 class="card-title ps-4">Përshkruar numrin e votuesëve dhe rezultateve nga KQZ</h2>
             <div class="d-flex flex-md-row flex-column">
                 <div class="col-md-6">
                     <div class="card-body pt-2">
-
                         <form>
-
                             <div class="col-12 ">
                                 <label>Qyteti</label>
                                 <select class="form-select" id="inputGroupSelect04" asp-items="@ViewBag.municipalities">
@@ -25,40 +21,34 @@
                                     <option disabled selected>Zgjedh fshatin..</option>
                                 </select>
                             </div>
-
                             <div class="col-12">
-                                <label class = "pt-4">Lagja</label>
+                                <label class="pt-4">Lagja</label>
                                 <select class="form-select" id="inputGroupSelect03">
-                                  <option value="shto3">Shto +</option>
+                                    <option value="shto3">Shto +</option>
                                     <option disabled selected>Zgjedh lagjen..</option>
                                     <option value="#">Dardani</option>
                                     <option value="#">Dragodan</option>
                                     <option value="#">Emshir</option>
                                 </select>
-                             </div>
-
-                             <div class="col-12">
-                                <label class = "pt-4">Lloji i zgjedhjeve</label>
+                            </div>
+                            <div class="col-12">
+                                <label class="pt-4">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03">
                                     <option disabled selected>Zgjedh llojin e zgjedhjeve..</option>
                                     <option value="#">Zgjedhjet Nacionale</option>
                                     <option value="#">Zgjedhjet Lokale</option>
                                 </select>
-                             </div>
-
+                            </div>
                             <div class="col-12">
-                                <label class="pt-4">Viti e zgjedhjeve</label>
+                                <label class="pt-4">Viti i zgjedhjeve</label>
                                 <input class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-
                             <div class="col-12 pb-4">
                                 <label class="pt-4">Qendra e vendvotimit</label>
                                 <input class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-
-
                             <button type="submit" class="btn btn-primary">Regjistro votimet</button>
                         </form>
                     </div>
@@ -70,59 +60,46 @@
                                 <tr>
                                     <th scope="col">Numri i votuesëve</th>
                                     <th scope="col">Total:</th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
-
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">VV</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">LDK</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">PDK</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">AAK</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">AKR</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nisma</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Partite serbe</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Partite joserbe</th>
-                                    <td><input class="border-0" /></td>
-
+                                    <td><input type="number" class="border-0" /></td>
                                 </tr>
-
                             </tbody>
                         </table>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 </section>
