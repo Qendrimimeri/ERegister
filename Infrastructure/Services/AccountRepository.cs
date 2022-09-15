@@ -93,6 +93,7 @@ namespace Infrastructure.Services
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
             await _context.SaveChangesAsync();
 
+
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
             {
@@ -111,10 +112,6 @@ namespace Infrastructure.Services
             await _context.SaveChangesAsync();
             return true;
         }
-
-
-
-
 
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
@@ -159,8 +156,10 @@ namespace Infrastructure.Services
                 ActualStatus = "unset",
             };
 
-            IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
+            var result = await _userManager.CreateAsync(simpleUser, "Admin!23");
             await _context.SaveChangesAsync();
+            await _userManager.AddToRoleAsync(simpleUser, "MunicipalityAdmin");
+
             return true;
         }
     }

@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "_DashboardLayout";
 }
+@model PoliticalOfficalVM;
+
 
 <section class="section">
     <div class="row">
@@ -11,13 +13,13 @@
                 <div class="card-body p-5">
 
                     <h5 class="card-title">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
-                    <form>
+                    <form asp-action="PoliticalOffical" method="post">
                         <h6 class="pt-4">I - Të dhënat personale</h6><hr />
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-12 pe-2">
-                                <label>Emri dhe Mbiemri</label>
-                                <input class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
-                                <span class="text-danger"></span>
+                                <label asp-for="FullName">Emri dhe Mbiemri</label>
+                                <input asp-for="FullName" class="form-control" id="mbiemripersonal" placeholder="Shkruaj emrin dhe mbiemrin">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -29,43 +31,34 @@
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-10 ps-2">
-                                    <input class="form-control" id="nrtel" type="number">
+                                    <input asp-for="PhoneNumber" class="form-control" id="nrtel" type="number">
                                 </div>
                             </div>
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group pb-3">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
+                            <label for="exampleInputEmail1" asp-for="Email">Email address</label>
+                            <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1" placeholder="Shkruaj email adresen">
                         </div>
                       
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-4 pe-2">
-                                <label>Qyteti</label>
-                                <select class="form-select" id="inputGroupSelect01">
+                                <label asp-for="Municipality">Qyteti</label>
+                                <select asp-for="Municipality" asp-items="@ViewBag.municipalities" class="form-select" id="inputGroupSelect01">
                                     <option disabled selected>Zgjedh qytetin..</option>
-                                    <option value="1">Prishtinë</option>
-                                    <option value="2">Podujevë</option>
-                                    <option value="3">Drenas</option>
                                 </select>
                             </div>
                             <div class="col-4 pe-2">
-                               <label>Fshati</label>
-                            <select class="form-select" id="inputGroupSelect02">
+                               <label asp-for="Village">Fshati</label>
+                                <select asp-for="Village" asp-items="@ViewBag.villages" class="form-select" id="inputGroupSelect02">
                                 <option disabled selected>Zgjedh fshatin..</option>
-                                <option value="1">Shajkoc</option>
-                                <option value="2">Lluzhan</option>
-                                <option value="3">Batllavë</option>
                              </select>
                             </div>
                             <div class="col-4 pe-2">
-                                <label>Lagja</label>
-                                <select class="form-select" id="inputGroupSelect03">
+                                <label asp-for="Neigborhood">Lagja</label>
+                                <select asp-for="Neigborhood" asp-items="@ViewBag.neigborhoods" class="form-select" id="inputGroupSelect03">
                                   <option value="shto3">Shto +</option>
-                                    <option disabled selected>Zgjedh lagjen..</option>
-                                    <option value="#">Dardani</option>
-                                    <option value="#">Dragodan</option>
-                                    <option value="#">Emshir</option>
+                                  <option disabled selected>Zgjedh lagjen..</option>
                                 </select>
                              </div>
                         </div>
@@ -73,60 +66,44 @@
                         <div class="mb-4 d-flex justify-content-between">
 
                             <div class="col-4 pe-2">
-                                <label>Rruga</label>
-                                <select class="form-select" id="inputGroupSelect04" >
+                                <label asp-for="Street">Rruga</label>
+                                <select asp-for="Street" asp-items="@ViewBag.streets" class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>Zgjedh rrugen..</option>
                                     <option value="shto4">Shto +</option>
-                                    <option value="#">B2</option>
-                                    <option value="#">Rr.Mehmet Dervisholli</option>
-                                    <option value="#">Rr. Zahir Pajaziti</option>
                                 </select> 
                             </div>
                             <div class="col-4 pe-2">
-                                <label>Blloku</label>
-                                <select class="form-select" id="inputGroupSelect04" >
+                                <label asp-for="Block">Blloku</label>
+                                <select asp-for="Block" asp-items="@ViewBag.blocks" class="form-select" id="inputGroupSelect04">
                                     <option disabled selected>Zgjedh bllokun..</option>
                                     <option value="shto4">Shto +</option>
-                                    <option value="#">B2</option>
-                                    <option value="#">Rr.Mehmet Dervisholli</option>
-                                    <option value="#">Rr. Zahir Pajaziti</option>
                                 </select> 
                             </div>
                             <div class="col-4 pe-2">
-                                <label>Numri i shtëpisë</label>
-                                <input class="form-control" placeholder="opsionale">
-                                <span class="text-danger"></span>
+                                <label asp-for="HouseNo">Numri i shtëpisë</label>
+                                <input asp-for="HouseNo" class="form-control" placeholder="opsionale">
+                                <span asp-validation-for="HouseNo" class="text-danger"></span>
                             </div>
                         </div>
 
                         <h6 class="pt-4">II - Të dhënat partiake</h6><hr />
                         <div class="mb-4 d-flex justify-content-between">
                             <div class="col-6 pe-2">
-                                <label>Pozita ne parti</label>
-                                <select class="form-select" id="inputGroupSelect05">
+                                <label asp-for="Role">Pozita ne parti</label>
+                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select" id="inputGroupSelect05">
                                     <option disabled selected>Zgjedh rolin..</option>
                                     <option value="shto5">Shto +</option>
-                                    <option value="1">Admin</option>
-                             
                                 </select>
                                 @*<a asp-controller = "Role" asp-action = "AddRoles"  class="link-primary">Shto +</a>*@
                             </div>
-
-                        
-
                             <div class="col-6 pe-2">
-                                <label>Qendra e votimit</label>
-                                <select class="form-select" id="pollselector" >
+                                <label asp-for="PollCenter">Qendra e votimit</label>
+                                <select asp-for="PollCenter" asp-items="@ViewBag.pollCenters" class="form-select" id="pollselector" >
                                     <option disabled selected>Zgjedh qendren e votimit..</option>
                                     <option value="shto6">Shto +</option>
-                                    <option value="#">1250E</option>
-                                    <option value="#">1222A</option>
-                                    <option value="#">3542Y</option>
                                 </select> 
                             </div>
                         </div>
-
-
                         <button type="submit" class="btn btn-primary">Regjistro</button>
                     </form>
                     <div class="col-12">

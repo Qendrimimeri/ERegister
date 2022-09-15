@@ -11,5 +11,6 @@ namespace Application.Repository
         Task<bool> RegisterVoterAsync(RegisterVM register);
 
         Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model);
+
     }
 }
