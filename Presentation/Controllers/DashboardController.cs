@@ -16,9 +16,9 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        public IActionResult Performance() 
+        public async Task<IActionResult> Performance() 
         {
-            var users = _unitOfWork.ApplicationUser.GetUsersInRoleAsync();
+            var users =  await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
             return View(users); 
         }
 

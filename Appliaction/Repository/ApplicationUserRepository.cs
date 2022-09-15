@@ -24,17 +24,21 @@ namespace Application.Repository
             _userManager = userManager;
         }
 
-        public async Task<IList<ApplicationUser>> GetUsersInRoleAsync()
-            => await _userManager.GetUsersInRoleAsync("SimpleRole");
-
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
             var AllUsers = await _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
-                Name = person.FullName,
-                Village = person.Address.Village.Name,
-                City = person.Address.Municipality.Name
+                FullName = person.FullName,
+                PhoneNumber = person.PhoneNumber,
+                MunicipalityName =person.Address.Municipality.Name,
+                PollCenter = person.Address.PollCenter.CenterName,
+                VotersNumber=person.PollRelateds.Where(x=>x.UserId==person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter=person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances=person.PollRelateds.Where(x=>x.UserId==person.Id).FirstOrDefault().SuccessChances,
+                ActualStatus=person.ActualStatus
+
+
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
