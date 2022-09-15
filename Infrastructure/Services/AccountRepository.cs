@@ -17,25 +17,27 @@ namespace Infrastructure.Services
     public class AccountRepository : Repository<ApplicationUser>, IAccountRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
-        public AccountRepository(ApplicationDbContext context, 
-                                 ILogger logger,
-                                 UserManager<ApplicationUser> userManager) : base(context, logger, userManager)
+        public AccountRepository( ApplicationDbContext context, 
+                                  ILogger logger,
+                                  UserManager<ApplicationUser> userManager, 
+                                  SignInManager<ApplicationUser> signInManager ) 
+                                : base(context, logger, userManager, signInManager)
         {
             _context = context;
             _userManager = userManager;
             _logger = logger;
+            _signInManager = signInManager; 
         }
 
         // 
 
         public IEnumerable<ApplicationUser> GetAppUsers() => throw new NotImplementedException();
 
-        public async Task<bool> LoginAsync(LoginVM login)
+        async Task<bool> IAccountRepository.LoginAsync(LoginVM login)
         {
 
             var user = await _userManager.FindByEmailAsync(login.Email);
@@ -116,11 +118,6 @@ namespace Infrastructure.Services
         }
 
         IEnumerable<ApplicationUser> IAccountRepository.GetAppUsers()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<bool> IAccountRepository.LoginAsync(LoginVM login)
         {
             throw new NotImplementedException();
         }
