@@ -1,4 +1,6 @@
-﻿@{
+﻿@model VoterDetailsVM;
+
+@{
     Layout = "_DashboardLayout";
 }
 
@@ -8,11 +10,11 @@
             <div class="card ">
                 <div class="card-body p-5">
 
-                    <form>
+                    
                         <div class="d-flex flex-row pe-2">
                             <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
-                                   aria-describedby="button-addon1" name="SearchPhrase">
-                            <button type="submit" class="btn btn-primary text-white"> Konfirmo</button>
+                                   aria-describedby="button-addon1" id="SearchBtn">
+                            <button  class="btn btn-primary text-white" onclick="SetVoters()"> Konfirmo</button>
                         </div>
                         <br />
                         <style>
@@ -20,6 +22,10 @@
                                 font-weight: 580;
                             }
                         </style>
+                        <div class="a" id="Tables">
+
+                       
+                    </div>
                         <div class="d-flex flex-row justify-content-between pb-2 flex-md-row flex-column">
                             <div class="col-md-6 pe-2">
 
@@ -168,15 +174,16 @@
                             <button type="submit" class="btn btn-primary">Ruaj dhe mbyll</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 </section>
-@section Scripts {
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-                     const selectElement1 = document.querySelector('#inputGroupSelect01');
+
+    const selectElement1 = document.querySelector('#inputGroupSelect01');
 
     selectElement1.addEventListener('change', (event) => {
       const result = event.target.value;
@@ -185,15 +192,37 @@
       }
     });
 
+    const selectElement2 = document.querySelector('#inputGroupSelect03');
 
-                     const selectElement2 = document.querySelector('#inputGroupSelect03');
-
-        selectElement2.addEventListener('change', (event) => {
+    selectElement2.addEventListener('change', (event) => {
       const result = event.target.value;
       if (result === "shto3"){
           prompt("Shto Arsye percaktuese:")
       }
     });
+
+    function SetVoters(){
+        let name = $('#SearchBtn').val();
+        let setData = $("DataSearching")
+
+        let table=$("#Tables");
+
+        
+
+            $.ajax({
+                url:"/Crm/Voters?"+name,
+                type: "GET",
+                data : {},
+                success : function(data) {
+                   table.empty();
+                   table.append(data);
+                }
+                
+            });
+        
+    }
+
+
 </script>
 
-}
+

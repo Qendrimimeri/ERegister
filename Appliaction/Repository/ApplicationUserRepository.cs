@@ -54,8 +54,11 @@ namespace Application.Repository
             }
 
             return result;
-        
+       
         }
+
+        public async Task<ApplicationUser> GetUserByNameAsync(string name) 
+            => await _userManager.FindByNameAsync(name);
 
         public void Save()
         {

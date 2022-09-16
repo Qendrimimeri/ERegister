@@ -1,3 +1,4 @@
+﻿using Domain.Data.Entities;
 ﻿using Application.ViewModels;
 using Domain.Data.Entities;
 using System;
@@ -10,6 +11,8 @@ namespace Application.Repository.IRepository
 {
     public interface IApplicationUserRepository
     {
+        Task<ApplicationUser> GetUserByNameAsync(string name);
+        
         Task<List<PersonVM>> GetPersonInfoAsync();
     }
 }
