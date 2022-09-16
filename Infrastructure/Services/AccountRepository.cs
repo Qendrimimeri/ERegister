@@ -21,21 +21,18 @@ namespace Infrastructure.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
-        public AccountRepository( ApplicationDbContext context, 
+        public AccountRepository(ApplicationDbContext context,
                                   ILogger logger,
-                                  UserManager<ApplicationUser> userManager, 
-                                  SignInManager<ApplicationUser> signInManager ) 
+                                  UserManager<ApplicationUser> userManager,
+                                  SignInManager<ApplicationUser> signInManager)
                                 : base(context, logger, userManager, signInManager)
         {
             _context = context;
             _userManager = userManager;
             _logger = logger;
-            _signInManager = signInManager; 
+            _signInManager = signInManager;
         }
 
-        // 
-
-        public IEnumerable<ApplicationUser> GetAppUsers() => throw new NotImplementedException();
 
         async Task<bool> IAccountRepository.LoginAsync(LoginVM login)
         {
@@ -60,14 +57,13 @@ namespace Infrastructure.Services
                 MunicipalityId = model.Municipality,
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
-                BlockId = model.block,
+                BlockId = model.Block,
                 StreetId = model.Street,
                 PollCenterId = int.Parse(model.PollCenter),
             };
 
             await _context.Addresses.AddAsync(address);
             await _context.SaveChangesAsync();
-
 
             string workId = Guid.NewGuid().ToString();
             var work = new Work()
@@ -97,14 +93,15 @@ namespace Infrastructure.Services
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
             await _context.SaveChangesAsync();
 
+
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
             {
-                FamMembers = model.FamMembers,
+                FamMembers = 2,
                 Date = DateTime.Now,
                 UserId = userId.Id,
-                PoliticialSubjectId = model.PoliticalSubject,
-                SuccessChances = model.SuccessChance,
+                PoliticialSubjectId = 1,
+                SuccessChances = "",
                 GeneralReason = "Unset",
                 GeneralDemand = "unset",
                 SpecificDemand = "unset",
@@ -113,18 +110,57 @@ namespace Infrastructure.Services
 
             await _context.PollRelateds.AddAsync(pollRelated);
             await _context.SaveChangesAsync();
-
             return true;
         }
 
-        IEnumerable<ApplicationUser> IAccountRepository.GetAppUsers()
-        {
-            throw new NotImplementedException();
-        }
 
-        Task<bool> IAccountRepository.RegisterVoterAsync(RegisterVM register)
+        public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
-            throw new NotImplementedException();
+            string addressId = Guid.NewGuid().ToString();
+            var address = new Address()
+            {
+                Id = addressId,
+                MunicipalityId = model.Municipality,
+                HouseNo = model.HouseNo,
+                VillageId = model.Village,
+                BlockId = model.Block,
+                StreetId = model.Street,
+                PollCenterId = int.Parse(model.PollCenter),
+            };
+
+            await _context.Addresses.AddAsync(address);
+            await _context.SaveChangesAsync();
+
+            string workId = Guid.NewGuid().ToString();
+            var work = new Work()
+            {
+                Id = workId,
+                WorkPlace = "VV",
+                AdministrativeUnit = "Sherbimi Publik",
+                Duty = model.Role,
+            };
+
+
+            await _context.Works.Where(x => x.WorkPlace == "").FirstOrDefaultAsync();
+            await _context.Works.AddAsync(work);
+            await _context.SaveChangesAsync();
+
+
+            var simpleUser = new ApplicationUser()
+            {
+                FullName = model.FullName,
+                Email = model.Email,
+                UserName = model.Email,
+                WorkId = workId,
+                AddressId = addressId,
+                ActualStatus = "unset",
+            };
+
+            var result = await _userManager.CreateAsync(simpleUser, "Admin!23");
+            await _context.SaveChangesAsync();
+            await _userManager.AddToRoleAsync(simpleUser, "MunicipalityAdmin");
+
+            return true;
         }
     }
 }

@@ -1,4 +1,9 @@
-﻿@{
+﻿@model IEnumerable<PersonVM>
+@{
+    ViewBag.Title = "Tabela e Votueseve";
+    int i = 1;
+}
+@{
     Layout = "_DashboardLayout";
 }
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -30,48 +35,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Prishtine</td>
-                    <td>Filan Fisteku</td>
-                    <td>5</td>
-                    <td>044123123</td>
-                    <td>1901</td>
-                    <td>LDK</td>
-                    <td>VV</td>
-                    <td>70%</td>
-                    <td>50%</td>
-                    <td>Ne proces</td>
-                    <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Viti</td>
-                    <td>Filan Fisteku</td>
-                    <td>5</td>
-                    <td>044123123</td>
-                    <td>1902</td>
+          
+                @foreach (var voter in Model)
+                {
+                      <tr>
+                    <th scope="row">@(i++)</th>
+                    <td>@voter.MunicipalityName</td>
+                    <td>@voter.FullName</td>
+                    <td>@voter.VotersNumber</td>
+                    <td>@voter.PhoneNumber</td>
+                    <td>@voter.PollCenter</td>
+                    <td>@voter.PreviousVoter</td>
                     <td>PDK</td>
-                    <td>PDK</td>
-                    <td>70%</td>
+                    <td>@voter.InitialChances</td>
                     <td>100%</td>
-                    <td>Përfunduar</td>
+                    <td>@voter.ActualStatus</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
                 </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Prizren</td>
-                    <td>Filan Fisteku</td>
-                    <td>4</td>
-                    <td>044123123</td>
-                    <td>1903</td>
-                    <td>VV</td>
-                    <td>LDK</td>
-                    <td>30%</td>
-                    <td>70%</td>
-                    <td>Përfunduar</td>
-                    <td><a class="" asp-controller="Dashboard" asp-action="Reports">Edit<i class="fas fa-edit"></i></a></td>
-                </tr>
+
+                }
+              
+           
             </tbody>
         </table>
     </div>

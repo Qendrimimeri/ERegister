@@ -16,7 +16,7 @@ namespace Application.ViewModels
         public int Village { get; set; }
         public int Neigborhood { get; set; }
         public int Street { get; set; }
-        public int block { get; set; }
+        public int Block { get; set; }
         public int HouseNo { get; set; }
         public string WorkPlace { get; set; }
         public string AdministrativeUnit { get; set; }
