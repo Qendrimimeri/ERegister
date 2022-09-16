@@ -1,4 +1,5 @@
-﻿using Application.Repository;
+﻿using Application.Models;
+using Application.Repository;
 using Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +15,14 @@ namespace Presentation.Controllers
         }
 
 
+        
+        public IAccountRepository AccountRepository { get; }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM login)
         {
-            
             if (ModelState.IsValid)
             {
                 var res = await _unitOfWork.Account.LoginAsync(login);
@@ -34,5 +38,16 @@ namespace Presentation.Controllers
 
             return RedirectToAction("Index", "Home", ModelState);
         }
+        public IActionResult AccessDenied()
+        {
+            return View("../Account/AccessDenied");
+        }
+
+        [Route("/Account/Error/{code:int}")]
+        public IActionResult Error(int code)
+        {
+            return View(new ErrorModel {ErrorMessage = $"Error Occurred. Error Code is{code}" });
+        }
+       
     }
 }

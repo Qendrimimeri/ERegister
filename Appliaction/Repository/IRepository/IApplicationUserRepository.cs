@@ -10,7 +10,6 @@ namespace Application.Repository.IRepository
 {
     public interface IApplicationUserRepository
     {
-        Task<IList<ApplicationUser>> GetUsersInRoleAsync();
         Task<List<PersonVM>> GetPersonInfoAsync();
     }
 }
