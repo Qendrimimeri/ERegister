@@ -26,7 +26,7 @@ namespace Application.Repository
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
-            var AllUsers = await _db.Users.Select(person => new PersonVM()
+            var getAllUsers = await _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
@@ -43,19 +43,17 @@ namespace Application.Repository
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
 
-            var list = new List<PersonVM>();
-            foreach (var user in AllUsers)
+            var result = new List<PersonVM>();
+            foreach (var user in getAllUsers)
             {
                 foreach (var item in usersInRole)
                 {
                     if (user.Id == item.Id)
-                    {
-                        list.Add(user);
-                    }
+                        result.Add(user);
                 }
             }
 
-            return list;
+            return result;
         
         }
 

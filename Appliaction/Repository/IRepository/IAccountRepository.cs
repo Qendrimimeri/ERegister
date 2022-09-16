@@ -6,9 +6,11 @@ namespace Application.Repository
 {
     public interface IAccountRepository : IRepository<ApplicationUser>
     {
-        IEnumerable<ApplicationUser> GetAppUsers();
         Task<bool> LoginAsync(LoginVM login);
 
         Task<bool> RegisterVoterAsync(RegisterVM register);
+
+        Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model);
+
     }
 }

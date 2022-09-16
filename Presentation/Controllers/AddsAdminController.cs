@@ -4,6 +4,9 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNet.Identity;
+using Domain.Data.Entities;
 
 namespace Presentation.Controllers
 {
@@ -11,13 +14,14 @@ namespace Presentation.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddsAdminController( IUnitOfWork unitOfWork)
+        public AddsAdminController( IUnitOfWork unitOfWork )
         {
             _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> AddVoter()
         {
+            
             //PS ==> Political Subjects
             var PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.PS = PS;
@@ -64,15 +68,65 @@ namespace Presentation.Controllers
             return RedirectToAction("AddVoter");
         }
 
-        public IActionResult AddPoliticalSubject()
+        public async Task<IActionResult> PoliticalOffical()
         {
+            var municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.municipalities = municipalities;
+
+            var villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.villages = villages;
+
+            var neigborhoods = new SelectList(await _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = neigborhoods;
+
+            var pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.pollCenters = pollCenters;
+
+            var blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.blocks = blocks;
+
+            var streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.streets = streets;
 
             return View();
         }
 
-
-        public IActionResult EditPoliticalSubject()
+        [HttpPost()]
+        public async Task<IActionResult> PoliticalOffical(PoliticalOfficalVM model)
         {
+            if (ModelState.IsValid)
+            {
+                var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
+                if (res)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public IActionResult AddPoliticalSubject()
+        {
+
             return View();
         }
 
