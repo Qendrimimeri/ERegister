@@ -35,7 +35,7 @@ namespace Infrastructure.Services
             Neighborhood=new NeighborhoodRepository(_dbContext);
             PoliticalSubject = new PoliticalSubjectRepository(_dbContext);
             PollCenter = new PollCenterRepository(_dbContext);
-            PollRelated = new PollRelatedRepository(_dbContext);
+            PollRelated = new PollRelatedRepository(_dbContext, ApplicationUser);
             Street = new StreetRepository(_dbContext);
             Village=new VillageRepository(_dbContext);
             Work = new WorkRepository(_dbContext);

@@ -1,6 +1,8 @@
- using Application.Repository;
+using Application.Repository;
 using Microsoft.AspNet.Identity;
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Presentation.Controllers
 {
@@ -22,10 +24,36 @@ namespace Presentation.Controllers
             return View(users); 
         }
 
-        public IActionResult Reports() 
+        [HttpGet]
+        public async Task<IActionResult> Reports(string id) 
         { 
-            return View(); 
+            var users =  await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
+            var PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+            ViewBag.PS = PS;
+
+            var successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+            ViewBag.successChances = successChances;
+
+            var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
+            ViewBag.actualStatus = actualStatus;
+
+            
+            return View(users); 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Reports(PersonVM  editPerson)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var users = await _unitOfWork.PollRelated.AddPollRelated(editPerson);
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View();
+        }
+
+
         public IActionResult AddSubject()
         {
             return View();

@@ -54,12 +54,50 @@ namespace Application.Repository
             }
 
             return result;
-        
+       
         }
+
+        public async Task<ApplicationUser> GetUserByNameAsync(string name) 
+            => await _userManager.FindByNameAsync(name);
+
+        public async Task<PersonVM>GetUserByIdAsync(string id)
+        {
+            var getUser =  await _db.Users.Select(person => new PersonVM()
+            {
+                Id = person.Id,
+                FullName = person.FullName,
+                PhoneNumber = person.PhoneNumber,
+                MunicipalityName = person.Address.Municipality.Name,
+                PollCenter = person.Address.PollCenter.CenterName,
+                VotersNumber = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                ActualStatus = person.ActualStatus
+
+
+            }).Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            return getUser;
+        }
+         
 
         public void Save()
         {
             _db.SaveChanges();
+        }
+
+        public async Task<IdentityResult> AddUserAsync(ApplicationUser user)
+        {
+            var res = await _userManager.CreateAsync(user);
+            await _db.SaveChangesAsync();
+            return res;
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(ApplicationUser user)
+        {
+            var res = await _userManager.UpdateAsync(user);
+            await _db.SaveChangesAsync();
+            return res;
         }
     }
 }
