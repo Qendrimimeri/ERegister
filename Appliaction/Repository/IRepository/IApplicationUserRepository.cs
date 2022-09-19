@@ -14,5 +14,7 @@ namespace Application.Repository.IRepository
         Task<ApplicationUser> GetUserByNameAsync(string name);
         
         Task<List<PersonVM>> GetPersonInfoAsync();
+
+        Task<PersonVM> GetUserByIdAsync(string id);
     }
 }

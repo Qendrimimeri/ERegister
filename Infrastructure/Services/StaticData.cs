@@ -1,4 +1,5 @@
 ﻿using Appliaction.Models;
+using Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,5 +62,15 @@ namespace Infrastructure.Services
             return successChance;
         }
 
+
+        public static IEnumerable<ActualStatus> ActualStatus()
+        {
+            var actualStatus = new List<ActualStatus>() {
+                new ActualStatus { Key = "I pa perfunduar", Value = "I pa perfunduar" },
+                new ActualStatus { Key = "Ne proces", Value = "Ne proces" },
+                new ActualStatus { Key = "I perfunduar", Value = "I perfunduar" },
+            };
+            return actualStatus;
+        }
     }
 }

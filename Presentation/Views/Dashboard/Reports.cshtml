@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PersonVM
+@{
     Layout = "_DashboardLayout";
 }
 
@@ -29,21 +30,21 @@
                                            cellspacing="0">
                                         <tr>
                                             <th>Emri dhe Mbiemri</th>
-                                            <td>Filan Fisteku</td>
+                                            <td>@Model.FullName</td>
 
                                         </tr>
                                         <tr>
                                             <th>Numri i votuesve</th>
-                                            <td>7</td>
+                                            <td>@Model.VotersNumber</td>
 
                                         </tr>
                                         <tr>
                                             <th>Votues paraprak </th>
-                                            <td>LDK</td>
+                                            <td>@Model.PreviousVoter</td>
                                         </tr>
                                         <tr>
                                             <th>Gjasat fillestare</th>
-                                            <td>50%</td>
+                                            <td>@Model.InitialChances</td>
                                         </tr>
                                     </table>
                                 </div>
