@@ -1,4 +1,4 @@
-using Application.Repository;
+ using Application.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +41,10 @@ namespace Presentation.Controllers
             return View();
         }
         public IActionResult KqzResult()
+        {
+            return View();
+        }
+        public IActionResult BusinessUserProfile()
         {
             return View();
         }
