@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.Repository.IRepository
 {
@@ -16,5 +17,9 @@ namespace Application.Repository.IRepository
         Task<List<PersonVM>> GetPersonInfoAsync();
 
         Task<PersonVM> GetUserByIdAsync(string id);
+
+        Task<IdentityResult> AddUserAsync(ApplicationUser user);
+
+        Task<IdentityResult> UpdateUserAsync(ApplicationUser user);
     }
 }

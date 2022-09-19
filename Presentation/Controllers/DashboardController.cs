@@ -1,5 +1,6 @@
 
 using Application.Repository;
+using Application.ViewModels;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +25,7 @@ namespace Presentation.Controllers
             return View(users); 
         }
 
+        [HttpGet]
         public async Task<IActionResult> Reports(string id) 
         { 
             var users =  await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
@@ -36,8 +38,23 @@ namespace Presentation.Controllers
             var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
             ViewBag.actualStatus = actualStatus;
 
+            
             return View(users); 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Reports(PersonVM  editPerson)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var users = await _unitOfWork.PollRelated.AddPollRelated(editPerson);
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View();
+        }
+
+
         public IActionResult AddSubject()
         {
             return View();

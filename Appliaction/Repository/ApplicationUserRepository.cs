@@ -85,5 +85,19 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
+
+        public async Task<IdentityResult> AddUserAsync(ApplicationUser user)
+        {
+            var res = await _userManager.CreateAsync(user);
+            await _db.SaveChangesAsync();
+            return res;
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(ApplicationUser user)
+        {
+            var res = await _userManager.UpdateAsync(user);
+            await _db.SaveChangesAsync();
+            return res;
+        }
     }
 }

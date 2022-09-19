@@ -10,7 +10,7 @@
             <div class="card ">
                 <div class="card-body p-5">
 
-                    <form>
+                    <form asp-controller="Dashboard" asp-action="Reports" method="post">
 
                         <br />
                         <style>
@@ -60,11 +60,10 @@
                                         <tr>
                                             <th>Votues i tanishëm</th>
                                             <td>
-                                                <select class="form-select border-0 py-0">
-                                                    <option>VV</option>
-                                                    <option>LDK</option>
-                                                    <option>PDK</option>
-                                                    <option>AAK</option>
+
+                                                <select asp-for="CurrentVoter" asp-items="@ViewBag.PS" class="form-select"
+                                                        id="inputGroupSelect01">
+                                                    <option disabled selected>Zgjedh Partine..</option>
                                                 </select>
                                             </td>
 
@@ -72,13 +71,10 @@
                                         <tr>
                                             <th>Gjasat aktuale</th>
                                             <td>
-                                                <select class="form-select border-0 py-0">
-                                                    <option>0%</option>
-                                                    <option>25%</option>
-                                                    <option>50%</option>
-                                                    <option>75%</option>
-                                                    <option>100%</option>
 
+
+                                                <select asp-for="ActualChances" asp-items="@ViewBag.successChances" class="form-select">
+                                                    <option disabled selected>Zgjedh Gjasat e Suksesit..</option>
                                                 </select>
                                             </td>
 
@@ -86,9 +82,10 @@
                                         <tr>
                                             <th>Statusi aktual</th>
                                             <td>
-                                                <select class="form-select border-0 py-0">
-                                                    <option>Në proces</option>
-                                                    <option>Përfunduar</option>
+
+                                                <select asp-for="ActualStatus" asp-items="@ViewBag.actualStatus" class="form-select"
+                                                        id="inputGroupSelect01">
+                                                    <option disabled selected>Zgjedh Statusin..</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -96,18 +93,15 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="mb-2 ml-5">
+                            <label for="exampleFormControlTextarea1" class="form-label">Përshkruaj gjendjen ekzistuese dhe mundësit ose barrierat e suksesit:</label>
+                            <textarea class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end mb-2 mt-2 p-2">
+                            <button type="submit" class="btn btn-danger">Anulo</button>&nbsp;&nbsp;
+                            <button type="submit" class="btn btn-primary">Ruaj dhe Mbyll</button>
+                        </div>
                     </form>
-                    <div class="mb-2 ml-5">
-                        <label for="exampleFormControlTextarea1" class="form-label">Përshkruaj gjendjen ekzistuese dhe mundësit ose barrierat e suksesit:</label>
-                        <textarea class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                    <div class="d-flex justify-content-end mb-2 mt-2 p-2">
-                        <button type="button" class="btn btn-danger">Anulo</button>&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Ruaj dhe Mbyll</button>
-                    </div>
-
-
-
                 </div>
             </div>
         </div>
