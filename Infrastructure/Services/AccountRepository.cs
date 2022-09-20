@@ -5,12 +5,11 @@ using Domain.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Application.Models;
+using System.Security.Policy;
+using Appliaction.Repository;
+using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Services
 {
@@ -18,19 +17,22 @@ namespace Infrastructure.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IMailService _mail;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
         public AccountRepository(ApplicationDbContext context,
                                   ILogger logger,
                                   UserManager<ApplicationUser> userManager,
-                                  SignInManager<ApplicationUser> signInManager)
+                                  SignInManager<ApplicationUser> signInManager,
+                                  IMailService mail)
                                 : base(context, logger, userManager, signInManager)
         {
             _context = context;
             _userManager = userManager;
             _logger = logger;
             _signInManager = signInManager;
+            _mail = mail;
         }
 
 
@@ -158,9 +160,52 @@ namespace Infrastructure.Services
 
             var result = await _userManager.CreateAsync(simpleUser, "Admin!23");
             await _context.SaveChangesAsync();
+
+
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(simpleUser);
+                var baseUrl = "https://localhost:7278";
+                var confimrEmailUrs = $"Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
+                confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+
+                // Send Email
+                var emailReques = new MailRequest();
+                emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
+                emailReques.Body = confimrEmailUrs;
+                emailReques.ToEmail = simpleUser.Email;
+
+                await _mail.SendEmailAsync(emailReques);
+            }
             await _userManager.AddToRoleAsync(simpleUser, "MunicipalityAdmin");
 
             return true;
+        }
+
+
+        public async Task<bool> ForgotPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var baseUrl = "https://localhost:7278";
+            var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
+            confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+
+            // Send Email
+            var emailReques = new MailRequest();
+            emailReques.Subject = "PBCA: Restarto fjalkalimin.";
+            emailReques.Body = confimrEmailUrs;
+            emailReques.ToEmail = user.Email;
+            await _mail.SendEmailAsync(emailReques);
+
+            return true;
+        }
+
+        public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+            return res;
         }
     }
 }

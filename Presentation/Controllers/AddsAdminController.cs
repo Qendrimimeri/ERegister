@@ -98,9 +98,7 @@ namespace Presentation.Controllers
             {
                 var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
                 if (res)
-                {
                     return RedirectToAction("Index", "Dashboard");
-                }
             }
             return View();
         }

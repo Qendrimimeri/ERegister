@@ -14,6 +14,7 @@ namespace Presentation.Controllers
         }
         public IActionResult Index() => View();
 
+        [HttpGet]
         public  IActionResult Forgot() => View();
 
         public IActionResult AboutUs() => View();
