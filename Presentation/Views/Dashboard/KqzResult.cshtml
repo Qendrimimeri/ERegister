@@ -32,21 +32,21 @@
                                 <label class="pt-4">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03">
                                     <option disabled selected>Zgjedh llojin e zgjedhjeve..</option>
-                                    <option value="#">Zgjedhjet Nacionale</option>
-                                    <option value="#">Zgjedhjet Lokale</option>
+                                    <option >Zgjedhjet Nacionale</option>
+                                    <option >Zgjedhjet Lokale</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="pt-4">Viti i zgjedhjeve</label>
-                                <input class="form-control">
+                                <label class="pt-4" >Viti i zgjedhjeve</label>
+                                <input id="year" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
                             <div class="col-12 pb-4">
                                 <label class="pt-4">Qendra e vendvotimit</label>
-                                <input class="form-control">
+                                <input id="poll" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-                            <button type="submit" class="btn btn-primary">Regjistro votimet</button>
+                            <button type="submit" id="main-div" class="btn btn-primary">Regjistro votimet</button>
                         </form>
                     </div>
                 </div>
@@ -61,36 +61,36 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">VV</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="1">VV</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">LDK</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="2">LDK</th>
+                                    <td><input type="number" class="border-0 votat"  /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">PDK</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="3">PDK</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">AAK</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="4">AAK</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">AKR</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="5">AKR</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Nisma</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="6">Nisma</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Partite serbe</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="7">Partite serbe</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Partite joserbe</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="8">Partite joserbe</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -107,7 +107,54 @@
     const munis = document.querySelector('#munis');
     const villages = document.querySelector('#villages');
     const url = "https://localhost:7278/api/service/";
+    const button = document.querySelector('#main-div');
     getMunis();
+
+    
+    button.addEventListener('click', event => {
+         //event.preventDefault();
+        
+        
+         addDataToDb();
+        
+       
+        alert("U Regjistrua!");
+
+})
+
+function addDataToDb() {
+    let endpoint = url + "addkqzresult";
+    const election = document.getElementById("inputGroupSelect03").value;
+    const year = document.getElementById('year').value;
+    const poll = document.getElementById('poll').value;
+    const neighborhood = document.getElementById('neigborhoods').value
+    const parti = document.getElementsByClassName("parti");
+    const votat = document.getElementsByClassName("votat");
+    console.log(parti);
+    console.log(votat);
+    //var i = 1;
+    
+    //let input = prompt("Shto fshatin e ri:");
+    //let selectedMuni = $('#munis').val();
+    //let sm = document.querySelector("#munis").value;
+    for (var i=0; i < votat.length; i++) {
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({
+                municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
+
+                electionType: election, dataCreated: year, pollCenterId: poll, politicialSubjectId: i, noOfvotes: votat[i].value
+            })
+        });
+        //.then(() => addVillagesToList(sm));
+    }
+}
+
+    
 
     munis.addEventListener('change', event => {
         addVillagesToList(event.target.value);
