@@ -29,13 +29,37 @@ namespace Presentation.Controllers
             }
             users = vm.Where(c => c.ApplicationUsers.FullName == name).ToList();
             VoterDetailsVM vm1 = new VoterDetailsVM();
-            return PartialView("_Voters", users);
+            return PartialView("_Voters" , users);
         }
         //public JsonResult GetSearchingData(string name , string searchValue)
+        [HttpPost]
+        public IActionResult Cancel()
+        {
+            return View("Index" , "Dashboard");
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> SaveAndClose(PollRelated pollRelated)
+        {
+             _unitOfWork.PollRelated.Update(pollRelated);
+            await _unitOfWork.Done();
+            return RedirectToAction("Index", "Dashboard");
+        }
+        public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
+        {
+            _unitOfWork.PollRelated.Update(pollRelated);
+            await _unitOfWork.Done();
+            return RedirectToAction("Index", "Crm");
+        }
 
 
+        //public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
+        //{
+        //    _unitOfWork.PollRelated.Update(pollRelated);
+        //    await _unitOfWork.Done();
 
-
+        //    return RedirectToAction("Index" , "Crm");
+        //}
         public IActionResult GeneralReasons()
         {
             return View();

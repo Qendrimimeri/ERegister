@@ -14,5 +14,8 @@ namespace Application.Repository.IRepository
         Task Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
+        void Update(T entity);
+        void SaveChanges(IEnumerable<T> entities);
+        
     }
 }
