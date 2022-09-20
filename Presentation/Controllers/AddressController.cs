@@ -16,6 +16,7 @@ namespace Presentation.Controllers
 
         public IActionResult AddBlock()
         {
+
             return View();
         }
         public IActionResult AddStreet()
