@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Presentation;
 using System;
 using Application.Repository.IRepository;
+using Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -18,6 +19,8 @@ var connectionString = builder.Configuration.GetConnectionString("Dev");
 builder.Services.AddTransient<SuperAdminInitializer>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(MailSettings.SectionName));
+builder.Services.AddTransient<IMailService, MailService>();
 
 
 //Adding Dependency Injection for every Repository
@@ -38,9 +41,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-
-options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
