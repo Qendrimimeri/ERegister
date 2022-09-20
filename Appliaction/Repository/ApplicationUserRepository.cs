@@ -1,18 +1,13 @@
-﻿using Application.Repository.IRepository;
+using Application.Repository.IRepository;
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Repository
 {
-    public class ApplicationUserRepository:Repository<ApplicationUser>,IApplicationUserRepository
+    public class ApplicationUserRepository:Repository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -57,6 +52,9 @@ namespace Application.Repository
        
         }
 
+        public async Task<ApplicationUser> FindUserById(string id)
+            => await _userManager.FindByIdAsync(id);
+            
         public async Task<ApplicationUser> GetUserByNameAsync(string name) 
             => await _userManager.FindByNameAsync(name);
 
@@ -86,6 +84,10 @@ namespace Application.Repository
             _db.SaveChanges();
         }
 
+
+
+        public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token)
+            => await _userManager.ConfirmEmailAsync(userIdentity, token);
         public async Task<IdentityResult> AddUserAsync(ApplicationUser user)
         {
             var res = await _userManager.CreateAsync(user);
