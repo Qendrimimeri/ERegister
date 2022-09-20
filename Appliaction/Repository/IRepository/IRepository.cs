@@ -17,5 +17,7 @@ namespace Application.Repository.IRepository
         void Update(T entity);
         void SaveChanges(IEnumerable<T> entities);
         
+        
+        
     }
 }
