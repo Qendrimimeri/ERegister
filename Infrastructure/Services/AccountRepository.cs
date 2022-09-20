@@ -90,6 +90,8 @@ namespace Infrastructure.Services
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
+                PhoneNumber = model.PhoneNumber,
+
             };
 
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
@@ -99,7 +101,7 @@ namespace Infrastructure.Services
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
             {
-                FamMembers = 2,
+                FamMembers = model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
                 PoliticialSubjectId = 1,

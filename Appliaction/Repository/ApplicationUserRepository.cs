@@ -21,6 +21,7 @@ namespace Application.Repository
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
+
             var getAllUsers = await _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
@@ -28,14 +29,14 @@ namespace Application.Repository
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName =person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                VotersNumber=person.PollRelateds.Where(x=>x.UserId==person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter=person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances=person.PollRelateds.Where(x=>x.UserId==person.Id).FirstOrDefault().SuccessChances,
+                VotersNumber= _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter= _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances= _db.PollRelateds.Where(x=>x.UserId == person.Id).FirstOrDefault().SuccessChances,//Me kriju logjike te re
                 ActualStatus=person.ActualStatus
-
 
             }).ToListAsync();
 
+            //var famMembers = _db.PollRelateds.Where(x=> x.UserId == getAllUsers.FirstOrDefault().Id).FirstOrDefault().FamMembers; 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
 
             var result = new List<PersonVM>();
