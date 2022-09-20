@@ -133,10 +133,11 @@ function addDataToDb() {
     console.log(parti);
     console.log(votat);
     //var i = 1;
+    
     //let input = prompt("Shto fshatin e ri:");
     //let selectedMuni = $('#munis').val();
     //let sm = document.querySelector("#munis").value;
-    for (var i=0; i < 8; i++) {
+    for (var i=0; i < votat.length; i++) {
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
