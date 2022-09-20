@@ -31,7 +31,8 @@ namespace Presentation.Controllers
             VoterDetailsVM vm1 = new VoterDetailsVM();
             return PartialView("_Voters" , users);
         }
-        //public JsonResult GetSearchingData(string name , string searchValue)
+        
+
         [HttpPost]
         public IActionResult Cancel()
         {

@@ -18,6 +18,7 @@ namespace Domain.Data.Entities
         public int? HelpId { get; set; }
 
         public string? GeneralDescription { get; set; }
+
         public virtual Help? Help { get; set; }
         public virtual PoliticalSubject? PoliticialSubject { get; set; }
         public virtual ApplicationUser? ApplicationUsers { get; set; }
