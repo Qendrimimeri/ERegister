@@ -11,5 +11,6 @@ namespace Application.Repository.IRepository
     public interface IPollRelatedRepository:IRepository<PollRelated>
     {
         Task<bool> AddPollRelated(PersonVM editPerson);
+        
     }
 }

@@ -46,7 +46,14 @@ namespace Application.Repository
             => await db.Set<T>().Where(filter).FirstOrDefaultAsync();
 
         public void Remove(T entity) => db.Set<T>().Remove(entity);
+        public void Update(T entity) => db.Set<T>().Update(entity);
+
 
         public void RemoveRange(IEnumerable<T> entity) => db.Set<T>().RemoveRange(entity);
+
+        public void SaveChanges(IEnumerable<T> entities)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

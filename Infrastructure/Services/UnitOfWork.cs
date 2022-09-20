@@ -63,8 +63,13 @@ namespace Infrastructure.Services
         public IWorkRepository Work { get; }
 
 
-        public async Task Done() => await _dbContext.SaveChangesAsync();
+        public async Task <int> Done() => await _dbContext.SaveChangesAsync();
 
         public async void Dispose() => await _dbContext.DisposeAsync();
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
