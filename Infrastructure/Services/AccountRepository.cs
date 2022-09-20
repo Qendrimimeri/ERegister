@@ -92,7 +92,7 @@ namespace Infrastructure.Services
 
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
             await _context.SaveChangesAsync();
-
+            await _userManager.AddToRoleAsync(simpleUser, "SimpleRole");
 
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
