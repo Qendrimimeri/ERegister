@@ -329,13 +329,13 @@
     function addStreetToList(muniId){
         streets.innerHTML = '';
         let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh rrugen...";
+        chooseOption.innerText = "Zgjedh rrugën...";
         chooseOption.selected = true;
         chooseOption.disabled = true;
         streets.appendChild(chooseOption);
 
         let addOption = document.createElement("option");
-        addOption.innerText = "Shto rrugë te re...";
+        addOption.innerText = "Shto rrugën e re...";
         addOption.value = "shto";
         streets.appendChild(addOption);
 
@@ -351,7 +351,7 @@
     }
     function addStreetToDb(){
         let endpoint = url + "addstreet";
-        let input = prompt("Shto rrugen e re:");
+        let input = prompt("Shto rrugën e re:");
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -362,22 +362,13 @@
             body: JSON.stringify({municipalityId: sm, streetName: input})
         }).then(() => addStreetToList(sm));
     }
-</script>
-}
-@*@section Scripts {
-<script>
-   
-    const selectElement5 = document.querySelector('#inputGroupSelect05');
 
+    const selectElement5 = document.querySelector('#inputGroupSelect05');
     selectElement5.addEventListener('change', (event) => {
         const result = event.target.value;
         if (result === "shto5") {
             prompt("Shto Rol te ri")
         }
     });
-
-   
-
-   
 </script>
-}*@
+}

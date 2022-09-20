@@ -1,4 +1,6 @@
 using Application.Repository;
+using Application.ViewModels;
+using Infrastructure.Services;
 using Microsoft.AspNet.Identity;
 
 using Microsoft.AspNetCore.Mvc;
