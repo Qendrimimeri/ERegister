@@ -61,36 +61,36 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">VV</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="1">VV</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">LDK</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="2">LDK</th>
+                                    <td><input type="number" class="border-0 votat"  /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">PDK</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="3">PDK</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">AAK</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="4">AAK</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">AKR</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="5">AKR</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Nisma</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="6">Nisma</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Partite serbe</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="7">Partite serbe</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Partite joserbe</th>
-                                    <td><input type="number" class="border-0" /></td>
+                                    <th scope="row" class="parti" value="8">Partite joserbe</th>
+                                    <td><input type="number" class="border-0 votat" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -114,33 +114,46 @@
     button.addEventListener('click', event => {
          //event.preventDefault();
         
-        addDataToDb();
+        
+         addDataToDb();
+        
+       
         alert("U Regjistrua!");
 
 })
 
-    function addDataToDb(){
-        let endpoint = url + "addkqzresult";
-        const election = document.getElementById("inputGroupSelect03").value;
-        const year = document.getElementById('year').value;
-        const poll = document.getElementById('poll').value;
-        const neighborhood = document.getElementById('neigborhoods').value
-        //let input = prompt("Shto fshatin e ri:");
-        //let selectedMuni = $('#munis').val();
-        //let sm = document.querySelector("#munis").value;
+function addDataToDb() {
+    let endpoint = url + "addkqzresult";
+    const election = document.getElementById("inputGroupSelect03").value;
+    const year = document.getElementById('year').value;
+    const poll = document.getElementById('poll').value;
+    const neighborhood = document.getElementById('neigborhoods').value
+    const parti = document.getElementsByClassName("parti");
+    const votat = document.getElementsByClassName("votat");
+    console.log(parti);
+    console.log(votat);
+    //var i = 1;
+    //let input = prompt("Shto fshatin e ri:");
+    //let selectedMuni = $('#munis').val();
+    //let sm = document.querySelector("#munis").value;
+    for (var i=0; i < 8; i++) {
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({ municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood, 
-            
-            electionType: election , dataCreated: year, pollCenterId: poll   })
+            body: JSON.stringify({
+                municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
+
+                electionType: election, dataCreated: year, pollCenterId: poll, politicialSubjectId: i, noOfvotes: votat[i].value
+            })
         });
         //.then(() => addVillagesToList(sm));
-
     }
+}
+
+    
 
     munis.addEventListener('change', event => {
         addVillagesToList(event.target.value);
