@@ -79,7 +79,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              <a asp-controller="Crm" asp-action="OpenCases"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -257,10 +257,10 @@
             </li>
 
             <li>
-              <form method="post" asp-action="Home" asp-controller="Index">
+              <form method="post" asp-controller = "Home" asp-action= "Index">
 				<button class="dropdown-item d-flex align-items-center" href="#">
 					<i class="bi bi-box-arrow-right"></i>
-					<span>Sign Out</span>
+					<span>Dil</span>
 				</button>
 			  </form>
             </li>
@@ -287,7 +287,7 @@
 
           <li class="nav-item">
               <a class="nav-link collapsed" asp-controller = "Crm" asp-action= "Index">
-                  <i class="bi bi-graph-up"></i>
+                  <i class="bi bi-search"></i>
                   <span>CRM</span>
               </a>
           </li>
@@ -332,13 +332,13 @@
 
            <li class="nav-item">
               <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "KqzResult">
-                  <i class="bi bi-graph-up"></i>
+                  <i class="bi bi-check-lg"></i>
                   <span>Rezultatet KQZ</span>
               </a>
           </li>
 
           <li class = "accordion-item mt-5">
-              <a class = "nav-link collapsed">
+              <a class = "nav-link collapsed" asp-controller = "Home" asp-action= "Index">
                   <i class = "bi bi-box-arrow-right"></i>
                   <span>Dil</span>
               </a>

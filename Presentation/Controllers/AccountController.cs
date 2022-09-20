@@ -1,6 +1,9 @@
 ﻿using Application.Models;
 using Application.Repository;
 using Application.ViewModels;
+using Domain.Data.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -9,7 +12,7 @@ namespace Presentation.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccountController( IUnitOfWork unitOfWork )
+        public AccountController( IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -48,6 +51,69 @@ namespace Presentation.Controllers
         {
             return View(new ErrorModel {ErrorMessage = $"Error Occurred. Error Code is{code}" });
         }
-       
+
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                return View();
+            }
+            var userIdentity = await _unitOfWork.ApplicationUser.FindUserById(userId);
+            var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
+
+            if (result.Succeeded)
+                return RedirectToAction("ConfirmedEmail");
+            foreach (var err in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, err.Description);
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> ConfirmedEmail() => View("ConfirmEmail");
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(EmailVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string userId, string token)
+        {
+            if (userId == null && token == null)
+                return View("ResetPasswordError");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                string replaceToken = model.Token.Replace(" ", "+");
+                model.Token = replaceToken;
+
+                var res = await _unitOfWork.Account.ResetPasswordAsync(model);
+                if (res.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View();
+        }
     }
 }
