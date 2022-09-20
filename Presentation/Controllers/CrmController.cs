@@ -68,5 +68,9 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult OpenCases()
+        {
+            return View();
+        }
     }
 }

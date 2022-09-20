@@ -143,6 +143,18 @@ namespace Presentation.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("addblock")]
+        public ActionResult AddRole([FromBody] AddBlockVM model)
+        {
+            _context.Blocks.Add(new Block
+            {
+                Name = model.BlockName
+            });
+            _context.SaveChanges();
+
+            return Ok();
+        }
         //[Route("getqendravotimitbyvillage")]
         //public ActionResult GetQendraVotimitbyVillage([FromQuery] int villId)
         //{
