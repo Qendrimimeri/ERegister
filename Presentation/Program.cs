@@ -3,7 +3,7 @@ using Appliaction.Repository;
 using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
-using Infrastructure.Models;
+using Appliaction.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

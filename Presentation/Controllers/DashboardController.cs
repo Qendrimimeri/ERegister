@@ -2,7 +2,7 @@ using Application.Repository;
 using Application.ViewModels;
 using Infrastructure.Services;
 using Microsoft.AspNet.Identity;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -70,6 +70,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult KqzResult()
         {
             return View();

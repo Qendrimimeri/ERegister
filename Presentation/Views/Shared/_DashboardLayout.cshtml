@@ -329,13 +329,15 @@
                   <span>Regjistro partinë</span>
               </a>
           </li>*@
-
-           <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "KqzResult">
-                  <i class="bi bi-check-lg"></i>
-                  <span>Rezultatet KQZ</span>
-              </a>
-          </li>
+          @if(User.IsInRole("SuperAdmin")){
+               <li class="nav-item">
+                  <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "KqzResult">
+                      <i class="bi bi-check-lg"></i>
+                      <span>Rezultatet KQZ</span>
+                  </a>
+                </li>
+          }
+          
 
           <li class = "accordion-item mt-5">
               <a class = "nav-link collapsed" asp-controller = "Home" asp-action= "Index">

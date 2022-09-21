@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Infrastructure.Models;
+using Appliaction.Models;
 using Microsoft.Extensions.Options;
 using Domain.Data;
 using Domain.Data.Entities;
