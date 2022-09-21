@@ -17,7 +17,7 @@ namespace Application.Repository.IRepository
         
         Task<List<PersonVM>> GetPersonInfoAsync();
 
-        Task<ApplicationUser> FindUserById(string id);
+        Task<ApplicationUser> FindUserByIdAsync(string id);
 
         Task<IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token);
         Task<PersonVM> GetUserByIdAsync(string id);

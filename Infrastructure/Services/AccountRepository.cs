@@ -105,7 +105,7 @@ namespace Infrastructure.Services
                 Date = DateTime.Now,
                 UserId = userId.Id,
                 PoliticialSubjectId = 1,
-                SuccessChances = "",
+                SuccessChances = model.SuccessChance,
                 GeneralReason = "Unset",
                 GeneralDemand = "unset",
                 SpecificDemand = "unset",
