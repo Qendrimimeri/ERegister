@@ -60,7 +60,7 @@ namespace Presentation.Controllers
                 ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
                 return View();
             }
-            var userIdentity = await _unitOfWork.ApplicationUser.FindUserById(userId);
+            var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
             var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
 
             if (result.Succeeded)

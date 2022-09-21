@@ -2,6 +2,7 @@
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Application.Repository
 
         public async Task<bool> AddPollRelated(PersonVM editPerson)
         {
-            var pollId =  _db.PollRelateds.Where(x => x.UserId == editPerson.Id).FirstOrDefault();
+            var pollId =  _db.PollRelateds.AsNoTracking().Where(x => x.UserId == editPerson.Id).FirstOrDefault();
             var pollRelated = new PollRelated()
             {
                 UserId = editPerson.Id,
@@ -39,12 +40,23 @@ namespace Application.Repository
                 Date = DateTime.Now,
                 GeneralDescription=editPerson.GeneralDescription
             };
-            await _db.PollRelateds.AddAsync(pollRelated);
-            await _db.SaveChangesAsync();
 
-            var getUser = _appUser.GetUserByIdAsync(pollRelated.UserId);
-            var addUser= new ApplicationUser() { ActualStatus = editPerson.ActualStatus};
-            await _appUser.UpdateUserAsync(addUser);
+             _db.PollRelateds.Add(pollRelated);
+             _db.SaveChanges();
+
+
+            var getUser = await _appUser.FindUserByIdAsync(pollRelated.UserId);
+            getUser.ActualStatus = editPerson.ActualStatus;
+            //var updateUser = new ApplicationUser() 
+            //{
+            //    Id = getUser.Id,
+            //    UserName = getUser.UserName,
+            //    FullName= getUser.FullName,
+            //    Email = getUser.Email,
+               
+            //    ActualStatus = editPerson.ActualStatus
+            //};
+            var res = await _appUser.UpdateUserAsync(getUser);
             return true;
 
         }

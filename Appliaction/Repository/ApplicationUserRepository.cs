@@ -22,7 +22,7 @@ namespace Application.Repository
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
 
-            var getAllUsers = await _db.Users.Select(person => new PersonVM()
+            var getAllUsers = await _db.Users.AsNoTracking().Select(person => new PersonVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
@@ -31,12 +31,10 @@ namespace Application.Repository
                 PollCenter = person.Address.PollCenter.CenterName,
                 VotersNumber= _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 PreviousVoter= _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances= _db.PollRelateds.Where(x=>x.UserId == person.Id).FirstOrDefault().SuccessChances,//Me kriju logjike te re
+                InitialChances= _db.PollRelateds.Where(x=>x.UserId == person.Id).FirstOrDefault().SuccessChances,
                 ActualStatus=person.ActualStatus
-
             }).ToListAsync();
 
-            //var famMembers = _db.PollRelateds.Where(x=> x.UserId == getAllUsers.FirstOrDefault().Id).FirstOrDefault().FamMembers; 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
 
             var result = new List<PersonVM>();
@@ -48,29 +46,27 @@ namespace Application.Repository
                         result.Add(user);
                 }
             }
-
             return result;
-       
         }
 
-        public async Task<ApplicationUser> FindUserById(string id)
+        public async Task<ApplicationUser> FindUserByIdAsync(string id)
             => await _userManager.FindByIdAsync(id);
-            
+
         public async Task<ApplicationUser> GetUserByNameAsync(string name) 
             => await _userManager.FindByNameAsync(name);
 
         public async Task<PersonVM>GetUserByIdAsync(string id)
         {
-            var getUser =  await _db.Users.Select(person => new PersonVM()
+            var getUser =  await _db.Users.AsNoTracking().Select(person => new PersonVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                VotersNumber = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances =_db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
                 ActualStatus = person.ActualStatus
 
 
@@ -84,9 +80,6 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
-
-
-
         public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token)
             => await _userManager.ConfirmEmailAsync(userIdentity, token);
         public async Task<IdentityResult> AddUserAsync(ApplicationUser user)

@@ -23,10 +23,6 @@ builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(MailSe
 builder.Services.AddTransient<IMailService, MailService>();
 
 
-//Adding Dependency Injection for every Repository
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedEmail = false;

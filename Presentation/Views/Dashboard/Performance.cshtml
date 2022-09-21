@@ -46,9 +46,9 @@
                     <td>@voter.PhoneNumber</td>
                     <td>@voter.PollCenter</td>
                     <td>@voter.PreviousVoter</td>
-                    <td>PDK</td>
+                    <td>@voter.CurrentVoter</td>
                     <td>@voter.InitialChances</td>
-                    <td>100%</td>
+                    <td>@voter.ActualChances</td>
                     <td>@voter.ActualStatus</td>
                     <td><a class="" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id">Edit<i class="fas fa-edit"></i></a></td>
                 </tr>
