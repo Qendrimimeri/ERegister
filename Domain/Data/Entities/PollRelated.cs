@@ -16,6 +16,7 @@ namespace Domain.Data.Entities
         public string? SpecificReason { get; set; }
         public string? SpecificDemand { get; set; }
         public int? HelpId { get; set; }
+       
 
         public string? GeneralDescription { get; set; }
 

@@ -11,14 +11,12 @@ namespace Application.Repository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-
         public ApplicationUserRepository(ApplicationDbContext db, 
                                          UserManager<ApplicationUser> userManager) : base(db)
         {
             _db = db;
             _userManager = userManager;
         }
-
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
             var getAllUsers = await _db.Users.Select(person => new PersonVM()
@@ -31,9 +29,8 @@ namespace Application.Repository
                 VotersNumber=person.PollRelateds.Where(x=>x.UserId==person.Id).FirstOrDefault().FamMembers,
                 PreviousVoter=person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
                 InitialChances=person.PollRelateds.Where(x=>x.UserId==person.Id).FirstOrDefault().SuccessChances,
-                ActualStatus=person.ActualStatus
-
-
+                ActualStatus=person.ActualStatus,
+                Village = person.Address.Village.Name
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
@@ -47,11 +44,8 @@ namespace Application.Repository
                         result.Add(user);
                 }
             }
-
             return result;
-       
         }
-
         public async Task<ApplicationUser> FindUserById(string id)
             => await _userManager.FindByIdAsync(id);
             
@@ -83,6 +77,7 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
+        
 
 
 

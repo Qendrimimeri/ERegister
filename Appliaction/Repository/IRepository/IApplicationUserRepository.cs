@@ -21,7 +21,6 @@ namespace Application.Repository.IRepository
 
         Task<IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token);
         Task<PersonVM> GetUserByIdAsync(string id);
-
         Task<IdentityResult> AddUserAsync(ApplicationUser user);
 
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user);

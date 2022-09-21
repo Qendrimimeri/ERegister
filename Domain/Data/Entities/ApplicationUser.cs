@@ -19,7 +19,7 @@ namespace Domain.Data.Entities
         public string WorkId { get; set; } = null!;
         
         public virtual Address Address { get; set; } = null!;
-        public virtual Work Work { get; set; } = null!;
+        public virtual Work Work { get; set; } = null!; 
         public virtual ICollection<PollRelated> PollRelateds { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿@model VoterDetailsVM;
-
-<form id="form">
+﻿@model PersonVM
     <div class="d-flex flex-row justify-content-between pb-2">
         <div class="col-6 pe-2">
             <div class="table-responsive">
@@ -10,7 +8,7 @@
                        cellspacing="0">
                     <tr>
                         <th>Emri dhe Mbiemri</th>
-                        <td id="DataSearching">@Model.FirstName @Model.LastName</td>
+                        <td id="DataSearching">@Model.FullName</td>
                     </tr>
                     <tr>
                         <th>Laggja/Fshati</th>
@@ -18,15 +16,15 @@
                     </tr>
                     <tr>
                         <th>Blloku</th>
-                        <td id="DataSearching">@Model.Blocks</td>
+                        @*<td id="DataSearching">@Model.Blocks</td>*@
                     </tr>
-                    <tr>
+                    @*<tr>
                         <th>Hyrja </th>
                         <td id="DataSearching">@Model.HouseNo</td>
                     </tr>
                     <tr>
                         <th>Numri i telefonit </th>
-                        @* <td id="DataSearching">@Model.PhoneNumber</td>*@
+                         <td id="DataSearching">@Model.PhoneNumber</td>
                     </tr>
                     <tr>
                         <th>Email adresa</th>
@@ -35,7 +33,7 @@
                     <tr>
                         <th>Facebook</th>
                         <td id="DataSearching">@Model.Facebook</td>
-                    </tr>
+                    </tr>*@
                 </table>
             </div>
         </div>
@@ -45,7 +43,7 @@
                        id="dataTable"
                        width="100%"
                        cellspacing="0">
-                    <tr>
+                   @* <tr>
                         <th>Numri i familjareve</th>
                         <td id="DataSearching">@Model.FamMembers</td>
                     </tr>
@@ -56,12 +54,12 @@
                     <tr>
                         <th>Votues i tanishem</th>
                         <td id="DataSearching">@Model.PoliticalSubject</td>
-                    </tr>
+                    </tr>*@
                     <tr>
                         <th>Gjasat e suksesit</th>
-                        <td id="DataSearching">@Model.SuccessChances</td>
+                        @*<td id="DataSearching">@Model.SuccessChances</td>*@
                     </tr>
-                    <tr>
+                   @* <tr>
                         <th>Vendi i punes</th>
                         <td id="DataSearching">@Model.WorkPlace</td>
                     </tr>
@@ -72,7 +70,7 @@
                     <tr>
                         <th>Pozita</th>
                         <td id="DataSearching">@Model.Duty</td>
-                    </tr>
+                    </tr>*@
                 </table>
             </div>
         </div>
@@ -84,10 +82,10 @@
 
         <div class="col-6 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
-            <select class="form-select" id="inputGroupSelect01">
+            <select class="form-select" id="inputGroupSelect01" >
 
                 <option disabled selected>Arsyeja percaktuese</option>
-                <option value="shto">Shto +</option>
+                <option value="shto" >Shto +</option>
                 <option value="1">Bindja Politike</option>
                 <option value="2">Biznesi</option>
                 <option value="3">Familja</option>
@@ -99,7 +97,7 @@
         </div>
         <div class="col-6 pe-2">
             <label class="pt-3">A mund ta menaxhoni personin?</label>
-            <select class="form-select" id="inputGroupSelect02">
+            <select class="form-select" id="inputGroupSelect02" >
                 <option disabled selected>A mund ta menaxhoni personin?</option>
                 <option value="1">Po</option>
                 <option value="1">Jo</option>
@@ -113,7 +111,7 @@
     <div class="d-flex flex-row align-content-around pt-2">
         <div class="col-6 pe-2">
             <label class="pt-3">A keni nevojë për ndihmë?</label>
-            <select class="form-select" id="inputGroupSelect04">
+            <select class="form-select" id="inputGroupSelect04" >
                 <option disabled selected>A keni nevoje per ndihme </option>
                 <option value="#">Po</option>
                 <option value="#">Jo</option>
@@ -123,10 +121,10 @@
         <div class="col-6 pe-2">
 
             <label class="pt-3">Zgjedh/Shto ndihmen e nevojshme</label>
-            <select class="form-select" id="inputGroupSelect03">
+            <select class="form-select" id="inputGroupSelect03" > 
 
                 <option disabled selected>Ndihma e nevojshme</option>
-                <option value="shto3">Shto +</option>
+                <option value="shto3" >Shto +</option>
                 <option value="#">A</option>
                 <option value="#">B</option>
 
@@ -134,12 +132,11 @@
         </div>
     </div>
     <div class="form-group pe-2 pb-3 ">
-        <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
-        <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
+        <label class="pt-3" for="NdihmaEKerkuar" asp-for="GeneralDescription">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
+        <textarea type="text" class="form-control" id="NdihmaEKerkuar""> </textarea>
     </div>
     <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
         <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="Cancel">Anulo</button>&nbsp &nbsp
         <button type="submit" class="btn btn-primary" asp-controller = "Crm" asp-action="SaveAndOpenCase">Ruaj dhe hap rast</button>&nbsp &nbsp
         <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="SaveAndClose">Ruaj dhe mbyll</button>
     </div>
-</form>
