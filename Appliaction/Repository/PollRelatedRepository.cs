@@ -25,7 +25,7 @@ namespace Application.Repository
 
         public async Task<bool> AddPollRelated(PersonVM editPerson)
         {
-            var pollId =  _db.PollRelateds.AsNoTracking().Where(x => x.UserId == editPerson.Id).FirstOrDefault();
+            var pollId =  _db.PollRelateds.Where(x => x.UserId == editPerson.Id).FirstOrDefault();
             var pollRelated = new PollRelated()
             {
                 UserId = editPerson.Id,
@@ -47,15 +47,9 @@ namespace Application.Repository
 
             var getUser = await _appUser.FindUserByIdAsync(pollRelated.UserId);
             getUser.ActualStatus = editPerson.ActualStatus;
-            //var updateUser = new ApplicationUser() 
-            //{
-            //    Id = getUser.Id,
-            //    UserName = getUser.UserName,
-            //    FullName= getUser.FullName,
-            //    Email = getUser.Email,
-               
-            //    ActualStatus = editPerson.ActualStatus
-            //};
+        
+           
+
             var res = await _appUser.UpdateUserAsync(getUser);
             return true;
 

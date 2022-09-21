@@ -22,17 +22,19 @@ namespace Application.Repository
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
 
-            var getAllUsers = await _db.Users.AsNoTracking().Select(person => new PersonVM()
+            var getAllUsers = await _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName =person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                VotersNumber= _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter= _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances= _db.PollRelateds.Where(x=>x.UserId == person.Id).FirstOrDefault().SuccessChances,
-                ActualStatus=person.ActualStatus
+                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                ActualChances = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+                ActualStatus = person.ActualStatus
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
@@ -55,9 +57,15 @@ namespace Application.Repository
         public async Task<ApplicationUser> GetUserByNameAsync(string name) 
             => await _userManager.FindByNameAsync(name);
 
-        public async Task<PersonVM>GetUserByIdAsync(string id)
+        public async Task<PersonVM> GetUserByIdAsync(string id)
         {
-            var getUser =  await _db.Users.AsNoTracking().Select(person => new PersonVM()
+            var pollList = _db.PollRelateds.Where(x => x.UserId == id).ToList();
+
+            var pollFirst = pollList.FirstOrDefault();
+
+            var pollLast = pollList.OrderByDescending(x => x.Date).FirstOrDefault();
+
+            var getUser = _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
@@ -66,11 +74,11 @@ namespace Application.Repository
                 PollCenter = person.Address.PollCenter.CenterName,
                 VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances =_db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                ActualChances = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
                 ActualStatus = person.ActualStatus
-
-
-            }).Where(x => x.Id == id).FirstOrDefaultAsync();
+            }).Where(x => x.Id == id).FirstOrDefault();
 
             return getUser;
         }
