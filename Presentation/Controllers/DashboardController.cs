@@ -50,7 +50,7 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var users = await _unitOfWork.PollRelated.AddPollRelated(editPerson);
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Performance", "Dashboard");
             }
             return View();
         }

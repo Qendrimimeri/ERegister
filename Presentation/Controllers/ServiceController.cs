@@ -20,6 +20,40 @@ namespace Presentation.Controllers
             _context = context;
         }
 
+        [Route("getkqzresult")]
+        public ActionResult GetKqzResult()
+        {
+            return Ok(_context.Kqzregisters.ToList());
+            //.Select(x => new
+            //{
+            //    Id = x.Id,
+            //    Date = x.DataCreated
+          
+            //}));
+        }
+
+        [HttpPost]
+        [Route("addkqzresult")]
+        public ActionResult AddKqzResult([FromBody] KqzRegisterVM model)
+        {
+            _context.Kqzregisters.Add(new Kqzregister
+            {
+                Id = model.Id,
+                PoliticialSubjectId = model.PoliticialSubjectId,
+                MunicipalityId = model.MunicipalityId,
+                NoOfvotes = model.NoOfvotes,
+                PollCenterId = model.PollCenterId,
+                DataCreated = model.DataCreated,
+                VillageId = model.VillageId,
+                NeighborhoodId = model.NeighborhoodId,
+                ElectionType = model.ElectionType
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
         [Route("getmunis")]
         public ActionResult GetMunis()
         {

@@ -37,6 +37,7 @@ namespace Application.Repository
                 SpecificReason=pollId.SpecificReason,
                 HelpId=pollId.HelpId,
                 Date = DateTime.Now,
+                GeneralDescription=editPerson.GeneralDescription
             };
             await _db.PollRelateds.AddAsync(pollRelated);
             await _db.SaveChangesAsync();
@@ -51,5 +52,6 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
+        
     }
 }

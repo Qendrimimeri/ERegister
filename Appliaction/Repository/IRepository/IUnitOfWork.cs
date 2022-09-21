@@ -25,6 +25,9 @@ namespace Application.Repository
         IVillageRepository Village { get; }
         IWorkRepository Work { get; }
 
-        Task Done();
+        Task<int> Done();
+        void SaveChanges();
+
+      
     }
 }

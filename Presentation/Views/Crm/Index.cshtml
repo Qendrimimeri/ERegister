@@ -10,177 +10,31 @@
             <div class="card ">
                 <div class="card-body p-5">
 
-                    <form id="form">
-                        <div class="d-flex flex-row pe-2">
-                            <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
-                                   aria-describedby="button-addon1" id="SearchBtn">
-                            <button  class="btn btn-primary text-white" onclick="SetVoters()"> Konfirmo</button>
-                        </div>
-                        <br />
-                        <style>
-                            th {
-                                font-weight: 580;
-                            }
-                        </style>
-                        <div class="a" id="Tables">
 
-                       
+                    <div class="d-flex flex-row pe-2">
+                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
+                               aria-describedby="button-addon1" id="SearchBtn">
+                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Konfirmo</button>
                     </div>
-                        <div class="d-flex flex-row justify-content-between pb-2 flex-md-row flex-column">
-                            <div class="col-md-6 pe-2">
-
-                                <div class="table-responsive">
-                                    <table class="table table-bordered "
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0">
-                                        <tr>
-                                            <th>Emri dhe Mbiemri</th>
-                                            <td>Arbnora Veliqi</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th>Lagja e banimit</th>
-                                            <td>Dardani</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th>Blloku </th>
-                                            <td>3</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Hyrja ose Shtepia</th>
-                                            <td>11</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Numri i telefonit</th>
-                                            <td>123456789</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email adresa</th>
-                                            <td>abc@gmail.com</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Facebook</th>
-                                            <td>abcabc</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-md-6 pe-2">
-
-                                <div class="table-responsive">
-                                    <table class="table table-bordered"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0">
-
-                                        <tr>
-                                            <th>Numri i anetareve</td>
-                                            <td>4</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th>Votues paraprak</th>
-                                            <td>VV</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th>Votues i tanishem </th>
-                                            <td>LDK</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Gjasat e suksesit</th>
-                                            <td>40%</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Vendi ku punon</th>
-                                            <td>Prishtine</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Njesia</th>
-                                            <td>Arsim</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Detyra qe mban</th>
-                                            <td>Drejtor</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="d-flex  align-content-around flex-md-row flex-column">
-
-                            <div class="col-md-6 pe-2">
-                                <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
-                                <select class="form-select" id="inputGroupSelect01">
-                                  
-                                    <option disabled selected>Arsyeja percaktuese</option>
-                                      <option value="shto">Shto +</option>
-                                    <option value="1">Bindja Politike</option>
-                                    <option value="2">Biznesi</option>
-                                    <option value="3">Familja</option>
-                                    <option value="4">Puna/Biznesi</option>
+                    <br />
+                    <style>
+                        th {
+                            font-weight: 580;
+                        }
+                    </style>
 
 
-                                </select>
+                    <div class="a" id="Tables">
+                    </div>
 
-                            </div>
-                            <div class="col-md-6 pe-2">
-                                <label class="pt-3">A mund ta menaxhoni personin?</label>
-                                <select class="form-select" id="inputGroupSelect02">
-                                    <option disabled selected>A mund ta menaxhoni personin?</option>
-                                    <option value="1">Po</option>
-                                    <option value="1">Jo</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group pe-2">
-                            <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet qe planifikoni te ndermerrni per te menaxhuar ndryshimin</label>
-                            <textarea type="text" class="form-control" id="AktivitetePerNdryshim"> </textarea>
-                        </div>
-                        <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
-                            <div class="col-md-6 pe-2">
-                                <label class="pt-3">A keni nevojë për ndihmë?</label>
-                                <select class="form-select" id="inputGroupSelect04">
-                                    <option disabled selected>A keni nevoje per ndihme </option>
-                                    <option value="#">Po</option>
-                                    <option value="#">Jo</option>
 
-                                </select>
-                            </div>
-                            <div class="col-md-6 pe-2">
-
-                                <label class="pt-3">Zgjedh/Shto ndihmen e nevojshme</label>
-                                <select class="form-select" id="inputGroupSelect03">
-                             
-                                    <option disabled selected>Ndihma e nevojshme</option>
-                                           <option value="shto3">Shto +</option>
-                                    <option value="#">A</option>
-                                    <option value="#">B</option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group pe-2 pb-3 ">
-                            <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
-                            <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
-                        </div>
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-                            <button type="submit" class="btn btn-primary">Anulo</button>&nbsp &nbsp
-                            <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp
-                            <button type="submit" class="btn btn-primary">Ruaj dhe mbyll</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 
     const selectElement1 = document.querySelector('#inputGroupSelect01');
@@ -207,7 +61,7 @@
 
         let table=$("#Tables");
 
-        
+
 
             $.ajax({
                 url:"/Crm/Voters?"+name,
@@ -217,9 +71,9 @@
                    table.empty();
                    table.append(data);
                 }
-                
+
             });
-        
+
     }
 
 
