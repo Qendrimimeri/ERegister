@@ -120,6 +120,33 @@ namespace Presentation.Controllers
 
             return Ok();
         }
+        //Lagje per fshat
+        [Route("getneighborhoodsbyvillage")]
+        public ActionResult GetNeighborhoodByVillage([FromQuery] int villId)
+        {
+            var neighborhoods = _context.Neighborhoods.Where(v => v.VillageId == villId)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+
+            return Ok(neighborhoods);
+        }
+        [HttpPost]
+        [Route("addneighborhoodbyvillage")]
+        public ActionResult AddNeighborhoodByVillage([FromBody] AddNeighborhoodVM model)
+        {
+            _context.Neighborhoods.Add(new Neighborhood
+            {
+                Name = model.NeighborhoodName,
+                VillageId = model.VillageId
+            });
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
         //Blloku
         [Route("getblocksbymuni")]

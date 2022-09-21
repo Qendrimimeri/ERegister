@@ -17,6 +17,11 @@ namespace Application.Repository
         {
             _db = db;
         }
+        public async Task<Municipality> GetByName(string name)
+        {
+            var res = _db.Municipalities.Where(x => x.Name == name).FirstOrDefault();
+            return (res);
+        }
         public void Save()
         {
             _db.SaveChanges();
