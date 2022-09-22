@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Application.ViewModels
         public string? MunicipalityName { get; set; }
         public string? PollCenter { get; set; }
         public int? VotersNumber { get; set; }
-        
+        public ApplicationUser ApplicationUser { get; set; }
         //Votues Paraprak
         public string? PreviousVoter { get; set; }
         //Votues i Tanishem
@@ -31,5 +32,7 @@ namespace Application.ViewModels
 
         //public string PoliticalSubject { get; set; }
         public string? GeneralDescription { get; set; }
+
+        public string? Village { get; set; }
     }
 }
