@@ -12,7 +12,6 @@ namespace Application.Repository
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-
         public ApplicationUserRepository(ApplicationDbContext db, 
                                          UserManager<ApplicationUser> userManager,
                                          RoleManager<IdentityRole> roleManager) : base(db)
@@ -21,7 +20,6 @@ namespace Application.Repository
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
 
@@ -59,7 +57,51 @@ namespace Application.Repository
             return result;
         }
 
+        //VoterDetails
+        public async Task<List<VoterDetailsVM>> GetVoterInfoAsync()
+        {
+            var getAllUsers = await _db.Users.Select(person => new VoterDetailsVM()
+            {
+                Id = person.Id,
+                FullName = person.FullName,
+                Neigborhood = person.Address.Neighborhood.Name,
+                Village = person.Address.Village.Name,
+                Block = person.Address.Block.Name,
+                HouseNo = person.Address.HouseNo,
+                Street = person.Address.Street.Name,
+                PhoneNumber = person.PhoneNumber,
+                Email = person.Email,
+                Facebook = person.SocialNetwork,
+                FamMembers = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                
+                WorkPlace = person.Work.WorkPlace,
+                AdministrativeUnit = person.Work.AdministrativeUnit,
+                Duty = person.Work.Duty,
+                MunicipalityName = person.Address.Municipality.Name,
+                PollCenter = person.Address.PollCenter.CenterName,
+
+                //VotersNumber = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                //ActualStatus = person.ActualStatus,
+            }).ToListAsync();
+
+            var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+
+            var result = new List<VoterDetailsVM>();
+            foreach (var user in getAllUsers)
+            {
+                foreach (var item in usersInRole)
+                {
+                    if (user.Id == item.Id)
+                        result.Add(user);
+                }
+            }
+            return result;
+        }
+
         public async Task<ApplicationUser> FindUserByIdAsync(string id)
+
             => await _userManager.FindByIdAsync(id);
 
         public async Task<ApplicationUser> GetUserByNameAsync(string name) 
@@ -67,12 +109,6 @@ namespace Application.Repository
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
         {
-            var pollList = _db.PollRelateds.Where(x => x.UserId == id).ToList();
-
-            var pollFirst = pollList.FirstOrDefault();
-
-            var pollLast = pollList.OrderByDescending(x => x.Date).FirstOrDefault();
-
             var getUser = _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
@@ -90,7 +126,6 @@ namespace Application.Repository
 
             return getUser;
         }
-         
 
         public void Save()
         {
