@@ -29,11 +29,16 @@ namespace Application.Repository
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName =person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
-                ActualChances = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id)
+                .FirstOrDefault().FamMembers,
+                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id)
+                                                .OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubject.Name,
+                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id)
+                               .OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = _db.PollRelateds.Where(x => x.UserId == person.Id)
+                                                .FirstOrDefault().SuccessChances,
+                ActualChances = _db.PollRelateds.Where(x => x.UserId == person.Id)
+                .OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
                 ActualStatus = person.ActualStatus
             }).ToListAsync();
 

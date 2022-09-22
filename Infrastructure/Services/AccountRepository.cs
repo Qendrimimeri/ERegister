@@ -104,11 +104,12 @@ namespace Infrastructure.Services
                 FamMembers = model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
-                PoliticialSubjectId = 1,
+                PoliticialSubjectId = model.PoliticalSubject,
                 SuccessChances = model.SuccessChance,
                 GeneralReason = "Unset",
-                GeneralDemand = "unset",
-                SpecificDemand = "unset",
+                GeneralDemand = "Unset",
+                SpecificDemand = "Unset",
+                GeneralDescription = "Unset",
                 HelpId = 1
             };
 
