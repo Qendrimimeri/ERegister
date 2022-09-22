@@ -46,7 +46,5 @@ namespace Application.ViewModels
         //public string PoliticalSubject { get; set; }
         public string? GeneralDescription { get; set; }
 
-        
-
     }
 }
