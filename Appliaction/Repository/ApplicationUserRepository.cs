@@ -46,6 +46,54 @@ namespace Application.Repository
             }
             return result;
         }
+
+        //VoterDetails
+        public async Task<List<VoterDetailsVM>> GetVoterInfoAsync()
+        {
+            var getAllUsers = await _db.Users.Select(person => new VoterDetailsVM()
+            {
+                Id = person.Id,
+                FullName = person.FullName,
+                Neigborhood = person.Address.Neighborhood.Name,
+                Village = person.Address.Village.Name,
+                Block = person.Address.Block.Name,
+                HouseNo = person.Address.HouseNo,
+                Street = person.Address.Street.Name,
+                PhoneNumber = person.PhoneNumber,
+                Email = person.Email,
+                Facebook = person.SocialNetwork,
+                FamMembers = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                
+                WorkPlace = person.Work.WorkPlace,
+                AdministrativeUnit = person.Work.AdministrativeUnit,
+                Duty = person.Work.Duty,
+                MunicipalityName = person.Address.Municipality.Name,
+                PollCenter = person.Address.PollCenter.CenterName,
+
+                //VotersNumber = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                //ActualStatus = person.ActualStatus,
+            }).ToListAsync();
+
+            var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+
+            var result = new List<VoterDetailsVM>();
+            foreach (var user in getAllUsers)
+            {
+                foreach (var item in usersInRole)
+                {
+                    if (user.Id == item.Id)
+                        result.Add(user);
+                }
+            }
+            return result;
+        }
+
+
+
+
+
         public async Task<ApplicationUser> FindUserById(string id)
             => await _userManager.FindByIdAsync(id);
             

@@ -20,7 +20,7 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> Voters(string name)
         {
-            var vm = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+            var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
             if (vm == null)
             {
                 return NotFound();
