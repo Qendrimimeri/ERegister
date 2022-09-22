@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repository
 {
-    public class ApplicationUserRepository:Repository<ApplicationUser>, IApplicationUserRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-        public ApplicationUserRepository(ApplicationDbContext db, 
+        public ApplicationUserRepository(ApplicationDbContext db,
                                          UserManager<ApplicationUser> userManager) : base(db)
         {
             _db = db;
@@ -25,7 +25,7 @@ namespace Application.Repository
                 Id = person.Id,
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
-                MunicipalityName =person.Address.Municipality.Name,
+                MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
                 VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id)
                 .FirstOrDefault().FamMembers,
@@ -70,7 +70,7 @@ namespace Application.Repository
                 Email = person.Email,
                 Facebook = person.SocialNetwork,
                 FamMembers = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                
+
                 WorkPlace = person.Work.WorkPlace,
                 AdministrativeUnit = person.Work.AdministrativeUnit,
                 Duty = person.Work.Duty,
@@ -101,7 +101,7 @@ namespace Application.Repository
 
             => await _userManager.FindByIdAsync(id);
 
-        public async Task<ApplicationUser> GetUserByNameAsync(string name) 
+        public async Task<ApplicationUser> GetUserByNameAsync(string name)
             => await _userManager.FindByNameAsync(name);
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
