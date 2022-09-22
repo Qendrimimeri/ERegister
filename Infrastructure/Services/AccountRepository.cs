@@ -90,23 +90,26 @@ namespace Infrastructure.Services
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
+                PhoneNumber = model.PhoneNumber,
+
             };
 
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
             await _context.SaveChangesAsync();
+            await _userManager.AddToRoleAsync(simpleUser, "SimpleRole");
 
-            
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
             {
-                FamMembers = 2,
+                FamMembers = model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
-                PoliticialSubjectId = 1,
-                SuccessChances = "",
+                PoliticialSubjectId = model.PoliticalSubject,
+                SuccessChances = model.SuccessChance,
                 GeneralReason = "Unset",
-                GeneralDemand = "unset",
-                SpecificDemand = "unset",
+                GeneralDemand = "Unset",
+                SpecificDemand = "Unset",
+                GeneralDescription = "Unset",
                 HelpId = 1
             };
 

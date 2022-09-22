@@ -11,7 +11,7 @@ namespace Application.ViewModels
     {
         public string? Id { get; set; }
         public string? FullName { get; set; }
-        public string?PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public string? MunicipalityName { get; set; }
         public string? PollCenter { get; set; }
         public int? VotersNumber { get; set; }

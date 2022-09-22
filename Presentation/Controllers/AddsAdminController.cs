@@ -7,28 +7,32 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNet.Identity;
 using Domain.Data.Entities;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
     public class AddsAdminController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public AddsAdminController( IUnitOfWork unitOfWork )
+        public AddsAdminController( IUnitOfWork unitOfWork ,IHttpContextAccessor httpContext)
         {
             _unitOfWork = unitOfWork;
+            _httpContext = httpContext;
         }
 
         public async Task<IActionResult> AddVoter()
         {
-            
+            var res = _httpContext.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier);
+
             //PS ==> Political Subjects
             var PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.PS = PS;
 
             var municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
             ViewBag.municipalities = municipalities;
-
+            
             var villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
             ViewBag.villages = villages;
 
@@ -52,8 +56,7 @@ namespace Presentation.Controllers
 
             return View();
         }
-
-
+      
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM register)
         {

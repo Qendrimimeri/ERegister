@@ -3,7 +3,7 @@ using Appliaction.Repository;
 using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
-using Infrastructure.Models;
+using Appliaction.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,10 +22,6 @@ builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.Section
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(MailSettings.SectionName));
 builder.Services.AddTransient<IMailService, MailService>();
 
-
-//Adding Dependency Injection for every Repository
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {

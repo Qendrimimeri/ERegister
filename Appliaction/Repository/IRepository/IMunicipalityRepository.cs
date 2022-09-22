@@ -9,5 +9,6 @@ namespace Application.Repository.IRepository
 {
     public interface IMunicipalityRepository:IRepository<Municipality>
     {
+        Task<Municipality> GetByName(string name);
     }
 }
