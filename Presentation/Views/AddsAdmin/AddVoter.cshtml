@@ -41,25 +41,7 @@
                             <label for="InputFacebook">Facebook</label>
                             <input type="text" class="form-control" asp-for="Facebook" id="InputFacebook">
                         </div>
-                        <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
-                            <div class="col-md-4 mb-2 pe-2">
-                                <label>Qyteti</label>
-                                <select class="form-select" asp-for="MunicipalityName" id="munis">
-                                    <option disabled selected>Zgjedh qytetin..</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-2 pe-2">
-                                <label>Fshati</label>
-                                <select class="form-select" asp-for="Village" id="villages">
-                                    <option disabled selected>Zgjedh fshatin..</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-2 pe-2">
-                                <label>Lagja</label>
-                                <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
-                                    <option disabled selected>Zgjedh lagjen..</option>
-                                </select>
-                            </div>
+                        <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">     
                             @if (User.IsInRole("SuperAdmin"))
                             {
                                 <div class="col-md-4 mb-2 pe-2">
