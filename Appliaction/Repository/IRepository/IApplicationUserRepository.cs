@@ -20,10 +20,13 @@ namespace Application.Repository.IRepository
         Task<ApplicationUser> FindUserByIdAsync(string id);
 
         Task<IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token);
+
         Task<PersonVM> GetUserByIdAsync(string id);
 
         Task<IdentityResult> AddUserAsync(ApplicationUser user);
 
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user);
+
+        Task<List<IdentityRole>> GetAllRolesAsync();
     }
 }

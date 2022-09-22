@@ -210,6 +210,7 @@ namespace Infrastructure.Services
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
+
     }
 }
 

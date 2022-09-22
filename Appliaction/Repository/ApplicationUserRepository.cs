@@ -11,12 +11,15 @@ namespace Application.Repository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public ApplicationUserRepository(ApplicationDbContext db, 
-                                         UserManager<ApplicationUser> userManager) : base(db)
+                                         UserManager<ApplicationUser> userManager,
+                                         RoleManager<IdentityRole> roleManager) : base(db)
         {
             _db = db;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
@@ -108,5 +111,17 @@ namespace Application.Repository
             await _db.SaveChangesAsync();
             return res;
         }
+
+        public async Task<List<IdentityRole>> GetAllRolesAsync()
+        {
+            var res = await _roleManager.Roles.ToListAsync();
+            var roles = new List<IdentityRole>();
+            foreach (var role in res)
+                if (role.Name != "SimpleRole")
+                    roles.Add(role);
+
+            return roles;
+        }
     }
+
 }
