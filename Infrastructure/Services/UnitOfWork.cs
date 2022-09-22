@@ -3,6 +3,7 @@ using Application.Repository;
 using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
@@ -15,6 +16,7 @@ namespace Infrastructure.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
         private readonly ILogger _logger;
+        private readonly IHttpContextAccessor _httpContext;
 
 
 
@@ -22,16 +24,18 @@ namespace Infrastructure.Services
                           ILoggerFactory logger,
                           UserManager<ApplicationUser> userManager,
                           SignInManager<ApplicationUser> signInManager,
-                          IMailService mail)
+                          IMailService mail,
+                          IHttpContextAccessor httpContext)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
+            _httpContext= httpContext;
             _mail = mail;
             _logger = logger.CreateLogger("logs");
             Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail);
             Address = new AddressRepository(_dbContext);
-            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager);
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager,httpContext);
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
             KqzRegister = new KqzRegisterRepository(_dbContext);

@@ -52,8 +52,8 @@ namespace Infrastructure.Services
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 CreatedAt = DateTime.Now,
                 SocialNetwork = "http://www.facebook.com/eregister",
-                WorkId = "ebaf33ae-9145-4a7d-bf06-baaf2af38caf",
-                AddressId = "a6ac89b5-a12e-4414-9d07-8626fd90f123",
+                WorkId = "02cbf0c4-d58b-428d-a2f1-407fea2b83b7",
+                AddressId = "9207fda9-5b5c-459d-be59-33bcd4ab666f",
                 ActualStatus = "Ne Process"
             };
 
