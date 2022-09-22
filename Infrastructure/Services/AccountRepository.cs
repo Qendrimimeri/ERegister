@@ -180,7 +180,7 @@ namespace Infrastructure.Services
 
                 await _mail.SendEmailAsync(emailReques);
             }
-            await _userManager.AddToRoleAsync(simpleUser, "MunicipalityAdmin");
+            await _userManager.AddToRoleAsync(simpleUser, model.Role);
 
             return true;
         }
@@ -210,6 +210,7 @@ namespace Infrastructure.Services
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
+
     }
 }
 
