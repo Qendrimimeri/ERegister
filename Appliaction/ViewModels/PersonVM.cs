@@ -15,8 +15,6 @@ namespace Application.ViewModels
         public string? MunicipalityName { get; set; }
         public string? PollCenter { get; set; }
         public int? VotersNumber { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        //Votues Paraprak
         public string? PreviousVoter { get; set; }
         //Votues i Tanishem
         public string? CurrentVoter { get; set; }

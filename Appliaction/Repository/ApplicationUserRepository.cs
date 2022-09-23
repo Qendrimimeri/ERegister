@@ -1,9 +1,14 @@
+using Appliaction.Models;
+using Application.Models;
 using Application.Repository.IRepository;
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+
 
 namespace Application.Repository
 {
@@ -11,13 +16,17 @@ namespace Application.Repository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+
+        private readonly IHttpContextAccessor _httpContext;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public ApplicationUserRepository(ApplicationDbContext db, 
-                                         UserManager<ApplicationUser> userManager,
+
+        public ApplicationUserRepository(ApplicationDbContext db,
+                                         UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContext,
                                          RoleManager<IdentityRole> roleManager) : base(db)
         {
             _db = db;
             _userManager = userManager;
+            _httpContext = httpContext;
             _roleManager = roleManager;
         }
         public async Task<List<PersonVM>> GetPersonInfoAsync()
@@ -30,16 +39,14 @@ namespace Application.Repository
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id)
-                .FirstOrDefault().FamMembers,
-                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id)
-                                                .OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubject.Name,
-                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id)
-                               .OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = _db.PollRelateds.Where(x => x.UserId == person.Id)
-                                                .FirstOrDefault().SuccessChances,
-                ActualChances = _db.PollRelateds.Where(x => x.UserId == person.Id)
-                .OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+
+                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                InitialChances = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                ActualChances = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+
+
                 ActualStatus = person.ActualStatus
             }).ToListAsync();
 
@@ -68,7 +75,6 @@ namespace Application.Repository
                 Village = person.Address.Village.Name,
                 Block = person.Address.Block.Name,
                 HouseNo = person.Address.HouseNo,
-                Street = person.Address.Street.Name,
                 PhoneNumber = person.PhoneNumber,
                 Email = person.Email,
                 Facebook = person.SocialNetwork,
@@ -78,11 +84,8 @@ namespace Application.Repository
                 Duty = person.Work.Duty,
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-
-                //VotersNumber = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
-                //ActualStatus = person.ActualStatus,
+                PoliticalSubjects = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                SuccessChance = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
@@ -126,6 +129,44 @@ namespace Application.Repository
             return getUser;
         }
 
+
+        public Claim Profile()
+        {
+            var user = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+
+            return user;
+        }
+
+        public async Task<ProfileVM> GetProfileDetails(string email)
+        {
+
+            var getUserDetails = await _db.Users.Select(user => new ProfileVM()
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                PhoneNo = user.PhoneNumber,
+                Email = user.Email,
+                Municipality = user.Address.Municipality.Name,
+                Village = user.Address.Village.Name,
+                PollCenter = user.Address.PollCenter.CenterName
+            }).Where(x => x.Email == email).FirstOrDefaultAsync();
+            return getUserDetails;
+        }
+        public async Task<bool> EditProfileDetails(ProfileVM user)
+        {
+            var userId = Profile();
+            var getUser = await _db.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
+        
+            getUser.Email = user.Email;
+            getUser.PhoneNumber = user.PhoneNo;
+            await _db.SaveChangesAsync();
+
+            return true;
+        }
+
+
+
+
         public void Save()
         {
             _db.SaveChanges();
@@ -146,13 +187,13 @@ namespace Application.Repository
             return res;
         }
 
-        public async Task<List<IdentityRole>> GetAllRolesAsync()
+        public async Task<List<RoleModel>> GetAllRolesAsync()
         {
             var res = await _roleManager.Roles.ToListAsync();
-            var roles = new List<IdentityRole>();
+            var roles = new List<RoleModel>();
             foreach (var role in res)
                 if (role.Name != "SimpleRole")
-                    roles.Add(role);
+                    roles.Add(new RoleModel { Key = role.Name, Value = role.Name });
 
             return roles;
         }
