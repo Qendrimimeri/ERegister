@@ -109,6 +109,17 @@ namespace Presentation.Controllers
             }));
         }
 
+
+        [Route("getvillage")]
+        public ActionResult GetVillage()
+        {
+            return Ok(_context.Villages.ToList().Select(x => new
+            {
+                Id = x.Id,
+                Name = x.Name
+            }));
+        }
+
         //fshat
         [Route("getvillagesbymuni")]
         public ActionResult GetVillagesByMuni([FromQuery] int muniId)
@@ -176,7 +187,6 @@ namespace Presentation.Controllers
                     Id = x.Id,
                     Name = x.Name
                 });
-
             return Ok(neighborhoods);
         }
         [HttpPost]
@@ -221,7 +231,7 @@ namespace Presentation.Controllers
             return Ok();
         }
 
-        //Blloku
+        //Rruga
         [Route("getstreetbymuni")]
         public ActionResult GetStreetByMuni([FromQuery] int muniId)
         {
@@ -261,31 +271,6 @@ namespace Presentation.Controllers
 
             return Ok();
         }
-        //[Route("getqendravotimitbyvillage")]
-        //public ActionResult GetQendraVotimitbyVillage([FromQuery] int villId)
-        //{
-        //    var qendraVotimit = _context.QendraVotimits.Where(v => v.VillageId == villId)
-        //        .Select(x =>
-        //        new
-        //        {
-        //            Id = x.Id,
-        //            Name = x.Name
-        //        });
-
-        //    return Ok(qendraVotimit);
-        //}
-
-        //[HttpPost]
-        //[Route("addqendravotimit")]
-        //public ActionResult AddQendraVotimit([FromBody] AddQendraVotimitViewModel model)
-        //{
-        //    _context.QendraVotimits.Add(new QendraVotimit
-        //    {
-        //        Name = model.QendraVotimitName,
-        //        VillageId = model.VillageId
-        //    });
-        //    _context.SaveChanges();
-        //    return Ok();
-        //}
+       
     }
 }
