@@ -20,6 +20,50 @@ namespace Presentation.Controllers
             _context = context;
         }
 
+        [Route("getpollcenter")]
+        public ActionResult GetPollCenter()
+        {
+            return Ok(_context.PollCenters.ToList().Select(x => new
+            {
+                Id = x.Id,
+                Name = x.CenterName
+            }));
+        }
+
+        [Route("getpollcenterbyid")]
+        public ActionResult GetPollCenterById([FromQuery] int id)
+        {
+            var qendra = _context.PollCenters.Where(v => v.Id == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+        [HttpPost]
+        [Route("addpollcenter")]
+        public ActionResult AddPollCenter([FromBody] PollCenterVM model)
+        {
+            _context.PollCenters.Add(new PollCenter
+            {
+                Id = model.Id,
+                CenterNumber = model.CenterNumber,
+                CenterName = model.CenterName,
+                MunicipalitydId = model.MunicipalitydId
+
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
         [Route("getkqzresult")]
         public ActionResult GetKqzResult()
         {
