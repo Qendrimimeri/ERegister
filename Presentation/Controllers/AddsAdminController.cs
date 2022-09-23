@@ -25,7 +25,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> AddVoter()
         {
             var res = _httpContext.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier);
-
             //PS ==> Political Subjects
             var PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.PS = PS;
@@ -90,6 +89,9 @@ namespace Presentation.Controllers
 
             var streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.streets = streets;
+
+            var roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Id", "Name");
+            ViewBag.roles = roles;
 
             return View();
         }

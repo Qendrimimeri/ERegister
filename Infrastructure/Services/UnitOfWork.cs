@@ -1,4 +1,4 @@
-﻿using Appliaction.Repository;
+using Appliaction.Repository;
 using Application.Repository;
 using Application.Repository.IRepository;
 using Domain.Data;
@@ -23,7 +23,7 @@ namespace Infrastructure.Services
                           ILoggerFactory logger,
                           UserManager<ApplicationUser> userManager,
                           SignInManager<ApplicationUser> signInManager,
-                          IMailService mail,
+                          IMailService mail, 
                           RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
