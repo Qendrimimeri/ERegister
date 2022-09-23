@@ -25,7 +25,7 @@ namespace Infrastructure.Services
                           ILoggerFactory logger,
                           UserManager<ApplicationUser> userManager,
                           SignInManager<ApplicationUser> signInManager,
-
+                          RoleManager<IdentityRole> roleManager,
                           IMailService mail,
                           IHttpContextAccessor httpContext)
 
@@ -40,7 +40,7 @@ namespace Infrastructure.Services
             Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail);
             Address = new AddressRepository(_dbContext);
 
-            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager,httpContext);
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager,_httpContext,_roleManager);
 
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);

@@ -18,15 +18,16 @@ namespace Application.Repository
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly IHttpContextAccessor _httpContext;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public ApplicationUserRepository(ApplicationDbContext db,
-                                         UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContext) : base(db)
+                                         UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContext,
+                                         RoleManager<IdentityRole> roleManager) : base(db)
         {
             _db = db;
             _userManager = userManager;
             _httpContext = httpContext;
-
-
+            _roleManager = roleManager;
         }
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
