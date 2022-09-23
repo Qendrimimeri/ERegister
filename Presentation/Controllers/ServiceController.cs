@@ -31,9 +31,10 @@ namespace Presentation.Controllers
         }
 
         [Route("getpollcenterbyid")]
-        public ActionResult GetPollCenterById([FromQuery] int id)
+        public ActionResult GetPollCenterById([FromQuery] string id)
+        
         {
-            var qendra = _context.PollCenters.Where(v => v.Id == id)
+            var qendra = _context.PollCenters.Where(v => v.CenterNumber == id)
                 .Select(x =>
                 new
                 {

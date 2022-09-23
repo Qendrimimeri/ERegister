@@ -135,7 +135,7 @@
     };
       function getPollCenter(id){
 
-            poll.innerHTML = '';
+        poll.innerHTML = '';
         let chooseOption = document.createElement("option");
         chooseOption.innerText = "Zgjedh qendren...";
         chooseOption.selected = true;
@@ -167,9 +167,7 @@
             addPollToDb();
             //addPollToList(event.target.value);
         }
-        else {
-            addPollToList(event.target.value);
-        }
+        
     });
    function addPollToDb(){
         let endpoint = url + "addpollcenter";
@@ -182,9 +180,9 @@
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({ centerNumber: poll.value,
+            body: JSON.stringify({ centerNumber: input,
                 centerName: "", municipalitydId: munis.value})
-        }).then(() => addPollToList(sm));
+        }).then(() => addPollToList(input));
 
     }
 
@@ -257,7 +255,7 @@ function addDataToDb() {
         addNeigborhoodToList(event.target.value);
         addBlockToList(event.target.value);
         addStreetToList(event.target.value);
-        addPollToList(event.target.value);
+        //addPollToList(event.target.value);
     });
 
     villages.addEventListener('change', event => {
