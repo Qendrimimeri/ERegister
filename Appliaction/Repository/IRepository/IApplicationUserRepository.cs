@@ -22,10 +22,16 @@ namespace Application.Repository.IRepository
         Task<ApplicationUser> FindUserByIdAsync(string id);
 
         Task<IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token);
+
         Task<PersonVM> GetUserByIdAsync(string id);
         Task<IdentityResult> AddUserAsync(ApplicationUser user);
 
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user);
+<<<<<<< HEAD
         
+=======
+
+        Task<List<IdentityRole>> GetAllRolesAsync();
+>>>>>>> b3124d96d09b79cf7a363a5dbd71a2bdb5763627
     }
 }

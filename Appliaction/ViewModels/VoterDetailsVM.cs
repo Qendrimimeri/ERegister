@@ -23,7 +23,5 @@ namespace Application.ViewModels
         public string? GeneralDemands { get; set; }
         public string? GeneralDescription { get; set; }
         public string? PoliticalSubjects { get; set; }
-
-
     }
 }
