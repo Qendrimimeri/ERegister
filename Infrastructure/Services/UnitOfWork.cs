@@ -14,6 +14,7 @@ namespace Infrastructure.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger _logger;
 
 
@@ -22,16 +23,18 @@ namespace Infrastructure.Services
                           ILoggerFactory logger,
                           UserManager<ApplicationUser> userManager,
                           SignInManager<ApplicationUser> signInManager,
-                          IMailService mail)
+                          IMailService mail,
+                          RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _mail = mail;
+            _roleManager = roleManager;
             _logger = logger.CreateLogger("logs");
             Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail);
             Address = new AddressRepository(_dbContext);
-            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager);
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager, _roleManager);
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
             KqzRegister = new KqzRegisterRepository(_dbContext);
