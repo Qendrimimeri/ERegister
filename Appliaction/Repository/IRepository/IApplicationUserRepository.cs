@@ -36,7 +36,7 @@ namespace Application.Repository.IRepository
         Claim Profile();
         Task<ProfileVM> GetProfileDetails(string email);
 
-        Task<bool> EditProfileDetails(ProfileVM user);
+        Task<bool> EditProfileDetails(ProfileVM user, string fullPath);
         Task<List<RoleModel>> GetAllRolesAsync();
 
 

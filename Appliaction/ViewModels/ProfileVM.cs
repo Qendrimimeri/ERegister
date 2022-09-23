@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,9 @@ namespace Application.ViewModels
         public string? Village { get; set; }
         public string? Role { get; set; }
         public string? PollCenter { get; set; }
+
+        public IFormFile Image { get; set; }
+
+        public string? ProfileImage { get; set; }
     }
 }

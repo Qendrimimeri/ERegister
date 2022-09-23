@@ -16,11 +16,15 @@ namespace Presentation.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IWebHostEnvironment _env;
 
-        public DashboardController(IUnitOfWork unitOfWork ,UserManager<ApplicationUser> userManager)
+        public DashboardController(IUnitOfWork unitOfWork, 
+                                  UserManager<ApplicationUser> userManager,
+                                  IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -96,13 +100,28 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser);
-                if (result)
+                if (editUser.Image.FileName != null)
                 {
-                    var res = _userManager.GetUserAsync(User);
-                    var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                    return View(user);
+                    var rootFilePath = _env.WebRootPath;
+                    string filePath = Path.Combine(rootFilePath, "Document");
+                    if (!Directory.Exists(filePath))
+                        Directory.CreateDirectory(filePath);
+
+                    var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+
+                    var fullPath = Path.Combine(filePath, fileName);
+
+                    using (var fileStream = new FileStream( fullPath, FileMode.Create))
+                        editUser.Image.CopyTo(fileStream);
+                    var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                    if (result)
+                    {
+                        var res = _userManager.GetUserAsync(User);
+                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        return View(user);
+                    }
                 }
+
             }
             return View();
         }
