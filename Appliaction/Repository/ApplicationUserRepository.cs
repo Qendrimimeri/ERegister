@@ -148,15 +148,17 @@ namespace Application.Repository
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
                 Village = user.Address.Village.Name,
-                PollCenter = user.Address.PollCenter.CenterName
+                PollCenter = user.Address.PollCenter.CenterName,
+                ProfileImage=user.ImgPath
+                
             }).Where(x => x.Email == email).FirstOrDefaultAsync();
             return getUserDetails;
         }
-        public async Task<bool> EditProfileDetails(ProfileVM user)
+        public async Task<bool> EditProfileDetails(ProfileVM user, string fullPath)
         {
             var userId = Profile();
             var getUser = await _db.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
-        
+            getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
             getUser.PhoneNumber = user.PhoneNo;
             await _db.SaveChangesAsync();

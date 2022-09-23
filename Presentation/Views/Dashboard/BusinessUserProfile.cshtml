@@ -9,11 +9,11 @@
             <div class="card">
                 <div class="card-body p-5">
                     <h2 class="card-title ">Të dhënat personale</h2>
-                    <form asp-action="BusinessUserProfile" asp-controller="Dashboard" method="post">
+                    <form asp-action="BusinessUserProfile" asp-controller="Dashboard" enctype="multipart/form-data" method="post">
                         <hr>
 
                         <div class="text-center">
-                            <img src="~/images/personalphoto.jpg" class="rounded" style="width:100px;" alt="...">
+                            <img src="~/Document/@Model.ProfileImage" class="rounded" style="width:100px;" alt="...">
                         </div>
                         <div class="text-center">
                             <h4>@Model.FullName</h4>
@@ -33,7 +33,7 @@
                         <div class="pe-2">
                             <div>
                                 <label for="Image" class="form-label">Ngarko foton e profilit</label>
-                                <input class="form-control" type="file" id="formFile" onchange="preview()">
+                                <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
                             </div>
                             <img id="frame" src="" class="img-fluid" />
                         </div>
