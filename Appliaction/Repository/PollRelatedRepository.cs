@@ -22,7 +22,7 @@ namespace Application.Repository
             _appUser = appUser;
         }
 
-
+        
         public async Task<bool> AddPollRelated(PersonVM editPerson)
         {
             var pollId =  _db.PollRelateds.Where(x => x.UserId == editPerson.Id).FirstOrDefault();

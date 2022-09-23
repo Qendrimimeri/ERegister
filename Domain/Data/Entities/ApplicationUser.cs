@@ -17,7 +17,6 @@ namespace Domain.Data.Entities
         public string AddressId { get; set; } = null!;
         public string ActualStatus { get; set; } = null!;
         public string WorkId { get; set; } = null!;
-        
         public virtual Address Address { get; set; } = null!;
         public virtual Work Work { get; set; } = null!; 
         public virtual ICollection<PollRelated> PollRelateds { get; set; }

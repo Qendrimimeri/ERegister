@@ -13,6 +13,7 @@ namespace Presentation.Controllers
         {
           _unitOfWork = unitOfWork;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -28,13 +29,12 @@ namespace Presentation.Controllers
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
             return PartialView("_Voters" ,vm1);
         }
-        
+
         public IActionResult Cancel()
         {
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index","Dashboard");
         }
 
-        
         public async Task <IActionResult> SaveAndClose(ApplicationUser user)
         {
              _unitOfWork.ApplicationUser.UpdateUserAsync(user);
@@ -53,6 +53,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
         public IActionResult AddHelper()
         {
             return View();

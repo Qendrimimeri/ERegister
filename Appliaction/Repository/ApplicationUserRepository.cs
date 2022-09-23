@@ -57,7 +57,7 @@ namespace Application.Repository
             return result;
         }
 
-        //VoterDetails
+        //VoterDetails 
         public async Task<List<VoterDetailsVM>> GetVoterInfoAsync()
         {
             var getAllUsers = await _db.Users.Select(person => new VoterDetailsVM()
