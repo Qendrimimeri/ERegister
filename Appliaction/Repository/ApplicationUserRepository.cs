@@ -147,15 +147,10 @@ namespace Application.Repository
         public async Task<List<RoleModel>> GetAllRolesAsync()
         {
             var res = await _roleManager.Roles.ToListAsync();
-            var roleName = new List<string>();
+            var roles = new List<RoleModel>();
             foreach (var role in res)
                 if (role.Name != "SimpleRole")
-                    roleName.Add(role.Name);
-
-            var roles = new List<RoleModel>();
-
-            foreach (var role in roleName)
-                roles.Add(new RoleModel { Key = role, Value = role });
+                    roles.Add(new RoleModel { Key = role.Name, Value = role.Name });
 
             return roles;
         }
