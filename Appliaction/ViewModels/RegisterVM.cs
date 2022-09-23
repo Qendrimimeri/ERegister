@@ -17,11 +17,11 @@ namespace Application.ViewModels
         public int Neigborhood { get; set; }
         public int Street { get; set; }
         public int Block { get; set; }
-        public int HouseNo { get; set; }
+        public int? HouseNo { get; set; }
         public string WorkPlace { get; set; }
         public string AdministrativeUnit { get; set; }
         public string Duty { get; set; }
-        public int FamMembers { get; set; }
+        public int? FamMembers { get; set; }
         public string SuccessChance { get; set; }
         public int PoliticalSubject { get; set; }
         public string PollCenter { get; set; }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repository
 {
-    public class ApplicationUserRepository:Repository<ApplicationUser>, IApplicationUserRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -28,7 +28,7 @@ namespace Application.Repository
                 Id = person.Id,
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
-                MunicipalityName =person.Address.Municipality.Name,
+                MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
                 VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id)
                 .FirstOrDefault().FamMembers,
@@ -68,22 +68,17 @@ namespace Application.Repository
                 Village = person.Address.Village.Name,
                 Block = person.Address.Block.Name,
                 HouseNo = person.Address.HouseNo,
-                Street = person.Address.Street.Name,
                 PhoneNumber = person.PhoneNumber,
                 Email = person.Email,
                 Facebook = person.SocialNetwork,
                 FamMembers = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                
                 WorkPlace = person.Work.WorkPlace,
                 AdministrativeUnit = person.Work.AdministrativeUnit,
                 Duty = person.Work.Duty,
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-
-                //VotersNumber = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
-                //ActualStatus = person.ActualStatus,
+                PoliticalSubjects = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                SuccessChance = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
@@ -104,7 +99,7 @@ namespace Application.Repository
 
             => await _userManager.FindByIdAsync(id);
 
-        public async Task<ApplicationUser> GetUserByNameAsync(string name) 
+        public async Task<ApplicationUser> GetUserByNameAsync(string name)
             => await _userManager.FindByNameAsync(name);
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
