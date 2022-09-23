@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,25 +7,21 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-    public class VoterDetailsVM
+    public class VoterDetailsVM : RegisterVM
     {
         public string Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Neighborhoods { get; set; }
-        public int Village { get; set; }
-
-        public string Blocks { get; set; }
-        public string HouseNo { get; set; }
-        public int Email { get; set; }
-        public string Facebook { get; set; }
-        public int FamMembers { get; set; }
-        public int PoliticalSubject { get; set; }
-        public int SuccessChances { get; set; }
-        public string WorkPlace { get; set; }
-        public int AdministrativeUnit { get; set; }
-        public string Duty { get; set; }
-
-
+        public string? Neigborhood { get; set; }
+        public string? Village { get; set; }
+        public string? Block { get; set; }
+        public string? GeneralReason { get; set; }
+        public string? MunicipalityName { get; set; }
+        public string? SpecificReason { get; set; }
+        public bool? CanYouManage { get; set; }
+        public string? ActivitiesYourPlan { get; set; }
+        public bool? NeedHelp { get; set; }
+        public string? SpecificDemand { get; set; }
+        public string? GeneralDemands { get; set; }
+        public string? GeneralDescription { get; set; }
+        public string? PoliticalSubjects { get; set; }
     }
 }

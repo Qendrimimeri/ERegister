@@ -1,4 +1,4 @@
-﻿using Appliaction.Repository;
+using Appliaction.Repository;
 using Application.Repository;
 using Application.Repository.IRepository;
 using Domain.Data;
@@ -15,6 +15,7 @@ namespace Infrastructure.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger _logger;
         private readonly IHttpContextAccessor _httpContext;
 
@@ -24,18 +25,23 @@ namespace Infrastructure.Services
                           ILoggerFactory logger,
                           UserManager<ApplicationUser> userManager,
                           SignInManager<ApplicationUser> signInManager,
+
                           IMailService mail,
                           IHttpContextAccessor httpContext)
+
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _httpContext= httpContext;
             _mail = mail;
+            _roleManager = roleManager;
             _logger = logger.CreateLogger("logs");
             Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail);
             Address = new AddressRepository(_dbContext);
+
             ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager,httpContext);
+
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
             KqzRegister = new KqzRegisterRepository(_dbContext);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Infrastructure.Models;
+using Appliaction.Models;
 using Microsoft.Extensions.Options;
 using Domain.Data;
 using Domain.Data.Entities;
@@ -52,8 +52,11 @@ namespace Infrastructure.Services
                 NormalizedUserName = "ADMIN@EREGISTER.COM",
                 CreatedAt = DateTime.Now,
                 SocialNetwork = "http://www.facebook.com/eregister",
-                WorkId = "02cbf0c4-d58b-428d-a2f1-407fea2b83b7",
-                AddressId = "9207fda9-5b5c-459d-be59-33bcd4ab666f",
+
+
+                WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
+                AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
+
                 ActualStatus = "Ne Process"
             };
 

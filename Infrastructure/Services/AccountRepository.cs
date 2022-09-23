@@ -104,11 +104,12 @@ namespace Infrastructure.Services
                 FamMembers = model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
-                PoliticialSubjectId = 1,
+                PoliticialSubjectId = model.PoliticalSubject,
                 SuccessChances = model.SuccessChance,
                 GeneralReason = "Unset",
-                GeneralDemand = "unset",
-                SpecificDemand = "unset",
+                GeneralDemand = "Unset",
+                SpecificDemand = "Unset",
+                GeneralDescription = "Unset",
                 HelpId = 1
             };
 
@@ -179,7 +180,7 @@ namespace Infrastructure.Services
 
                 await _mail.SendEmailAsync(emailReques);
             }
-            await _userManager.AddToRoleAsync(simpleUser, "MunicipalityAdmin");
+            await _userManager.AddToRoleAsync(simpleUser, model.Role);
 
             return true;
         }
@@ -209,6 +210,7 @@ namespace Infrastructure.Services
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
+
     }
 }
 

@@ -10,5 +10,6 @@ namespace Application.ViewModels
     {
         public int MunicipalityId { get; set; }
         public string NeighborhoodName { get; set; }
+        public int VillageId { get; set; }
     }
 }
