@@ -1,8 +1,12 @@
 using Application.Repository;
 using Application.ViewModels;
+using Domain.Data.Entities;
 using Infrastructure.Services;
-using Microsoft.AspNet.Identity;
+
+using Microsoft.AspNetCore.Identity;
+
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,10 +15,12 @@ namespace Presentation.Controllers
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DashboardController(IUnitOfWork unitOfWork)
+        public DashboardController(IUnitOfWork unitOfWork ,UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -44,12 +50,12 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Reports(PersonVM  editPerson)
+        public async Task<IActionResult> Reports(PersonVM  editVoter)
         {
 
             if (ModelState.IsValid)
             {
-                var users = await _unitOfWork.PollRelated.AddPollRelated(editPerson);
+                var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
                 return RedirectToAction("Performance", "Dashboard");
             }
             return View();
@@ -75,9 +81,33 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        public IActionResult BusinessUserProfile()
+
+        [HttpGet]
+        public async Task<IActionResult> BusinessUserProfile()
         {
+            var res =_userManager.GetUserAsync(User);
+            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser);
+                if (result)
+                {
+                    var res = _userManager.GetUserAsync(User);
+                    var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                    return View(user);
+                }
+            }
             return View();
         }
+
+
+
     }
 }

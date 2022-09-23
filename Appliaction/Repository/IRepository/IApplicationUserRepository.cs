@@ -8,7 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+ 
+using System.Security.Claims;
+
 using Application.Models;
+
 
 namespace Application.Repository.IRepository
 {
@@ -29,6 +33,11 @@ namespace Application.Repository.IRepository
 
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user);
 
-        Task<List<RoleModel>> GetAllRolesAsync();
+        Claim Profile();
+        Task<ProfileVM> GetProfileDetails(string email);
+
+        Task<bool> EditProfileDetails(ProfileVM user);
+
+
     }
 }
