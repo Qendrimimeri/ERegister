@@ -17,7 +17,34 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        //Arsye percaktuese general demand 
+        [HttpPost]
+        [Route("addgeneraldemand")]
+        public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
+        {
+            _unitOfWork.PollRelated.Add(new PollRelated
+            {
+                GeneralDemand = model.GeneralDemand
+            });
 
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
+        //ndihma nevojshme
+        [HttpPost]
+        [Route("addhelp")]
+        public ActionResult GetNeedHelp([FromBody] NeedHelpVM model)
+        {
+            _unitOfWork.Help.Add(new Help
+            {
+                NeedHelp = model.NeedHelp
+            });
+
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
         public async Task<IActionResult> Voters(string name)
         {
             var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();

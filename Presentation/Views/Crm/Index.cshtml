@@ -34,43 +34,171 @@
 </section>
 @section Scripts
 {
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-        
-    //const selectElement1 = document.querySelector('#');
+ <script>
+     
 
-    //    selectElement1.addEventListener('change', (event) => {
-    //      const result = event.target.value;
-    //      if (result === "shto"){
-    //          prompt("Shto Arsye percaktuese:")
-    //      }
-    //    });
+ const url = "https://localhost:7278/api/service/";
 
-    //    const selectElement2 = document.querySelector('#inputGroupSelect03');
 
-    //    selectElement2.addEventListener('change', (event) => {
-    //      const result = event.target.value;
-    //      if (result === "shto3"){
-    //          prompt("Shto Arsye percaktuese:")
-    //      }
-    //    });
-        
-        
-function SetVoters(){
-            let name = $('#SearchBtn').val();
-            console.log(name);
-            //let setData = $("DataSearching")
+ 
+ function getGeneralDemand(id){
+        let endpoint = url + "getgeneraldemand";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.Generaldemand;
+                Generaldemand.appendChild(item);
+            });
+        });
+    }
 
-            let table=$("#Tables");
-                $.ajax({
-                    url:"/Crm/Voters?name="+name,
-                    type: "GET",
-                    data : {},
-                    success : function(data) {
-                       table.empty(data)
-                       table.append(data);
-                    }
-                });
+    function getHelp(id){
+        let endpoint = url + "gethelp";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.NeedHelp;
+                NeedHelp.appendChild(item);
+            });
+        });
+    }
+
+ //function addGeneralDemand(){
+ //             generaldemand.innerHTML = '';
+ //             let chooseOption = document.createElement("option");
+ //             chooseOption.innerText = "Zgjidh Arsye Percaktuese...";
+ //             chooseOption.selected = true;
+ //             chooseOption.disabled = true;
+ //             generaldemand.appendChild(chooseOption);
+
+ //             let addOption = document.createElement("option");
+ //             addOption.innerText = "Shto Arsye Percaktuese...";
+ //             addOption.value = "shto";
+ //             generaldemand.appendChild(addOption);
+
+ //             let endpoint = url + "addgeneraldemand?";
+ //             let result = fetch(endpoint)
+ //             .then(res => res.json())
+ //             .then(data => data.forEach(x => {
+ //                 let item = document.createElement("option");
+ //                 item.value = x.id;
+ //                 item.innerText = x.name;
+ //                 generaldemand.appendChild(item);
+ //             }));
+              
+ //         }
+
+
+
+      function SetVoters(){
+                  let name = $('#SearchBtn').val();
+                  console.log(name);
+                  //let setData = $("DataSearching")
+                            const Generaldemand = document.querySelector('#generaldemand');
+
+                  let table=$("#Tables");
+                      $.ajax({
+                          url:"/Crm/Voters?name="+name,
+                          type: "GET",
+                          data : {},
+                          success : function(data) {
+                              table.empty(data)
+                             table.append(data);
+          const NeedHelp = document.querySelector('#inputGroupSelect04');
+                                      const Generaldemand = document.querySelector('#generaldemand');
+
+          
+          getGeneralDemand();
+          function getGeneralDemand(id){
+        let endpoint = url + "getgeneraldemand";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.generalDemand;
+                Generaldemand.appendChild(item);
+            });
+        });
+    }
+     function getHelp(id){
+        let endpoint = url + "gethelp";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.NeedHelp;
+                NeedHelp.appendChild(item);
+            });
+        });
+    }
+
+      function addGeneralDemand(){
+        let endpoint = url + "addgeneraldemand";
+        let input = prompt("Shto arsyen:");
+        //let selectedMuni = $('#munis').val();
+        //let sm = document.querySelector("#generaldemand").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({generalDemand: input})
+        }).then(() => addGeneralDemandToList(sm));
+
+    }
+              Generaldemand.addEventListener('change', event => {
+             event.preventDefault()
+                 if (event.target.value == 'shto'){
+            addGeneralDemand();
         }
+
+          });
+                             
+                          }
+                      });
+              }
+               function addhelp(){
+        let endpoint = url + "addhelp";
+        let input = prompt("Shto help:");
+        //let selectedMuni = $('#munis').val();
+        //let sm = document.querySelector("#generaldemand").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                
+            },
+            method: 'post',
+            body: JSON.stringify({NeedHelp: input})
+        }).then(() => addGeneralDemandToList(sm));
+
+    }
+              const NeedHelp = document.querySelector('#inputGroupSelect03');
+
+              NeedHelp.addEventListener('change', event => {
+             event.preventDefault()
+                 if (event.target.value == 'shto'){
+            addhelp();
+        }
+
+          });
+                             
+                          
+                   
+
 </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 }

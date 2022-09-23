@@ -90,14 +90,14 @@
 
     <div class="col-6 pe-2">
         <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
-        <select class="form-select" id="inputGroupSelect01">
+        <select class="form-select" id="generaldemand">
 
             <option disabled selected>Arsyeja percaktuese</option>
             <option value="shto">Shto +</option>
-            <option value="1">Bindja Politike</option>
+ @*           <option value="1">Bindja Politike</option>
             <option value="2">Biznesi</option>
             <option value="3">Familja</option>
-            <option value="4">Puna/Biznesi</option>
+            <option value="4">Puna/Biznesi</option>*@
 
 
         </select>
@@ -119,7 +119,7 @@
 <div class="d-flex flex-row align-content-around pt-2">
     <div class="col-6 pe-2">
         <label class="pt-3">A keni nevojë për ndihmë?</label>
-        <select class="form-select" id="inputGroupSelect04">
+        <select class="form-select" id="gethelp">
             <option disabled selected>A keni nevoje per ndihme </option>
             <option value="#">Po</option>
             <option value="#">Jo</option>
@@ -148,4 +148,3 @@
     <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="SaveAndOpenCase">Ruaj dhe hap rast</button>&nbsp &nbsp
     <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="SaveAndClose">Ruaj dhe mbyll</button>
 </div>
-
