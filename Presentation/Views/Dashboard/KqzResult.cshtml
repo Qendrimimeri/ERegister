@@ -63,7 +63,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Numri i votuesëve</th>
-                                    <th scope="col">Total:</th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                    <th scope="col">Total:<span id="span"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,10 +116,32 @@
     const url = "https://localhost:7278/api/service/";
     const button = document.querySelector('#main-div');
 
-
+    const votat = document.getElementsByClassName("votat");
     const year = document.getElementById('year');
     const poll = document.getElementById('poll');
-  
+    const span = document.getElementById('span');
+    
+
+    let shuma = 0;
+    console.log(shuma);
+    console.log(votat.length);
+	for(let i=0; i<votat.length; i++){
+			votat[i].addEventListener('keyup', merre);
+
+            function merre(){
+                event.preventDefault();
+                console.log(votat[i].value);
+				shuma = shuma + votat[i].value;
+                console.log(shuma);
+				span.innerHTML = shuma;
+
+			}
+        }
+            
+            
+     
+
+        
     getMunis();
     getPollCenter();
     
