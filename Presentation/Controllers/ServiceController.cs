@@ -19,14 +19,14 @@ namespace Presentation.Controllers
             _unitOfWork = unit;
             _context = context;
         }
-
+        //poll center
         [Route("getpollcenter")]
         public ActionResult GetPollCenter()
         {
             return Ok(_context.PollCenters.ToList().Select(x => new
             {
                 Id = x.Id,
-                Name = x.CenterName
+                CenterNumber = x.CenterNumber
             }));
         }
 

@@ -116,23 +116,15 @@
     const url = "https://localhost:7278/api/service/";
     const button = document.querySelector('#main-div');
 
-    const election = document.getElementById("inputGroupSelect03").value;
+
     const year = document.getElementById('year');
     const poll = document.getElementById('poll');
-    const neighborhood = document.getElementById('neigborhoods').value
-    const parti = document.getElementsByClassName("parti");
-    const votat = document.getElementsByClassName("votat");
+  
     getMunis();
     getPollCenter();
     
     
-    console.log(year.value);
-    year.addEventListener('change',merre);
-
-    function merre(){
-        //console.log('u thirr');
-        console.log(year.value);
-    };
+  
       function getPollCenter(id){
 
         poll.innerHTML = '';
@@ -155,7 +147,7 @@
             data.forEach(x => {
                 let item = document.createElement("option");
                 item.value = x.id;
-                item.innerText = x.name;
+                item.innerText = x.centerNumber;
                 poll.appendChild(item);
             });
         });
@@ -165,7 +157,6 @@
         event.preventDefault()
         if (event.target.value == 'shto'){
             addPollToDb();
-            //addPollToList(event.target.value);
         }
         
     });
@@ -182,55 +173,31 @@
             method: 'post',
             body: JSON.stringify({ centerNumber: input,
                 centerName: "", municipalitydId: munis.value})
-        }).then(() => addPollToList(input));
+        }).then(() => getPollCenter());
 
     }
 
-     function addPollToList(pollId){
-        poll.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        poll.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto qendren e re...";
-        addOption.value = "shto";
-        poll.appendChild(addOption);
-
-        let endpoint = url + "getpollcenterbyid?id=" + pollId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            poll.appendChild(item);
-        }));
-    }
+ 
 
 
     button.addEventListener('click', event => {
          //event.preventDefault();
-        
-        
          addDataToDb();
-        
-       
-        alert("U Regjistrua!");
+         alert("U Regjistrua!");
 
 })
 
 function addDataToDb() {
     let endpoint = url + "addkqzresult";
-   
 
-    //var i = 1;
-    
-    //let input = prompt("Shto fshatin e ri:");
-    //let selectedMuni = $('#munis').val();
-    //let sm = document.querySelector("#munis").value;
+    const election = document.getElementById("inputGroupSelect03").value;
+    const year = document.getElementById('year');
+    const poll = document.getElementById('poll');
+    const neighborhood = document.getElementById('neigborhoods').value
+    const parti = document.getElementsByClassName("parti");
+    const votat = document.getElementsByClassName("votat");
+
+  
     for (var i=1; i <= votat.length; i++) {
         fetch(endpoint, {
             headers: {
@@ -244,7 +211,7 @@ function addDataToDb() {
                 electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
             })
         });
-        //.then(() => addVillagesToList(sm));
+        
     }
 }
 
@@ -255,7 +222,7 @@ function addDataToDb() {
         addNeigborhoodToList(event.target.value);
         addBlockToList(event.target.value);
         addStreetToList(event.target.value);
-        //addPollToList(event.target.value);
+        
     });
 
     villages.addEventListener('change', event => {
