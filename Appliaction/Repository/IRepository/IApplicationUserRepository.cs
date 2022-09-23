@@ -26,5 +26,6 @@ namespace Application.Repository.IRepository
         Task<IdentityResult> AddUserAsync(ApplicationUser user);
 
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user);
+        
     }
 }
