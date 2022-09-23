@@ -32,12 +32,12 @@ namespace Presentation.Controllers
 
         public IActionResult Cancel()
         {
-            return RedirectToAction("Index","Dashboard");
+            return RedirectToAction("Index", "Dashboard");
         }
 
-        public async Task <IActionResult> SaveAndClose(ApplicationUser user)
+        public async Task<IActionResult> SaveAndClose(ApplicationUser user)
         {
-             _unitOfWork.ApplicationUser.UpdateUserAsync(user);
+            _unitOfWork.ApplicationUser.UpdateUserAsync(user);
             await _unitOfWork.Done();
             return RedirectToAction("Index", "Dashboard");
         }
@@ -48,7 +48,7 @@ namespace Presentation.Controllers
             await _unitOfWork.Done();
             return View("Index");
         }
-       
+
         public IActionResult GeneralReasons()
         {
             return View();
