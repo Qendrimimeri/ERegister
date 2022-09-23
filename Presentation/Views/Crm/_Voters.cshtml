@@ -141,11 +141,10 @@
 </div>
 <div class="form-group pe-2 pb-3 ">
     <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
-    <textarea type="text" class="form-control" id="NdihmaEKerkuar" "> </textarea>
+    <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
 </div>
 <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-    <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="Cancel">Anulo</button>&nbsp &nbsp
-    <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="SaveAndOpenCase">Ruaj dhe hap rast</button>&nbsp &nbsp
-    <button type="submit" class="btn btn-primary" asp-controller="Crm" asp-action="SaveAndClose">Ruaj dhe mbyll</button>
+    <a asp-action="Cancel"  class="btn btn-primary">Anulo</a>&nbsp &nbsp
+    <a asp-action="SaveAndOpenCase"  class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
+    <a asp-action="SaveAndClose"  class="btn btn-primary">Ruaj dhe mbyll</a>
 </div>
-

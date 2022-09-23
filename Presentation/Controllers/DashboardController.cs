@@ -1,8 +1,12 @@
 using Application.Repository;
 using Application.ViewModels;
+using Domain.Data.Entities;
 using Infrastructure.Services;
-using Microsoft.AspNet.Identity;
+
+using Microsoft.AspNetCore.Identity;
+
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,10 +15,16 @@ namespace Presentation.Controllers
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IWebHostEnvironment _env;
 
-        public DashboardController(IUnitOfWork unitOfWork)
+        public DashboardController(IUnitOfWork unitOfWork, 
+                                  UserManager<ApplicationUser> userManager,
+                                  IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -44,12 +54,12 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Reports(PersonVM  editPerson)
+        public async Task<IActionResult> Reports(PersonVM  editVoter)
         {
 
             if (ModelState.IsValid)
             {
-                var users = await _unitOfWork.PollRelated.AddPollRelated(editPerson);
+                var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
                 return RedirectToAction("Performance", "Dashboard");
             }
             return View();
@@ -75,9 +85,48 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        public IActionResult BusinessUserProfile()
+
+        [HttpGet]
+        public async Task<IActionResult> BusinessUserProfile()
         {
+            var res =_userManager.GetUserAsync(User);
+            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
+        {
+            if (ModelState.IsValid)
+            {
+                if (editUser.Image.FileName != null)
+                {
+                    var rootFilePath = _env.WebRootPath;
+                    string filePath = Path.Combine(rootFilePath, "Document");
+                    if (!Directory.Exists(filePath))
+                        Directory.CreateDirectory(filePath);
+
+                    var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+
+                    var fullPath = Path.Combine(filePath, fileName);
+
+                    using (var fileStream = new FileStream( fullPath, FileMode.Create))
+                        editUser.Image.CopyTo(fileStream);
+                    var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                    if (result)
+                    {
+                        var res = _userManager.GetUserAsync(User);
+                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        return View(user);
+                    }
+                }
+
+            }
             return View();
         }
+
+
+
     }
 }

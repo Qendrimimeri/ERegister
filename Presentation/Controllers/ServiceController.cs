@@ -19,6 +19,51 @@ namespace Presentation.Controllers
             _unitOfWork = unit;
             _context = context;
         }
+        //poll center
+        [Route("getpollcenter")]
+        public ActionResult GetPollCenter()
+        {
+            return Ok(_context.PollCenters.ToList().Select(x => new
+            {
+                Id = x.Id,
+                CenterNumber = x.CenterNumber
+            }));
+        }
+
+        [Route("getpollcenterbyid")]
+        public ActionResult GetPollCenterById([FromQuery] string id)
+        
+        {
+            var qendra = _context.PollCenters.Where(v => v.CenterNumber == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+        [HttpPost]
+        [Route("addpollcenter")]
+        public ActionResult AddPollCenter([FromBody] PollCenterVM model)
+        {
+            _context.PollCenters.Add(new PollCenter
+            {
+                Id = model.Id,
+                CenterNumber = model.CenterNumber,
+                CenterName = model.CenterName,
+                MunicipalitydId = model.MunicipalitydId
+
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
         [Route("getkqzresult")]
         public ActionResult GetKqzResult()

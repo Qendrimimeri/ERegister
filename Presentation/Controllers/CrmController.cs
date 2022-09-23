@@ -28,25 +28,24 @@ namespace Presentation.Controllers
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
             return PartialView("_Voters" ,vm1);
         }
-        [HttpPost]
+        
         public IActionResult Cancel()
         {
-            return View("Index" , "Dashboard");
+            return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public async Task <IActionResult> SaveAndClose(PollRelated pollRelated)
         {
              _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index","Dashboard");
         }
 
         public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         {
             _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
-            return RedirectToAction("Index", "Crm");
+            return RedirectToAction("Index");
         }
         //public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         //{
