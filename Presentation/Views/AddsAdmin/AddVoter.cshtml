@@ -193,7 +193,6 @@
     const villages = document.querySelector('#villages');
     const url = "https://localhost:7278/api/service/";
     getMunis();
-    getVillage();
 
     munis.addEventListener('change', event => {
         addVillagesToList(event.target.value);
@@ -206,6 +205,9 @@
     });
     villages.addEventListener('change', event => {
         event.preventDefault()
+          if (event.target.value == 'shto'){
+            addVillageToDb();
+        }
     });
      neigborhoods.addEventListener('change', event => {
         event.preventDefault()
