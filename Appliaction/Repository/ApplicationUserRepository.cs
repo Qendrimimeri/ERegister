@@ -1,3 +1,5 @@
+using Appliaction.Models;
+using Application.Models;
 using Application.Repository.IRepository;
 using Application.ViewModels;
 using Domain.Data;
@@ -142,13 +144,18 @@ namespace Application.Repository
             return res;
         }
 
-        public async Task<List<IdentityRole>> GetAllRolesAsync()
+        public async Task<List<RoleModel>> GetAllRolesAsync()
         {
             var res = await _roleManager.Roles.ToListAsync();
-            var roles = new List<IdentityRole>();
+            var roleName = new List<string>();
             foreach (var role in res)
                 if (role.Name != "SimpleRole")
-                    roles.Add(role);
+                    roleName.Add(role.Name);
+
+            var roles = new List<RoleModel>();
+
+            foreach (var role in roleName)
+                roles.Add(new RoleModel { Key = role, Value = role });
 
             return roles;
         }
