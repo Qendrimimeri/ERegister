@@ -1,8 +1,12 @@
 using Application.Repository;
 using Application.ViewModels;
+using Domain.Data.Entities;
 using Infrastructure.Services;
-using Microsoft.AspNet.Identity;
+
+using Microsoft.AspNetCore.Identity;
+
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,10 +15,19 @@ namespace Presentation.Controllers
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IWebHostEnvironment _env;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public DashboardController(IUnitOfWork unitOfWork)
+        public DashboardController(IUnitOfWork unitOfWork, 
+                                  UserManager<ApplicationUser> userManager,
+                                  IWebHostEnvironment env,
+                                  SignInManager<ApplicationUser> signInManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
+            _env = env;
+           _signInManager = signInManager;
         }
         public IActionResult Index()
         {
@@ -44,12 +57,12 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Reports(PersonVM  editPerson)
+        public async Task<IActionResult> Reports(PersonVM  editVoter)
         {
 
             if (ModelState.IsValid)
             {
-                var users = await _unitOfWork.PollRelated.AddPollRelated(editPerson);
+                var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
                 return RedirectToAction("Performance", "Dashboard");
             }
             return View();
@@ -75,9 +88,81 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        public IActionResult BusinessUserProfile()
+
+        [HttpGet]
+        public async Task<IActionResult> BusinessUserProfile()
+        {
+            var res =_userManager.GetUserAsync(User);
+            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
+        {
+            if (ModelState.IsValid)
+            {
+                if (editUser.Image.FileName != null)
+                {
+                    var rootFilePath = _env.WebRootPath;
+                    string filePath = Path.Combine(rootFilePath, "Document");
+                    if (!Directory.Exists(filePath))
+                        Directory.CreateDirectory(filePath);
+
+                    var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+
+                    var fullPath = Path.Combine(filePath, fileName);
+
+                    using (var fileStream = new FileStream( fullPath, FileMode.Create))
+                        editUser.Image.CopyTo(fileStream);
+                    var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                    if (result)
+                    {
+                        var res = _userManager.GetUserAsync(User);
+                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        return View(user);
+                    }
+                }
+
+            }
+            return View();
+        }
+        [HttpGet]
+         public IActionResult ChangePassWord()
         {
             return View();
         }
+
+        public async Task<IActionResult>ChangePassword(ChangePasswordVM model)
+        {
+            if(ModelState.IsValid)
+            { 
+                var user= await _userManager.GetUserAsync(User);
+                if(user== null)
+                {
+                    return RedirectToAction("Index","Home");
+                }
+
+                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (!result.Succeeded)
+                {
+                    foreach(var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    TempData["Success"] = "Fjalekalimi i ndryshua me sukses!";
+                    return View();
+                    
+                }
+                
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("BusinessUserProfile");
+               
+            }
+            return View(model);
+          
+        }
+
     }
 }

@@ -90,7 +90,7 @@ namespace Presentation.Controllers
             var streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.streets = streets;
 
-            var roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Id", "Name");
+            var roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Key", "Value");
             ViewBag.roles = roles;
 
             return View();
