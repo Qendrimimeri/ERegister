@@ -63,7 +63,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Numri i votuesëve</th>
-                                    <th scope="col">Total:<span id="span"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                    <th scope="col">Total:<span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
                                 </tr>
                             </thead>
                             <tbody>
@@ -122,21 +122,72 @@
     const span = document.getElementById('span');
     
 
-    let shuma = 0;
-    console.log(shuma);
-    console.log(votat.length);
+
+    
+
+
+    
+
+    var shuma = 0;
+    var input;
+    var vlera;
+   
 	for(let i=0; i<votat.length; i++){
-			votat[i].addEventListener('keyup', merre);
+            
+            votat[i].addEventListener('click', e => {
+                e.preventDefault();
+                
+              
+                vlera = 0;
+                
+                if(votat[i].value !== '' ){
+                  
+                    vlera = parseInt(votat[i].value);
+                    console.log(vlera);
 
-            function merre(){
-                event.preventDefault();
-                console.log(votat[i].value);
-				shuma = shuma + votat[i].value;
-                console.log(shuma);
-				span.innerHTML = shuma;
+                  
+                
+                }
+              
+            });
 
-			}
-        }
+			votat[i].addEventListener('change', e => {
+                e.preventDefault();
+
+                input = parseInt(votat[i].value);
+                console.log(input);
+               
+
+
+                if(!isNaN(input)){
+                    if (vlera!=0){
+                        shuma = shuma - vlera;
+                    }
+                    shuma += input;
+                    span.innerHTML = shuma;
+                
+                }
+                else if(isNaN(input)){
+                    shuma = shuma - vlera;
+                    span.innerHTML = shuma;
+
+                }
+               
+                
+
+
+
+                
+                
+                
+
+            });
+
+
+    }
+
+          
+        
             
             
      
