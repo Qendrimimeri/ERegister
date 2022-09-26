@@ -17,14 +17,17 @@ namespace Presentation.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _env;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public DashboardController(IUnitOfWork unitOfWork, 
                                   UserManager<ApplicationUser> userManager,
-                                  IWebHostEnvironment env)
+                                  IWebHostEnvironment env,
+                                  SignInManager<ApplicationUser> signInManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _env = env;
+           _signInManager = signInManager;
         }
         public IActionResult Index()
         {
@@ -125,8 +128,41 @@ namespace Presentation.Controllers
             }
             return View();
         }
+        [HttpGet]
+         public IActionResult ChangePassWord()
+        {
+            return View();
+        }
 
+        public async Task<IActionResult>ChangePassword(ChangePasswordVM model)
+        {
+            if(ModelState.IsValid)
+            { 
+                var user= await _userManager.GetUserAsync(User);
+                if(user== null)
+                {
+                    return RedirectToAction("Index","Home");
+                }
 
+                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (!result.Succeeded)
+                {
+                    foreach(var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    TempData["Success"] = "Fjalekalimi i ndryshua me sukses!";
+                    return View();
+                    
+                }
+                
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("BusinessUserProfile");
+               
+            }
+            return View(model);
+          
+        }
 
     }
 }
