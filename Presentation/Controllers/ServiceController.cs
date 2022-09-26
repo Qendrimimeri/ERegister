@@ -32,7 +32,7 @@ namespace Presentation.Controllers
             //}));
         }
         
-        /// get general demand 
+        /// get specific reason 
        
         [Route("getgeneraldemand")]
 
@@ -48,29 +48,29 @@ namespace Presentation.Controllers
             _context.PollRelateds.Add(new PollRelated
             {
                 Id = model.Id,
-                GeneralDemand = model.GeneralDemand
+                SpecificReason = model.SpecificReason
             });
 
             _context.SaveChanges();
 
             return Ok();
         }
-        //get help
-        [Route("addhelp")]
+        //get help  // specific demand
+        [Route("gethelp")]
 
         public ActionResult GetNeedHelp()
         {
-            return Ok(_context.Helps.ToList());
+            return Ok(_context.PollRelateds.ToList());
         }
         //add help
         [HttpPost]
-        [Route("GetNeedHelp")]
-        public ActionResult AddHelp([FromBody] NeedHelpVM model)
+        [Route("GetNeedHelp")]   
+        public ActionResult AddHelp([FromBody] GeneralDemandVM model)
         {
-            _context.Helps.Add(new Help
+            _context.PollRelateds.Add(new PollRelated
             {
                 Id = model.Id,
-                NeedHelp = model.NeedHelp
+                SpecificDemand = model.SpecificDemand
             });
 
             _context.SaveChanges();

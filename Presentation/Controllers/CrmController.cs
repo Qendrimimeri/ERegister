@@ -24,7 +24,7 @@ namespace Presentation.Controllers
         {
             _unitOfWork.PollRelated.Add(new PollRelated
             {
-                GeneralDemand = model.GeneralDemand
+                SpecificReason = model.SpecificReason
             });
 
             _unitOfWork.SaveChanges();
@@ -33,12 +33,12 @@ namespace Presentation.Controllers
         }
         //ndihma nevojshme
         [HttpPost]
-        [Route("addhelp")]
-        public ActionResult GetNeedHelp([FromBody] NeedHelpVM model)
+        [Route("GetNeedHelp")]
+        public ActionResult GetNeedHelp([FromBody] GeneralDemandVM model)
         {
-            _unitOfWork.Help.Add(new Help
+            _unitOfWork.PollRelated.Add(new PollRelated
             {
-                NeedHelp = model.NeedHelp
+                SpecificDemand = model.SpecificDemand
             });
 
             _unitOfWork.SaveChanges();
