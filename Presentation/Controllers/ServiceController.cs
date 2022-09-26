@@ -1,4 +1,4 @@
-﻿using Application.Repository;
+﻿  using Application.Repository;
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
@@ -75,6 +75,52 @@ namespace Presentation.Controllers
             //    Date = x.DataCreated
           
             //}));
+        }
+        
+        /// get specific reason 
+       
+        [Route("getgeneraldemand")]
+
+        public ActionResult GetGeneralDemand()
+        {
+            return Ok(_context.PollRelateds.ToList());
+        }
+        //add general demand 
+        [HttpPost]
+        [Route("addgeneraldemand")]
+        public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
+        {
+            _context.PollRelateds.Add(new PollRelated
+            {
+                Id = model.Id,
+                SpecificReason = model.SpecificReason
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        //get help  // specific demand
+        [Route("gethelp")]
+
+        public ActionResult GetNeedHelp()
+        {
+            return Ok(_context.PollRelateds.ToList());
+        }
+        //add help
+        [HttpPost]
+        [Route("GetNeedHelp")]   
+        public ActionResult AddHelp([FromBody] GeneralDemandVM model)
+        {
+            _context.PollRelateds.Add(new PollRelated
+            {
+                Id = model.Id,
+                SpecificDemand = model.SpecificDemand
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
         }
 
         [HttpPost]
