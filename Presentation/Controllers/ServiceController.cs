@@ -277,33 +277,86 @@ namespace Presentation.Controllers
             return Ok();
         }
 
-        //Rruga
-        [Route("getstreetbymuni")]
-        public ActionResult GetStreetByMuni([FromQuery] int muniId)
+        //street by village
+        [Route("getstreetbyvillage")]
+        public ActionResult GetStreetByVillage([FromQuery] int villId)
         {
-            var streets = _context.Streets.Where(v => v.MunicipalityId == muniId)
+            var streets = _context.Streets.Where(v => v.VillageId == villId)
                 .Select(x =>
                 new
                 {
                     Id = x.Id,
                     Name = x.Name
                 });
-
             return Ok(streets);
         }
         [HttpPost]
-        [Route("addstreet")]
-        public ActionResult AddStreet([FromBody] AddStreetVM model)
+        [Route("addstreetbyvillage")]
+        public ActionResult AddStreetByVillage([FromBody] AddStreetVM model)
         {
             _context.Streets.Add(new Street
             {
                 Name = model.StreetName,
-                MunicipalityId = model.MunicipalityId
+                VillageId = model.VillageId
             });
             _context.SaveChanges();
 
             return Ok();
         }
+
+        //street by neighborhood
+        [Route("getstreetbyneighborhood")]
+        public ActionResult GetStreetByNeighborhood([FromQuery] int neighId)
+        {
+            var streets = _context.Streets.Where(n => n.NeighborhoodId == neighId)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+            return Ok(streets);
+        }
+        [HttpPost]
+        [Route("addstreetbyneighborhood")]
+        public ActionResult AddStreetByNeighborhood([FromBody] AddStreetVM model)
+        {
+            _context.Streets.Add(new Street
+            {
+                Name = model.StreetName,
+                NeighborhoodId = model.NeighborhoodId
+            });
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        //pollCenter by village
+        [Route("getpollcenterbyvillage")]
+        public ActionResult GetPollCenterByVillage([FromQuery] int villId)
+        {
+            var streets = _context.PollCenters.Where(v => v.VillageId == villId)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    Name = x.CenterName
+                });
+            return Ok(streets);
+        }
+        [HttpPost]
+        [Route("addpollcenterbyvillage")]
+        public ActionResult AddPollCenterByVillage([FromBody] PollCenterVM model)
+        {
+            _context.PollCenters.Add(new PollCenter
+            {
+                CenterName = model.CenterName,
+                VillageId = model.VillageId
+            });
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
 
         [HttpPost]
         [Route("addblock")]
