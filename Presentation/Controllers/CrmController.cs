@@ -1,10 +1,14 @@
 ﻿using Application.Repository;
 using Application.ViewModels;
 using Domain.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
+
 {
+    [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+
     public class CrmController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -8,9 +8,12 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNet.Identity;
 using Domain.Data.Entities;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers
 {
+
+
     public class AddsAdminController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -70,6 +73,8 @@ namespace Presentation.Controllers
             return RedirectToAction("AddVoter");
         }
 
+
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
         public async Task<IActionResult> PoliticalOffical()
         {
             var municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
