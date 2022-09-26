@@ -31,7 +31,7 @@
                                         <tr>
                                             <th>Emri dhe Mbiemri</th>
                                             <td>@Model.FullName</td>
-
+                                            
                                         </tr>
                                         <tr>
                                             <th>Numri i votuesve</th>
@@ -47,6 +47,7 @@
                                             <td>@Model.ActualChances</td>
                                         </tr>
                                     </table>
+                                    <input type="hidden" asp-for="@Model.Id" />
                                 </div>
                             </div>
                             <div class="col-md-6 pe-2">
@@ -88,6 +89,7 @@
                                                     <option disabled selected>Zgjedh Statusin..</option>
                                                 </select>
                                             </td>
+                                            
                                         </tr>
                                     </table>
                                 </div>

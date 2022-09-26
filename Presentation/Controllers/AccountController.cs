@@ -11,10 +11,12 @@ namespace Presentation.Controllers
     public class AccountController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController( IUnitOfWork unitOfWork)
+        public AccountController( IUnitOfWork unitOfWork,SignInManager<ApplicationUser> signInManager)
         {
             _unitOfWork = unitOfWork;
+            _signInManager = signInManager;
         }
 
 
@@ -114,6 +116,13 @@ namespace Presentation.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -38,13 +38,20 @@
                             </div>
                             <div class="col-12">
                                 <label class="pt-4" >Viti i zgjedhjeve</label>
-                                <input id="year" class="form-control">
+                                <input type="date" id="year" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-                            <div class="col-12 pb-4">
+                           @* <div class="col-12 pb-4">
                                 <label class="pt-4">Qendra e vendvotimit</label>
                                 <input id="poll" class="form-control">
                                 <span class="text-danger"></span>
+                            </div>*@
+                              <div class="col-12 pb-4">
+                                <label class="pt-4">Qendra e vendvotimit</label>
+                                <select class="form-select" id="poll">
+                                    <option disabled selected>Zgjedh qendren e zgjedhjeve..</option>
+                                   
+                                </select>
                             </div>
                             <button type="submit" id="main-div" class="btn btn-primary">Regjistro votimet</button>
                         </form>
@@ -108,34 +115,89 @@
     const villages = document.querySelector('#villages');
     const url = "https://localhost:7278/api/service/";
     const button = document.querySelector('#main-div');
-    getMunis();
 
+
+    const year = document.getElementById('year');
+    const poll = document.getElementById('poll');
+  
+    getMunis();
+    getPollCenter();
     
+    
+  
+      function getPollCenter(id){
+
+        poll.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        poll.appendChild(chooseOption);
+
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto qendren e re...";
+        addOption.value = "shto";
+        poll.appendChild(addOption);
+
+
+        let endpoint = url + "getpollcenter";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.centerNumber;
+                poll.appendChild(item);
+            });
+        });
+        }
+
+      poll.addEventListener('change', event => {
+        event.preventDefault()
+        if (event.target.value == 'shto'){
+            addPollToDb();
+        }
+        
+    });
+   function addPollToDb(){
+        let endpoint = url + "addpollcenter";
+        let input = prompt("Shto Qendren e re:");
+        //let selectedMuni = $('#munis').val();
+        let sm = document.querySelector("#poll").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({ centerNumber: input,
+                centerName: "", municipalitydId: munis.value})
+        }).then(() => getPollCenter());
+
+    }
+
+ 
+
+
     button.addEventListener('click', event => {
          //event.preventDefault();
-        
-        
          addDataToDb();
-        
-       
-        alert("U Regjistrua!");
+         alert("U Regjistrua!");
 
 })
 
 function addDataToDb() {
     let endpoint = url + "addkqzresult";
+
     const election = document.getElementById("inputGroupSelect03").value;
-    const year = document.getElementById('year').value;
-    const poll = document.getElementById('poll').value;
+    const year = document.getElementById('year');
+    const poll = document.getElementById('poll');
     const neighborhood = document.getElementById('neigborhoods').value
     const parti = document.getElementsByClassName("parti");
     const votat = document.getElementsByClassName("votat");
 
-    //var i = 1;
-    
-    //let input = prompt("Shto fshatin e ri:");
-    //let selectedMuni = $('#munis').val();
-    //let sm = document.querySelector("#munis").value;
+  
     for (var i=1; i <= votat.length; i++) {
         fetch(endpoint, {
             headers: {
@@ -146,10 +208,10 @@ function addDataToDb() {
             body: JSON.stringify({
                 municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
 
-                electionType: election, dataCreated: year, pollCenterId: poll, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
             })
         });
-        //.then(() => addVillagesToList(sm));
+        
     }
 }
 
@@ -160,6 +222,7 @@ function addDataToDb() {
         addNeigborhoodToList(event.target.value);
         addBlockToList(event.target.value);
         addStreetToList(event.target.value);
+        
     });
 
     villages.addEventListener('change', event => {
