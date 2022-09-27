@@ -1,9 +1,11 @@
-﻿using Application.Repository;
+using Application.Repository;
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Presentation.Controllers
 {
@@ -76,6 +78,52 @@ namespace Presentation.Controllers
           
             //}));
         }
+        
+        /// get specific reason 
+       
+        [Route("getgeneraldemand")]
+
+        public ActionResult GetGeneralDemand()
+        {
+            return Ok(_context.PollRelateds.ToList());
+        }
+        //add general demand 
+        [HttpPost]
+        [Route("addgeneraldemand")]
+        public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
+        {
+            _context.PollRelateds.Add(new PollRelated
+            {
+                Id = model.Id,
+                SpecificReason = model.SpecificReason
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        //get help  // specific demand
+        [Route("gethelp")]
+
+        public ActionResult GetNeedHelp()
+        {
+            return Ok(_context.PollRelateds.ToList());
+        }
+        //add help
+        [HttpPost]
+        [Route("GetNeedHelp")]   
+        public ActionResult AddHelp([FromBody] GeneralDemandVM model)
+        {
+            _context.PollRelateds.Add(new PollRelated
+            {
+                Id = model.Id,
+                SpecificDemand = model.SpecificDemand
+            });
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
         [HttpPost]
         [Route("addkqzresult")]
@@ -109,6 +157,60 @@ namespace Presentation.Controllers
             }));
         }
 
+
+        // Get Kqz Rezults
+        [Route("kqzresults")]
+        public ActionResult KqzResults()
+        {
+            var rez = _context.Kqzregisters.Where(x => x.MunicipalityId == 1).Select(x => x.NoOfvotes).ToList();
+            return Ok(rez);
+        }
+
+
+        [Route("kqzresultsbymuni")]
+        public ActionResult KqzResultsbymuni()
+        {
+            var results = _context.Kqzregisters.Select(x => new KqzLastYear()
+            {
+               PoliticalSubject = x.PoliticialSubject.Name,
+               NumberOfVotes = (int) x.NoOfvotes,
+            }).ToList();
+
+            var rez = _context.PollRelateds.ToList();
+            var removeDuplicated = new List<PollRelated>();
+
+            foreach (var user in rez.OrderByDescending(x => x.Date))
+                if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                    removeDuplicated.Add(user);
+
+            var voters = new List<CurrentVoters>();
+            foreach (var user in removeDuplicated)
+                voters.Add(new CurrentVoters()
+                {
+                    Municipality = "Prishtine",
+                    NumberOfVotes = user.FamMembers,
+                    PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
+                                                                 .FirstOrDefault().Name
+                });
+
+            var gruping = new Dictionary<string , int>();
+            foreach (var voter in voters)
+                if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
+                    gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                {
+                    var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                    gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                }
+
+            var data = new KqzResultsByCity()
+            {
+                LastYear = results,
+                ThisYear = gruping
+            };
+
+            return Ok(data);
+        }
 
         [Route("getvillage")]
         public ActionResult GetVillage()

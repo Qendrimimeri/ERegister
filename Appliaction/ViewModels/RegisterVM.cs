@@ -21,7 +21,7 @@ namespace Application.ViewModels
         public string WorkPlace { get; set; }
         public string AdministrativeUnit { get; set; }
         public string Duty { get; set; }
-        public int? FamMembers { get; set; }
+        public int FamMembers { get; set; }
         public string SuccessChance { get; set; }
         public int PoliticalSubject { get; set; }
         public string PollCenter { get; set; }

@@ -40,9 +40,12 @@
                         <div class="form-group pb-3 pe-2">
                             <label for="exampleInputEmail1" asp-for="Email">Email address</label>
                             <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1"
-                                placeholder="Shkruaj email adresen">
+                                   placeholder="Shkruaj email adresen">
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
+
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
                             <div class="col-md-4 mb-2 pe-2">
                                 <label asp-for="Municipality">Qyteti</label>
                                 <select asp-for="Municipality" id="munis" class="form-select">
@@ -67,8 +70,34 @@
                                     <option disabled selected>Zgjedh lagjen..</option>
                                 </select>
                             </div>
+                            }
+                             @if (User.IsInRole("MunicipalityAdmin"))
+                            {
+                                <div class="col-md-6 mb-2 pe-2">
+                                    <label asp-for="Village">Fshati</label>
+                                    <select asp-for="Village" id="villages" class="form-select">
+                                        <option disabled selected>Zgjedh fshatin..</option>
+                                    </select>
+                                </div>
+                               <div id="neigborhoods-container" class="col-md-6 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <option disabled selected>Zgjedh lagjen..</option>
+                                </select>
+                            </div>
+                            <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <option disabled selected>Zgjedh lagjen..</option>
+                                </select>
+                            </div>
+                            }
+
                         </div>
+
+
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
+
                            <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
                                 <label>Rruga</label>
                                 <select class="form-select" asp-for="Street" id="streets">
@@ -79,6 +108,7 @@
                                 <label>Rruga</label>
                                 <select class="form-select" asp-for="Street" id="streetsNeighborhood">
                                     <option disabled selected>Zgjedh rrugën..</option>
+
                                 </select>
                             </div>
                             <div class="col-md-4 mb-2 pe-2">
@@ -118,6 +148,13 @@
                                 </select>
                             </div>
                         </div>
+
+                            
+                          
+                            
+                           
+                            
+                    
                         <button type="submit" id="test" class="btn btn-primary">Regjistro</button>
                     </form>
                     <div class="col-12">

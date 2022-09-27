@@ -45,8 +45,8 @@
 
 
 
-  <!-- ======= Sidebar ======= -->
-=======
+    <!-- ======= Sidebar ======= -->
+    =======
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between gap-5">
@@ -251,61 +251,83 @@
 
     </header><!-- End Header -->
     <!-- ======= Sidebar ======= -->
+   
+          <aside id="sidebar" class="sidebar">
+    
+        <ul class="sidebar-nav mb-auto" id="sidebar-nav">
+            
+               @if(User.IsInRole("SuperAdmin")|| User.IsInRole("MunicipalityAdmin")|| User.IsInRole("LocalAdmin"))
+            {
+                
+                   <li class="nav-item">
+                <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
-  <aside id="sidebar" class="sidebar">
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-controller="Crm" asp-action="Index">
+                    <i class="bi bi-search"></i>
+                    <span>CRM</span>
+                </a>
+            </li>
 
-      <ul class="sidebar-nav mb-auto" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Performance">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Performance & Reports</span>
+                </a>
+            </li>
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
-                  <i class="bi bi-grid"></i>
-                  <span>Dashboard</span>
-              </a>
-          </li>
+         
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Crm" asp-action= "Index">
-                  <i class="bi bi-search"></i>
-                  <span>CRM</span>
-              </a>
-          </li>
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "Performance">
-                  <i class="bi bi-graph-up"></i>
-                  <span>Performance & Reports</span>
-              </a>
-          </li>
 
-           <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">
-                  <i class="bi bi-person-square"></i> <span>Adds & Admin</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-                  <ul id="components-addsadmin" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                      <li>
-                          <a asp-controller="AddsAdmin" asp-action="AddVoter">
-                              <i class="bi bi-circle"></i><span>Regjistro votuesin e ri</span>
-                          </a>
-                      </li>
-                       <li>
-                        <a asp-controller="AddsAdmin" asp-action="PoliticalOffical">
-                            <i class="bi bi-circle"></i><span>Zyrtaret partiak</span>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">
+                    <i class="bi bi-person-square"></i> <span>Adds & Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-addsadmin" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+
+
+
+
+                    <li>
+                        <a asp-controller="AddsAdmin" asp-action="AddVoter">
+                            <i class="bi bi-circle"></i><span>Regjistro votuesin e ri</span>
                         </a>
                     </li>
-                    @*<li>
-                        <a asp-controller="AddsAdmin" asp-action="EditPoliticalSubjectTest">
-                        <i class="bi bi-circle"></i><span>Zyrtaret partiak-test</span>
-                        </a>
-                        </li>*@
+
+
+                   
+
+                        <li>
+                            <a asp-controller="AddsAdmin" asp-action="PoliticalOffical">
+                                <i class="bi bi-circle"></i><span>Zyrtaret partiak</span>
+                            </a>
+                        </li>
+                    
+
+                  
                 </ul>
             </li>
-            @*/E sheh vetem superAdmini*@
-            @*   <li class="nav-item">
-                <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "AddSubject">
-                <i class="bi bi-people"></i>
-                <span>Regjistro partinë</span>
-                </a>
-                </li>*@
+            }
+
+    
+  
+
+                   @if (User.IsInRole("SimpleMember"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link collapsed" asp-controller="AddsAdmin" asp-action="AddVoter">
+                        <i class="bi bi-person-square"></i>
+                        <span>Regjistro votuesin e ri</span>
+                    </a>
+                </li>
+
+            }
             @if (User.IsInRole("SuperAdmin"))
             {
                 <li class="nav-item">
@@ -316,7 +338,7 @@
                 </li>
             }
             <li class="accordion-item mt-5">
-                <a class="nav-link collapsed" asp-controller="Home" asp-action="Index">
+                <a class="nav-link collapsed" asp-controller="Account" asp-action="Logout">
                     <i class="bi bi-box-arrow-right"></i>
                     <span>Dil</span>
                 </a>

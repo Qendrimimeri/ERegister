@@ -77,7 +77,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Numri i votuesëve</th>
-                                    <th scope="col">Total:</th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                    <th scope="col">Total:<span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,9 +169,41 @@
     const url = "https://localhost:7278/api/service/";
     const button = document.querySelector('#main-div');
 
-
+    const votat = document.getElementsByClassName("votat");
     const year = document.getElementById('year');
     const poll = document.getElementById('poll');
+    const span = document.getElementById('span');
+    var shuma = 0;
+    var input;
+    var vlera;
+	for(let i=0; i<votat.length; i++){
+            
+            votat[i].addEventListener('focus', e => {
+                e.preventDefault();
+                vlera = 0;
+                if(votat[i].value !== '' ){
+                    vlera = parseInt(votat[i].value);
+                }
+            });
+			votat[i].addEventListener('blur', e => {
+                e.preventDefault();
+                input = parseInt(votat[i].value);
+                //console.log("Inputi"+input);
+                if(!isNaN(input)){
+                    if (vlera!==0){
+                        shuma = shuma - vlera;
+                    }
+                    shuma += input;
+                    span.innerHTML = shuma;
+                }
+                else if(isNaN(input)){
+                    shuma = shuma - vlera;
+                    span.innerHTML = shuma;
+
+                }
+             });
+    }
+
     getMunis();
 
     function addDataToDb() {
