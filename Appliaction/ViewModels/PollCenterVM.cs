@@ -14,5 +14,6 @@ namespace Application.ViewModels
         public string? CenterName { get; set; }
         public int? MunicipalitydId { get; set; }
         public int? VillageId { get; set; }
+        public int? NeighborhoodId { get; set; }
     }
 }

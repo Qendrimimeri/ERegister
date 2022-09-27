@@ -1,9 +1,7 @@
 ﻿@model PoliticalOfficalVM;
 @{
     Layout = "_DashboardLayout";
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-            crossorigin="anonymous"></script>
+    
 }
 <section class="section">
     <div class="row">
@@ -55,13 +53,20 @@
                                 <input id="poll" class="form-control">
                                 <span class="text-danger"></span>
                             </div>*@
-                              <div class="col-12 pb-4">
-                                <label class="pt-4">Qendra e vendvotimit</label>
-                                <select class="form-select" id="poll">
+
+                            <div id="pollcenter-villages-container" class="col-12 pt-4 pb-4">
+                                <label>Qendra e vendvotimit</label>
+                                <select class="form-select" asp-for="Neigborhood" id="poll">
                                     <option disabled selected>Zgjedh qendren e zgjedhjeve..</option>
-                                   
                                 </select>
                             </div>
+                            <div id="pollcenter-neighborhood-container" class="col-12 pt-4 pb-4">
+                                <label>Qendra e vendvotimit</label>
+                                <select class="form-select" asp-for="Neigborhood" id="pollNeighborhood">
+                                    <option disabled selected>Zgjedh qendren e zgjedhjeve..</option>
+                                </select>
+                            </div>
+                             
                             <button type="submit" id="main-div" class="btn btn-primary">Regjistro votimet</button>
                         </form>
                     </div>
@@ -119,7 +124,11 @@
 
 @section Scripts
 {
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
 <script>
+
     $('#neigborhoodsVillage-container').hide();
 
     $('#villages').change(function(){
@@ -136,6 +145,23 @@
             $('#neigborhoodsVillage-container').hide();
         }
     });
+
+     $('#pollcenter-villages-container').hide();
+
+    $('#neigborhoods').change(function(){
+        var selectedVillage = $(this).children('option:selected').val();
+        if(selectedVillage != null){
+            $('#pollcenter-villages-container').hide();
+            $('#pollcenter-neighborhood-container').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
+            $('#pollcenter-villages-container').show();
+            $('#pollcenter-neighborhood-container').hide();
+        }
+    });
 </script>
 <script>
     const munis = document.querySelector('#munis');
@@ -146,92 +172,35 @@
 
     const year = document.getElementById('year');
     const poll = document.getElementById('poll');
-  
     getMunis();
-    getPollCenter();
-      function getPollCenter(id){
 
-        poll.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        poll.appendChild(chooseOption);
+    function addDataToDb() {
+        let endpoint = url + "addkqzresult";
 
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto qendren e re...";
-        addOption.value = "shto";
-        poll.appendChild(addOption);
-
-
-        let endpoint = url + "getpollcenter";
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.centerNumber;
-                poll.appendChild(item);
-            });
-        });
-        }
-
-      poll.addEventListener('change', event => {
-        event.preventDefault()
-        if (event.target.value == 'shto'){
-            addPollToDb();
-        }
-        
-    });
-   function addPollToDb(){
-        let endpoint = url + "addpollcenter";
-        let input = prompt("Shto Qendren e re:");
-        //let selectedMuni = $('#munis').val();
-        let sm = document.querySelector("#poll").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ centerNumber: input,
-                centerName: "", municipalitydId: munis.value})
-        }).then(() => getPollCenter());
-    }
-    button.addEventListener('click', event => {
-         //event.preventDefault();
-         addDataToDb();
-         alert("U Regjistrua!");
-
-})
-function addDataToDb() {
-    let endpoint = url + "addkqzresult";
-
-    const election = document.getElementById("inputGroupSelect03").value;
-    const year = document.getElementById('year');
-    const poll = document.getElementById('poll');
-    const neighborhood = document.getElementById('neigborhoods').value
-    const parti = document.getElementsByClassName("parti");
-    const votat = document.getElementsByClassName("votat");
+        const election = document.getElementById("inputGroupSelect03").value;
+        const year = document.getElementById('year');
+        const poll = document.getElementById('poll');
+        const neighborhood = document.getElementById('neigborhoods').value
+        const parti = document.getElementsByClassName("parti");
+        const votat = document.getElementsByClassName("votat");
 
   
-    for (var i=1; i <= votat.length; i++) {
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({
-                municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
+        for (var i=1; i <= votat.length; i++) {
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({
+                    municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
 
-                electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
-            })
-        });
+                    electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                })
+            });
         
+        }
     }
-}
         munis.addEventListener('change', event => {
             addVillagesToList(event.target.value);
             addNeigborhoodToList(event.target.value);
@@ -239,6 +208,10 @@ function addDataToDb() {
         });
         villages.addEventListener('change', event=>{
             addNeigborhoodVillageToList(event.target.value);
+            addPollCenterToList(event.target.value);
+        });
+        neigborhoods.addEventListener('change', event =>{
+            addPollCenterNeighborhoodToList(event.target.value);
         });
         villages.addEventListener('change', event => {
         event.preventDefault()
@@ -246,7 +219,7 @@ function addDataToDb() {
             addVillageToDb();
         }
         });
-         neigborhoods.addEventListener('change', event => {
+        neigborhoods.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto'){
                 addNeigborhoodToDb();
@@ -258,6 +231,19 @@ function addDataToDb() {
                 addNeigborhoodVillageToDb();
             }
         });
+        poll.addEventListener('change', event => {
+            event.preventDefault()
+            if (event.target.value == 'shto'){
+                addPollCenterToDb();
+            }
+        });
+        pollNeighborhood.addEventListener('change', event => {
+            event.preventDefault()
+            if(event.target.value == "shto"){
+                addPollCenterNeighborhoodToDb();
+            }
+        });
+
     function getMunis(id){
         let endpoint = url + "getmunis";
         let result = fetch(endpoint)
@@ -399,6 +385,80 @@ function addDataToDb() {
             method: 'post',
             body: JSON.stringify({villageId: sm, neighborhoodName: input})
         }).then(() => addNeigborhoodVillageToList(sm));
+    }
+    //poll center by village
+    function addPollCenterToList(villId){
+        poll.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren e votimit...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        poll.appendChild(chooseOption);
+
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto qendren e re të votimit...";
+        addOption.value = "shto";
+        poll.appendChild(addOption);
+
+        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            poll.appendChild(item);
+        }));
+    }
+    function addPollCenterToDb(){
+        let endpoint = url + "addpollcenterbyvillage";
+        let input = prompt("Shto qendren e re të votimit:");
+        let sm = document.querySelector("#villages").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({villageId: sm, centerNumber: input})
+        }).then(() => addPollCenterToList(sm));
+    }
+    //poll center by neighborhood
+    function addPollCenterNeighborhoodToList(neighId){
+        pollNeighborhood.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren e votimit...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        pollNeighborhood.appendChild(chooseOption);
+
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto qendren e re të votimit...";
+        addOption.value = "shto";
+        pollNeighborhood.appendChild(addOption);
+
+        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            pollNeighborhood.appendChild(item);
+        }));
+    }
+    function addPollCenterNeighborhoodToDb(){
+        let endpoint = url + "addpollcenterbyneighborhood";
+        let input = prompt("Shto qendren e re të votimit...");
+        let sm = document.querySelector("#neigborhoods").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({neighborhoodId: sm, centerNumber: input})
+        }).then(() => addPollCenterNeighborhoodToList(sm));
     }
 
    
