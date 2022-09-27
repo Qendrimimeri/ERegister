@@ -2,8 +2,10 @@
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Presentation.Controllers
 {
@@ -63,6 +65,62 @@ namespace Presentation.Controllers
                 Name = x.Name
             }));
         }
+
+
+        // Get Kqz Rezults
+        [Route("kqzresults")]
+        public ActionResult KqzResults()
+        {
+            var rez = _context.Kqzregisters.Where(x => x.MunicipalityId == 1).Select(x => x.NoOfvotes).ToList();
+            return Ok(rez);
+        }
+
+
+        [Route("kqzresultsbymuni")]
+        public ActionResult KqzResultsbymuni()
+        {
+            var results = _context.Kqzregisters.Select(x => new KqzLastYear()
+            {
+               PoliticalSubject = x.PoliticialSubject.Name,
+               NumberOfVotes = (int) x.NoOfvotes,
+            }).ToList();
+
+            var rez = _context.PollRelateds.ToList();
+            var removeDuplicated = new List<PollRelated>();
+
+            foreach (var user in rez.OrderByDescending(x => x.Date))
+                if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                    removeDuplicated.Add(user);
+
+            var voters = new List<CurrentVoters>();
+            foreach (var user in removeDuplicated)
+                voters.Add(new CurrentVoters()
+                {
+                    Municipality = "Prishtine",
+                    NumberOfVotes = user.FamMembers,
+                    PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
+                                                                 .FirstOrDefault().Name
+                });
+
+            var gruping = new Dictionary<string , int>();
+            foreach (var voter in voters)
+                if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
+                    gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                {
+                    var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                    gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                }
+
+            var data = new KqzResultsByCity()
+            {
+                LastYear = results,
+                ThisYear = gruping
+            };
+
+            return Ok(data);
+        }
+
 
         //fshat
         [Route("getvillagesbymuni")]
