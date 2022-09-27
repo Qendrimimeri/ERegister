@@ -22,50 +22,50 @@ namespace Presentation.Controllers
             _context = context;
         }
         //poll center
-        [Route("getpollcenter")]
-        public ActionResult GetPollCenter()
-        {
-            return Ok(_context.PollCenters.ToList().Select(x => new
-            {
-                Id = x.Id,
-                CenterNumber = x.CenterNumber
-            }));
-        }
+        //[Route("getpollcenter")]
+        //public ActionResult GetPollCenter()
+        //{
+        //    return Ok(_context.PollCenters.ToList().Select(x => new
+        //    {
+        //        Id = x.Id,
+        //        CenterNumber = x.CenterNumber
+        //    }));
+        //}
 
-        [Route("getpollcenterbyid")]
-        public ActionResult GetPollCenterById([FromQuery] string id)
+        //[Route("getpollcenterbyid")]
+        //public ActionResult GetPollCenterById([FromQuery] string id)
         
-        {
-            var qendra = _context.PollCenters.Where(v => v.CenterNumber == id)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    CenterNumber = x.CenterNumber,
-                    CenterName = x.CenterName,
-                    MuniCipalityId = x.MunicipalitydId
-                });
+        //{
+        //    var qendra = _context.PollCenters.Where(v => v.CenterNumber == id)
+        //        .Select(x =>
+        //        new
+        //        {
+        //            Id = x.Id,
+        //            CenterNumber = x.CenterNumber,
+        //            CenterName = x.CenterName,
+        //            MuniCipalityId = x.MunicipalitydId
+        //        });
 
-            return Ok(qendra);
-        }
+        //    return Ok(qendra);
+        //}
 
-        [HttpPost]
-        [Route("addpollcenter")]
-        public ActionResult AddPollCenter([FromBody] PollCenterVM model)
-        {
-            _context.PollCenters.Add(new PollCenter
-            {
-                Id = model.Id,
-                CenterNumber = model.CenterNumber,
-                CenterName = model.CenterName,
-                MunicipalitydId = model.MunicipalitydId
+        //[HttpPost]
+        //[Route("addpollcenter")]
+        //public ActionResult AddPollCenter([FromBody] PollCenterVM model)
+        //{
+        //    _context.PollCenters.Add(new PollCenter
+        //    {
+        //        Id = model.Id,
+        //        CenterNumber = model.CenterNumber,
+        //        CenterName = model.CenterName,
+        //        MunicipalitydId = model.MunicipalitydId
 
-            });
+        //    });
 
-            _context.SaveChanges();
+        //    _context.SaveChanges();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         [Route("getkqzresult")]
         public ActionResult GetKqzResult()
@@ -395,7 +395,7 @@ namespace Presentation.Controllers
                 new
                 {
                     Id = x.Id,
-                    Name = x.CenterName
+                    Name = x.CenterNumber
                 });
             return Ok(streets);
         }
@@ -405,8 +405,34 @@ namespace Presentation.Controllers
         {
             _context.PollCenters.Add(new PollCenter
             {
-                CenterName = model.CenterName,
+                CenterNumber = model.CenterNumber,
                 VillageId = model.VillageId
+            });
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        //pollCenter by neighborhood
+        [Route("getpollcenterbyneigborhood")]
+        public ActionResult GetPollCenterByNeighborhood([FromQuery] int neighId)
+        {
+            var pollcenters = _context.PollCenters.Where(n => n.NeighborhoodId == neighId)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    Name = x.CenterName
+                });
+            return Ok(pollcenters);
+        }
+        [HttpPost]
+        [Route("addpollcenterbyneighborhood")]
+        public ActionResult AddPollCenterByNeighborhood([FromBody] PollCenterVM model)
+        {
+            _context.PollCenters.Add(new PollCenter
+            {
+                CenterName = model.CenterName,
+                NeighborhoodId = model.NeighborhoodId
             });
             _context.SaveChanges();
 
