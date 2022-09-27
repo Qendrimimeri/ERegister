@@ -104,18 +104,29 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> BusinessUserProfile()
         {
-            var res =_userManager.GetUserAsync(User);
-            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+            var res = await _userManager.GetUserAsync(User);
+            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
 
             return View(user);
         }
 
         [HttpPost]
         public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
-        {
+         {
             if (ModelState.IsValid)
             {
-                if (editUser.Image.FileName != null)
+                if (editUser.Image == null)
+                {
+                    var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                    if (result)
+                    {
+                        var res = _userManager.GetUserAsync(User);
+                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        return View(user);
+                    }
+
+                }
+               else if (editUser.Image!= null)
                 {
                     var rootFilePath = _env.WebRootPath;
                     string filePath = Path.Combine(rootFilePath, "Document");
@@ -136,7 +147,6 @@ namespace Presentation.Controllers
                         return View(user);
                     }
                 }
-
             }
             return View();
         }

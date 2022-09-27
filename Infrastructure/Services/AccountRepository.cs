@@ -159,6 +159,8 @@ namespace Infrastructure.Services
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
+                ImgPath = "default.png",
+                PhoneNumber = model.PhoneNumber,
             };
 
             var result = await _userManager.CreateAsync(simpleUser, "Admin!23");

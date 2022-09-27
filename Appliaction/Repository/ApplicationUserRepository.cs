@@ -165,6 +165,17 @@ namespace Application.Repository
 
             return true;
         }
+        public async Task<bool>EditUserProfile(ProfileVM user)
+        {
+            var userId = Profile();
+            var getUser = await _db.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
+            getUser.Email = user.Email;
+            getUser.PhoneNumber = user.PhoneNo;
+            await _db.SaveChangesAsync();
+            return true;
+
+
+        }
 
 
 
