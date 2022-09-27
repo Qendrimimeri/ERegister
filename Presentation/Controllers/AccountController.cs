@@ -53,7 +53,7 @@ namespace Presentation.Controllers
         [Route("/Account/Error/{code:int}")]
         public IActionResult Error(int code)
         {
-            return View(new ErrorModel {ErrorMessage = $"Error Occurred. Error Code is{code}" });
+            return View(new ErrorModel { ErrorMessage = $"Error Occurred. Error Code is{code}" });
         }
 
 
