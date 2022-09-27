@@ -1,6 +1,9 @@
 ﻿@using Application.ViewModels
 @{
     Layout = "_DashboardLayout";
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
 }
 
 @model RegisterVM;
@@ -41,7 +44,7 @@
                             <label for="InputFacebook">Facebook</label>
                             <input type="text" class="form-control" asp-for="Facebook" id="InputFacebook">
                         </div>
-                        <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">     
+                        <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                             @if (User.IsInRole("SuperAdmin"))
                             {
                                 <div class="col-md-4 mb-2 pe-2">
@@ -49,38 +52,71 @@
                                     <select class="form-select" asp-for="Municipality" id="munis">
                                         <option disabled selected>Zgjedh qytetin..</option>
                                     </select>
-                                </div>
-                                <div class="col-md-4 mb-2 pe-2">
+                                      </div>
+                                 <div class="col-md-4 mb-2 pe-2">
                                     <label>Fshati</label>
-                                    <select class="form-select" asp-for="Village" id="villages">
-                                        <option disabled selected>Zgjedh fshatin..</option>
+                                    <select class="form-select fshati-selected" asp-for="Village" id="villages">
+                                        <option disabled selected selectcard>Zgjedh fshatin..</option>
                                     </select>
-                                </div>
-                                <div class="col-md-4 mb-2 pe-2">
+                                      </div>
+
+                                      
+                                <div id="neigborhoods-container" class="col-md-4 mb-2 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen..</option>
                                     </select>
                                 </div>
-                            }else{
-                                <div class="col-md-6 mb-2 pe-2">
-                                    <label>Fshati</label>
-                                    <select class="form-select" asp-for="Village" id="villages">
-                                        <option disabled selected>Zgjedh fshatin..</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-2 pe-2">
+
+                                <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen..</option>
                                     </select>
                                 </div>
+
                             }
+                              
+                            @if(User.IsInRole("MunicipalityAdmin")){
+                                <div class="col-md-6 mb-2 pe-2">
+                                    <label>Fshati</label>
+                                    <select class="form-select fshati-selected" asp-for="Village" id="villages">
+                                        <option disabled selected selectcard>Zgjedh fshatin..</option>
+                                    </select>
+                                      </div>
+
+                                      
+                                <div id="neigborhoods-container" class="col-md-6 mb-2 pe-2">
+                                    <label>Lagja</label>
+                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
+                                        <option disabled selected>Zgjedh lagjen..</option>
+                                    </select>
+                                </div>
+                             }
+                              
+
+
+@*
+                                <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
+                                    <label>Lagja</label>
+                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                        <option disabled selected>Zgjedh lagjen..</option>
+                                    </select>
+                                </div>*@
+                        
+                         
+                            
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
-                            <div class="col-md-4 mb-2 pe-2">
+                            <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
                                 <label>Rruga</label>
                                 <select class="form-select" asp-for="Street" id="streets">
+                                    <option disabled selected>Zgjedh rrugën..</option>
+                                </select>
+                            </div>
+                             <div class="col-md-4 mb-2 pe-2" id="streetByNeighborhood">
+                                <label>Rruga</label>
+                                <select class="form-select" asp-for="Street" id="streetsNeighborhood">
                                     <option disabled selected>Zgjedh rrugën..</option>
                                 </select>
                             </div>
@@ -156,6 +192,42 @@
 @section Scripts
 {
 <script>
+    $('#neigborhoodsVillage-container').hide();
+
+    $('#villages').change(function(){
+        var selectedVillage = $(this).children('option:selected').val();
+        if(selectedVillage != null){
+            $('#neigborhoods-container').hide();
+            $('#neigborhoodsVillage-container').show();
+        }
+    })
+    $('#munis').change(function(){
+        var selectedMunis = $(this).children('option:selected').val();
+        if(selectedMunis != null){
+            $('#neigborhoods-container').show();
+            $('#neigborhoodsVillage-container').hide();
+        }
+    });
+
+     $('#streetByVillage').hide();
+
+    $('#neighborhoods').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
+            $('#streetByVillage').hide();
+            $('#streetByNeighborhood').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedVillages = $(this).children('option:selected').val();
+        if(selectedVillages != null){
+            $('#streetByVillage').show();
+            $('#streetByNeighborhood').hide();
+        }
+    })
+</script>
+<script>
+
     const munis = document.querySelector('#munis');
     const villages = document.querySelector('#villages');
     const url = "https://localhost:7278/api/service/";
@@ -165,20 +237,21 @@
         addVillagesToList(event.target.value);
         addNeigborhoodToList(event.target.value);
         addBlockToList(event.target.value);
+        
+    });
+    villages.addEventListener('change', event=>{
+        addNeigborhoodVillageToList(event.target.value);
         addStreetToList(event.target.value);
     });
-
+    neigborhoods.addEventListener('change', event =>{
+        addStreetNeighborhoodToList(event.target.value);
+    })
     villages.addEventListener('change', event => {
         event.preventDefault()
-        if (event.target.value == 'shto'){
+          if (event.target.value == 'shto'){
             addVillageToDb();
-            addQendraVotimitToList(event.target.value);
-        }
-        else {
-            addQendraVotimitToList(event.target.value);
         }
     });
-
      neigborhoods.addEventListener('change', event => {
         event.preventDefault()
         if (event.target.value == 'shto'){
@@ -197,6 +270,18 @@
             addStreetToDb();
         }
     });
+    neigborhoodsVillage.addEventListener('change', event => {
+        event.preventDefault()
+        if(event.target.value == "shto"){
+            addNeigborhoodVillageToDb();
+        }
+    });
+    streetsNeighborhood.addEventListener('change', event =>{
+        event.preventDefault()
+        if(event.target.value == "shto"){
+            addStreetNeighborhoodToDb();
+        }
+    });
     function getMunis(id){
         let endpoint = url + "getmunis";
         let result = fetch(endpoint)
@@ -210,7 +295,19 @@
             });
         });
     }
-
+     function getVillage(id){
+        let endpoint = url + "getvillage";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.name;
+                villages.appendChild(item);
+            });
+        });
+    }
     function addVillagesToList(muniId){
         villages.innerHTML = '';
         let chooseOption = document.createElement("option");
@@ -247,7 +344,6 @@
             method: 'post',
             body: JSON.stringify({municipalityId: sm, villageName: input})
         }).then(() => addVillagesToList(sm));
-
     }
     //neigborhoods
     function addNeigborhoodToList(muniId){
@@ -273,7 +369,6 @@
             neigborhoods.appendChild(item);
         }));
     }
-
     function addNeigborhoodToDb(){
         let endpoint = url + "addneighborhood";
         let input = prompt("Shto lagjen e re:");
@@ -285,8 +380,7 @@
             },
             method: 'post',
             body: JSON.stringify({municipalityId: sm, neighborhoodName: input})
-        }).then(() => addNeighborhoodsToList(sm));
-
+        }).then(() => addNeigborhoodToList(sm));
     }
     //neigborhood by village
     function addNeigborhoodVillageToList(villId){
@@ -316,7 +410,7 @@
     function addNeigborhoodVillageToDb(){
         let endpoint = url + "addneighborhoodbyvillage";
         let input = prompt("Shto lagjen e re:");
-        let sm = document.querySelector("#village").value;
+        let sm = document.querySelector("#villages").value;
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
@@ -325,7 +419,6 @@
             method: 'post',
             body: JSON.stringify({villageId: sm, neighborhoodName: input})
         }).then(() => addNeigborhoodVillageToList(sm));
-
     }
 
     //block
@@ -365,11 +458,10 @@
             method: 'post',
             body: JSON.stringify({municipalityId: sm, blockName: input})
         }).then(() => addBlockToList(sm));
-
     }
 
-    //street
-    function addStreetToList(muniId){
+    //street by village
+    function addStreetToList(villId){
         streets.innerHTML = '';
         let chooseOption = document.createElement("option");
         chooseOption.innerText = "Zgjedh rrugen...";
@@ -382,7 +474,7 @@
         addOption.value = "shto";
         streets.appendChild(addOption);
 
-        let endpoint = url + "getstreetbymuni?muniid=" + muniId;
+        let endpoint = url + "getstreetbyvillage?villId=" + villId;
         let result = fetch(endpoint)
         .then(res => res.json())
         .then(data => data.forEach(x => {
@@ -393,17 +485,92 @@
         }));
     }
     function addStreetToDb(){
-        let endpoint = url + "addstreet";
+        let endpoint = url + "addstreetbyvillage";
         let input = prompt("Shto rrugen e re:");
-        let sm = document.querySelector("#munis").value;
+        let sm = document.querySelector("#villages").value;
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({municipalityId: sm, streetName: input})
+            body: JSON.stringify({villageId: sm, streetName: input})
         }).then(() => addStreetToList(sm));
+    }
+    //street by neighborhood
+    function addStreetNeighborhoodToList(neighId){
+        streetsNeighborhood.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh rrugen...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        streetsNeighborhood.appendChild(chooseOption);
+
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto rrugë te re...";
+        addOption.value = "shto";
+        streetsNeighborhood.appendChild(addOption);
+
+        let endpoint = url + "getstreetbyneighborhood?neighId=" + neighId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            streetsNeighborhood.appendChild(item);
+        }));
+    }
+    function addStreetNeighborhoodToDb(){
+        let endpoint = url + "addstreetbyneighborhood";
+        let input = prompt("Shto rrugen e re:");
+        let sm = document.querySelector("#neigborhoods").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({neighborhoodId: sm, streetName: input})
+        }).then(() => addStreetNeighborhoodToList(sm));
+    }
+    //pollcenter by village
+    function addPollCenterToList(villId){
+        pollselector.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh rrugen...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        pollselector.appendChild(chooseOption);
+
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto rrugë te re...";
+        addOption.value = "shto";
+        pollselector.appendChild(addOption);
+
+        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            pollselector.appendChild(item);
+        }));
+    }
+    function addPollCenterToDb(){
+        let endpoint = url + "addpollcenterbyvillage";
+        let input = prompt("Shto rrugen e re:");
+        let sm = document.querySelector("#villages").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({villageId: sm, pollcenterName: input})
+        }).then(() => addPollCenterToList(sm));
     }
 </script>
 }
+

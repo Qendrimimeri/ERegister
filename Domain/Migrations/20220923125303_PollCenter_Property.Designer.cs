@@ -3,6 +3,7 @@ using System;
 using Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220923125303_PollCenter_Property")]
+    partial class PollCenter_Property
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +95,6 @@ namespace Domain.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImgPath")
                         .HasColumnType("longtext");
 
                     b.Property<bool>("LockoutEnabled")
@@ -390,22 +389,12 @@ namespace Domain.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("NeighborhoodId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StreetSource")
                         .HasColumnType("longtext");
-
-                    b.Property<int?>("VillageId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MunicipalityId");
-
-                    b.HasIndex("NeighborhoodId");
-
-                    b.HasIndex("VillageId");
 
                     b.ToTable("Streets");
                 });
@@ -742,19 +731,7 @@ namespace Domain.Migrations
                         .WithMany("Streets")
                         .HasForeignKey("MunicipalityId");
 
-                    b.HasOne("Domain.Data.Entities.Neighborhood", "Neighborhood")
-                        .WithMany("Streets")
-                        .HasForeignKey("NeighborhoodId");
-
-                    b.HasOne("Domain.Data.Entities.Village", "Village")
-                        .WithMany("Streets")
-                        .HasForeignKey("VillageId");
-
                     b.Navigation("Municipality");
-
-                    b.Navigation("Neighborhood");
-
-                    b.Navigation("Village");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Village", b =>
@@ -861,8 +838,6 @@ namespace Domain.Migrations
                     b.Navigation("Kqzregisters");
 
                     b.Navigation("PollCenters");
-
-                    b.Navigation("Streets");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
@@ -893,8 +868,6 @@ namespace Domain.Migrations
                     b.Navigation("Neighborhoods");
 
                     b.Navigation("PollCenters");
-
-                    b.Navigation("Streets");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
