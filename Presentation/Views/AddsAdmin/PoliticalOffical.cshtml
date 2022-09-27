@@ -105,10 +105,15 @@
                                 </select>
                                 @*<a asp-controller = "Role" asp-action = "AddRoles" class="link-primary">Shto +</a>*@
                             </div>
-                            <div class="col-md-6 mb-2 pe-2">
+                            <div class="col-md-6 mb-2 pe-2" id="pollcenter-villages-container">
                                 <label asp-for="PollCenter">Qendra e votimit</label>
-                                <select asp-for="PollCenter" asp-items="@ViewBag.pollCenters" class="form-select"
-                                    id="pollselector">
+                                <select asp-for="PollCenter" class="form-select" id="poll">
+                                    <option disabled selected>Zgjedh qendren e votimit..</option>
+                                </select>
+                            </div>
+                             <div class="col-md-6 mb-2 pe-2" id="pollcenter-neighborhood-container">
+                                <label asp-for="PollCenter">Qendra e votimit</label>
+                                <select asp-for="PollCenter" class="form-select" id="pollNeighborhood">
                                     <option disabled selected>Zgjedh qendren e votimit..</option>
                                 </select>
                             </div>
@@ -214,6 +219,23 @@
             $('#streetByNeighborhood').hide();
         }
     })
+
+    $('#pollcenter-villages-container').hide();
+
+    $('#neigborhoods').change(function(){
+        var selectedVillage = $(this).children('option:selected').val();
+        if(selectedVillage != null){
+            $('#pollcenter-villages-container').hide();
+            $('#pollcenter-neighborhood-container').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
+            $('#pollcenter-villages-container').show();
+            $('#pollcenter-neighborhood-container').hide();
+        }
+    });
 </script>
 <script>
     const munis = document.querySelector('#munis');
@@ -228,9 +250,11 @@
      villages.addEventListener('change', event=>{
         addNeigborhoodVillageToList(event.target.value);
         addStreetToList(event.target.value);
+        addPollCenterToList(event.target.value);
     });
      neigborhoods.addEventListener('change', event =>{
         addStreetNeighborhoodToList(event.target.value);
+        addPollCenterNeighborhoodToList(event.target.value);
     })
     villages.addEventListener('change', event => {
         event.preventDefault()
@@ -502,6 +526,47 @@
             body: JSON.stringify({neighborhoodId: sm, streetName: input})
         }).then(() => addStreetNeighborhoodToList(sm));
     }
+
+    //poll center by village
+    function addPollCenterToList(villId){
+        poll.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren e votimit...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        poll.appendChild(chooseOption);
+
+      
+        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            poll.appendChild(item);
+        }));
+    }
+    //poll center by neighborhood
+    function addPollCenterNeighborhoodToList(neighId){
+        pollNeighborhood.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren e votimit...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        pollNeighborhood.appendChild(chooseOption);
+
+        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            pollNeighborhood.appendChild(item);
+        }));
+    }
+
     const selectElement5 = document.querySelector('#inputGroupSelect05');
     selectElement5.addEventListener('change', (event) => {
         const result = event.target.value;

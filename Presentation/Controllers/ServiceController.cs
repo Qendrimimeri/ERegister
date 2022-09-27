@@ -319,7 +319,7 @@ namespace Presentation.Controllers
                 new
                 {
                     Id = x.Id,
-                    Name = x.CenterName
+                    Name = x.CenterNumber
                 });
             return Ok(pollcenters);
         }
@@ -329,7 +329,7 @@ namespace Presentation.Controllers
         {
             _context.PollCenters.Add(new PollCenter
             {
-                CenterName = model.CenterName,
+                CenterNumber = model.CenterNumber,
                 NeighborhoodId = model.NeighborhoodId
             });
             _context.SaveChanges();
