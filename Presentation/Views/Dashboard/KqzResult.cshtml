@@ -120,6 +120,7 @@
     const year = document.getElementById('year');
     const poll = document.getElementById('poll');
     const span = document.getElementById('span');
+    const parti = document.getElementsByClassName('parti');
     
 
 
@@ -250,8 +251,14 @@
 
 })
 
+
+
 function addDataToDb() {
     let endpoint = url + "addkqzresult";
+        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+
+    //let endpoint1 = url + "getpoliticalsubjectbyname?name="+
+    
 
     const election = document.getElementById("inputGroupSelect03").value;
     const year = document.getElementById('year');
@@ -259,9 +266,20 @@ function addDataToDb() {
     const neighborhood = document.getElementById('neigborhoods').value
     const parti = document.getElementsByClassName("parti");
     const votat = document.getElementsByClassName("votat");
-
+    //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+ 
+   var item2 = 0;
   
-    for (var i=1; i <= votat.length; i++) {
+    for (var i=0; i < votat.length; i++) {
+        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+         let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+        fetch(endpoint1).then(res => res.json()).then(data => {
+             item2 = data.id;
+             
+            alert(item2);
+        });
+
+
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
@@ -271,7 +289,7 @@ function addDataToDb() {
             body: JSON.stringify({
                 municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
 
-                electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: item2, noOfvotes: votat[i].value
             })
         });
         

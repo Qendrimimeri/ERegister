@@ -77,6 +77,22 @@ namespace Presentation.Controllers
             //}));
         }
 
+        [Route("getpoliticalsubjectbyname")]
+        public ActionResult GetPoliticalSubjectByName([FromQuery] string name)
+
+        {
+            var qendra = _context.PoliticalSubjects.Where(v => v.Name == name);
+                //.Select(x =>
+                //new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name,
+
+                //}) ;
+
+            return Ok(qendra);
+        }
+
         [HttpPost]
         [Route("addkqzresult")]
         public ActionResult AddKqzResult([FromBody] KqzRegisterVM model)
