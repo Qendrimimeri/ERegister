@@ -35,9 +35,11 @@ namespace Application.ViewModels
         public string AdministrativeUnit { get; set; }
         public string Duty { get; set; }
 
+
         [Required(ErrorMessage ="Ju lutem shkruani numrin e sakte te antareve!")]
         public int? FamMembers { get; set; }
         [Required]
+
         public string SuccessChance { get; set; }
         [Required]
         public int PoliticalSubject { get; set; }

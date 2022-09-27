@@ -12,7 +12,9 @@ namespace Application.ViewModels
         public int Id { get; set; }
 
         public int? PoliticialSubjectId { get; set; }
+
         public int? NoOfvotes { get; set; }
+
 
         [Required(ErrorMessage = "Ju lutem zgjedhni qendren e votimit!")]
         public int PollCenterId { get; set; }
@@ -29,5 +31,6 @@ namespace Application.ViewModels
 
         [Required(ErrorMessage = "Ju lutem percaktoni llojin e zgjedhjeve!")]
         public string ElectionType { get; set; }
+
     }
 }
