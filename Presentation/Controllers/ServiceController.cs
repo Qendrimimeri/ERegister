@@ -114,6 +114,7 @@ namespace Presentation.Controllers
         [Route("GetNeedHelp")]   
         public ActionResult AddHelp([FromBody] GeneralDemandVM model)
         {
+            
             _context.PollRelateds.Add(new PollRelated
             {
                 Id = model.Id,

@@ -19,16 +19,18 @@ namespace Presentation.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _env;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger<DashboardController> _logger;
 
         public DashboardController(IUnitOfWork unitOfWork, 
                                   UserManager<ApplicationUser> userManager,
                                   IWebHostEnvironment env,
-                                  SignInManager<ApplicationUser> signInManager)
+                                  SignInManager<ApplicationUser> signInManager, ILogger<DashboardController> logger)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _env = env;
            _signInManager = signInManager;
+            _logger = logger;
         }
 
 
@@ -39,6 +41,7 @@ namespace Presentation.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Dashboard Index executing...");
             return View();
         }
 
