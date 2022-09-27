@@ -31,12 +31,14 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var res = await _unitOfWork.Account.LoginAsync(login);
-                if (res == true)
-                    return RedirectToAction("Index", "Dashboard");
-                //returnUrl = returnUrl ?? Url.Content("~/Dashboard/index");
-                //return LocalRedirect(returnUrl);
-                // ModelState.AddModelError("", "Login failed, wrong credentials");
+                if (res == true && User.IsInRole("SimpleMember"))
+                    return RedirectToAction("AddVoter", "AddsAdmin");
+                else if (res)
+                 
+                return RedirectToAction("Index", "Dashboard");
+
                 return RedirectToAction("Index", "Home");
+               
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
 

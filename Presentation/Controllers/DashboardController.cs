@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,10 +30,21 @@ namespace Presentation.Controllers
             _env = env;
            _signInManager = signInManager;
         }
+
+
+
+
+      
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+
         public IActionResult Index()
         {
             return View();
         }
+
+
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+       
         public async Task<IActionResult> Performance() 
         {
             var users =  await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
