@@ -9,7 +9,7 @@ namespace Application.ViewModels
 {
     public class KqzResultsByCity
     {
-        public List<KqzLastYear>? LastYear { get; set; }
+        public Dictionary<string, int> LastYear { get; set; }
         public Dictionary<string, int> ThisYear { get; set; }
     }
 }
