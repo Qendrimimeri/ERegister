@@ -48,7 +48,7 @@ namespace Presentation.Controllers
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
 
-            TempData["success"] = "You Logged in!";
+            TempData["success"] = "You are Logged in!";
             return RedirectToAction("Index", "Home", ModelState);
         }
 
@@ -131,6 +131,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult>Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["success"] = "You logged out successfuly!";
             return RedirectToAction("Index", "Home");
         }
     }

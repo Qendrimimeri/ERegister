@@ -86,7 +86,7 @@ namespace Infrastructure.Services
             {
                 FullName = model.FullName,
                 Email = model.Email,
-                UserName = model.Email,
+                UserName = model.FullName,
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",

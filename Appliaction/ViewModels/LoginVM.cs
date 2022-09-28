@@ -9,18 +9,13 @@ namespace Application.ViewModels
 {
     public class LoginVM
     {
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Emaili")]
+        [Required, DataType(DataType.EmailAddress), Display(Name = "Emaili")]
         public string Email { get; set; }
 
-        [MaxLength(255)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Fjalekalimi")]
+        [MaxLength(255), DataType(DataType.Password), Display(Name = "Fjalekalimi")]
         public string Password { get; set; }
 
-        public bool RememberMe { get; set;}
-
+        public bool RememberMe { get; set; }
 
     }
 }

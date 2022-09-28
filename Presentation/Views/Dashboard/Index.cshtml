@@ -1,11 +1,14 @@
 ﻿@using Application.ViewModels
+@using Domain.Data.Entities
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+
 @{
     Layout = "_DashboardLayout";
 }
 @model RegisterVM;
 <div>
     <div class="card">
-        <h4 class="text-center pt-4">Mirë se vini <strong> @User.Identity.Name</strong> </h4>
+        <h4 class="text-center pt-4">Mirë se vini <strong> @((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</strong> </h4>
         <hr />
         @if (User.IsInRole("SuperAdmin"))
         {
