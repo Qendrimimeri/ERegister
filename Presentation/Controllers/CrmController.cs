@@ -57,7 +57,7 @@ namespace Presentation.Controllers
                 return NotFound();
             }
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-            TempData["success"] = "Finded successfuly!";
+            TempData["success"] = "Votues u gjet me sukses!";
             return PartialView("_Voters" ,vm1);
         }
         
