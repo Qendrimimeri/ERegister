@@ -86,7 +86,7 @@ namespace Infrastructure.Services
             {
                 FullName = model.FullName,
                 Email = model.Email,
-                UserName = model.FullName,
+                UserName = model.Email,
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
@@ -94,9 +94,9 @@ namespace Infrastructure.Services
 
             };
 
-            IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
-            await _context.SaveChangesAsync();
-            await _userManager.AddToRoleAsync(simpleUser, "SimpleRole");
+            var result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
+            var save = await _context.SaveChangesAsync();
+            var inRole =  _userManager.AddToRoleAsync(simpleUser, "SimpleRole");
 
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
