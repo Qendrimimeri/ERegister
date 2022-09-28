@@ -1,6 +1,29 @@
-﻿@{
+﻿@using Application.ViewModels
+@{
     Layout = "_DashboardLayout";
 }
+@model RegisterVM;
+<div>
+    <div class="card">
+        <h4 class="text-center pt-4">Mirë se vini <strong> @User.Identity.Name</strong> </h4>
+        <hr />
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <div class="d-flex justify-content-around p-2 pt-2">
+                <div class="pt-2">
+                    <p>Zgjedhni qytetin për grafe:</p>
+                </div>
+                <div class="col-md-4 mb-2 pe-2">
+                    <select class="form-select" id="munis" asp-for="Municipality">
+                        <option disabled selected>Zgjedh qytetin..</option>
+                    </select>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
 <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-6">
@@ -139,3 +162,26 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+<script>
+    const munis = document.querySelector('#munis');
+    const url = "https://localhost:7278/api/service/";
+    getMunis();
+        function getMunis(id){
+            let endpoint = url + "getmunis";
+            let result = fetch(endpoint)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    munis.appendChild(item);
+                });
+            });
+        }
+    
+</script>
+}

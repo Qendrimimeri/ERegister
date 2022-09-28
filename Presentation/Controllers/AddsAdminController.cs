@@ -70,7 +70,7 @@ namespace Presentation.Controllers
                     return RedirectToAction("Index", "dashboard");
                 }
             }
-            return RedirectToAction("AddVoter");
+            return View("AddVoter",register);
         }
 
 
