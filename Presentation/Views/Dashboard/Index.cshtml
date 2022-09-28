@@ -182,6 +182,23 @@
                 });
             });
         }
+
+        function addDashboardToList(muniId){
+        munisName.innerHTML = '';
+
+        let addOption = document.createElement("option");
+        munisName.appendChild(addOption);
+
+        let endpoint = url + "kqzresultsbymuni?muniid=" + muniId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            munisName.appendChild(item);
+        }));
+    }
     
 </script>
 }
