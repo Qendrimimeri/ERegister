@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Serilog;
 
 namespace Presentation.Controllers
 {
@@ -70,92 +71,178 @@ namespace Presentation.Controllers
         [Route("getkqzresult")]
         public ActionResult GetKqzResult()
         {
+            try
+            {
+                return Ok(_context.Kqzregisters.ToList());
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetKqzResult terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok(_context.Kqzregisters.ToList());
             //.Select(x => new
             //{
             //    Id = x.Id,
             //    Date = x.DataCreated
-          
+
             //}));
         }
-        
+
         /// get specific reason 
-       
+
         [Route("getgeneraldemand")]
 
         public ActionResult GetGeneralDemand()
         {
+            try
+            {
+                return Ok(_context.PollRelateds.ToList());
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetGeneralDemand terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok(_context.PollRelateds.ToList());
+
         }
         //add general demand 
         [HttpPost]
         [Route("addgeneraldemand")]
         public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
         {
-            _context.PollRelateds.Add(new PollRelated
+            try
             {
-                Id = model.Id,
-                SpecificReason = model.SpecificReason
-            });
+                _context.PollRelateds.Add(new PollRelated
+                {
+                    Id = model.Id,
+                    SpecificReason = model.SpecificReason
+                });
 
-            _context.SaveChanges();
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch(Exception ex){
+                Log.Fatal(ex, "[POST]AddGeneralDemand terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return Ok();
+
         }
         //get help  // specific demand
         [Route("gethelp")]
 
         public ActionResult GetNeedHelp()
         {
+            try
+            {
+                return Ok(_context.PollRelateds.ToList());
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetNeedHelp terminated unexpectedly");
+
+            }
+            finally{ Log.CloseAndFlush(); }
             return Ok(_context.PollRelateds.ToList());
+
         }
         //add help
         [HttpPost]
         [Route("GetNeedHelp")]   
         public ActionResult AddHelp([FromBody] GeneralDemandVM model)
         {
-            
-            _context.PollRelateds.Add(new PollRelated
+            try
             {
-                Id = model.Id,
-                SpecificDemand = model.SpecificDemand
-            });
+                _context.PollRelateds.Add(new PollRelated
+                {
+                    Id = model.Id,
+                    SpecificDemand = model.SpecificDemand
+                });
 
-            _context.SaveChanges();
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[POST]AddHelp terminated unexpectedly");
+
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
+
         }
 
         [HttpPost]
         [Route("addkqzresult")]
         public ActionResult AddKqzResult([FromBody] KqzRegisterVM model)
         {
-            _context.Kqzregisters.Add(new Kqzregister
+            try
             {
-                Id = model.Id,
-                PoliticialSubjectId = model.PoliticialSubjectId,
-                MunicipalityId = model.MunicipalityId,
-                NoOfvotes = model.NoOfvotes,
-                PollCenterId = model.PollCenterId,
-                DataCreated = model.DataCreated,
-                VillageId = model.VillageId,
-                NeighborhoodId = model.NeighborhoodId,
-                ElectionType = model.ElectionType
-            });
+                _context.Kqzregisters.Add(new Kqzregister
+                {
+                    Id = model.Id,
+                    PoliticialSubjectId = model.PoliticialSubjectId,
+                    MunicipalityId = model.MunicipalityId,
+                    NoOfvotes = model.NoOfvotes,
+                    PollCenterId = model.PollCenterId,
+                    DataCreated = model.DataCreated,
+                    VillageId = model.VillageId,
+                    NeighborhoodId = model.NeighborhoodId,
+                    ElectionType = model.ElectionType
+                });
 
-            _context.SaveChanges();
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[POST]AddKqzResult terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return Ok();
+
         }
 
         [Route("getmunis")]
         public ActionResult GetMunis()
         {
-            return Ok(_context.Municipalities.ToList().Select(x => new
+            try
             {
-                Id = x.Id,
-                Name = x.Name
-            }));
+                return Ok(_context.Municipalities.ToList().Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }));
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetMunis terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
 
 
@@ -163,147 +250,260 @@ namespace Presentation.Controllers
         [Route("kqzresults")]
         public ActionResult KqzResults()
         {
-            var rez = _context.Kqzregisters.Where(x => x.MunicipalityId == 1).Select(x => x.NoOfvotes).ToList();
-            return Ok(rez);
+            try
+            {
+                var rez = _context.Kqzregisters.Where(x => x.MunicipalityId == 1).Select(x => x.NoOfvotes).ToList();
+                return Ok(rez);
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]KqzResults terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
 
 
         [Route("kqzresultsbymuni")]
         public ActionResult KqzResultsbymuni()
         {
-            var results = _context.Kqzregisters.Select(x => new KqzLastYear()
+            try
             {
-               PoliticalSubject = x.PoliticialSubject.Name,
-               NumberOfVotes = (int) x.NoOfvotes,
-            }).ToList();
-
-            var rez = _context.PollRelateds.ToList();
-            var removeDuplicated = new List<PollRelated>();
-
-            foreach (var user in rez.OrderByDescending(x => x.Date))
-                if (!removeDuplicated.Any(x => x.UserId == user.UserId))
-                    removeDuplicated.Add(user);
-
-            var voters = new List<CurrentVoters>();
-            foreach (var user in removeDuplicated)
-                voters.Add(new CurrentVoters()
+                var results = _context.Kqzregisters.Select(x => new KqzLastYear()
                 {
-                    Municipality = "Prishtine",
-                    NumberOfVotes = user.FamMembers,
-                    PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
-                                                                 .FirstOrDefault().Name
-                });
+                    PoliticalSubject = x.PoliticialSubject.Name,
+                    NumberOfVotes = (int)x.NoOfvotes,
+                }).ToList();
 
-            var gruping = new Dictionary<string , int>();
-            foreach (var voter in voters)
-                if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
-                    gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
-                else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                var rez = _context.PollRelateds.ToList();
+                var removeDuplicated = new List<PollRelated>();
+
+                foreach (var user in rez.OrderByDescending(x => x.Date))
+                    if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                        removeDuplicated.Add(user);
+
+                var voters = new List<CurrentVoters>();
+                foreach (var user in removeDuplicated)
+                    voters.Add(new CurrentVoters()
+                    {
+                        Municipality = "Prishtine",
+                        NumberOfVotes = user.FamMembers,
+                        PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
+                                                                     .FirstOrDefault().Name
+                    });
+
+                var gruping = new Dictionary<string, int>();
+                foreach (var voter in voters)
+                    if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
+                        gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                    else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                    {
+                        var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                        gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                    }
+
+                var data = new KqzResultsByCity()
                 {
-                    var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
-                    gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
-                }
+                    LastYear = results,
+                    ThisYear = gruping
+                };
 
-            var data = new KqzResultsByCity()
+                return Ok(data);
+            }
+            catch (Exception ex)
             {
-                LastYear = results,
-                ThisYear = gruping
-            };
+                Log.Fatal(ex, "[GET]KqzResultsbymuni terminated unexpectedly");
 
-            return Ok(data);
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
 
         [Route("getvillage")]
         public ActionResult GetVillage()
         {
-            return Ok(_context.Villages.ToList().Select(x => new
+            try
             {
-                Id = x.Id,
-                Name = x.Name
-            }));
+                return Ok(_context.Villages.ToList().Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }));
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetVillage terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return Ok();
         }
 
         //fshat
         [Route("getvillagesbymuni")]
         public ActionResult GetVillagesByMuni([FromQuery] int muniId)
         {
-            var villages = _context.Villages.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+            try
+            {
+                var villages = _context.Villages.Where(v => v.MunicipalityId == muniId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    });
 
-            return Ok(villages);
+                return Ok(villages);
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetVillagesByMuni terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
         [HttpPost]
         [Route("addvillage")]
         public ActionResult AddVillage([FromBody] AddVillageVM model)
         {
-            _context.Villages.Add(new Village
+            try
             {
-                Name = model.VillageName,
-                MunicipalityId = model.MunicipalityId
-            });
+                _context.Villages.Add(new Village
+                {
+                    Name = model.VillageName,
+                    MunicipalityId = model.MunicipalityId
+                });
 
-            _context.SaveChanges();
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[POST]AddVillage terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
+
         }
 
         //Lagje
         [Route("getneighborhoodsbymuni")]
         public ActionResult GetNeighborhoodByMuni([FromQuery] int muniId)
         {
-            var neighborhoods = _context.Neighborhoods.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+            try
+            {
+                var neighborhoods = _context.Neighborhoods.Where(v => v.MunicipalityId == muniId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    });
 
-            return Ok(neighborhoods);
+                return Ok(neighborhoods);
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[POST]GetNeighborhoodByMuni terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
         [HttpPost]
         [Route("addneighborhood")]
         public ActionResult AddNeighborhood([FromBody] AddNeighborhoodVM model)
         {
-            _context.Neighborhoods.Add(new Neighborhood
+            try
             {
-                Name = model.NeighborhoodName,
-                MunicipalityId = model.MunicipalityId
-            });
-            _context.SaveChanges();
+                _context.Neighborhoods.Add(new Neighborhood
+                {
+                    Name = model.NeighborhoodName,
+                    MunicipalityId = model.MunicipalityId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[POST]AddNeighborhood terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
         }
         //Lagje per fshat
         [Route("getneighborhoodsbyvillage")]
         public ActionResult GetNeighborhoodByVillage([FromQuery] int villId)
         {
-            var neighborhoods = _context.Neighborhoods.Where(v => v.VillageId == villId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
-            return Ok(neighborhoods);
+            try
+            {
+                var neighborhoods = _context.Neighborhoods.Where(v => v.VillageId == villId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    });
+                return Ok(neighborhoods);
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]GetNeighborhoodByVillage terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return Ok();
         }
         [HttpPost]
         [Route("addneighborhoodbyvillage")]
         public ActionResult AddNeighborhoodByVillage([FromBody] AddNeighborhoodVM model)
         {
-            _context.Neighborhoods.Add(new Neighborhood
+            try
             {
-                Name = model.NeighborhoodName,
-                VillageId = model.VillageId
-            });
-            _context.SaveChanges();
+                _context.Neighborhoods.Add(new Neighborhood
+                {
+                    Name = model.NeighborhoodName,
+                    VillageId = model.VillageId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[POST]AddNeighborhoodByVillage terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
+
         }
 
         //Blloku

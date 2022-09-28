@@ -5,6 +5,7 @@ using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Presentation.Controllers
 {
@@ -28,18 +29,27 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM login)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var res = await _unitOfWork.Account.LoginAsync(login);
-                if (res == true && User.IsInRole("SimpleMember"))
-                    return RedirectToAction("AddVoter", "AddsAdmin");
-                else if (res)
-                 
-                return RedirectToAction("Index", "Dashboard");
+                if (ModelState.IsValid)
+                {
+                    var res = await _unitOfWork.Account.LoginAsync(login);
+                    if (res == true && User.IsInRole("SimpleMember"))
+                        return RedirectToAction("AddVoter", "AddsAdmin");
+                    else if (res)
 
-                return RedirectToAction("Index", "Home");
-               
+                        return RedirectToAction("Index", "Dashboard");
+
+                    return RedirectToAction("Index", "Home");
+
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[POST]Login terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush();}
             ModelState.AddModelError("", "Login failed, wrong credentials");
 
 
@@ -59,19 +69,31 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
-            if (userId == null || token == null)
+            try
             {
-                ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
-                return View();
-            }
-            var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
-            var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
+                if (userId == null || token == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                    return View();
+                }
+                var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
+                var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
 
-            if (result.Succeeded)
-                return RedirectToAction("ConfirmedEmail");
-            foreach (var err in result.Errors)
+                if (result.Succeeded)
+                    return RedirectToAction("ConfirmedEmail");
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, err.Description);
+                }
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, err.Description);
+                Log.Fatal(ex, "[GET]ConfirmEmail terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
             }
             return View();
         }
@@ -84,10 +106,23 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(EmailVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var res = await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
-                return RedirectToAction("Index", "Home");
+
+                if (ModelState.IsValid)
+                {
+                    var res = await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[POST]ForgotPassword terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
             }
             return View();
         }
@@ -97,34 +132,65 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> ResetPassword(string userId, string token)
         {
-            if (userId == null && token == null)
-                return View("ResetPasswordError");
+            try
+            {
+                if (userId == null && token == null)
+                    return View("ResetPasswordError");
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]ResetPassword terminated unexpectedly");
 
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string replaceToken = model.Token.Replace(" ", "+");
-                model.Token = replaceToken;
-
-                var res = await _unitOfWork.Account.ResetPasswordAsync(model);
-                if (res.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index", "Home");
+                    string replaceToken = model.Token.Replace(" ", "+");
+                    model.Token = replaceToken;
+
+                    var res = await _unitOfWork.Account.ResetPasswordAsync(model);
+                    if (res.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[POST]ResetPassword terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult>Logout()
         {
-            await _signInManager.SignOutAsync();
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[POST]Logout terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush (); }
             return RedirectToAction("Index", "Home");
+
         }
     }
 }

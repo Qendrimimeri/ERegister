@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Serilog;
 
 namespace Presentation.Controllers
 {
@@ -50,37 +51,72 @@ namespace Presentation.Controllers
        
         public async Task<IActionResult> Performance() 
         {
-            var users =  await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
-            return View(users); 
+            try
+            {
+                var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Performance terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+
+            }
+            return View();
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> Reports(string id) 
-        { 
-            var users =  await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
-            var PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
-            ViewBag.PS = PS;
+        public async Task<IActionResult> Reports(string id)
+        {
+            try
+            {
+                var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
+                var PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+                ViewBag.PS = PS;
 
-            var successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
-            ViewBag.successChances = successChances;
+                var successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+                ViewBag.successChances = successChances;
 
-            var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
-            ViewBag.actualStatus = actualStatus;
+                var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
+                ViewBag.actualStatus = actualStatus;
 
-            
-            return View(users); 
+
+                return View(users);
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "GetReports terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return View();
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Reports(PersonVM  editVoter)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                return RedirectToAction("Performance", "Dashboard");
+                if (ModelState.IsValid)
+                {
+                    var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
+                    return RedirectToAction("Performance", "Dashboard");
+                }
+                return View();
             }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "PostReports terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return View();
+
         }
 
 
@@ -107,42 +143,71 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> BusinessUserProfile()
         {
-            var res =_userManager.GetUserAsync(User);
-            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+            try
+            {
+                var res = _userManager.GetUserAsync(User);
+                var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
 
-            return View(user);
+                return View(user);
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "GetBusinessUserProfile terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return View();
+
         }
 
         [HttpPost]
         public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (editUser.Image.FileName != null)
+                if (ModelState.IsValid)
                 {
-                    var rootFilePath = _env.WebRootPath;
-                    string filePath = Path.Combine(rootFilePath, "Document");
-                    if (!Directory.Exists(filePath))
-                        Directory.CreateDirectory(filePath);
-
-                    var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
-
-                    var fullPath = Path.Combine(filePath, fileName);
-
-                    using (var fileStream = new FileStream( fullPath, FileMode.Create))
-                        editUser.Image.CopyTo(fileStream);
-                    var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
-                    if (result)
+                    if (editUser.Image.FileName != null)
                     {
-                        var res = _userManager.GetUserAsync(User);
-                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                        return View(user);
+                        var rootFilePath = _env.WebRootPath;
+                        string filePath = Path.Combine(rootFilePath, "Document");
+                        if (!Directory.Exists(filePath))
+                            Directory.CreateDirectory(filePath);
+
+                        var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+
+                        var fullPath = Path.Combine(filePath, fileName);
+
+                        using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                            editUser.Image.CopyTo(fileStream);
+                        var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                        if (result)
+                        {
+                            var res = _userManager.GetUserAsync(User);
+                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                            return View(user);
+                        }
                     }
+
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "PostBusinessUserProfile terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
 
             }
             return View();
         }
+
+
         [HttpGet]
          public IActionResult ChangePassWord()
         {
@@ -151,30 +216,39 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult>ChangePassword(ChangePasswordVM model)
         {
-            if(ModelState.IsValid)
-            { 
-                var user= await _userManager.GetUserAsync(User);
-                if(user== null)
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index","Home");
-                }
-
-                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                if (!result.Succeeded)
-                {
-                    foreach(var error in result.Errors)
+                    var user = await _userManager.GetUserAsync(User);
+                    if (user == null)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        return RedirectToAction("Index", "Home");
                     }
-                    TempData["Success"] = "Fjalekalimi i ndryshua me sukses!";
-                    return View();
-                    
+
+                    var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                    if (!result.Succeeded)
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        TempData["Success"] = "Fjalekalimi i ndryshua me sukses!";
+                        return View();
+
+                    }
+
+                    await _signInManager.RefreshSignInAsync(user);
+                    return RedirectToAction("BusinessUserProfile");
+
                 }
-                
-                await _signInManager.RefreshSignInAsync(user);
-                return RedirectToAction("BusinessUserProfile");
-               
             }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "PostChangePassword terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return View(model);
           
         }

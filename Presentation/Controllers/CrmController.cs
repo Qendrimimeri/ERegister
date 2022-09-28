@@ -3,6 +3,7 @@ using Application.ViewModels;
 using Domain.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Presentation.Controllers
 
@@ -24,43 +25,82 @@ namespace Presentation.Controllers
         //Arsye percaktuese general demand 
         [HttpPost]
         [Route("addgeneraldemand")]
+
         public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
         {
-            _unitOfWork.PollRelated.Add(new PollRelated
+            try
             {
-                SpecificReason = model.SpecificReason
-            });
+                _unitOfWork.PollRelated.Add(new PollRelated
+                {
+                    SpecificReason = model.SpecificReason
+                });
 
-            _unitOfWork.SaveChanges();
+                _unitOfWork.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[Post]AddGeneralDemand terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
+
         }
         //ndihma nevojshme
         [HttpPost]
         [Route("GetNeedHelp")]
         public ActionResult GetNeedHelp([FromBody] GeneralDemandVM model)
         {
-            _unitOfWork.PollRelated.Add(new PollRelated
+            try
             {
-                SpecificDemand = model.SpecificDemand
-            });
+                _unitOfWork.PollRelated.Add(new PollRelated
+                {
+                    SpecificDemand = model.SpecificDemand
+                });
 
-            _unitOfWork.SaveChanges();
+                _unitOfWork.SaveChanges();
 
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[Post]GetNeedHelp terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
+
         }
         public async Task<IActionResult> Voters(string name)
         {
-            var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
-            if (vm == null)
+            try
             {
-                return NotFound();
+                var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
+                if (vm == null)
+                {
+                    return NotFound();
+                }
+                var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
+                TempData["success"] = "Finded successfuly!";
+                return PartialView("_Voters", vm1);
             }
-            var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-            TempData["success"] = "Finded successfuly!";
-            return PartialView("_Voters" ,vm1);
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]Voters terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return View();
         }
-        
+
         public IActionResult Cancel()
         {
             TempData["success"] = "Closed!";
@@ -69,16 +109,38 @@ namespace Presentation.Controllers
 
         public async Task <IActionResult> SaveAndClose(PollRelated pollRelated)
         {
-             _unitOfWork.PollRelated.Update(pollRelated);
-            await _unitOfWork.Done();
-            return RedirectToAction("Index","Dashboard");
+            try
+            {
+                _unitOfWork.PollRelated.Update(pollRelated);
+                await _unitOfWork.Done();
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[GET]SaveAndClose terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return RedirectToAction("Index", "Dashboard");
+
         }
 
         public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         {
-            _unitOfWork.PollRelated.Update(pollRelated);
-            await _unitOfWork.Done();
+            try
+            {
+                _unitOfWork.PollRelated.Update(pollRelated);
+                await _unitOfWork.Done();
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                Log.Fatal(ex, "[GET]SaveAndOpenCase terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return RedirectToAction("Index");
+
         }
         //public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         //{
