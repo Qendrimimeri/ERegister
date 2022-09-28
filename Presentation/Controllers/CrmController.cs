@@ -19,6 +19,7 @@ namespace Presentation.Controllers
         }
         public IActionResult Index()
         {
+            TempData["success"] = "CRM!";
             return View();
         }
         //Arsye percaktuese general demand 

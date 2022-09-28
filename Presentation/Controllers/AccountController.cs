@@ -48,7 +48,7 @@ namespace Presentation.Controllers
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
 
-
+            TempData["success"] = "You Logged in!";
             return RedirectToAction("Index", "Home", ModelState);
         }
 
