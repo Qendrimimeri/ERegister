@@ -41,6 +41,12 @@
                             const thisYear = values.Nacionale["thisYear"]
                             const lastYearValues = Object.values(lastYear);
                             const thisYearValues = Object.values(thisYear);
+                            var politicalSubjects = Object.keys(thisYear)
+                            console.log("Tani")
+                            console.log(thisYear)
+                            console.log("2021")
+                            console.log(lastYear)
+                            console.log(politicalSubjects)
 
 
                             new ApexCharts(document.querySelector("#columnChart"), {
@@ -77,6 +83,7 @@
                                 },
                                 xaxis: {
                                     categories: ['LDK', 'PDK', 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
+                                    categories: [politicalSubjects[0], politicalSubjects[1], 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
                                 },
                                 fill: {
                                     opacity: 1,
