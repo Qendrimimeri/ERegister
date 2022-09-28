@@ -18,5 +18,9 @@ namespace Application.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Fjalekalimi")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set;}
+
+
     }
 }
