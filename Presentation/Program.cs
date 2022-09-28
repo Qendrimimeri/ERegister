@@ -11,6 +11,7 @@ using Presentation;
 using System;
 using Application.Repository.IRepository;
 using Infrastructure.Settings;
+using Presentation.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");

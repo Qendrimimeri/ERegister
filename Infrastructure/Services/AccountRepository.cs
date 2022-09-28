@@ -42,7 +42,7 @@ namespace Infrastructure.Services
             var user = await _userManager.FindByEmailAsync(login.Email);
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, login.Password, true, false);
+                var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
                 if (result.Succeeded)
                     return true;
                 return false;
@@ -86,7 +86,7 @@ namespace Infrastructure.Services
             {
                 FullName = model.FullName,
                 Email = model.Email,
-                UserName = model.Email,
+                UserName = model.FullName,
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
@@ -97,6 +97,7 @@ namespace Infrastructure.Services
             IdentityResult result = await _userManager.CreateAsync(simpleUser, "Eregister@!12");
             await _context.SaveChangesAsync();
             await _userManager.AddToRoleAsync(simpleUser, "SimpleRole");
+            await _userManager.AddClaimAsync(simpleUser, new System.Security.Claims.Claim("FullName", simpleUser.FullName));
 
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
