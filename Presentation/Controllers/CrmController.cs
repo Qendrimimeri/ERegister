@@ -33,7 +33,7 @@ namespace Presentation.Controllers
         
         public IActionResult Cancel()
         {
-            TempData["success"] = "Closed!";
+            TempData["success"] = "U anulua!";
             return RedirectToAction("Index");
         }
 
@@ -41,6 +41,7 @@ namespace Presentation.Controllers
         {
              _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("Index","Dashboard");
         }
 
@@ -48,6 +49,8 @@ namespace Presentation.Controllers
         {
             _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+
             return RedirectToAction("Index");
         }
         //public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)

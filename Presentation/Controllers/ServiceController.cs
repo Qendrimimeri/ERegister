@@ -68,6 +68,7 @@ namespace Presentation.Controllers
         [Route("getkqzresult")]
         public ActionResult GetKqzResult()
         {
+           
             return Ok(_context.Kqzregisters.ToList());
             //.Select(x => new
             //{
@@ -95,7 +96,7 @@ namespace Presentation.Controllers
             });
 
             _context.SaveChanges();
-
+           
             return Ok();
         }
 

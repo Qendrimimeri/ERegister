@@ -51,8 +51,6 @@ namespace Presentation.Controllers
 
             var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
             ViewBag.actualStatus = actualStatus;
-
-            
             return View(users); 
         }
 
@@ -63,8 +61,14 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
+
                 return RedirectToAction("Performance", "Dashboard");
+                
+
+
             }
+            TempData["success"] = "U regjistrua me sukses!";
+
             return View();
         }
 
