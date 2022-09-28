@@ -11,12 +11,13 @@ namespace Domain.Data.Entities
             Kqzregisters = new HashSet<Kqzregister>();
             Neighborhoods = new HashSet<Neighborhood>();
             Streets = new HashSet<Street>();
+            PollCenters = new HashSet<PollCenter>();
         }
 
         public int Id { get; set; }
         public string? Name { get; set; }
         public int? MunicipalityId { get; set; }
-        public int? PollCenterId { get; set; }
+        
 
 
         public virtual Municipality? Municipality { get; set; }

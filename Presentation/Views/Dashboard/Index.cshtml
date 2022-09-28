@@ -1,8 +1,6 @@
 ﻿@using Application.ViewModels
 @{
     Layout = "_DashboardLayout";
-    int[] kqz = { 24, 41, 55, 13, 18, 10, 9, 10 };
-    int[] addvoter = { 40, 48, 60, 22, 25, 20, 22, 12 };
 }
 @model RegisterVM;
 <div>
@@ -28,27 +26,31 @@
 </div>
 <div class="col-lg-12">
     <div class="row">
-
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Komuna e Prishtines - Zgjedhjet Nacionale</h5>
-
-                    <!-- Column Chart -->
                     <div id="columnChart"></div>
-
                     <script>
-                        const kqzrez = "https://localhost:7278/api/service/kqzresults";
-                        let response = fetch(kqzrez).then(res => res.json());
+                        const kqzrez = "https://localhost:7278/api/service";
+                        var endpoint = "/kqzresultsbymuni";
+                        let response = fetch(`${kqzrez}${endpoint}`).then(res => res.json());
                         let rez = response.then((values) => {
-                            console.log(values)
+
+                            const lastYear = values.Nacionale["lastYear"]
+                            const thisYear = values.Nacionale["thisYear"]
+                            const lastYearValues = Object.values(lastYear);
+                            const thisYearValues = Object.values(thisYear);
+
+
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
                                     name: 'Viti 2021',
-                                    data: [values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]]
+                                    
+                                    data: [lastYearValues[0], lastYearValues[1], lastYearValues[2], lastYearValues[3], lastYearValues[4], lastYearValues[5], lastYearValues[6], lastYearValues[7]]
                                 }, {
                                     name: 'Tani',
-                                    data: [values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]]
+                                    data: [thisYearValues[0], thisYearValues[1], thisYearValues[2], thisYearValues[3], thisYearValues[4], thisYearValues[5], thisYearValues[6], thisYearValues[7]]
                                 }],
                                 chart: {
                                     type: 'bar',
@@ -90,8 +92,71 @@
                             }).render();
                         })
                     </script>
-                    <!-- End Column Chart -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Komuna e Prishtines - Zgjedhjet Lokale</h5>
+                    <div id="columnChart1"></div>
+                    <script>
+                        let res = response.then((results) => {
 
+                            const lastYearLocal = results.Lokale["lastYear"]
+                            const thisYearLocal = results.Lokale["thisYear"]
+                            const lastYearValuesLocal = Object.values(lastYearLocal);
+                            const thisYearValuesLocal = Object.values(thisYearLocal);
+
+                            new ApexCharts(document.querySelector("#columnChart1"), {
+                                series: [{
+                                    name: 'Viti 2021',
+
+                                    data: [lastYearValuesLocal[0], lastYearValuesLocal[1], lastYearValuesLocal[2], lastYearValuesLocal[3], lastYearValuesLocal[4], lastYearValuesLocal[5], lastYearValuesLocal[6], lastYearValuesLocal[7]]
+                                }, {
+                                    name: 'Tani',
+                                    data: [thisYearValuesLocal[0], thisYearValuesLocal[1], thisYearValuesLocal[2], thisYearValuesLocal[3], thisYearValuesLocal[4], thisYearValuesLocal[5], thisYearValuesLocal[6], thisYearValuesLocal[7]]
+                                }],
+                                chart: {
+                                    type: 'bar',
+                                    height: 350
+                                }, colors: ['#339af0', '#f76707'],
+                                stroke: {
+                                    curve: 'smooth',
+                                    width: 0.5,
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        horizontal: false,
+                                        columnWidth: '55%',
+                                        endingShape: 'rounded'
+                                    },
+                                },
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                stroke: {
+                                    show: true,
+                                    width: 2,
+                                    colors: ['transparent']
+                                },
+                                xaxis: {
+                                    categories: ['LDK', 'PDK', 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
+                                },
+                                fill: {
+                                    opacity: 1,
+                                    colors: ['#339af0', '#f76707']
+                                },
+                                tooltip: {
+                                    y: {
+                                        formatter: function (val) {
+                                            return " " + val + " vota"
+                                        }
+                                    }
+                                }
+                            }).render();
+                        })
+                    </script>
                 </div>
             </div>
         </div>
