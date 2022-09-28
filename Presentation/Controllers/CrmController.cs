@@ -19,6 +19,7 @@ namespace Presentation.Controllers
         }
         public IActionResult Index()
         {
+            
             return View();
         }
         //Arsye percaktuese general demand 
@@ -57,13 +58,13 @@ namespace Presentation.Controllers
                 return NotFound();
             }
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-            TempData["success"] = "Finded successfuly!";
+            
             return PartialView("_Voters" ,vm1);
         }
         
         public IActionResult Cancel()
         {
-            TempData["success"] = "Closed!";
+            
             return RedirectToAction("Index");
         }
 

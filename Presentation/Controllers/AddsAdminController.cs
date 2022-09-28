@@ -116,22 +116,6 @@ namespace Presentation.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public IActionResult AddPoliticalSubject()
         {
 

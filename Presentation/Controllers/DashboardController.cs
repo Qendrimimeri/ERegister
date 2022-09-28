@@ -32,11 +32,7 @@ namespace Presentation.Controllers
         }
 
 
-
-
-      
         [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
-
         public IActionResult Index()
         {
             return View();

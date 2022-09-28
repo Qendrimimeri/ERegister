@@ -124,6 +124,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult>Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["success"] = "You logged out successfuly!";
             return RedirectToAction("Index", "Home");
         }
     }
