@@ -268,17 +268,11 @@ function addDataToDb() {
     const votat = document.getElementsByClassName("votat");
     //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
  
-   var item2 = 0;
   
-    for (var i=0; i < votat.length; i++) {
+    for (var i=1; i <= votat.length; i++) {
         //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
-         let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
-        fetch(endpoint1).then(res => res.json()).then(data => {
-             item2 = data.id;
-             
-            alert(item2);
-        });
-
+        
+   
 
         fetch(endpoint, {
             headers: {
@@ -289,7 +283,7 @@ function addDataToDb() {
             body: JSON.stringify({
                 municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
 
-                electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: item2, noOfvotes: votat[i].value
+                electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
             })
         });
         
