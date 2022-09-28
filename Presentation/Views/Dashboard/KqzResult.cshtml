@@ -35,7 +35,7 @@
                                 </select>
                                 <span asp-validation-for="Neigborhood" class="text-danger"></span>
                             </div>
-                            <div id="neigborhoodsVillage-container" class="col-12 pt-4">
+                          @*  <div id="neigborhoodsVillage-container" class="col-12 pt-4">
                                 <label>Lagja</label>
                                 <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                     <option disabled selected>Zgjedh lagjen..</option>
@@ -43,7 +43,7 @@
                                 </select>
                                 <span asp-validation-for="Neigborhood" class="text-danger"></span>
 
-                            </div>
+                            </div>*@
                             <div class="col-12">
                                 <label class="pt-4">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03">
@@ -67,12 +67,12 @@
                                <span asp-validation-for="PollCenter" class="text-danger"></span>
 
                             </div>
-                            <div id="pollcenter-neighborhood-container" class="col-12 pt-4 pb-4">
+                          @*  <div id="pollcenter-neighborhood-container" class="col-12 pt-4 pb-4">
                                 <label>Qendra e vendvotimit</label>
                                 <select class="form-select" asp-for="Neigborhood" id="pollNeighborhood">
                                     <option disabled selected>Zgjedh qendren e zgjedhjeve..</option>
                                 </select>
-                            </div>
+                            </div>*@
                              
                             <button type="submit" id="main-div" class="btn btn-primary">Regjistro votimet</button>
                         </form>
@@ -131,7 +131,7 @@
 
 @section Scripts
 {
-<script>
+@*<script>
 
 
     $('#neigborhoodsVillage-container').hide();
@@ -168,7 +168,7 @@
             $('#pollcenter-neighborhood-container').hide();
         }
     });
-</script>
+</script>*@
 
 <script>
     const munis = document.querySelector('#munis');
@@ -250,6 +250,11 @@
             addBlockToList(event.target.value);
             addStreetToList(event.target.value);
 
+        });
+
+        button.addEventListener('click', e => {
+            addDataToDb();
+            alert('u regjistrua');
         });
 
         villages.addEventListener('change', event=>{
