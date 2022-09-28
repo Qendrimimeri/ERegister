@@ -1,9 +1,6 @@
 ﻿@using Application.ViewModels
 @{
     Layout = "_DashboardLayout";
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-            crossorigin="anonymous"></script>
 }
 
 @model RegisterVM;
@@ -57,18 +54,15 @@
                                         <option disabled selected>Zgjedh qytetin..</option>
                                     </select>
                                 <span asp-validation-for="Municipality" class="text-danger"></span>
-
-
-
-                                      </div>
+                                </div>
                                  <div class="col-md-4 mb-2 pe-2">
                                     <label>Fshati</label>
                                     <select class="form-select fshati-selected" asp-for="Village" id="villages">
                                         <option disabled selected selectcard>Zgjedh fshatin..</option>
                                     </select>
-                                      </div>
+                                </div>
 
-                                      
+
                                 <div id="neigborhoods-container" class="col-md-4 mb-2 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
@@ -84,36 +78,37 @@
                                 </div>
 
                             }
-                              
-                            @if(User.IsInRole("MunicipalityAdmin")){
+
+                            @if (User.IsInRole("MunicipalityAdmin"))
+                            {
                                 <div class="col-md-6 mb-2 pe-2">
                                     <label>Fshati</label>
                                     <select class="form-select fshati-selected" asp-for="Village" id="villages">
                                         <option disabled selected selectcard>Zgjedh fshatin..</option>
                                     </select>
-                                      </div>
+                                </div>
 
-                                      
+
                                 <div id="neigborhoods-container" class="col-md-6 mb-2 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen..</option>
                                     </select>
                                 </div>
-                             }
-                              
+                            }
 
 
-@*
+
+                            @*
                                 <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
-                                    <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
-                                        <option disabled selected>Zgjedh lagjen..</option>
-                                    </select>
+                                <label>Lagja</label>
+                                <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                <option disabled selected>Zgjedh lagjen..</option>
+                                </select>
                                 </div>*@
-                        
-                         
-                            
+
+
+
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                             <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
@@ -122,7 +117,7 @@
                                     <option disabled selected>Zgjedh rrugën..</option>
                                 </select>
                             </div>
-                             <div class="col-md-4 mb-2 pe-2" id="streetByNeighborhood">
+                            <div class="col-md-4 mb-2 pe-2" id="streetByNeighborhood">
                                 <label>Rruga</label>
                                 <select class="form-select" asp-for="Street" id="streetsNeighborhood">
                                     <option disabled selected>Zgjedh rrugën..</option>
@@ -272,7 +267,7 @@
         addVillagesToList(event.target.value);
         addNeigborhoodToList(event.target.value);
         addBlockToList(event.target.value);
-        
+
     });
     villages.addEventListener('change', event=>{
         addNeigborhoodVillageToList(event.target.value);
@@ -580,7 +575,7 @@
         chooseOption.disabled = true;
         poll.appendChild(chooseOption);
 
-      
+
         let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
         let result = fetch(endpoint)
         .then(res => res.json())
@@ -610,7 +605,7 @@
             pollNeighborhood.appendChild(item);
         }));
     }
-    
+
 </script>
 }
 
