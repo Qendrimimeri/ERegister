@@ -41,22 +41,16 @@
                             const thisYear = values.Nacionale["thisYear"]
                             const lastYearValues = Object.values(lastYear);
                             const thisYearValues = Object.values(thisYear);
-                            var politicalSubjects = Object.keys(thisYear)
-                            console.log("Tani")
-                            console.log(thisYear)
-                            console.log("2021")
-                            console.log(lastYear)
-                            console.log(politicalSubjects)
+                            var politicalSubjects = Object.keys(lastYear)
 
 
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
                                     name: 'Viti 2021',
-                                    
-                                    data: [lastYearValues[0], lastYearValues[1], lastYearValues[2], lastYearValues[3], lastYearValues[4], lastYearValues[5], lastYearValues[6], lastYearValues[7]]
+                                    data: lastYearValues
                                 }, {
                                     name: 'Tani',
-                                    data: [thisYearValues[0], thisYearValues[1], thisYearValues[2], thisYearValues[3], thisYearValues[4], thisYearValues[5], thisYearValues[6], thisYearValues[7]]
+                                    data: thisYearValues
                                 }],
                                 chart: {
                                     type: 'bar',
@@ -82,8 +76,7 @@
                                     colors: ['transparent']
                                 },
                                 xaxis: {
-                                    categories: ['LDK', 'PDK', 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
-                                    categories: [politicalSubjects[0], politicalSubjects[1], politicalSubjects[2], politicalSubjects[3], politicalSubjects[4], politicalSubjects[5], politicalSubjects[6], politicalSubjects[7]],
+                                    categories: politicalSubjects,
                                 },
                                 fill: {
                                     opacity: 1,
@@ -114,15 +107,15 @@
                             const thisYearLocal = results.Lokale["thisYear"]
                             const lastYearValuesLocal = Object.values(lastYearLocal);
                             const thisYearValuesLocal = Object.values(thisYearLocal);
+                            var politicalSubjectsNow = Object.keys(lastYearLocal)
 
                             new ApexCharts(document.querySelector("#columnChart1"), {
                                 series: [{
                                     name: 'Viti 2021',
-
-                                    data: [lastYearValuesLocal[0], lastYearValuesLocal[1], lastYearValuesLocal[2], lastYearValuesLocal[3], lastYearValuesLocal[4], lastYearValuesLocal[5], lastYearValuesLocal[6], lastYearValuesLocal[7]]
+                                    data: lastYearValuesLocal
                                 }, {
                                     name: 'Tani',
-                                    data: [thisYearValuesLocal[0], thisYearValuesLocal[1], thisYearValuesLocal[2], thisYearValuesLocal[3], thisYearValuesLocal[4], thisYearValuesLocal[5], thisYearValuesLocal[6], thisYearValuesLocal[7]]
+                                    data: thisYearValuesLocal
                                 }],
                                 chart: {
                                     type: 'bar',
@@ -148,7 +141,7 @@
                                     colors: ['transparent']
                                 },
                                 xaxis: {
-                                    categories: [politicalSubjects[0], politicalSubjects[1], politicalSubjects[2], politicalSubjects[3], politicalSubjects[4], politicalSubjects[5], politicalSubjects[6], politicalSubjects[7]],
+                                    categories: politicalSubjectsNow
                                 },
                                 fill: {
                                     opacity: 1,
@@ -189,23 +182,6 @@
                 });
             });
         }
-
-        function addDashboardToList(muniId){
-        munisName.innerHTML = '';
-
-        let addOption = document.createElement("option");
-        munisName.appendChild(addOption);
-
-        let endpoint = url + "kqzresultsbymuni?muniid=" + muniId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            munisName.appendChild(item);
-        }));
-    }
     
 </script>
 }

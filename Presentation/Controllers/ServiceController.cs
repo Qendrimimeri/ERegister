@@ -209,8 +209,8 @@ namespace Presentation.Controllers
         public ActionResult KqzResultsbymuni()
         {
             // zgjedhjet nacionale te vitit 2021 
-            var zgjedhjetNacionaleDB = _context.Kqzregisters.Where(x => x.ElectionType == "Zgjedhjet Nacionale")
-            .Select(x => new KqzLastYear()
+            var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
+            .Where(x => x.ElectionType == "Zgjedhjet Nacionale").Select(x => new KqzLastYear()
             {
                 PoliticalSubject = x.PoliticialSubject.Name,
                 NumberOfVotes = (int)x.NoOfvotes,
@@ -229,8 +229,8 @@ namespace Presentation.Controllers
 
 
             // zgjedhjet Lokale te vitit 2021 
-            var zgjedhjetLokaleDB = _context.Kqzregisters.Where(x => x.ElectionType == "Zgjedhjet Lokale")
-            .Select(x => new KqzLastYear()
+            var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
+            .Where(x => x.ElectionType == "Zgjedhjet Lokale").Select(x => new KqzLastYear()
             {
                 PoliticalSubject = x.PoliticialSubject.Name,
                 NumberOfVotes = (int)x.NoOfvotes,
@@ -248,17 +248,15 @@ namespace Presentation.Controllers
                 }
 
 
-
-
-
-            var rez = _context.PollRelateds.ToList();
+            var rez = _context.PollRelateds.OrderBy(x => x.PoliticialSubjectId).ToList();
             var removeDuplicated = new List<PollRelated>();
 
             foreach (var user in rez.OrderByDescending(x => x.Date))
                 if (!removeDuplicated.Any(x => x.UserId == user.UserId))
                     removeDuplicated.Add(user);
+
             var voters = new List<CurrentVoters>();
-            foreach (var user in removeDuplicated)
+            foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectId))
 
                 voters.Add(new CurrentVoters()
                 {
@@ -267,7 +265,9 @@ namespace Presentation.Controllers
                     PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
                                                                  .FirstOrDefault().Name
                 });
+
             var gruping = new Dictionary<string, int>();
+
             foreach (var voter in voters)
                 if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
                     gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
@@ -276,8 +276,6 @@ namespace Presentation.Controllers
                     var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
                     gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
                 }
-
-
 
             var nacionale = new KqzResultsByCity()
             {
