@@ -30,8 +30,11 @@
 
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
                     <div class="col-6">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label pr-3 mr-3" for="flexCheckDefault">Ruaj fjalëkalimin</label>
+                        <label  asp-for="RememberMe"class="form-check-label pr-3 mr-3">
+                            Më mbaj mend
+                        <input asp-for="RememberMe" class="form-check-input">
+                            <span asp-validation-for="RememberMe"></span>
+                        </label>
                     </div>
                     <div class="col-6 forgetpassword">
                         <a style="float:right;text-decoration:none;" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
