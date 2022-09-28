@@ -1,9 +1,5 @@
 ﻿@{
     Layout = "_DashboardLayout";
-     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-            crossorigin="anonymous">
-     </script>
 }
 @model PoliticalOfficalVM;
 
@@ -603,13 +599,5 @@
             pollNeighborhood.appendChild(item);
         }));
     }
-
-    const selectElement5 = document.querySelector('#inputGroupSelect05');
-    selectElement5.addEventListener('change', (event) => {
-        const result = event.target.value;
-        if (result === "shto5") {
-            prompt("Shto Rol te ri")
-        }
-    });
 </script>
 }
