@@ -58,7 +58,7 @@ namespace Presentation.Controllers
                 return NotFound();
             }
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-            
+            TempData["success"] = "Votues u gjet me sukses!";
             return PartialView("_Voters" ,vm1);
         }
         
@@ -81,13 +81,6 @@ namespace Presentation.Controllers
             await _unitOfWork.Done();
             return RedirectToAction("Index");
         }
-        //public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
-        //{
-        //    _unitOfWork.PollRelated.Update(pollRelated);
-        //    await _unitOfWork.Done();
-
-        //    return RedirectToAction("Index" , "Crm");
-        //}
         public IActionResult GeneralReasons()
         {
             return View();

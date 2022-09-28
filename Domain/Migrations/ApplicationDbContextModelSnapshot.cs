@@ -264,9 +264,6 @@ namespace Domain.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("PollCenterId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("VillageId")
                         .HasColumnType("int");
 
@@ -337,7 +334,7 @@ namespace Domain.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("FamMembers")
+                    b.Property<int>("FamMembers")
                         .HasColumnType("int");
 
                     b.Property<string>("GeneralDemand")
@@ -421,9 +418,6 @@ namespace Domain.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
-
-                    b.Property<int?>("PollCenterId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

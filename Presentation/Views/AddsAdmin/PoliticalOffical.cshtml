@@ -1,9 +1,5 @@
 ﻿@{
     Layout = "_DashboardLayout";
-     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-            crossorigin="anonymous">
-     </script>
 }
 @model PoliticalOfficalVM;
 
@@ -33,6 +29,7 @@
                                 </div>
                                 <div class="col-10 ps-2">
                                     <input asp-for="PhoneNumber" class="form-control" id="nrtel" type="number">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
                             <span class="text-danger"></span>
@@ -41,6 +38,7 @@
                             <label for="exampleInputEmail1" asp-for="Email">Email address</label>
                             <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1"
                                    placeholder="Shkruaj email adresen">
+                                   <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
 
@@ -48,9 +46,11 @@
                             {
                             <div class="col-md-4 mb-2 pe-2">
                                 <label asp-for="Municipality">Qyteti</label>
-                                <select asp-for="Municipality" id="munis" class="form-select">
-                                    <option disabled selected>Zgjedh qytetin..</option>
-                                </select>
+                                    <select class="form-select" asp-for="Municipality" id="munis">
+                                        <option disabled selected>Zgjedh qytetin..</option>
+                                    </select>
+                                <span asp-validation-for="Municipality" class="text-danger"></span>
+
                             </div>
                             <div class="col-md-4 mb-2 pe-2">
                                 <label asp-for="Village">Fshati</label>
@@ -132,7 +132,9 @@
                                 <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select"
                                     id="inputGroupSelect05">
                                     <option disabled selected>Zgjedh rolin..</option>
+                        
                                 </select>
+                                            <span asp-validation-for="Role" class="text-danger"></span>
                                 @*<a asp-controller = "Role" asp-action = "AddRoles" class="link-primary">Shto +</a>*@
                             </div>
                             <div class="col-md-6 mb-2 pe-2" id="pollcenter-villages-container">
@@ -145,8 +147,10 @@
                                 <label asp-for="PollCenter">Qendra e votimit</label>
                                 <select asp-for="PollCenter" class="form-select" id="pollNeighborhood">
                                     <option disabled selected>Zgjedh qendren e votimit..</option>
+                                    
                                 </select>
-                            </div>
+                                <span asp-validation-for="PollCenter" class="text-danger"></span>
+                            </div> 
                         </div>
 
                             
@@ -603,13 +607,5 @@
             pollNeighborhood.appendChild(item);
         }));
     }
-
-    const selectElement5 = document.querySelector('#inputGroupSelect05');
-    selectElement5.addEventListener('change', (event) => {
-        const result = event.target.value;
-        if (result === "shto5") {
-            prompt("Shto Rol te ri")
-        }
-    });
 </script>
 }
