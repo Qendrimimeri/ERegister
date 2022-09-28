@@ -1,7 +1,7 @@
 ﻿@using Domain.Data.Entities
 @model ProfileVM
 @{
-    Layout = "_DashboardLayout";
+    Layout = "_DashboardLayout"; 
 }
 <section class="section">
     <div class="row">
@@ -14,6 +14,7 @@
 
                         <div class="text-center">
                             <img src="~/Document/@Model.ProfileImage" class="rounded" style="width:100px;" alt="...">
+                        
                         </div>
                         <div class="text-center">
                             <h4>@Model.FullName</h4>
@@ -32,8 +33,9 @@
 
                         <div class="pe-2">
                             <div>
-                                <label for="Image" class="form-label">Ngarko foton e profilit</label>
+                                <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
                                 <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
+                          @*  <span asp-validation-for="Image" class="text-danger"></span>*@
                             </div>
                             <img id="frame" src="" class="img-fluid" />
                         </div>

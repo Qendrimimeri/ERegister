@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,10 +30,21 @@ namespace Presentation.Controllers
             _env = env;
            _signInManager = signInManager;
         }
+
+
+
+
+      
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+
         public IActionResult Index()
         {
             return View();
         }
+
+
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+       
         public async Task<IActionResult> Performance() 
         {
             var users =  await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
@@ -96,18 +108,29 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> BusinessUserProfile()
         {
-            var res =_userManager.GetUserAsync(User);
-            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+            var res = await _userManager.GetUserAsync(User);
+            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
 
             return View(user);
         }
 
         [HttpPost]
         public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
-        {
+         {
             if (ModelState.IsValid)
             {
-                if (editUser.Image.FileName != null)
+                if (editUser.Image == null)
+                {
+                    var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                    if (result)
+                    {
+                        var res = _userManager.GetUserAsync(User);
+                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        return View(user);
+                    }
+
+                }
+               else if (editUser.Image!= null)
                 {
                     var rootFilePath = _env.WebRootPath;
                     string filePath = Path.Combine(rootFilePath, "Document");
@@ -128,7 +151,6 @@ namespace Presentation.Controllers
                         return View(user);
                     }
                 }
-
             }
             return View();
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,8 @@ namespace Application.ViewModels
         public string? Role { get; set; }
         public string? PollCenter { get; set; }
 
-        public IFormFile Image { get; set; }
+        [DataType(DataType.Upload)]
+        public IFormFile? Image { get; set; }
 
         public string? ProfileImage { get; set; }
     }
