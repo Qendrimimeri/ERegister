@@ -309,20 +309,7 @@
                 munis.appendChild(item);
             });
         });
-        function getMunis(id) {
-            let endpoint = url + "getmunis";
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => {
-                    data.forEach(x => {
-                        let item = document.createElement("option");
-                        item.value = x.id;
-                        item.innerText = x.name;
-                        munis.appendChild(item);
-                    });
-                });
-        }
-
+    }
     function getVillage(id){
         let endpoint = url + "getvillage";
         let result = fetch(endpoint)

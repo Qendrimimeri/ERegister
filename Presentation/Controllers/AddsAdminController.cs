@@ -97,7 +97,6 @@ namespace Presentation.Controllers
 
             var roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Key", "Value");
             ViewBag.roles = roles;
-
             return View();
         }
 
@@ -108,6 +107,7 @@ namespace Presentation.Controllers
             {
                 var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
                 if (res)
+                    TempData["success"] = "U editua me sukses!";
                     return RedirectToAction("Index", "Dashboard");
             }
             return View();
@@ -116,6 +116,15 @@ namespace Presentation.Controllers
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> aa7b6fa29bd64e6f272900a484b6bf2be2e18748
         public IActionResult AddPoliticalSubject()
         {
 

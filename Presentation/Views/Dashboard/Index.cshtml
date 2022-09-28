@@ -1,11 +1,14 @@
 ﻿@using Application.ViewModels
+@using Domain.Data.Entities
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+
 @{
     Layout = "_DashboardLayout";
 }
 @model RegisterVM;
 <div>
     <div class="card">
-        <h4 class="text-center pt-4">Mirë se vini <strong> @User.Identity.Name</strong> </h4>
+        <h4 class="text-center pt-4">Mirë se vini <strong> @((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</strong> </h4>
         <hr />
         @if (User.IsInRole("SuperAdmin"))
         {
@@ -41,6 +44,12 @@
                             const thisYear = values.Nacionale["thisYear"]
                             const lastYearValues = Object.values(lastYear);
                             const thisYearValues = Object.values(thisYear);
+                            var politicalSubjects = Object.keys(thisYear)
+                            console.log("Tani")
+                            console.log(thisYear)
+                            console.log("2021")
+                            console.log(lastYear)
+                            console.log(politicalSubjects)
 
 
                             new ApexCharts(document.querySelector("#columnChart"), {
@@ -77,6 +86,7 @@
                                 },
                                 xaxis: {
                                     categories: ['LDK', 'PDK', 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
+                                    categories: [politicalSubjects[0], politicalSubjects[1], politicalSubjects[2], politicalSubjects[3], politicalSubjects[4], politicalSubjects[5], politicalSubjects[6], politicalSubjects[7]],
                                 },
                                 fill: {
                                     opacity: 1,
@@ -141,7 +151,7 @@
                                     colors: ['transparent']
                                 },
                                 xaxis: {
-                                    categories: ['LDK', 'PDK', 'VV', 'AAK', 'AKR', 'Nisma', 'Minoritetet Serb', 'Minoritetet'],
+                                    categories: [politicalSubjects[0], politicalSubjects[1], politicalSubjects[2], politicalSubjects[3], politicalSubjects[4], politicalSubjects[5], politicalSubjects[6], politicalSubjects[7]],
                                 },
                                 fill: {
                                     opacity: 1,
@@ -182,6 +192,23 @@
                 });
             });
         }
+
+        function addDashboardToList(muniId){
+        munisName.innerHTML = '';
+
+        let addOption = document.createElement("option");
+        munisName.appendChild(addOption);
+
+        let endpoint = url + "kqzresultsbymuni?muniid=" + muniId;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            munisName.appendChild(item);
+        }));
+    }
     
 </script>
 }

@@ -19,7 +19,11 @@ namespace Presentation.Controllers
         }
         public IActionResult Index()
         {
+<<<<<<< HEAD
             
+=======
+            TempData["success"] = "CRM!";
+>>>>>>> aa7b6fa29bd64e6f272900a484b6bf2be2e18748
             return View();
         }
         //Arsye percaktuese general demand 
@@ -64,7 +68,11 @@ namespace Presentation.Controllers
         
         public IActionResult Cancel()
         {
+<<<<<<< HEAD
             
+=======
+            TempData["success"] = "U anulua!";
+>>>>>>> aa7b6fa29bd64e6f272900a484b6bf2be2e18748
             return RedirectToAction("Index");
         }
 
@@ -72,6 +80,7 @@ namespace Presentation.Controllers
         {
              _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("Index","Dashboard");
         }
 
@@ -79,6 +88,8 @@ namespace Presentation.Controllers
         {
             _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+
             return RedirectToAction("Index");
         }
         public IActionResult GeneralReasons()
