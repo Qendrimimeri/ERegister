@@ -101,7 +101,7 @@ namespace Infrastructure.Services
             var userId = await _userManager.FindByEmailAsync(model.Email);
             var pollRelated = new PollRelated()
             {
-                FamMembers = model.FamMembers,
+                FamMembers = (int)model.FamMembers,
                 Date = DateTime.Now,
                 UserId = userId.Id,
                 PoliticialSubjectId = model.PoliticalSubject,
