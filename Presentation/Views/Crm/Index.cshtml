@@ -34,6 +34,7 @@
 </section>
 @section Scripts
 {
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
         
@@ -73,6 +74,175 @@ function SetVoters(){
                        table.append(data);
                     }
                 });
+=======
+ <script>
+
+    
+
+ const url = "https://localhost:7278/api/service/";
+
+
+      function SetVoters(){
+                  let name = $('#SearchBtn').val();
+                  console.log(name);
+                  //let setData = $("DataSearching")
+                            //const needHelp = document.querySelector('#inputGroupSelect03');
+                            //const Generaldemand = document.querySelector('#generaldemand');
+
+                  let table=$("#Tables");
+                      $.ajax({
+                          url:"/Crm/Voters?name="+name,
+                          type: "GET",
+                          data : {},
+                          success : function(data) {
+                              table.empty(data)
+                             table.append(data);
+          const SpecificDemand = document.querySelector('#inputGroupSelect03');
+                                      const SpecificReason = document.querySelector('#generaldemand');
+
+          
+          getGeneralDemand();
+          function getGeneralDemand(id){
+
+               SpecificReason.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh Arsye Percaktuese...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        SpecificReason.appendChild(chooseOption);
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto Arsye Percaktuese +";
+        addOption.value = "shto";
+        SpecificReason.appendChild(addOption);
+
+        let endpoint = url + "getgeneraldemand";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.specificReason;
+                SpecificReason.appendChild(item);
+            });
+        });
+    }
+    getHelp();
+
+
+    
+    //function addSpecificReasonToList(muniId){
+    //    SpecificReason.innerHTML = '';
+    //    let chooseOption = document.createElement("option");
+    //    chooseOption.innerText = "Zgjedh fshatin...";
+    //    chooseOption.selected = true;
+    //    chooseOption.disabled = true;
+    //    SpecificReason.appendChild(chooseOption);
+
+    //    let addOption = document.createElement("option");
+    //    addOption.innerText = "Shto fshat te ri...";
+    //    addOption.value = "shto";
+    //    SpecificReason.appendChild(addOption);
+
+    //    let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
+    //    let result = fetch(endpoint)
+    //    .then(res => res.json())
+    //    .then(data => data.forEach(x => {
+    //        let item = document.createElement("option");
+    //        item.value = x.id;
+    //        item.innerText = x.name;
+    //        villages.appendChild(item);
+    //    }));
+    //}
+     function getHelp(id){
+
+        SpecificDemand.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh Ndihmen e Nevojshme...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        SpecificDemand.appendChild(chooseOption);
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto Ndihmen e Nevojshme +";
+        addOption.value = "shto";
+        SpecificDemand.appendChild(addOption);
+
+        let endpoint = url + "getgeneraldemand";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.specificDemand;
+                SpecificDemand.appendChild(item);
+            });
+        });
+    }
+       function addhelp(){
+        let endpoint = url + "GetNeedHelp";
+        let input = prompt("Shto Ndihmen e Nevojshme:");
+        if(input == ''){
+            addhelp();
         }
+        //let selectedMuni = $('#munis').val();
+        //let sm = document.querySelector("#inputGroupSelect03").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                
+            },
+            method: 'post',
+            body: JSON.stringify({SpecificDemand: input})
+        }).then(() => getHelp());
+
+    }
+
+              SpecificDemand.addEventListener('change', event => {
+             event.preventDefault()
+                 if (event.target.value == 'shto'){
+            addhelp();
+        }
+
+          });
+      function addGeneralDemand(){
+        let endpoint = url + "addgeneraldemand";
+        let input = prompt("Shto arsyen:");
+         if(input == ''){
+            addGeneralDemand();
+
+        }
+        //let selectedMuni = $('#munis').val();
+       // let sm = document.querySelector("#generaldemand").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({SpecificReason: input})
+        }).then(() => getGeneralDemand());
+
+    }
+              SpecificReason.addEventListener('change', event => {
+             event.preventDefault()
+                 if (event.target.value == 'shto'){
+            addGeneralDemand();
+        }
+
+          });
+                             
+                          }
+                      });
+              }
+            
+                             
+                          
+                  
+
 </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 }

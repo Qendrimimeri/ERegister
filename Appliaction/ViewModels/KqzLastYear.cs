@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-    public class AddStreetVM
+    public class KqzLastYear : CurrentVoters
     {
-        public int VillageId { get; set; }
-        public int NeighborhoodId { get; set; }
-        public string StreetName { get; set; }
     }
 }
