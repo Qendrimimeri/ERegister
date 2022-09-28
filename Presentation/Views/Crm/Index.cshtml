@@ -36,45 +36,9 @@
 {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-        
-    //const selectElement1 = document.querySelector('#');
 
-    //    selectElement1.addEventListener('change', (event) => {
-    //      const result = event.target.value;
-    //      if (result === "shto"){
-    //          prompt("Shto Arsye percaktuese:")
-    //      }
-    //    });
+      
 
-    //    const selectElement2 = document.querySelector('#inputGroupSelect03');
-
-    //    selectElement2.addEventListener('change', (event) => {
-    //      const result = event.target.value;
-    //      if (result === "shto3"){
-    //          prompt("Shto Arsye percaktuese:")
-    //      }
-    //    });
-        
-        
-
-
-function SetVoters(){
-            let name = $('#SearchBtn').val();
-            console.log(name);
-            //let setData = $("DataSearching")
-
-            let table=$("#Tables");
-                $.ajax({
-                    url:"/Crm/Voters?name="+name,
-                    type: "GET",
-                    data : {},
-                    success : function(data) {
-                       table.empty(data)
-                       table.append(data);
-                    }
-                });
-=======
  <script>
 
     
@@ -97,6 +61,7 @@ function SetVoters(){
                           success : function(data) {
                               table.empty(data)
                              table.append(data);
+
           const SpecificDemand = document.querySelector('#inputGroupSelect03');
                                       const SpecificReason = document.querySelector('#generaldemand');
 
