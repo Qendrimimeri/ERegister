@@ -19,6 +19,7 @@ namespace Presentation.Controllers
         }
         public IActionResult Index()
         {
+            TempData["success"] = "CRM!";
             return View();
         }
         //Arsye percaktuese general demand 
@@ -80,13 +81,6 @@ namespace Presentation.Controllers
             await _unitOfWork.Done();
             return RedirectToAction("Index");
         }
-        //public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
-        //{
-        //    _unitOfWork.PollRelated.Update(pollRelated);
-        //    await _unitOfWork.Done();
-
-        //    return RedirectToAction("Index" , "Crm");
-        //}
         public IActionResult GeneralReasons()
         {
             return View();

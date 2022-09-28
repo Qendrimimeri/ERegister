@@ -23,6 +23,12 @@ namespace Presentation.Controllers
         
         public IAccountRepository AccountRepository { get; }
 
+        
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -34,17 +40,18 @@ namespace Presentation.Controllers
                 if (res == true && User.IsInRole("SimpleMember"))
                     return RedirectToAction("AddVoter", "AddsAdmin");
                 else if (res)
-                 
-                return RedirectToAction("Index", "Dashboard");
+
+                    return RedirectToAction("Index", "Dashboard");
 
                 return RedirectToAction("Index", "Home");
-               
+
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
 
-
+            TempData["success"] = "You Logged in!";
             return RedirectToAction("Index", "Home", ModelState);
         }
+
         public IActionResult AccessDenied()
         {
             return View("../Account/AccessDenied");

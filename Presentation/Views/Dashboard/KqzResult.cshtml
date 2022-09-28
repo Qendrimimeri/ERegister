@@ -1,9 +1,6 @@
 ﻿@model PoliticalOfficalVM;
 @{
     Layout = "_DashboardLayout";
-
-    
-
 }
 <section class="section">
     <div class="row">
@@ -62,12 +59,6 @@
                                 <input type="date" id="year" class="form-control">
                                 <span class="text-danger"></span>
                             </div>
-                           @* <div class="col-12 pb-4">
-                                <label class="pt-4">Qendra e vendvotimit</label>
-                                <input id="poll" class="form-control">
-                                <span class="text-danger"></span>
-                            </div>*@
-
                             <div id="pollcenter-villages-container" class="col-12 pt-4 pb-4">
                                 <label>Qendra e vendvotimit</label>
                                 <select class="form-select" asp-for="Neigborhood" id="poll">
@@ -140,10 +131,6 @@
 
 @section Scripts
 {
-
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-            crossorigin="anonymous"></script>
 <script>
 
 
@@ -209,14 +196,16 @@
                 e.preventDefault();
                 input = parseInt(votat[i].value);
                 //console.log("Inputi"+input);
+
                 if(!isNaN(input)){
                     if (vlera!==0){
                         shuma = shuma - vlera;
                     }
                     shuma += input;
                     span.innerHTML = shuma;
+
                 }
-                else if(isNaN(input)){
+                else if (isNaN(input)) {
                     shuma = shuma - vlera;
                     span.innerHTML = shuma;
 
@@ -245,6 +234,7 @@
                 },
                 method: 'post',
                 body: JSON.stringify({
+
                     municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighborhood,
 
                     electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
@@ -253,11 +243,15 @@
         
         }
     }
+    
         munis.addEventListener('change', event => {
             addVillagesToList(event.target.value);
             addNeigborhoodToList(event.target.value);
+            addBlockToList(event.target.value);
+            addStreetToList(event.target.value);
 
         });
+
         villages.addEventListener('change', event=>{
             addNeigborhoodVillageToList(event.target.value);
             addPollCenterToList(event.target.value);
@@ -265,22 +259,28 @@
         neigborhoods.addEventListener('change', event =>{
             addPollCenterNeighborhoodToList(event.target.value);
         });
+        
         villages.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto'){
-            addVillageToDb();
-        }
+            event.preventDefault()
+            if (event.target.value == 'shto') {
+                addVillageToDb();
+                addQendraVotimitToList(event.target.value);
+            }
+            else {
+                addQendraVotimitToList(event.target.value);
+            }
         });
+
         neigborhoods.addEventListener('change', event => {
             event.preventDefault()
-            if (event.target.value == 'shto'){
+            if (event.target.value == 'shto') {
                 addNeigborhoodToDb();
             }
         });
-        neigborhoodsVillage.addEventListener('change', event => {
+        blocks.addEventListener('change', event => {
             event.preventDefault()
-            if(event.target.value == "shto"){
-                addNeigborhoodVillageToDb();
+            if (event.target.value == 'shto') {
+                addBlockToDb();
             }
         });
         poll.addEventListener('change', event => {
@@ -308,8 +308,7 @@
                 munis.appendChild(item);
             });
         });
-        }
-
+    }
     function getVillage(id){
         let endpoint = url + "getvillage";
         let result = fetch(endpoint)
@@ -512,6 +511,5 @@
             body: JSON.stringify({neighborhoodId: sm, centerNumber: input})
         }).then(() => addPollCenterNeighborhoodToList(sm));
     }
-   
 </script>
 }

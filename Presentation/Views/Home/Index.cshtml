@@ -28,14 +28,11 @@
                     <label asp-for="Password" class="form-label">Fjalëkalimi</label>
                     <input type="password" class="form-control" asp-for="Password" aria-describedby="passwordHelp">
                 </div>
+
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
                     <div class="col-6">
-                        <label asp-for = "RememberMe"class="form-check-label pr-3 mr-3" >
-                        <input  asp-for="RememberMe"class="form-check-input">
-                          
-                            Me mbaj Mend
-                            </label>
-                            <span asp-validation-for="RememberMe" class="text-danger"></span>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label pr-3 mr-3" for="flexCheckDefault">Ruaj fjalëkalimin</label>
                     </div>
                     <div class="col-6 forgetpassword">
                         <a style="float:right;text-decoration:none;" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
