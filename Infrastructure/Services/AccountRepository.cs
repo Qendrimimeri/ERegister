@@ -42,7 +42,7 @@ namespace Infrastructure.Services
             var user = await _userManager.FindByEmailAsync(login.Email);
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, login.Password, true, false);
+                var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
                 if (result.Succeeded)
                     return true;
                 return false;
