@@ -1,35 +1,24 @@
 ﻿@{
     Layout = "_DashboardLayout";
-    int[] kqz = { 24, 41, 55, 13, 18, 10, 9, 10 };
-    int[] addvoter = { 40, 48, 60, 22, 25, 20, 22, 12 };
 }
 <div class="col-lg-12">
     <div class="row">
-
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Komuna e Prishtines - Zgjedhjet Nacionale</h5>
-
-                    <!-- Column Chart -->
                     <div id="columnChart"></div>
-                    <div id="columnChart1"></div>
-
                     <script>
                         const kqzrez = "https://localhost:7278/api/service";
                         var endpoint = "/kqzresultsbymuni";
                         let response = fetch(`${kqzrez}${endpoint}`).then(res => res.json());
                         let rez = response.then((values) => {
 
-                            console.log(values);
-                            const lastYear = values.lastYear
-                            const thisYear = values.thisYear
-
+                            const lastYear = values.Nacionale["lastYear"]
+                            const thisYear = values.Nacionale["thisYear"]
                             const lastYearValues = Object.values(lastYear);
                             const thisYearValues = Object.values(thisYear);
 
-                            console.log(lastYearValues)
-                            console.log(thisYearValues)
 
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
@@ -78,14 +67,32 @@
                                     }
                                 }
                             }).render();
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Komuna e Prishtines - Zgjedhjet Lokale</h5>
+                    <div id="columnChart1"></div>
+                    <script>
+                        let res = response.then((results) => {
+
+                            const lastYearLocal = results.Lokale["lastYear"]
+                            const thisYearLocal = results.Lokale["thisYear"]
+                            const lastYearValuesLocal = Object.values(lastYearLocal);
+                            const thisYearValuesLocal = Object.values(thisYearLocal);
+
                             new ApexCharts(document.querySelector("#columnChart1"), {
                                 series: [{
                                     name: 'Viti 2021',
 
-                                    data: [lastYearValues[0], lastYearValues[1], lastYearValues[2], lastYearValues[3], lastYearValues[4], lastYearValues[5], lastYearValues[6], lastYearValues[7]]
+                                    data: [lastYearValuesLocal[0], lastYearValuesLocal[1], lastYearValuesLocal[2], lastYearValuesLocal[3], lastYearValuesLocal[4], lastYearValuesLocal[5], lastYearValuesLocal[6], lastYearValuesLocal[7]]
                                 }, {
                                     name: 'Tani',
-                                    data: [thisYearValues[0], thisYearValues[1], thisYearValues[2], thisYearValues[3], thisYearValues[4], thisYearValues[5], thisYearValues[6], thisYearValues[7]]
+                                    data: [thisYearValuesLocal[0], thisYearValuesLocal[1], thisYearValuesLocal[2], thisYearValuesLocal[3], thisYearValuesLocal[4], thisYearValuesLocal[5], thisYearValuesLocal[6], thisYearValuesLocal[7]]
                                 }],
                                 chart: {
                                     type: 'bar',
@@ -127,8 +134,6 @@
                             }).render();
                         })
                     </script>
-                    <!-- End Column Chart -->
-
                 </div>
             </div>
         </div>
