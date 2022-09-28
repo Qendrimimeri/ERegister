@@ -30,6 +30,58 @@ namespace Presentation.Controllers
             }));
         }
 
+        [Route("getpollcenterbyvillageid")]
+        public ActionResult GetPollCenterByVillageId([FromQuery] int id)
+
+        {
+            var qendra = _context.PollCenters.Where(v => v.VillageId == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+        [Route("getpollcenterbyneighborhoodid")]
+        public ActionResult GetPollCenterByNeighborhoodId([FromQuery] int id)
+
+        {
+            var qendra = _context.PollCenters.Where(v => v.NeighborhoodId == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+        [Route("getpollcenterbymuniid")]
+        public ActionResult GetPollCenterByMuniId([FromQuery] int id)
+
+        {
+            var qendra = _context.PollCenters.Where(v => v.MunicipalitydId == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+
         [Route("getpollcenterbyid")]
         public ActionResult GetPollCenterById([FromQuery] string id)
         
