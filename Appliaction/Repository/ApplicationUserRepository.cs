@@ -78,20 +78,23 @@ namespace Application.Repository
                 HouseNo = person.Address.HouseNo,
                 PhoneNumber = person.PhoneNumber,
                 Email = person.Email,
-                Facebook = person.SocialNetwork,
-                FamMembers = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                FacebookLink = person.SocialNetwork,
                 WorkPlace = person.Work.WorkPlace,
                 AdministrativeUnit = person.Work.AdministrativeUnit,
                 Duty = person.Work.Duty,
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                PoliticalSubjects = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                SuccessChance = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                InitialChance = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
 
             var result = new List<VoterDetailsVM>();
+
             foreach (var user in getAllUsers)
             {
                 foreach (var item in usersInRole)

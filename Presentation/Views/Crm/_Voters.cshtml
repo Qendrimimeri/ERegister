@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>Facebook</th>
-                    <td id="DataSearching">@Model.Facebook</td>
+                    <td id="DataSearching"><a href="@Model.FacebookLink">@Model.FullName<a/></td>
                 </tr>
             </table>
         </div>
@@ -50,19 +50,19 @@
                    cellspacing="0">
                 <tr>
                     <th>Numri i familjareve</th>
-                    <td id="DataSearching">@Model.FamMembers</td>
+                    <td id="DataSearching">@Model.VotersNumber</td>
                 </tr>
                 <tr>
                     <th>Votues paraprak</th>
-                    <td id="DataSearching">@Model.PoliticalSubjects</td>
+                    <td id="DataSearching">@Model.PreviousVoter</td>
                 </tr>
                 <tr>
                     <th>Votues i tanishem</th>
-                    <td id="DataSearching">@Model.PoliticalSubjects</td>
+                    <td id="DataSearching">@Model.CurrentVoter</td>
                 </tr>
                 <tr>
                     <th>Gjasat e suksesit</th>
-                    <td id="DataSearching">@Model.SuccessChance</td>
+                    <td id="DataSearching">@Model.InitialChance</td>
                 </tr>
                 <tr>
                     <th>Vendi i punes</th>
