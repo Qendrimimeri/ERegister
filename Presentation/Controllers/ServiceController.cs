@@ -5,7 +5,9 @@ using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
@@ -18,11 +20,14 @@ namespace Presentation.Controllers
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public ServiceController(IUnitOfWork unit, ApplicationDbContext context)
+        public ServiceController(IUnitOfWork unit, ApplicationDbContext context,
+                                 IHttpContextAccessor httpContext)
         {
             _unitOfWork = unit;
             _context = context;
+            _httpContext = httpContext;
         }
         //poll center
         [Route("getpollcenter")]
@@ -207,11 +212,13 @@ namespace Presentation.Controllers
 
 
         [Route("kqzresultsbymuni")]
-        public ActionResult KqzResultsbymuni()
+        public async Task<ActionResult> KqzResultsbymuni()
         {
+            var userId = await GetUser();
+            var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
             // zgjedhjet nacionale te vitit 2021 
             var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
-            .Where(x => x.ElectionType == "Zgjedhjet Nacionale").Select(x => new KqzLastYear()
+            .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.MunicipalityId == muniId).Select(x => new KqzLastYear()
             {
                 PoliticalSubject = x.PoliticialSubject.Name,
                 NumberOfVotes = (int)x.NoOfvotes,
@@ -231,7 +238,7 @@ namespace Presentation.Controllers
 
             // zgjedhjet Lokale te vitit 2021 
             var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
-            .Where(x => x.ElectionType == "Zgjedhjet Lokale").Select(x => new KqzLastYear()
+            .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.MunicipalityId == muniId).Select(x => new KqzLastYear()
             {
                 PoliticalSubject = x.PoliticialSubject.Name,
                 NumberOfVotes = (int)x.NoOfvotes,
@@ -249,7 +256,7 @@ namespace Presentation.Controllers
                 }
 
 
-            var rez = _context.PollRelateds.OrderBy(x => x.PoliticialSubjectId).ToList();
+            var rez = _context.PollRelateds.Where(x => x.ApplicationUsers.Address.MunicipalityId == muniId).OrderBy(x => x.PoliticialSubjectId).ToList();
             var removeDuplicated = new List<PollRelated>();
 
             foreach (var user in rez.OrderByDescending(x => x.Date))
@@ -539,6 +546,8 @@ namespace Presentation.Controllers
             return Ok();
         }
 
+        private async Task<string> GetUser() => 
+            _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 #pragma warning restore CS8602
 #pragma warning restore CS8604

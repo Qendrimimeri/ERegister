@@ -180,10 +180,8 @@ namespace Presentation.Controllers
                 
                 await _signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("BusinessUserProfile");
-               
             }
             return View(model);
-          
         }
 
     }

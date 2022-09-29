@@ -111,6 +111,7 @@ namespace Infrastructure.Services
                 SpecificDemand = "Unset",
                 GeneralDescription = "Unset",
                 HelpId = 1
+
             };
 
             await _context.PollRelateds.AddAsync(pollRelated);

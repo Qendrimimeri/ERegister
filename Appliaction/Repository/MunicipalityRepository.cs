@@ -26,6 +26,9 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
+
+        public async Task<int> GetMuniNameByUserIdAsync(string Id)
+            => (int)_db.Users.Where(x => x.Id == Id).Select(x => x.Address.MunicipalityId).FirstOrDefault();
     }
 }
 
