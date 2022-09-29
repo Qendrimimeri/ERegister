@@ -510,27 +510,50 @@ namespace Presentation.Controllers
         [Route("getblocksbymuni")]
         public ActionResult GetBlockByMuni([FromQuery] int muniId)
         {
-            var blocks = _context.Blocks.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+            try
+            {
+                var blocks = _context.Blocks.Where(v => v.MunicipalityId == muniId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    });
 
-            return Ok(blocks);
+                return Ok(blocks);
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[GET]GetBlockByMuni terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
         [HttpPost]
         [Route("addblock")]
         public ActionResult AddBlock([FromBody] AddBlockVM model)
         {
-            _context.Blocks.Add(new Block
+            try
             {
-                Name = model.BlockName,
-                MunicipalityId = model.MunicipalityId
-            });
-            _context.SaveChanges();
+                _context.Blocks.Add(new Block
+                {
+                    Name = model.BlockName,
+                    MunicipalityId = model.MunicipalityId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[POST]AddBlock terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return Ok();
         }
 
@@ -538,26 +561,49 @@ namespace Presentation.Controllers
         [Route("getstreetbyvillage")]
         public ActionResult GetStreetByVillage([FromQuery] int villId)
         {
-            var streets = _context.Streets.Where(v => v.VillageId == villId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
-            return Ok(streets);
+            try
+            {
+                var streets = _context.Streets.Where(v => v.VillageId == villId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    });
+                return Ok(streets);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[GET]GetStreetByVillage terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return Ok();
         }
         [HttpPost]
         [Route("addstreetbyvillage")]
         public ActionResult AddStreetByVillage([FromBody] AddStreetVM model)
         {
-            _context.Streets.Add(new Street
+            try
             {
-                Name = model.StreetName,
-                VillageId = model.VillageId
-            });
-            _context.SaveChanges();
+                _context.Streets.Add(new Street
+                {
+                    Name = model.StreetName,
+                    VillageId = model.VillageId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[POST]AddStreetByVillage terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
         }
 
@@ -565,78 +611,148 @@ namespace Presentation.Controllers
         [Route("getstreetbyneighborhood")]
         public ActionResult GetStreetByNeighborhood([FromQuery] int neighId)
         {
-            var streets = _context.Streets.Where(n => n.NeighborhoodId == neighId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
-            return Ok(streets);
+            try
+            {
+                var streets = _context.Streets.Where(n => n.NeighborhoodId == neighId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    });
+                return Ok(streets);
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[Get]GetStreetByNeighborhood terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
+
         }
         [HttpPost]
         [Route("addstreetbyneighborhood")]
         public ActionResult AddStreetByNeighborhood([FromBody] AddStreetVM model)
         {
-            _context.Streets.Add(new Street
+            try
             {
-                Name = model.StreetName,
-                NeighborhoodId = model.NeighborhoodId
-            });
-            _context.SaveChanges();
+                _context.Streets.Add(new Street
+                {
+                    Name = model.StreetName,
+                    NeighborhoodId = model.NeighborhoodId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[POST]AddStreetByNeighborhood terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return Ok();
         }
         //pollCenter by village
         [Route("getpollcenterbyvillage")]
         public ActionResult GetPollCenterByVillage([FromQuery] int villId)
         {
-            var streets = _context.PollCenters.Where(v => v.VillageId == villId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.CenterNumber
-                });
-            return Ok(streets);
+            try
+            {
+                var streets = _context.PollCenters.Where(v => v.VillageId == villId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.CenterNumber
+                    });
+                return Ok(streets);
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[GET]GetPollCenterByVillage terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
+            return Ok();
         }
         [HttpPost]
         [Route("addpollcenterbyvillage")]
         public ActionResult AddPollCenterByVillage([FromBody] PollCenterVM model)
         {
-            _context.PollCenters.Add(new PollCenter
+            try
             {
-                CenterNumber = model.CenterNumber,
-                VillageId = model.VillageId
-            });
-            _context.SaveChanges();
+                _context.PollCenters.Add(new PollCenter
+                {
+                    CenterNumber = model.CenterNumber,
+                    VillageId = model.VillageId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[POST]AddPollCenterByVillage terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
             return Ok();
         }
         //pollCenter by neighborhood
         [Route("getpollcenterbyneigborhood")]
         public ActionResult GetPollCenterByNeighborhood([FromQuery] int neighId)
         {
-            var pollcenters = _context.PollCenters.Where(n => n.NeighborhoodId == neighId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.CenterName
-                });
-            return Ok(pollcenters);
+            try
+            {
+                var pollcenters = _context.PollCenters.Where(n => n.NeighborhoodId == neighId)
+                    .Select(x =>
+                    new
+                    {
+                        Id = x.Id,
+                        Name = x.CenterName
+                    });
+                return Ok(pollcenters);
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[GET]GetPollCenterByNeighborhood terminated unexpectedly");
+
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            return Ok();
         }
         [HttpPost]
         [Route("addpollcenterbyneighborhood")]
         public ActionResult AddPollCenterByNeighborhood([FromBody] PollCenterVM model)
         {
-            _context.PollCenters.Add(new PollCenter
+            try
             {
-                CenterName = model.CenterName,
-                NeighborhoodId = model.NeighborhoodId
-            });
-            _context.SaveChanges();
+                _context.PollCenters.Add(new PollCenter
+                {
+                    CenterName = model.CenterName,
+                    NeighborhoodId = model.NeighborhoodId
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "[POST]AddPollCenterByNeighborhood terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return Ok();
         }
 
@@ -645,12 +761,22 @@ namespace Presentation.Controllers
         [Route("addblock")]
         public ActionResult AddRole([FromBody] AddBlockVM model)
         {
-            _context.Blocks.Add(new Block
+            try
             {
-                Name = model.BlockName
-            });
-            _context.SaveChanges();
+                _context.Blocks.Add(new Block
+                {
+                    Name = model.BlockName
+                });
+                _context.SaveChanges();
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[POST]AddRole terminated unexpectedly");
+
+            }
+            finally { Log.CloseAndFlush(); }
             return Ok();
         }
        
