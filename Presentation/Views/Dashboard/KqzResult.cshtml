@@ -75,7 +75,7 @@
                                 </select>
                             </div>
 
-                            <button id="slistbtn" type="submit" id="main-div" class="btn btn-primary">Regjistro votimet</button>
+                            <button  type="submit" id="main-div" class="btn btn-primary">Regjistro votimet</button>
                         </form>
                     </div>
                 </div>
@@ -134,12 +134,7 @@
 {
 
 
-@*<script>
-    //Disabled Button 
-        $('#pollNeighborhood').on('change', function () {
-        $('#slistbtn').prop('disabled', !$(this).val());
-    }).trigger('change');
-</script>*@
+
 <script>
 
 
@@ -517,6 +512,12 @@
         }).then(() => addPollCenterNeighborhoodToList(sm));
     }
 
+</script>
+<script>
+    //Disabled Button 
+        $('#poll').on('change', function () {
+        $('#main-div').prop('disabled', !$(this).val());
+    }).trigger('change');
 </script>
 }
 
