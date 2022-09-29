@@ -38,7 +38,7 @@
                             </div>
                             <div id="neigborhoodsVillage-container" class="col-12 pt-4">
                                 <label>Lagja</label>
-                                <select class="form-select slist" id="neighs" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                <select class="form-select slist"  asp-for="Neigborhood" id="neigborhoodsVillage">
                                     <option disabled selected>Zgjedh lagjen..</option>
 
                                 </select>
@@ -134,12 +134,12 @@
 {
 
 
-<script>
+@*<script>
     //Disabled Button 
         $('#pollNeighborhood').on('change', function () {
         $('#slistbtn').prop('disabled', !$(this).val());
     }).trigger('change');
-</script>
+</script>*@
 <script>
 
 
@@ -249,15 +249,12 @@
                     electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
                 })
             });
-
         }
     }
 
         munis.addEventListener('change', event => {
             addVillagesToList(event.target.value);
             addNeigborhoodToList(event.target.value);
-            addBlockToList(event.target.value);
-            addStreetToList(event.target.value);
 
         });
 
@@ -270,7 +267,7 @@
         });
 
         villages.addEventListener('change', event => {
-            event.preventDefault()
+            event.preventDefault();
             if (event.target.value == 'shto') {
                 addVillageToDb();
                 addQendraVotimitToList(event.target.value);
@@ -279,45 +276,44 @@
                 addQendraVotimitToList(event.target.value);
             }
         });
-
         neigborhoods.addEventListener('change', event => {
-            event.preventDefault()
+            event.preventDefault();
             if (event.target.value == 'shto') {
                 addNeigborhoodToDb();
             }
         });
-        blocks.addEventListener('change', event => {
-            event.preventDefault()
+        neigborhoodsVillage.addEventListener('change', event => {
+            event.preventDefault();
             if (event.target.value == 'shto') {
-                addBlockToDb();
+                addNeigborhoodVillageToDb();
             }
         });
         poll.addEventListener('change', event => {
-            event.preventDefault()
+            event.preventDefault();
             if (event.target.value == 'shto'){
                 addPollCenterToDb();
             }
         });
         pollNeighborhood.addEventListener('change', event => {
-            event.preventDefault()
+            event.preventDefault();
             if(event.target.value == "shto"){
                 addPollCenterNeighborhoodToDb();
             }
         });
 
-    function getMunis(id){
-        let endpoint = url + "getmunis";
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                munis.appendChild(item);
+        function getMunis(id){
+            let endpoint = url + "getmunis";
+            let result = fetch(endpoint)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    munis.appendChild(item);
+                });
             });
-        });
-    }
+        }
     function getVillage(id){
         let endpoint = url + "getvillage";
         let result = fetch(endpoint)
