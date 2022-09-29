@@ -138,6 +138,7 @@ namespace Presentation.Controllers
 
         public ActionResult GetGeneralDemand()
         {
+            
             return Ok(_context.PollRelateds.ToList());
         }
         //add general demand 
@@ -174,7 +175,7 @@ namespace Presentation.Controllers
             });
 
             _context.SaveChanges();
-
+            
             return Ok();
         }
 
@@ -542,7 +543,6 @@ namespace Presentation.Controllers
                 Name = model.BlockName
             });
             _context.SaveChanges();
-
             return Ok();
         }
 

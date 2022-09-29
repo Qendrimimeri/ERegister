@@ -40,15 +40,13 @@ namespace Presentation.Controllers
                 if (res == true && User.IsInRole("SimpleMember"))
                     return RedirectToAction("AddVoter", "AddsAdmin");
                 else if (res)
-
-                    return RedirectToAction("Index", "Dashboard");
-
+                TempData["success"] = "You are Logged in!";
+                return RedirectToAction("Index", "Dashboard");
+                TempData["success"] = "You are Logged in!";
                 return RedirectToAction("Index", "Home");
 
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
-
-            TempData["success"] = "You are Logged in!";
             return RedirectToAction("Index", "Home", ModelState);
         }
 
@@ -121,6 +119,7 @@ namespace Presentation.Controllers
                 var res = await _unitOfWork.Account.ResetPasswordAsync(model);
                 if (res.Succeeded)
                 {
+                    TempData["success"] = "You are Logged in!";
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -131,7 +130,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult>Logout()
         {
             await _signInManager.SignOutAsync();
-            TempData["success"] = "You logged out successfuly!";
+            TempData["success"] = "You are logged out!";
             return RedirectToAction("Index", "Home");
         }
     }
