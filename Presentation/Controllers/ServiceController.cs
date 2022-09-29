@@ -34,7 +34,7 @@ namespace Presentation.Controllers
         public ActionResult GetPollCenterByVillageId([FromQuery] int id)
 
         {
-            var qendra = _context.PollCenters.Where(v => v.VillageId == id)
+            var qendra = _context.PollCenters.Where(v => v.VillageId == id )
                 .Select(x =>
                 new
                 {
@@ -178,15 +178,15 @@ namespace Presentation.Controllers
         }
 
 
-        [Route("getvillage")]
-        public ActionResult GetVillage()
-        {
-            return Ok(_context.Villages.ToList().Select(x => new
-            {
-                Id = x.Id,
-                Name = x.Name
-            }));
-        }
+        //[Route("getvillage")]
+        //public ActionResult GetVillage()
+        //{
+        //    return Ok(_context.Villages.ToList().Select(x => new
+        //    {
+        //        Id = x.Id,
+        //        Name = x.Name
+        //    }));
+        //}
 
         //fshat
         [Route("getvillagesbymuni")]
@@ -271,74 +271,10 @@ namespace Presentation.Controllers
             return Ok();
         }
 
-        //Blloku
-        [Route("getblocksbymuni")]
-        public ActionResult GetBlockByMuni([FromQuery] int muniId)
-        {
-            var blocks = _context.Blocks.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+  
+       
 
-            return Ok(blocks);
-        }
-        [HttpPost]
-        [Route("addblock")]
-        public ActionResult AddBlock([FromBody] AddBlockVM model)
-        {
-            _context.Blocks.Add(new Block
-            {
-                Name = model.BlockName,
-                MunicipalityId = model.MunicipalityId
-            });
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
-        //Rruga
-        [Route("getstreetbymuni")]
-        public ActionResult GetStreetByMuni([FromQuery] int muniId)
-        {
-            var streets = _context.Streets.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
-
-            return Ok(streets);
-        }
-        [HttpPost]
-        [Route("addstreet")]
-        public ActionResult AddStreet([FromBody] AddStreetVM model)
-        {
-            _context.Streets.Add(new Street
-            {
-                Name = model.StreetName,
-                MunicipalityId = model.MunicipalityId
-            });
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("addblock")]
-        public ActionResult AddRole([FromBody] AddBlockVM model)
-        {
-            _context.Blocks.Add(new Block
-            {
-                Name = model.BlockName
-            });
-            _context.SaveChanges();
-
-            return Ok();
-        }
+       
        
     }
 }

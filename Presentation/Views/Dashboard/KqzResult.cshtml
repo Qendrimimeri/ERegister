@@ -245,7 +245,7 @@
     
     
   
-      function getPollCenterByVillage(id){
+      function getPollCenterByVillageId(id){
 
         poll.innerHTML = '';
         let chooseOption = document.createElement("option");
@@ -353,7 +353,7 @@ function addDataToDb() {
         addNeigborhoodToList(event.target.value);
         //addBlockToList(event.target.value);
         //addStreetToList(event.target.value);
-        console.log('u thirr');
+        //console.log('u thirr');
         getPollCenterByMuniid(event.target.value);
         
     });
@@ -365,7 +365,8 @@ function addDataToDb() {
             addQendraVotimitToList(event.target.value);
         }
         else {
-            getPollCenterByVillage(event.target.value);
+            getPollCenterByVillageId(event.target.value);
+            getNeighborhoodByVillageId(event.target.value);
         }
     });
 
@@ -482,84 +483,31 @@ function addDataToDb() {
 
     }
 
-    //block
-    //function addBlockToList(muniId){
-    //    blocks.innerHTML = '';
-    //    let chooseOption = document.createElement("option");
-    //    chooseOption.innerText = "Zgjedh bllokun...";
-    //    chooseOption.selected = true;
-    //    chooseOption.disabled = true;
-    //    blocks.appendChild(chooseOption);
+  
 
-    //    let addOption = document.createElement("option");
-    //    addOption.innerText = "Shto bllok të ri...";
-    //    addOption.value = "shto";
-    //    blocks.appendChild(addOption);
 
-    //    let endpoint = url + "getblocksbymuni?muniid=" + muniId;
-    //    let result = fetch(endpoint)
-    //    .then(res => res.json())
-    //    .then(data => data.forEach(x => {
-    //        let item = document.createElement("option");
-    //        item.value = x.id;
-    //        item.innerText = x.name;
-    //        blocks.appendChild(item);
-    //    }));
-    //}
+    function getNeighborhoodByVillageId(id){
+        neigborhoods.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh lagjen...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        neigborhoods.appendChild(chooseOption);
 
-    //function addBlockToDb(){
-    //    let endpoint = url + "addblock";
-    //    let input = prompt("Shto bllok të ri:");
-    //    let sm = document.querySelector("#munis").value;
-    //    fetch(endpoint, {
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        method: 'post',
-    //        body: JSON.stringify({municipalityId: sm, blockName: input})
-    //    }).then(() => addBlockToList(sm));
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto lagjen e re...";
+        addOption.value = "shto";
+        neigborhoods.appendChild(addOption);
 
-    //}
-
-    //street
-    //function addStreetToList(muniId){
-    //    streets.innerHTML = '';
-    //    let chooseOption = document.createElement("option");
-    //    chooseOption.innerText = "Zgjedh rrugen...";
-    //    chooseOption.selected = true;
-    //    chooseOption.disabled = true;
-    //    streets.appendChild(chooseOption);
-
-    //    let addOption = document.createElement("option");
-    //    addOption.innerText = "Shto rrugë te re...";
-    //    addOption.value = "shto";
-    //    streets.appendChild(addOption);
-
-    //    let endpoint = url + "getstreetbymuni?muniid=" + muniId;
-    //    let result = fetch(endpoint)
-    //    .then(res => res.json())
-    //    .then(data => data.forEach(x => {
-    //        let item = document.createElement("option");
-    //        item.value = x.id;
-    //        item.innerText = x.name;
-    //        streets.appendChild(item);
-    //    }));
-    //}
-
-    //function addStreetToDb(){
-    //    let endpoint = url + "addstreet";
-    //    let input = prompt("Shto rrugen e re:");
-    //    let sm = document.querySelector("#munis").value;
-    //    fetch(endpoint, {
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        method: 'post',
-    //        body: JSON.stringify({municipalityId: sm, streetName: input})
-    //    }).then(() => addStreetToList(sm));
-
-    //}
+        let endpoint = url + "getneighborhoodsbyvillage?villId=" + id;
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            neigborhoods.appendChild(item);
+        }));
+    }
 </script>
 }
