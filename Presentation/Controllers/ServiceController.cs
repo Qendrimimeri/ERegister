@@ -257,7 +257,7 @@ namespace Presentation.Controllers
                 }
 
 
-            var rez = _context.PollRelateds.Where(x => x.ApplicationUsers.Address.MunicipalityId == muniId).OrderBy(x => x.PoliticialSubjectId).ToList();
+            var rez = _context.PollRelateds.Where(x => x.User.Address.MunicipalityId == muniId).OrderBy(x => x.PoliticialSubjectId).ToList();
             var removeDuplicated = new List<PollRelated>();
 
             foreach (var user in rez.OrderByDescending(x => x.Date))

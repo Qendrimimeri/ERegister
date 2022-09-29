@@ -21,6 +21,6 @@ namespace Domain.Data.Entities
 
         public virtual Help? Help { get; set; }
         public virtual PoliticalSubject? PoliticialSubject { get; set; }
-        public virtual ApplicationUser? ApplicationUsers { get; set; }
+        public virtual ApplicationUser? User { get; set; }
     }
 }
