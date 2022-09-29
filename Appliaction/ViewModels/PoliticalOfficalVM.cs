@@ -15,7 +15,7 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri")]
         public string? FullName { get; set; }
 
-       [Required(ErrorMessage = "Numri i telefonit nuk eshte valid!"), MinLength(9), MaxLength(13),DataType(DataType.PhoneNumber)]
+       [Required(ErrorMessage = "Numri i telefonit nuk eshte valid!"),MinLength(8), MaxLength(13),DataType(DataType.PhoneNumber)]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email adresa nuk eshte valide!"), DataType(DataType.EmailAddress)]
