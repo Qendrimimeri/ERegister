@@ -19,10 +19,6 @@ namespace Presentation.Controllers
         }
         public IActionResult Index()
         {
-
-
-            TempData["success"] = "CRM!";
-
             return View();
         }
         //Arsye percaktuese general demand 
@@ -56,21 +52,17 @@ namespace Presentation.Controllers
         public async Task<IActionResult> Voters(string name)
         {
             var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
-            if (vm == null)
+            if (vm == null )
             {
                 return NotFound();
             }
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-            TempData["success"] = "Votues u gjet me sukses!";
             return PartialView("_Voters" ,vm1);
         }
         
         public IActionResult Cancel()
         {
-      
-
             TempData["success"] = "U anulua!";
-
             return RedirectToAction("Index");
         }
 
@@ -87,7 +79,6 @@ namespace Presentation.Controllers
             _unitOfWork.PollRelated.Update(pollRelated);
             await _unitOfWork.Done();
             TempData["success"] = "U ruajt me sukses!";
-
             return RedirectToAction("Index");
         }
         public IActionResult GeneralReasons()

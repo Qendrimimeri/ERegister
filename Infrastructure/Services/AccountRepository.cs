@@ -63,7 +63,6 @@ namespace Infrastructure.Services
                 StreetId = model.Street,
                 PollCenterId = int.Parse(model.PollCenter),
             };
-
             await _context.Addresses.AddAsync(address);
             await _context.SaveChangesAsync();
 

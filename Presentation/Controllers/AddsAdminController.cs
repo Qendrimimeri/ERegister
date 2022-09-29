@@ -67,6 +67,7 @@ namespace Presentation.Controllers
                 var res = await _unitOfWork.Account.RegisterVoterAsync(register);
                 if (res)
                 {
+                    TempData["success"] = "Registered successfuly!";
                     return RedirectToAction("Index", "dashboard");
                 }
             }
@@ -107,8 +108,8 @@ namespace Presentation.Controllers
             {
                 var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
                 if (res)
-                    TempData["success"] = "U editua me sukses!";
-                    return RedirectToAction("Index", "Dashboard");
+                    TempData["success"] = "Registered successfuly!";
+                return RedirectToAction("Index", "Dashboard");
             }
             return View();
         }
