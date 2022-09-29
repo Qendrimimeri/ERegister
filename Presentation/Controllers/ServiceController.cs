@@ -3,10 +3,7 @@ using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 
 namespace Presentation.Controllers
@@ -42,9 +39,8 @@ namespace Presentation.Controllers
 
         [Route("getpollcenterbyvillageid")]
         public ActionResult GetPollCenterByVillageId([FromQuery] int id)
-
         {
-            var qendra = _context.PollCenters.Where(v => v.VillageId == id )
+            var qendra = _context.PollCenters.Where(v => v.VillageId == id)
                 .Select(x =>
                 new
                 {
@@ -138,7 +134,7 @@ namespace Presentation.Controllers
 
         //[Route("getpollcenterbyid")]
         //public ActionResult GetPollCenterById([FromQuery] string id)
-        
+
         //{
         //    var qendra = _context.PollCenters.Where(v => v.CenterNumber == id)
         //        .Select(x =>
@@ -174,7 +170,7 @@ namespace Presentation.Controllers
         [Route("getkqzresult")]
         public ActionResult GetKqzResult()
         {
-           
+
             return Ok(_context.Kqzregisters.ToList());
             //.Select(x => new
             //{
@@ -189,23 +185,22 @@ namespace Presentation.Controllers
 
         {
             var qendra = _context.PoliticalSubjects.Where(v => v.Name == name);
-                //.Select(x =>
-                //new
-                //{
-                //    Id = x.Id,
-                //    Name = x.Name,
+            //.Select(x =>
+            //new
+            //{
+            //    Id = x.Id,
+            //    Name = x.Name,
 
-                //}) ;
+            //}) ;
 
             return Ok(qendra);
 
-        /// get specific reason 
-
+            /// get specific reason 
+        }
         [Route("getgeneraldemand")]
-
         public ActionResult GetGeneralDemand()
         {
-            
+
             return Ok(_context.PollRelateds.ToList());
         }
         //add general demand 
@@ -242,7 +237,7 @@ namespace Presentation.Controllers
             });
 
             _context.SaveChanges();
-            
+
             return Ok();
         }
 
@@ -264,7 +259,7 @@ namespace Presentation.Controllers
             });
 
             _context.SaveChanges();
-           
+
             return Ok();
         }
 
@@ -279,19 +274,10 @@ namespace Presentation.Controllers
         }
 
 
-        //[Route("getvillage")]
-        //public ActionResult GetVillage()
-        //{
-        //    return Ok(_context.Villages.ToList().Select(x => new
-        //    {
-        //        Id = x.Id,
-        //        Name = x.Name
-        //    }));
-        //}
         [Route("kqzresultsbymuni")]
         [HttpGet]
         public async Task<ActionResult> KqzResultsbymuni([FromQuery] int id)
-         {
+        {
             var userId = await GetUser();
             var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
             int municipalityId;
@@ -631,9 +617,10 @@ namespace Presentation.Controllers
             return Ok();
         }
 
-        private async Task<string> GetUser() => 
+        private async Task<string> GetUser() =>
             _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 #pragma warning restore CS8602
 #pragma warning restore CS8604
 }
+
