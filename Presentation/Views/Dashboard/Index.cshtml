@@ -17,7 +17,7 @@
                     <p>Zgjedhni qytetin për grafe:</p>
                 </div>
                 <div class="col-md-4 mb-2 pe-2">
-                    <select class="form-select" id="munis" asp-for="Municipality">
+                    <select class="form-select" id="munis" onchange="getId()" asp-for="Municipality">
                         <option disabled selected>Zgjedh qytetin..</option>
                     </select>
                 </div>
@@ -184,6 +184,11 @@
                     munis.appendChild(item);
                 });
             });
+        }
+
+        function getId() {
+            var select = document.getElementById("munis").value
+            fetch(`https://localhost:7278/api/service/kqzresultsbymuni?id=${select}`)
         }
     
 </script>

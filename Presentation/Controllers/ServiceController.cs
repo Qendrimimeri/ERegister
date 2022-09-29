@@ -213,13 +213,21 @@ namespace Presentation.Controllers
 
 
         [Route("kqzresultsbymuni")]
-        public async Task<ActionResult> KqzResultsbymuni()
-        {
+        [HttpGet]
+        public async Task<ActionResult> KqzResultsbymuni([FromQuery] int id)
+         {
             var userId = await GetUser();
             var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+            int municipalityId;
+            if (!(id <= 0))
+                municipalityId = id;
+            else
+                municipalityId = muniId;
+
+
             // zgjedhjet nacionale te vitit 2021 
             var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
-            .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.MunicipalityId == muniId).Select(x => new KqzLastYear()
+            .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.MunicipalityId == municipalityId).Select(x => new KqzLastYear()
             {
                 PoliticalSubject = x.PoliticialSubject.Name,
                 NumberOfVotes = (int)x.NoOfvotes,
@@ -239,7 +247,7 @@ namespace Presentation.Controllers
 
             // zgjedhjet Lokale te vitit 2021 
             var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
-            .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.MunicipalityId == muniId).Select(x => new KqzLastYear()
+            .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.MunicipalityId == municipalityId).Select(x => new KqzLastYear()
             {
                 PoliticalSubject = x.PoliticialSubject.Name,
                 NumberOfVotes = (int)x.NoOfvotes,
@@ -257,7 +265,7 @@ namespace Presentation.Controllers
                 }
 
 
-            var rez = _context.PollRelateds.Where(x => x.User.Address.MunicipalityId == muniId).OrderBy(x => x.PoliticialSubjectId).ToList();
+            var rez = _context.PollRelateds.Where(x => x.User.Address.MunicipalityId == municipalityId).OrderBy(x => x.PoliticialSubjectId).ToList();
             var removeDuplicated = new List<PollRelated>();
 
             foreach (var user in rez.OrderByDescending(x => x.Date))

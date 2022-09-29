@@ -1,6 +1,7 @@
 ﻿using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Application.Repository
         }
 
         public async Task<int> GetMuniNameByUserIdAsync(string Id)
-            => (int)_db.Users.Where(x => x.Id == Id).Select(x => x.Address.MunicipalityId).FirstOrDefault();
+            => (int) await _db.Users.Where(x => x.Id == Id).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync();
     }
 }
 
