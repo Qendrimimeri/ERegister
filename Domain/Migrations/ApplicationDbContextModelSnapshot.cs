@@ -328,9 +328,6 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ApplicationUsersId")
-                        .HasColumnType("varchar(255)");
-
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime(6)");
 
@@ -362,15 +359,15 @@ namespace Domain.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUsersId");
 
                     b.HasIndex("HelpId");
 
                     b.HasIndex("PoliticialSubjectId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PollRelateds");
                 });
@@ -711,10 +708,6 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.PollRelated", b =>
                 {
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "ApplicationUsers")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("ApplicationUsersId");
-
                     b.HasOne("Domain.Data.Entities.Help", "Help")
                         .WithMany("PollRelateds")
                         .HasForeignKey("HelpId");
@@ -723,11 +716,15 @@ namespace Domain.Migrations
                         .WithMany("PollRelateds")
                         .HasForeignKey("PoliticialSubjectId");
 
-                    b.Navigation("ApplicationUsers");
+                    b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
+                        .WithMany("PollRelateds")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Help");
 
                     b.Navigation("PoliticialSubject");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
