@@ -60,6 +60,9 @@ namespace Presentation.Controllers
             return View("../Account/AccessDenied");
         }
 
+
+
+
         [Route("/Account/Error/{code:int}")]
         public IActionResult Error(int code)
         {
@@ -88,12 +91,13 @@ namespace Presentation.Controllers
             }
             catch (Exception ex)
             {
+                Log.Error(ex.Message, ex);
                 Log.Fatal(ex, "[GET]ConfirmEmail terminated unexpectedly");
 
             }
             finally
             {
-                Log.CloseAndFlush();
+                Log.CloseAndFlush();  
             }
             return View();
         }

@@ -316,7 +316,7 @@ namespace Presentation.Controllers
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "[GET]KqzResultsbymuni terminated unexpectedly");
+                Log.Error(ex, "[GET]KqzResultsbymuni terminated unexpectedly", nameof(ServiceController));
 
             }
             finally
