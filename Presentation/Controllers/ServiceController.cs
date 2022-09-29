@@ -40,6 +40,58 @@ namespace Presentation.Controllers
             }));
         }
 
+        [Route("getpollcenterbyvillageid")]
+        public ActionResult GetPollCenterByVillageId([FromQuery] int id)
+
+        {
+            var qendra = _context.PollCenters.Where(v => v.VillageId == id )
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+        [Route("getpollcenterbyneighborhoodid")]
+        public ActionResult GetPollCenterByNeighborhoodId([FromQuery] int id)
+
+        {
+            var qendra = _context.PollCenters.Where(v => v.NeighborhoodId == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+        [Route("getpollcenterbymuniid")]
+        public ActionResult GetPollCenterByMuniId([FromQuery] int id)
+
+        {
+            var qendra = _context.PollCenters.Where(v => v.MunicipalitydId == id)
+                .Select(x =>
+                new
+                {
+                    Id = x.Id,
+                    CenterNumber = x.CenterNumber,
+                    CenterName = x.CenterName,
+                    MuniCipalityId = x.MunicipalitydId
+                });
+
+            return Ok(qendra);
+        }
+
+
         [Route("getpollcenterbyid")]
         public ActionResult GetPollCenterById([FromQuery] string id)
 
@@ -132,6 +184,21 @@ namespace Presentation.Controllers
             //}));
         }
 
+        [Route("getpoliticalsubjectbyname")]
+        public ActionResult GetPoliticalSubjectByName([FromQuery] string name)
+
+        {
+            var qendra = _context.PoliticalSubjects.Where(v => v.Name == name);
+                //.Select(x =>
+                //new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name,
+
+                //}) ;
+
+            return Ok(qendra);
+
         /// get specific reason 
 
         [Route("getgeneraldemand")]
@@ -212,6 +279,15 @@ namespace Presentation.Controllers
         }
 
 
+        //[Route("getvillage")]
+        //public ActionResult GetVillage()
+        //{
+        //    return Ok(_context.Villages.ToList().Select(x => new
+        //    {
+        //        Id = x.Id,
+        //        Name = x.Name
+        //    }));
+        //}
         [Route("kqzresultsbymuni")]
         [HttpGet]
         public async Task<ActionResult> KqzResultsbymuni([FromQuery] int id)
@@ -406,6 +482,7 @@ namespace Presentation.Controllers
 
             return Ok();
         }
+
 
         //Blloku
         [Route("getblocksbymuni")]
