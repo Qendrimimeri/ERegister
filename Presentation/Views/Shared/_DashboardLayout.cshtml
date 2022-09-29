@@ -1,4 +1,9 @@
-﻿
+﻿@using Domain.Data.Entities
+
+@using System.Security.Claims
+
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+@*@inject ApplicationUserClaimsPrincipalFactory appUserClaims*@
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +34,9 @@
     <link href="~/dashboard-admin/vendor/simple-datatables/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+
+
 
     <!-- Template Main CSS File -->
     <link href="~/dashboard-admin/css/style.css" rel="stylesheet">
@@ -45,22 +53,22 @@
 
 
 
-  <!-- ======= Sidebar ======= -->
-=======
+    <!-- ======= Sidebar ======= -->
+    =======
     <header id="header" class="header fixed-top d-flex align-items-center">
-
+        
         <div class="d-flex align-items-center justify-content-between gap-5">
             <a asp-controller="Home" asp-action="index" class="d-none d-md-block d-flex align-items-center">
                 <img src="~/images/ERegisterLogo.svg" style="width:150px" alt="ERegister">
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
-        <div class="search-bar">
+      @*  <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
-        </div><!-- End Search Bar -->
+        </div><!-- End Search Bar -->*@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -144,67 +152,18 @@
                         <i class="bi bi-chat-left-text"></i>
                         <span class="badge bg-success badge-number">3</span>
                     </a><!-- End Messages Icon -->
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                        <li class="dropdown-header">
-                            You have 3 new messages
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="message-item">
-                            <a href="#">
-                                @*<img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">*@
-                                <div>
-                                    <h4>Maria Hudson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>4 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="message-item">
-                            <a href="#">
-                                @* <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">*@
-                                <div>
-                                    <h4>Anna Nelson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>6 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="message-item">
-                            <a href="#">
-                                @*<img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">*@
-                                <div>
-                                    <h4>David Muldon</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>8 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="dropdown-footer">
-                            <a href="#">Show all messages</a>
-                        </li>
-                    </ul><!-- End Messages Dropdown Items -->
-                </li><!-- End Messages Nav -->
-                <li class="nav-item dropdown pe-3">
+                  
+        
+                          <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="~/dashboard-admin/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">@User.Identity.Name</span>
+                        <img src="~/Document/@((await _userManager.FindByNameAsync(User.Identity.Name)).ImgPath)" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>@User.Identity.Name</h6>
-                            <span>Web Designer</span>
+                        <h6>@((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</h6>
+                            <span>@((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</span>
+                        
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -246,66 +205,91 @@
                         </li>
                     </ul><!-- End Profile Dropdown Items -->
                 </li><!-- End Profile Nav -->
-            </ul>
+     <!-- End Header -->
+                        
+                    
+                         </ul>
         </nav><!-- End Icons Navigation -->
 
-    </header><!-- End Header -->
+    </header>
     <!-- ======= Sidebar ======= -->
+   
+          <aside id="sidebar" class="sidebar">
+    
+        <ul class="sidebar-nav mb-auto" id="sidebar-nav">
+            
+               @if(User.IsInRole("SuperAdmin")|| User.IsInRole("MunicipalityAdmin")|| User.IsInRole("LocalAdmin"))
+            {
+                
+                   <li class="nav-item">
+                <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
-  <aside id="sidebar" class="sidebar">
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-controller="Crm" asp-action="Index">
+                    <i class="bi bi-search"></i>
+                    <span>CRM</span>
+                </a>
+            </li>
 
-      <ul class="sidebar-nav mb-auto" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Performance">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Performance & Reports</span>
+                </a>
+            </li>
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
-                  <i class="bi bi-grid"></i>
-                  <span>Dashboard</span>
-              </a>
-          </li>
+         
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Crm" asp-action= "Index">
-                  <i class="bi bi-search"></i>
-                  <span>CRM</span>
-              </a>
-          </li>
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "Performance">
-                  <i class="bi bi-graph-up"></i>
-                  <span>Performance & Reports</span>
-              </a>
-          </li>
 
-           <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">
-                  <i class="bi bi-person-square"></i> <span>Adds & Admin</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-                  <ul id="components-addsadmin" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                      <li>
-                          <a asp-controller="AddsAdmin" asp-action="AddVoter">
-                              <i class="bi bi-circle"></i><span>Regjistro votuesin e ri</span>
-                          </a>
-                      </li>
-                       <li>
-                        <a asp-controller="AddsAdmin" asp-action="PoliticalOffical">
-                            <i class="bi bi-circle"></i><span>Zyrtaret partiak</span>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">
+                    <i class="bi bi-person-square"></i> <span>Adds & Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-addsadmin" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+
+
+
+
+                    <li>
+                        <a asp-controller="AddsAdmin" asp-action="AddVoter">
+                            <i class="bi bi-circle"></i><span>Regjistro votuesin e ri</span>
                         </a>
                     </li>
-                    @*<li>
-                        <a asp-controller="AddsAdmin" asp-action="EditPoliticalSubjectTest">
-                        <i class="bi bi-circle"></i><span>Zyrtaret partiak-test</span>
-                        </a>
-                        </li>*@
+
+
+                   
+
+                        <li>
+                            <a asp-controller="AddsAdmin" asp-action="PoliticalOffical">
+                                <i class="bi bi-circle"></i><span>Zyrtaret partiak</span>
+                            </a>
+                        </li>
+                    
+
+                  
                 </ul>
             </li>
-            @*/E sheh vetem superAdmini*@
-            @*   <li class="nav-item">
-                <a class="nav-link collapsed" asp-controller = "Dashboard" asp-action= "AddSubject">
-                <i class="bi bi-people"></i>
-                <span>Regjistro partinë</span>
-                </a>
-                </li>*@
+            }
+
+    
+  
+
+                   @if (User.IsInRole("SimpleMember"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link collapsed" asp-controller="AddsAdmin" asp-action="AddVoter">
+                        <i class="bi bi-person-square"></i>
+                        <span>Regjistro votuesin e ri</span>
+                    </a>
+                </li>
+
+            }
             @if (User.IsInRole("SuperAdmin"))
             {
                 <li class="nav-item">
@@ -316,10 +300,16 @@
                 </li>
             }
             <li class="accordion-item mt-5">
-                <a class="nav-link collapsed" asp-controller="Home" asp-action="Index">
+                <form  asp-controller="Account" asp-action="Logout">
+                      <button class="dropdown-item d-flex align-items-center" href="#">
+                     <a class="nav-link collapsed" >
                     <i class="bi bi-box-arrow-right"></i>
                     <span>Dil</span>
                 </a>
+                </button>
+
+                </form>
+               
             </li>
         </ul>
     </aside><!-- End Sidebar-->
@@ -337,6 +327,9 @@
         </div><!-- End Page Title -->
         <section class="section dashboard">
             <div class="row">
+        
+<partial name = "_Notifications"/>
+                
                 @RenderBody()
             </div>
         </section>
@@ -366,6 +359,10 @@
     <script src="~/dashboard-admin/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="~/dashboard-admin/vendor/tinymce/tinymce.min.js"></script>
     <script src="~/dashboard-admin/vendor/php-email-form/validate.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
 
     <!-- Template Main JS File -->
     <script src="~/dashboard-admin/js/main.js"></script>

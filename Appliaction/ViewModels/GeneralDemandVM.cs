@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Domain.Data.Entities
+namespace Application.ViewModels
 {
-    public partial class PollRelated
+    public class GeneralDemandVM
     {
         public int Id { get; set; }
-        public int FamMembers { get; set; }
+        public int? FamMembers { get; set; }
         public DateTime? Date { get; set; }
         public string? UserId { get; set; }
         public int? PoliticialSubjectId { get; set; }
@@ -17,10 +20,5 @@ namespace Domain.Data.Entities
         public string? SpecificDemand { get; set; }
         public int? HelpId { get; set; }
         public string? GeneralDescription { get; set; }
-
-
-        public virtual Help? Help { get; set; }
-        public virtual PoliticalSubject? PoliticialSubject { get; set; }
-        public virtual ApplicationUser? User { get; set; }
     }
 }

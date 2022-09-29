@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,10 +30,17 @@ namespace Presentation.Controllers
             _env = env;
            _signInManager = signInManager;
         }
+
+
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
         public IActionResult Index()
         {
             return View();
         }
+
+
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+       
         public async Task<IActionResult> Performance() 
         {
             var users =  await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
@@ -51,8 +59,6 @@ namespace Presentation.Controllers
 
             var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
             ViewBag.actualStatus = actualStatus;
-
-            
             return View(users); 
         }
 
@@ -63,6 +69,7 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
+                TempData["success"] = "Edited successfuly!";
                 return RedirectToAction("Performance", "Dashboard");
             }
             return View();
@@ -92,18 +99,29 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> BusinessUserProfile()
         {
-            var res =_userManager.GetUserAsync(User);
-            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+            var res = await _userManager.GetUserAsync(User);
+            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
 
             return View(user);
         }
 
         [HttpPost]
         public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
-        {
+         {
             if (ModelState.IsValid)
             {
-                if (editUser.Image.FileName != null)
+                if (editUser.Image == null)
+                {
+                    var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                    if (result)
+                    {
+                        var res = _userManager.GetUserAsync(User);
+                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        return View(user);
+                    }
+
+                }
+               else if (editUser.Image!= null)
                 {
                     var rootFilePath = _env.WebRootPath;
                     string filePath = Path.Combine(rootFilePath, "Document");
@@ -121,10 +139,10 @@ namespace Presentation.Controllers
                     {
                         var res = _userManager.GetUserAsync(User);
                         var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                        TempData["success"] = "Edited successfuly!";
                         return View(user);
                     }
                 }
-
             }
             return View();
         }
@@ -151,17 +169,15 @@ namespace Presentation.Controllers
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                    TempData["Success"] = "Fjalekalimi i ndryshua me sukses!";
+                    TempData["Success"] = "Password changed successfuly!";
                     return View();
                     
                 }
                 
                 await _signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("BusinessUserProfile");
-               
             }
             return View(model);
-          
         }
 
     }

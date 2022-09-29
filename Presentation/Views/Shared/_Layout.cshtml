@@ -9,8 +9,6 @@
 	<link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/Presentation.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-    
-
 </head>
 <body class="d-flex flex-column">
 
@@ -44,18 +42,16 @@
             </div>
 
         </div>
-
     </nav>
 
 
     <div class="vh-100">
-        
+      
+
+       <partial name="_Notifications"/>
+
             @RenderBody()
             </div>
-
-
-
-
     @{
  <style>
     .width50{
@@ -63,7 +59,11 @@
     }
  </style>
 }
-    <div class="d-flex flex-column max-vh-100">@RenderBody()</div>
+    <div class="d-flex flex-column max-vh-100"> 
+      
+
+        @RenderBody() 
+        </div>
             
 
         <div class="container">

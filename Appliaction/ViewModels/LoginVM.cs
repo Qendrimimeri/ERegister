@@ -9,9 +9,13 @@ namespace Application.ViewModels
 {
     public class LoginVM
     {
-        [Required, EmailAddress]
+        [Required, DataType(DataType.EmailAddress), Display(Name = "Emaili")]
         public string Email { get; set; }
-        //[Required, MinLength(8, ErrorMessage = "Password should be more than 8 caharacters")]
+
+        [MaxLength(255), DataType(DataType.Password), Display(Name = "Fjalekalimi")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
+
     }
 }

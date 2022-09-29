@@ -23,6 +23,12 @@ namespace Presentation.Controllers
         
         public IAccountRepository AccountRepository { get; }
 
+        
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -31,18 +37,19 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var res = await _unitOfWork.Account.LoginAsync(login);
-                if (res == true)
-                    return RedirectToAction("Index", "Dashboard");
-                //returnUrl = returnUrl ?? Url.Content("~/Dashboard/index");
-                //return LocalRedirect(returnUrl);
-                // ModelState.AddModelError("", "Login failed, wrong credentials");
+                if (res == true && User.IsInRole("SimpleMember"))
+                    return RedirectToAction("AddVoter", "AddsAdmin");
+                else if (res)
+                TempData["success"] = "You are Logged in!";
+                return RedirectToAction("Index", "Dashboard");
+                TempData["success"] = "You are Logged in!";
                 return RedirectToAction("Index", "Home");
+
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
-
-
             return RedirectToAction("Index", "Home", ModelState);
         }
+
         public IActionResult AccessDenied()
         {
             return View("../Account/AccessDenied");
@@ -51,7 +58,7 @@ namespace Presentation.Controllers
         [Route("/Account/Error/{code:int}")]
         public IActionResult Error(int code)
         {
-            return View(new ErrorModel {ErrorMessage = $"Error Occurred. Error Code is{code}" });
+            return View(new ErrorModel { ErrorMessage = $"Error Occurred. Error Code is{code}" });
         }
 
 
@@ -112,6 +119,7 @@ namespace Presentation.Controllers
                 var res = await _unitOfWork.Account.ResetPasswordAsync(model);
                 if (res.Succeeded)
                 {
+                    TempData["success"] = "You are Logged in!";
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -122,6 +130,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult>Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["success"] = "You are logged out!";
             return RedirectToAction("Index", "Home");
         }
     }

@@ -8,9 +8,12 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNet.Identity;
 using Domain.Data.Entities;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers
 {
+
+
     public class AddsAdminController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -64,12 +67,15 @@ namespace Presentation.Controllers
                 var res = await _unitOfWork.Account.RegisterVoterAsync(register);
                 if (res)
                 {
+                    TempData["success"] = "Registered successfuly!";
                     return RedirectToAction("Index", "dashboard");
                 }
             }
-            return RedirectToAction("AddVoter");
+            return View("AddVoter",register);
         }
 
+
+        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
         public async Task<IActionResult> PoliticalOffical()
         {
             var municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
@@ -92,7 +98,6 @@ namespace Presentation.Controllers
 
             var roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Key", "Value");
             ViewBag.roles = roles;
-
             return View();
         }
 
@@ -103,26 +108,11 @@ namespace Presentation.Controllers
             {
                 var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
                 if (res)
-                    return RedirectToAction("Index", "Dashboard");
+                    TempData["success"] = "Registered successfuly!";
+                return RedirectToAction("Index", "Dashboard");
             }
             return View();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,7 +1,7 @@
 ﻿@using Domain.Data.Entities
 @model ProfileVM
 @{
-    Layout = "_DashboardLayout";
+    Layout = "_DashboardLayout"; 
 }
 <section class="section">
     <div class="row">
@@ -14,6 +14,7 @@
 
                         <div class="text-center">
                             <img src="~/Document/@Model.ProfileImage" class="rounded" style="width:100px;" alt="...">
+                        
                         </div>
                         <div class="text-center">
                             <h4>@Model.FullName</h4>
@@ -32,8 +33,9 @@
 
                         <div class="pe-2">
                             <div>
-                                <label for="Image" class="form-label">Ngarko foton e profilit</label>
+                                <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
                                 <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
+                          @*  <span asp-validation-for="Image" class="text-danger"></span>*@
                             </div>
                             <img id="frame" src="" class="img-fluid" />
                         </div>
@@ -54,16 +56,16 @@
                             <label for="exampleInputEmail1">Email adresa</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email" placeholder="Shkruaj email adresen">
                         </div>
-                        <div class="d-flex justify-content-between pt-4">
-                            <div>
-                                <button type="submit" class="btn btn-primary pe-2">Ndrysho të dhënat</button>
+                        <div class="d-flex justify-content-around pe-2 flex-md-row flex-column">
+                            <div class = "col-md-4 pt-4">
+                                <button type="submit" class="btn btn-primary pe-2 ">Ndrysho të dhënat</button>
                             </div>
-                          
+                            <div  class = "col-md-4 pt-4">
+                                <a asp-action="ChangePassword" asp-controller="Dashboard" class="btn btn-primary pe-2">Ndrysho fjalëkalimin </a>
+                            </div>
                         </div>
                     </form>
-                      <div  class="d-flex justify-content-between pt-4" >
-                                <a asp-action="ChangePassword" asp-controller="Dashboard"> <button class="btn btn-primary pe-2">Ndrysho fjalëkalimin</button> </a>
-                            </div>
+                    
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 ﻿using Domain.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Application.ViewModels
         public string? PollCenter { get; set; }
         public int? VotersNumber { get; set; }
         public string? PreviousVoter { get; set; }
-        //Votues i Tanishem
+
         public string? CurrentVoter { get; set; }
    
 

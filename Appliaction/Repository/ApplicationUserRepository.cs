@@ -1,3 +1,4 @@
+
 using Appliaction.Models;
 using Application.Models;
 using Application.Repository.IRepository;
@@ -77,20 +78,23 @@ namespace Application.Repository
                 HouseNo = person.Address.HouseNo,
                 PhoneNumber = person.PhoneNumber,
                 Email = person.Email,
-                Facebook = person.SocialNetwork,
-                FamMembers = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                FacebookLink = person.SocialNetwork,
                 WorkPlace = person.Work.WorkPlace,
                 AdministrativeUnit = person.Work.AdministrativeUnit,
                 Duty = person.Work.Duty,
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
-                PoliticalSubjects = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                SuccessChance = person.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().SuccessChances,
+                VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                InitialChance = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+
             }).ToListAsync();
 
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
 
             var result = new List<VoterDetailsVM>();
+
             foreach (var user in getAllUsers)
             {
                 foreach (var item in usersInRole)
@@ -164,6 +168,17 @@ namespace Application.Repository
             await _db.SaveChangesAsync();
 
             return true;
+        }
+        public async Task<bool>EditUserProfile(ProfileVM user)
+        {
+            var userId = Profile();
+            var getUser = await _db.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
+            getUser.Email = user.Email;
+            getUser.PhoneNumber = user.PhoneNo;
+            await _db.SaveChangesAsync();
+            return true;
+
+
         }
 
 

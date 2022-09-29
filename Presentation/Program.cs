@@ -1,16 +1,13 @@
 using Application.Repository;
 using Appliaction.Repository;
-using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
 using Appliaction.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Presentation;
-using System;
-using Application.Repository.IRepository;
 using Infrastructure.Settings;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -48,6 +45,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
