@@ -23,7 +23,7 @@ namespace Application.ViewModels
 
 
         [Range(1, int.MaxValue, ErrorMessage = "Ju lutem zgjedhni qytetin!")]
-        public int Municipality { get; set; }
+        public int? Municipality { get; set; }
         public int? Village { get; set; }
         public int? Neigborhood { get; set; }
         public int? Street { get; set; }
