@@ -48,7 +48,7 @@
                             const thisYearValues = Object.values(thisYear);
                             var politicalSubjects = Object.keys(lastYear);
 
-                            var selectedCity = document.getElementById("city-nacinale").innerText = `Komuna e ${cityName} - Zgjedhjet Nacionale muhameti`;
+                            var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale muhameti`;
 
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
@@ -116,7 +116,11 @@
                             const thisYearValuesLocal = Object.values(thisYearLocal);
                             var politicalSubjectsNow = Object.keys(lastYearLocal)
 
+<<<<<<< HEAD
                             var selectedLocalCity = document.getElementById("city-name").innerText = `Komuna e ${cityNameLocal} - Zgjedhjet Lokale`;
+=======
+                            var selectedLocalCity = document.getElementById("city-name").innerText = `${cityNameLocal} - Zgjedhjet Nacionale`;
+>>>>>>> b9bf5f0e9831e4b5761d923fc00b72ee593b4096
 
                             new ApexCharts(document.querySelector("#columnChart1"), {
                                 series: [{

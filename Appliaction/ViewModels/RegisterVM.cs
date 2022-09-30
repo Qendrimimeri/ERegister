@@ -24,12 +24,12 @@ namespace Application.ViewModels
 
 
         [Range(1, int.MaxValue, ErrorMessage = "Ju lutem zgjedhni qytetin!")]
-        public int Municipality { get; set; }
+        public int? Municipality { get; set; }
 
-        public int Village { get; set; }
-        public int Neigborhood { get; set; }
-        public int Street { get; set; }
-        public int Block { get; set; }
+        public int? Village { get; set; }
+        public int? Neigborhood { get; set; }
+        public int? Street { get; set; }
+        public int? Block { get; set; }
         public int? HouseNo { get; set; }
         public string WorkPlace { get; set; }
         public string AdministrativeUnit { get; set; }
