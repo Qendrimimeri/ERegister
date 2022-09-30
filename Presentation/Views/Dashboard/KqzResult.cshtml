@@ -510,4 +510,11 @@ function addDataToDb() {
         }));
     }
 </script>
+
+<script>
+    //Disabled Button
+        $('#poll').on('change',function(){
+            $('#main-div').prop('disabled',!$(this).val());
+        }).trigger('change');
+</script>
 }
