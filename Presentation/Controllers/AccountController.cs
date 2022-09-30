@@ -27,7 +27,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View("../Home/Index");
         }
 
         [HttpPost]

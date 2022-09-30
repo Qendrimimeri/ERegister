@@ -91,7 +91,9 @@ namespace Presentation.Controllers
                 Id = model.Id,
                 CenterNumber = model.CenterNumber,
                 CenterName = model.CenterName,
-                MunicipalitydId = model.MunicipalitydId
+                MunicipalitydId = model.MunicipalitydId,
+                NeighborhoodId = model.NeighborhoodId,
+                VillageId = model.VillageId
 
             });
             _context.SaveChanges();
