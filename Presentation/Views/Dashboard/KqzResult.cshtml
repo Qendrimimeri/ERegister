@@ -293,6 +293,8 @@
         console.log(neigborhoods.value);
         let endpoint = url + "addpollcenter";
         let input = prompt("Shto Qendren e re:");
+       
+        if(input){
         let sm = document.querySelector("#poll").value;
         fetch(endpoint, {
             headers: {
@@ -303,7 +305,8 @@
             body: JSON.stringify({ centerNumber: input,
                 centerName: "", municipalitydId: munis.value, neighborhoodId: neigborhoods.value, villageId: villages.value })
         }).then(() => getPollCenterByNeighborhood(neigborhoods.value));
-
+        }
+        
     }
 
  
@@ -424,6 +427,7 @@ function addDataToDb() {
     function addVillageToDb(){
         let endpoint = url + "addvillage";
         let input = prompt("Shto fshatin e ri:");
+        if(input){
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -433,6 +437,7 @@ function addDataToDb() {
             method: 'post',
             body: JSON.stringify({municipalityId: sm, villageName: input})
         }).then(() => addVillagesToList(sm));
+        }
 
     }
     //neigborhoods
@@ -463,6 +468,7 @@ function addDataToDb() {
     function addNeigborhoodToDb(){
         let endpoint = url + "addneighborhood";
         let input = prompt("Shto lagjen e re:");
+        if(input){
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -471,8 +477,8 @@ function addDataToDb() {
             },
             method: 'post',
             body: JSON.stringify({municipalityId: sm, neighborhoodName: input})
-        }).then(() => addNeighborhoodsToList(sm));
-
+        }).then(() => addNeigborhoodToList(sm));
+        }
     }
 
   
@@ -504,6 +510,7 @@ function addDataToDb() {
 </script>
 
 <script>
+
     //Disabled Button
         $('#poll').on('change',function(){
             $('#main-div').prop('disabled',!$(this).val());
