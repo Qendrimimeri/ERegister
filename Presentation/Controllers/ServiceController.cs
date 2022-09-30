@@ -55,14 +55,8 @@ namespace Presentation.Controllers
                     Id = x.Id,
                     CenterNumber = x.CenterNumber,
                     CenterName = x.CenterName,
-<<<<<<< HEAD
-                    MuniCipalityId = x.MunicipalitydId,
-                    
-                });
-=======
                     MuniCipalityId = x.MunicipalitydId
                 }));
->>>>>>> 27c1f60d7c31bd08a9303c4a684ab32ac78a0df1
 
 
         [Route("getpollcenterbymuniid")]
