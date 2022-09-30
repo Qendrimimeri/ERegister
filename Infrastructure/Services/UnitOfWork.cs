@@ -37,7 +37,7 @@ namespace Infrastructure.Services
             _mail = mail;
             _roleManager = roleManager;
             _logger = logger.CreateLogger("logs");
-            Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail);
+            Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail, _httpContext);
             Address = new AddressRepository(_dbContext);
 
             ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager,_httpContext,_roleManager);

@@ -206,6 +206,12 @@
 @section Scripts
 {
 <script>
+        function getCityAsync () {
+            var selectedMunis = $(this).children('option:selected').val();
+            if (selectedMunis != null) {
+                $('#neigborhoods-container').show();
+                $('#neigborhoodsVillage-container').hide();
+            }
     $('#neigborhoodsVillage-container').hide();
 
     $('#villages').change(function(){
