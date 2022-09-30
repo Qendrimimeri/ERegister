@@ -64,7 +64,8 @@ namespace Presentation.Controllers
                     Id = x.Id,
                     CenterNumber = x.CenterNumber,
                     CenterName = x.CenterName,
-                    MuniCipalityId = x.MunicipalitydId
+                    MuniCipalityId = x.MunicipalitydId,
+                    
                 });
 
             return Ok(qendra);
@@ -114,7 +115,9 @@ namespace Presentation.Controllers
                 Id = model.Id,
                 CenterNumber = model.CenterNumber,
                 CenterName = model.CenterName,
-                MunicipalitydId = model.MunicipalitydId
+                MunicipalitydId = model.MunicipalitydId,
+                NeighborhoodId = model.NeighborhoodId,
+                VillageId = model.VillageId
 
             });
 
