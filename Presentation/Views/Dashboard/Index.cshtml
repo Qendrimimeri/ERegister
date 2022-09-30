@@ -32,20 +32,23 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Komuna e Prishtines - Zgjedhjet Nacionale</h5>
+                    <h5 class="card-title" id="city-nacinale"></h5>
                     <div id="columnChart"></div>
                     <script>
+
                         const kqzrez = "https://localhost:7278/api/service";
                         var endpoint = "/kqzresultsbymuni";
                         let response = fetch(`${kqzrez}${endpoint}`).then(res => res.json());
                         let rez = response.then((values) => {
 
-                            const lastYear = values.Nacionale["lastYear"]
-                            const thisYear = values.Nacionale["thisYear"]
+                            const lastYear = values.Nacionale["lastYear"];
+                            const thisYear = values.Nacionale["thisYear"];
+                            const cityName = values.Nacionale["city"];
                             const lastYearValues = Object.values(lastYear);
                             const thisYearValues = Object.values(thisYear);
-                            var politicalSubjects = Object.keys(lastYear)
+                            var politicalSubjects = Object.keys(lastYear);
 
+                            var selectedCity = document.getElementById("city-nacinale").innerText = `Komuna e ${cityName} - Zgjedhjet Nacionale muhameti`;
 
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
@@ -101,16 +104,19 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Komuna e Prishtines - Zgjedhjet Lokale</h5>
+                    <h5 class="card-title" id="city-name">Komuna e Prishtines - Zgjedhjet Lokale</h5>
                     <div id="columnChart1"></div>
                     <script>
                         let res = response.then((results) => {
 
                             const lastYearLocal = results.Lokale["lastYear"]
                             const thisYearLocal = results.Lokale["thisYear"]
+                            const cityNameLocal = results.Nacionale["city"];
                             const lastYearValuesLocal = Object.values(lastYearLocal);
                             const thisYearValuesLocal = Object.values(thisYearLocal);
                             var politicalSubjectsNow = Object.keys(lastYearLocal)
+
+                            var selectedLocalCity = document.getElementById("city-name").innerText = `Komuna e ${cityNameLocal} - Zgjedhjet Nacionale muhameti`;
 
                             new ApexCharts(document.querySelector("#columnChart1"), {
                                 series: [{
@@ -167,29 +173,28 @@
 </div>
 
 @section Scripts
-{
-<script>
-    const munis = document.querySelector('#munis');
-    const url = "https://localhost:7278/api/service/";
-    getMunis();
-        function getMunis(id){
+    {
+    <script>
+        const munis = document.querySelector('#munis');
+        const url = "https://localhost:7278/api/service/";
+        getMunis();
+        function getMunis(id) {
             let endpoint = url + "getmunis";
             let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => {
-                data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    munis.appendChild(item);
+                .then(res => res.json())
+                .then(data => {
+                    data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        munis.appendChild(item);
+                    });
                 });
-            });
         }
 
         function getId() {
             var select = document.getElementById("munis").value
             fetch(`https://localhost:7278/api/service/kqzresultsbymuni?id=${select}`)
         }
-    
-</script>
+    </script>
 }
