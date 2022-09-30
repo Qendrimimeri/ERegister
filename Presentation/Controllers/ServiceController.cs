@@ -4,6 +4,7 @@ using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Presentation.Controllers
@@ -55,14 +56,8 @@ namespace Presentation.Controllers
                     Id = x.Id,
                     CenterNumber = x.CenterNumber,
                     CenterName = x.CenterName,
-<<<<<<< HEAD
-                    MuniCipalityId = x.MunicipalitydId,
-                    
-                });
-=======
                     MuniCipalityId = x.MunicipalitydId
                 }));
->>>>>>> 27c1f60d7c31bd08a9303c4a684ab32ac78a0df1
 
 
         [Route("getpollcenterbymuniid")]
@@ -198,6 +193,7 @@ namespace Presentation.Controllers
             else
                 municipalityId = muniId;
 
+            string municipalityName =  _context.Municipalities.Where(x => x.Id == municipalityId).FirstOrDefault().Name;
 
             // zgjedhjet nacionale te vitit 2021 
             var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
@@ -270,12 +266,14 @@ namespace Presentation.Controllers
 
             var nacionale = new KqzResultsByCity()
             {
+                City = municipalityName,
                 LastYear = zgjedhjetNacionale,
                 ThisYear = gruping
             };
 
             var lokale = new KqzResultsByCity()
             {
+                City = municipalityName,
                 LastYear = zgjedhjetLokale,
                 ThisYear = gruping
             };
@@ -283,7 +281,7 @@ namespace Presentation.Controllers
             var zgjedhjet = new Dictionary<string, KqzResultsByCity>
             {
                 { "Nacionale", nacionale },
-                { "Lokale", lokale }
+                { "Lokale", lokale },
             };
             return Ok(zgjedhjet);
         }
