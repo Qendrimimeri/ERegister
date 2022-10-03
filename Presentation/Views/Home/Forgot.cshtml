@@ -10,8 +10,9 @@
         <form asp-controller="Account" asp-action="ForgotPassword" method="post">
 			<div class=" p-5">
 			    <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Email ose numri i telefonit</label>
+                    <label asp-for="Email" class="form-label">Email Adresa</label>
                     <input type="email" asp-for="Email" class="form-control" aria-describedby="emailHelp">
+                    <span asp-validation-for="Email" class="text-center"></span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">VAZHDO</button>
 			</div>
