@@ -297,14 +297,23 @@ namespace Presentation.Controllers
 
         //fshat
         [Route("getvillagesbymuni")]
-        public ActionResult GetVillagesByMuni([FromQuery] int muniId)
-            => Ok(_context.Villages.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+        public async Task<ActionResult> GetVillagesByMuni([FromQuery] int id)
+        {
+            var userId = await GetUser();
+            var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+            int municipalityId;
+            if (!(id <= 0))
+                municipalityId = id;
+            municipalityId = muniId;
+
+            var res = await _context.Villages.Where(v => v.MunicipalityId == municipalityId).Select(x => new
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToListAsync();
+            return Ok(res);
+        }
+
 
 
         [HttpPost]
@@ -323,14 +332,23 @@ namespace Presentation.Controllers
 
         //Lagje
         [Route("getneighborhoodsbymuni")]
-        public ActionResult GetNeighborhoodByMuni([FromQuery] int muniId)
-            => Ok(_context.Neighborhoods.Where(v => v.MunicipalityId == muniId)
+        public async Task<ActionResult> GetNeighborhoodByMuni([FromQuery] int id)
+        {
+            var userId = await GetUser();
+            var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+            int municipalityId;
+            if (!(id <= 0))
+                municipalityId = id;
+            municipalityId = muniId;
+            var res = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId)
                 .Select(x =>
                 new
                 {
                     Id = x.Id,
                     Name = x.Name
-                }));
+                });
+            return Ok(res);
+        }
 
 
         [HttpPost]
