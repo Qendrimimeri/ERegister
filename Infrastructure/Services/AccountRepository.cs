@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 using System.Net.Http;
 using System.Security.Claims;
-
+using System.Runtime.CompilerServices;
 
 namespace Infrastructure.Services
 {
@@ -215,6 +215,9 @@ namespace Infrastructure.Services
         public async Task<bool> ForgotPasswordAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return false;
+
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var baseUrl = "https://localhost:7278";
             var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
@@ -227,7 +230,6 @@ namespace Infrastructure.Services
                 $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
-
             return true;
         }
 
