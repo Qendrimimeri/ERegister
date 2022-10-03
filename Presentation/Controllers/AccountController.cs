@@ -40,11 +40,9 @@ namespace Presentation.Controllers
                 if (res == true && User.IsInRole("SimpleMember"))
                     return RedirectToAction("AddVoter", "AddsAdmin");
                 else if (res)
-                TempData["success"] = "You are Logged in!";
-                return RedirectToAction("Index", "Dashboard");
-                TempData["success"] = "You are Logged in!";
-                return RedirectToAction("Index", "Home");
-
+                    TempData["success"] = "You are Logged in!";
+                    return RedirectToAction("Index", "Dashboard");
+          
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
             return RedirectToAction("Index", "Home", ModelState);
