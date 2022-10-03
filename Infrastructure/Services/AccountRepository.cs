@@ -195,7 +195,7 @@ namespace Infrastructure.Services
                 // Send Email
                 var emailReques = new MailRequest();
               
-                emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
+                emailReques.Subject = "PBCA: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
                     $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
@@ -222,8 +222,9 @@ namespace Infrastructure.Services
 
             // Send Email
             var emailReques = new MailRequest();
-            emailReques.Subject = "PBCA: Restarto fjalkalimin.";
-            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!";
+            emailReques.Subject = "PBCA: Ndrysho fjalëkalimin.";
+            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
+                $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
