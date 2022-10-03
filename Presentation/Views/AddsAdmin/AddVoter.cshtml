@@ -186,7 +186,7 @@
         </div>
     </div>
 </section>
-@if (User.IsInRole("MunicipalityAdmin"))
+@*@if (User.IsInRole("MunicipalityAdmin"))
 {
     @section Scripts
     {
@@ -196,7 +196,7 @@
         </script>
     }
 }else
-{
+{*@
     @section Scripts
     {
 <script>
@@ -215,41 +215,43 @@
         if(selectedMunis != null){
             $('#neigborhoods-container').show();
             $('#neigborhoodsVillage-container').hide();
+        }
+    });
 
-            $('#villages').change(function () {
-                var selectedVillage = $(this).children('option:selected').val();
-                if (selectedVillage != null) {
-                    $('#neigborhoods-container').hide();
-                    $('#neigborhoodsVillage-container').show();
-                }
-            })
-            $('#munis').change(function () {
-                var selectedMunis = $(this).children('option:selected').val();
-                if (selectedMunis != null) {
-                    $('#neigborhoods-container').show();
-                    $('#neigborhoodsVillage-container').hide();
-                }
-            });
+     $('#streetByVillage').hide();
 
+    $('#neighborhoods').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
             $('#streetByVillage').hide();
+            $('#streetByNeighborhood').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedVillages = $(this).children('option:selected').val();
+        if(selectedVillages != null){
+            $('#streetByVillage').show();
+            $('#streetByNeighborhood').hide();
+        }
+    })
 
     $('#pollcenter-villages-container').hide();
 
-            $('#neigborhoods').change(function () {
-                var selectedVillage = $(this).children('option:selected').val();
-                if (selectedVillage != null) {
-                    $('#pollcenter-villages-container').hide();
-                    $('#pollcenter-neighborhood-container').show();
-                }
-            })
-            $('#villages').change(function () {
-                var selectedNeighborhood = $(this).children('option:selected').val();
-                if (selectedNeighborhood != null) {
-                    $('#pollcenter-villages-container').show();
-                    $('#pollcenter-neighborhood-container').hide();
-                }
-            });
-    </script>
+    $('#neigborhoods').change(function(){
+        var selectedVillage = $(this).children('option:selected').val();
+        if(selectedVillage != null){
+            $('#pollcenter-villages-container').hide();
+            $('#pollcenter-neighborhood-container').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
+            $('#pollcenter-villages-container').show();
+            $('#pollcenter-neighborhood-container').hide();
+        }
+    });
+</script>
     <script>
 
         const munis = document.querySelector('#munis');
