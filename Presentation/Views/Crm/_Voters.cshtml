@@ -1,152 +1,136 @@
 ﻿@model VoterDetailsVM
 
-<div class="d-flex flex-row justify-content-between pb-2">
-    <div class="col-6 pe-2">
-        <div class="table-responsive">
-            <table class="table table-bordered"
-                   id="dataTable"
-                   width="100%"
-                   cellspacing="0">
-                <tr>
-                    <th>Emri</th>
-                    <td id="DataSearching">@Model.FullName</td>
-                </tr>
-                <tr>
-                    <th>Fshati</th>
-                    <td id="DataSearching">@Model.Village</td>
-                </tr>
-                <tr>
-                    <th>Laggja</th>
-                    <td id="DataSearching">@Model.Neigborhood</td>
-                </tr>
-                <tr>
-                    <th>Blloku</th>
-                    <td id="DataSearching">@Model.Block</td>
-                </tr>
-                <tr>
-                    <th>Hyrja </th>
-                    <td id="DataSearching">@Model.HouseNo</td>
-                </tr>
-                <tr>
-                    <th>Numri i telefonit </th>
-                    <td id="DataSearching">@Model.PhoneNumber</td>
-                </tr>
-                <tr>
-                    <th>Email adresa</th>
-                    <td id="DataSearching">@Model.Email</td>
-                </tr>
-                <tr>
-                    <th>Facebook</th>
-                    <td id="DataSearching"><a href="@Model.FacebookLink">@Model.FullName<a/></td>
-                </tr>
-            </table>
+    <div class="d-flex flex-row justify-content-between flex-md-row flex-column">
+        <div class="col-md-6 pe-2">
+            <div class="table-responsive">
+                <table class="table table-bordered"
+                       id="dataTable"
+                       width="100%"
+                       cellspacing="0">
+                    <tr>
+                        <th width = "50%">Emri</th>
+                        <td width = "50%" id="DataSearching">@Model.FullName</td>
+                    </tr>
+                    <tr>
+                        <th>Fshati</th>
+                        <td id="DataSearching">@Model.Village</td>
+                    </tr>
+                    <tr>
+                        <th>Laggja</th>
+                        <td id="DataSearching">@Model.Neigborhood</td>
+                    </tr>
+                    <tr>
+                        <th>Blloku</th>
+                        <td id="DataSearching">@Model.Block</td>
+                    </tr>
+                    <tr>
+                        <th>Hyrja </th>
+                        <td id="DataSearching">@Model.HouseNo</td>
+                    </tr>
+                    <tr>
+                        <th>Numri i telefonit </th>
+                        <td id="DataSearching">@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Email adresa</th>
+                        <td id="DataSearching">@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Facebook</th>
+                        <td id="DataSearching"><a href="@Model.FacebookLink">@Model.FullName<a /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 pe-2">
+            <div class="table-responsive">
+                <table class="table table-bordered"
+                       id="dataTable"
+                       width="100%"
+                       cellspacing="0">
+                    <tr>
+                        <th width = "50%">Numri i familjareve</th>
+                        <td width = "50%" id="DataSearching">@Model.VotersNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Votues paraprak</th>
+                        <td id="DataSearching">@Model.PreviousVoter</td>
+                    </tr>
+                    <tr>
+                        <th>Votues i tanishem</th>
+                        <td id="DataSearching">@Model.CurrentVoter</td>
+                    </tr>
+                    <tr>
+                        <th>Gjasat e suksesit</th>
+                        <td id="DataSearching">@Model.InitialChance</td>
+                    </tr>
+                    <tr>
+                        <th>Vendi i punes</th>
+                        <td id="DataSearching">@Model.WorkPlace</td>
+                    </tr>
+                    <tr>
+                        <th>Statusi administrativ</th>
+                        <td id="DataSearching">@Model.AdministrativeUnit</td>
+                    </tr>
+                    <tr>
+                        <th>Pozita</th>
+                        <td id="DataSearching">@Model.Duty</td>
+                    </tr>
+                    <tr>
+                        <th>Qendra e votimit</th>
+                        <td id="DataSearching">@Model.PollCenter</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-    <div class="col-6 pe-2">
-        <div class="table-responsive">
-            <table class="table table-bordered"
-                   id="dataTable"
-                   width="100%"
-                   cellspacing="0">
-                <tr>
-                    <th>Numri i familjareve</th>
-                    <td id="DataSearching">@Model.VotersNumber</td>
-                </tr>
-                <tr>
-                    <th>Votues paraprak</th>
-                    <td id="DataSearching">@Model.PreviousVoter</td>
-                </tr>
-                <tr>
-                    <th>Votues i tanishem</th>
-                    <td id="DataSearching">@Model.CurrentVoter</td>
-                </tr>
-                <tr>
-                    <th>Gjasat e suksesit</th>
-                    <td id="DataSearching">@Model.InitialChance</td>
-                </tr>
-                <tr>
-                    <th>Vendi i punes</th>
-                    <td id="DataSearching">@Model.WorkPlace</td>
-                </tr>
-                <tr>
-                    <th>Statusi administrativ</th>
-                    <td id="DataSearching">@Model.AdministrativeUnit</td>
-                </tr>
-                <tr>
-                    <th>Pozita</th>
-                    <td id="DataSearching">@Model.Duty</td>
-                </tr>
-                <tr>
-                    <th>Qendra e votimit</th>
-                    <td id="DataSearching">@Model.PollCenter</td>
-                </tr>
-            </table>
+
+    <div class="d-flex flex-row align-content-around flex-md-row flex-column">
+        <div class="col-md-6 mb-2 pe-2">
+            <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
+            <select class="form-select" id="generaldemand">
+                <option disabled selected>Arsyeja percaktuese</option>
+                <option value="shto">Shto +</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-2 pe-2">
+            <label class="pt-3">A mund ta menaxhoni personin?</label>
+            <select class="form-select" id="inputGroupSelect02">
+                <option disabled selected>A mund ta menaxhoni personin?</option>
+                <option value="1">Po</option>
+                <option value="1">Jo</option>
+            </select>
         </div>
     </div>
-
-
-</div>
-
-<div class="d-flex flex-row align-content-around">
-
-    <div class="col-6 pe-2">
-        <label class="pt-3">Zgjedh/Shto një arsyeje përcaktuese </label>
-        <select class="form-select" id="generaldemand">
-
-            <option disabled selected>Arsyeja percaktuese</option>
-            <option value="shto">Shto +</option>
- @*           <option value="1">Bindja Politike</option>
-            <option value="2">Biznesi</option>
-            <option value="3">Familja</option>
-            <option value="4">Puna/Biznesi</option>*@
-
-
-        </select>
-
+    <div class="form-group pe-2">
+        <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet qe planifikoni te ndermerrni per te menaxhuar ndryshimin</label>
+        <textarea type="text" class="form-control" id="AktivitetePerNdryshim"> </textarea>
     </div>
-    <div class="col-6 pe-2">
-        <label class="pt-3">A mund ta menaxhoni personin?</label>
-        <select class="form-select" id="inputGroupSelect02">
-            <option disabled selected>A mund ta menaxhoni personin?</option>
-            <option value="1">Po</option>
-            <option value="1">Jo</option>
-        </select>
+    <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
+        <div class="col-md-6 mb-2 pe-2">
+            <label class="pt-3">A keni nevojë për ndihmë?</label>
+            <select class="form-select" id="gethelp">
+                <option disabled selected>A keni nevoje per ndihme </option>
+                <option value="#">Po</option>
+                <option value="#">Jo</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-2 pe-2">
+
+            <label class="pt-3">Zgjedh/Shto ndihmen e nevojshme</label>
+            <select class="form-select" id="inputGroupSelect03">
+                <option disabled selected>Ndihma e nevojshme</option>
+                <option value="shto">Shto +</option>
+            </select>
+        </div>
     </div>
-</div>
-<div class="form-group pe-2">
-    <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet qe planifikoni te ndermerrni per te menaxhuar ndryshimin</label>
-    <textarea type="text" class="form-control" id="AktivitetePerNdryshim"> </textarea>
-</div>
-<div class="d-flex flex-row align-content-around pt-2">
-    <div class="col-6 pe-2">
-        <label class="pt-3">A keni nevojë për ndihmë?</label>
-        <select class="form-select" id="gethelp">
-            <option disabled selected>A keni nevoje per ndihme </option>
-            <option value="#">Po</option>
-            <option value="#">Jo</option>
-
-        </select>
+    <div class="form-group pe-2 pb-3 ">
+        <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
+        <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
     </div>
-    <div class="col-6 pe-2">
-
-        <label class="pt-3">Zgjedh/Shto ndihmen e nevojshme</label>
-        <select class="form-select" id="inputGroupSelect03">
-
-            <option disabled selected>Ndihma e nevojshme</option>
-            <option value="shto">Shto +</option>
-            
-
-        </select>
+    <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+        <a asp-action="Cancel" class="btn btn-primary">Anulo</a>&nbsp &nbsp
+        <a asp-action="SaveAndOpenCase" class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
+        <a asp-action="SaveAndClose" class="btn btn-primary">Ruaj dhe mbyll</a>
     </div>
-</div>
-<div class="form-group pe-2 pb-3 ">
-    <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
-    <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
-</div>
-<div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-
-    <a asp-action="Cancel"  class="btn btn-primary">Anulo</a>&nbsp &nbsp
-    <a asp-action="SaveAndOpenCase"  class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
-    <a asp-action="SaveAndClose"  class="btn btn-primary">Ruaj dhe mbyll</a>
-</div>
 
