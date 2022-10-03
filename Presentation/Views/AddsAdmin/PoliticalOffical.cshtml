@@ -159,7 +159,12 @@
                            
                             
                     
-                        <button type="submit" id="test" class="btn btn-primary">Regjistro</button>
+                       <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+
+                            <a asp-action="CancelPoliticalOfficial"  class="btn btn-danger">Anulo</a>&nbsp &nbsp
+                            <a asp-action="SaveAndOpenCasePoliticalOfficial"  class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
+                             <a asp-action="SaveAndClosePoliticalOfficial"  class="btn btn-primary">Ruaj dhe mbyll</a>
+                        </div>
                     </form>
                     <div class="col-12">
                         <h5 class="card-title pt-4">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
