@@ -1,4 +1,5 @@
 ﻿@using Domain.Data.Entities
+
 @model ProfileVM
 @{
     Layout = "_DashboardLayout"; 
@@ -21,10 +22,10 @@
                         </div>
                         <div class="text-center pt-4">
                             <p><strong>Nr.Telefonit: </strong>@Model.PhoneNo</p>
-                            <p><strong>Email Address: </strong>@Model.Email</p>
-                            <p><strong>Qyteti: </strong>@Model.Municipality</p>
-                            <p><strong>Fshati: </strong>@Model.Village</p>
-                            <p><strong>Pozita në parti: </strong></p>
+                            <p><strong>Email Adresa: </strong>@Model.Email</p>
+                            <p><strong>Qyteti      : </strong>@Model.Municipality</p>
+                            <p><strong>Fshati      : </strong>@Model.Village</p>
+                          @*  <p><strong>Pozita në parti: </strong></p>*@
                             <p><strong>Qendra e votimit: </strong>@Model.PollCenter</p>
                         </div>
 
@@ -40,7 +41,7 @@
                             <img id="frame" src="" class="img-fluid" />
                         </div>
 
-                        <span>Nr.Tel</span>
+                        <span>Numri i telefonit</span>
                         <div class="mb-4 pe-2">
                             <div class=" d-flex align-items-center ">
                                 <div class="col-2">
