@@ -297,13 +297,13 @@ namespace Presentation.Controllers
 
         //fshat
         [Route("getvillagesbymuni")]
-        public async Task<ActionResult> GetVillagesByMuni([FromQuery] int id)
+        public async Task<ActionResult> GetVillagesByMuni([FromQuery] int muniId)
         {
             var userId = await GetUser();
-            var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+            var municipality = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
             int municipalityId;
-            if (!(id <= 0))
-                municipalityId = id;
+            if (!(muniId <= 0))
+                municipalityId = municipality;
             municipalityId = muniId;
 
             var res = await _context.Villages.Where(v => v.MunicipalityId == municipalityId).Select(x => new
