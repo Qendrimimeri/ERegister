@@ -10,6 +10,7 @@ using Application.Models;
 using System.Security.Policy;
 using Appliaction.Repository;
 using Microsoft.AspNetCore.Http;
+using System.Net.Mail;
 
 namespace Infrastructure.Services
 {
@@ -176,8 +177,12 @@ namespace Infrastructure.Services
 
                 // Send Email
                 var emailReques = new MailRequest();
+              
                 emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
-                emailReques.Body = confimrEmailUrs;
+                emailReques.Body = $"" +
+                    $"Llogaria juaj është regjistruar!" +
+                    $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
+                    $"<br><br><strong>E-Register</strong>";
                 emailReques.ToEmail = simpleUser.Email;
 
                 await _mail.SendEmailAsync(emailReques);
@@ -199,7 +204,7 @@ namespace Infrastructure.Services
             // Send Email
             var emailReques = new MailRequest();
             emailReques.Subject = "PBCA: Restarto fjalkalimin.";
-            emailReques.Body = confimrEmailUrs;
+            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
