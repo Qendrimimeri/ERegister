@@ -157,8 +157,8 @@
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
                             <div class="col-sm-6 mb-3 pe-2">
-                                <label>Votues i tanishëm..</label>
-                                <select class="form-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS">
+                                <label>Votues i tanishëm</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
                                     <option disabled selected>Zgjedh partinë...</option>
                                 </select>
                             </div>
@@ -183,7 +183,7 @@
         </div>
     </div>
 </section>
-@if (User.IsInRole("MunicipalityAdmin"))
+@*@if (User.IsInRole("MunicipalityAdmin"))
 {
     @section Scripts
     {
@@ -193,7 +193,7 @@
         </script>
     }
 }else
-{
+{*@
     @section Scripts
     {
 <script>
@@ -212,81 +212,81 @@
         if(selectedMunis != null){
             $('#neigborhoods-container').show();
             $('#neigborhoodsVillage-container').hide();
+        }
+    });
 
-            $('#villages').change(function () {
-                var selectedVillage = $(this).children('option:selected').val();
-                if (selectedVillage != null) {
-                    $('#neigborhoods-container').hide();
-                    $('#neigborhoodsVillage-container').show();
-                }
-            })
-            $('#munis').change(function () {
-                var selectedMunis = $(this).children('option:selected').val();
-                if (selectedMunis != null) {
-                    $('#neigborhoods-container').show();
-                    $('#neigborhoodsVillage-container').hide();
-                }
-            });
+     $('#streetByVillage').hide();
 
+    $('#neighborhoods').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
             $('#streetByVillage').hide();
+            $('#streetByNeighborhood').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedVillages = $(this).children('option:selected').val();
+        if(selectedVillages != null){
+            $('#streetByVillage').show();
+            $('#streetByNeighborhood').hide();
+        }
+    })
 
     $('#pollcenter-villages-container').hide();
 
-            $('#neigborhoods').change(function () {
-                var selectedVillage = $(this).children('option:selected').val();
-                if (selectedVillage != null) {
-                    $('#pollcenter-villages-container').hide();
-                    $('#pollcenter-neighborhood-container').show();
-                }
-            })
-            $('#villages').change(function () {
-                var selectedNeighborhood = $(this).children('option:selected').val();
-                if (selectedNeighborhood != null) {
-                    $('#pollcenter-villages-container').show();
-                    $('#pollcenter-neighborhood-container').hide();
-                }
-            });
-    </script>
-    <script>
+    $('#neigborhoods').change(function(){
+        var selectedVillage = $(this).children('option:selected').val();
+        if(selectedVillage != null){
+            $('#pollcenter-villages-container').hide();
+            $('#pollcenter-neighborhood-container').show();
+        }
+    })
+    $('#villages').change(function(){
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if(selectedNeighborhood != null){
+            $('#pollcenter-villages-container').show();
+            $('#pollcenter-neighborhood-container').hide();
+        }
+    });
+</script>
+  
+<script>
+    const munis = document.querySelector('#munis');
+    const url = "https://localhost:7278/api/service/";
+    getMunis();
 
-        const munis = document.querySelector('#munis');
-        const villages = document.querySelector('#villages');
-        const url = "https://localhost:7278/api/service/";
-        getMunis();
-
-        munis.addEventListener('change', event => {
-            addVillagesToList(event.target.value);
-            addNeigborhoodToList(event.target.value);
-            addBlockToList(event.target.value);
-
-        });
-        villages.addEventListener('change', event => {
-            addNeigborhoodVillageToList(event.target.value);
-            addStreetToList(event.target.value);
-            addPollCenterToList(event.target.value);
-        });
-        neigborhoods.addEventListener('change', event => {
-            addStreetNeighborhoodToList(event.target.value);
-            addPollCenterNeighborhoodToList(event.target.value);
-        })
-        villages.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addVillageToDb();
+    munis.addEventListener('change', event => {
+        addVillagesToList(event.target.value);
+        addNeigborhoodToList(event.target.value);
+        addBlockToList(event.target.value);
+    });
+    villages.addEventListener('change', event=>{
+        addNeigborhoodVillageToList(event.target.value);
+        addStreetToList(event.target.value);
+        addPollCenterToList(event.target.value);
+    });
+    neigborhoods.addEventListener('change', event =>{
+        addStreetNeighborhoodToList(event.target.value);
+        addPollCenterNeighborhoodToList(event.target.value);
+    });
+    villages.addEventListener('change', event => {
+        event.preventDefault()
+          if (event.target.value == 'shto'){
+            addVillageToDb();
+        }
+    });
+    neigborhoods.addEventListener('change', event => {
+        event.preventDefault()
+          if (event.target.value == 'shto') {
+            addNeigborhoodToDb();
             }
-        });
-        neigborhoods.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addNeigborhoodToDb();
-            }
-        });
-        blocks.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addBlockToDb();
-            }
-        });
+    });
+    blocks.addEventListener('change', event => {
+       event.preventDefault()
+          if (event.target.value == 'shto') {
+           addBlockToDb();
+           }
+    });
         streets.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto') {
@@ -305,47 +305,7 @@
                 addStreetNeighborhoodToDb();
             }
         });
-        function getMunis(id) {
-            let endpoint = url + "getmunis";
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => {
-                    data.forEach(x => {
-                        let item = document.createElement("option");
-                        item.value = x.id;
-                        item.innerText = x.name;
-                        munis.appendChild(item);
-                    });
-                });
-        }
-
-    });
-</script>
-<script>
-    const munis = document.querySelector('#munis');
-    const url = "https://localhost:7278/api/service/";
-    getMunis();
-
-    munis.addEventListener('change', event => {
-        addVillagesToList(event.target.value);
-        addNeigborhoodToList(event.target.value);
-        addBlockToList(event.target.value);
-
-    });
-    villages.addEventListener('change', event=>{
-        addNeigborhoodVillageToList(event.target.value);
-        addStreetToList(event.target.value);
-        addPollCenterToList(event.target.value);
-    });
-    neigborhoods.addEventListener('change', event =>{
-        addStreetNeighborhoodToList(event.target.value);
-        addPollCenterNeighborhoodToList(event.target.value);
-    })
-    villages.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto'){
-            addVillageToDb();
-        }
+       
         function addVillagesToList(muniId) {
             villages.innerHTML = '';
             let chooseOption = document.createElement("option");
@@ -444,7 +404,6 @@
                     neigborhoodsVillage.appendChild(item);
                 }));
         }
-    });
     function getMunis(id){
         let endpoint = url + "getmunis";
         let result = fetch(endpoint)
@@ -724,7 +683,7 @@
         }
     </script>
 }
-}
+
 
 
 
