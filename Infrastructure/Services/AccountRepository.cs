@@ -193,7 +193,7 @@ namespace Infrastructure.Services
                 // Send Email
                 var emailReques = new MailRequest();
                 emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
-                emailReques.Body = confimrEmailUrs;
+                emailReques.Body = $"<a href='{confimrEmailUrs}'>Kliko ketu</a>";
                 emailReques.ToEmail = simpleUser.Email;
 
                 await _mail.SendEmailAsync(emailReques);
@@ -215,7 +215,7 @@ namespace Infrastructure.Services
             // Send Email
             var emailReques = new MailRequest();
             emailReques.Subject = "PBCA: Restarto fjalkalimin.";
-            emailReques.Body = confimrEmailUrs;
+            emailReques.Body = $"<a href='{confimrEmailUrs}'>Kliko ketu</a>";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
