@@ -252,46 +252,44 @@
         }
     });
 </script>
-    <script>
+  
+<script>
+    const munis = document.querySelector('#munis');
+    const url = "https://localhost:7278/api/service/";
+    getMunis();
 
-        const munis = document.querySelector('#munis');
-        const villages = document.querySelector('#villages');
-        const url = "https://localhost:7278/api/service/";
-        getMunis();
-
-        munis.addEventListener('change', event => {
-            addVillagesToList(event.target.value);
-            addNeigborhoodToList(event.target.value);
-            addBlockToList(event.target.value);
-
-        });
-        villages.addEventListener('change', event => {
-            addNeigborhoodVillageToList(event.target.value);
-            addStreetToList(event.target.value);
-            addPollCenterToList(event.target.value);
-        });
-        neigborhoods.addEventListener('change', event => {
-            addStreetNeighborhoodToList(event.target.value);
-            addPollCenterNeighborhoodToList(event.target.value);
-        })
-        villages.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addVillageToDb();
+    munis.addEventListener('change', event => {
+        addVillagesToList(event.target.value);
+        addNeigborhoodToList(event.target.value);
+        addBlockToList(event.target.value);
+    });
+    villages.addEventListener('change', event=>{
+        addNeigborhoodVillageToList(event.target.value);
+        addStreetToList(event.target.value);
+        addPollCenterToList(event.target.value);
+    });
+    neigborhoods.addEventListener('change', event =>{
+        addStreetNeighborhoodToList(event.target.value);
+        addPollCenterNeighborhoodToList(event.target.value);
+    });
+    villages.addEventListener('change', event => {
+        event.preventDefault()
+          if (event.target.value == 'shto'){
+            addVillageToDb();
+        }
+    });
+    neigborhoods.addEventListener('change', event => {
+        event.preventDefault()
+          if (event.target.value == 'shto') {
+            addNeigborhoodToDb();
             }
-        });
-        neigborhoods.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addNeigborhoodToDb();
-            }
-        });
-        blocks.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addBlockToDb();
-            }
-        });
+    });
+    blocks.addEventListener('change', event => {
+       event.preventDefault()
+          if (event.target.value == 'shto') {
+           addBlockToDb();
+           }
+    });
         streets.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto') {
@@ -310,47 +308,7 @@
                 addStreetNeighborhoodToDb();
             }
         });
-        function getMunis(id) {
-            let endpoint = url + "getmunis";
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => {
-                    data.forEach(x => {
-                        let item = document.createElement("option");
-                        item.value = x.id;
-                        item.innerText = x.name;
-                        munis.appendChild(item);
-                    });
-                });
-        }
-
-    });
-</script>
-<script>
-    const munis = document.querySelector('#munis');
-    const url = "https://localhost:7278/api/service/";
-    getMunis();
-
-    munis.addEventListener('change', event => {
-        addVillagesToList(event.target.value);
-        addNeigborhoodToList(event.target.value);
-        addBlockToList(event.target.value);
-
-    });
-    villages.addEventListener('change', event=>{
-        addNeigborhoodVillageToList(event.target.value);
-        addStreetToList(event.target.value);
-        addPollCenterToList(event.target.value);
-    });
-    neigborhoods.addEventListener('change', event =>{
-        addStreetNeighborhoodToList(event.target.value);
-        addPollCenterNeighborhoodToList(event.target.value);
-    })
-    villages.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto'){
-            addVillageToDb();
-        }
+       
         function addVillagesToList(muniId) {
             villages.innerHTML = '';
             let chooseOption = document.createElement("option");
@@ -449,7 +407,6 @@
                     neigborhoodsVillage.appendChild(item);
                 }));
         }
-    });
     function getMunis(id){
         let endpoint = url + "getmunis";
         let result = fetch(endpoint)
