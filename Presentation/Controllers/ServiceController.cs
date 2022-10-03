@@ -332,13 +332,13 @@ namespace Presentation.Controllers
 
         //Lagje
         [Route("getneighborhoodsbymuni")]
-        public async Task<ActionResult> GetNeighborhoodByMuni([FromQuery] int id)
+        public async Task<ActionResult> GetNeighborhoodByMuni([FromQuery] int muniId)
         {
             var userId = await GetUser();
-            var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+            var muni = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
             int municipalityId;
-            if (!(id <= 0))
-                municipalityId = id;
+            if (!(muniId <= 0))
+                municipalityId = muni;
             municipalityId = muniId;
             var res = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId)
                 .Select(x =>
