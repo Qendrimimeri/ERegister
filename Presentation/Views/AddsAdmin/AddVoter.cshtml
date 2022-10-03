@@ -160,8 +160,8 @@
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
                             <div class="col-sm-6 mb-3 pe-2">
-                                <label>Votues i tanishëm..</label>
-                                <select class="form-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS">
+                                <label>Votues i tanishëm</label>
+                                <select class="form-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
                                     <option disabled selected>Zgjedh partinë...</option>
                                 </select>
                             </div>
@@ -729,7 +729,7 @@
         }
     </script>
 }
-}
+
 
 
 
