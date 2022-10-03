@@ -47,8 +47,8 @@
                             <input type="text" class="form-control" asp-for="Facebook" id="InputFacebook">
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
-                          @*  @if (User.IsInRole("SuperAdmin"))
-                            {*@
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
                                 <div class="col-md-4 mb-2 pe-2">
                                     <label asp-for="Municipality">Qyteti</label>
                                     <select class="form-select" asp-for="Municipality" id="munis">
@@ -77,7 +77,7 @@
                                         <option disabled selected>Zgjedh lagjen..</option>
                                     </select>
                                 </div>
-@*
+
                             }
 
                             @if (User.IsInRole("MunicipalityAdmin"))
@@ -96,7 +96,7 @@
                                         <option disabled selected>Zgjedh lagjen..</option>
                                     </select>
                                 </div>
-                            }*@
+                            }
 
 
 
