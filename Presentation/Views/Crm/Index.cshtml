@@ -11,9 +11,9 @@
                 <div class="card-body p-5">
 
                     <div class="d-flex flex-row pe-2">
-                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
+                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
                                aria-describedby="button-addon1" id="SearchBtn">
-                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
+                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Konfirmo</button>
                     </div>
                     <br />
                     <style>
@@ -71,12 +71,12 @@
 
                SpecificReason.innerHTML = '';
         let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
+        chooseOption.innerText = "Zgjedh Arsye Percaktuese...";
         chooseOption.selected = true;
         chooseOption.disabled = true;
         SpecificReason.appendChild(chooseOption);
         let addOption = document.createElement("option");
-        addOption.innerText = "Shto arsye përcaktuese +";
+        addOption.innerText = "Shto Arsye Percaktuese +";
         addOption.value = "shto";
         SpecificReason.appendChild(addOption);
 
@@ -123,12 +123,12 @@
 
         SpecificDemand.innerHTML = '';
         let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedhni ndihmën e nevojshme...";
+        chooseOption.innerText = "Zgjedh Ndihmen e Nevojshme...";
         chooseOption.selected = true;
         chooseOption.disabled = true;
         SpecificDemand.appendChild(chooseOption);
         let addOption = document.createElement("option");
-        addOption.innerText = "Shto ndihmën e nevojshme +";
+        addOption.innerText = "Shto Ndihmen e Nevojshme +";
         addOption.value = "shto";
         SpecificDemand.appendChild(addOption);
 
