@@ -2,10 +2,9 @@
 @{
     Layout = "_DashboardLayout";
 }
-
 @model RegisterVM;
-
 <section class="section">
+   
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -29,9 +28,7 @@
                                 </div>
                                 <div class="col-10 ps-2">
                                     <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="49123123">
-
                                 </div>
-
                             </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                             <span class="text-danger"></span>
