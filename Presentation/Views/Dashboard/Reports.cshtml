@@ -21,16 +21,15 @@
                         </style>
                         <div class="d-flex flex-row justify-content-between flex-md-row flex-column">
                             <div class="col-md-6 pe-2">
-
                                 <div>
                                     <p>Të dhënat nga regjistrimi</p>
-                                    <table class="table table-bordered table table-responsive"
+                                    <table class="table table-bordered table table-responsive-sm"
                                            id="dataTable"
                                            width="100%"
                                            cellspacing="0">
                                         <tr>
-                                            <th>Emri dhe Mbiemri</th>
-                                            <td>@Model.FullName</td>
+                                            <th width = "50%">Emri dhe Mbiemri</th>
+                                            <td width = "50%">@Model.FullName</td>
                                             
                                         </tr>
                                         <tr>
@@ -59,10 +58,9 @@
                                            width="100%"
                                            cellspacing="0">
                                         <tr>
-                                            <th style="font-size:15px;">Votues i tanishëm</th>
-                                            <td>
-
-                                                <select asp-for="CurrentVoter" asp-items="@ViewBag.PS" class="form border-0"
+                                            <th style="font-size:15px;" width = "50%">Votues i tanishëm</th>
+                                            <td width = "50%">
+                                                <select asp-for="CurrentVoter" asp-items="@ViewBag.PS" class="w-100 form border-0"
                                                         id="inputGroupSelect01">
                                                     <option disabled selected>Zgjedh Partine..</option>
                                                 </select>
@@ -74,7 +72,7 @@
                                             <td>
 
 
-                                                <select asp-for="ActualChances" asp-items="@ViewBag.successChances" class="form border-0">
+                                                <select asp-for="ActualChances" asp-items="@ViewBag.successChances" class="w-100 form border-0">
                                                     <option disabled selected>Zgjedh Gjasat e Suksesit..</option>
                                                 </select>
                                             </td>
@@ -84,7 +82,7 @@
                                             <th>Statusi aktual</th>
                                             <td>
 
-                                                <select asp-for="ActualStatus" asp-items="@ViewBag.actualStatus" class="form border-0"
+                                                <select asp-for="ActualStatus" asp-items="@ViewBag.actualStatus" class="w-100 form border-0"
                                                         id="inputGroupSelect01">
                                                     <option disabled selected>Zgjedh Statusin..</option>
                                                 </select>
