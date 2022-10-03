@@ -198,8 +198,10 @@ namespace Infrastructure.Services
                 emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
+                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
                     $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
                     $"<br><br><strong>E-Register</strong>";
+                    
                 emailReques.ToEmail = simpleUser.Email;
 
                 await _mail.SendEmailAsync(emailReques);
