@@ -10,7 +10,10 @@ using Application.Models;
 using System.Security.Policy;
 using Appliaction.Repository;
 using Microsoft.AspNetCore.Http;
-using System.Net.Mail;
+
+using System.Net.Http;
+using System.Security.Claims;
+
 
 namespace Infrastructure.Services
 {
@@ -19,6 +22,7 @@ namespace Infrastructure.Services
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
+        private readonly IHttpContextAccessor _httpContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
@@ -26,7 +30,8 @@ namespace Infrastructure.Services
                                   ILogger logger,
                                   UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
-                                  IMailService mail)
+                                  IMailService mail,
+                                  IHttpContextAccessor httpContext)
                                 : base(context, logger, userManager, signInManager)
         {
             _context = context;
@@ -34,6 +39,7 @@ namespace Infrastructure.Services
             _logger = logger;
             _signInManager = signInManager;
             _mail = mail;
+            _httpContext = httpContext;
         }
 
 
@@ -53,11 +59,17 @@ namespace Infrastructure.Services
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
+            int municipalityId;
+            if (model.Municipality == null)
+                municipalityId = await AdminMunicipalityId();
+            municipalityId = (int)model.Municipality;
+                
+
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
-                MunicipalityId = model.Municipality,
+                MunicipalityId = municipalityId,
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
@@ -122,11 +134,16 @@ namespace Infrastructure.Services
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
+            int municipalityId;
+            if (model.Municipality == null)
+                municipalityId = await AdminMunicipalityId();
+            municipalityId = (int)model.Municipality;
+
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
-                MunicipalityId = model.Municipality,
+                MunicipalityId = municipalityId,
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
@@ -217,7 +234,12 @@ namespace Infrastructure.Services
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
-
+        private async Task<int> AdminMunicipalityId()
+        {
+            var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var res =  ((int)await  _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
+            return res;
+        }
     }
 }
 
