@@ -92,6 +92,8 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var res = await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+                if (!res)
+                    return View();
                 return RedirectToAction("Index", "Home");
             }
             return View();
