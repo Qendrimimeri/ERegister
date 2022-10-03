@@ -100,9 +100,65 @@ namespace Presentation.Controllers
 
             return Ok();
         }
+        
+        //[Route("getkqzresult")]
+        //public ActionResult GetKqzResult() => Ok(_context.Kqzregisters.ToList());
+        //public string GetParti( int id)
+        //{
+        //    string emri;
+        //    var c = _context.PoliticalSubjects.Where(v => v.Id == id).Select(
+        //              x => new
+        //              {
+        //                  emri = x.Name
+        //              }
+        //          );
+
+        //    return c;
+        //}
+
 
         [Route("getkqzresult")]
-        public ActionResult GetKqzResult() => Ok(_context.Kqzregisters.ToList());
+        public ActionResult GetKqzResult([FromQuery] int muniId)
+          => Ok(_context.Kqzregisters.Where(v => v.MunicipalityId == muniId)
+              .Select(x =>
+              new
+              {
+                  Id = x.Id,
+                  NoOfVotes = x.NoOfvotes,
+                  PoliticalSubject = x.PoliticialSubjectId,
+                  Name = x.PoliticialSubject.Name
+                  
+
+              }));
+
+
+        [Route("getkqzresultbyvillage")]
+        public ActionResult GetKqzResultByVillage([FromQuery] int muniId)
+         => Ok(_context.Kqzregisters.Where(v => v.VillageId == muniId)
+             .Select(x =>
+             new
+             {
+                 Id = x.Id,
+                 NoOfVotes = x.NoOfvotes,
+                 PoliticalSubject = x.PoliticialSubjectId,
+                 Name = x.PoliticialSubject.Name
+
+
+             }));
+
+        [Route("getkqzresultbyneighborhood")]
+        public ActionResult GetKqzResultByNeighborhood([FromQuery] int muniId)
+       => Ok(_context.Kqzregisters.Where(v => v.NeighborhoodId == muniId)
+           .Select(x =>
+           new
+           {
+               Id = x.Id,
+               NoOfVotes = x.NoOfvotes,
+               PoliticalSubject = x.PoliticialSubjectId,
+               Name = x.PoliticialSubject.Name
+
+
+           }));
 
 
         [Route("getpoliticalsubjectbyname")]

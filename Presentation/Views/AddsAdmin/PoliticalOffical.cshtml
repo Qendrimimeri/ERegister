@@ -166,50 +166,50 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numri i votuesëve</th>
-                                    <th scope="col">Total : 14600</th>
+                                    <th @*scope="col"*@>Numri i votuesëve</th>
+                                    <th class="w-50 " @*scope="col"*@>Total : <span id="span" class="float-end"> </span></th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="">
                                 <tr>
                                     <th scope="row">VV</th>
-                                    <td>5,500</td>
+                                    <td id="vv"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">LDK</th>
-                                    <td>4,500</td>
+                                    <td id="ldk" class="Votat"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">PDK</th>
-                                    <td colspan="2">4,000</td>
+                                    <td id="pdk" colspan="2" class="Votat"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">AAK</th>
-                                    <td colspan="2">500</td>
+                                    <td id="aak" colspan="2" class="Votat"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">AKR</th>
-                                    <td colspan="2">50</td>
+                                    <td id="akr" colspan="2" class="Votat"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Nisma</th>
-                                    <td colspan="2">30</td>
+                                    <td id="nisma" colspan="2" class="Votat"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Partite serbe</th>
-                                    <td colspan="2">10</td>
+                                    <td id="serbe" colspan="2" class="Votat"></td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Partite joserbe</th>
-                                    <td colspan="2">10</td>
+                                    <td id="joserbe" colspan="2" class="Votat"></td>
 
                                 </tr>
 
@@ -282,21 +282,314 @@
     const munis = document.querySelector('#munis');
     const villages = document.querySelector('#villages');
     const url = "https://localhost:7278/api/service/";
+    var votat = document.getElementsByClassName('Votat');
+    const tabela = document.getElementById('tabela');
+    //var shuma1=0, shuma2=0, shuma3=0, shuma4=0, shuma5, shuma6,shuma7, shuma8;
     getMunis();
+    //getKqzResult();
+
+    async function getKqzResultByMuniId(muniId){
+        let shuma1=0, shuma2=0, shuma3=0, shuma4=0, shuma5=0, shuma6=0, shuma7=0, shuma8=0; 
+        let endpoint = url + "getkqzresult?muniId="+muniId;
+        let result = await fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+
+                 //let tr = document.createelement("tr");
+                 //let th = document.createelement("th");
+                 //let td = document.createelement("td");
+
+                 if(x.politicalSubject==1){
+                     shuma1 += x.noOfVotes;
+                     console.log(shuma1);
+
+                 }else if(x.politicalSubject==2){
+                     shuma2 += x.noOfVotes;
+                                          console.log(shuma2);
+
+
+                 }else if(x.politicalSubject==3){
+                     shuma3 += x.noOfVotes;
+                                          console.log(shuma3);
+
+
+                 }else if(x.politicalSubject==4){
+                     shuma4 += x.noOfVotes;
+                                          console.log(shuma4);
+
+
+                 }else if(x.politicalSubject==5){
+                     shuma5 += x.noOfVotes;
+                                          console.log(shuma5);
+
+
+                 }else if(x.politicalSubject==6){
+                     shuma6 += x.noOfVotes;
+                                          console.log(shuma6);
+
+
+                 }else if(x.politicalSubject==7){
+                     shuma7 += x.noOfVotes;
+                                          console.log(shuma7);
+
+
+                 }else if(x.politicalSubject==8){
+                     shuma8 += x.noOfVotes;
+                                          console.log(shuma8);
+
+
+                 }
+
+                 
+                 
+
+                 //th.innerText = x.name;
+                 //td.innerText = x.noOfVotes;
+                 //tr.appendChild(th);
+                 //tr.appendChild(td);
+                 //tabela.appendChild(tr);
+
+         
+            });
+        });
+
+
+        const vv = document.getElementById('vv');
+        const ldk = document.getElementById('ldk');
+        const aak = document.getElementById('aak');
+        const akr = document.getElementById('akr');
+        const nisma = document.getElementById('nisma');
+        const serbe = document.getElementById('serbe');
+        const joserbe = document.getElementById('joserbe');
+        const pdk = document.getElementById('pdk');
+        const span = document.getElementById('span');
+        
+        
+        total = shuma1+shuma2+shuma3+shuma4+shuma5+shuma6+shuma7+shuma8;
+
+        vv.innerHTML = shuma1;
+        ldk.innerHTML = shuma2;
+        pdk.innerHTML = shuma3;
+        aak.innerHTML = shuma4;
+        akr.innerHTML = shuma5;
+        nisma.innerHTML = shuma6;
+        serbe.innerHTML = shuma7;
+        joserbe.innerHTML = shuma8;
+        span.innerHTML = total;
+
+
+
+        
+    }
+
+       async function getKqzResultByVillageId(muniId){
+        let shuma1=0, shuma2=0, shuma3=0, shuma4=0, shuma5=0, shuma6=0, shuma7=0, shuma8=0; 
+        let endpoint = url + "getkqzresultbyvillage?muniId="+muniId;
+        let result = await fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+
+                 //let tr = document.createelement("tr");
+                 //let th = document.createelement("th");
+                 //let td = document.createelement("td");
+
+                 if(x.politicalSubject==1){
+                     shuma1 += x.noOfVotes;
+                     console.log(shuma1);
+
+                 }else if(x.politicalSubject==2){
+                     shuma2 += x.noOfVotes;
+                                          console.log(shuma2);
+
+
+                 }else if(x.politicalSubject==3){
+                     shuma3 += x.noOfVotes;
+                                          console.log(shuma3);
+
+
+                 }else if(x.politicalSubject==4){
+                     shuma4 += x.noOfVotes;
+                                          console.log(shuma4);
+
+
+                 }else if(x.politicalSubject==5){
+                     shuma5 += x.noOfVotes;
+                                          console.log(shuma5);
+
+
+                 }else if(x.politicalSubject==6){
+                     shuma6 += x.noOfVotes;
+                                          console.log(shuma6);
+
+
+                 }else if(x.politicalSubject==7){
+                     shuma7 += x.noOfVotes;
+                                          console.log(shuma7);
+
+
+                 }else if(x.politicalSubject==8){
+                     shuma8 += x.noOfVotes;
+                                          console.log(shuma8);
+
+
+                 }
+
+                 
+                 
+
+                 //th.innerText = x.name;
+                 //td.innerText = x.noOfVotes;
+                 //tr.appendChild(th);
+                 //tr.appendChild(td);
+                 //tabela.appendChild(tr);
+
+         
+            });
+        });
+
+
+        const vv = document.getElementById('vv');
+        const ldk = document.getElementById('ldk');
+        const aak = document.getElementById('aak');
+        const akr = document.getElementById('akr');
+        const nisma = document.getElementById('nisma');
+        const serbe = document.getElementById('serbe');
+        const joserbe = document.getElementById('joserbe');
+        const pdk = document.getElementById('pdk');
+        const span = document.getElementById('span');
+        
+        
+        total = shuma1+shuma2+shuma3+shuma4+shuma5+shuma6+shuma7+shuma8;
+
+        vv.innerHTML = shuma1;
+        ldk.innerHTML = shuma2;
+        pdk.innerHTML = shuma3;
+        aak.innerHTML = shuma4;
+        akr.innerHTML = shuma5;
+        nisma.innerHTML = shuma6;
+        serbe.innerHTML = shuma7;
+        joserbe.innerHTML = shuma8;
+        span.innerHTML = total;
+
+
+
+        
+    }
+
+     async function getKqzResultByNeighborhoodId(muniId){
+        let shuma1=0, shuma2=0, shuma3=0, shuma4=0, shuma5=0, shuma6=0, shuma7=0, shuma8=0; 
+        let endpoint = url + "getkqzresultbyneighborhood?muniId="+muniId;
+        let result = await fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+
+                 //let tr = document.createelement("tr");
+                 //let th = document.createelement("th");
+                 //let td = document.createelement("td");
+
+                 if(x.politicalSubject==1){
+                     shuma1 += x.noOfVotes;
+                     console.log(shuma1);
+
+                 }else if(x.politicalSubject==2){
+                     shuma2 += x.noOfVotes;
+                                          console.log(shuma2);
+
+
+                 }else if(x.politicalSubject==3){
+                     shuma3 += x.noOfVotes;
+                                          console.log(shuma3);
+
+
+                 }else if(x.politicalSubject==4){
+                     shuma4 += x.noOfVotes;
+                                          console.log(shuma4);
+
+
+                 }else if(x.politicalSubject==5){
+                     shuma5 += x.noOfVotes;
+                                          console.log(shuma5);
+
+
+                 }else if(x.politicalSubject==6){
+                     shuma6 += x.noOfVotes;
+                                          console.log(shuma6);
+
+
+                 }else if(x.politicalSubject==7){
+                     shuma7 += x.noOfVotes;
+                                          console.log(shuma7);
+
+
+                 }else if(x.politicalSubject==8){
+                     shuma8 += x.noOfVotes;
+                                          console.log(shuma8);
+
+
+                 }
+
+                 
+                 
+
+                 //th.innerText = x.name;
+                 //td.innerText = x.noOfVotes;
+                 //tr.appendChild(th);
+                 //tr.appendChild(td);
+                 //tabela.appendChild(tr);
+
+         
+            });
+        });
+
+
+        const vv = document.getElementById('vv');
+        const ldk = document.getElementById('ldk');
+        const aak = document.getElementById('aak');
+        const akr = document.getElementById('akr');
+        const nisma = document.getElementById('nisma');
+        const serbe = document.getElementById('serbe');
+        const joserbe = document.getElementById('joserbe');
+        const pdk = document.getElementById('pdk');
+        const span = document.getElementById('span');
+        
+        
+        total = shuma1+shuma2+shuma3+shuma4+shuma5+shuma6+shuma7+shuma8;
+
+        vv.innerHTML = shuma1;
+        ldk.innerHTML = shuma2;
+        pdk.innerHTML = shuma3;
+        aak.innerHTML = shuma4;
+        akr.innerHTML = shuma5;
+        nisma.innerHTML = shuma6;
+        serbe.innerHTML = shuma7;
+        joserbe.innerHTML = shuma8;
+        span.innerHTML = total;
+
+
+
+        
+    }
+
     munis.addEventListener('change', event => {
         addVillagesToList(event.target.value);
         addNeigborhoodToList(event.target.value);
         addBlockToList(event.target.value);
+        getKqzResultByMuniId(event.target.value);
     });
      villages.addEventListener('change', event=>{
         addNeigborhoodVillageToList(event.target.value);
         addStreetToList(event.target.value);
         addPollCenterToList(event.target.value);
+        getKqzResultByVillageId(event.target.value);
     });
      neigborhoods.addEventListener('change', event =>{
         addStreetNeighborhoodToList(event.target.value);
         addPollCenterNeighborhoodToList(event.target.value);
-    })
+        getKqzResultByNeighborhoodId(event.target.value);
+    });
     villages.addEventListener('change', event => {
         event.preventDefault()
           if (event.target.value == 'shto'){
