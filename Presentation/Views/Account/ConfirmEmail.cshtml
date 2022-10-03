@@ -21,15 +21,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container d-flex justify-content-center text-center pt-5">
-        <img src="~/images/ConfirmedEmail.svg" class="d-block img-fluid rounded" alt="EmailConfirmed image" style="height:450px" loading="lazy">
+    <div class = "pt-5">
+        <div class="container d-flex justify-content-center text-center pt-5 pb-4">
+            <img src="~/images/ConfirmedEmail.svg" class="d-block img-fluid rounded" alt="EmailConfirmed image" style="height:450px" loading="lazy">
+        </div>
+        <div class="container d-flex justify-content-center text-center flex-column pt-5">
+            <h2>Llogaria juaj është konfirmuar!</h2>
+        </div>
+        <div class="container d-flex justify-content-center text-center pt-4">
+            <a class="btn btn-primary text-white fw-bold col-6 col-sm-5 col-md-3 col-lg-2 py-2" asp-controller="Home" asp-action="Index">KYÇU</a>
+        </div>
     </div>
-    <div class="container d-flex justify-content-center text-center flex-column pt-5">
-        <h2>Email juaj është konfirmuar</h2>
-    </div>
-    <div class="container d-flex justify-content-center text-center pt-2">
-        <a class="btn btn-primary text-white fw-bold col-6 col-sm-5 col-md-3 col-lg-2 py-2" asp-controller="Home" asp-action="Index">Kthehu mbrapa</a>
-    </div>
+    
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
