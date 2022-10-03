@@ -36,7 +36,7 @@ namespace Application.ViewModels
         public string Duty { get; set; }
 
 
-        [Required(ErrorMessage ="Ju lutem shkruani numrin e sakte te antareve!")]
+        [Required(ErrorMessage ="Ju lutem shkruani numrin e sakte te antareve!"),Range(1,99,ErrorMessage = "Ju lutem shkruani nje numer real te anetareve te familjes!")]
         public int? FamMembers { get; set; }
         
         [Required]
