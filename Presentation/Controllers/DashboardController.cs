@@ -90,7 +90,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin, MunicipalityAdmin")]
         public IActionResult KqzResult()
         {
             return View();
