@@ -291,7 +291,7 @@
                 </li>
 
             }
-            @if (User.IsInRole("SuperAdmin"))
+            @if (User.IsInRole("SuperAdmin") || User.IsInRole("MunicipalityAdmin"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="KqzResult">
