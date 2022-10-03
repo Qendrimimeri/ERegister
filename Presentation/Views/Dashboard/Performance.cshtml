@@ -19,8 +19,8 @@
     <div class="table">
         <table class="table text-center table-striped table-hover table w-auto small"id="test">
             <thead>
-                <tr>
-                    <th scope="col">Id</th>
+                <tr style = "font-size:12px;" class = "justify-content-center">
+                    <th scope="col">#</th>
                     <th scope="col">Qyteti</th>
                     <th scope="col">Emri dhe Mbiemri</th>
                     <th scope="col">Numri i votuesve</th>
@@ -38,7 +38,7 @@
           
                 @foreach (var voter in Model)
                 {
-                      <tr>
+                      <tr style = "font-size:13px;">
                     <th scope="row">@(i++)</th>
                     <td>@voter.MunicipalityName</td>
                     <td>@voter.FullName</td>
