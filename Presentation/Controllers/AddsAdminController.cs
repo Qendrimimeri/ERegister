@@ -122,5 +122,9 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult KqzRezult()
+        {
+            return View();
+        }
     }
 }
