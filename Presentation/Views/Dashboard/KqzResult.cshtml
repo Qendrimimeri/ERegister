@@ -10,7 +10,7 @@
                 <div class="col-md-6">
                     <div class="card-body pt-2">
                         <form>
-                            @if (User.IsInRole("SuperAdmin"))
+                             @if (User.IsInRole("KryetarIPartise"))
                             {
                                 <div class="col-12 ">
                                     <label>Qyteti</label>
@@ -114,9 +114,10 @@
                 </div>
             </div>
             <div class="d-flex flex-row justify-content-end pt-3">
-                <a asp-action="Cancel" class="btn btn-danger">Anulo</a>&nbsp &nbsp
-                <a asp-action="SaveAndOpenCase" class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
-                <a asp-action="SaveAndClose" class="btn btn-primary">Ruaj dhe mbyll</a>
+
+                         <button type="submit" class="btn btn-danger pe-2">Anulo</button>&nbsp &nbsp
+                         <button type="submit" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
+                         <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
             </div>
         </div>
 

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 using System.Net.Http;
 using System.Security.Claims;
-using System.Runtime.CompilerServices;
+
 
 namespace Infrastructure.Services
 {
@@ -215,9 +215,6 @@ namespace Infrastructure.Services
         public async Task<bool> ForgotPasswordAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-                return false;
-
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var baseUrl = "https://localhost:7278";
             var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
@@ -230,6 +227,7 @@ namespace Infrastructure.Services
                 $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
+
             return true;
         }
 
@@ -239,7 +237,7 @@ namespace Infrastructure.Services
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
-        private async Task<int> AdminMunicipalityId()
+        public async Task<int> AdminMunicipalityId()
         {
             var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var res =  ((int)await  _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());

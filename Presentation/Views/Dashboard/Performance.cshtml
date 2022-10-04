@@ -13,13 +13,12 @@
     <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="button" class="btn btn-primary" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
 </div>
 <div class="bg-white">
-    <div class="table">
-        <table class="table text-center table-striped table-hover table w-auto small"id="test">
+    <div class="table table-responsive">
+        <table class="table text-center table-striped table-hover small"id="test">
             <thead>
-                <tr style = "font-size:12px;" class = "justify-content-center">
-                    <th scope="col">#</th>
+                <tr style = "font-size:12px;" class = "align-middle">
                     <th scope="col">Qyteti</th>
-                    <th scope="col">Emri dhe Mbiemri</th>
+                    <th style="width: 130px;" scope="col" class="align-middle">Emri dhe Mbiemri</th>
                     <th scope="col">Numri i votuesve</th>
                     <th scope="col">Numri i telefonit</th>
                     <th scope="col">Qendra votimit</th>
@@ -27,16 +26,15 @@
                     <th scope="col">Votues i tanishëm</th>
                     <th scope="col">Gjasat fillestare</th>
                     <th scope="col">Gjasat aktuale</th>
-                    <th scope="col">Statusi aktual</th>
-                    <th class="no-export" scope="col">Menaxho</th>
+                    <th scope="col" style="width: 100px; font-size:11px">Statusi aktual</th>
+                    <th class="no-export" style="font-size:11px">Menaxho</th>
                 </tr>
             </thead>
             <tbody>
           
                 @foreach (var voter in Model)
                 {
-                      <tr style = "font-size:13px;">
-                    <th scope="row">@(i++)</th>
+                <tr style = "font-size:13px;" class = "align-middle">
                     <td>@voter.MunicipalityName</td>
                     <td>@voter.FullName</td>
                     <td>@voter.VotersNumber</td>
@@ -48,7 +46,7 @@
                     <td>@voter.ActualChances</td>
                     <td>@voter.ActualStatus</td>
 
-                    <td><a class="no-export" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id">Edit<i class="fas fa-edit"></i></a></td>
+                    <td><a class="no-export" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
 
                 </tr>
 

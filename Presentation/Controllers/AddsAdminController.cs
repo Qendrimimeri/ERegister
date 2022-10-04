@@ -20,7 +20,7 @@ namespace Presentation.Controllers
             _unitOfWork = unitOfWork;
             _httpContext = httpContext;
         }
-
+        [Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
         public async Task<IActionResult> AddVoter()
         {
             ViewBag.PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
@@ -60,7 +60,7 @@ namespace Presentation.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> PoliticalOffical()
         {
             ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
@@ -102,15 +102,15 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
         {
-            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
-            await _unitOfWork.Done();
+           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
+             await _unitOfWork.Done();
             TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("Index", "Dashboard");
         }
 
         public async Task<IActionResult>SaveAndOpenCase(ApplicationUser appuser)
         {
-            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
             await _unitOfWork.Done();
             TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("AddVoter");
@@ -124,7 +124,7 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> SaveAndClosePoliticalOfficial(ApplicationUser appuser)
         {
-            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
             await _unitOfWork.Done();
             TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("Index", "Dashboard");
@@ -132,7 +132,7 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> SaveAndOpenCasePoliticalOfficial(ApplicationUser appuser)
         {
-            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
             await _unitOfWork.Done();
             TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("PoliticalOffical");

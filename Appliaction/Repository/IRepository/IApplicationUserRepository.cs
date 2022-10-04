@@ -18,26 +18,33 @@ namespace Application.Repository.IRepository
 {
     public interface IApplicationUserRepository
     {
+        Task<IList<string>> GetRoles(string email);
         Task<ApplicationUser> GetUserByNameAsync(string name);
         
         Task<List<PersonVM>> GetPersonInfoAsync();
+
         Task<List<VoterDetailsVM>> GetVoterInfoAsync();
 
+        int? GetMunicipalityIdOfUser(string id);
 
         Task<ApplicationUser> FindUserByIdAsync(string id);
 
         Task<IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token);
 
         Task<PersonVM> GetUserByIdAsync(string id);
+
         Task<IdentityResult> AddUserAsync(ApplicationUser user);
 
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user);
 
         Claim Profile();
+
         Task<ProfileVM> GetProfileDetails(string email);
 
         Task<bool> EditProfileDetails(ProfileVM user, string fullPath);
+
         Task<bool> EditUserProfile(ProfileVM user);
+
         Task<List<RoleModel>> GetAllRolesAsync();
 
 
