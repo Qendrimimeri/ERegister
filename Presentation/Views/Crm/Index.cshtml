@@ -13,7 +13,7 @@
                     <div class="d-flex flex-row pe-2">
                         <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
                                aria-describedby="button-addon1" id="SearchBtn">
-                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
+                        <button id="butoni" class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
                     </div>
                     <br />
                     <style>
@@ -45,6 +45,12 @@
 
  const url = "https://localhost:7278/api/service/";
 
+   const input = document.getElementById('SearchBtn');
+     input.addEventListener('keypress', event=>{
+         if(event.key == 'Enter'){
+             document.getElementById('butoni').click();
+         }
+     })
 
       function SetVoters(){
                   let name = $('#SearchBtn').val();

@@ -1,5 +1,9 @@
 ﻿@model VoterDetailsVM
 
+if(SearchBtn.val() == null){
+    <small>Ky perdorues nuk ekziston!</small>
+}
+else {
     <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
         <div class="col-lg-6 pe-2">
             <div class="table-responsive">
@@ -146,3 +150,6 @@
 </div>
 
 
+
+
+}
