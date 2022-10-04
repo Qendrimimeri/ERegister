@@ -7,11 +7,11 @@
 <section class="section">
 
   <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link link-secondary" id="klasa1" href="">Regjistro Zyrtarë</a>
+  <li class="nav-item ">
+    <a class="nav-link link-secondary active" id="klasa1" href="">Regjistro Zyrtarë</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active link-secondary" id="klasa2" aria-current="page" href="">Rezultatet e KQZ</a>
+    <a class="nav-link link-secondary" id="klasa2" aria-current="page" href="">Rezultatet e KQZ</a>
   </li>
   
 </ul>
@@ -299,6 +299,8 @@
         event.preventDefault();
         $('#table').hide();
         $('#forma').show();
+        linku2.classList.remove('active');
+        linku1.classList.add('active');
         //linku1.setAttribute('style','background-color: white' );
 
     });
@@ -307,6 +309,8 @@
         event.preventDefault();
         $('#forma').hide();
         $('#table').show();
+        linku1.classList.remove('active');
+        linku2.classList.add('active');
                 
 
 
