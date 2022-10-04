@@ -66,33 +66,33 @@
                     const SpecificReason = document.querySelector('#generaldemand');
 
 
-                    getGeneralDemand();
-                    function getGeneralDemand(id) {
+                    //getGeneralDemand();
+                    //function getGeneralDemand(id) {
 
-                        SpecificReason.innerHTML = '';
-                        let chooseOption = document.createElement("option");
-                        chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
-                        chooseOption.selected = true;
-                        chooseOption.disabled = true;
-                        SpecificReason.appendChild(chooseOption);
-                        let addOption = document.createElement("option");
-                        addOption.innerText = "Shto arsye përcaktuese +";
-                        addOption.value = "shto";
-                        SpecificReason.appendChild(addOption);
+                    //    SpecificReason.innerHTML = '';
+                    //    let chooseOption = document.createElement("option");
+                    //    chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
+                    //    chooseOption.selected = true;
+                    //    chooseOption.disabled = true;
+                    //    SpecificReason.appendChild(chooseOption);
+                    //    let addOption = document.createElement("option");
+                    //    addOption.innerText = "Shto arsye përcaktuese +";
+                    //    addOption.value = "shto";
+                    //    SpecificReason.appendChild(addOption);
 
-                        let endpoint = url + "getgeneraldemand";
-                        let result = fetch(endpoint)
-                            .then(res => res.json())
-                            .then(data => {
-                                data.forEach(x => {
-                                    let item = document.createElement("option");
-                                    item.value = x.id;
-                                    item.innerText = x.specificReason;
-                                    SpecificReason.appendChild(item);
-                                });
-                            });
-                    }
-                    getHelp();
+                    //    let endpoint = url + "getgeneraldemand";
+                    //    let result = fetch(endpoint)
+                    //        .then(res => res.json())
+                    //        .then(data => {
+                    //            data.forEach(x => {
+                    //                let item = document.createElement("option");
+                    //                item.value = x.id;
+                    //                item.innerText = x.specificReason;
+                    //                SpecificReason.appendChild(item);
+                    //            });
+                    //        });
+                    //}
+                    //getHelp();
 
 
 
@@ -119,31 +119,31 @@
                     //        villages.appendChild(item);
                     //    }));
                     //}
-                    function getHelp(id) {
+                    //function getHelp(id) {
 
-                        SpecificDemand.innerHTML = '';
-                        let chooseOption = document.createElement("option");
-                        chooseOption.innerText = "Zgjedhni ndihmën e nevojshme...";
-                        chooseOption.selected = true;
-                        chooseOption.disabled = true;
-                        SpecificDemand.appendChild(chooseOption);
-                        let addOption = document.createElement("option");
-                        addOption.innerText = "Shto ndihmën e nevojshme +";
-                        addOption.value = "shto";
-                        SpecificDemand.appendChild(addOption);
+                    //    SpecificDemand.innerHTML = '';
+                    //    let chooseOption = document.createElement("option");
+                    //    chooseOption.innerText = "Zgjedhni ndihmën e nevojshme...";
+                    //    chooseOption.selected = true;
+                    //    chooseOption.disabled = true;
+                    //    SpecificDemand.appendChild(chooseOption);
+                    //    let addOption = document.createElement("option");
+                    //    addOption.innerText = "Shto ndihmën e nevojshme +";
+                    //    addOption.value = "shto";
+                    //    SpecificDemand.appendChild(addOption);
 
-                        let endpoint = url + "getgeneraldemand";
-                        let result = fetch(endpoint)
-                            .then(res => res.json())
-                            .then(data => {
-                                data.forEach(x => {
-                                    let item = document.createElement("option");
-                                    item.value = x.id;
-                                    item.innerText = x.specificDemand;
-                                    SpecificDemand.appendChild(item);
-                                });
-                            });
-                    }
+                    //    let endpoint = url + "getgeneraldemand";
+                    //    let result = fetch(endpoint)
+                    //        .then(res => res.json())
+                    //        .then(data => {
+                    //            data.forEach(x => {
+                    //                let item = document.createElement("option");
+                    //                item.value = x.id;
+                    //                item.innerText = x.specificDemand;
+                    //                SpecificDemand.appendChild(item);
+                    //            });
+                    //        });
+                    //}
                     function addhelp() {
                         let endpoint = url + "GetNeedHelp";
                         let input = prompt("Shto Ndihmen e Nevojshme:");
