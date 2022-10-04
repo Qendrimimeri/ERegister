@@ -1,8 +1,17 @@
-﻿@using Application.ViewModels
+﻿@using Application.Repository
+@using Application.ViewModels
+@using Domain.Data.Entities
 @{
     Layout = "_DashboardLayout";
 }
 @model RegisterVM;
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+@inject IUnitOfWork _unitOfWork;
+@{
+    var userId = await _userManager.FindByNameAsync(User.Identity.Name);
+    var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var res = userMuniId;
+}
 <section class="section">
    
     <div class="row">
