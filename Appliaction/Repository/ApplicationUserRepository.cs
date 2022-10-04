@@ -105,12 +105,19 @@ namespace Application.Repository
             return result;
         }
 
+        public async Task<IList<string>> GetRoles(string email)
+        {
+            var roles = await _userManager.GetRolesAsync(await GetUserByNameAsync(email));
+
+            return roles;
+        }
+
         public async Task<ApplicationUser> FindUserByIdAsync(string id)
 
             => await _userManager.FindByIdAsync(id);
 
         public async Task<ApplicationUser> GetUserByNameAsync(string name)
-            => await _userManager.FindByNameAsync(name);
+            => await _userManager.FindByEmailAsync(name);
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
         {
