@@ -94,8 +94,49 @@ namespace Presentation.Controllers
         }
 
 
+        public IActionResult Cancel()
+        {
+            TempData["success"] = "U anulua!";
+            return RedirectToAction("AddVoter");
+        }
 
+        public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
+        {
+            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+            await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+            return RedirectToAction("Index", "Dashboard");
+        }
 
+        public async Task<IActionResult>SaveAndOpenCase(ApplicationUser appuser)
+        {
+            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+            await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+            return RedirectToAction("AddVoter");
+        }
+
+        public IActionResult CancelPoliticalOfficial()
+        {
+            TempData["success"] = "U anulua!";
+            return RedirectToAction("PoliticalOffical");
+        }
+
+        public async Task<IActionResult> SaveAndClosePoliticalOfficial(ApplicationUser appuser)
+        {
+            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+            await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        public async Task<IActionResult> SaveAndOpenCasePoliticalOfficial(ApplicationUser appuser)
+        {
+            _unitOfWork.ApplicationUser.UpdateUserAsync(appuser);
+            await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+            return RedirectToAction("PoliticalOffical");
+        }
         public IActionResult AddPoliticalSubject()
         {
 

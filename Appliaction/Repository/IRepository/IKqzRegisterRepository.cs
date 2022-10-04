@@ -9,6 +9,7 @@ namespace Application.Repository.IRepository
 {
     public interface IKqzRegisterRepository :IRepository<Kqzregister>
     {
+        Task<Kqzregister> UpdateKqzAsync(Kqzregister kqz);
 
     }
 }

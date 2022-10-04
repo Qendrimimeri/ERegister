@@ -176,7 +176,12 @@
                                     <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pe-2">Regjistro</button>
+                       <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+
+                             <a asp-action="Cancel"  class="btn btn-danger">Anulo</a>&nbsp &nbsp
+                             <a asp-action="SaveAndOpenCase"  class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
+                            <a asp-action="SaveAndClose"  class="btn btn-primary">Ruaj dhe mbyll</a>
+                        </div>
                     </form>
                 </div>
             </div>
