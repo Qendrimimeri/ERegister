@@ -20,7 +20,7 @@ namespace Presentation.Controllers
             _unitOfWork = unitOfWork;
             _httpContext = httpContext;
         }
-
+        [Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
         public async Task<IActionResult> AddVoter()
         {
             ViewBag.PS = new SelectList( await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
@@ -60,7 +60,7 @@ namespace Presentation.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> PoliticalOffical()
         {
             ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Presentation.Controllers
 
 {
-    [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+    [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
 
     public class CrmController : Controller
     {

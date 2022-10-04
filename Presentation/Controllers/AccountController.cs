@@ -33,19 +33,26 @@ namespace Presentation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM login)
+        
         {
             if (ModelState.IsValid)
             {
                 var res = await _unitOfWork.Account.LoginAsync(login);
-                if (res == true && User.IsInRole("SimpleMember"))
-                    return RedirectToAction("AddVoter", "AddsAdmin");
-                else if (res)
-                    TempData["success"] = "You are Logged in!";
-                    return RedirectToAction("Index", "Dashboard");
-          
+                if (!res)
+                    return RedirectToAction("Index", "Home", ModelState);
+                if (res)
+                    if (User.IsInRole("AnetarIThjeshte"))
+                        return RedirectToAction("AddVoter", "AddsAdmin");
+                    else if (res)
+                    {
+                        TempData["success"] = "You are Logged in!";
+                        return RedirectToAction("Index", "Dashboard");
+                    }
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
             return RedirectToAction("Index", "Home", ModelState);
+
+
         }
 
         public IActionResult AccessDenied()
