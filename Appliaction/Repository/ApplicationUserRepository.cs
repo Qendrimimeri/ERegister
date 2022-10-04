@@ -213,6 +213,12 @@ namespace Application.Repository
 
             return roles;
         }
+
+        public int? GetMunicipalityIdOfUser(string id)
+        {
+            var res = _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).First();
+            return res;
+        }
     }
 
 }
