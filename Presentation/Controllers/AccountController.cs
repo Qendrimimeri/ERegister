@@ -54,7 +54,6 @@ namespace Presentation.Controllers
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }
-                
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
             return RedirectToAction("Index", "Home", ModelState);
@@ -103,10 +102,9 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var res = await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
-                if (!res)
-                    return View();
-                return RedirectToAction("Index", "Home");
+                await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+                model.IsEmailSent = true;
+                return RedirectToAction("forgot", "home", model);
             }
             return View();
         }
