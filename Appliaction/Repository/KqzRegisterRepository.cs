@@ -21,5 +21,10 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
+
+        public Task<Kqzregister> UpdateKqzAsync(Kqzregister kqz)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
