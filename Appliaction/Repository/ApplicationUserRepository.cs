@@ -39,8 +39,7 @@ namespace Application.Repository
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName = person.Address.Municipality.Name,
-                PollCenter = person.Address.PollCenter.CenterName,
-
+                PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
@@ -213,6 +212,12 @@ namespace Application.Repository
                     roles.Add(new RoleModel { Key = role.Name, Value = role.Name });
 
             return roles;
+        }
+
+        public int? GetMunicipalityIdOfUser(string id)
+        {
+            var res = _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).First();
+            return res;
         }
     }
 
