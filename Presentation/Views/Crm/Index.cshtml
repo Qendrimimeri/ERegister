@@ -13,11 +13,11 @@
                     <div class="d-flex flex-row pe-2">
                         <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
                                aria-describedby="button-addon1" id="SearchBtn">
-<<<<<<< HEAD
-                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Konfirmo</button>
-=======
-                        <button id="butoni" class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
->>>>>>> 5a54e4663e9eb73865947b0241f7b8935053b546
+
+                       &nbsp &nbsp &nbsp
+
+                        <button id="butoni" class="btn btn-primary text-white" onclick="SetVoters()" style="width:150px;">   Kërko  </button>
+
                     </div>
                     <br />
                     <style>
@@ -71,7 +71,6 @@
                     const SpecificReason = document.querySelector('#generaldemand');
 
 
-<<<<<<< HEAD
                SpecificReason.innerHTML = '';
         let chooseOption = document.createElement("option");
         chooseOption.innerText = "Zgjedh Arsye Percaktuese...";
@@ -82,10 +81,10 @@
         addOption.innerText = "Shto Arsye Percaktuese +";
         addOption.value = "shto";
         SpecificReason.appendChild(addOption);
-=======
+
                     getGeneralDemand();
                     function getGeneralDemand(id) {
->>>>>>> 5a54e4663e9eb73865947b0241f7b8935053b546
+
 
                         SpecificReason.innerHTML = '';
                         let chooseOption = document.createElement("option");
@@ -218,7 +217,7 @@
 
                 }
             });
-<<<<<<< HEAD
+
         });
     }
     getHelp();
@@ -297,8 +296,7 @@
              event.preventDefault()
                  if (event.target.value == 'shto'){
             addhelp();
-=======
->>>>>>> 5a54e4663e9eb73865947b0241f7b8935053b546
+
         }
 
 
