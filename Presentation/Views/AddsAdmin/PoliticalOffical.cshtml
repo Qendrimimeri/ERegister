@@ -11,14 +11,6 @@
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
 }
-<style>
-    .form-select option{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 30px !important;
-}
-</style>
 <section class="section">
  <ul class="nav nav-tabs">
   <li class="nav-item">
@@ -66,7 +58,7 @@
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
 
-                            @if (User.IsInRole("SuperAdmin"))
+                            @if (User.IsInRole("KryetarIPartise"))
                             {
                             <div class="col-md-4 mb-2 pe-2">
                                 <label asp-for="Municipality">Qyteti</label>
@@ -95,7 +87,7 @@
                                 </select>
                             </div>
                             }
-                             @if (User.IsInRole("MunicipalityAdmin"))
+                             @if (User.IsInRole("KryetarIKomunes"))
                             {
                                 <div class="col-md-6 mb-2 pe-2">
                                     <label asp-for="Village">Fshati</label>
@@ -192,7 +184,7 @@
         </div>
     </div>
 </section>
-@if (User.IsInRole("MunicipalityAdmin"))
+@if (User.IsInRole("KryetarIKomunes"))
 {
     @section Scripts
     {

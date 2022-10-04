@@ -62,6 +62,7 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
+                        <h6 class="pt-3">@((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</h6>
 
                 <li class="nav-item dropdown">
 
@@ -125,8 +126,13 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav mb-auto" id="sidebar-nav">
+<<<<<<< HEAD
 
             @if (User.IsInRole("SuperAdmin") || User.IsInRole("MunicipalityAdmin") || User.IsInRole("LocalAdmin"))
+=======
+            
+               @if(User.IsInRole("KryetarIPartise")|| User.IsInRole("KryetarIKomunes")|| User.IsInRole("KryetarIFshatit"))
+>>>>>>> a161948424d1280f9d0e3333ea78d8fd825c8c17
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
@@ -164,7 +170,15 @@
                     </ul>
                 </li>
             }
+<<<<<<< HEAD
             @if (User.IsInRole("SimpleMember"))
+=======
+
+    
+  
+
+                   @if (User.IsInRole("AnetarIThjeshte"))
+>>>>>>> a161948424d1280f9d0e3333ea78d8fd825c8c17
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="AddsAdmin" asp-action="AddVoter">
@@ -173,7 +187,7 @@
                     </a>
                 </li>
             }
-            @if (User.IsInRole("SuperAdmin") || User.IsInRole("MunicipalityAdmin"))
+            @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="KqzResult">

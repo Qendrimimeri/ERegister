@@ -26,7 +26,7 @@ namespace Infrastructure.Services
 
         public async void Initialize()
         {
-            var roles = new List<string>() { "SuperAdmin", "MunicipalityAdmin", "LocalAdmin", "SimpleMember", "SimpleRole" };
+            var roles = new List<string>() { "KryetarIPartise", "KryetarIKomunes","KryetarIFshatit","AnetarIThjeshte", "SimpleRole" };
 
             foreach (var role in roles)
             {
