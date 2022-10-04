@@ -126,13 +126,8 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav mb-auto" id="sidebar-nav">
-<<<<<<< HEAD
 
-            @if (User.IsInRole("SuperAdmin") || User.IsInRole("MunicipalityAdmin") || User.IsInRole("LocalAdmin"))
-=======
-            
-               @if(User.IsInRole("KryetarIPartise")|| User.IsInRole("KryetarIKomunes")|| User.IsInRole("KryetarIFshatit"))
->>>>>>> a161948424d1280f9d0e3333ea78d8fd825c8c17
+            @if(User.IsInRole("KryetarIPartise")|| User.IsInRole("KryetarIKomunes")|| User.IsInRole("KryetarIFshatit"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
@@ -170,15 +165,8 @@
                     </ul>
                 </li>
             }
-<<<<<<< HEAD
-            @if (User.IsInRole("SimpleMember"))
-=======
 
-    
-  
-
-                   @if (User.IsInRole("AnetarIThjeshte"))
->>>>>>> a161948424d1280f9d0e3333ea78d8fd825c8c17
+            @if (User.IsInRole("AnetarIThjeshte"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="AddsAdmin" asp-action="AddVoter">
