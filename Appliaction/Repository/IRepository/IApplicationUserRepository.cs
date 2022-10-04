@@ -18,6 +18,7 @@ namespace Application.Repository.IRepository
 {
     public interface IApplicationUserRepository
     {
+        Task<IList<string>> GetRoles(string email);
         Task<ApplicationUser> GetUserByNameAsync(string name);
         
         Task<List<PersonVM>> GetPersonInfoAsync();
