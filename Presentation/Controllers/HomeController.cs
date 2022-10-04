@@ -1,4 +1,5 @@
 ﻿using Application.Repository;
+using Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,7 @@ namespace Presentation.Controllers
         public IActionResult Index() => View();
 
         [HttpGet]
-        public  IActionResult Forgot() => View();
+        public  IActionResult Forgot(EmailVM model) => View(model);
 
         public IActionResult AboutUs() => View();
     }

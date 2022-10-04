@@ -101,7 +101,7 @@
     <div class="d-flex flex-row align-content-around flex-md-row flex-column">
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
-            <select class="form-select" id="generaldemand">
+            <select class="form-select" id="generaldemand" asp-items="@ViewBag.ArysjetPercaktues">
               @*  <option disabled selected>Arsyeja percaktuese</option>*@
                 <option value="shto">Shto +</option>
             </select>
@@ -131,8 +131,8 @@
         <div class="col-md-6 mb-2 pe-2">
 
             <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-            <select class="form-select" id="inputGroupSelect03">
-                <option disabled selected>Ndihma e nevojshme</option>
+            <select class="form-select" id="inputGroupSelect03" asp-items="@ViewBag.NdihmaNevojshme">
+               @* <option disabled selected>Ndihma e nevojshme</option>*@
                 <option value="shto">Shto +</option>
             </select>
         </div>
