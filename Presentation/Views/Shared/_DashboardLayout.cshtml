@@ -127,8 +127,9 @@
 
         <ul class="sidebar-nav mb-auto" id="sidebar-nav">
 
+
             
-               @if(User.IsInRole("KryetarIPartise")|| User.IsInRole("KryetarIKomunes")|| User.IsInRole("KryetarIFshatit"))
+           @if(User.IsInRole("KryetarIPartise")|| User.IsInRole("KryetarIKomunes")|| User.IsInRole("KryetarIFshatit"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
@@ -167,11 +168,11 @@
                 </li>
             }
 
+
     
   
 
-                   @if (User.IsInRole("AnetarIThjeshte"))
-
+           @if (User.IsInRole("AnetarIThjeshte"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="AddsAdmin" asp-action="AddVoter">

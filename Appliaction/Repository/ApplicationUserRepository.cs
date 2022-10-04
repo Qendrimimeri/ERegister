@@ -69,6 +69,7 @@ namespace Application.Repository
         {
             var getAllUsers = await _db.Users.Select(person => new VoterDetailsVM()
             {
+
                 Id = person.Id,
                 FullName = person.FullName,
                 Neigborhood = person.Address.Neighborhood.Name,

@@ -11,9 +11,13 @@
                 <div class="card-body p-5">
 
                     <div class="d-flex flex-row pe-2">
-                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
+                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
                                aria-describedby="button-addon1" id="SearchBtn">
-                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
+
+                       &nbsp &nbsp &nbsp
+
+                        <button id="butoni" class="btn btn-primary text-white" onclick="SetVoters()" style="width:150px;">   Kërko  </button>
+
                     </div>
                     <br />
                     <style>
@@ -21,6 +25,7 @@
                             font-weight: 580;
                         }
                     </style>
+                   
 
 
                     <div class="a" id="Tables">
@@ -36,14 +41,14 @@
     {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-
     <script>
-
-
-
-        const url = "https://localhost:7278/api/service/";
+       const url = "https://localhost:7278/api/service/";
+       const input = document.getElementById('SearchBtn');
+       input.addEventListener('keypress', event=>{
+         if(event.key == 'Enter'){
+             document.getElementById('butoni').click();
+         }
+     })
 
 
         function SetVoters() {
@@ -66,8 +71,20 @@
                     const SpecificReason = document.querySelector('#generaldemand');
 
 
+               SpecificReason.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh Arsye Percaktuese...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        SpecificReason.appendChild(chooseOption);
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto Arsye Percaktuese +";
+        addOption.value = "shto";
+        SpecificReason.appendChild(addOption);
+
                     getGeneralDemand();
                     function getGeneralDemand(id) {
+
 
                         SpecificReason.innerHTML = '';
                         let chooseOption = document.createElement("option");
@@ -200,6 +217,86 @@
 
                 }
             });
+
+        });
+    }
+    getHelp();
+
+
+    
+    //function addSpecificReasonToList(muniId){
+    //    SpecificReason.innerHTML = '';
+    //    let chooseOption = document.createElement("option");
+    //    chooseOption.innerText = "Zgjedh fshatin...";
+    //    chooseOption.selected = true;
+    //    chooseOption.disabled = true;
+    //    SpecificReason.appendChild(chooseOption);
+
+    //    let addOption = document.createElement("option");
+    //    addOption.innerText = "Shto fshat te ri...";
+    //    addOption.value = "shto";
+    //    SpecificReason.appendChild(addOption);
+
+    //    let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
+    //    let result = fetch(endpoint)
+    //    .then(res => res.json())
+    //    .then(data => data.forEach(x => {
+    //        let item = document.createElement("option");
+    //        item.value = x.id;
+    //        item.innerText = x.name;
+    //        villages.appendChild(item);
+    //    }));
+    //}
+     function getHelp(id){
+
+        SpecificDemand.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh Ndihmen e Nevojshme...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        SpecificDemand.appendChild(chooseOption);
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto Ndihmen e Nevojshme +";
+        addOption.value = "shto";
+        SpecificDemand.appendChild(addOption);
+
+        let endpoint = url + "getgeneraldemand";
+        let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.specificDemand;
+                SpecificDemand.appendChild(item);
+            });
+        });
+    }
+       function addhelp(){
+        let endpoint = url + "GetNeedHelp";
+        let input = prompt("Shto Ndihmen e Nevojshme:");
+        if(input == ''){
+            addhelp();
+        }
+        //let selectedMuni = $('#munis').val();
+        //let sm = document.querySelector("#inputGroupSelect03").value;
+        fetch(endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                
+            },
+            method: 'post',
+            body: JSON.stringify({SpecificDemand: input})
+        }).then(() => getHelp());
+
+    }
+
+              SpecificDemand.addEventListener('change', event => {
+             event.preventDefault()
+                 if (event.target.value == 'shto'){
+            addhelp();
+
         }
 
 
