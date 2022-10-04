@@ -6,23 +6,19 @@
 @{
     Layout = "_DashboardLayout";
 }
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-<script src="html2pdf.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="btn float-end d-flex justify-content-end">
     <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="button" class="btn btn-primary" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
 </div>
 <div class="bg-white">
-    <div class="table">
-        <table class="table text-center table-striped table-hover table w-auto small"id="test">
+    <div class="table table-responsive">
+        <table class="table text-center table-striped table-hover small"id="test">
             <thead>
-                <tr>
-                    <th scope="col">Id</th>
+                <tr style = "font-size:12px;" class = "align-middle">
                     <th scope="col">Qyteti</th>
-                    <th scope="col">Emri dhe Mbiemri</th>
+                    <th style="width: 130px;" scope="col" class="align-middle">Emri dhe Mbiemri</th>
                     <th scope="col">Numri i votuesve</th>
                     <th scope="col">Numri i telefonit</th>
                     <th scope="col">Qendra votimit</th>
@@ -30,16 +26,15 @@
                     <th scope="col">Votues i tanishëm</th>
                     <th scope="col">Gjasat fillestare</th>
                     <th scope="col">Gjasat aktuale</th>
-                    <th scope="col">Statusi aktual</th>
-                    <th scope="col">Menaxho</th>
+                    <th scope="col" style="width: 100px; font-size:11px">Statusi aktual</th>
+                    <th class="no-export" style="font-size:11px">Menaxho</th>
                 </tr>
             </thead>
             <tbody>
           
                 @foreach (var voter in Model)
                 {
-                      <tr>
-                    <th scope="row">@(i++)</th>
+                <tr style = "font-size:13px;" class = "align-middle">
                     <td>@voter.MunicipalityName</td>
                     <td>@voter.FullName</td>
                     <td>@voter.VotersNumber</td>
@@ -50,7 +45,9 @@
                     <td>@voter.InitialChances</td>
                     <td>@voter.ActualChances</td>
                     <td>@voter.ActualStatus</td>
-                    <td><a class="" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
+
+                    <td><a class="no-export" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
+
                 </tr>
 
                 }
@@ -69,18 +66,30 @@
              XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
         }
        function ExportToPdf() {
-            html2canvas(document.getElementById('test'), {
+            let tableClone = $('#test');
+                    tableClone
+                    .find(".no-export")
+                    .each(function(){
+                        $(this).hide();
+                    });
+                    //$("body").html(tableClone);
+                     html2canvas(document.getElementById('test'), {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
+                      location.reload();
+
                     var docDefinition = {
                         content: [{
                             image: data,
                             width: 500
                         }]
+
                     };
-                    pdfMake.createPdf(docDefinition).download("Table.pdf");
+                     
+                    pdfMake.createPdf(docDefinition).download("Table.pdf"); 
+
                 }
             });
+
         }
 </script>
-

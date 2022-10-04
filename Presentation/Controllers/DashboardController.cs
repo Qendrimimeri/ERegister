@@ -95,6 +95,27 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        public IActionResult Cancel()
+        {
+            TempData["success"] = "U anulua!";
+            return RedirectToAction("KqzResult");
+        }
+
+        public async Task<IActionResult> SaveAndClose(Kqzregister appuser)
+        {
+            _unitOfWork.KqzRegister.Update(appuser);
+            await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        public async Task<IActionResult> SaveAndOpenCase(Kqzregister appuser)
+        {
+            _unitOfWork.KqzRegister.Update(appuser);
+            await _unitOfWork.Done();
+            TempData["success"] = "U ruajt me sukses!";
+            return RedirectToAction("KqzResult");
+        }
 
         [HttpGet]
         public async Task<IActionResult> BusinessUserProfile()

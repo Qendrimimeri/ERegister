@@ -1,8 +1,17 @@
-﻿@using Application.ViewModels
+﻿@using Application.Repository
+@using Application.ViewModels
+@using Domain.Data.Entities
 @{
     Layout = "_DashboardLayout";
 }
 @model RegisterVM;
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+@inject IUnitOfWork _unitOfWork;
+@{
+    var userId = await _userManager.FindByNameAsync(User.Identity.Name);
+    var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var res = userMuniId;
+}
 <section class="section">
    
     <div class="row">
@@ -176,7 +185,12 @@
                                     <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pe-2">Regjistro</button>
+                       <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+                            <button type="submit" class="btn btn-danger pe-2">Anulo</button>&nbsp &nbsp
+                         <button type="submit" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
+                              <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+
+                       </div>
                     </form>
                 </div>
             </div>
