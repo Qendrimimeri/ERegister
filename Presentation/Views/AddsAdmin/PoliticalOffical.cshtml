@@ -5,12 +5,23 @@
 
 
 <section class="section">
+
+     <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link link-secondary" id="klasa1" href="">Regjistro Zyrtarë</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active link-secondary" id="klasa2" aria-current="page" href="">Rezultatet e KQZ</a>
+  </li>
+  
+</ul>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body p-5">
                     <h5 class="card-title">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
-                    <form asp-action="PoliticalOffical" method="post">
+                    <form asp-action="PoliticalOffical" method="post" id="forma">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
                         <div class="mb-4 d-flex justify-content-between">
@@ -161,7 +172,7 @@
                     
                         <button type="submit" id="test" class="btn btn-primary">Regjistro</button>
                     </form>
-                    <div class="col-12">
+                    <div class="col-12" id="table">
                         <h5 class="card-title pt-4">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
                         <table class="table table-bordered">
                             <thead>
@@ -228,6 +239,7 @@
 {
 <script>
     $('#neigborhoodsVillage-container').hide();
+    $('#table').hide();
 
     $('#villages').change(function(){
         var selectedVillage = $(this).children('option:selected').val();
@@ -279,6 +291,24 @@
     });
 </script>
 <script>
+
+    const linku1= document.getElementById('klasa1');
+    const linku2 = document.getElementById('klasa2');
+
+    linku1.addEventListener('click', event=>{
+        event.preventDefault();
+        $('#table').hide();
+                $('#forma').show();
+
+    });
+
+    linku2.addEventListener('click', event=>{
+        event.preventDefault();
+        $('#forma').hide();
+                $('#table').show();
+
+    });
+
     const munis = document.querySelector('#munis');
     const villages = document.querySelector('#villages');
     const url = "https://localhost:7278/api/service/";
