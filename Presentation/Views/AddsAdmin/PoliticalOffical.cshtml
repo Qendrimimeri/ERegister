@@ -3,11 +3,10 @@
 }
 @model PoliticalOfficalVM;
 
-
 <section class="section">
 
   <ul class="nav nav-tabs">
-  <li class="nav-item ">
+  <li class="nav-item">
     <a class="nav-link link-secondary active" id="klasa1" href="">Regjistro Zyrtarë</a>
   </li>
   <li class="nav-item">
@@ -19,8 +18,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body p-5">
-                    <h5 class="card-title">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
+                <div class="card-body p-5" id="">
+                    <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                     <form asp-action="PoliticalOffical" method="post" id="forma">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
@@ -299,6 +298,7 @@
         event.preventDefault();
         $('#table').hide();
         $('#forma').show();
+        $('#titulli').show();
         linku2.classList.remove('active');
         linku1.classList.add('active');
         //linku1.setAttribute('style','background-color: white' );
@@ -309,6 +309,7 @@
         event.preventDefault();
         $('#forma').hide();
         $('#table').show();
+        $('#titulli').hide();
         linku1.classList.remove('active');
         linku2.classList.add('active');
                 
