@@ -32,14 +32,14 @@ namespace Presentation.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public IActionResult Index()
         {
             return View();
         }
 
 
-        [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
        
         public async Task<IActionResult> Performance() 
         {
@@ -90,7 +90,7 @@ namespace Presentation.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "SuperAdmin, MunicipalityAdmin")]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
         public IActionResult KqzResult()
         {
             return View();

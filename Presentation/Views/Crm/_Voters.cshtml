@@ -1,14 +1,17 @@
 ﻿@model VoterDetailsVM
 
     <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
-        <div class="col-lg-6 pe-2">
+   
+      <div class="col-lg-6 pe-2">
             <div class="table-responsive">
                 <table class="table table-bordered"
                        id="dataTable"
                        width="100%"
-                       cellspacing="0">
+                       cellspacing="0"
+                 style="table-layout:fixed">
                     <tr>
-                        <td width = "50%" >Emri dhe mbiemri</th>
+                        <td width = "50%" >Emri dhe mbiemri</td>
+
                         <td width = "50%" id="DataSearching">@Model.FullName</td>
                     </tr>
                     <tr>
@@ -34,6 +37,7 @@
                     <tr>
                         <td>Email adresa</td>
                         <td id="DataSearching">@Model.Email</td>
+
                     </tr>
                     <tr>
                         <td>Facebook</td>
@@ -41,18 +45,22 @@
                     </tr>
                 </table>
             </div>
+          
         </div>
         <style>
-            td{
-                background
-            }
+            td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
         </style>
         <div class="col-lg-6 pe-2">
             <div class="table-responsive">
                 <table class="table table-bordered"
                        id="dataTable"
                        width="100%"
-                       cellspacing="0">
+                       cellspacing="0"
+                style = "table-layout:fixed">
                     <tr>
                         <td width = "50%">Numri i familjarëve</td>
                         <td width = "50%" id="DataSearching">@Model.VotersNumber</td>
@@ -89,7 +97,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="d-flex flex-row align-content-around flex-md-row flex-column">
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
@@ -144,10 +152,14 @@
     <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
 </div>
 <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-
     <a asp-action="Cancel"  class="btn btn-danger">Anulo</a>&nbsp &nbsp
     <a asp-action="SaveAndOpenCase"  class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
     <a asp-action="SaveAndClose"  class="btn btn-primary">Ruaj dhe mbyll</a>
 </div>
 
 
+
+
+
+            
+            
