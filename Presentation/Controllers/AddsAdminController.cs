@@ -97,7 +97,7 @@ namespace Presentation.Controllers
         public IActionResult Cancel()
         {
             TempData["success"] = "U anulua!";
-            return RedirectToAction("AddVoter");
+            return RedirectToAction("Index","Dashboard");
         }
 
         public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
