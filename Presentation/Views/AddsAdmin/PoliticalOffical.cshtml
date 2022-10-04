@@ -6,7 +6,7 @@
 
 <section class="section">
 
-     <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link link-secondary" id="klasa1" href="">Regjistro Zyrtarë</a>
   </li>
@@ -298,14 +298,17 @@
     linku1.addEventListener('click', event=>{
         event.preventDefault();
         $('#table').hide();
-                $('#forma').show();
+        $('#forma').show();
+        //linku1.setAttribute('style','background-color: white' );
 
     });
 
     linku2.addEventListener('click', event=>{
         event.preventDefault();
         $('#forma').hide();
-                $('#table').show();
+        $('#table').show();
+                
+
 
     });
 
