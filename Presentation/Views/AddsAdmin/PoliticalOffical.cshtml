@@ -284,6 +284,10 @@
     const url = "https://localhost:7278/api/service/";
     var votat = document.getElementsByClassName('Votat');
     const tabela = document.getElementById('tabela');
+    const neigborhoods = document.getElementById('neigborhoods');
+    const neigborhoodsVillage = document.getElementById('neigborhoodsVillage');
+
+
     //var shuma1=0, shuma2=0, shuma3=0, shuma4=0, shuma5, shuma6,shuma7, shuma8;
     getMunis();
     //getKqzResult();
@@ -391,9 +395,6 @@
         .then(data => {
             data.forEach(x => {
 
-                 //let tr = document.createelement("tr");
-                 //let th = document.createelement("th");
-                 //let td = document.createelement("td");
 
                  if(x.politicalSubject==1){
                      shuma1 += x.noOfVotes;
@@ -531,14 +532,6 @@
 
                  }
 
-                 
-                 
-
-                 //th.innerText = x.name;
-                 //td.innerText = x.noOfVotes;
-                 //tr.appendChild(th);
-                 //tr.appendChild(td);
-                 //tabela.appendChild(tr);
 
          
             });
@@ -585,10 +578,17 @@
         addPollCenterToList(event.target.value);
         getKqzResultByVillageId(event.target.value);
     });
+
+    neigborhoodsVillage.addEventListener('change', event=> {
+        getKqzResultByNeighborhoodId(event.target.value);
+        //console.log('u thirr 2');
+    });
      neigborhoods.addEventListener('change', event =>{
         addStreetNeighborhoodToList(event.target.value);
         addPollCenterNeighborhoodToList(event.target.value);
         getKqzResultByNeighborhoodId(event.target.value);
+        //console.log('u thirr 1');
+
     });
     villages.addEventListener('change', event => {
         event.preventDefault()

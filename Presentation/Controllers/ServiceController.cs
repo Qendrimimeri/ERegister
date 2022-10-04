@@ -134,7 +134,7 @@ namespace Presentation.Controllers
 
         [Route("getkqzresultbyvillage")]
         public ActionResult GetKqzResultByVillage([FromQuery] int muniId)
-         => Ok(_context.Kqzregisters.Where(v => v.VillageId == muniId)
+         => Ok(_context.Kqzregisters.Where(v => v.VillageId == muniId && v.ElectionType == "Zgjedhjet Nacionale")
              .Select(x =>
              new
              {
