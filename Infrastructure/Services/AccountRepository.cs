@@ -195,7 +195,7 @@ namespace Infrastructure.Services
                 // Send Email
                 var emailReques = new MailRequest();
               
-                emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
+                emailReques.Subject = "PBCA: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
                     $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
@@ -222,8 +222,9 @@ namespace Infrastructure.Services
 
             // Send Email
             var emailReques = new MailRequest();
-            emailReques.Subject = "PBCA: Restarto fjalkalimin.";
-            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!";
+            emailReques.Subject = "PBCA: Ndrysho fjalëkalimin.";
+            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
+                $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
@@ -236,7 +237,7 @@ namespace Infrastructure.Services
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
-        private async Task<int> AdminMunicipalityId()
+        public async Task<int> AdminMunicipalityId()
         {
             var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var res =  ((int)await  _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());

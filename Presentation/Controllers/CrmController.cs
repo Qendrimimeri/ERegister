@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Presentation.Controllers
 
 {
-    [Authorize(Roles = "SuperAdmin,MunicipalityAdmin,LocalAdmin")]
+    [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
 
     public class CrmController : Controller
     {
@@ -52,11 +52,13 @@ namespace Presentation.Controllers
         public async Task<IActionResult> Voters(string name)
         {
             var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
-            if (vm == null )
+           
+            var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault(); 
+            if (vm1 == null)
             {
-                return NotFound();
+                return BadRequest();
+
             }
-            var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
             return PartialView("_Voters" ,vm1);
         }
         
@@ -93,5 +95,6 @@ namespace Presentation.Controllers
         {
             return View();
         }
+        
     }
 }

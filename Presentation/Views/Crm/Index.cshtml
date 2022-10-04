@@ -11,9 +11,13 @@
                 <div class="card-body p-5">
 
                     <div class="d-flex flex-row pe-2">
-                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
+                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
                                aria-describedby="button-addon1" id="SearchBtn">
-                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
+<<<<<<< HEAD
+                        <button class="btn btn-primary text-white" onclick="SetVoters()"> Konfirmo</button>
+=======
+                        <button id="butoni" class="btn btn-primary text-white" onclick="SetVoters()"> Kërko</button>
+>>>>>>> 5a54e4663e9eb73865947b0241f7b8935053b546
                     </div>
                     <br />
                     <style>
@@ -21,6 +25,7 @@
                             font-weight: 580;
                         }
                     </style>
+                   
 
 
                     <div class="a" id="Tables">
@@ -33,42 +38,40 @@
     </div>
 </section>
 @section Scripts
-{
+    {
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+       const url = "https://localhost:7278/api/service/";
+       const input = document.getElementById('SearchBtn');
+       input.addEventListener('keypress', event=>{
+         if(event.key == 'Enter'){
+             document.getElementById('butoni').click();
+         }
+     })
 
-      
 
- <script>
+        function SetVoters() {
+            let name = $('#SearchBtn').val();
+            console.log(name);
+            //let setData = $("DataSearching")
+            //const needHelp = document.querySelector('#inputGroupSelect03');
+            //const Generaldemand = document.querySelector('#generaldemand');
 
-    
+            let table = $("#Tables");
+            $.ajax({
+                url: "/Crm/Voters?name=" + name,
+                type: "GET",
+                data: {},
+                success: function (data) {
+                    table.empty(data)
+                    table.append(data);
 
- const url = "https://localhost:7278/api/service/";
+                    const SpecificDemand = document.querySelector('#inputGroupSelect03');
+                    const SpecificReason = document.querySelector('#generaldemand');
 
 
-      function SetVoters(){
-                  let name = $('#SearchBtn').val();
-                  console.log(name);
-                  //let setData = $("DataSearching")
-                            //const needHelp = document.querySelector('#inputGroupSelect03');
-                            //const Generaldemand = document.querySelector('#generaldemand');
-
-                  let table=$("#Tables");
-                      $.ajax({
-                          url:"/Crm/Voters?name="+name,
-                          type: "GET",
-                          data : {},
-                          success : function(data) {
-                              table.empty(data)
-                             table.append(data);
-
-          const SpecificDemand = document.querySelector('#inputGroupSelect03');
-                                      const SpecificReason = document.querySelector('#generaldemand');
-
-          
-          getGeneralDemand();
-          function getGeneralDemand(id){
-
+<<<<<<< HEAD
                SpecificReason.innerHTML = '';
         let chooseOption = document.createElement("option");
         chooseOption.innerText = "Zgjedh Arsye Percaktuese...";
@@ -79,17 +82,143 @@
         addOption.innerText = "Shto Arsye Percaktuese +";
         addOption.value = "shto";
         SpecificReason.appendChild(addOption);
+=======
+                    getGeneralDemand();
+                    function getGeneralDemand(id) {
+>>>>>>> 5a54e4663e9eb73865947b0241f7b8935053b546
 
-        let endpoint = url + "getgeneraldemand";
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.specificReason;
-                SpecificReason.appendChild(item);
+                        SpecificReason.innerHTML = '';
+                        let chooseOption = document.createElement("option");
+                        chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
+                        chooseOption.selected = true;
+                        chooseOption.disabled = true;
+                        SpecificReason.appendChild(chooseOption);
+                        let addOption = document.createElement("option");
+                        addOption.innerText = "Shto arsye përcaktuese +";
+                        addOption.value = "shto";
+                        SpecificReason.appendChild(addOption);
+
+                        let endpoint = url + "getgeneraldemand";
+                        let result = fetch(endpoint)
+                            .then(res => res.json())
+                            .then(data => {
+                                data.forEach(x => {
+                                    let item = document.createElement("option");
+                                    item.value = x.id;
+                                    item.innerText = x.specificReason;
+                                    SpecificReason.appendChild(item);
+                                });
+                            });
+                    }
+                    getHelp();
+
+
+
+                    //function addSpecificReasonToList(muniId){
+                    //    SpecificReason.innerHTML = '';
+                    //    let chooseOption = document.createElement("option");
+                    //    chooseOption.innerText = "Zgjedh fshatin...";
+                    //    chooseOption.selected = true;
+                    //    chooseOption.disabled = true;
+                    //    SpecificReason.appendChild(chooseOption);
+
+                    //    let addOption = document.createElement("option");
+                    //    addOption.innerText = "Shto fshat te ri...";
+                    //    addOption.value = "shto";
+                    //    SpecificReason.appendChild(addOption);
+
+                    //    let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
+                    //    let result = fetch(endpoint)
+                    //    .then(res => res.json())
+                    //    .then(data => data.forEach(x => {
+                    //        let item = document.createElement("option");
+                    //        item.value = x.id;
+                    //        item.innerText = x.name;
+                    //        villages.appendChild(item);
+                    //    }));
+                    //}
+                    function getHelp(id) {
+
+                        SpecificDemand.innerHTML = '';
+                        let chooseOption = document.createElement("option");
+                        chooseOption.innerText = "Zgjedhni ndihmën e nevojshme...";
+                        chooseOption.selected = true;
+                        chooseOption.disabled = true;
+                        SpecificDemand.appendChild(chooseOption);
+                        let addOption = document.createElement("option");
+                        addOption.innerText = "Shto ndihmën e nevojshme +";
+                        addOption.value = "shto";
+                        SpecificDemand.appendChild(addOption);
+
+                        let endpoint = url + "getgeneraldemand";
+                        let result = fetch(endpoint)
+                            .then(res => res.json())
+                            .then(data => {
+                                data.forEach(x => {
+                                    let item = document.createElement("option");
+                                    item.value = x.id;
+                                    item.innerText = x.specificDemand;
+                                    SpecificDemand.appendChild(item);
+                                });
+                            });
+                    }
+                    function addhelp() {
+                        let endpoint = url + "GetNeedHelp";
+                        let input = prompt("Shto Ndihmen e Nevojshme:");
+                        if (input == '') {
+                            addhelp();
+                        }
+                        //let selectedMuni = $('#munis').val();
+                        //let sm = document.querySelector("#inputGroupSelect03").value;
+                        fetch(endpoint, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+
+                            },
+                            method: 'post',
+                            body: JSON.stringify({ SpecificDemand: input })
+                        }).then(() => getHelp());
+
+                    }
+
+                    SpecificDemand.addEventListener('change', event => {
+                        event.preventDefault()
+                        if (event.target.value == 'shto') {
+                            addhelp();
+                        }
+
+                    });
+                    function addGeneralDemand() {
+                        let endpoint = url + "addgeneraldemand";
+                        let input = prompt("Shto arsyen:");
+                        if (input == '') {
+                            addGeneralDemand();
+
+                        }
+                        //let selectedMuni = $('#munis').val();
+                        // let sm = document.querySelector("#generaldemand").value;
+                        fetch(endpoint, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            method: 'post',
+                            body: JSON.stringify({ SpecificReason: input })
+                        }).then(() => getGeneralDemand());
+
+                    }
+                    SpecificReason.addEventListener('change', event => {
+                        event.preventDefault()
+                        if (event.target.value == 'shto') {
+                            addGeneralDemand();
+                        }
+
+                    });
+
+                }
             });
+<<<<<<< HEAD
         });
     }
     getHelp();
@@ -168,45 +297,15 @@
              event.preventDefault()
                  if (event.target.value == 'shto'){
             addhelp();
+=======
+>>>>>>> 5a54e4663e9eb73865947b0241f7b8935053b546
         }
 
-          });
-      function addGeneralDemand(){
-        let endpoint = url + "addgeneraldemand";
-        let input = prompt("Shto arsyen:");
-         if(input == ''){
-            addGeneralDemand();
 
-        }
-        //let selectedMuni = $('#munis').val();
-       // let sm = document.querySelector("#generaldemand").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({SpecificReason: input})
-        }).then(() => getGeneralDemand());
 
-    }
-              SpecificReason.addEventListener('change', event => {
-             event.preventDefault()
-                 if (event.target.value == 'shto'){
-            addGeneralDemand();
-        }
 
-          });
-                             
-                          }
-                      });
-              }
-            
-                             
-                          
-                  
 
-</script>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 

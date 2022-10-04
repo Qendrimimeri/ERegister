@@ -9,10 +9,10 @@ namespace Application.ViewModels
 {
     public class LoginVM
     {
-        [Required, DataType(DataType.EmailAddress), Display(Name = "Emaili")]
+        [Required (ErrorMessage = "Ju lutem shkruani email adrese valide!"), DataType(DataType.EmailAddress), Display(Name = "Emaili"),]
         public string Email { get; set; }
 
-        [MaxLength(255), DataType(DataType.Password), Display(Name = "Fjalekalimi")]
+        [Required,MaxLength(255), DataType(DataType.Password), Display(Name = "Fjalekalimi")]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }

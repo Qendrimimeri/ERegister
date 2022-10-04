@@ -1,4 +1,4 @@
-﻿@using Application.ViewModels
+﻿ @using Application.ViewModels
 @using Domain.Data.Entities
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 
@@ -10,7 +10,7 @@
     <div class="card">
         <h4 class="text-center pt-4">Mirë se vini <strong> @((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</strong> </h4>
         <hr />
-        @if (User.IsInRole("SuperAdmin"))
+        @if (User.IsInRole("KryetarIPartise"))
         {
             <div class="d-flex justify-content-around p-2 pt-2">
                 <div class="pt-2">
@@ -115,7 +115,7 @@
                             const lastYearValuesLocal = Object.values(lastYearLocal);
                             const thisYearValuesLocal = Object.values(thisYearLocal);
                             var politicalSubjectsNow = Object.keys(lastYearLocal)
-                            var selectedLocalCity = document.getElementById("city-name").innerText = `${cityNameLocal} - Zgjedhjet Nacionale`;
+                            var selectedLocalCity = document.getElementById("city-name").innerText = `${cityNameLocal} - Zgjedhjet Lokale`;
 
                             new ApexCharts(document.querySelector("#columnChart1"), {
                                 series: [{

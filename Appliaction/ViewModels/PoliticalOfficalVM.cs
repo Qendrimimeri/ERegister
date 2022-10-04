@@ -22,7 +22,7 @@ namespace Application.ViewModels
         public string? Email { get; set; }
 
 
-        [Range(1, int.MaxValue, ErrorMessage = "Ju lutem zgjedhni qytetin!")]
+        [Required(ErrorMessage = "Ju lutem zgjedhni qytetin!")]
         public int? Municipality { get; set; }
         public int? Village { get; set; }
         public int? Neigborhood { get; set; }

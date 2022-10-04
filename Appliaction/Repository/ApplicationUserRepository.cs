@@ -39,8 +39,7 @@ namespace Application.Repository
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
                 MunicipalityName = person.Address.Municipality.Name,
-                PollCenter = person.Address.PollCenter.CenterName,
-
+                PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 PreviousVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _db.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
@@ -70,6 +69,7 @@ namespace Application.Repository
         {
             var getAllUsers = await _db.Users.Select(person => new VoterDetailsVM()
             {
+
                 Id = person.Id,
                 FullName = person.FullName,
                 Neigborhood = person.Address.Neighborhood.Name,
@@ -106,12 +106,19 @@ namespace Application.Repository
             return result;
         }
 
+        public async Task<IList<string>> GetRoles(string email)
+        {
+            var roles = await _userManager.GetRolesAsync(await GetUserByNameAsync(email));
+
+            return roles;
+        }
+
         public async Task<ApplicationUser> FindUserByIdAsync(string id)
 
             => await _userManager.FindByIdAsync(id);
 
         public async Task<ApplicationUser> GetUserByNameAsync(string name)
-            => await _userManager.FindByNameAsync(name);
+            => await _userManager.FindByEmailAsync(name);
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
         {
@@ -213,6 +220,12 @@ namespace Application.Repository
                     roles.Add(new RoleModel { Key = role.Name, Value = role.Name });
 
             return roles;
+        }
+
+        public int? GetMunicipalityIdOfUser(string id)
+        {
+            var res = _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).First();
+            return res;
         }
     }
 

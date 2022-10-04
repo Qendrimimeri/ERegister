@@ -23,7 +23,7 @@ namespace Application.ViewModels
         public string Facebook { get; set; }
 
 
-        [Range(1, int.MaxValue, ErrorMessage = "Ju lutem zgjedhni qytetin!")]
+        [Required( ErrorMessage = "Ju lutem zgjedhni qytetin!")]
         public int? Municipality { get; set; }
 
         public int? Village { get; set; }
@@ -36,13 +36,14 @@ namespace Application.ViewModels
         public string Duty { get; set; }
 
 
-        [Required(ErrorMessage ="Ju lutem shkruani numrin e sakte te antareve!")]
+        [Required(ErrorMessage ="Ju lutem shkruani numrin e sakte te antareve!"),Range(1,99,ErrorMessage = "Ju lutem shkruani nje numer real te anetareve te familjes!")]
         public int? FamMembers { get; set; }
+        
         [Required]
-
         public string SuccessChance { get; set; }
-        [Required]
-        public int PoliticalSubject { get; set; }
+
+        [Required(ErrorMessage="Ju lutem zgjedhni partine politike!")]
+        public int? PoliticalSubject { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni qendren e votimit!")]
         public string PollCenter { get; set; }
