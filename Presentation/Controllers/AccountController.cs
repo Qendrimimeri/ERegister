@@ -55,19 +55,6 @@ namespace Presentation.Controllers
                     }
                 }
                 
-                
-                
-                //var res = await _unitOfWork.Account.LoginAsync(login);
-                //if (!res)
-                //    return RedirectToAction("Index", "Home", ModelState);
-                //if (res)
-                //    if (User.IsInRole("AnetarIThjeshte"))
-                //        return RedirectToAction("AddVoter", "AddsAdmin");
-                //    else if (res)
-                //    {
-                //        TempData["success"] = "You are Logged in!";
-                //        return RedirectToAction("Index", "Dashboard");
-                //    }
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
             return RedirectToAction("Index", "Home", ModelState);
