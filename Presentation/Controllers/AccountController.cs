@@ -54,20 +54,6 @@ namespace Presentation.Controllers
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }
-                
-                
-                
-                //var res = await _unitOfWork.Account.LoginAsync(login);
-                //if (!res)
-                //    return RedirectToAction("Index", "Home", ModelState);
-                //if (res)
-                //    if (User.IsInRole("AnetarIThjeshte"))
-                //        return RedirectToAction("AddVoter", "AddsAdmin");
-                //    else if (res)
-                //    {
-                //        TempData["success"] = "You are Logged in!";
-                //        return RedirectToAction("Index", "Dashboard");
-                //    }
             }
             ModelState.AddModelError("", "Login failed, wrong credentials");
             return RedirectToAction("Index", "Home", ModelState);
@@ -116,10 +102,9 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var res = await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
-                if (!res)
-                    return View();
-                return RedirectToAction("Index", "Home");
+                await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+                model.IsEmailSent = true;
+                return RedirectToAction("forgot", "home", model);
             }
             return View();
         }

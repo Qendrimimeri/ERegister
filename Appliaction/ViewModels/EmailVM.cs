@@ -9,7 +9,10 @@ namespace Application.ViewModels
 {
     public class EmailVM
     {
-        [Required]
-        public string Email { get; set; }
+        [DataType(DataType.EmailAddress)]
+
+        public string? Email { get; set; }
+
+        public bool IsEmailSent { get; set; } = false;
     }
 }
