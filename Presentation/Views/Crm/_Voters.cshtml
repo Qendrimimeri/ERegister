@@ -1,90 +1,101 @@
 ﻿@model VoterDetailsVM
 
     <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
-        <div class="col-lg-6 pe-2">
+   
+      <div class="col-lg-6 pe-2">
             <div class="table-responsive">
                 <table class="table table-bordered"
                        id="dataTable"
                        width="100%"
-                       cellspacing="0">
+                       cellspacing="0"
+                 style="table-layout:fixed">
                     <tr>
-                        <th width = "50%">Emri dhe mbiemri</th>
+                        <td width = "50%">Emri dhe mbiemri</td>
                         <td width = "50%" id="DataSearching">@Model.FullName</td>
                     </tr>
                     <tr>
-                        <th>Fshati</th>
+                        <td>Fshati</td>
                         <td id="DataSearching">@Model.Village</td>
                     </tr>
                     <tr>
-                        <th>Lagja</th>
+                        <td>Lagja</td>
                         <td id="DataSearching">@Model.Neigborhood</td>
                     </tr>
                     <tr>
-                        <th>Blloku</th>
+                        <td>Blloku</td>
                         <td id="DataSearching">@Model.Block</td>
                     </tr>
                     <tr>
-                        <th>Hyrja </th> 
+                        <td>Hyrja </td> 
                         <td id="DataSearching">@Model.HouseNo</td>
                     </tr>
                     <tr>
-                        <th>Numri i telefonit </th>
+                        <td>Numri i telefonit </td>
                         <td id="DataSearching">@Model.PhoneNumber</td>
                     </tr>
                     <tr>
-                        <th>Email adresa</th>
-                        <td id="DataSearching">@Model.Email</td>
+                        <td>Email adresa</td>
+                        <td  id="DataSearching">@Model.Email</td>
                     </tr>
                     <tr>
-                        <th>Facebook</th>
+                        <td>Facebook</td>
                         <td id="DataSearching"><a href="@Model.FacebookLink">@Model.FullName<a /></td>
                     </tr>
                 </table>
             </div>
+          
         </div>
+        <style>
+            td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+        </style>
         <div class="col-lg-6 pe-2">
             <div class="table-responsive">
                 <table class="table table-bordered"
                        id="dataTable"
                        width="100%"
-                       cellspacing="0">
+                       cellspacing="0"
+                style = "table-layout:fixed">
                     <tr>
-                        <th width = "50%">Numri i familjarëve</th>
+                        <td width = "50%">Numri i familjarëve</td>
                         <td width = "50%" id="DataSearching">@Model.VotersNumber</td>
                     </tr>
                     <tr>
-                        <th>Votues paraprak</th>
+                        <td>Votues paraprak</td>
                         <td id="DataSearching">@Model.PreviousVoter</td>
                     </tr>
                     <tr>
-                        <th>Votues i tanishëm</th>
+                        <td>Votues i tanishëm</td>
                         <td id="DataSearching">@Model.CurrentVoter</td>
                     </tr>
                     <tr>
-                        <th>Gjasat e suksesit</th>
+                        <td>Gjasat e suksesit</td>
                         <td id="DataSearching">@Model.InitialChance</td>
                     </tr>
                     <tr>
-                        <th>Vendi i punës</th>
+                        <td>Vendi i punës</td>
                         <td id="DataSearching">@Model.WorkPlace</td>
                     </tr>
                     <tr>
-                        <th>Statusi administrativ</th>
+                        <td>Statusi administrativ</td>
                         <td id="DataSearching">@Model.AdministrativeUnit</td>
                     </tr>
                     <tr>
-                        <th>Pozita</th>
+                        <td>Pozita</td>
                         <td id="DataSearching">@Model.Duty</td>
                     </tr>
                     <tr>
-                        <th>Qendra e votimit</th>
+                        <td>Qendra e votimit</td>
                         <td id="DataSearching">@Model.PollCenter</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-
+    
     <div class="d-flex flex-row align-content-around flex-md-row flex-column">
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
@@ -145,3 +156,8 @@
 </div>
 
 
+
+
+
+            
+            
