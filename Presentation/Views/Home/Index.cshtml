@@ -22,10 +22,13 @@
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label">Përdoruesi</label>
                     <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="Password" class="form-label">Fjalëkalimi</label>
                     <input type="password" class="form-control" asp-for="Password" aria-describedby="passwordHelp">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
                 </div>
 
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
@@ -33,7 +36,7 @@
                         <label  asp-for="RememberMe"class="form-check-label pr-3 mr-3">
                             Më mbaj mend
                         <input asp-for="RememberMe" class="form-check-input">
-                            <span asp-validation-for="RememberMe"></span>
+                            <span asp-validation-for="RememberMe" class="text-danger"></span>
                         </label>
                     </div>
                     <div class="col-6 forgetpassword">

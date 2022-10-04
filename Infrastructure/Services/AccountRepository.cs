@@ -10,8 +10,10 @@ using Application.Models;
 using System.Security.Policy;
 using Appliaction.Repository;
 using Microsoft.AspNetCore.Http;
+
 using System.Net.Http;
 using System.Security.Claims;
+using System.Runtime.CompilerServices;
 
 namespace Infrastructure.Services
 {
@@ -192,8 +194,14 @@ namespace Infrastructure.Services
 
                 // Send Email
                 var emailReques = new MailRequest();
-                emailReques.Subject = "PBCA: Konfirmim i Llogarise.";
-                emailReques.Body = confimrEmailUrs;
+              
+                emailReques.Subject = "PBCA: Konfirmimi i llogarisë.";
+                emailReques.Body = $"" +
+                    $"Llogaria juaj është regjistruar!" +
+                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
+                    $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
+                    $"<br><br><strong>E-Register</strong>";
+                    
                 emailReques.ToEmail = simpleUser.Email;
 
                 await _mail.SendEmailAsync(emailReques);
@@ -207,6 +215,9 @@ namespace Infrastructure.Services
         public async Task<bool> ForgotPasswordAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return false;
+
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var baseUrl = "https://localhost:7278";
             var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
@@ -214,11 +225,11 @@ namespace Infrastructure.Services
 
             // Send Email
             var emailReques = new MailRequest();
-            emailReques.Subject = "PBCA: Restarto fjalkalimin.";
-            emailReques.Body = confimrEmailUrs;
+            emailReques.Subject = "PBCA: Ndrysho fjalëkalimin.";
+            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
+                $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
-
             return true;
         }
 
