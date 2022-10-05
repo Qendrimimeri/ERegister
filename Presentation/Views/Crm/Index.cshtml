@@ -11,13 +11,9 @@
                 <div class="card-body p-5">
 
                     <div class="d-flex flex-row pe-2">
-                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit te kryefamiljarit"
+                        <input type="text" class="form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
                                aria-describedby="button-addon1" id="SearchBtn">
-
-                       &nbsp &nbsp &nbsp
-
-                        <button id="butoni" class="btn btn-primary text-white" onclick="SetVoters()" style="width:150px;">   Kërko  </button>
-
+                        <button class="btn btn-primary text-white" id="butoni" onclick="SetVoters()"> Kërko</button>
                     </div>
                     <br />
                     <style>
@@ -25,7 +21,6 @@
                             font-weight: 580;
                         }
                     </style>
-                   
 
 
                     <div class="a" id="Tables">
@@ -41,15 +36,21 @@
     {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
     <script>
-       const url = "https://localhost:7278/api/service/";
-       const input = document.getElementById('SearchBtn');
+
+
+
+        //const url = "https://localhost:7278/api/service/";
+
+         const input = document.getElementById('SearchBtn');
        input.addEventListener('keypress', event=>{
          if(event.key == 'Enter'){
              document.getElementById('butoni').click();
          }
      })
-
 
         function SetVoters() {
             let name = $('#SearchBtn').val();
@@ -71,16 +72,15 @@
                     const SpecificReason = document.querySelector('#generaldemand');
 
 
-
                     //getGeneralDemand();
                     //function getGeneralDemand(id) {
 
-                    //    SpecificReason.innerHTML = '';
-                    //    let chooseOption = document.createElement("option");
-                    //    chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
-                    //    chooseOption.selected = true;
-                    //    chooseOption.disabled = true;
-                    //    SpecificReason.appendChild(chooseOption);
+                    //    //SpecificReason.innerHTML = '';
+                    //    //let chooseOption = document.createElement("option");
+                    //    //chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
+                    //    //chooseOption.selected = true;
+                    //    //chooseOption.disabled = true;
+                    //    //SpecificReason.appendChild(chooseOption);
                     //    let addOption = document.createElement("option");
                     //    addOption.innerText = "Shto arsye përcaktuese +";
                     //    addOption.value = "shto";
@@ -102,29 +102,6 @@
 
 
 
-                    //function addSpecificReasonToList(muniId){
-                    //    SpecificReason.innerHTML = '';
-                    //    let chooseOption = document.createElement("option");
-                    //    chooseOption.innerText = "Zgjedh fshatin...";
-                    //    chooseOption.selected = true;
-                    //    chooseOption.disabled = true;
-                    //    SpecificReason.appendChild(chooseOption);
-
-                    //    let addOption = document.createElement("option");
-                    //    addOption.innerText = "Shto fshat te ri...";
-                    //    addOption.value = "shto";
-                    //    SpecificReason.appendChild(addOption);
-
-                    //    let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
-                    //    let result = fetch(endpoint)
-                    //    .then(res => res.json())
-                    //    .then(data => data.forEach(x => {
-                    //        let item = document.createElement("option");
-                    //        item.value = x.id;
-                    //        item.innerText = x.name;
-                    //        villages.appendChild(item);
-                    //    }));
-                    //}
                     //function getHelp(id) {
 
                     //    SpecificDemand.innerHTML = '';
@@ -150,142 +127,60 @@
                     //            });
                     //        });
                     //}
-                    function addhelp() {
-                        let endpoint = url + "GetNeedHelp";
-                        let input = prompt("Shto Ndihmen e Nevojshme:");
-                        if (input == '') {
-                            addhelp();
-                        }
-                        //let selectedMuni = $('#munis').val();
-                        //let sm = document.querySelector("#inputGroupSelect03").value;
-                        fetch(endpoint, {
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
+                    //function addhelp() {
+                    //    let endpoint = url + "GetNeedHelp";
+                    //    let input = prompt("Shto Ndihmen e Nevojshme:");
+                       
+                    //    //let selectedMuni = $('#munis').val();
+                    //    //let sm = document.querySelector("#inputGroupSelect03").value;
+                    //    fetch(endpoint, {
+                    //        headers: {
+                    //            'Accept': 'application/json',
+                    //            'Content-Type': 'application/json'
 
-                            },
-                            method: 'post',
-                            body: JSON.stringify({ SpecificDemand: input })
-                        }).then(() => getHelp());
+                    //        },
+                    //        method: 'post',
+                    //        body: JSON.stringify({ SpecificDemand: input })
+                    //    }).then(() => getHelp());
 
-                    }
+                    //}
 
-                    SpecificDemand.addEventListener('change', event => {
-                        event.preventDefault()
-                        if (event.target.value == 'shto') {
-                            addhelp();
-                        }
+                    //SpecificDemand.addEventListener('change', event => {
+                    //    event.preventDefault()
+                    //    if (event.target.value == 'shto') {
+                    //        addhelp();
+                    //    }
 
-                    });
-                    function addGeneralDemand() {
-                        let endpoint = url + "addgeneraldemand";
-                        let input = prompt("Shto arsyen:");
-                        if (input == '') {
-                            addGeneralDemand();
+                    //});
+                    //function addGeneralDemand() {
+                    //    let endpoint = url + "addgeneraldemand";
+                    //    let input = prompt("Shto arsyen:");
+                    //    if (input == '') {
+                    //        addGeneralDemand();
 
-                        }
+                    //    }
                         //let selectedMuni = $('#munis').val();
                         // let sm = document.querySelector("#generaldemand").value;
-                        fetch(endpoint, {
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            method: 'post',
-                            body: JSON.stringify({ SpecificReason: input })
-                        }).then(() => getGeneralDemand());
+                    //    fetch(endpoint, {
+                    //        headers: {
+                    //            'Accept': 'application/json',
+                    //            'Content-Type': 'application/json'
+                    //        },
+                    //        method: 'post',
+                    //        body: JSON.stringify({ SpecificReason: input })
+                    //    }).then(() => getGeneralDemand());
 
-                    }
-                    SpecificReason.addEventListener('change', event => {
-                        event.preventDefault()
-                        if (event.target.value == 'shto') {
-                            addGeneralDemand();
-                        }
+                    //}
+                    //SpecificReason.addEventListener('change', event => {
+                    //    event.preventDefault()
+                    //    if (event.target.value == 'shto') {
+                    //        getGeneralDemand();
+                    //    }
 
-                    });
+                    //});
 
                 }
             });
-
-        });
-    }
-    getHelp();
-
-
-    
-    //function addSpecificReasonToList(muniId){
-    //    SpecificReason.innerHTML = '';
-    //    let chooseOption = document.createElement("option");
-    //    chooseOption.innerText = "Zgjedh fshatin...";
-    //    chooseOption.selected = true;
-    //    chooseOption.disabled = true;
-    //    SpecificReason.appendChild(chooseOption);
-
-    //    let addOption = document.createElement("option");
-    //    addOption.innerText = "Shto fshat te ri...";
-    //    addOption.value = "shto";
-    //    SpecificReason.appendChild(addOption);
-
-    //    let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
-    //    let result = fetch(endpoint)
-    //    .then(res => res.json())
-    //    .then(data => data.forEach(x => {
-    //        let item = document.createElement("option");
-    //        item.value = x.id;
-    //        item.innerText = x.name;
-    //        villages.appendChild(item);
-    //    }));
-    //}
-     function getHelp(id){
-
-        SpecificDemand.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh Ndihmen e Nevojshme...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        SpecificDemand.appendChild(chooseOption);
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto Ndihmen e Nevojshme +";
-        addOption.value = "shto";
-        SpecificDemand.appendChild(addOption);
-
-        let endpoint = url + "getgeneraldemand";
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.specificDemand;
-                SpecificDemand.appendChild(item);
-            });
-        });
-    }
-       function addhelp(){
-        let endpoint = url + "GetNeedHelp";
-        let input = prompt("Shto Ndihmen e Nevojshme:");
-        if(input == ''){
-            addhelp();
-        }
-        //let selectedMuni = $('#munis').val();
-        //let sm = document.querySelector("#inputGroupSelect03").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                
-            },
-            method: 'post',
-            body: JSON.stringify({SpecificDemand: input})
-        }).then(() => getHelp());
-
-    }
-
-              SpecificDemand.addEventListener('change', event => {
-             event.preventDefault()
-                 if (event.target.value == 'shto'){
-            addhelp();
-
         }
 
 

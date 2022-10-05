@@ -11,9 +11,10 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="btn float-end d-flex justify-content-end">
-    <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="button" class="btn btn-primary" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
+    <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="submit" class="btn btn-primary" id="butoni" @*onclick="ExportToPdf()"*@><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
 </div>
 <div class="bg-white">
+
     <div class="table table-responsive">
         <table class="table text-center table-striped table-hover small"id="test">
             <thead>
@@ -59,9 +60,10 @@
     </div>
 </div>
 <script>
+
+    document.getElementById('butoni').addEventListener('click', ExportToPdf);
     function ExportToExcel(type, fn, dl) {
            var elt = document.getElementById('test');
-           $('#test').find('th').last().remove();
            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
            return dl ?
              XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
@@ -69,29 +71,28 @@
         }
 
       function ExportToPdf() {
-             let tableClone = $('#test');
+                 let tableClone = $('#test');
                     tableClone
                     .find(".no-export")
                     .each(function(){
                         $(this).hide();
                     });
-                    //$("body").html(tableClone);
-                     html2canvas(document.getElementById('test'), {
+                //e.preventDefault();
+                html2canvas(document.getElementById('test'), {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
-
                     var docDefinition = {
                         content: [{
                             image: data,
                             width: 500
                         }]
-
                     };
                    
-                     
-                    pdfMake.createPdf(docDefinition).download("Table.pdf"); 
-                    location.reload(true);
+                    pdfMake.createPdf(docDefinition).download("Table.pdf");
+                    setTimeout(()=>{
+                    location.reload();
 
+                    },"1000");
                 }
             });
 
