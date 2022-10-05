@@ -45,7 +45,9 @@ namespace Presentation.Controllers
                 {
                     TempData["success"] = "Registered successfuly!";
                     return RedirectToAction("Index", "dashboard");
+
                 }
+
             }
             ViewBag.PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
@@ -107,13 +109,32 @@ namespace Presentation.Controllers
             TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("Index", "Dashboard");
         }
-
-        public async Task<IActionResult>SaveAndOpenCase(ApplicationUser appuser)
+        [HttpPost]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        public async Task<IActionResult>SaveAndOpenCase(RegisterVM register)
         {
-           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-            await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("AddVoter");
+            if (ModelState.IsValid)
+            {
+                var res = await _unitOfWork.Account.RegisterVoterAsync(register);
+                if (res)
+                {
+                    TempData["success"] = "Registered successfuly!";
+                    return RedirectToAction("AddVoter", "AddsAdmin");
+
+                }
+
+            }
+            ViewBag.PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+            ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = new SelectList(await _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
+            ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+            return View("AddVoter", register);
+
         }
 
         public IActionResult CancelPoliticalOfficial()
@@ -129,13 +150,27 @@ namespace Presentation.Controllers
             TempData["success"] = "U ruajt me sukses!";
             return RedirectToAction("Index", "Dashboard");
         }
-
-        public async Task<IActionResult> SaveAndOpenCasePoliticalOfficial(ApplicationUser appuser)
+        [HttpPost]
+        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        public async Task<IActionResult> SaveAndOpenCasePoliticalOfficial(PoliticalOfficalVM model)
         {
-           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-            await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("PoliticalOffical");
+            if (ModelState.IsValid)
+            {
+                var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
+                if (res)
+                {
+                    TempData["success"] = "Registered successfuly!";
+                    return RedirectToAction("PoliticalOffical", "AddsAdmin");
+                }
+            }
+            ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = new SelectList(await _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Key", "Value");
+            return View("PoliticalOffical",model);
         }
         public IActionResult AddPoliticalSubject()
         {
