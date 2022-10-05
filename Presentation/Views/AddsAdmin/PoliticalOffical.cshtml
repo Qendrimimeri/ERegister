@@ -167,7 +167,7 @@
                         </div>
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
                             <a asp-action="Cancel" class="btn btn-danger pe-2">Anulo</a>&nbsp &nbsp</a>
-                            <button type="submit" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
+                            <button type="submit" id="main-button" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
                             <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
 
 
@@ -225,7 +225,7 @@
         </div>
     </div>*@
 
-	<div class="d-flex flex-column " id="table">
+	<div class="" id="table">
 		<div class="d-flex flex-row justify-content-around">
 
 			  <div class="col-4">
@@ -1373,7 +1373,7 @@
             blocks.appendChild(item);
         }));
     }
-    function addBlockToDb(){
+    function addBlockToDb(){    
         let endpoint = url + "addblock";
         let input = prompt("Shto bllok të ri:");
         let sm = document.querySelector("#munis").value;
@@ -1504,7 +1504,7 @@
 <script>
             $('#table').hide();
 
-
+        const button = document.getElementById('main-button');
         const votes = document.getElementsByClassName("votat");
         console.log(votes);
 
@@ -1555,6 +1555,77 @@
 
 
         }
+
+                button.addEventListener('click', event => {
+             //event.preventDefault();
+             addDataToDb();
+             alert("U Regjistrua!");
+             location.reload();
+
+    })
+
+        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+        console.log(neighborhoodVillage);
+        const neigboorhood = document.getElementById('neigborhoods');
+        console.log(neigboorhood);
+        var neighbors;
+        console.log(neighbors);
+
+      
+
+
+       function addDataToDb() {
+        let endpoint = url + "addkqzresult";
+
+        const munis = document.getElementById('munis');
+        const villages = document.getElementById('villages');
+        const election = document.getElementById("inputGroupSelect03").value;
+        const year = document.getElementById('year');
+        const poll = document.getElementById('poll');
+        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+        console.log(neighborhoodVillage);
+        const neigboorhood = document.getElementById('neigborhoods');
+        console.log(neigboorhood);
+
+        //var neighbors;
+          if(neighborhoodVillage.selectedIndex !== 0) {
+             neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
+             alert(neighbors);
+          }
+          else if(neigboorhood.selectedIndex !== 0) {
+            neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
+
+            
+          }else{
+              neighbors = '';
+          }
+    
+        
+        const parti = document.getElementsByClassName("parti");
+        const votat = document.getElementsByClassName("votat");
+        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+
+
+        for (var i=1; i <= votat.length; i++) {
+            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+
+
+
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({
+                    municipalityId: munis.value, villageId: villages.value, neighborhoodId: neighbors,
+
+                    electionType: election, dataCreated: year.value, pollCenterId: poll.value, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                })
+            });
+
+        }
+    }
 </script>
 }
 }
