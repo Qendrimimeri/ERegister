@@ -115,9 +115,9 @@
             </div>
             <div class="d-flex flex-row justify-content-end pt-3">
 
-                         <button type="submit" asp-controller="Dashboard" asp-action="" class="btn btn-danger pe-2">Anulo</button>&nbsp &nbsp
+                         <a asp-controller="Dashboard" asp-action="Index"  class="btn btn-danger pe-2">Anulo</a>&nbsp &nbsp
                          <button type="submit" id="main-div" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
-                         <button type="submit" asp-controller="Dashboard" asp-action="Index" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+                         <a id="main-button" asp-controller="Dashboard" asp-action="Index" class="btn btn-primary pe-2">Ruaj dhe mbyll</a>
             </div>
         </div>
 
@@ -132,6 +132,7 @@
         const villages = document.querySelector('#villages');
         const url = "https://localhost:7278/api/service/";
         const button = document.querySelector('#main-div');
+        const button2 = document.querySelector('#main-button');
         const neigborhoods = document.getElementById('neigborhoods');
         const votat = document.getElementsByClassName("votat");
         const year = document.getElementById('year');
@@ -333,6 +334,16 @@
              //event.preventDefault();
              addDataToDb();
              alert("U Regjistrua!");
+             location.reload();
+
+    })
+
+         button2.addEventListener('click', event => {
+             //event.preventDefault();
+             addDataToDb();
+             alert("U Regjistrua!");
+             //button2.setAttribute('asp-controller', 'Dashboard');
+             //button2.setAttribute('asp-action', 'Index');
 
     })
 
@@ -529,8 +540,8 @@
 <script>
 
     //Disabled Button
-        $('#poll').on('change',function(){
-            $('#main-div').prop('disabled',!$(this).val());
-        }).trigger('change');
+        //$('#poll').on('change',function(){
+        //    $('#main-div').prop('disabled',!$(this).val());
+        //}).trigger('change');
 </script>
 }

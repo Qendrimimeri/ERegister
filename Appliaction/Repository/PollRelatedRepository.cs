@@ -51,6 +51,12 @@ namespace Application.Repository
             return true;
 
         }
+
+        //public async Task<bool>EditPollRelated(PersonVM editPerson)
+        //{
+          
+
+        //}
         public void Save()
         {
             _db.SaveChanges();

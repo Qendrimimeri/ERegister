@@ -1,8 +1,10 @@
 ﻿using Application.Repository;
 using Application.ViewModels;
 using Domain.Data.Entities;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Presentation.Controllers
 
@@ -51,6 +53,9 @@ namespace Presentation.Controllers
         }
         public async Task<IActionResult> Voters(string name)
         {
+            ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+            ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+
             var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
            
             var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault(); 

@@ -215,6 +215,9 @@ namespace Infrastructure.Services
         public async Task<bool> ForgotPasswordAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return false;
+
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var baseUrl = "https://localhost:7278";
             var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
