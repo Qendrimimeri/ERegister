@@ -71,12 +71,7 @@
         }
 
       function ExportToPdf() {
-           let tableClone = $('#test');
-                    tableClone
-                    .find(".no-export")
-                    .each(function(){
-                        $(this).hide();
-                    });
+           
                 //e.preventDefault();
                 html2canvas(document.getElementById('test'), {
                 onrendered: function (canvas) {
@@ -87,7 +82,12 @@
                             width: 500
                         }]
                     };
-                    
+                    let tableClone = $('#test');
+                    tableClone
+                    .find(".no-export")
+                    .each(function(){
+                        $(this).hide();
+                    });
                     pdfMake.createPdf(docDefinition).download("Table.pdf");
                     location.reload(true);
                 }
