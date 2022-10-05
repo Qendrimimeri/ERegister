@@ -46,7 +46,7 @@ namespace Application.Repository
 
 
             var getUser = await _appUser.FindUserByIdAsync(pollRelated.UserId);
-            getUser.ActualStatus = editPerson.ActualStatus;
+            getUser.ActualStatus = (editPerson.ActualStatus == null? getUser.ActualStatus : editPerson.ActualStatus);
             var res = await _appUser.UpdateUserAsync(getUser);
             return true;
 
