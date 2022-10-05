@@ -23,9 +23,9 @@ namespace Infrastructure.Services
         public static IEnumerable<GeneralDemand> GeneralDemands()
         {
             var generalDemand = new List<GeneralDemand>() {
-                new GeneralDemand { Key = "Infrastrukture", Value = "Infrastrukture" },
-                new GeneralDemand { Key = "Shkoll", Value = "Shkoll" },
-                new GeneralDemand { Key = "Ujesjells", Value = "Ujesjells" },
+                new GeneralDemand { Key = "Infrastruktura", Value = "Infrastruktura" },
+                new GeneralDemand { Key = "Shkolla", Value = "Shkolla" },
+                new GeneralDemand { Key = "Ujësjellsi", Value = "Ujësjellsi" },
             };
             return generalDemand;
         }
@@ -34,8 +34,10 @@ namespace Infrastructure.Services
         {
             var generalReason = new List<GeneralReason>() {
                 new GeneralReason { Key = "Familja", Value = "Familja" },
-                new GeneralReason { Key = "Puna", Value = "Puna" },
-                new GeneralReason { Key = "Binje politike", Value = "Bindje politike" },
+                new GeneralReason { Key = "Puna/Biznesi", Value = "Puna/Biznesi" },
+                new GeneralReason { Key = "Bindja politike", Value = "Bindja politike" },
+                new GeneralReason { Key = "Shoqëria", Value = "Shoqëria" },
+
             };
             return generalReason;
         }
