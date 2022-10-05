@@ -101,7 +101,7 @@ namespace Infrastructure.Services
                 UserName = model.Email,
                 WorkId = workId,
                 AddressId = addressId,
-                ActualStatus = "unset",
+                ActualStatus = "Ne Process",
                 PhoneNumber = model.PhoneNumber,
 
             };
