@@ -1,21 +1,70 @@
 ﻿@model IEnumerable<PersonVM>
 @{
     ViewBag.Title = "Tabela e Votueseve";
-    int i = 1;
 }
 @{
     Layout = "_DashboardLayout";
 }
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="btn float-end d-flex justify-content-end">
     <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   <button type="button" class="btn btn-primary" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
 </div>
-<div class="bg-white">
-    <div class="table table-responsive">
-        <table class="table text-center table-striped table-hover small"id="test">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+@*<section class="section">
+    <div class="bg-white">
+                <div>
+                <a class="toggle-vis" data-column="0">Qyteti</a> - <a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a> - <a class="toggle-vis" data-column="2">Numri i votueseve</a> 
+                </div>
+              <table class="table datatable table-borderless text-center table-striped table-hover small display" id="example">
+                <thead>
+                    <tr style = "font-size:12px;" class = "align-middle">
+                        <th scope="col">Qyteti</th>
+                        <th style="width: 130px;" scope="col" class="align-middle">Emri dhe Mbiemri</th>
+                        <th scope="col">Numri i votuesve</th>
+                        <th scope="col">Numri i telefonit</th>
+                        <th scope="col">Qendra votimit</th>
+                        <th scope="col">Votues paraprak</th>
+                        <th scope="col">Votues i tanishëm</th>
+                        <th scope="col">Gjasat fillestare</th>
+                        <th scope="col">Gjasat aktuale</th>
+                        <th scope="col" style="width: 100px; font-size:11px">Statusi aktual</th>
+                        <th class="no-export" style="font-size:11px">Menaxho</th>
+                    </tr>
+                </thead>
+               <tbody>
+          
+                @foreach (var voter in Model)
+                {
+                <tr style = "font-size:13px;" class = "align-middle">
+                    <td>@voter.MunicipalityName</td>
+                    <td>@voter.FullName</td>
+                    <td>@voter.VotersNumber</td>
+                    <td>@voter.PhoneNumber</td>
+                    <td>@voter.PollCenter</td>
+                    <td>@voter.PreviousVoter</td>
+                    <td>@voter.CurrentVoter</td>
+                    <td>@voter.InitialChances</td>
+                    <td>@voter.ActualChances</td>
+                    <td>@voter.ActualStatus</td>
+
+                    <td><a class="no-export" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
+
+                </tr>
+
+                }
+            </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+
+    </section>*@
+    <div class="bg-white">
+    <div class="table">
+         <div>
+                <a class="toggle-vis" data-column="0">Qyteti</a> - <a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a> - <a class="toggle-vis" data-column="2">Numri i votueseve</a> 
+                </div>
+        <table class="table datatable table-responsive table-borderless text-center table-striped table-hover small"id="example">
             <thead>
                 <tr style = "font-size:12px;" class = "align-middle">
                     <th scope="col">Qyteti</th>
@@ -58,7 +107,47 @@
         </table>
     </div>
 </div>
+
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />  
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />  
+@section Scripts {
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+ 
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script> 
+
 <script>
+
+$(document).ready(function () {
+    var table = $('#example').DataTable({
+        paging: false,
+    });
+ 
+    $('a.toggle-vis').on('click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table.column($(this).attr('data-column'));
+ 
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+});
+</script>
+
+
+<script>  
+  
+    $('#demoGrid').dataTable({  
+    });  
+</script> 
+  
+  
+
+<script>
+
     function ExportToExcel(type, fn, dl) {
            var elt = document.getElementById('test');
            $('#test').find('th').last().remove();
@@ -96,6 +185,8 @@
             });
 
         }
+
         
     
 </script>
+}
