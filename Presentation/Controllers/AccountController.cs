@@ -8,142 +8,181 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
+#pragma warning disable CS8604
+
     public class AccountController : Controller
     {
+        private readonly string errorView = "../Error/ErrorInfo";
         private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController( IUnitOfWork unitOfWork,SignInManager<ApplicationUser> signInManager)
+        public AccountController( IUnitOfWork unitOfWork, 
+                                  SignInManager<ApplicationUser> signInManager,
+                                  ILogger<AccountController> logger)
         {
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
-
         
-        public IAccountRepository AccountRepository { get; }
+        [HttpGet] // this action method will  return the index page of the home controller
+        public IActionResult Login() =>  View("../Home/Index");
 
-        
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View("../Home/Index");
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM login)
-
         {
-            if (ModelState.IsValid)
+            try
             {
-                var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
-
-                if (roles.Contains("AnetarIThjeshte"))
+                if (ModelState.IsValid)
                 {
-                    if (await _unitOfWork.Account.LoginAsync(login))
-                    {
-                        return RedirectToAction("AddVoter", "AddsAdmin");
-                    }
+                    // get the role of the signin user 
+                    var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
 
-                }
-                else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")) || (roles.Contains("KryetarIFshatit")))
-                {
-                    if (await _unitOfWork.Account.LoginAsync(login))
+                    if (roles.Contains("AnetarIThjeshte"))
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        if (await _unitOfWork.Account.LoginAsync(login))
+                            return RedirectToAction("AddVoter", "AddsAdmin");
+                    }
+                    else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")) || (roles.Contains("KryetarIFshatit")))
+                    {
+                        if (await _unitOfWork.Account.LoginAsync(login))
+                            return RedirectToAction("Index", "Dashboard");
                     }
                 }
+                ModelState.AddModelError("", "Kreencialet e gabuara");
+                return RedirectToAction("Index", "Home", ModelState);
             }
-            ModelState.AddModelError("", "Login failed, wrong credentials");
-            return RedirectToAction("Index", "Home", ModelState);
-
-
-        }
-
-        public IActionResult AccessDenied()
-        {
-            return View("../Account/AccessDenied");
-        }
-
-        [Route("/Account/Error/{code:int}")]
-        public IActionResult Error(int code)
-        {
-            return View(new ErrorModel { ErrorMessage = $"Error Occurred. Error Code is{code}" });
+            catch (Exception err)
+            {
+                _logger.LogError(message: "An error has occurred ", err);
+                return View(errorView);
+            }
         }
 
 
+        [HttpGet]
+        public IActionResult AccessDenied() => View("../Account/AccessDenied");
+
+
+        [HttpGet]
+        public IActionResult ConfirmedEmail() => View("ConfirmEmail");
+
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
-            if (userId == null || token == null)
+            try
             {
-                ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                if (userId == null || token == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                    return View();
+                }
+                var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
+                var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
+
+                if (result.Succeeded)
+                    return RedirectToAction("ConfirmedEmail");
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, err.Description);
+                }
                 return View();
             }
-            var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
-            var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
-
-            if (result.Succeeded)
-                return RedirectToAction("ConfirmedEmail");
-            foreach (var err in result.Errors)
+            catch (Exception err)
             {
-                ModelState.AddModelError(string.Empty, err.Description);
+                _logger.LogError("An Error has occured", err);
+                return View(errorView);
             }
-            return View();
         }
 
-        public async Task<IActionResult> ConfirmedEmail() => View("ConfirmEmail");
 
-
-
-
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(EmailVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
-                model.IsEmailSent = true;
-                return RedirectToAction("forgot", "home", model);
-            }
-            return View();
-        }
+                if (ModelState.IsValid)
+                {
 
+                    await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+
+                    model.IsEmailSent = true;
+                    return RedirectToAction("forgot", "home", model);
+                }
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured in Forgot password ", err);
+                return View(errorView);
+            }
+        }
 
 
         [HttpGet]
         public async Task<IActionResult> ResetPassword(string userId, string token)
         {
-            if (userId == null && token == null)
-                return View("ResetPasswordError");
+            try
+            {
+                if (userId == null && token == null)
+                    return View("ResetPasswordError");
 
-            return View();
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured in Reset Password", err);
+                return View(errorView);
+            }
         }
 
-        [HttpPost]
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string replaceToken = model.Token.Replace(" ", "+");
-                model.Token = replaceToken;
-
-                var res = await _unitOfWork.Account.ResetPasswordAsync(model);
-                if (res.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    TempData["success"] = "You are Logged in!";
-                    return RedirectToAction("Index", "Home");
+                    string replaceToken = model.Token.Replace(" ", "+");
+                    model.Token = replaceToken;
+
+                    var res = await _unitOfWork.Account.ResetPasswordAsync(model);
+                    if (res.Succeeded)
+                    {
+                        TempData["success"] = "You are Logged in!";
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+                return View();
             }
-            return View();
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured in {Reset Password} method", err);
+                return View(errorView);
+            }
         }
 
-        [HttpPost]
+
         public async Task<IActionResult>Logout()
         {
-            await _signInManager.SignOutAsync();
-            TempData["success"] = "You are logged out!";
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                await _signInManager.SignOutAsync();
+                TempData["success"] = "You are logged out!";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured in {Logout}", err);
+                return View(errorView);
+            }
         }
     }
+
+#pragma warning restore CS8604
 }
