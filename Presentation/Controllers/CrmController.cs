@@ -13,93 +13,149 @@ namespace Presentation.Controllers
 
     public class CrmController : Controller
     {
+        private readonly string errorView = "../Error/ErrorInfo";
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<CrmController> _logger;
 
-        public CrmController(IUnitOfWork unitOfWork)
+        public CrmController(IUnitOfWork unitOfWork,
+                             ILogger<CrmController> logger)
         {
-          _unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
+
+        [HttpGet]
+        public IActionResult Index() =>  View();
+
+
         //Arsye percaktuese general demand 
-        [HttpPost]
-        [Route("addgeneraldemand")]
+        [HttpPost, Route("addgeneraldemand")]
         public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
         {
-            _unitOfWork.PollRelated.Add(new PollRelated
+            try
             {
-                SpecificReason = model.SpecificReason
-            });
+                _unitOfWork.PollRelated.Add(new PollRelated
+                {
+                    SpecificReason = model.SpecificReason
+                });
+                _unitOfWork.SaveChanges();
 
-            _unitOfWork.SaveChanges();
+                return Ok();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured ", err);
+                return View(errorView);
+            }
 
-            return Ok();
         }
+
+
         //ndihma nevojshme
-        [HttpPost]
-        [Route("GetNeedHelp")]
+        [HttpPost, Route("GetNeedHelp")]
         public ActionResult GetNeedHelp([FromBody] GeneralDemandVM model)
         {
-            _unitOfWork.PollRelated.Add(new PollRelated
+            try
             {
-                SpecificDemand = model.SpecificDemand
-            });
+                _unitOfWork.PollRelated.Add(new PollRelated
+                {
+                    SpecificDemand = model.SpecificDemand
+                });
+                _unitOfWork.SaveChanges();
 
-            _unitOfWork.SaveChanges();
+                return Ok();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
 
-            return Ok();
         }
+
+
         public async Task<IActionResult> Voters(string name)
         {
-            ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-            ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
-
-            var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
-           
-            var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault(); 
-            if (vm1 == null)
+            try
             {
-                return BadRequest();
+                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
 
+                var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
+
+                var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
+                if (vm1 == null)
+                {
+                    return BadRequest();
+
+                }
+                return PartialView("_Voters", vm1);
             }
-            return PartialView("_Voters" ,vm1);
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
-        
+
+
         public IActionResult Cancel()
         {
-            TempData["success"] = "U anulua!";
-            return RedirectToAction("Index");
+            try
+            {
+                TempData["success"] = "U anulua!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+
         }
+
 
         public async Task <IActionResult> SaveAndClose(PollRelated pollRelated)
         {
-             _unitOfWork.PollRelated.Update(pollRelated);
-            await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("Index","Dashboard");
+            try
+            {
+                _unitOfWork.PollRelated.Update(pollRelated);
+                await _unitOfWork.Done();
+                TempData["success"] = "U ruajt me sukses!";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
+
 
         public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         {
-            _unitOfWork.PollRelated.Update(pollRelated);
-            await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("Index");
+            try
+            {
+                _unitOfWork.PollRelated.Update(pollRelated);
+                await _unitOfWork.Done();
+                TempData["success"] = "U ruajt me sukses!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
-        public IActionResult GeneralReasons()
-        {
-            return View();
-        }
-        public IActionResult AddHelper()
-        {
-            return View();
-        }
-        public IActionResult OpenCases()
-        {
-            return View();
-        }
-        
+
+
+        public IActionResult GeneralReasons() => View();
+
+
+        public IActionResult AddHelper() => View();
+
+
+        public IActionResult OpenCases() => View();
     }
 }
