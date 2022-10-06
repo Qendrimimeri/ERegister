@@ -41,6 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\datatable\datatables.js" />
+    <None Include="wwwroot\datatable\datatables.min.js" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
