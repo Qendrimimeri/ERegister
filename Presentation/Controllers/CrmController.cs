@@ -71,15 +71,15 @@ namespace Presentation.Controllers
         }
         public JsonResult AutoComplete(string prefix)
         {
-            var customers = (from movie in this._context.ApplicationUsers
-                             where movie.FullName.StartsWith(prefix)
+            var users = (from user in this._context.ApplicationUsers
+                             where user.FullName.StartsWith(prefix)
                              select new
                              {
-                                 label = movie.FullName,
-                                 val = movie.Id
+                                 label = user.FullName,
+                                 val = user.Id
                              }).ToList();
 
-            return Json(customers);
+            return Json(users);
         }
 
         public IActionResult Cancel()
