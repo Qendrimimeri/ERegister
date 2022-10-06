@@ -1,13 +1,18 @@
 using Application.Repository;
 using Appliaction.Repository;
+using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
 using Appliaction.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Presentation;
+using System;
+using Application.Repository.IRepository;
 using Infrastructure.Settings;
-
+using Serilog;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -33,6 +38,20 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
+
+builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
+
+/// <summary>
+/// Serilog 
+/// </summary>
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
@@ -45,7 +64,6 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -53,7 +71,7 @@ else
     app.UseHsts();
 }
 
-app.UseStatusCodePagesWithReExecute("/Account/Error/{0}");
+app.UseStatusCodePagesWithReExecute("/ErrorHandler/Error/{0}");
 
 app.UseHttpsRedirection();
 
