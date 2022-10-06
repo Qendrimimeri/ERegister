@@ -1,5 +1,6 @@
 ﻿using Application.Repository;
 using Application.ViewModels;
+using Domain.Data;
 using Domain.Data.Entities;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +15,12 @@ namespace Presentation.Controllers
     public class CrmController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ApplicationDbContext _context;
 
-        public CrmController(IUnitOfWork unitOfWork)
+        public CrmController(IUnitOfWork unitOfWork, ApplicationDbContext context)
         {
           _unitOfWork = unitOfWork;
+            _context=context;
         }
         public IActionResult Index()
         {
@@ -66,7 +69,19 @@ namespace Presentation.Controllers
             }
             return PartialView("_Voters" ,vm1);
         }
-        
+        public JsonResult AutoComplete(string prefix)
+        {
+            var customers = (from movie in this._context.ApplicationUsers
+                             where movie.FullName.StartsWith(prefix)
+                             select new
+                             {
+                                 label = movie.FullName,
+                                 val = movie.Id
+                             }).ToList();
+
+            return Json(customers);
+        }
+
         public IActionResult Cancel()
         {
             TempData["success"] = "U anulua!";
