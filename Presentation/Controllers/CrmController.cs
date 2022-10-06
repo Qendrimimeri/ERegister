@@ -102,9 +102,13 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-        public JsonResult AutoComplete(string prefix)
+
+
+        public IActionResult AutoComplete(string prefix)
         {
-            var users = (from user in this._context.ApplicationUsers
+            try
+            {
+                var users = (from user in this._context.ApplicationUsers
                              where user.FullName.StartsWith(prefix)
                              select new
                              {
@@ -112,7 +116,14 @@ namespace Presentation.Controllers
                                  val = user.Id
                              }).ToList();
 
-            return Json(users);
+                return Json(users);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return BadRequest();
+            }
+
         }
 
         public IActionResult Cancel()
