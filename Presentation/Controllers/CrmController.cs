@@ -1,5 +1,6 @@
 ﻿using Application.Repository;
 using Application.ViewModels;
+using Domain.Data;
 using Domain.Data.Entities;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,13 +16,16 @@ namespace Presentation.Controllers
     {
         private readonly string errorView = "../Error/ErrorInfo";
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<CrmController> _logger;
 
         public CrmController(IUnitOfWork unitOfWork,
-                             ILogger<CrmController> logger)
+                             ILogger<CrmController> logger,
+                             ApplicationDbContext context)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _context=context;
         }
 
 
@@ -98,7 +102,18 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+        public JsonResult AutoComplete(string prefix)
+        {
+            var users = (from user in this._context.ApplicationUsers
+                             where user.FullName.StartsWith(prefix)
+                             select new
+                             {
+                                 label = user.FullName,
+                                 val = user.Id
+                             }).ToList();
 
+            return Json(users);
+        }
 
         public IActionResult Cancel()
         {
