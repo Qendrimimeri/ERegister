@@ -128,7 +128,7 @@ namespace Presentation.Controllers
                   PoliticalSubject = x.PoliticialSubjectId,
                   Name = x.PoliticialSubject.Name
                   
-
+                  
               }));
 
 
@@ -586,8 +586,25 @@ namespace Presentation.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("addpoliticalsubject")]
+        public async Task AddPoliticalSubject([FromBody] Name model)
+        {
+            var res = _context.PoliticalSubjects.Add(new PoliticalSubject
+            {
+                Name = model.Text
+            });
+            await _context.SaveChangesAsync();
+        }
+
         private async Task<string> GetUser() =>
             _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+
+
+    public class Name
+    {
+        public string? Text { get; set; }
     }
 #pragma warning restore CS8602
 #pragma warning restore CS8604
