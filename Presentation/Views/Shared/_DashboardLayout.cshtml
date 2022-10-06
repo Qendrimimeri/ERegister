@@ -140,7 +140,7 @@
                     </a>
                 </li>
             }
-            @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
+           @* @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="KqzResult">
@@ -148,7 +148,7 @@
                         <span>Rezultatet KQZ</span>
                     </a>
                 </li>
-            }
+            }*@
             <li class="accordion-item mt-5">
                 <form asp-controller="Account" asp-action="Logout">
                     <button class="dropdown-item d-flex align-items-center nav-link collapsed">
