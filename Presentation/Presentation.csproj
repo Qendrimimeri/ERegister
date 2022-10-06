@@ -40,4 +40,9 @@
     <Folder Include="wwwroot\Document\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\datatable\datatables.js" />
+    <None Include="wwwroot\datatable\datatables.min.js" />
+  </ItemGroup>
+
 </Project>
