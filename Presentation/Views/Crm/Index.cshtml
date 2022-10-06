@@ -41,6 +41,32 @@
 
     <script>
 
+         $(function () {
+            $("#SearchBtn").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Crm/AutoComplete/',
+                        data: { "prefix": request.term },
+                        type: "POST",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#SearchBtn").val(i.item.val);
+                },
+                minLength: 1
+            });
+        });
 
 
         //const url = "https://localhost:7278/api/service/";
@@ -189,6 +215,8 @@
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 
 }
