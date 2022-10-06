@@ -128,7 +128,7 @@ namespace Presentation.Controllers
                   PoliticalSubject = x.PoliticialSubjectId,
                   Name = x.PoliticialSubject.Name
                   
-
+                  
               }));
 
 

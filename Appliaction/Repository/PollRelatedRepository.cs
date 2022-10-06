@@ -30,7 +30,7 @@ namespace Application.Repository
             {
                 UserId = editPerson.Id,
                 SuccessChances = editPerson.ActualChances,
-                PoliticialSubjectId = Int32.Parse(editPerson.CurrentVoter),
+                PoliticialSubjectId = (editPerson.CurrentVoter == null ? pollId.PoliticialSubjectId : int.Parse(editPerson.CurrentVoter)),
                 FamMembers =pollId.FamMembers,
                 GeneralDemand=pollId.GeneralDemand,
                 SpecificDemand=pollId.SpecificDemand,
@@ -46,7 +46,7 @@ namespace Application.Repository
 
 
             var getUser = await _appUser.FindUserByIdAsync(pollRelated.UserId);
-            getUser.ActualStatus = editPerson.ActualStatus;
+            getUser.ActualStatus = (editPerson.ActualStatus == null? getUser.ActualStatus : editPerson.ActualStatus);
             var res = await _appUser.UpdateUserAsync(getUser);
             return true;
 
