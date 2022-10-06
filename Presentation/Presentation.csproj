@@ -49,6 +49,8 @@
     <None Include="wwwroot\datatable\datatables.js" />
     <None Include="wwwroot\datatable\datatables.min.js" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\jquerycrm\jquery-ui.js" />
+    <None Include="wwwroot\jquerycrm\jquery-ui.min.js" />
   </ItemGroup>
 
 </Project>
