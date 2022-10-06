@@ -172,7 +172,7 @@
                             <a asp-action="Cancel" class="btn btn-danger pe-2">Anulo</a>&nbsp &nbsp</a>
                             <button id="main-button" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
 
-                            <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+                            <button type="submit" id="second-button" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
 
 
                         </div>
@@ -1679,8 +1679,9 @@
             $('#table').hide();
 
         const button = document.getElementById('main-button');
+        const butoni = document.getElementById('second-button'); 
         const votes = document.getElementsByClassName("votat");
-        console.log(votes);
+        
 
         var shuma = 0;
         var input;
@@ -1735,7 +1736,14 @@
              addDataToDb();
              //location.reload();
 
-    })
+    });
+
+       butoni.addEventListener('click', event => {
+             //event.preventDefault();
+             addDataToDb();
+             //location.reload();
+
+    });
 
         //const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
         //console.log(neighborhoodVillage);
