@@ -212,7 +212,16 @@ namespace Presentation.Controllers
             ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
             ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
             ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
-            ViewBag.roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Key", "Value");
+            var roles = new List<Application.Models.RoleModel>();
+
+            bool userInrole = User.IsInRole("KryetarIKomunes");
+            var rolesFromDb = await _unitOfWork.ApplicationUser.GetAllRolesAsync();
+            if (userInrole)
+                foreach (var item in rolesFromDb)
+                    if (!(item.Value == "KryetarIPartise"))
+                        roles.Add(item);
+
+            ViewBag.roles = new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value");
         }
 
         #endregion

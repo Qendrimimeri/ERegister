@@ -19,6 +19,7 @@ namespace Application.Repository.IRepository
     public interface IApplicationUserRepository
     {
         Task<IList<string>> GetRoles(string email);
+
         Task<ApplicationUser> GetUserByNameAsync(string name);
         
         Task<List<PersonVM>> GetPersonInfoAsync();
@@ -26,6 +27,8 @@ namespace Application.Repository.IRepository
         Task<List<VoterDetailsVM>> GetVoterInfoAsync();
 
         int? GetMunicipalityIdOfUser(string id);
+
+        int? GetVillageIdOfUser(string id);
 
         Task<ApplicationUser> FindUserByIdAsync(string id);
 

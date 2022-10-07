@@ -213,20 +213,23 @@ namespace Application.Repository
 
         public async Task<List<RoleModel>> GetAllRolesAsync()
         {
+            var userName = GetRoles("imella");
             var res = await _roleManager.Roles.ToListAsync();
             var roles = new List<RoleModel>();
             foreach (var role in res)
                 if (role.Name != "SimpleRole")
                     roles.Add(new RoleModel { Key = role.Name, Value = role.Name });
 
+
             return roles;
         }
 
         public int? GetMunicipalityIdOfUser(string id)
-        {
-            var res = _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).First();
-            return res;
-        }
+            => _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).First();
+
+        public int? GetVillageIdOfUser(string id)
+            => _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.VillageId).First();
+
     }
 
 }
