@@ -102,7 +102,7 @@
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
             <select class="form-select" id="generaldemand" asp-items="@ViewBag.ArysjetPercaktues">
-              @*  <option disabled selected>Arsyeja percaktuese</option>*@
+                <option  value="0" disabled selected>Arsyeja percaktuese</option>
                 <option value="shto">Shto +</option>
             </select>
         </div>
@@ -153,13 +153,26 @@
 </div>
 <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
     <a asp-action="Cancel"  class="btn btn-danger">Anulo</a>&nbsp &nbsp
-    <a asp-action="SaveAndOpenCase"  class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
-    <a asp-action="SaveAndClose"  class="btn btn-primary">Ruaj dhe mbyll</a>
+    <a  class="btn btn-primary" id="openCaseBtn">Ruaj dhe hap rast</a>&nbsp &nbsp
+    <a id="closeCaseBtn" class="btn btn-primary">Ruaj dhe mbyll</a>
 </div>
 
 
 
+@section Scripts {
+    <script>
+          function Validate()
+    {
+        var  generalDemand=document.getElementById("generaldemand");
+        if(generalDemand.value == "0"){
+            alert("Please select an option");
+            return false;
+        }
+        return true;
+    }
 
+    </script>
+}
 
             
             
