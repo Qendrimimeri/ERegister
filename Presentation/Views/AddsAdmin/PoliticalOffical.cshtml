@@ -194,7 +194,40 @@
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
 
                         
-                           <a asp-action="Cancel" class="btn btn-danger pe-2">Anulo</a>&nbsp &nbsp</a>
+                             <a href='javascript:
+                                   swal({
+                                   title: "A jeni i sigurt?" ,
+                                   icon: "warning" ,
+                                   buttons: true,
+                                   dangerMode: "true" ,
+                                   })
+                                   .then((willDelete)=>
+                                    {
+                                    if (willDelete) {
+                                    swal({ title: "U fshi me sukses!",
+                                    icon: "success"}).then(okay => {
+                                    if (okay) {
+                                    window.location.href = "/AddsAdmin/PoliticalOffical";
+                                    }
+                                    });
+
+
+
+
+
+                                    } else {
+                                    swal({
+                                    title: "Te dhenat nuk jane anuluar!",
+                                    icon: "error",
+
+                                    });
+                                    }
+                                    });'
+
+
+
+                                    class = "btn btn-danger">Delete
+                                </a>&nbsp &nbsp
                             <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
 
                             <button type="submit"  id="second-button" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>

@@ -25,15 +25,15 @@ namespace Presentation.Controllers
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
-            _context=context;
+            _context = context;
         }
 
 
         [HttpGet]
-        public IActionResult Index() =>  View();
+        public IActionResult Index() => View();
 
 
-        //Arsye percaktuese general demand 
+        //Arsye percaktuese general demand
         [HttpPost, Route("addgeneraldemand")]
         public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
         {
@@ -142,7 +142,7 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task <IActionResult> SaveAndClose(PollRelated pollRelated)
+        public async Task<IActionResult> SaveAndClose(PollRelated pollRelated)
         {
             try
             {
@@ -159,7 +159,7 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
+        public async Task<IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         {
             try
             {
