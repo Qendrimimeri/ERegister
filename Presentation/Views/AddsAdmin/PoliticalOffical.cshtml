@@ -119,7 +119,15 @@
                                 </select>
                             </div>
                             }
-
+                            @if (User.IsInRole("KryetariIFshatit"))
+                            {
+                                <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+                            }
                         </div>
 
 
