@@ -15,10 +15,10 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri")]
         public string? FullName { get; set; }
 
-       [Required(ErrorMessage = "Numri i telefonit nuk eshte valid!"),MinLength(8), MaxLength(13),DataType(DataType.PhoneNumber)]
+       [Required(ErrorMessage = "Numri i telefonit nuk është valid!"),MinLength(8), MaxLength(13),DataType(DataType.PhoneNumber)]
         public string? PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Email adresa nuk eshte valide!"), DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "Email adresa nuk është valide!"), DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
 
 
@@ -33,7 +33,7 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Ju lutem zgjedhni rolin!")]
         public string? Role { get; set; }
 
-        [Required(ErrorMessage = "Ju lutem zgjedhni qendren e votimit!")]
+        [Required(ErrorMessage = "Ju lutem zgjedhni qendrën e votimit!")]
         public string? PollCenter { get; set; }
     }
 }
