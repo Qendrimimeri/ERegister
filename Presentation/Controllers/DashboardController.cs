@@ -246,6 +246,8 @@ namespace Presentation.Controllers
             }
         }
 
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult>ChangePassword(ChangePasswordVM model)
         {
             try
@@ -281,6 +283,5 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-
     }
 }

@@ -111,6 +111,11 @@ namespace Presentation.Controllers
                 }));
 
             }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
 
         }
 
@@ -127,6 +132,11 @@ namespace Presentation.Controllers
                     MuniCipalityId = x.MunicipalitydId
                 }));
 
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
             }
 
         }
