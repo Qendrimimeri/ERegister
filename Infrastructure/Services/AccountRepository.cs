@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 using System.Net.Http;
 using System.Security.Claims;
-
+using Appliaction.Models;
 
 namespace Infrastructure.Services
 {
@@ -47,29 +47,22 @@ namespace Infrastructure.Services
         {
 
             var user = await _userManager.FindByEmailAsync(login.Email);
-            if (user != null)
-            {
-                var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
-                if (result.Succeeded)
-                    return true;
+            if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, login.Password)))
                 return false;
-            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
+            if (result.Succeeded)
+                return true;
             return false;
         }
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            int municipalityId;
-            if (model.Municipality == null)
-                municipalityId = await AdminMunicipalityId();
-            municipalityId = (int)model.Municipality;
-                
-
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
-                MunicipalityId = municipalityId,
+                MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
@@ -134,16 +127,13 @@ namespace Infrastructure.Services
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
-            int municipalityId;
-            if (model.Municipality == null)
-                municipalityId = await AdminMunicipalityId();
-            municipalityId = (int)model.Municipality;
+
 
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
-                MunicipalityId = municipalityId,
+                MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
@@ -180,6 +170,9 @@ namespace Infrastructure.Services
                 ImgPath = "default.png",
                 PhoneNumber = model.PhoneNumber,
             };
+
+            // Use this for Development env.
+            var password = CreateRandomPassword(10);
 
             var result = await _userManager.CreateAsync(simpleUser, "Admin!23");
             await _context.SaveChangesAsync();
@@ -245,6 +238,20 @@ namespace Infrastructure.Services
             var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var res =  ((int)await  _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
             return res;
+        }
+
+        private static string CreateRandomPassword(int passwordLength)
+        {
+            string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_-";
+            char[] chars = new char[passwordLength];
+            Random rd = new Random();
+
+            for (int i = 0; i < passwordLength; i++)
+            {
+                chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
+            }
+
+            return new string(chars);
         }
     }
 }

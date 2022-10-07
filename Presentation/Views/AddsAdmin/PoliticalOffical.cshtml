@@ -1,4 +1,4 @@
-﻿@using Application.Repository
+﻿ @using Application.Repository
 @using Application.ViewModels
 @using Domain.Data.Entities
 @{
@@ -10,6 +10,7 @@
 @{
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
 }
 
 <style>
@@ -38,6 +39,8 @@
                 <div class="card-body p-5" id="">
                     <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                     <form asp-action="PoliticalOffical" method="post" id="forma">
+                           <a><span class="text-danger validation-message" id="validation-message">Ju lutem plotësoni tabelën me rezultatet e KQZ!</span></a>
+
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
                         <div class="mb-4 d-flex justify-content-between">
@@ -119,7 +122,15 @@
                                 </select>
                             </div>
                             }
-
+                            @if (User.IsInRole("KryetariIFshatit"))
+                            {
+                                <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+                            }
                         </div>
 
 
@@ -155,7 +166,7 @@
                         <hr />
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                             <div class="col-md-6 mb-2 pe-2">
-                                <label asp-for="Role">Pozita ne parti</label>
+                                <label asp-for="Role">Pozita në parti</label>
                                 <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select"
                                     id="inputGroupSelect05">
                                     <option disabled selected>Zgjedh rolin...</option>
@@ -181,10 +192,12 @@
                             </div> 
                         </div>
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-                            <a asp-action="Cancel" class="btn btn-danger pe-2">Anulo</a>&nbsp &nbsp</a>
-                            <button id="main-button" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
 
-                            <button type="submit" id="second-button" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+                        
+                           <a asp-action="Cancel" class="btn btn-danger pe-2">Anulo</a>&nbsp &nbsp</a>
+                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
+
+                            <button type="submit"  id="second-button" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
 
 
                         </div>
@@ -246,7 +259,7 @@
 		<div class="d-flex flex-row justify-content-between">
              <div class=" pt-4">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Shto nje subjekt politike
+                            Shto nje subjekt politik
                         </button>
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -270,21 +283,24 @@
 
 			  <div class="col-4">
 								<label class="">Lloji i zgjedhjeve</label>
-								<select class="form-select" id="inputGroupSelect03">
+								<select class="form-select" id="inputGroupSelect03" name="zgjedhjet">
 									<option disabled selected>Zgjedh llojin e zgjedhjeve...</option>
 									<option>Zgjedhjet Nacionale</option>
 									<option>Zgjedhjet Lokale</option>
 								</select>
+                                <span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>
 							</div>
 							<div class="col-4">
-								<label class="">Viti i zgjedhjeve</label>
+								<label class="">Data e zgjedhjeve</label>
 								<input type="date" id="year" class="form-control">
-								<span class="text-danger"></span>
+								<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>
 							</div>
 		</div>
 
      <div class="col-md-6 w-100 pt-5">
                     <div class="table-responsive">
+								<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>
+
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -295,35 +311,35 @@
                             <tbody>
                                 <tr>
                                     <th scope="row" class="parti" value="1">VV</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="2">LDK</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="3">PDK</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="4">AAK</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="5">AKR</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="6">Nisma</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="7">Partite serbe</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="parti" value="8">Partite joserbe</th>
-                                    <td><input type="number" class="border-0 votat w-100" /></td>
+                                    <td><input type="number" class="partyNumber border-0 votat w-100" required/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -336,12 +352,21 @@
     </div>
     </div>
     </div>
+
 </section>
+
+
+    
+
+
+
 @if (User.IsInRole("KryetarIKomunes"))
 {
     @section Scripts
     {
     <script>
+        
+
         $('#table').hide();
         $('#neigborhoodsVillage-container').hide();
 
@@ -2148,5 +2173,25 @@
                 });
         }
     </script>
+    <script>
+        document.querySelector(".validation-message").style.display = "none";
+        const BreakException = {};
+        const forma = document.querySelector("#forma");
+        forma.addEventListener("submit", function(e){
+            const parties = document.querySelectorAll(".partyNumber");
+            try {
+                parties.forEach(el => {
+                    if (el.value === "") {
+                        document.querySelector(".validation-message").style.display = "";
+                        e.preventDefault();
+                    }
+            });
+            } catch (err) {
+                if (err !== BreakException) throw err;
+            }
+        });
+    </script>
+    
 }
 }
+

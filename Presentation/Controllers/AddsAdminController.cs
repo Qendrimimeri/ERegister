@@ -29,11 +29,20 @@ namespace Presentation.Controllers
 
 
 
-        [Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
+        [HttpGet, Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
         public IActionResult AddVoter()
         {
-            VoterAddress();
-            return View();
+            try
+            {
+                VoterAddress();
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+
         }
       
 
@@ -60,15 +69,24 @@ namespace Presentation.Controllers
                 _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
+
         }
 
 
 
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
-        public async Task<IActionResult> PoliticalOffical()
+        public IActionResult PoliticalOffical()
         {
-            PoliticalOfficialAddress();
-            return View();
+            try
+            {
+                PoliticalOfficialAddress();
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
 
@@ -102,14 +120,27 @@ namespace Presentation.Controllers
             return RedirectToAction("Index","Dashboard");
         }
 
+        //public async Task<IActionResult> FormSubmit(ApplicationUser user)
+        //{
+        //    return Ok();
+        //}
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
         {
-           await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-             await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("Index", "Dashboard");
+            try
+            {
+                await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
+                await _unitOfWork.Done();
+                TempData["success"] = "U ruajt me sukses!";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
 
@@ -214,7 +245,16 @@ namespace Presentation.Controllers
             ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
             ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
             ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
-            ViewBag.roles = new SelectList(await _unitOfWork.ApplicationUser.GetAllRolesAsync(), "Key", "Value");
+            var roles = new List<Application.Models.RoleModel>();
+
+            bool userInrole = User.IsInRole("KryetarIKomunes");
+            var rolesFromDb = await _unitOfWork.ApplicationUser.GetAllRolesAsync();
+            if (userInrole)
+                foreach (var item in rolesFromDb)
+                    if (!(item.Value == "KryetarIPartise"))
+                        roles.Add(item);
+
+            ViewBag.roles = new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value");
         }
 
         #endregion
