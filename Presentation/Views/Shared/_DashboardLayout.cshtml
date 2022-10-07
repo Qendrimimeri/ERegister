@@ -1,8 +1,14 @@
 ﻿@using Domain.Data.Entities
 @using System.Security.Claims
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+@inject IHttpContextAccessor _context;
+
+@{
+    var res = _context.HttpContext.Response.StatusCode;
+    var result = res;
+}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">.
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

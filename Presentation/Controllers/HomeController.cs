@@ -9,15 +9,18 @@ namespace Presentation.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(IUnitOfWork unitOfWork)
-        {
-           _unitOfWork = unitOfWork;
-        }
+        public HomeController(IUnitOfWork unitOfWork) =>  _unitOfWork = unitOfWork;
+
+
+        [HttpGet]
         public IActionResult Index() => View();
+
 
         [HttpGet]
         public  IActionResult Forgot(EmailVM model) => View(model);
 
+
+        [HttpGet]
         public IActionResult AboutUs() => View();
     }
 
