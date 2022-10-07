@@ -53,7 +53,6 @@ namespace Presentation.Controllers
             }
         }
 
-
         // GetPoll
         [Route("getpollcenterbyvillageid")]
         public ActionResult GetPollCenterByVillageId([FromQuery] int id)
@@ -61,7 +60,6 @@ namespace Presentation.Controllers
             try
             {
                 return Ok(_context.PollCenters.Where(v => v.VillageId == id).Select(x => new
-
                 {
                     Id = x.Id,
                     CenterNumber = x.CenterNumber,
@@ -75,6 +73,7 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
 
         [Route("getpollcenterbyneighborhoodid")]
         public ActionResult GetPollCenterByNeighborhoodId([FromQuery] int id)
@@ -96,6 +95,7 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
 
         [Route("getpollcenterbymuniid")]
         public ActionResult GetPollCenterByMuniId([FromQuery] int id)
@@ -119,6 +119,7 @@ namespace Presentation.Controllers
 
         }
 
+
         [Route("getpollcenterbyid")]
         public ActionResult GetPollCenterById([FromQuery] string id)
         {
@@ -131,18 +132,16 @@ namespace Presentation.Controllers
                     CenterName = x.CenterName,
                     MuniCipalityId = x.MunicipalitydId
                 }));
-
             }
             catch (Exception err)
             {
                 _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
-
         }
 
-        [HttpPost]
-        [Route("addpollcenter")]
+
+        [HttpPost, Route("addpollcenter")]
         public ActionResult AddPollCenter([FromBody] PollCenterVM model)
         {
             try
@@ -173,17 +172,15 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Kqzregisters.Where(v => v.MunicipalityId == muniId)
-              .Select(x =>
-              new
-              {
-                  Id = x.Id,
-                  NoOfVotes = x.NoOfvotes,
-                  PoliticalSubject = x.PoliticialSubjectId,
-                  Name = x.PoliticialSubject.Name
+                return Ok(_context.Kqzregisters.Where(v => v.MunicipalityId == muniId).Select(x => new
+                {
+                    Id = x.Id,
+                    NoOfVotes = x.NoOfvotes,
+                    PoliticalSubject = x.PoliticialSubjectId,
+                    Name = x.PoliticialSubject.Name
 
 
-              }));
+                }));
             }
             catch (Exception err)
             {
@@ -199,7 +196,7 @@ namespace Presentation.Controllers
             try
             {
                 return Ok(_context.Kqzregisters.Where(v => v.VillageId == muniId && v.ElectionType == "Zgjedhjet Nacionale")
-             .Select(x =>
+               .Select(x =>
              new
              {
                  Id = x.Id,
@@ -222,16 +219,12 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Kqzregisters.Where(v => v.NeighborhoodId == muniId)
-                           .Select(x =>
-                           new
+                return Ok(_context.Kqzregisters.Where(v => v.NeighborhoodId == muniId).Select(x => new
                            {
                                Id = x.Id,
                                NoOfVotes = x.NoOfvotes,
                                PoliticalSubject = x.PoliticialSubjectId,
                                Name = x.PoliticialSubject.Name
-
-
                            }));
             }
             catch (Exception err)
@@ -272,9 +265,7 @@ namespace Presentation.Controllers
         }
 
 
-        //add general demand 
-        [HttpPost]
-        [Route("addgeneraldemand")]
+        [HttpPost, Route("addgeneraldemand")]
         public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
         {
             try
@@ -297,7 +288,6 @@ namespace Presentation.Controllers
 
         //get help  // specific demand
         [Route("gethelp")]
-
         public ActionResult GetNeedHelp()
         {
             try
@@ -312,8 +302,7 @@ namespace Presentation.Controllers
         }
 
         //add help
-        [HttpPost]
-        [Route("GetNeedHelp")]
+        [HttpPost, Route("GetNeedHelp")]
         public ActionResult AddHelp([FromBody] GeneralDemandVM model)
         {
             try
@@ -334,8 +323,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost]
-        [Route("addkqzresult")]
+        [HttpPost, Route("addkqzresult")]
         public ActionResult AddKqzResult([FromBody] KqzRegisterVM model)
         {
             try
@@ -362,6 +350,7 @@ namespace Presentation.Controllers
             }
         }
 
+
         [Route("getmunis")]
         public ActionResult GetMunis()
         {
@@ -382,7 +371,6 @@ namespace Presentation.Controllers
 
 
         [Route("kqzresultsbymuni")]
-        [HttpGet]
         public async Task<ActionResult> KqzResultsbymuni([FromQuery] int id)
         {
             try
@@ -541,9 +529,7 @@ namespace Presentation.Controllers
         }
 
 
-
-        [HttpPost]
-        [Route("addvillage")]
+        [HttpPost, Route("addvillage")]
         public ActionResult AddVillage([FromBody] AddVillageVM model)
         {
             try
@@ -614,6 +600,8 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
+
         //Lagje per fshat
         [Route("getneighborhoodsbyvillage")]
         public ActionResult GetNeighborhoodByVillage([FromQuery] int villId)
@@ -636,8 +624,8 @@ namespace Presentation.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("addneighborhoodbyvillage")]
+
+        [HttpPost, Route("addneighborhoodbyvillage")]
         public ActionResult AddNeighborhoodByVillage([FromBody] AddNeighborhoodVM model)
         {
             try
@@ -658,16 +646,13 @@ namespace Presentation.Controllers
             }
         }
 
-
         //Blloku
         [Route("getblocksbymuni")]
         public ActionResult GetBlockByMuni([FromQuery] int muniId)
         {
             try
             {
-                return Ok(_context.Blocks.Where(v => v.MunicipalityId == muniId)
-                .Select(x =>
-                new
+                return Ok(_context.Blocks.Where(v => v.MunicipalityId == muniId).Select(x => new
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -921,7 +906,7 @@ namespace Presentation.Controllers
     }
 
 
-    public class Name {  public string? Text { get; set; } }
+    public class Name { public string? Text { get; set; } }
 
 #pragma warning restore CS8602
 #pragma warning restore CS8604
