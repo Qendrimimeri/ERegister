@@ -40,8 +40,7 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM register)
         {
-            try
-            {
+
                 if (ModelState.IsValid)
                 {
                     var res = await _unitOfWork.Account.RegisterVoterAsync(register);
@@ -54,12 +53,6 @@ namespace Presentation.Controllers
 
                 VoterAddress();
                 return View("AddVoter", register);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
         }
 
 

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 using System.Net.Http;
 using System.Security.Claims;
-
+using Appliaction.Models;
 
 namespace Infrastructure.Services
 {
@@ -59,17 +59,11 @@ namespace Infrastructure.Services
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            int municipalityId;
-            if (model.Municipality == null)
-                municipalityId = await AdminMunicipalityId();
-            municipalityId = (int)model.Municipality;
-                
-
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
-                MunicipalityId = municipalityId,
+                MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
@@ -134,16 +128,13 @@ namespace Infrastructure.Services
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
-            int municipalityId;
-            if (model.Municipality == null)
-                municipalityId = await AdminMunicipalityId();
-            municipalityId = (int)model.Municipality;
+
 
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
-                MunicipalityId = municipalityId,
+                MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
