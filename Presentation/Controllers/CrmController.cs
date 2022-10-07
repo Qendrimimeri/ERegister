@@ -130,7 +130,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                TempData["success"] = "U anulua!";
+                
                 return RedirectToAction("Index");
             }
             catch (Exception err)
