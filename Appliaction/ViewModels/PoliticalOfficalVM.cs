@@ -22,7 +22,6 @@ namespace Application.ViewModels
         public string? Email { get; set; }
 
 
-        [Required(ErrorMessage = "Ju lutem zgjedhni qytetin!")]
         public int? Municipality { get; set; }
         public int? Village { get; set; }
         public int? Neigborhood { get; set; }
