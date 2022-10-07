@@ -95,6 +95,11 @@ namespace Presentation.Controllers
             return RedirectToAction("Index","Dashboard");
         }
 
+        //public async Task<IActionResult> FormSubmit(ApplicationUser user)
+        //{
+        //    return Ok();
+        //}
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
