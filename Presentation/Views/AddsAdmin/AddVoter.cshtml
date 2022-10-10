@@ -397,7 +397,12 @@
     }
     function addVillageToDb() {
         let endpoint = url + "addvillage";
-        let input = prompt("Shto fshatin e ri:");
+        let input =swal("Write something here:", {
+  content: "input",
+})
+.then((value) => {
+  swal(`You typed: ${value}`);
+});
         //let selectedMuni = $('#munis').val();
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
@@ -495,7 +500,12 @@
     }
     function addVillageToDb(){
         let endpoint = url + "addvillage";
-        let input = prompt("Shto fshatin e ri:");
+        let input =swal("Write something here:", {
+  content: "input",
+})
+.then((value) => {
+  swal(`You typed: ${value}`);
+});
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -908,7 +918,12 @@ else
         }
         function addVillageToDb() {
             let endpoint = url + "addvillage";
-            let input = prompt("Shto fshatin e ri:");
+            let input = swal("Write something here:", {
+  content: "input",
+})
+.then((value) => {
+  swal(`You typed: ${value}`);
+});
             //let selectedMuni = $('#munis').val();
             let sm = document.querySelector("#munis").value;
             fetch(endpoint, {
@@ -1019,7 +1034,10 @@ else
     }
     function addVillageToDb(){
         let endpoint = url + "addvillage";
-        let input = prompt("Shto fshatin e ri:");
+        let input =swal("Write something here:", {
+  content: "input",
+})
+.then((value) => {
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -1027,8 +1045,10 @@ else
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({municipalityId: sm, villageName: input})
+            body: JSON.stringify({municipalityId: sm, villageName: value})
         }).then(() => addVillagesToList(sm));
+});
+        
     }
     //neigborhoods
     function addNeigborhoodToList(muniId){
