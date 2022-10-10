@@ -72,6 +72,7 @@ namespace Presentation.Controllers
         }
 
 
+
         [HttpGet]
         public IActionResult ConfirmedEmail()
         {
@@ -87,7 +88,6 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             try
