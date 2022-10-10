@@ -31,7 +31,7 @@
                                             <th colspan="2">Emri dhe Mbiemri</th>
                                             <td colspan="2">@Model.FullName</td>
 
-                                            
+
                                         </tr>
                                         <tr>
                                             <th colspan="2">Numri i votuesve</th>
@@ -41,15 +41,15 @@
                                         <tr >
                                             <th >Votues paraprak </th>
                                             <td>@Model.CurrentVoter</td>
-                                         
+
                                             <th >Gjasat fillestare</th>
                                             <td>@Model.ActualChances%</td>
-                                            
+
                                         </tr>
-                                     @*   <tr>
+                                        @*   <tr>
                                             <th>Gjasat fillestare</th>
                                             <td>@Model.ActualChances</td>
-                                        </tr>*@
+                                            </tr>*@
                                     </table>
                                     <input type="hidden" asp-for="@Model.Id" />
                                 </div>
@@ -98,7 +98,7 @@
                                                     <option disabled selected>Zgjedh Statusin</option>
                                                 </select>
                                             </td>
-                                            
+
                                         </tr>
                                     </table>
                                 </div>
@@ -108,13 +108,36 @@
                             <label for="exampleFormControlTextarea1" class="form-label">Përshkruaj gjendjen ekzistuese dhe mundësitë ose barrierat e suksesit:</label>
                             <textarea asp-for="GeneralDescription" class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
-                      @*  <div class="d-flex justify-content-end mb-2 mt-2 p-2">
+                        @*  <div class="d-flex justify-content-end mb-2 mt-2 p-2">
                             <button type="submit" class="btn btn-primary">Ruaj dhe Mbyll</button>
                             <button class="btn btn-danger mx-3"> <a asp-action="Performance" asp-controller="Dashboard" class="text-white">Anulo</a></button>
-                        </div>*@
-                      
+                            </div>*@
+
                         <div class="d-flex flex-row justify-content-end pt-3 ">
-                              <button class="btn btn-danger mx-3"> <a asp-action="Performance" asp-controller="Dashboard" class="text-white">Anulo</a></button>
+                                 <a href = 'javascript:
+                                  swal({
+                                  title: "A jeni i sigurt?",
+                                  icon: "warning",
+                                  buttons: true,
+                                  dangerMode: "true",
+                                })
+                                .then((willDelete) => {
+                                  if (willDelete) {
+                                   swal({ title: "U fshi me sukses!",
+                                 icon: "success"}).then(okay => {
+                                   if (okay) {
+                                    window.location.href = "/Dashboard/Reports";
+                                  }
+                                });
+                                  } else {
+                                    swal({
+                                    title: "Te dhenat nuk jane anuluar!",
+                                     icon: "error",
+                                    });
+                                  }
+                                });'
+
+                                class = "btn btn-danger">Delete</a>&nbsp &nbsp
                               <button type="submit" class="btn btn-primary pe-2" id="saveBtn" disabled>Ruaj dhe mbyll</button>
                         </div>
                     </form>
@@ -126,17 +149,17 @@
 
 @section Scripts{
     <script>
-        
+
   $(document).ready(function() {
                 $('#saveBtn').attr('disabled', true);
-                
+
                 $('.selectList').on('change', function() {
                   var alldata = $('.selectList');
                     if (alldata[0].value != ""&& alldata[1].value != "" && alldata[2].value != "" ) {                  
                       $('#saveBtn').removeAttr("disabled");
                     } else {
                       $('#saveBtn').attr('disabled', true);
-                      
+
                     }
                   });
               });
