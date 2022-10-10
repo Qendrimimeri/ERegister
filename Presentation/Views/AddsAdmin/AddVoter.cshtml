@@ -12,12 +12,41 @@
     var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
 }
+<style>
+
+        @@media screen and (max-width:502px) {
+          .button-responsive{
+            font-size: 14px;
+          }
+        }
+         @@media screen and (max-width:462px) {
+          .button-responsive{
+            font-size: 12px;
+          }
+        }
+        @@media screen and (max-width:425px) {
+          .button-responsive{
+            font-size: 10px;
+          }
+        }
+         @@media screen and (max-width:379px) {
+          .button-responsive{
+            font-size: 8px;
+          }
+          input::placeholder{
+              font-size: 13px;
+          }
+          .option-select{
+              font-size: 13px;
+          }
+        }
+ </style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body p-5">
+                <div class="card-body">
                     <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
                     <form asp-action="Register" asp-controller="AddsAdmin" method="post" id="listform">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
@@ -31,11 +60,11 @@
                         </div>
                         <span>Numri i telefonit</span>
                         <div class="pb-3 pe-2">
-                            <div class=" d-flex align-items-center ">
-                                <div class="col-2">
+                            <div class=" d-flex align-items-center flex-sm-row">
+                                <div class="col-4 col-sm-2">
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
-                                <div class="col-10 ps-2">
+                                <div class="col-8 ps-2 col-sm-10">
                                     <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="49123123">
                                 </div>
                             </div>
@@ -56,26 +85,26 @@
                             {
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label asp-for="Municipality">Qyteti</label>
-                                    <select class="form-select" asp-for="Municipality" id="munis">
-                                        <option disabled selected>Zgjedh qytetin...</option>
+                                    <select class="form-select option-select" asp-for="Municipality" id="munis">
+                                        <option disabled selected class ="option-select">Zgjedh qytetin...</option>
                                     </select>
                                     <span asp-validation-for="Municipality" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label>Fshati</label>
-                                    <select class="form-select fshati-selected" asp-for="Village" id="villages">
+                                    <select class="form-select fshati-selected option-select" asp-for="Village" id="villages">
                                         <option value=" " disabled selected selectcard>Zgjedh fshatin...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoods-container" class="col-md-4 mb-3 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-4 mb-3 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
@@ -84,19 +113,19 @@
                             {
                                 <div class="col-md-6 mb-3 pe-2">
                                     <label>Fshati</label>
-                                    <select class="form-select fshati-selected" asp-for="Village" id="villages">
+                                    <select class="form-select fshati-selected option-select" asp-for="Village" id="villages">
                                         <option value=" " disabled selected selectcard>Zgjedh fshatin...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoods-container" class="col-md-6 mb-3 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-3 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
@@ -107,25 +136,25 @@
                             <div class=" d-flex justify-content-between flex-sm-row flex-column">
                                 <div id="neigborhoods-container" class="col-md-6 mb-3 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-3 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6 mb-3 pe-2" id="streetByVillage">
                                     <label>Rruga</label>
-                                    <select class="form-select" asp-for="Street" id="streets">
+                                    <select class="form-select option-select" asp-for="Street" id="streets">
                                         <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class=col-sm-6 mb-3 pe-2" id="streetByNeighborhood">
                                     <label>Rruga</label>
-                                    <select class="form-select" asp-for="Street" id="streetsNeighborhood">
+                                    <select class="form-select option-select" asp-for="Street" id="streetsNeighborhood">
                                         <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
@@ -133,7 +162,7 @@
                             <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
                                 <div class="col-sm-6 mb-3 pe-2">
                                     <label>Blloku</label>
-                                    <select class="form-select" asp-for="Block" id="blocks">
+                                    <select class="form-select option-select" asp-for="Block" id="blocks">
                                         <option disabled selected>Zgjedh bllokun...</option>
                                     </select>
                                 </div>
@@ -149,25 +178,25 @@
                             <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                                 <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
                                     <label>Rruga</label>
-                                    <select class="form-select" asp-for="Street" id="streets">
+                                    <select class="form-select option-select" asp-for="Street" id="streets">
                                         <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2" id="streetByNeighborhood">
                                     <label>Rruga</label>
-                                    <select class="form-select" asp-for="Street" id="streetsNeighborhood">
+                                    <select class="form-select option-select" asp-for="Street" id="streetsNeighborhood">
                                         <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label>Blloku</label>
-                                    <select class="form-select" asp-for="Block" id="blocks">
+                                    <select class="form-select option-select" asp-for="Block" id="blocks">
                                         <option disabled selected>Zgjedh bllokun...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label class="">Numri i shtëpisë</label>
-                                    <input class="form-control" placeholder="opsionale" asp-for="HouseNo">
+                                    <input class="form-control option-select" placeholder="opsionale" asp-for="HouseNo">
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -184,7 +213,7 @@
                             </div>
                             <div class="col-md-4 mb-2 pe-2 ">
                                 <label>Shërbimi</label>
-                                <select class="form-select" asp-for="AdministrativeUnit" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
+                                <select class="form-select " asp-for="AdministrativeUnit" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
                                     <option disabled selected>Zgjedh shërbimin...</option>
                                 </select>
                             </div>
@@ -211,28 +240,28 @@
                         <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
                             <div class="col-sm-6 mb-3 pe-2">
                                 <label>Votues i tanishëm</label>
-                                <select class="form-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
+                                <select class="form-select option-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
                                     <option disabled selected>Zgjedh partinë...</option>
                                 </select>
                             </div>
                             <div class="col-sm-6 mb-3 pe-2" id="pollcenter-villages-container">
                                 <label>Qendra e votimit</label>
-                                <select class="form-select" id="poll" asp-for="PollCenter">
+                                <select class="form-select option-select" id="poll" asp-for="PollCenter">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
                                 </select>
                             </div>
                             <div class="col-sm-6 mb-3 pe-2" id="pollcenter-neighborhood-container">
                                 <label>Qendra e votimit</label>
-                                <select class="form-select" id="pollNeighborhood" asp-for="PollCenter">
+                                <select class="form-select option-select" id="pollNeighborhood" asp-for="PollCenter">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
                                 </select>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
                             <a href='javascript:
                                swal({
-                               title: "A jeni i sigurt?" ,
+                               title: "A jeni të sigurt?" ,
                                icon: "warning" ,
                                buttons: true,
                                dangerMode: "true" ,
@@ -240,17 +269,12 @@
                                .then((willDelete)=>
                                 {
                                 if (willDelete) {
-                                swal({ title: "U fshi me sukses!",
+                                swal({ title: "U anulua me sukses!",
                                 icon: "success"}).then(okay => {
                                 if (okay) {
                                 window.location.href = "/AddsAdmin/AddVoter";
                                 }
                                 });
-
-
-
-
-
                                 } else {
                                 swal({
                                 title: "Te dhenat nuk jane anuluar!",
@@ -258,16 +282,12 @@
 
                                 });
                                 }
-                                });'
-
-
-
-                                class = "btn btn-danger">Delete
+                                });' class = "btn btn-danger button-responsive">Anulo
                             </a>&nbsp&nbsp
 
 
-                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
-                            <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp&nbsp
+                            <button type="submit" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
                         </div>
                     </form>
                 </div>

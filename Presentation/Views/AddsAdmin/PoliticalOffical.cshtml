@@ -1,4 +1,4 @@
-﻿ @using Application.Repository
+@using Application.Repository
 @using Application.ViewModels
 @using Domain.Data.Entities
 @{
@@ -22,6 +22,7 @@
         cursor: pointer;
     }
 
+
 </style>
 
 <section class="section">
@@ -33,10 +34,57 @@
             <a class="nav-link link-secondary" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
         </li>
     </ul>
+
+        @@media screen and (max-width:502px) {
+          .button-responsive{
+            font-size: 14px;
+          }
+        }
+         @@media screen and (max-width:462px) {
+          .button-responsive{
+            font-size: 12px;
+          }
+        }
+        @@media screen and (max-width:425px) {
+          .button-responsive{
+            font-size: 10px;
+          }
+        }
+          @@media screen and (max-width:393px) {
+            .tabs{
+                font-size:14px;
+            }
+          }
+         @@media screen and (max-width:379px) {
+          .button-responsive{
+            font-size: 8px;
+          }
+           .tabs{
+                font-size:12px;
+            }
+          input::placeholder{
+              font-size: 13px;
+          }
+          .option-select{
+              font-size: 13px;
+          }
+        }
+ </style>
+
+<section class="section">
+ <ul class="nav nav-tabs">
+  <li class="nav-item tabs">
+    <a class="nav-link active link-secondary tabs"  id="klasa1"  aria-current="page">Regjistro Zyrtarë</a>
+  </li>
+  <li class="nav-item tabs">
+    <a class="nav-link link-secondary tabs" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
+  </li>
+</ul>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body p-5" id="">
+                <div class="card-body id="">
                     <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                     <form asp-action="PoliticalOffical" method="post" id="forma">
                         <a><span class="text-danger validation-message">Ju lutem plotësoni tabelën me rezultatet e KQZ!</span></a>
@@ -52,12 +100,12 @@
                             </div>
                         </div>
                         <span>Numri i telefonit</span>
-                        <div class="mb-4 pe-2">
-                            <div class=" d-flex align-items-center">
-                                <div class="col-2">
+                        <div class="mb-4 pe-2 ">
+                            <div class=" d-flex align-items-center flex-sm-row">
+                                <div class="col-4 col-sm-2">
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
-                                <div class="col-10 ps-2">
+                                <div class="col-8 ps-2 col-sm-10">
                                     <input asp-for="PhoneNumber" class="form-control" id="nrtel" type="number">
                                 </div>
                             </div>
@@ -74,62 +122,69 @@
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                             @if (User.IsInRole("KryetarIPartise"))
                             {
-                                <div class="col-md-4 mb-2 pe-2">
-                                    <label asp-for="Municipality">Qyteti</label>
-                                    <select class="form-select" asp-for="Municipality" id="munis">
-                                        <option disabled selected>Zgjedh qytetin...</option>
+
+                            <div class="col-md-4 mb-2 pe-2">
+                                <label asp-for="Municipality">Qyteti</label>
+                                    <select class="form-select option-select" asp-for="Municipality" id="munis">
+                            <option disabled selected>Zgjedh qytetin...</option>
                                     </select>
                                     <span asp-validation-for="Municipality" class="text-danger"></span>
 
-                                </div>
-                                <div class="col-md-4 mb-2 pe-2">
-                                    <label asp-for="Village">Fshati</label>
-                                    <select asp-for="Village" id="villages" class="form-select">
-                                        <option disabled selected>Zgjedh fshatin...</option>
-                                    </select>
-                                </div>
-                                <div id="neigborhoods-container" class="col-md-4 mb-2 pe-2">
-                                    <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
-                                        <option disabled selected>Zgjedh lagjen...</option>
-                                    </select>
-                                </div>
-                                <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
-                                    <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
-                                        <option disabled selected>Zgjedh lagjen...</option>
-                                    </select>
-                                </div>
+
+                            </div>
+                            <div class="col-md-4 mb-2 pe-2">
+                                <label asp-for="Village">Fshati</label>
+                                <select asp-for="Village" id="villages" class="form-select option-select">
+                                    <option disabled selected>Zgjedh fshatin...</option>
+                                </select>
+                            </div>
+                            <div id="neigborhoods-container" class="col-md-4 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+                            <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+
                             }
                             @if (User.IsInRole("KryetarIKomunes"))
                             {
                                 <div class="col-md-6 mb-2 pe-2">
                                     <label asp-for="Village">Fshati</label>
-                                    <select asp-for="Village" id="villages" class="form-select">
+                                    <select asp-for="Village" id="villages" class="form-select option-select">
                                         <option disabled selected>Zgjedh fshatin...</option>
                                     </select>
                                 </div>
-                                <div id="neigborhoods-container" class="col-md-6 mb-2 pe-2">
-                                    <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoods">
-                                        <option disabled selected>Zgjedh lagjen...</option>
-                                    </select>
-                                </div>
-                                <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
-                                    <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
-                                        <option disabled selected>Zgjedh lagjen...</option>
-                                    </select>
-                                </div>
+
+                               <div id="neigborhoods-container" class="col-md-6 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+                            <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
+                                <label>Lagja</label>
+                                <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+
                             }
                             @if (User.IsInRole("KryetariIFshatit"))
                             {
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
-                                    <label>Lagja</label>
-                                    <select class="form-select" asp-for="Neigborhood" id="neigborhoodsVillage">
-                                        <option disabled selected>Zgjedh lagjen...</option>
-                                    </select>
-                                </div>
+
+                                <label>Lagja</label>
+                                <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <option disabled selected>Zgjedh lagjen...</option>
+                                </select>
+                            </div>
+
                             }
                         </div>
 
@@ -138,21 +193,23 @@
 
                             <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
                                 <label>Rruga</label>
-                                <select class="form-select" asp-for="Street" id="streets">
+                                <select class="form-select option-select" asp-for="Street" id="streets">
                                     <option disabled selected>Zgjedh rrugën...</option>
                                 </select>
                             </div>
                             <div class="col-md-4 mb-2 pe-2" id="streetByNeighborhood">
                                 <label>Rruga</label>
-                                <select class="form-select" asp-for="Street" id="streetsNeighborhood">
+                                <select class="form-select option-select" asp-for="Street" id="streetsNeighborhood">
                                     <option disabled selected>Zgjedh rrugën...</option>
 
                                 </select>
                             </div>
                             <div class="col-md-4 mb-2 pe-2">
                                 <label asp-for="Block">Blloku</label>
-                                <select asp-for="Block" id="blocks" class="form-select"
-                                        id="inputGroupSelect04">
+
+                                <select asp-for="Block" id="blocks" class="form-select option-select"
+                                    id="inputGroupSelect04">
+
                                     <option disabled selected>Zgjedh bllokun...</option>
                                 </select>
                             </div>
@@ -167,8 +224,10 @@
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                             <div class="col-md-6 mb-2 pe-2">
                                 <label asp-for="Role">Pozita në parti</label>
-                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select"
-                                        id="inputGroupSelect05">
+
+                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select option-select"
+                                    id="inputGroupSelect05">
+
                                     <option disabled selected>Zgjedh rolin...</option>
                                 </select>
                                 <span asp-validation-for="Role" class="text-danger"></span>
@@ -176,7 +235,7 @@
                             </div>
                             <div class="col-md-6 mb-2 pe-2" id="pollcenter-villages-container">
                                 <label asp-for="PollCenter">Qendra e votimit</label>
-                                <select asp-for="PollCenter" class="form-select" id="poll">
+                                <select asp-for="PollCenter" class="form-select option-select" id="poll">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
 
                                 </select>
@@ -185,18 +244,18 @@
                             </div>
                             <div class="col-md-6 mb-2 pe-2" id="pollcenter-neighborhood-container">
                                 <label asp-for="PollCenter">Qendra e votimit</label>
-                                <select asp-for="PollCenter" class="form-select" id="pollNeighborhood">
+                                <select asp-for="PollCenter" class="form-select option-select" id="pollNeighborhood">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
                                 </select>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
 
-
-                            <a href='javascript:
+                       <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+                                <a href='javascript:
                                swal({
-                               title: "A jeni te sigurte?" ,
+                               title: "A jeni të sigurt?" ,
+
                                icon: "warning" ,
                                buttons: true,
                                dangerMode: "true" ,
@@ -204,8 +263,9 @@
                                .then((willDelete)=>
                                 {
                                 if (willDelete) {
-                                swal({ title: "U fshi me sukses!",
-                                icon: "success"}).then(okay => {
+
+                                swal({ title: "U anulua me sukses!",
+               icon: "success"}).then(okay => {
                                 if (okay) {
                                 window.location.href = "/AddsAdmin/PoliticalOffical";
                                 }
@@ -218,15 +278,14 @@
 
                                 });
                                 }
-                                });'
 
+                                });' class = "btn btn-danger button-responsive">Anulo
+                            </a>&nbsp&nbsp
 
+                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp&nbsp
 
-                                class = "btn btn-danger">Delete
-                            </a>&nbsp &nbsp
-                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
+                            <button type="submit"  id="second-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
 
-                            <button type="submit" id="second-button" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
 
 
                         </div>
