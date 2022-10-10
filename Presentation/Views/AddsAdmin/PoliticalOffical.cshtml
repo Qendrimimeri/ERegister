@@ -316,23 +316,23 @@
 
 			  <div class="col-4">
 								<label class="">Lloji i zgjedhjeve</label>
-								<select class="form-select" id="inputGroupSelect03" name="zgjedhjet">
-									<option disabled selected>Zgjedh llojin e zgjedhjeve...</option>
+								<select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
+									<option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
 									<option>Zgjedhjet Nacionale</option>
 									<option>Zgjedhjet Lokale</option>
 								</select>
-                                <span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>
+                                @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
 							</div>
 							<div class="col-4">
 								<label class="">Data e zgjedhjeve</label>
-								<input type="date" id="year" class="form-control">
-								<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>
+								<input type="date" id="year" class="form-control" required>
+								@*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
 							</div>
 		</div>
 
      <div class="col-md-6 w-100 pt-5">
                     <div class="table-responsive">
-								<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>
+								@*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
 
                         <table class="table table-bordered">
                             <thead>
@@ -2310,7 +2310,14 @@
             try {
                 parties.forEach(el => {
                     if (el.value === "") {
-                        document.querySelector(".validation-message").style.display = "";
+                           swal({
+                    title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
+                    //text: "You clicked the button!",
+                    icon: "warning",
+                    button: "Kthehu mbrapa!",
+
+                      });
+                      
                         e.preventDefault();
                     }
             });
@@ -2321,7 +2328,18 @@
 
 
     </script>
-    
+    <script>
+        //const generalDemand=document.getElementById("inputGroupSelect03");
+        //           document.querySelector("#second-button").addEventListener("click", function (){
+        //                if(generalDemand.value == "0"){
+        //                alert("Ju lutem zgjedhni llojet e zgjedhjeve!");
+        //                   return false;
+        //               }
+        //               return true;
+        //           });
+
+
+    </script>
 }
 }
 
