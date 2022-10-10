@@ -51,6 +51,31 @@ namespace Application.Repository
             return true;
 
         }
+        public async Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model)
+        {
+            var random = new Random();
+            var helpId = Enumerable.Range(1, 2000000).OrderBy(x => random.Next()).Take(6).First();
+
+            var helpTable = new Help()
+            {
+                Id = helpId,
+                CanYouManage = (model.CanYouManage == 1 ? true : false),
+                ActivitiesYouPlan = model.ActivitiesYourPlan,
+                NeedHelp = (model.NeedHelp == 1 ? true : false)
+            };
+
+            await _db.Helps.AddAsync(helpTable);
+            await _db.SaveChangesAsync();
+
+            var res = await _db.PollRelateds.Where(x => x.UserId == model.Id).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+
+            res.GeneralDemand = model.GeneralDemands;
+            res.GeneralReason = model.GeneralReason;
+            res.GeneralDescription = model.GeneralDescription;
+            res.HelpId = helpId;
+            await _db.SaveChangesAsync();
+            return true;
+        }
 
         //public async Task<bool>EditPollRelated(PersonVM editPerson)
         //{
