@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
     <Compile Remove="Helper\**" />
+    <Content Remove="Helpers\**" />
     <Content Remove="Helper\**" />
+    <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Helper\**" />
+    <None Remove="Helpers\**" />
     <None Remove="Helper\**" />
   </ItemGroup>
 
@@ -41,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="wwwroot\Document\" />
   </ItemGroup>
 

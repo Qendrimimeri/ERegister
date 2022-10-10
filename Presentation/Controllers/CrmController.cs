@@ -25,15 +25,25 @@ namespace Presentation.Controllers
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
-            _context=context;
+            _context = context;
         }
 
 
         [HttpGet]
-        public IActionResult Index() =>  View();
+        public IActionResult Index()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+        }
 
-
-        //Arsye percaktuese general demand 
+        //Arsye percaktuese general demand
         [HttpPost, Route("addgeneraldemand")]
         public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
         {
@@ -126,11 +136,12 @@ namespace Presentation.Controllers
 
         }
 
+
         public IActionResult Cancel()
         {
             try
             {
-                TempData["success"] = "U anulua!";
+                
                 return RedirectToAction("Index");
             }
             catch (Exception err)
@@ -142,7 +153,7 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task <IActionResult> SaveAndClose(PollRelated pollRelated)
+        public async Task<IActionResult> SaveAndClose(PollRelated pollRelated)
         {
             try
             {
@@ -159,7 +170,7 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task <IActionResult> SaveAndOpenCase(PollRelated pollRelated)
+        public async Task<IActionResult> SaveAndOpenCase(PollRelated pollRelated)
         {
             try
             {

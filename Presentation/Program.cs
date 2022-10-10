@@ -54,7 +54,7 @@ builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)), ServiceLifetime.Transient);
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

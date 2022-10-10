@@ -10,6 +10,7 @@
 @{
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
 }
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <section class="section">
@@ -229,14 +230,43 @@
                             </div>
                         </div>
                         <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-                            <div class="pe-2">
-                                <form asp-action = "Cancel" method = "post" >
-                                    <a  asp-action = "Cancel" type="submit" class="btn btn-danger custom-delete-button">Anulo</a>
-                                </form>
-                                
-                            </div>
-                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>
-                            @* <button type="submit" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>*@&nbsp&nbsp
+                            <a href='javascript:
+                               swal({
+                               title: "A jeni i sigurt?" ,
+                               icon: "warning" ,
+                               buttons: true,
+                               dangerMode: "true" ,
+                               })
+                               .then((willDelete)=>
+                                {
+                                if (willDelete) {
+                                swal({ title: "U fshi me sukses!",
+                                icon: "success"}).then(okay => {
+                                if (okay) {
+                                window.location.href = "/AddsAdmin/AddVoter";
+                                }
+                                });
+
+
+
+
+
+                                } else {
+                                swal({
+                                title: "Te dhenat nuk jane anuluar!",
+                                icon: "error",
+
+                                });
+                                }
+                                });'
+
+
+
+                                class = "btn btn-danger">Delete
+                            </a>&nbsp&nbsp
+
+
+                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2">Ruaj dhe hap rast</button>&nbsp&nbsp
                             <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
                         </div>
                     </form>
@@ -752,37 +782,37 @@ else
     @section Scripts
     {
  @*   <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
 
     $(".custom-delete-button").click(function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: 'A jeni te sigurte?',
-            text: "Perdoruesi i fshire nuk mund te rikthehet!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Po, fshije!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'U fshi me sukses!',
-                    text: 'Perdoruesi ne fjale u fshi me sukses.',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000
-                }).then((result) => {
-                    /*if (result.isConfirmed) {*/
-                    this.parentElement.submit();
-                    /*}*/
-                })
-            }
-        })
+    e.preventDefault();
+    Swal.fire({
+    title: 'A jeni te sigurte?',
+    text: "Perdoruesi i fshire nuk mund te rikthehet!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Po, fshije!'
+    }).then((result) => {
+    if (result.isConfirmed) {
+    Swal.fire({
+    title: 'U fshi me sukses!',
+    text: 'Perdoruesi ne fjale u fshi me sukses.',
+    icon: 'success',
+    showConfirmButton: false,
+    timer: 1000
+    }).then((result) => {
+    /*if (result.isConfirmed) {*/
+    this.parentElement.submit();
+    /*}*/
+    })
+    }
+    })
     })
 
-})
-</script>*@
+    })
+    </script>*@
 <script>
 
     $('#neigborhoodsVillage-container').hide();

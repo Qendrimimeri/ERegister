@@ -1,8 +1,6 @@
-﻿using Application.Models;
-using Application.Repository;
+﻿using Application.Repository;
 using Application.ViewModels;
 using Domain.Data.Entities;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,10 +23,6 @@ namespace Presentation.Controllers
             _signInManager = signInManager;
             _logger = logger;
         }
-
-        
-        [HttpGet] // this action method will  return the index page of the home controller
-        public IActionResult Login() =>  View("../Home/Index");
 
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -64,11 +58,33 @@ namespace Presentation.Controllers
 
 
         [HttpGet]
-        public IActionResult AccessDenied() => View("../Account/AccessDenied");
+        public IActionResult AccessDenied()
+        {
+            try
+            {
+                return View("../Account/AccessDenied");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
 
 
         [HttpGet]
-        public IActionResult ConfirmedEmail() => View("ConfirmEmail");
+        public IActionResult ConfirmedEmail()
+        {
+            try
+            {
+               return View("ConfirmEmail");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
 
 
         [HttpPost, ValidateAntiForgeryToken]

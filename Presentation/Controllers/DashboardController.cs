@@ -15,191 +15,273 @@ namespace Presentation.Controllers
     [Authorize]
     public class DashboardController : Controller
     {
+        private readonly string errorView = "../Error/ErrorInfo";
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _env;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger<DashboardController> _logger;
 
         public DashboardController(IUnitOfWork unitOfWork, 
                                   UserManager<ApplicationUser> userManager,
                                   IWebHostEnvironment env,
-                                  SignInManager<ApplicationUser> signInManager)
+                                  SignInManager<ApplicationUser> signInManager,
+                                  ILogger<DashboardController> logger)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _env = env;
-           _signInManager = signInManager;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
 
-        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
 
-        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
-       
+        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> Performance() 
         {
-            var users =  await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
-            return View(users); 
+            try
+            {
+                var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+                return View(users);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Reports(string id) 
-        { 
-            var users =  await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
-            var PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
-            ViewBag.PS = PS;
-
-            var successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
-            ViewBag.successChances = successChances;
-
-            var actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
-            ViewBag.actualStatus = actualStatus;
-            return View(users); 
+        {
+            try
+            {
+                var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
+                ViewBag.PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+                ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+                ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
+                return View(users);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
-        [HttpPost]
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Reports(PersonVM  editVoter)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                TempData["success"] = "Edited successfuly!";
-                return RedirectToAction("Performance", "Dashboard");
+                if (ModelState.IsValid)
+                {
+                    var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
+                    TempData["success"] = "Edited successfuly!";
+                    return RedirectToAction("Performance", "Dashboard");
+                }
+                return View();
             }
-            return View();
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
 
-        public IActionResult AddSubject()
-        {
-            return View();
-        }
-      
-        public IActionResult EditAdmin()
-        {
-            return View();
-        }
-
-        public IActionResult AddVoter()
-        {
-            return View();
-        }
-        [Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
+        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
         public IActionResult KqzResult()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
+
+
         public IActionResult Cancel()
         {
             TempData["success"] = "U anulua!";
             return RedirectToAction("KqzResult");
         }
 
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAndClose(Kqzregister appuser)
         {
-            _unitOfWork.KqzRegister.Update(appuser);
-            await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("Index", "Dashboard");
+            try
+            {
+                _unitOfWork.KqzRegister.Update(appuser);
+                await _unitOfWork.Done();
+                TempData["success"] = "U ruajt me sukses!";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAndOpenCase(Kqzregister appuser)
         {
-            _unitOfWork.KqzRegister.Update(appuser);
-            await _unitOfWork.Done();
-            TempData["success"] = "U ruajt me sukses!";
-            return RedirectToAction("KqzResult");
+            try
+            {
+                _unitOfWork.KqzRegister.Update(appuser);
+                await _unitOfWork.Done();
+                TempData["success"] = "U ruajt me sukses!";
+                return RedirectToAction("KqzResult");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> BusinessUserProfile()
         {
-            var res = await _userManager.GetUserAsync(User);
-            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
-
-            return View(user);
+            try
+            {
+                var res = await _userManager.GetUserAsync(User);
+                var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
+                return View(user);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
         }
 
-        [HttpPost]
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
          {
-            if (ModelState.IsValid)
+            try
             {
-                if (editUser.Image == null)
+                if (ModelState.IsValid)
                 {
-                    var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
-                    if (result)
+                    if (editUser.Image == null)
                     {
-                        var res = _userManager.GetUserAsync(User);
-                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                        return View(user);
+                        var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                        if (result)
+                        {
+                            var res = _userManager.GetUserAsync(User);
+                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                            return View(user);
+                        }
+
                     }
-
-                }
-               else if (editUser.Image!= null)
-                {
-                    var rootFilePath = _env.WebRootPath;
-                    string filePath = Path.Combine(rootFilePath, "Document");
-                    if (!Directory.Exists(filePath))
-                        Directory.CreateDirectory(filePath);
-
-                    var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
-
-                    var fullPath = Path.Combine(filePath, fileName);
-
-                    using (var fileStream = new FileStream( fullPath, FileMode.Create))
-                        editUser.Image.CopyTo(fileStream);
-                    var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
-                    if (result)
+                    else if (editUser.Image != null)
                     {
-                        var res = _userManager.GetUserAsync(User);
-                        var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                        TempData["success"] = "Edited successfuly!";
-                        return View(user);
+                        var rootFilePath = _env.WebRootPath;
+                        string filePath = Path.Combine(rootFilePath, "Document");
+                        if (!Directory.Exists(filePath))
+                            Directory.CreateDirectory(filePath);
+
+                        var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+                        var fullPath = Path.Combine(filePath, fileName);
+
+                        using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                            editUser.Image.CopyTo(fileStream);
+                        var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                        if (result)
+                        {
+                            var res = _userManager.GetUserAsync(User);
+                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                            TempData["success"] = "Edited successfuly!";
+                            return View(user);
+                        }
                     }
                 }
+                return View();
             }
-            return View();
-        }
-        [HttpGet]
-         public IActionResult ChangePassWord()
-        {
-            return View();
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
         }
 
+
+        [HttpGet]
+        public IActionResult ChangePassWord()
+        {
+            try
+            {
+                return View(errorView);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
+
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult>ChangePassword(ChangePasswordVM model)
         {
-            if(ModelState.IsValid)
-            { 
-                var user= await _userManager.GetUserAsync(User);
-                if(user== null)
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index","Home");
-                }
-
-                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                if (!result.Succeeded)
-                {
-                    foreach(var error in result.Errors)
+                    var user = await _userManager.GetUserAsync(User);
+                    if (user == null)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        return RedirectToAction("Index", "Home");
                     }
-                    TempData["Success"] = "Password changed successfuly!";
-                    return View();
-                    
-                }
-                
-                await _signInManager.RefreshSignInAsync(user);
-                return RedirectToAction("BusinessUserProfile");
-            }
-            return View(model);
-        }
 
+                    var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                    if (!result.Succeeded)
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        TempData["Success"] = "Password changed successfuly!";
+                        return View();
+
+                    }
+
+                    await _signInManager.RefreshSignInAsync(user);
+                    return RedirectToAction("BusinessUserProfile");
+                }
+                return View(model);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
     }
 }
