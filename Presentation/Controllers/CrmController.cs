@@ -194,5 +194,14 @@ namespace Presentation.Controllers
 
 
         public IActionResult OpenCases() => View();
+
+
+        #region API CALL
+
+        public async Task<bool> GeneralDemand([FromQuery] string demand, string userId)
+        {
+            return true;
+        }
+        #endregion
     }
 }
