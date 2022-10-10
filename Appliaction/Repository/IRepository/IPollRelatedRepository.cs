@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Application.Repository.IRepository
 {
-    public interface IPollRelatedRepository:IRepository<PollRelated>
+    public interface IPollRelatedRepository : IRepository<PollRelated>
     {
         Task<bool> AddPollRelated(PersonVM editPerson);
-        
+
+        Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model);
     }
 }

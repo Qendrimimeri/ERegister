@@ -95,6 +95,7 @@ namespace Presentation.Controllers
             {
                 ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
 
                 var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
 
@@ -112,6 +113,26 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> Voters(VoterDetailsVM model)
+        {
+            try
+            {
+                var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
+                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+
+
+              return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+        }
+
 
 
         public IActionResult AutoComplete(string prefix)
