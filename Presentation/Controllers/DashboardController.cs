@@ -94,7 +94,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData["success"] = "Edited successfuly!";
+                    TempData["success"] = "U ndryshua me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
@@ -217,7 +217,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData["success"] = "Edited successfuly!";
+                            TempData["success"] = "U ndryshua me sukses!";
                             return View(user);
                         }
                     }
@@ -237,7 +237,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                return View(errorView);
+                return View();
             }
             catch (Exception err)
             {
@@ -267,7 +267,7 @@ namespace Presentation.Controllers
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        TempData["Success"] = "Password changed successfuly!";
+                        TempData["Success"] = "Fjalëkalimi juaj u ndryshua me sukses!";
                         return View();
 
                     }
