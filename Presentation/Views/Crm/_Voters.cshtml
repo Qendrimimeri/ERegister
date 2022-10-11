@@ -104,7 +104,7 @@
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
             
             <select asp-for="GeneralReason" class="form-select" id="general-demand" onchange="generalDemand()" asp-items="@ViewBag.ArysjetPercaktues">
-                @*  <option disabled selected>Arsyeja percaktuese</option>*@
+                <option disabled selected>Zgjedhni opsionet...</option>
                 <option value="shto">Shto +</option>
             </select>
         </div>
@@ -131,8 +131,8 @@
         <div class="col-md-6 mb-2 pe-2">
 
             <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-            <select asp-for="GeneralDemands" class="form-select" id="specific-reason" onchange="specificdemand()" asp-items="@ViewBag.NdihmaNevojshme">
-                @* <option disabled selected>Ndihma e nevojshme</option>*@
+            <select asp-for="GeneralDemands" class="form-select" id="specific-reason" onclick="specificdemand()" asp-items="@ViewBag.NdihmaNevojshme">
+                 <option disabled selected>Zgjedhni opsionet...</option>
                 <option value="shto">Shto +</option>
             </select>
         </div>
@@ -185,17 +185,15 @@
    
 </div>
 <script>
-
-    function generalDemand() {
-        var data = document.getElementById("general-demand").value;
-        var userId = document.getElementById("userId").value;
-        console.log(userId);
-        console.log(data);
-
-        if (data === "shto") {
-            var input = prompt();
-            console.log(input);
-            fetch('https://localhost:7278/Crm/GeneralDemand?reason=' + input + '&userId=' + userId, {
+    
+   const Specificreasons = document.querySelector('#general-demand');
+    Specificreasons.addEventListener('change', event => {
+             var data = document.getElementById("general-demand").value;
+             if (event.target.value === "shto"){
+                var userId = document.getElementById("userId").value;
+                 if (data === "shto") {
+                 var input = prompt();
+                 fetch('https://localhost:7278/Crm/GeneralDemand?reason=' + input + '&userId=' + userId, {
                 Method: 'POST',
                 Headers: {
                     Accept: 'application.json',
@@ -205,18 +203,17 @@
                 Cache: 'default'
             })
         }
-    }
+      }
+  });
 
-    function specificdemand() {
-        var data = document.getElementById("specific-reason").value;
-        var userId = document.getElementById("userId").value;
-        console.log(userId);
-        console.log(data);
-
-        if (data === "shto") {
-            var input = prompt();
-            console.log(input);
-            fetch('https://localhost:7278/Crm/GeneralDemand?reason=' + input + '&userId=' + userId, {
+    const Specificdemands = document.querySelector('#specific-reason');
+     Specificdemands.addEventListener('change', event => {
+             var data = document.getElementById("specific-reason").value;
+             if (event.target.value === "shto"){
+                var userId = document.getElementById("userId").value;
+                 if (data === "shto") {
+                 var input = prompt();
+                 fetch('https://localhost:7278/Crm/SpecificDemand?reason=' + input + '&userId=' + userId, {
                 Method: 'POST',
                 Headers: {
                     Accept: 'application.json',
@@ -226,5 +223,9 @@
                 Cache: 'default'
             })
         }
-    }
+      }
+  });
+
+   
+   
 </script>
