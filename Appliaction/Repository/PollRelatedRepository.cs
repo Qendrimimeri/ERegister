@@ -69,23 +69,20 @@ namespace Application.Repository
 
             var res = await _db.PollRelateds.Where(x => x.UserId == model.Id).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
 
-            res.GeneralDemand = model.GeneralDemands;
-            res.GeneralReason = model.GeneralReason;
-            res.GeneralDescription = model.GeneralDescription;
+            res.GeneralDemand = (model.GeneralDemands == "shto" ? res.GeneralDemand : model.GeneralDemands);
+            res.GeneralReason = (model.GeneralReason == "shto" ? res.GeneralReason : model.GeneralReason);
+            res.GeneralDescription = (model.GeneralDescription == null ? res.GeneralDescription : model.GeneralDescription) ;
             res.HelpId = helpId;
             await _db.SaveChangesAsync();
             return true;
         }
 
-        //public async Task<bool>EditPollRelated(PersonVM editPerson)
-        //{
-          
-
-        //}
-        public void Save()
+        public async Task<bool> updateSpecificReasonAsync(string? reason, string userId)
         {
-            _db.SaveChanges();
-        }
-        
+            var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+            pollRelated.SpecificReason = reason;
+            var res = await _db.SaveChangesAsync();   
+            return true;
+        }  
     }
 }

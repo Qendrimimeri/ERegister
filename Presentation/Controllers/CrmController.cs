@@ -113,6 +113,8 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Voters(VoterDetailsVM model)
         {
@@ -219,8 +221,9 @@ namespace Presentation.Controllers
 
         #region API CALL
 
-        public async Task<bool> GeneralDemand([FromQuery] string demand, string userId)
+        public async Task<bool> GeneralDemand([FromQuery] string reason, string userId)
         {
+            var res = await _unitOfWork.PollRelated.updateSpecificReasonAsync(reason, userId);
             return true;
         }
         #endregion

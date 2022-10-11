@@ -98,12 +98,12 @@
     </div>
 </div>
 <form asp-controller="Crm" asp-action="Voters" method="post">
-    <input hidden asp-for="Id"/>
+    <input hidden asp-for="Id" id="userId"/>
     <div class="d-flex flex-row align-content-around flex-md-row flex-column">
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
             
-            <select asp-for="GeneralReason" class="form-select" id="generaldemand" asp-items="@ViewBag.ArysjetPercaktues">
+            <select asp-for="GeneralReason" class="form-select" id="general-demand" onchange="generalDemand()" asp-items="@ViewBag.ArysjetPercaktues">
                 @*  <option disabled selected>Arsyeja percaktuese</option>*@
                 <option value="shto">Shto +</option>
             </select>
@@ -184,4 +184,26 @@
     </a>&nbsp &nbsp
    
 </div>
+<script>
 
+    function generalDemand() {
+        var data = document.getElementById("general-demand").value;
+        var userId = document.getElementById("userId").value;
+        console.log(userId);
+        console.log(data);
+
+        if (data === "shto") {
+            var input = prompt();
+            console.log(input);
+            fetch('https://localhost:7278/Crm/GeneralDemand?reason=' + input + '&userId=' + userId, {
+                Method: 'POST',
+                Headers: {
+                    Accept: 'application.json',
+                    'Content-Type': 'application/json'
+                },
+                Body: " ",
+                Cache: 'default'
+            })
+        }
+    }
+</script>
