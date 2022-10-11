@@ -37,12 +37,10 @@
           .button-responsive{
             font-size: 12px;
           }
-
           .divi{
               display:flex ;
               flex-direction: column !important;
           }
-
           .zgjedhje{
               width: 100%;
           }
@@ -50,12 +48,9 @@
           .data{
               width:100%;
           }
-
           .politika{
               width:100%;
           }
-
-
         }
         @@media screen and (max-width:425px) {
           .button-responsive{
@@ -261,8 +256,6 @@
                                 </select>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
-                            @*ME HJEK*@
-                            <hr />
                         </div>
 
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
@@ -519,7 +512,7 @@
 
                     e.preventDefault();
                 }
-        });
+            });
         } catch (err) {
             if (err !== BreakException) throw err;
         }
@@ -1012,82 +1005,82 @@
 
 
        function addDataToDb() {
-        let endpoint = url + "addkqzresult";
+            let endpoint = url + "addkqzresult";
 
-        const munis = document.getElementById('munis');
-        const villages = document.getElementById('villages');
-        const election = document.getElementById("inputGroupSelect03").value;
-        const year = document.getElementById('year');
+            const munis = document.getElementById('munis');
+            const villages = document.getElementById('villages');
+            const election = document.getElementById("inputGroupSelect03").value;
+            const year = document.getElementById('year');
         //const poll = document.getElementById('poll');
-        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-        console.log(neighborhoodVillage);
-        const neigboorhood = document.getElementById('neigborhoods');
-        console.log(neigboorhood);
-        var neighbors;
+            const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+            console.log(neighborhoodVillage);
+            const neigboorhood = document.getElementById('neigborhoods');
+            console.log(neigboorhood);
+            var neighbors;
 
-        const poll = document.getElementById('poll');
+            const poll = document.getElementById('poll');
         //console.log(poll);
-        const pollNeighborhood = document.getElementById('pollNeighborhood');
+            const pollNeighborhood = document.getElementById('pollNeighborhood');
         //console.log(pollNeighborhood);
-        var polls;
-        var villagess;
+            var polls;
+            var villagess;
 
-         if(villages.selectedIndex !== 0) {
-             villagess = villages.options[villages.selectedIndex].value;
+             if(villages.selectedIndex !== 0) {
+                 villagess = villages.options[villages.selectedIndex].value;
 
-          }
-         else{
-              villagess = null;
-          }
+              }
+             else{
+                  villagess = null;
+              }
 
 
         //var neighbors;
-          if(neighborhoodVillage.selectedIndex !== 0) {
-             neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
-          }
-          else if(neigboorhood.selectedIndex !== 0) {
-            neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
+              if(neighborhoodVillage.selectedIndex !== 0) {
+                 neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
+              }
+              else if(neigboorhood.selectedIndex !== 0) {
+                neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
 
-          }else{
-              neighbors = null;
-          }
+              }else{
+                  neighbors = null;
+              }
 
-          if(poll.selectedIndex !== 0) {
-             polls = poll.options[poll.selectedIndex].value;
-          }
-          else if(pollNeighborhood.selectedIndex !== 0) {
-            polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
-
-
-          }else{
-              polls = null;
-          }
+              if(poll.selectedIndex !== 0) {
+                 polls = poll.options[poll.selectedIndex].value;
+              }
+              else if(pollNeighborhood.selectedIndex !== 0) {
+                polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
 
 
-        const parti = document.getElementsByClassName("parti");
-        const votat = document.getElementsByClassName("votat");
-        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+              }else{
+                  polls = null;
+              }
 
 
-        for (var i=1; i <= votat.length; i++) {
+            const parti = document.getElementsByClassName("parti");
+            const votat = document.getElementsByClassName("votat");
+            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+
+
+            for (var i=1; i <= votat.length; i++) {
             //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
 
 
 
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({
-                    municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({
+                        municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
 
-                    electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
-                })
-            });
+                        electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                    })
+                });
 
-        }
+            }
     }
 </script>
 <script>
@@ -1129,10 +1122,10 @@
              
               } else if(sm2.selectedIndex !== 0){
               sm = sm2.options[sm2.selectedIndex].value;
-          }
-         else{
-              sm = null;
-          }
+              }
+             else{
+                  sm = null;
+              }
             
 
             let munis = document.getElementById('munis');
@@ -1867,7 +1860,7 @@
             item.innerText = x.name;
             neigborhoodsVillage.appendChild(item);
         }));
-
+    }
          function addNeigborhoodVillageToDb() {
             let endpoint = url + "addneighborhoodbyvillage";
             let input = swal("Shto lagje te re:",{
@@ -2297,70 +2290,70 @@
 
 
        function addDataToDb() {
-        let endpoint = url + "addkqzresult";
+            let endpoint = url + "addkqzresult";
 
-        var muniss;
-        const munis = document.getElementById('munis');
+            var muniss;
+            const munis = document.getElementById('munis');
 
-     if(munis == null){
-         muniss = @userMuniId;
-     }else{
-         muniss = munis.value;
-     }
+             if(munis == null){
+                 muniss = @userMuniId;
+             }else{
+                 muniss = munis.value;
+             }
 
-        //console.log(munis);
-        const villages = document.getElementById('villages');
-        const election = document.getElementById("inputGroupSelect03").value;
-        const year = document.getElementById('year');
-        //const poll = document.getElementById('poll');
-        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-        console.log(neighborhoodVillage);
-        const neigboorhood = document.getElementById('neigborhoods');
-        console.log(neigboorhood);
-        var neighbors;
+            //console.log(munis);
+            const villages = document.getElementById('villages');
+            const election = document.getElementById("inputGroupSelect03").value;
+            const year = document.getElementById('year');
+            //const poll = document.getElementById('poll');
+            const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+            console.log(neighborhoodVillage);
+            const neigboorhood = document.getElementById('neigborhoods');
+            console.log(neigboorhood);
+            var neighbors;
 
-        const poll = document.getElementById('poll');
-        //console.log(poll);
-        const pollNeighborhood = document.getElementById('pollNeighborhood');
-        //console.log(pollNeighborhood);
-        var polls;
-        var villagess;
+            const poll = document.getElementById('poll');
+            //console.log(poll);
+            const pollNeighborhood = document.getElementById('pollNeighborhood');
+            //console.log(pollNeighborhood);
+            var polls;
+            var villagess;
 
-         if(villages.selectedIndex !== 0) {
-             villagess = villages.options[villages.selectedIndex].value;
+             if(villages.selectedIndex !== 0) {
+                 villagess = villages.options[villages.selectedIndex].value;
 
-          }
-         else{
-              villagess = null;
-          }
+              }
+             else{
+                  villagess = null;
+              }
 
 
         //var neighbors;
-          if(neighborhoodVillage.selectedIndex !== 0) {
-             neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
-          }
-          else if(neigboorhood.selectedIndex !== 0) {
-            neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
+              if(neighborhoodVillage.selectedIndex !== 0) {
+                 neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
+              }
+              else if(neigboorhood.selectedIndex !== 0) {
+                neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
 
-          }else{
-              neighbors = null;
-          }
+              }else{
+                  neighbors = null;
+              }
 
-          if(poll.selectedIndex !== 0) {
-             polls = poll.options[poll.selectedIndex].value;
-          }
-          else if(pollNeighborhood.selectedIndex !== 0) {
-            polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
-
-
-          }else{
-              polls = null;
-          }
+              if(poll.selectedIndex !== 0) {
+                 polls = poll.options[poll.selectedIndex].value;
+              }
+              else if(pollNeighborhood.selectedIndex !== 0) {
+                polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
 
 
-        const parti = document.getElementsByClassName("parti");
-        const votat = document.getElementsByClassName("votat");
-        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+              }else{
+                  polls = null;
+              }
+
+
+            const parti = document.getElementsByClassName("parti");
+            const votat = document.getElementsByClassName("votat");
+            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
 
 
         for (var i=1; i <= votat.length; i++) {
@@ -2368,18 +2361,18 @@
 
 
 
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({
-                    municipalityId: muniss, villageId: villagess, neighborhoodId: neighbors,
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({
+                        municipalityId: muniss, villageId: villagess, neighborhoodId: neighbors,
 
-                    electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
-                })
-            });
+                        electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                    })
+                });
 
         }
     }
