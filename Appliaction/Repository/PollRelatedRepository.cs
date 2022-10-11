@@ -51,16 +51,45 @@ namespace Application.Repository
             return true;
 
         }
-
-        //public async Task<bool>EditPollRelated(PersonVM editPerson)
-        //{
-          
-
-        //}
-        public void Save()
+        public async Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model)
         {
-            _db.SaveChanges();
+            var random = new Random();
+            var helpId = Enumerable.Range(1, 2000000).OrderBy(x => random.Next()).Take(6).First();
+
+            var helpTable = new Help()
+            {
+                Id = helpId,
+                CanYouManage = (model.CanYouManage == 1 ? true : false),
+                ActivitiesYouPlan = model.ActivitiesYourPlan,
+                NeedHelp = (model.NeedHelp == 1 ? true : false)
+            };
+
+            await _db.Helps.AddAsync(helpTable);
+            await _db.SaveChangesAsync();
+
+            var res = await _db.PollRelateds.Where(x => x.UserId == model.Id).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+
+            res.GeneralDemand = (model.GeneralDemands == "shto" ? res.GeneralDemand : model.GeneralDemands);
+            res.GeneralReason = (model.GeneralReason == "shto" ? res.GeneralReason : model.GeneralReason);
+            res.GeneralDescription = (model.GeneralDescription == null ? res.GeneralDescription : model.GeneralDescription) ;
+            res.HelpId = helpId;
+            await _db.SaveChangesAsync();
+            return true;
         }
-        
+
+        public async Task<bool> updateSpecificReasonAsync(string? reason, string userId)
+        {
+            var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+            pollRelated.SpecificReason = reason;
+            var res = await _db.SaveChangesAsync();   
+            return true;
+        }
+        public async Task<bool> updateSpecificDemandAsync(string? reason, string userId)
+        {
+            var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+            pollRelated.SpecificDemand = reason;
+            var res = await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }
