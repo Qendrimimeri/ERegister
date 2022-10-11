@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <td>Facebook</td>
-                    <td id="DataSearching">@Model.FacebookLink</td>
+                    <td id="DataSearching"><a href="#@Model.FacebookLink">Shiko profilin <a /></td>
                 </tr>
             </table>
         </div>
@@ -92,70 +92,67 @@
                 <tr>
                     <td>Qendra e votimit</td>
                     <td id="DataSearching">@Model.PollCenter</td>
+
                 </tr>
             </table>
         </div>
-    </div>
-</div>
 
-<div class="d-flex flex-row align-content-around flex-md-row flex-column">
-    <div class="col-md-6 mb-2 pe-2">
-        <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
-        <select class="form-select option-select" id="generaldemand" asp-items="@ViewBag.ArysjetPercaktues">
-            @*  <option disabled selected>Arsyeja percaktuese</option>*@
-            <option value="shto">Shto +</option>
-        </select>
     </div>
-    <div class="col-md-6 mb-2 pe-2">
-        <label class="pt-3">A mund ta menaxhoni personin?</label>
-        <select class="form-select option-select" id="inputGroupSelect02">
-            <option disabled selected>Zgjedhni opsionet...</option>
-            <option value="1">Po</option>
-            <option value="1">Jo</option>
-        </select>
-    </div>
-</div>
-<div class="form-group pe-2">
-    <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet : </label>
-    <textarea type="text" class="form-control" id="AktivitetePerNdryshim"> </textarea>
-</div>
-<div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
-    <div class="col-md-6 mb-2 pe-2">
-        <label class="pt-3">A keni nevojë për ndihmë?</label>
-        <select class="form-select option-select" id="gethelp">
-            <option disabled selected>Zgjedhni opsionet... </option>
-            <option value="#">Po</option>
-            <option value="#">Jo</option>
-        </select>
-    </div>
-    <div class="col-md-6 mb-2 pe-2">
 
-        <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-        <select class="form-select option-select" id="inputGroupSelect03" asp-items="@ViewBag.NdihmaNevojshme">
-            @* <option disabled selected>Ndihma e nevojshme</option>*@
-            <option value="shto">Shto +</option>
-        </select>
+</div>
+<form asp-controller="Crm" asp-action="Voters" method="post">
+    <input hidden asp-for="Id" id="userId"/>
+    <div class="d-flex flex-row align-content-around flex-md-row flex-column">
+        <div class="col-md-6 mb-2 pe-2">
+            <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
+            
+            <select asp-for="GeneralReason" class="form-select" id="general-demand" onchange="generalDemand()" asp-items="@ViewBag.ArysjetPercaktues">
+                <option disabled selected>Zgjedhni opsionet...</option>
+                <option value="shto">Shto +</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-2 pe-2">
+            <label class="pt-3">A mund ta menaxhoni personin?</label>
+            <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" asp-items="ViewBag.YesNo">
+                <option disabled selected>Zgjedhni opsionet...</option>
+
+            </select>
+        </div>
     </div>
-</div>
-<div class="form-group pe-2 pb-3 ">
-    <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyen e ndihmës së kërkuar dhe ndikimin e saj në sukses : </label>
-    <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
-</div>
-  @*  <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-    <a asp-action="Cancel" class="btn btn-primary">Anulo</a>&nbsp &nbsp
-    <a asp-action="SaveAndOpenCase" class="btn btn-primary">Ruaj dhe hap rast</a>&nbsp &nbsp
-    <a asp-action="SaveAndClose" class="btn btn-primary">Ruaj dhe mbyll</a>
-    </div>*@
+    <div class="form-group pe-2">
+        <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet : </label>
+        <textarea type="text" asp-for="ActivitiesYourPlan" class="form-control" id="AktivitetePerNdryshim"> </textarea>
+    </div>
+    <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
+        <div class="col-md-6 mb-2 pe-2">
+            <label class="pt-3">A keni nevojë për ndihmë?</label>
+            <select asp-for="NeedHelp" class="form-select" id="gethelp" asp-items="ViewBag.YesNo">
+                <option disabled selected>Zgjedhni opsionet... </option>
 
-<div class="form-group pe-2 pb-3 ">
-    <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
-    <textarea type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
-</div>
+            </select>
+        </div>
+        <div class="col-md-6 mb-2 pe-2">
 
-<div class="d-flex flex-row justify-content-end pe-2 pt-3 pb-4">
+            <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
+            <select asp-for="GeneralDemands" class="form-select" id="specific-reason" onclick="specificdemand()" asp-items="@ViewBag.NdihmaNevojshme">
+                 <option disabled selected>Zgjedhni opsionet...</option>
+                <option value="shto">Shto +</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group pe-2 pb-3 ">
+        <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
+        <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
+    </div>
+    
+
+
+<div class="d-flex flex-row justify-content-end pt-3 ">
     <a href='javascript:
        swal({
-       title: "A jeni i sigurt?" ,
+       title: "A jeni të sigurt?" ,
        icon: "warning" ,
        buttons: true,
        dangerMode: "true" ,
@@ -163,12 +160,16 @@
        .then((willDelete)=>
         {
         if (willDelete) {
-        swal({ title: "U fshi me sukses!",
+        swal({ title: "U anulua me sukses!",
         icon: "success"}).then(okay => {
         if (okay) {
         window.location.href = "/Crm/Cancel";
         }
         });
+
+
+
+
 
         } else {
         swal({
@@ -178,10 +179,44 @@
         });
         }
         });'
-        class = "btn btn-danger  button-responsive">Anulo
-    </a>&nbsp &nbsp
-    <a asp-action="SaveAndOpenCase" class="btn btn-primary button-responsive">Ruaj dhe hap rast</a>&nbsp &nbsp
-    <a asp-action="SaveAndClose" class="btn btn-primary button-responsive">Ruaj dhe mbyll</a>
-    
-</div>
 
+
+
+        class = "btn btn-danger">Anulo
+    </a>&nbsp
+     <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp 
+     <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>&nbsp&nbsp
+</div>
+</form>
+<script>
+   const Specificreasons = document.querySelector('#general-demand');
+    Specificreasons.addEventListener('change', event => {
+             var data = document.getElementById("general-demand").value;
+             if (event.target.value === "shto"){
+                var userId = document.getElementById("userId").value;
+                 //if (data === "shto") {
+
+                 var input = prompt();
+
+                 let item = document.createElement("option");
+                        item.value = input;
+                        item.innerText = input;
+                        Specificreasons.appendChild(item);
+                        Specificreasons.value = input;
+      }
+  });
+
+    const Specificdemands = document.querySelector('#specific-reason');
+     Specificdemands.addEventListener('change', event => {
+             var data = document.getElementById("specific-reason").value;
+             if (event.target.value === "shto"){
+                var userId = document.getElementById("userId").value;
+                    var input = prompt();
+                     let item = document.createElement("option");
+                        item.value = input;
+                        item.innerText = input;
+                        Specificdemands.appendChild(item);
+                        Specificdemands.value = input;
+      }
+  });
+</script>
