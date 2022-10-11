@@ -37,6 +37,25 @@
           .button-responsive{
             font-size: 12px;
           }
+
+          .divi{
+              display:flex ;
+              flex-direction: column !important;
+          }
+
+          .zgjedhje{
+              width: 100%;
+          }
+
+          .data{
+              width:100%;
+          }
+
+          .politika{
+              width:100%;
+          }
+
+
         }
         @@media screen and (max-width:425px) {
           .button-responsive{
@@ -289,8 +308,8 @@
                     <div class="" id="table">
 
 
-                        <div class="d-flex flex-row justify-content-between p-4">
-                            <div class=" pt-4">
+                        <div class="d-flex flex-row justify-content-around p-4 divi" >
+                         @*   <div class=" pt-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                                     Shto nje subjekt politik
                                 </button>
@@ -312,9 +331,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
-                            <div class="col-4">
+                            <div class="col-4 zgjedhje">
                                 <label class="">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
                                     <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
@@ -323,19 +342,19 @@
                                 </select>
                                 @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
                             </div>
-                            <div class="col-4">
+                            <div class="col-4 data">
                                 <label class="">Data e zgjedhjeve</label>
                                 <input type="date" id="year" class="form-control" required>
                                 @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
                             </div>
                         </div>
 
-                        <div class="col-md-6 w-100 pt-5">
+                        <div class="col-md-6 w-100 ">
                             <div class="table-responsive">
                                 @*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
 
-                                <table class="table table-bordered">
-                                    <thead>
+                                <table class="table table-responsive">
+                                    <thead class="thead-dark">
                                         <tr>
                                             <th scope="col" class="w-50">Partia Politike</th>
                                             <th scope="col" class="w-50">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
@@ -378,6 +397,30 @@
                                 </table>
                             </div>
                         </div>
+
+                              <div class=" pt-4">
+                                <button type="button" class="btn btn-primary politika" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Shto nje subjekt politik
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="subjekti-politik" class="py-2">Emri i subjektit politik</label>
+                                                        <input type="text" class="form-control" id="subjekti-politik">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulo</button>
+                                                        <button type="submit" id="btnCall" onclick="getValue()" class="btn btn-primary">Ruaj edhe mbyll</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
 
                 </div>
@@ -1234,6 +1277,18 @@
         const poll1 = document.getElementById('pollNeighborhood');
         const poll2 = document.getElementById('poll');
 
+                   var muniss;
+        const munisi = document.getElementById('munis');
+        console.log(munisi);
+    
+     if(munisi == null){
+         muniss = @userMuniId;
+     }else{
+         muniss = munisi.value;
+     }
+
+     console.log(muniss);
+
         poll1.addEventListener('change', event => {
             event.preventDefault();
             if (event.target.value == 'shto'){
@@ -1254,11 +1309,12 @@
         function addPollToDb(){
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = swal("Shto qender te re:",{
-                    content:"input",
-                })
-                .then((value)=>{
+            //let input = swal("Shto qender te re:",{
+            //        content:"input",
+            //    })
+            //    .then((value)=>{
                     //var villagess;
+            let input = prompt("shto");
             if(input){
 
             let sm1 = document.querySelector("#neigborhoods");
@@ -1278,7 +1334,7 @@
           }
 
 
-                var muniss;
+        var muniss;
         const munis = document.getElementById('munis');
 
      if(munis == null){
@@ -1286,12 +1342,16 @@
      }else{
          muniss = munis.value;
      }
+
+     
             let villages = document.getElementById('villages');
                var villagess;
 
          if(villages.selectedIndex !== 0) {
              villagess = villages.options[villages.selectedIndex].value;
 
+          }else{
+              villagess = null;
           }
 
 
@@ -1307,10 +1367,10 @@
             .then(() => addPollCenterNeighborhoodToList(sm))
             .then(()=> addPollCenterToList(villagess));
 
+            
+
+               
             }
-
-                });
-
         }
 
     const linku1= document.getElementById('klasa1');
