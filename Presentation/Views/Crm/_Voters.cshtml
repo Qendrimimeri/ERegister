@@ -143,14 +143,13 @@
         <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
         <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
     </div>
-     <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp
-     <a asp-action="SaveAndClose" class="btn btn-primary">Ruaj dhe mbyll</a>
-</form>
+    
 
-<div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+
+<div class="d-flex flex-row justify-content-end pt-3 ">
     <a href='javascript:
        swal({
-       title: "A jeni i sigurt?" ,
+       title: "A jeni të sigurt?" ,
        icon: "warning" ,
        buttons: true,
        dangerMode: "true" ,
@@ -158,7 +157,7 @@
        .then((willDelete)=>
         {
         if (willDelete) {
-        swal({ title: "U fshi me sukses!",
+        swal({ title: "U anulua me sukses!",
         icon: "success"}).then(okay => {
         if (okay) {
         window.location.href = "/Crm/Cancel";
@@ -180,29 +179,28 @@
 
 
 
-        class = "btn btn-danger">Delete
-    </a>&nbsp &nbsp
-   
+        class = "btn btn-danger">Anulo
+    </a>&nbsp
+     <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp 
+     <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>&nbsp&nbsp
 </div>
+</form>
 <script>
-    
    const Specificreasons = document.querySelector('#general-demand');
     Specificreasons.addEventListener('change', event => {
              var data = document.getElementById("general-demand").value;
              if (event.target.value === "shto"){
                 var userId = document.getElementById("userId").value;
-                 if (data === "shto") {
+                 //if (data === "shto") {
+
                  var input = prompt();
-                 fetch('https://localhost:7278/Crm/GeneralDemand?reason=' + input + '&userId=' + userId, {
-                Method: 'POST',
-                Headers: {
-                    Accept: 'application.json',
-                    'Content-Type': 'application/json'
-                },
-                Body: " ",
-                Cache: 'default'
-            })
-        }
+
+                 let item = document.createElement("option");
+                        item.value = input;
+                        item.innerText = input;
+                        Specificreasons.appendChild(item);
+                        Specificreasons.value = input;
+
       }
   });
 
@@ -211,18 +209,13 @@
              var data = document.getElementById("specific-reason").value;
              if (event.target.value === "shto"){
                 var userId = document.getElementById("userId").value;
-                 if (data === "shto") {
-                 var input = prompt();
-                 fetch('https://localhost:7278/Crm/SpecificDemand?reason=' + input + '&userId=' + userId, {
-                Method: 'POST',
-                Headers: {
-                    Accept: 'application.json',
-                    'Content-Type': 'application/json'
-                },
-                Body: " ",
-                Cache: 'default'
-            })
-        }
+                    var input = prompt();
+                     let item = document.createElement("option");
+                        item.value = input;
+                        item.innerText = input;
+                        Specificdemands.appendChild(item);
+                        Specificdemands.value = input;
+                
       }
   });
 

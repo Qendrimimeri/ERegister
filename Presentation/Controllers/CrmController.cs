@@ -42,53 +42,6 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-
-        ////Arsye percaktuese general demand
-        //[HttpPost, Route("addgeneraldemand")]
-        //public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
-        //{
-        //    try
-        //    {
-        //        _unitOfWork.PollRelated.Add(new PollRelated
-        //        {
-        //            SpecificReason = model.SpecificReason
-        //        });
-        //        _unitOfWork.SaveChanges();
-
-        //        return Ok();
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        _logger.LogError("An error has occured ", err);
-        //        return View(errorView);
-        //    }
-
-        //}
-
-
-        //ndihma nevojshme
-        //[HttpPost, Route("GetNeedHelp")]
-        //public ActionResult GetNeedHelp([FromBody] GeneralDemandVM model)
-        //{
-        //    try
-        //    {
-        //        _unitOfWork.PollRelated.Add(new PollRelated
-        //        {
-        //            SpecificDemand = model.SpecificDemand
-        //        });
-        //        _unitOfWork.SaveChanges();
-
-        //        return Ok();
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        _logger.LogError("An error has occured", err);
-        //        return View(errorView);
-        //    }
-
-        //}
-
-
         public async Task<IActionResult> Voters(string name)
         {
             try
@@ -125,8 +78,8 @@ namespace Presentation.Controllers
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
                 ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
 
-
-              return View();
+                TempData["success"] = "U ruajt me sukses!";
+                return RedirectToAction("Index");
             }
             catch (Exception err)
             {
@@ -176,14 +129,17 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task<IActionResult> SaveAndClose(PollRelated pollRelated)
+        public async Task<IActionResult> SaveAndClose(VoterDetailsVM model)
         {
             try
             {
-                _unitOfWork.PollRelated.Update(pollRelated);
-                await _unitOfWork.Done();
+                var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
+                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+
                 TempData["success"] = "U ruajt me sukses!";
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index","Dashboard");
             }
             catch (Exception err)
             {
@@ -221,11 +177,11 @@ namespace Presentation.Controllers
 
         #region API CALL
 
-        public async Task<bool> GeneralDemand([FromQuery] string reason, string userId)
-        {
-            var res = await _unitOfWork.PollRelated.updateSpecificReasonAsync(reason, userId);
-            return true;
-        }
+        //public async Task<bool> GeneralDemand([FromQuery] string reason, string userId)
+        //{
+        //    var res = await _unitOfWork.PollRelated.updateSpecificReasonAsync(reason, userId);
+        //    return true;
+        //}
         public async Task<bool> SpecificDemand([FromQuery] string reason, string userId)
         {
             var res = await _unitOfWork.PollRelated.updateSpecificDemandAsync(reason, userId);
