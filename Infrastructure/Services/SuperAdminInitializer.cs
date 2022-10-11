@@ -9,20 +9,26 @@ using Appliaction.Models;
 using Microsoft.Extensions.Options;
 using Domain.Data;
 using Domain.Data.Entities;
+using Application.Models;
 
 namespace Infrastructure.Services
 {
     public class SuperAdminInitializer
     {
+        private readonly Admin _admin;
+        private readonly ApplicationDbContext _context;
+        private readonly AppRoles _roles;
 
-
-
-        //public SuperAdminInitializer(IOptionsSnapshot<Admin> admin) => Admin = admin.Value;
-
-        public SuperAdminInitializer(ApplicationDbContext context) => Context = context;
+        public SuperAdminInitializer(ApplicationDbContext context,
+                                    IOptionsSnapshot<Admin> admin,
+                                    IOptionsSnapshot<AppRoles> roles)
+        {
+            _context = context;
+            _roles = roles.Value;
+            _admin = admin.Value;
+        }
 
         public ApplicationDbContext Context { get; }
-        public Admin Admin { get; }
 
         public async void Initialize()
         {
@@ -30,7 +36,7 @@ namespace Infrastructure.Services
 
             foreach (var role in roles)
             {
-                if (!Context.Roles.Any(r => r.Name == role))
+                if (!_context.Roles.Any(r => r.Name == role))
                 {
                     await new RoleStore<IdentityRole>(Context).CreateAsync(new IdentityRole()
                     {
@@ -40,7 +46,7 @@ namespace Infrastructure.Services
                 }
             }
 
-            Context.SaveChanges();
+            _context.SaveChanges();
 
             var admin = new ApplicationUser
             {
@@ -60,9 +66,9 @@ namespace Infrastructure.Services
                 ActualStatus = "Ne Process"
             };
 
-            var userstore = new UserStore<ApplicationUser>(Context);
+            var userstore = new UserStore<ApplicationUser>(_context);
 
-            if (!Context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
+            if (!_context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
             {
                 var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, "Eregister1");
                 admin.PasswordHash = password;
@@ -70,7 +76,7 @@ namespace Infrastructure.Services
                 await userstore.CreateAsync(admin);
                 await userstore.AddToRoleAsync(admin, roles[0]);
             }
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -92,188 +92,69 @@
 </section>
 @section Scripts
     {
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-
-<script>
-
-        $(function () {
-           $("#SearchBtn").autocomplete({
-               source: function (request, response) {
-                   $.ajax({
-                       url: '/Crm/AutoComplete/',
-                       data: { "prefix": request.term },
-                       type: "POST",
-                       success: function (data) {
-                           response($.map(data, function (item) {
-                               return item;
-                           }))
-                       },
-                       error: function (response) {
-                           alert(response.responseText);
-                       },
-                       failure: function (response) {
-                           alert(response.responseText);
-                       }
-                   });
-               },
-               select: function (e, i) {
-                   $("#SearchBtn").val(i.item.val);
-               },
-               minLength: 1
-           });
-       });
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+         $(function () {
+            $("#SearchBtn").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Crm/AutoComplete/',
+                        data: { "prefix": request.term },
+                        type: "POST",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#SearchBtn").val(i.item.val);
+                },
+                minLength: 1
+            });
+        });
 
 
-       //const url = "https://localhost:7278/api/service/";
+        //const url = "https://localhost:7278/api/service/";
 
-        const input = document.getElementById('SearchBtn');
-      input.addEventListener('keypress', event=>{
-        if(event.key == 'Enter'){
-            document.getElementById('butoni').click();
-        }
-    })
+         const input = document.getElementById('SearchBtn');
+       input.addEventListener('keypress', event=>{
+         if(event.key == 'Enter'){
+             document.getElementById('butoni').click();
+         }
+     })
 
-       function SetVoters() {
-           let name = $('#SearchBtn').val();
-           console.log(name);
-           //let setData = $("DataSearching")
-           //const needHelp = document.querySelector('#inputGroupSelect03');
-           //const Generaldemand = document.querySelector('#generaldemand');
+        function SetVoters() {
+            let name = $('#SearchBtn').val();
+            console.log(name);
+            //let setData = $("DataSearching")
+            //const needHelp = document.querySelector('#inputGroupSelect03');
+            //const Generaldemand = document.querySelector('#generaldemand');
 
-           let table = $("#Tables");
-           $.ajax({
-               url: "/Crm/Voters?name=" + name,
-               type: "GET",
-               data: {},
-               success: function (data) {
-                   table.empty(data)
-                   table.append(data);
+            let table = $("#Tables");
+            $.ajax({
+                url: "/Crm/Voters?name=" + name,
+                type: "GET",
+                data: {},
+                success: function (data) {
+                    table.empty(data)
+                    table.append(data);
 
-                   const SpecificDemand = document.querySelector('#inputGroupSelect03');
-                   const SpecificReason = document.querySelector('#generaldemand');
-
-
-                   //getGeneralDemand();
-                   //function getGeneralDemand(id) {
-
-                   //    //SpecificReason.innerHTML = '';
-                   //    //let chooseOption = document.createElement("option");
-                   //    //chooseOption.innerText = "Zgjedhni arsye përcaktuese...";
-                   //    //chooseOption.selected = true;
-                   //    //chooseOption.disabled = true;
-                   //    //SpecificReason.appendChild(chooseOption);
-                   //    let addOption = document.createElement("option");
-                   //    addOption.innerText = "Shto arsye përcaktuese +";
-                   //    addOption.value = "shto";
-                   //    SpecificReason.appendChild(addOption);
-
-                   //    let endpoint = url + "getgeneraldemand";
-                   //    let result = fetch(endpoint)
-                   //        .then(res => res.json())
-                   //        .then(data => {
-                   //            data.forEach(x => {
-                   //                let item = document.createElement("option");
-                   //                item.value = x.id;
-                   //                item.innerText = x.specificReason;
-                   //                SpecificReason.appendChild(item);
-                   //            });
-                   //        });
-                   //}
-                   //getHelp();
-
-
-
-                   //function getHelp(id) {
-
-                   //    SpecificDemand.innerHTML = '';
-                   //    let chooseOption = document.createElement("option");
-                   //    chooseOption.innerText = "Zgjedhni ndihmën e nevojshme...";
-                   //    chooseOption.selected = true;
-                   //    chooseOption.disabled = true;
-                   //    SpecificDemand.appendChild(chooseOption);
-                   //    let addOption = document.createElement("option");
-                   //    addOption.innerText = "Shto ndihmën e nevojshme +";
-                   //    addOption.value = "shto";
-                   //    SpecificDemand.appendChild(addOption);
-
-                   //    let endpoint = url + "getgeneraldemand";
-                   //    let result = fetch(endpoint)
-                   //        .then(res => res.json())
-                   //        .then(data => {
-                   //            data.forEach(x => {
-                   //                let item = document.createElement("option");
-                   //                item.value = x.id;
-                   //                item.innerText = x.specificDemand;
-                   //                SpecificDemand.appendChild(item);
-                   //            });
-                   //        });
-                   //}
-                   //function addhelp() {
-                   //    let endpoint = url + "GetNeedHelp";
-                   //    let input = prompt("Shto Ndihmen e Nevojshme:");
-
-                   //    //let selectedMuni = $('#munis').val();
-                   //    //let sm = document.querySelector("#inputGroupSelect03").value;
-                   //    fetch(endpoint, {
-                   //        headers: {
-                   //            'Accept': 'application/json',
-                   //            'Content-Type': 'application/json'
-
-                   //        },
-                   //        method: 'post',
-                   //        body: JSON.stringify({ SpecificDemand: input })
-                   //    }).then(() => getHelp());
-
-                   //}
-
-                   //SpecificDemand.addEventListener('change', event => {
-                   //    event.preventDefault()
-                   //    if (event.target.value == 'shto') {
-                   //        addhelp();
-                   //    }
-
-                   //});
-                   //function addGeneralDemand() {
-                   //    let endpoint = url + "addgeneraldemand";
-                   //    let input = prompt("Shto arsyen:");
-                   //    if (input == '') {
-                   //        addGeneralDemand();
-
-                   //    }
-                       //let selectedMuni = $('#munis').val();
-                       // let sm = document.querySelector("#generaldemand").value;
-                   //    fetch(endpoint, {
-                   //        headers: {
-                   //            'Accept': 'application/json',
-                   //            'Content-Type': 'application/json'
-                   //        },
-                   //        method: 'post',
-                   //        body: JSON.stringify({ SpecificReason: input })
-                   //    }).then(() => getGeneralDemand());
-
-                   //}
-                   //SpecificReason.addEventListener('change', event => {
-                   //    event.preventDefault()
-                   //    if (event.target.value == 'shto') {
-                   //        getGeneralDemand();
-                   //    }
-
-                   //});
-
-               }
-           });
-       }
-
-
+                    const SpecificDemand = document.querySelector('#inputGroupSelect03');
+                    const SpecificReason = document.querySelector('#generaldemand');
+                }
+            });
+         }
 </script>
 <link rel="stylesheet" type="text/css" href="~/jquerycrm/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>@*
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
 <script type="text/javascript" src="~/jquerycrm/jquery-ui.js"></script>
-
-
-
 }

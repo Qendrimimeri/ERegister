@@ -26,9 +26,11 @@ namespace Application.Repository.IRepository
 
         Task<List<VoterDetailsVM>> GetVoterInfoAsync();
 
-        int? GetMunicipalityIdOfUser(string id);
+        Task<int?> GetMunicipalityIdOfUser(string id);
 
-        int? GetVillageIdOfUser(string id);
+        Task<int?> GetVillageIdOfUser(string id);
+
+        Task<int?> GetNeigborhoodIdOfUser(string id);
 
         Task<ApplicationUser> FindUserByIdAsync(string id);
 
