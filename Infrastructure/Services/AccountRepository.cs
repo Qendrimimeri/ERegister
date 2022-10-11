@@ -17,6 +17,8 @@ using Appliaction.Models;
 
 namespace Infrastructure.Services
 {
+#pragma warning disable CS8602 
+
     public class AccountRepository : Repository<ApplicationUser>, IAccountRepository
     {
         private readonly ApplicationDbContext _context;
@@ -55,6 +57,7 @@ namespace Infrastructure.Services
                 return true;
             return false;
         }
+
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
@@ -185,6 +188,12 @@ namespace Infrastructure.Services
                 var confimrEmailUrs = $"Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
                 confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
 
+                var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
+
+                if (true)
+                {
+
+                }
                 // Send Email
                 var emailReques = new MailRequest();
               
@@ -227,18 +236,22 @@ namespace Infrastructure.Services
             return true;
         }
 
+
         public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
             return res;
         }
+
+
         public async Task<int> AdminMunicipalityId()
         {
             var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var res =  ((int)await  _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
             return res;
         }
+
 
         private static string CreateRandomPassword(int passwordLength)
         {
@@ -254,5 +267,7 @@ namespace Infrastructure.Services
             return new string(chars);
         }
     }
+#pragma warning restore CS8602
+
 }
 

@@ -13,6 +13,8 @@ using Application.Repository.IRepository;
 using Infrastructure.Settings;
 using Serilog;
 using System.Configuration;
+using Microsoft.Extensions.Options;
+using Application.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -40,10 +42,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
+builder.Services.Configure<AppRoles>(builder.Configuration.GetSection(AppRoles.SectionName));
+builder.Services.Configure<Toaster>(builder.Configuration.GetSection(Toaster.SectionName));
+builder.Services.Configure<ErrorHandler>(builder.Configuration.GetSection(ErrorHandler.SectionName));
 
-/// <summary>
-/// Serilog 
-/// </summary>
+
+
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
@@ -71,6 +75,7 @@ else
     app.UseHsts();
 }
 
+
 app.UseStatusCodePagesWithReExecute("/ErrorHandler/Error/{0}");
 
 app.UseHttpsRedirection();
@@ -87,5 +92,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 var init = app.Services.CreateScope();
-new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>()).Initialize();
+new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>(),
+                          init.ServiceProvider.GetService<IOptionsSnapshot<Admin>>(),
+                          init.ServiceProvider.GetService<IOptionsSnapshot<AppRoles>>()).Initialize();
 app.Run();

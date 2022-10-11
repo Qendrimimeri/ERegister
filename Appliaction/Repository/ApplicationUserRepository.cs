@@ -224,11 +224,14 @@ namespace Application.Repository
             return roles;
         }
 
-        public int? GetMunicipalityIdOfUser(string id)
-            => _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).First();
+        public async Task<int?> GetMunicipalityIdOfUser(string id)
+            => await _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync();
 
-        public int? GetVillageIdOfUser(string id)
-            => _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.VillageId).First();
+        public async Task<int?> GetVillageIdOfUser(string id)
+            => await _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.VillageId).FirstOrDefaultAsync();
+
+        public async Task<int?> GetNeigborhoodIdOfUser(string id)
+            => await _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
 
     }
 

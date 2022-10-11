@@ -1,8 +1,10 @@
-﻿using Application.Repository;
+﻿using Application.Models;
+using Application.Repository;
 using Application.ViewModels;
 using Domain.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Presentation.Controllers
 {
@@ -14,14 +16,17 @@ namespace Presentation.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
+        private readonly AppRoles _roles;
 
         public AccountController( IUnitOfWork unitOfWork, 
                                   SignInManager<ApplicationUser> signInManager,
-                                  ILogger<AccountController> logger)
+                                  ILogger<AccountController> logger,
+                                  IOptionsSnapshot<AppRoles> roles)
         {
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _logger = logger;
+            _roles = roles.Value;
         }
 
 
@@ -35,12 +40,17 @@ namespace Presentation.Controllers
                     // get the role of the signin user 
                     var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
 
-                    if (roles.Contains("AnetarIThjeshte"))
+                    if (roles.Contains(_roles.AnetarIThjeshte))
                     {
                         if (await _unitOfWork.Account.LoginAsync(login))
                             return RedirectToAction("AddVoter", "AddsAdmin");
                     }
-                    else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")) || (roles.Contains("KryetarIFshatit")))
+                    else if(roles.Contains("KryetarIFshatit"))
+                    {
+                        if (await _unitOfWork.Account.LoginAsync(login))
+                            return RedirectToAction("Index", "Crm");
+                    }
+                    else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")))
                     {
                         if (await _unitOfWork.Account.LoginAsync(login))
                             return RedirectToAction("Index", "Dashboard");
@@ -72,6 +82,7 @@ namespace Presentation.Controllers
         }
 
 
+
         [HttpGet]
         public IActionResult ConfirmedEmail()
         {
@@ -87,7 +98,6 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             try

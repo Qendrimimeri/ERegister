@@ -92,10 +92,13 @@
                 <tr>
                     <td>Qendra e votimit</td>
                     <td id="DataSearching">@Model.PollCenter</td>
+
                 </tr>
             </table>
         </div>
+
     </div>
+
 </div>
 <form asp-controller="Crm" asp-action="Voters" method="post">
     <input hidden asp-for="Id" id="userId"/>
@@ -200,7 +203,6 @@
                         item.innerText = input;
                         Specificreasons.appendChild(item);
                         Specificreasons.value = input;
-
       }
   });
 
@@ -215,10 +217,6 @@
                         item.innerText = input;
                         Specificdemands.appendChild(item);
                         Specificdemands.value = input;
-                
       }
   });
-
-   
-   
 </script>
