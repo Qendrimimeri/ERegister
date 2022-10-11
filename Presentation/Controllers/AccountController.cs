@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Models.Services;
 using Application.Repository;
 using Application.ViewModels;
 using Domain.Data.Entities;

@@ -14,7 +14,7 @@ namespace Infrastructure.Services
         {
             _mailSettings = mailSettings.Value;
         }
-        public async Task SendEmailAsync(MailRequest mailRequest)
+        public async Task SendEmailAsync(MailRequestModel mailRequest)
         {
             var email = new MimeMessage();
 

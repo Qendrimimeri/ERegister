@@ -9,6 +9,6 @@ namespace Appliaction.Repository
 {
     public interface IMailService
     {
-        Task SendEmailAsync(MailRequest mailRequest);
+        Task SendEmailAsync(MailRequestModel mailRequest);
     }
 }

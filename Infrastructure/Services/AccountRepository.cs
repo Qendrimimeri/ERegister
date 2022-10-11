@@ -195,7 +195,7 @@ namespace Infrastructure.Services
 
                 }
                 // Send Email
-                var emailReques = new MailRequest();
+                var emailReques = new MailRequestModel();
               
                 emailReques.Subject = "PBCA: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
@@ -226,7 +226,7 @@ namespace Infrastructure.Services
             confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
 
             // Send Email
-            var emailReques = new MailRequest();
+            var emailReques = new MailRequestModel();
             emailReques.Subject = "PBCA: Ndrysho fjalëkalimin.";
             emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
                 $" < br >< br >< strong > E - Register </ strong > ";

@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Appliaction.Models;
 using Microsoft.Extensions.Options;
 using Domain.Data;
 using Domain.Data.Entities;
-using Application.Models;
+using Application.Models.Services;
 
 namespace Infrastructure.Services
 {

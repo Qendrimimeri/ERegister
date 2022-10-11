@@ -5,32 +5,32 @@ namespace Infrastructure.Services
 {
     public class StaticData
     {
-        public static IEnumerable<AdministrativeUnit> AdministrativeUnits()
+        public static IEnumerable<AdministrativeUnitModel> AdministrativeUnits()
         {
-            var administrativeUnit = new List<AdministrativeUnit>() {
-                new AdministrativeUnit { Key = "Sherbimi privat", Value = "Sherbimi privat" },
-                new AdministrativeUnit { Key = "Sherbimi publik", Value = "Sherbimi publik" },
+            var administrativeUnit = new List<AdministrativeUnitModel>() {
+                new AdministrativeUnitModel { Key = "Sherbimi privat", Value = "Sherbimi privat" },
+                new AdministrativeUnitModel { Key = "Sherbimi publik", Value = "Sherbimi publik" },
             };
             return administrativeUnit;
         }
 
-        public static IEnumerable<GeneralDemand> GeneralDemands()
+        public static IEnumerable<GeneralDemandModel> GeneralDemands()
         {
-            var generalDemand = new List<GeneralDemand>() {
-                new GeneralDemand { Key = "Infrastruktura", Value = "Infrastruktura" },
-                new GeneralDemand { Key = "Shkolla", Value = "Shkolla" },
-                new GeneralDemand { Key = "Ujësjellsi", Value = "Ujësjellsi" },
+            var generalDemand = new List<GeneralDemandModel>() {
+                new GeneralDemandModel { Key = "Infrastruktura", Value = "Infrastruktura" },
+                new GeneralDemandModel { Key = "Shkolla", Value = "Shkolla" },
+                new GeneralDemandModel { Key = "Ujësjellsi", Value = "Ujësjellsi" },
             };
             return generalDemand;
         }
 
-        public static IEnumerable<GeneralReason> GeneralReason()
+        public static IEnumerable<GeneralReasonModel> GeneralReason()
         {
-            var generalReason = new List<GeneralReason>() {
-                new GeneralReason { Key = "Familja", Value = "Familja" },
-                new GeneralReason { Key = "Puna/Biznesi", Value = "Puna/Biznesi" },
-                new GeneralReason { Key = "Bindja politike", Value = "Bindja politike" },
-                new GeneralReason { Key = "Shoqëria", Value = "Shoqëria" },
+            var generalReason = new List<GeneralReasonModel>() {
+                new GeneralReasonModel { Key = "Familja", Value = "Familja" },
+                new GeneralReasonModel { Key = "Puna/Biznesi", Value = "Puna/Biznesi" },
+                new GeneralReasonModel { Key = "Bindja politike", Value = "Bindja politike" },
+                new GeneralReasonModel { Key = "Shoqëria", Value = "Shoqëria" },
 
             };
             return generalReason;
@@ -59,12 +59,12 @@ namespace Infrastructure.Services
         }
 
 
-        public static IEnumerable<ActualStatus> ActualStatus()
+        public static IEnumerable<ActualStatusModel> ActualStatus()
         {
-            var actualStatus = new List<ActualStatus>() {
-                new ActualStatus { Key = "I pa perfunduar", Value = "I pa perfunduar" },
-                new ActualStatus { Key = "Ne proces", Value = "Ne proces" },
-                new ActualStatus { Key = "I perfunduar", Value = "I perfunduar" },
+            var actualStatus = new List<ActualStatusModel>() {
+                new ActualStatusModel { Key = "I pa perfunduar", Value = "I pa perfunduar" },
+                new ActualStatusModel { Key = "Ne proces", Value = "Ne proces" },
+                new ActualStatusModel { Key = "I perfunduar", Value = "I perfunduar" },
             };
             return actualStatus;
         }

@@ -3,7 +3,6 @@ using Appliaction.Repository;
 using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
-using Appliaction.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +14,7 @@ using Serilog;
 using System.Configuration;
 using Microsoft.Extensions.Options;
 using Application.Models;
+using Application.Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -44,7 +44,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
 builder.Services.Configure<AppRoles>(builder.Configuration.GetSection(AppRoles.SectionName));
 builder.Services.Configure<Toaster>(builder.Configuration.GetSection(Toaster.SectionName));
-builder.Services.Configure<ErrorHandler>(builder.Configuration.GetSection(ErrorHandler.SectionName));
+builder.Services.Configure<ExceptionHandler>(builder.Configuration.GetSection(ExceptionHandler.SectionName));
 
 
 
