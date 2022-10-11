@@ -15,5 +15,6 @@ namespace Application.Repository.IRepository
         Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model);
 
         Task<bool> updateSpecificReasonAsync(string demand, string userId);
+        Task<bool> updateSpecificDemandAsync(string demand, string userId);
     }
 }

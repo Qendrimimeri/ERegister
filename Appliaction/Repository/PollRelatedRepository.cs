@@ -83,6 +83,13 @@ namespace Application.Repository
             pollRelated.SpecificReason = reason;
             var res = await _db.SaveChangesAsync();   
             return true;
-        }  
+        }
+        public async Task<bool> updateSpecificDemandAsync(string? reason, string userId)
+        {
+            var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+            pollRelated.SpecificDemand = reason;
+            var res = await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }

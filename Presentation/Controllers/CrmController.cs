@@ -43,50 +43,50 @@ namespace Presentation.Controllers
             }
         }
 
-        //Arsye percaktuese general demand
-        [HttpPost, Route("addgeneraldemand")]
-        public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
-        {
-            try
-            {
-                _unitOfWork.PollRelated.Add(new PollRelated
-                {
-                    SpecificReason = model.SpecificReason
-                });
-                _unitOfWork.SaveChanges();
+        ////Arsye percaktuese general demand
+        //[HttpPost, Route("addgeneraldemand")]
+        //public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
+        //{
+        //    try
+        //    {
+        //        _unitOfWork.PollRelated.Add(new PollRelated
+        //        {
+        //            SpecificReason = model.SpecificReason
+        //        });
+        //        _unitOfWork.SaveChanges();
 
-                return Ok();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured ", err);
-                return View(errorView);
-            }
+        //        return Ok();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occured ", err);
+        //        return View(errorView);
+        //    }
 
-        }
+        //}
 
 
         //ndihma nevojshme
-        [HttpPost, Route("GetNeedHelp")]
-        public ActionResult GetNeedHelp([FromBody] GeneralDemandVM model)
-        {
-            try
-            {
-                _unitOfWork.PollRelated.Add(new PollRelated
-                {
-                    SpecificDemand = model.SpecificDemand
-                });
-                _unitOfWork.SaveChanges();
+        //[HttpPost, Route("GetNeedHelp")]
+        //public ActionResult GetNeedHelp([FromBody] GeneralDemandVM model)
+        //{
+        //    try
+        //    {
+        //        _unitOfWork.PollRelated.Add(new PollRelated
+        //        {
+        //            SpecificDemand = model.SpecificDemand
+        //        });
+        //        _unitOfWork.SaveChanges();
 
-                return Ok();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
+        //        return Ok();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occured", err);
+        //        return View(errorView);
+        //    }
 
-        }
+        //}
 
 
         public async Task<IActionResult> Voters(string name)
@@ -224,6 +224,11 @@ namespace Presentation.Controllers
         public async Task<bool> GeneralDemand([FromQuery] string reason, string userId)
         {
             var res = await _unitOfWork.PollRelated.updateSpecificReasonAsync(reason, userId);
+            return true;
+        }
+        public async Task<bool> SpecificDemand([FromQuery] string reason, string userId)
+        {
+            var res = await _unitOfWork.PollRelated.updateSpecificDemandAsync(reason, userId);
             return true;
         }
         #endregion
