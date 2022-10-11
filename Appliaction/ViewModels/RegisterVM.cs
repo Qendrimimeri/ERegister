@@ -18,7 +18,7 @@ namespace Application.ViewModels
         public string? PhoneNumber { get; set; }
 
 
-        [Required(ErrorMessage = "Email adresa nuk eshte valide!"), DataType(DataType.EmailAddress)]
+        //[Required(ErrorMessage = "Email adresa nuk eshte valide!"), DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
 
         public string? Facebook { get; set; }

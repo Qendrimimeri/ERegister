@@ -17,6 +17,8 @@ using Appliaction.Models;
 
 namespace Infrastructure.Services
 {
+#pragma warning disable CS8602 
+
     public class AccountRepository : Repository<ApplicationUser>, IAccountRepository
     {
         private readonly ApplicationDbContext _context;
@@ -185,6 +187,12 @@ namespace Infrastructure.Services
                 var confimrEmailUrs = $"Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
                 confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
 
+                var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
+
+                if (true)
+                {
+
+                }
                 // Send Email
                 var emailReques = new MailRequest();
               
@@ -254,5 +262,7 @@ namespace Infrastructure.Services
             return new string(chars);
         }
     }
+#pragma warning restore CS8602
+
 }
 

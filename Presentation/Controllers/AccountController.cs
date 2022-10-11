@@ -58,14 +58,36 @@ namespace Presentation.Controllers
 
 
         [HttpGet]
-        public IActionResult AccessDenied() => View("../Account/AccessDenied");
+        public IActionResult AccessDenied()
+        {
+            try
+            {
+                return View("../Account/AccessDenied");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
+
 
 
         [HttpGet]
-        public IActionResult ConfirmedEmail() => View("ConfirmEmail");
+        public IActionResult ConfirmedEmail()
+        {
+            try
+            {
+               return View("ConfirmEmail");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             try

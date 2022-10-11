@@ -30,8 +30,18 @@ namespace Presentation.Controllers
 
 
         [HttpGet]
-        public IActionResult Index() => View();
-
+        public IActionResult Index()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+        }
 
         //Arsye percaktuese general demand
         [HttpPost, Route("addgeneraldemand")]
@@ -125,6 +135,7 @@ namespace Presentation.Controllers
             }
 
         }
+
 
         public IActionResult Cancel()
         {
