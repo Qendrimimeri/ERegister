@@ -45,7 +45,12 @@ namespace Presentation.Controllers
                         if (await _unitOfWork.Account.LoginAsync(login))
                             return RedirectToAction("AddVoter", "AddsAdmin");
                     }
-                    else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")) || (roles.Contains("KryetarIFshatit")))
+                    else if(roles.Contains("KryetarIFshatit"))
+                    {
+                        if (await _unitOfWork.Account.LoginAsync(login))
+                            return RedirectToAction("Index", "Crm");
+                    }
+                    else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")))
                     {
                         if (await _unitOfWork.Account.LoginAsync(login))
                             return RedirectToAction("Index", "Dashboard");

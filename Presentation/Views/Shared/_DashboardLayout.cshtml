@@ -99,7 +99,7 @@
     </header>
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav mb-auto" id="sidebar-nav">
-           @if(User.IsInRole("KryetarIPartise")|| User.IsInRole("KryetarIKomunes")|| User.IsInRole("KryetarIFshatit"))
+            @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
@@ -107,6 +107,9 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+}
+ @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes") || User.IsInRole("KryetarIFshatit"))
+            {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Crm" asp-action="Index">
                         <i class="bi bi-search"></i>
