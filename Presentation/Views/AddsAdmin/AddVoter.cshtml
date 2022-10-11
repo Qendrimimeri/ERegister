@@ -15,33 +15,38 @@
 }
 <style>
 
-        @@media screen and (max-width:502px) {
-          .button-responsive{
+    @@media screen and (max-width:502px) {
+        .button-responsive {
             font-size: 14px;
-          }
         }
-         @@media screen and (max-width:462px) {
-          .button-responsive{
+    }
+
+    @@media screen and (max-width:462px) {
+        .button-responsive {
             font-size: 12px;
-          }
         }
-        @@media screen and (max-width:425px) {
-          .button-responsive{
+    }
+
+    @@media screen and (max-width:425px) {
+        .button-responsive {
             font-size: 10px;
-          }
         }
-         @@media screen and (max-width:379px) {
-          .button-responsive{
+    }
+
+    @@media screen and (max-width:379px) {
+        .button-responsive {
             font-size: 8px;
-          }
-          input::placeholder{
-              font-size: 13px;
-          }
-          .option-select{
-              font-size: 13px;
-          }
         }
- </style>
+
+        input::placeholder {
+            font-size: 13px;
+        }
+
+        .option-select {
+            font-size: 13px;
+        }
+    }
+</style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <section class="section">
     <div class="row">
@@ -87,7 +92,7 @@
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label asp-for="Municipality">Qyteti</label>
                                     <select class="form-select option-select" asp-for="Municipality" id="munis">
-                                        <option disabled selected class ="option-select">Zgjedh qytetin...</option>
+                                        <option disabled selected class="option-select">Zgjedh qytetin...</option>
                                     </select>
                                     <span asp-validation-for="Municipality" class="text-danger"></span>
                                 </div>
@@ -354,178 +359,206 @@
     });
 </script>
 <script>
-    const url = "https://localhost:7278/api/service/";
-    if (document.querySelector("#munis") != undefined)
-    {
-        getMunis();
-    }
-    else {
-        addVillagesToList(@userMuniId);
-        addNeigborhoodToList(@userMuniId);
-        addBlockToList(@userMuniId);
-    }
-    villages.addEventListener('change', event=>{
-        addNeigborhoodVillageToList(event.target.value);
-        addStreetToList(event.target.value);
-        addPollCenterToList(event.target.value);
-    });
-    neigborhoods.addEventListener('change', event =>{
-        addStreetNeighborhoodToList(event.target.value);
-        addPollCenterNeighborhoodToList(event.target.value);
-    });
-    villages.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto'){
-            addVillageToDb();
+        const url = "https://localhost:7278/api/service/";
+        if (document.querySelector("#munis") != undefined)
+        {
+            getMunis();
         }
-    });
-    neigborhoods.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto') {
-            addNeigborhoodToDb();
+        else {
+            addVillagesToList(@userMuniId);
+            addNeigborhoodToList(@userMuniId);
+            addBlockToList(@userMuniId);
+        }
+        villages.addEventListener('change', event=>{
+            if(event.target.value !== "shto")
+            {
+                addNeigborhoodVillageToList(event.target.value);
+                addStreetToList(event.target.value);
+                addPollCenterToList(event.target.value);
             }
-    });
-    blocks.addEventListener('change', event => {
-       event.preventDefault()
-          if (event.target.value == 'shto') {
-           addBlockToDb();
-           }
-    });
-    streets.addEventListener('change', event => {
-        event.preventDefault()
-        if (event.target.value == 'shto') {
-            addStreetToDb();
-        }
-    });
-    neigborhoodsVillage.addEventListener('change', event => {
-        event.preventDefault()
-        if (event.target.value == "shto") {
-            addNeigborhoodVillageToDb();
-        }
-    });
-    streetsNeighborhood.addEventListener('change', event => {
-        event.preventDefault()
-        if (event.target.value == "shto") {
-            addStreetNeighborhoodToDb();
-        }
-    });
+            else {
 
-    function getMunis(userId){
-    let endpoint = url + "getmunis";
-    let result = fetch(endpoint)
-    .then(res => res.json())
-    .then(data => {
-        data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
+            }
         });
-    });
-    }
+        neigborhoods.addEventListener('change', event =>{
+             if(event.target.value !== "shto")
+            {
+            addStreetNeighborhoodToList(event.target.value);
+            addPollCenterNeighborhoodToList(event.target.value);
+            }
+            else{
 
-    function addVillagesToList(userMuniId) {
-        villages.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh fshatin...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        villages.appendChild(chooseOption);
+            }
+        });
+        villages.addEventListener('change', event => {
+            event.preventDefault()
+              if (event.target.value == 'shto'){
+                addVillageToDb(@userMuniId);
+            }
+        });
+        neigborhoods.addEventListener('change', event => {
+            event.preventDefault()
+              if (event.target.value == 'shto') {
+                addNeigborhoodToDb(@userMuniId);
+                }
+        });
+        blocks.addEventListener('change', event => {
+           event.preventDefault()
+              if (event.target.value == 'shto') {
+               addBlockToDb(@userMuniId);
+               }
+        });
+        streets.addEventListener('change', event => {
+            event.preventDefault()
+            if (event.target.value == 'shto') {
+                addStreetToDb();
+            }
+        });
+        neigborhoodsVillage.addEventListener('change', event => {
+            event.preventDefault()
+            if (event.target.value == "shto") {
+                addNeigborhoodVillageToDb();
+            }
+        });
+        streetsNeighborhood.addEventListener('change', event => {
+            event.preventDefault()
+            if (event.target.value == "shto") {
+                addStreetNeighborhoodToDb();
+            }
+        });
 
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto fshat te ri...";
-        addOption.value = "shto";
-        villages.appendChild(addOption);
-
-        let endpoint = url + "GetVillagesByMuni?muniid=" + userMuniId;
+        function getMunis(userId){
+        let endpoint = url + "getmunis";
         let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(x => {
                 let item = document.createElement("option");
                 item.value = x.id;
                 item.innerText = x.name;
-                villages.appendChild(item);
-            }));
-    }
-    function addVillageToDb() {
-        let endpoint = url + "addvillage";
-        let input =swal("Write something here:", {
-  content: "input",
-})
-.then((value) => {
-      //let selectedMuni = $('#munis').val();
-        let sm = document.querySelector("#munis").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ municipalityId: sm, villageName: value })
-        }).then(() => addVillagesToList(sm));
- 
-});
-      
-    }
-    //neigborhoods
-    function addNeigborhoodToList(userMuniId) {
-        neigborhoods.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh lagjen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        neigborhoods.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto lagjen e re...";
-        addOption.value = "shto";
-        neigborhoods.appendChild(addOption);
-
-        let endpoint = url + "getneighborhoodsbymuni?muniId=" + userMuniId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                neigborhoods.appendChild(item);
-            }));
-    }
-    function addNeigborhoodToDb() {
-        let endpoint = url + "addneighborhood";
-        let input =swal("Shto lagje te re :",{
-            content:"input",
-
-        })
-        .then((value)=>{
-              let sm = document.querySelector("#munis").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ municipalityId: sm, neighborhoodName: value })
-        }).then(() => addNeigborhoodToList(sm));
-
+            });
         });
-      
-    }
-    //neigborhood by village
-    function addNeigborhoodVillageToList(villId) {
-        neigborhoodsVillage.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh lagjen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        neigborhoodsVillage.appendChild(chooseOption);
+        }
+        //villages
+        function addVillagesToList(userMuniId) {
+            villages.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh fshatin...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            villages.appendChild(chooseOption);
 
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto lagjen e re...";
-        addOption.value = "shto";
-        neigborhoodsVillage.appendChild(addOption);
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto fshat te ri...";
+            addOption.value = "shto";
+            villages.appendChild(addOption);
 
-        let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
+            let endpoint = url + "GetVillagesByMuni?muniid=" + userMuniId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    villages.appendChild(item);
+                }));
+        }
+        function addVillageToDb(userMuniId) {
+            let endpoint = url + "addvillage";
+            let input =swal("Shto fshat të ri:", {
+            content: "input",
+            })
+            .then((value) => {
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ MunicipalityId: userMuniId, villageName: value })
+            }).then(() => addVillagesToList(userMuniId));
+            });
+        }
+        //neigborhoods
+        function addNeigborhoodToList(userMuniId) {
+            neigborhoods.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh lagjen...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            neigborhoods.appendChild(chooseOption);
+
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto lagjen e re...";
+            addOption.value = "shto";
+            neigborhoods.appendChild(addOption);
+
+            let endpoint = url + "getneighborhoodsbymuni?muniId=" + userMuniId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    neigborhoods.appendChild(item);
+                }));
+        }
+        function addNeigborhoodToDb(userMuniId) {
+            let endpoint = url + "addneighborhood";
+            let input =swal("Shto lagje te re :",{
+                content:"input",
+            })
+            .then((value)=>{
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ MunicipalityId: userMuniId, neighborhoodName: value })
+            }).then(() => addNeigborhoodToList(userMuniId));
+            });
+        }
+        //neigborhood by village
+        function addNeigborhoodVillageToList(villId) {
+            neigborhoodsVillage.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh lagjen...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            neigborhoodsVillage.appendChild(chooseOption);
+
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto lagjen e re...";
+            addOption.value = "shto";
+            neigborhoodsVillage.appendChild(addOption);
+
+            let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    neigborhoodsVillage.appendChild(item);
+                }));
+        }
+        //neigborhood by village
+        function addNeigborhoodVillageToList(villId){
+            neigborhoodsVillage.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh lagjen...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            neigborhoodsVillage.appendChild(chooseOption);
+
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto lagjen e re...";
+            addOption.value = "shto";
+            neigborhoodsVillage.appendChild(addOption);
+
+            let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
+            let result = fetch(endpoint)
             .then(res => res.json())
             .then(data => data.forEach(x => {
                 let item = document.createElement("option");
@@ -533,305 +566,187 @@
                 item.innerText = x.name;
                 neigborhoodsVillage.appendChild(item);
             }));
-    }
-    function addVillagesToList(muniId){
-        villages.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh fshatin...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        villages.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto fshat te ri...";
-        addOption.value = "shto";
-        villages.appendChild(addOption);
-
-        let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            villages.appendChild(item);
-        }));
-    }
-    function addVillageToDb(){
-        let endpoint = url + "addvillage";
-        let input =swal("Shto fshat te ri:", {
-  content: "input",
-})
-    .then((value) => {
-          let sm = document.querySelector("#munis").value;
+        }
+        function addNeigborhoodVillageToDb() {
+            let endpoint = url + "addneighborhoodbyvillage";
+            let input = swal("Shto lagje te re:",{
+                content:"input",
+            })
+            .then((value)=>{
+                 let sm = document.querySelector("#villages").value;
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({municipalityId: sm, villageName: value})
-            }).then(() => addVillagesToList(sm));
-    });
+                body: JSON.stringify({ villageId: sm, neighborhoodName: value })
+            }).then(() => addNeigborhoodVillageToList(sm));
+            });
+        }
+        //block
+        function addBlockToList(userMuniId) {
+            blocks.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh bllokun...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            blocks.appendChild(chooseOption);
 
-      
-    }
-    //neigborhoods
-    function addNeigborhoodToList(muniId){
-        neigborhoods.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh lagjen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        neigborhoods.appendChild(chooseOption);
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto bllok të ri...";
+            addOption.value = "shto";
+            blocks.appendChild(addOption);
 
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto lagjen e re...";
-        addOption.value = "shto";
-        neigborhoods.appendChild(addOption);
+            let endpoint = url + "getblocksbymuni?muniid=" + userMuniId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    blocks.appendChild(item);
+                }));
+        }
+        function addBlockToDb(userMuniId) {
+            let endpoint = url + "addblock";
+            let input = swal("Shto bllok te ri:",{
+                content:"input",
+            })
+            .then((value)=>{
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ MunicipalityId: userMuniId, blockName: value })
+            }).then(() => addBlockToList(userMuniId));
+            });
+        }
+        //street by village
+        function addStreetToList(villId) {
+            streets.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh rrugen...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            streets.appendChild(chooseOption);
 
-        let endpoint = url + "getneighborhoodsbymuni?muniid=" + muniId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            neigborhoods.appendChild(item);
-        }));
-    }
-    function addNeigborhoodToDb(){
-        let endpoint = url + "addneighborhood";
-        let input =swal("Shto lagje te re",{
-            content:"input",
-        })
-        .then((value)=>{
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto rrugë te re...";
+            addOption.value = "shto";
+            streets.appendChild(addOption);
 
-            let sm = document.querySelector("#munis").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({municipalityId: sm, neighborhoodName: value})
-        }).then(() => addNeigborhoodToList(sm));
-        });
-        
-    }
-    //neigborhood by village
-    function addNeigborhoodVillageToList(villId){
-        neigborhoodsVillage.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh lagjen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        neigborhoodsVillage.appendChild(chooseOption);
+            let endpoint = url + "getstreetbyvillage?villId=" + villId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    streets.appendChild(item);
+                }));
+        }
+        function addStreetToDb() {
+            let endpoint = url + "addstreetbyvillage";
+            let input =swal("Shto rruge te re",{
+                content:"input",
+            })
+            .then((value)=>{
+       let sm = document.querySelector("#villages").value;
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ villageId: sm, streetName: value })
+            }).then(() => addStreetToList(sm));
+            });
 
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto lagjen e re...";
-        addOption.value = "shto";
-        neigborhoodsVillage.appendChild(addOption);
+        }
+        //street by neighborhood
+        function addStreetNeighborhoodToList(neighId) {
+            streetsNeighborhood.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh rrugen...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            streetsNeighborhood.appendChild(chooseOption);
 
-        let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            neigborhoodsVillage.appendChild(item);
-        }));
-    }
+            let addOption = document.createElement("option");
+            addOption.innerText = "Shto rrugë te re...";
+            addOption.value = "shto";
+            streetsNeighborhood.appendChild(addOption);
 
-    function addNeigborhoodVillageToDb() {
-        let endpoint = url + "addneighborhoodbyvillage";
-        let input = swal("Shto lagje te re:",{
-            content:"input",
-        })
-        .then((value)=>{
-             let sm = document.querySelector("#villages").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ villageId: sm, neighborhoodName: value })
-        }).then(() => addNeigborhoodVillageToList(sm));
-        });
-       
-    }
+            let endpoint = url + "getstreetbyneighborhood?neighId=" + neighId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    streetsNeighborhood.appendChild(item);
+                }));
+        }
+        function addStreetNeighborhoodToDb() {
+            let endpoint = url + "addstreetbyneighborhood";
+            let input = swal("Shto rruge te re:",{
+                content:"input",
+            }).
+            then((value)=>{
+                       let sm = document.querySelector("#neigborhoods").value;
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ neighborhoodId: sm, streetName: value })
+            }).then(() => addStreetNeighborhoodToList(sm));
 
-    //block
-    function addBlockToList(userMuniId) {
-        blocks.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh bllokun...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        blocks.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto bllok të ri...";
-        addOption.value = "shto";
-        blocks.appendChild(addOption);
-
-        let endpoint = url + "getblocksbymuni?muniid=" + userMuniId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                blocks.appendChild(item);
-            }));
-    }
-
-    function addBlockToDb() {
-        let endpoint = url + "addblock";
-        let input = swal("Shto bllok te ri:",{
-            content:"input",
-        })
-        .then((value)=>{
-             let sm = document.querySelector("#munis").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ municipalityId: sm, blockName: value })
-        }).then(() => addBlockToList(sm));
-        });
-       
-    }
-
-    //street by village
-    function addStreetToList(villId) {
-        streets.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh rrugen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        streets.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto rrugë te re...";
-        addOption.value = "shto";
-        streets.appendChild(addOption);
-
-        let endpoint = url + "getstreetbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                streets.appendChild(item);
-            }));
-    }
-    function addStreetToDb() {
-        let endpoint = url + "addstreetbyvillage";
-        let input =swal("Shto rruge te re",{
-            content:"input",
-        })
-        .then((value)=>{
-   let sm = document.querySelector("#villages").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ villageId: sm, streetName: value })
-        }).then(() => addStreetToList(sm));
-        });
-     
-    }
-    //street by neighborhood
-    function addStreetNeighborhoodToList(neighId) {
-        streetsNeighborhood.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh rrugen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        streetsNeighborhood.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto rrugë te re...";
-        addOption.value = "shto";
-        streetsNeighborhood.appendChild(addOption);
-
-        let endpoint = url + "getstreetbyneighborhood?neighId=" + neighId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                streetsNeighborhood.appendChild(item);
-            }));
-    }
-    function addStreetNeighborhoodToDb() {
-        let endpoint = url + "addstreetbyneighborhood";
-        let input = swal("Shto rruge te re:",{
-            content:"input",
-        }).
-        then((value)=>{
-                   let sm = document.querySelector("#neigborhoods").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ neighborhoodId: sm, streetName: value })
-        }).then(() => addStreetNeighborhoodToList(sm));
-
-        })
-     
- 
-    }
-    //poll center by village
-    function addPollCenterToList(villId) {
-        poll.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren e votimit...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        poll.appendChild(chooseOption);
+            })
+        }
+        //poll center by village
+        function addPollCenterToList(villId) {
+            poll.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh qendren e votimit...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            poll.appendChild(chooseOption);
 
 
-        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                poll.appendChild(item);
-            }));
-    }
-    //poll center by neighborhood
-    function addPollCenterNeighborhoodToList(neighId) {
-        pollNeighborhood.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren e votimit...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        pollNeighborhood.appendChild(chooseOption);
+            let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    poll.appendChild(item);
+                }));
+        }
+        //poll center by neighborhood
+        function addPollCenterNeighborhoodToList(neighId) {
+            pollNeighborhood.innerHTML = '';
+            let chooseOption = document.createElement("option");
+            chooseOption.innerText = "Zgjedh qendren e votimit...";
+            chooseOption.selected = true;
+            chooseOption.disabled = true;
+            pollNeighborhood.appendChild(chooseOption);
 
-        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                pollNeighborhood.appendChild(item);
-            }));
-    }
+            let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
+            let result = fetch(endpoint)
+                .then(res => res.json())
+                .then(data => data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    pollNeighborhood.appendChild(item);
+                }));
+        }
 </script>
     }
 }
@@ -926,62 +841,184 @@ else
 </script>
 
 <script>
-    const munis = document.querySelector('#munis');
-    const url = "https://localhost:7278/api/service/";
-    getMunis();
+        const munis = document.querySelector('#munis');
+        const url = "https://localhost:7278/api/service/";
+        getMunis();
 
-    munis.addEventListener('change', event => {
-        addVillagesToList(event.target.value);
-        addNeigborhoodToList(event.target.value);
-        addBlockToList(event.target.value);
+        munis.addEventListener('change', event => {
+            addVillagesToList(event.target.value);
+            addNeigborhoodToList(event.target.value);
+            addBlockToList(event.target.value);
+        });
+        villages.addEventListener('change', event=>{
+            addNeigborhoodVillageToList(event.target.value);
+            addStreetToList(event.target.value);
+            addPollCenterToList(event.target.value);
+        });
+        neigborhoods.addEventListener('change', event =>{
+            addStreetNeighborhoodToList(event.target.value);
+            addPollCenterNeighborhoodToList(event.target.value);
+        });
+        villages.addEventListener('change', event => {
+            event.preventDefault()
+              if (event.target.value == 'shto'){
+                addVillageToDb();
+            }
+        });
+        neigborhoods.addEventListener('change', event => {
+            event.preventDefault()
+              if (event.target.value == 'shto') {
+                addNeigborhoodToDb();
+                }
+        });
+        blocks.addEventListener('change', event => {
+           event.preventDefault()
+              if (event.target.value == 'shto') {
+               addBlockToDb();
+               }
+        });
+            streets.addEventListener('change', event => {
+                event.preventDefault()
+                if (event.target.value == 'shto') {
+                    addStreetToDb();
+                }
+            });
+            neigborhoodsVillage.addEventListener('change', event => {
+                event.preventDefault()
+                if (event.target.value == "shto") {
+                    addNeigborhoodVillageToDb();
+                }
+            });
+            streetsNeighborhood.addEventListener('change', event => {
+                event.preventDefault()
+                if (event.target.value == "shto") {
+                    addStreetNeighborhoodToDb();
+                }
+            });
+
+            function addVillagesToList(muniId) {
+                villages.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh fshatin...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                villages.appendChild(chooseOption);
+
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto fshat te ri...";
+                addOption.value = "shto";
+                villages.appendChild(addOption);
+
+                let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        villages.appendChild(item);
+                    }));
+            }
+            function addVillageToDb() {
+                let endpoint = url + "addvillage";
+                let input = swal("Write something here:", {
+      content: "input",
+    })
+    .then((value) => {
+         //let selectedMuni = $('#munis').val();
+                let sm = document.querySelector("#munis").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ municipalityId: sm, villageName: input })
+                }).then(() => addVillagesToList(sm));
+
     });
-    villages.addEventListener('change', event=>{
-        addNeigborhoodVillageToList(event.target.value);
-        addStreetToList(event.target.value);
-        addPollCenterToList(event.target.value);
-    });
-    neigborhoods.addEventListener('change', event =>{
-        addStreetNeighborhoodToList(event.target.value);
-        addPollCenterNeighborhoodToList(event.target.value);
-    });
-    villages.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto'){
-            addVillageToDb();
+
+            }
+            //neigborhoods
+            function addNeigborhoodToList(muniId) {
+                neigborhoods.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh lagjen...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                neigborhoods.appendChild(chooseOption);
+
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto lagjen e re...";
+                addOption.value = "shto";
+                neigborhoods.appendChild(addOption);
+
+                let endpoint = url + "getneighborhoodsbymuni?muniid=" + muniId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        neigborhoods.appendChild(item);
+                    }));
+            }
+            function addNeigborhoodToDb() {
+                let endpoint = url + "addneighborhood";
+                let input =swal("Shto lagje te re:",{
+                        content:"input",
+                    })
+                    .then((value)=>{
+                          let sm = document.querySelector("#munis").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ municipalityId: sm, neighborhoodName: value })
+                }).then(() => addNeigborhoodToList(sm));
+                    });
+
+            }
+            //neigborhood by village
+            function addNeigborhoodVillageToList(villId) {
+                neigborhoodsVillage.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh lagjen...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                neigborhoodsVillage.appendChild(chooseOption);
+
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto lagjen e re...";
+                addOption.value = "shto";
+                neigborhoodsVillage.appendChild(addOption);
+
+                let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        neigborhoodsVillage.appendChild(item);
+                    }));
+            }
+        function getMunis(id){
+            let endpoint = url + "getmunis";
+            let result = fetch(endpoint)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(x => {
+                    let item = document.createElement("option");
+                    item.value = x.id;
+                    item.innerText = x.name;
+                    munis.appendChild(item);
+                });
+            });
         }
-    });
-    neigborhoods.addEventListener('change', event => {
-        event.preventDefault()
-          if (event.target.value == 'shto') {
-            addNeigborhoodToDb();
-            }
-    });
-    blocks.addEventListener('change', event => {
-       event.preventDefault()
-          if (event.target.value == 'shto') {
-           addBlockToDb();
-           }
-    });
-        streets.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == 'shto') {
-                addStreetToDb();
-            }
-        });
-        neigborhoodsVillage.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == "shto") {
-                addNeigborhoodVillageToDb();
-            }
-        });
-        streetsNeighborhood.addEventListener('change', event => {
-            event.preventDefault()
-            if (event.target.value == "shto") {
-                addStreetNeighborhoodToDb();
-            }
-        });
-
-        function addVillagesToList(muniId) {
+        function addVillagesToList(muniId){
             villages.innerHTML = '';
             let chooseOption = document.createElement("option");
             chooseOption.innerText = "Zgjedh fshatin...";
@@ -996,21 +1033,20 @@ else
 
             let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
             let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    villages.appendChild(item);
-                }));
+            .then(res => res.json())
+            .then(data => data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.name;
+                villages.appendChild(item);
+            }));
         }
-        function addVillageToDb() {
+        function addVillageToDb(){
             let endpoint = url + "addvillage";
-            let input = swal("Write something here:", {
-  content: "input",
-})
-.then((value) => {
-     //let selectedMuni = $('#munis').val();
+            let input =swal("Shto fshat te ri:", {
+      content: "input",
+    })
+    .then((value) => {
             let sm = document.querySelector("#munis").value;
             fetch(endpoint, {
                 headers: {
@@ -1018,14 +1054,13 @@ else
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({ municipalityId: sm, villageName: input })
+                body: JSON.stringify({municipalityId: sm, villageName: value})
             }).then(() => addVillagesToList(sm));
- 
-});
-           
+    });
+
         }
         //neigborhoods
-        function addNeigborhoodToList(muniId) {
+        function addNeigborhoodToList(muniId){
             neigborhoods.innerHTML = '';
             let chooseOption = document.createElement("option");
             chooseOption.innerText = "Zgjedh lagjen...";
@@ -1040,34 +1075,34 @@ else
 
             let endpoint = url + "getneighborhoodsbymuni?muniid=" + muniId;
             let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    neigborhoods.appendChild(item);
-                }));
+            .then(res => res.json())
+            .then(data => data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.name;
+                neigborhoods.appendChild(item);
+            }));
         }
-        function addNeigborhoodToDb() {
+        function addNeigborhoodToDb(){
             let endpoint = url + "addneighborhood";
-            let input =swal("Shto lagje te re:",{
-                    content:"input",
-                })
-                .then((value)=>{
-                      let sm = document.querySelector("#munis").value;
+            let input =swal ("Shto lagje te re:",{
+                content:"input",
+            })
+            .then((value)=>{
+                  let sm = document.querySelector("#munis").value;
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({ municipalityId: sm, neighborhoodName: value })
+                body: JSON.stringify({municipalityId: sm, neighborhoodName: value})
             }).then(() => addNeigborhoodToList(sm));
-                });
-          
+            });
+
         }
         //neigborhood by village
-        function addNeigborhoodVillageToList(villId) {
+        function addNeigborhoodVillageToList(villId){
             neigborhoodsVillage.innerHTML = '';
             let chooseOption = document.createElement("option");
             chooseOption.innerText = "Zgjedh lagjen...";
@@ -1082,322 +1117,202 @@ else
 
             let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
             let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    neigborhoodsVillage.appendChild(item);
-                }));
-        }
-    function getMunis(id){
-        let endpoint = url + "getmunis";
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(x => {
+            .then(res => res.json())
+            .then(data => data.forEach(x => {
                 let item = document.createElement("option");
                 item.value = x.id;
                 item.innerText = x.name;
-                munis.appendChild(item);
-            });
-        });
-    }
-    function addVillagesToList(muniId){
-        villages.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh fshatin...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        villages.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto fshat te ri...";
-        addOption.value = "shto";
-        villages.appendChild(addOption);
-
-        let endpoint = url + "getvillagesbymuni?muniid=" + muniId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            villages.appendChild(item);
-        }));
-    }
-    function addVillageToDb(){
-        let endpoint = url + "addvillage";
-        let input =swal("Shto fshat te ri:", {
-  content: "input",
-})
-.then((value) => {
-        let sm = document.querySelector("#munis").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({municipalityId: sm, villageName: value})
-        }).then(() => addVillagesToList(sm));
-});
-        
-    }
-    //neigborhoods
-    function addNeigborhoodToList(muniId){
-        neigborhoods.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh lagjen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        neigborhoods.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto lagjen e re...";
-        addOption.value = "shto";
-        neigborhoods.appendChild(addOption);
-
-        let endpoint = url + "getneighborhoodsbymuni?muniid=" + muniId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            neigborhoods.appendChild(item);
-        }));
-    }
-    function addNeigborhoodToDb(){
-        let endpoint = url + "addneighborhood";
-        let input =swal ("Shto lagje te re:",{
-            content:"input",
-        })
-        .then((value)=>{
-              let sm = document.querySelector("#munis").value;
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({municipalityId: sm, neighborhoodName: value})
-        }).then(() => addNeigborhoodToList(sm));
-        });
-      
-    }
-    //neigborhood by village
-    function addNeigborhoodVillageToList(villId){
-        neigborhoodsVillage.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh lagjen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        neigborhoodsVillage.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto lagjen e re...";
-        addOption.value = "shto";
-        neigborhoodsVillage.appendChild(addOption);
-
-        let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            neigborhoodsVillage.appendChild(item);
-        }));
-    }
-
-        function addNeigborhoodVillageToDb() {
-            let endpoint = url + "addneighborhoodbyvillage";
-            let input = swal("Shto lagje te re :",{
-                content:"input",
-            })
-           .then((value)=>{
-               let sm = document.querySelector("#villages").value;
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ villageId: sm, neighborhoodName: value })
-            }).then(() => addNeigborhoodVillageToList(sm));
-
-           });
-            
+                neigborhoodsVillage.appendChild(item);
+            }));
         }
 
-        //block
-        function addBlockToList(muniId) {
-            blocks.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh bllokun...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            blocks.appendChild(chooseOption);
+            function addNeigborhoodVillageToDb() {
+                let endpoint = url + "addneighborhoodbyvillage";
+                let input = swal("Shto lagje te re :",{
+                    content:"input",
+                })
+               .then((value)=>{
+                   let sm = document.querySelector("#villages").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ villageId: sm, neighborhoodName: value })
+                }).then(() => addNeigborhoodVillageToList(sm));
 
-            let addOption = document.createElement("option");
-            addOption.innerText = "Shto bllok të ri...";
-            addOption.value = "shto";
-            blocks.appendChild(addOption);
+               });
 
-            let endpoint = url + "getblocksbymuni?muniid=" + muniId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    blocks.appendChild(item);
-                }));
-        }
+            }
 
-        function addBlockToDb() {
-            let endpoint = url + "addblock";
-            let input = swal("Shto bllok te ri:", {
-                content:"input",
-            })
-            .then((value)=>{
-             let sm = document.querySelector("#munis").value;
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ municipalityId: sm, blockName:value })
-            }).then(() => addBlockToList(sm));
-            });
-  
-        }
+            //block
+            function addBlockToList(muniId) {
+                blocks.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh bllokun...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                blocks.appendChild(chooseOption);
 
-        //street by village
-        function addStreetToList(villId) {
-            streets.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh rrugen...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            streets.appendChild(chooseOption);
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto bllok të ri...";
+                addOption.value = "shto";
+                blocks.appendChild(addOption);
 
-            let addOption = document.createElement("option");
-            addOption.innerText = "Shto rrugë te re...";
-            addOption.value = "shto";
-            streets.appendChild(addOption);
+                let endpoint = url + "getblocksbymuni?muniid=" + muniId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        blocks.appendChild(item);
+                    }));
+            }
 
-            let endpoint = url + "getstreetbyvillage?villId=" + villId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    streets.appendChild(item);
-                }));
-        }
-        function addStreetToDb() {
-            let endpoint = url + "addstreetbyvillage";
-            let input = swal("Shto rruge te re:", {
-                content:"input",
-            })
-            .then((value)=>{
-                 let sm = document.querySelector("#villages").value;
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ villageId: sm, streetName: input })
-            }).then(() => addStreetToList(sm));
-            });
-           
-        }
-        //street by neighborhood
-        function addStreetNeighborhoodToList(neighId) {
-            streetsNeighborhood.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh rrugen...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            streetsNeighborhood.appendChild(chooseOption);
+            function addBlockToDb() {
+                let endpoint = url + "addblock";
+                let input = swal("Shto bllok te ri:", {
+                    content:"input",
+                })
+                .then((value)=>{
+                 let sm = document.querySelector("#munis").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ municipalityId: sm, blockName:value })
+                }).then(() => addBlockToList(sm));
+                });
 
-            let addOption = document.createElement("option");
-            addOption.innerText = "Shto rrugë te re...";
-            addOption.value = "shto";
-            streetsNeighborhood.appendChild(addOption);
+            }
 
-            let endpoint = url + "getstreetbyneighborhood?neighId=" + neighId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    streetsNeighborhood.appendChild(item);
-                }));
-        }
-        function addStreetNeighborhoodToDb() {
-            let endpoint = url + "addstreetbyneighborhood";
-            let input =swal("Shto rruge te re:",{
-                content:"input",
-            })
-            .then((value)=>{
-                  let sm = document.querySelector("#neigborhoods").value;
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ neighborhoodId: sm, streetName: value })
-            }).then(() => addStreetNeighborhoodToList(sm));
-            })
-          
-        }
-        //poll center by village
-        function addPollCenterToList(villId) {
-            poll.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh qendren e votimit...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            poll.appendChild(chooseOption);
+            //street by village
+            function addStreetToList(villId) {
+                streets.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh rrugen...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                streets.appendChild(chooseOption);
+
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto rrugë te re...";
+                addOption.value = "shto";
+                streets.appendChild(addOption);
+
+                let endpoint = url + "getstreetbyvillage?villId=" + villId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        streets.appendChild(item);
+                    }));
+            }
+            function addStreetToDb() {
+                let endpoint = url + "addstreetbyvillage";
+                let input = swal("Shto rruge te re:", {
+                    content:"input",
+                })
+                .then((value)=>{
+                     let sm = document.querySelector("#villages").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ villageId: sm, streetName: input })
+                }).then(() => addStreetToList(sm));
+                });
+
+            }
+            //street by neighborhood
+            function addStreetNeighborhoodToList(neighId) {
+                streetsNeighborhood.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh rrugen...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                streetsNeighborhood.appendChild(chooseOption);
+
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto rrugë te re...";
+                addOption.value = "shto";
+                streetsNeighborhood.appendChild(addOption);
+
+                let endpoint = url + "getstreetbyneighborhood?neighId=" + neighId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        streetsNeighborhood.appendChild(item);
+                    }));
+            }
+            function addStreetNeighborhoodToDb() {
+                let endpoint = url + "addstreetbyneighborhood";
+                let input =swal("Shto rruge te re:",{
+                    content:"input",
+                })
+                .then((value)=>{
+                      let sm = document.querySelector("#neigborhoods").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ neighborhoodId: sm, streetName: value })
+                }).then(() => addStreetNeighborhoodToList(sm));
+                })
+
+            }
+            //poll center by village
+            function addPollCenterToList(villId) {
+                poll.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh qendren e votimit...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                poll.appendChild(chooseOption);
 
 
-            let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    poll.appendChild(item);
-                }));
-        }
-        //poll center by neighborhood
-        function addPollCenterNeighborhoodToList(neighId) {
-            pollNeighborhood.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh qendren e votimit...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            pollNeighborhood.appendChild(chooseOption);
+                let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        poll.appendChild(item);
+                    }));
+            }
+            //poll center by neighborhood
+            function addPollCenterNeighborhoodToList(neighId) {
+                pollNeighborhood.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh qendren e votimit...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                pollNeighborhood.appendChild(chooseOption);
 
-            let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.name;
-                    pollNeighborhood.appendChild(item);
-                }));
-        }
+                let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        pollNeighborhood.appendChild(item);
+                    }));
+            }
 </script>
 }
 }
