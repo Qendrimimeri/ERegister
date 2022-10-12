@@ -9,8 +9,8 @@
 @inject IUnitOfWork _unitOfWork;
 @{
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
-    var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-    var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
+    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
 }
 
 <style>
