@@ -1,8 +1,4 @@
-﻿@using Application.Models.Services
- @using Application.ViewModels
-@using Domain.Data.Entities
-@using Microsoft.Extensions.Options
-@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 @inject IOptionsSnapshot<Roles> _roles;
 @{
     Layout = "_DashboardLayout";

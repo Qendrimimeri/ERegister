@@ -1,5 +1,6 @@
 using Application.Models;
 using Application.Repository.IRepository;
+using Application.Settings;
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
@@ -220,12 +221,11 @@ namespace Application.Repository
 
         public async Task<List<KeyValueModel>> GetAllRolesAsync()
         {
-            var userName = GetRoles("imella");
             var res = await _roleManager.Roles.ToListAsync();
             var roles = new List<KeyValueModel>();
             foreach (var role in res)
                 if (role.Name != "SimpleRole")
-                    roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name });
+                    roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
 
             return roles;

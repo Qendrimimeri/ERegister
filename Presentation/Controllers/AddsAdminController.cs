@@ -190,7 +190,7 @@ namespace Presentation.Controllers
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
                 await _unitOfWork.Done();
-                TempData[_toaster] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)

@@ -1,20 +1,12 @@
-@using Application.Models.Services
-@using Application.Repository
-@using Application.ViewModels
-@using Domain.Data.Entities
-@using Microsoft.Extensions.Options
-@{
-    Layout = "_DashboardLayout";
-}
 @model PoliticalOfficalVM;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 @inject IUnitOfWork _unitOfWork;
 @inject IOptionsSnapshot<Roles> _roles;
-
 @{
+    Layout = "_DashboardLayout";
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
-    var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-    var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
+    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
     var roles = _roles.Value;
 
 }
