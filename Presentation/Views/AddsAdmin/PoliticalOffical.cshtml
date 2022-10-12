@@ -423,25 +423,7 @@
         </div>
     </div>
 
-</section>
-@if (User.IsInRole("KryetarIKomunes"))
-{
-    @section Scripts
-    {
-        <script>
-function myFunction() {
-  // Get the value of the input field with id="numb"
-  let x = document.getElementById("mbiemripersonal").value;
-  // If x is Not a Number or less than one or greater than 10
-  let text;
-  if (x != "") {
-    text = "Input not valid";
-  } else {
-    text = "Input OK";
-  }
-  document.getElementById("demo").innerHTML = text;
-}
-</script>
+
 
 <script>
     $('#table').hide();

@@ -10,7 +10,8 @@ namespace Application.ViewModels
     public class RegisterVM
     {
 
-        [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri")]
+       
+        [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri"), RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
         public string? FullName { get; set; }
 
 
@@ -34,11 +35,11 @@ namespace Application.ViewModels
         public int? Block { get; set; }
 
         public int? HouseNo { get; set; }
-
+        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
         public string? WorkPlace { get; set; }
-
+        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
         public string? AdministrativeUnit { get; set; }
-
+        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
         public string? Duty { get; set; }
 
 
