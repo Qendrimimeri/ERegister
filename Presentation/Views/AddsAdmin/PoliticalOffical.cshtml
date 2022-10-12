@@ -238,7 +238,7 @@
                                 </div>
                             </div>
                         }
-                        @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes") || User.IsInRole("AnetarIThjeshte"))
+                        @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
                         {
                             <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                                 <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
@@ -1398,7 +1398,6 @@ else if (User.IsInRole("KryetarIFshatit"))
 }
 else
 {
-
     @section Scripts
 {
 <script>
