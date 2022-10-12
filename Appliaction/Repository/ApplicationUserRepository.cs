@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 
+
 namespace Application.Repository
 {
     public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
@@ -32,7 +33,6 @@ namespace Application.Repository
         }
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
-
             var getAllUsers = await _db.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
