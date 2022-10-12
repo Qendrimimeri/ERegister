@@ -227,7 +227,6 @@ namespace Application.Repository
                 if (role.Name != "SimpleRole")
                     roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
-
             return roles;
         }
 
