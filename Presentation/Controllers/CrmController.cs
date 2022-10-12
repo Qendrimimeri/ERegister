@@ -55,8 +55,8 @@ namespace Presentation.Controllers
                 var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
                 if (vm1 == null)
                 {
-                    return BadRequest();
-
+                    ViewBag.Name = name;
+                    ViewBag.UserNull = "Nuk ka te dhena";
                 }
                 return PartialView("_Voters", vm1);
             }
