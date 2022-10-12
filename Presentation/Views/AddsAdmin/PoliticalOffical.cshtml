@@ -8,7 +8,6 @@
     var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
     var roles = _roles.Value;
-
 }
 
 <style>
@@ -19,6 +18,45 @@
     #klasa2:hover {
         cursor: pointer;
     }
+
+    
+
+  .test{
+        background-color: #0d6efd;
+        
+    }
+    .test:hover{
+        background-color:#0b5ed7;
+        
+    }
+    .swal-button--catch:hover{
+        background-color:#0d6efd;
+    }
+
+    .swal-button:not([disabled]):hover {
+        background-color:#0b5ed7;
+
+    }
+    .swal-button--cancel{
+        background-color :#dc3545;
+        color : white;
+    }
+    .swal-button--cancel:not([disabled]):hover {
+
+          background-color:#bb2d3b;
+    }
+   
+    .swal-content__input:focus{
+         border-color : #ced4da;
+         border-bottom: 3px solid #ced4da;
+    }
+    .swal-text {
+       font-weight:500;
+        font-size:20px;
+    }
+     .swal-button--confirm {
+         background-color : #0d6efd;
+     }
 
 
 </style>
@@ -216,7 +254,7 @@
                             <div class="col-md-6 mb-2 pe-2">
                                 <label asp-for="Role">Pozita në parti</label>
 
-                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select"
+                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select option-select"
                                     id="inputGroupSelect05">
 
                                     <option disabled selected>Zgjedh rolin...</option>
@@ -240,6 +278,8 @@
                                 </select>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
+                            @*ME HJEK*@
+                            <hr />
                         </div>
 
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
@@ -248,8 +288,14 @@
                                title: "A jeni të sigurtë?" ,
 
                                icon: "warning" ,
-                               buttons: true,
-                               dangerMode: "true" ,
+                                   buttons: {
+                                      cancel:"Anulo",
+                                      
+                                      confirm:{
+                                          text:"Konfirmo",
+                                          className:"test",
+                                      } }
+                             
                                })
                                .then((willDelete)=>
                                 {
@@ -264,7 +310,7 @@
 
                                 } else {
                                 swal({
-                                title: "Te dhenat nuk jane anuluar!",
+                                title: "Te dhënat nuk janë anuluar!",
                                 icon: "error",
 
                                 });
@@ -281,6 +327,57 @@
 
                         </div>
                     </form>
+
+                    @*<div class="col-12" id="table">
+                        <h5 class="card-title pt-4">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
+                        <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                        <th @*scope="col">Numri i votuesëve</th>
+                        <th class="w-50 " @*scope="col">Total : <span id="span" class="float-end"> </span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="">
+                        <tr>
+                        <th scope="row">VV</th>
+                        <td id="vv"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">LDK</th>
+                        <td id="ldk" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">PDK</th>
+                        <td id="pdk" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">AAK</th>
+                        <td id="aak" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">AKR</th>
+                        <td id="akr" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">Nisma</th>
+                        <td id="nisma" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">Partite serbe</th>
+                        <td id="serbe" colspan="2" class="Votat"></td>
+
+                        </tr>
+                        <tr>
+                        <th scope="row">Partite joserbe</th>
+                        <td id="joserbe" colspan="2" class="Votat"></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>*@
 
                     <div class="" id="table">
 
@@ -300,7 +397,7 @@
                                                         <input type="text" class="form-control" id="subjekti-politik">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulo</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Anulo</button>
                                                         <button type="submit" id="btnCall" onclick="getValue()" class="btn btn-primary">Ruaj edhe mbyll</button>
                                                     </div>
                                                 </form>
@@ -387,6 +484,45 @@
 {
     @section Scripts
     {
+
+        <script>
+               document.querySelector(".validation-message").style.display = "none";
+    const BreakException = {};
+    const forma = document.querySelector("#forma");
+    forma.addEventListener("submit", function(e){
+        const parties = document.querySelectorAll(".partyNumber");
+        try {
+            parties.forEach(el => {
+                if (el.value === "") {
+                       swal({
+                title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
+                //text: "You clicked the button!",
+                icon: "warning",
+                button: "Plotëso rezultatet!",
+
+                  }).then(okay => {
+                                if (okay) {
+                                
+                                const linku1= document.getElementById('klasa1');
+                                const linku2 = document.getElementById('klasa2');
+
+                                linku1.classList.remove('active');
+                                linku2.classList.add('active');
+
+                                $('#table').show();
+                                $('#forma').hide();
+                                $('#titulli').hide();
+                                }
+                                });
+
+                    e.preventDefault();
+                }
+        });
+        } catch (err) {
+            if (err !== BreakException) throw err;
+        }
+    });
+        </script>
 <script>
     $('#table').hide();
     $('#neigborhoodsVillage-container').hide();
@@ -439,45 +575,6 @@
             $('#pollcenter-neighborhood-container').hide();
         }
     });
-</script>
-<script>
-    document.querySelector(".validation-message").style.display = "none";
-    const BreakException = {};
-    const forma = document.querySelector("#forma");
-    forma.addEventListener("submit", function(e){
-        const parties = document.querySelectorAll(".partyNumber");
-        try {
-            parties.forEach(el => {
-                if (el.value === "") {
-                       swal({
-                title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
-                //text: "You clicked the button!",
-                icon: "warning",
-                button: "Plotëso rezultatet!",
-
-                  }).then(okay => {
-                                if (okay) {
-                                
-                                const linku1= document.getElementById('klasa1');
-                                const linku2 = document.getElementById('klasa2');
-
-                                linku1.classList.remove('active');
-                                linku2.classList.add('active');
-
-                                $('#table').show();
-                                $('#forma').hide();
-                                $('#titulli').hide();
-                                }
-                                });
-
-                    e.preventDefault();
-                }
-        });
-        } catch (err) {
-            if (err !== BreakException) throw err;
-        }
-    });
-
 </script>
 <script>
     const url = "https://localhost:7278/api/service/";
@@ -584,8 +681,15 @@
     }
     function addVillageToDb(userMuniId) {
             let endpoint = url + "addvillage";
-            let input =swal("Shto fshat të ri:", {
+            let input =swal("Emri i fshatit:", {
             content: "input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
             })
             .then((value) => {
             fetch(endpoint, {
@@ -624,8 +728,15 @@
     }
     function addNeigborhoodToDb(userMuniId) {
         let endpoint = url + "addneighborhood";
-        let input = swal("Shto lagje te re:",{
+        let input = swal("Emri i lagjes:",{
             content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
         fetch(endpoint, {
@@ -688,8 +799,15 @@
     }
     function addBlockToDb(userMuniId) {
         let endpoint = url + "addblock";
-        let input = swal("Shto bllok te ri:",{
+        let input = swal("Emri i bllokut:",{
             content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
         fetch(endpoint, {
@@ -728,8 +846,15 @@
     }
     function addStreetToDb() {
         let endpoint = url + "addstreetbyvillage";
-        let input = swal("Shto rruge te re:",{
+        let input = swal("Emri i rrugës:",{
             content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
              let sm = document.querySelector("#villages").value;
@@ -770,8 +895,15 @@
     }
     function addStreetNeighborhoodToDb() {
         let endpoint = url + "addstreetbyneighborhood";
-        let input = swal("Shto rruge te re:",{
+        let input = swal("Emri i rrugës:",{
             content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
              let sm = document.querySelector("#neigborhoods").value;
@@ -961,7 +1093,7 @@
         //var polls = null;
         //console.log(polls);
 
-     
+
 
 
        function addDataToDb() {
@@ -1043,131 +1175,10 @@
         }
     }
 </script>
-<script>
-        const poll1 = document.getElementById('pollNeighborhood');
-        const poll2 = document.getElementById('poll');
-
-        poll1.addEventListener('change', event => {
-            event.preventDefault();
-            if (event.target.value == 'shto'){
-                 addPollToDb();
-
-            }
-
-        });
-
-          poll2.addEventListener('change', event => {
-            event.preventDefault();
-            if (event.target.value == 'shto'){
-                 addPollToDb();
-
-            }
-
-        });
-        function addPollToDb(){
-            //console.log(neigborhoods.value);
-            let endpoint = url + "addpollcenter";
-            let input = prompt("Shto Qendren e re:");
-            //var villagess;
-            if(input){
-           
-            let sm1 = document.querySelector("#neigborhoods");
-            console.log(sm1);
-            let sm2= document.querySelector("#neigborhoodsVillage");
-            console.log(sm2);
-             var sm;
-             console.log(sm)
-             if(sm1.selectedIndex !== 0) {
-             sm = sm1.options[sm1.selectedIndex].value;
-             
-              } else if(sm2.selectedIndex !== 0){
-              sm = sm2.options[sm2.selectedIndex].value;
-          }
-         else{
-              sm = null;
-          }
-            
-
-            let munis = document.getElementById('munis');
-            let villages = document.getElementById('villages');
-            var villagess;
-
-         if(villages.selectedIndex !== 0) {
-             villagess = villages.options[villages.selectedIndex].value;
-             
-          }
-
-           //var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-        
-            
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ centerNumber: input,
-   
-                    centerName: "", municipalitydId: @userMuniId  , neighborhoodId: sm, villageId: villagess })
-            })
-            .then(() => addPollCenterNeighborhoodToList(sm))
-            .then(()=> addPollCenterToList(villagess));
-
-            }
-
-        }
-
-     function addPollCenterToList(villId){
-        poll.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren e votimit...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        poll.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-            addOption.innerText = "Shto qendren e re...";
-            addOption.value = "shto";
-            poll.appendChild(addOption);
-
-      
-        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            poll.appendChild(item);
-        }));
     }
-    //poll center by neighborhood
-    function addPollCenterNeighborhoodToList(neighId){
-        pollNeighborhood.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren e votimit...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        pollNeighborhood.appendChild(chooseOption);
+}
 
-         let addOption = document.createElement("option");
-            addOption.innerText = "Shto qendren e re...";
-            addOption.value = "shto";
-            pollNeighborhood.appendChild(addOption);
-
-        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            pollNeighborhood.appendChild(item);
-        }));
-    }
-</script>
-    }
-}else
+else
 {
 
     @section Scripts
@@ -1250,8 +1261,15 @@
         function addPollToDb(){
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = swal("Shto qender te re:",{
+            let input = swal("Emri i qendrës së votimit:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                     //var villagess;
@@ -1274,14 +1292,7 @@
           }
 
 
-                var muniss;
-        const munis = document.getElementById('munis');
-
-     if(munis == null){
-         muniss = @userMuniId;
-     }else{
-         muniss = munis.value;
-     }
+            let munis = document.getElementById('munis');
             let villages = document.getElementById('villages');
                var villagess;
 
@@ -1297,8 +1308,8 @@
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({ centerNumber: input,
-                    centerName: "", municipalitydId: muniss, neighborhoodId: sm, villageId: villagess })
+                body: JSON.stringify({ centerNumber: value,
+                    centerName: "", municipalitydId: munis.value, neighborhoodId: sm, villageId: villagess })
             })
             .then(() => addPollCenterNeighborhoodToList(sm))
             .then(()=> addPollCenterToList(villagess));
@@ -1721,8 +1732,15 @@
     }
     function addVillageToDb(){
         let endpoint = url + "addvillage";
-        let input = swal("Shto fshat te ri:",{
+        let input = swal("Emri i fshatit:",{
                     content:"input",
+                    buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
        //let selectedMuni = $('#munis').val();
@@ -1764,8 +1782,15 @@
     }
     function addNeigborhoodToDb(){
         let endpoint = url + "addneighborhood";
-        let input = swal("Shto lagje te re:",{
+        let input = swal("Emri i lagjes:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
           let sm = document.querySelector("#munis").value;
@@ -1806,8 +1831,15 @@
 
          function addNeigborhoodVillageToDb() {
             let endpoint = url + "addneighborhoodbyvillage";
-            let input = swal("Shto lagje te re:",{
+            let input = swal("Emri i lagjes:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                       let sm = document.querySelector("#villages").value;
@@ -1848,8 +1880,15 @@
         }
         function addBlockToDb() {
             let endpoint = url + "addblock";
-            let input = swal("Shto bllok te ri:",{
+            let input = swal("Emri i bllokut:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                      let sm = document.querySelector("#munis").value;
@@ -1890,8 +1929,15 @@
         }
         function addStreetToDb() {
             let endpoint = url + "addstreetbyvillage";
-            let input = swal("Shto rruge te re:",{
+            let input = swal("Emri i rrugës:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                     let sm = document.querySelector("#villages").value;
@@ -1932,8 +1978,15 @@
         }
         function addStreetNeighborhoodToDb() {
             let endpoint = url + "addstreetbyneighborhood";
-            let input =  swal("Shto lagje te re:",{
+            let input =  swal("Emri i lagjes:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                            let sm = document.querySelector("#neigborhoods").value;
@@ -1952,8 +2005,15 @@
 
     function addNeigborhoodVillageToDb(){
         let endpoint = url + "addneighborhoodbyvillage";
-        let input = swal("Shto lagje te re:",{
+        let input = swal("Emri i lagjes:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
          let sm = document.querySelector("#villages").value;
@@ -1994,8 +2054,15 @@
     }
     function addBlockToDb(){
         let endpoint = url + "addblock";
-        let input =swal("Shto bllok te ri:",{
+        let input =swal("Emri i bllokut:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
         let sm = document.querySelector("#munis").value;
@@ -2036,8 +2103,15 @@
     }
     function addStreetToDb(){
         let endpoint = url + "addstreetbyvillage";
-        let input =swal("Shto rruge te re:",{
+        let input =swal("Emri i rrugës:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
           let sm = document.querySelector("#villages").value;
@@ -2078,8 +2152,15 @@
     }
     function addStreetNeighborhoodToDb(){
         let endpoint = url + "addstreetbyneighborhood";
-        let input =swal("Shto rruge te re:",{
+        let input =swal("Emri i rrugës:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                      let sm = document.querySelector("#neigborhoods").value;
@@ -2235,16 +2316,7 @@
        function addDataToDb() {
         let endpoint = url + "addkqzresult";
 
-        var muniss;
         const munis = document.getElementById('munis');
-
-     if(munis == null){
-         muniss = @userMuniId;
-     }else{
-         muniss = munis.value;
-     }
-
-        //console.log(munis);
         const villages = document.getElementById('villages');
         const election = document.getElementById("inputGroupSelect03").value;
         const year = document.getElementById('year');
@@ -2311,7 +2383,7 @@
                 },
                 method: 'post',
                 body: JSON.stringify({
-                    municipalityId: muniss, villageId: villagess, neighborhoodId: neighbors,
+                    municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
 
                     electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
                 })
@@ -2343,7 +2415,6 @@
             });
     }
 </script>
-
 <script>
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
@@ -2383,7 +2454,6 @@
     });
 
 </script>
-
 
 }
 }
