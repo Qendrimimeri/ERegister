@@ -1182,6 +1182,46 @@ else if (User.IsInRole("KryetarIFshatit"))
 </script>
 
 <script>
+    document.querySelector(".validation-message").style.display = "none";
+    const BreakException = {};
+    const forma = document.querySelector("#forma");
+    forma.addEventListener("submit", function(e){
+        const parties = document.querySelectorAll(".partyNumber");
+        try {
+            parties.forEach(el => {
+                if (el.value === "") {
+                       swal({
+                title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
+                //text: "You clicked the button!",
+                icon: "warning",
+                button: "Plotëso rezultatet!",
+
+                  }).then(okay => {
+                                if (okay) {
+
+                                const linku1= document.getElementById('klasa1');
+                                const linku2 = document.getElementById('klasa2');
+
+                                linku1.classList.remove('active');
+                                linku2.classList.add('active');
+
+                                $('#table').show();
+                                $('#forma').hide();
+                                $('#titulli').hide();
+                                }
+                                });
+
+                    e.preventDefault();
+                }
+        });
+        } catch (err) {
+            if (err !== BreakException) throw err;
+        }
+    });
+
+</script>
+
+<script>
         const url = "https://localhost:7278/api/service/";
      if (document.querySelector("#villages") != undefined)
     {
@@ -1260,6 +1300,13 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addneighborhoodbyvillage";
         let input = swal("Shto lagje te re:",{
             content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
         fetch(endpoint, {
@@ -1300,6 +1347,13 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addstreetbyvillage";
         let input =swal("Shto rruge te re",{
             content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
         fetch(endpoint, {
@@ -1340,6 +1394,13 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addstreetbyneighborhood";
         let input = swal("Shto rruge te re:",{
             content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         }).
         then((value)=>{
                    let sm = document.querySelector("#neigborhoodsVillage").value;

@@ -496,6 +496,13 @@
          let endpoint = url + "addvillage";
          let input =swal("Shto fshat të ri:", {
          content: "input",
+          buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
          })
          .then((value) => {
          fetch(endpoint, {
@@ -536,6 +543,13 @@
          let endpoint = url + "addneighborhood";
          let input =swal("Shto lagje te re :",{
              content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
          })
          .then((value)=>{
          fetch(endpoint, {
@@ -600,6 +614,13 @@
          let endpoint = url + "addneighborhoodbyvillage";
          let input = swal("Shto lagje te re:",{
              content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
          })
          .then((value)=>{
               let sm = document.querySelector("#villages").value;
@@ -641,6 +662,13 @@
          let endpoint = url + "addblock";
          let input = swal("Shto bllok te ri:",{
              content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
          })
          .then((value)=>{
          fetch(endpoint, {
@@ -681,6 +709,13 @@
          let endpoint = url + "addstreetbyvillage";
          let input =swal("Shto rruge te re",{
              content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
          })
          .then((value)=>{
     let sm = document.querySelector("#villages").value;
@@ -723,6 +758,13 @@
          let endpoint = url + "addstreetbyneighborhood";
          let input = swal("Shto rruge te re:",{
              content:"input",
+              buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
          }).
          then((value)=>{
                     let sm = document.querySelector("#neigborhoods").value;
@@ -898,6 +940,13 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addneighborhoodbyvillage";
         let input = swal("Shto lagje te re:",{
             content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
         fetch(endpoint, {
@@ -938,6 +987,13 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addstreetbyvillage";
         let input =swal("Shto rruge te re",{
             content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         })
         .then((value)=>{
         fetch(endpoint, {
@@ -978,6 +1034,13 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addstreetbyneighborhood";
         let input = swal("Shto rruge te re:",{
             content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
         }).
         then((value)=>{
                    let sm = document.querySelector("#neigborhoodsVillage").value;
