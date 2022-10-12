@@ -310,9 +310,18 @@
         function addPollToDb(){
             console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = prompt("Shto Qendren e re:");
-
-            if(input){
+            let input = swal("Emri i qendres votuese:",{
+            content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 catch:{
+                     text:"Shto",
+                     className:"test",
+                 } }
+        })
+        .then((value)=>{
+        if(input){
             let sm = document.querySelector("#poll").value;
             fetch(endpoint, {
                 headers: {
@@ -323,7 +332,9 @@
                 body: JSON.stringify({ centerNumber: input,
                     centerName: "", municipalitydId: munis.value, neighborhoodId: neigborhoods.value, villageId: villages.value })
             }).then(() => getPollCenterByNeighborhood(neigborhoods.value));
-            }
+            }}
+
+            
 
         }
 
@@ -454,7 +465,7 @@
 
         function addVillageToDb(){
             let endpoint = url + "addvillage";
-            let input = prompt("Shto fshatin e ri:");
+            let input = prompt("Emri i fshatit:");
             if(input){
             let sm = document.querySelector("#munis").value;
             fetch(endpoint, {
@@ -495,7 +506,17 @@
 
         function addNeigborhoodToDb(){
             let endpoint = url + "addneighborhood";
-            let input = prompt("Shto lagjen e re:");
+            let input = swal("Emri i lagjes:",{
+            content:"input",
+             buttons: {
+                 cancel:"Anulo",
+                 
+                 catch:{
+                     text:"Shto",
+                     className:"test",
+                 } }
+        })
+        .then((value)=>{
             if(input){
             let sm = document.querySelector("#munis").value;
             fetch(endpoint, {
@@ -507,7 +528,7 @@
                 body: JSON.stringify({municipalityId: sm, neighborhoodName: input})
             }).then(() => addNeigborhoodToList(sm));
             }
-        }
+        }}
 
 
 
