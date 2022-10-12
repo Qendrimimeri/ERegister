@@ -22,8 +22,6 @@
         cursor: pointer;
     }
 
-    
-
   .test{
         background-color: #0d6efd;
         
@@ -385,8 +383,8 @@
                     <div class="" id="table">
 
 
-                        <div class="d-flex flex-row justify-content-between p-4">
-                            <div class=" pt-4">
+                        <div class="d-flex flex-row justify-content-around p-4">
+                          @*  <div class=" pt-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                                     Shto nje subjekt politik
                                 </button>
@@ -408,7 +406,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <div class="col-4">
                                 <label class="">Lloji i zgjedhjeve</label>
@@ -426,7 +424,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 w-100 pt-5">
+                        <div class="col-md-6 w-100 ">
                             <div class="table-responsive">
                                 @*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
 
@@ -474,6 +472,33 @@
                                 </table>
                             </div>
                         </div>
+
+
+                          <div class=" pt-4">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Shto nje subjekt politik
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="subjekti-politik" class="py-2">Emri i subjektit politik</label>
+                                                        <input type="text" class="form-control" id="subjekti-politik">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Anulo</button>
+                                                        <button type="submit" id="btnCall" onclick="getValue()" class="btn btn-primary">Ruaj edhe mbyll</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                     </div>
 
                 </div>
