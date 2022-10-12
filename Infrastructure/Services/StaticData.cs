@@ -1,70 +1,96 @@
-﻿using Appliaction.Models;
+﻿
+using Appliaction.Models;
 using Application.Models;
+using Application.Models.Services;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Services
 {
+
     public class StaticData
     {
-        public static IEnumerable<AdministrativeUnitModel> AdministrativeUnits()
+        private readonly GeneralDemands _demands;
+        private readonly GeneralReasons _reasons;
+        private readonly ActualStatus _status;
+        private readonly AdministrativeUnits _unit;
+        private readonly SuccessChances _chances;
+        private readonly YesNo _yesNo;
+
+        public StaticData(IOptionsSnapshot<GeneralDemands> demands,
+                          IOptionsSnapshot<GeneralReasons> reasons,
+                          IOptionsSnapshot<ActualStatus> status,
+                          IOptionsSnapshot<AdministrativeUnits> unit,
+                          IOptionsSnapshot<SuccessChances> chances,
+                          IOptionsSnapshot<YesNo> yesNo)
         {
-            var administrativeUnit = new List<AdministrativeUnitModel>() {
-                new AdministrativeUnitModel { Key = "Sherbimi privat", Value = "Sherbimi privat" },
-                new AdministrativeUnitModel { Key = "Sherbimi publik", Value = "Sherbimi publik" },
+            _demands = demands.Value;
+            _reasons = reasons.Value;
+            _status = status.Value;
+            _unit = unit.Value;
+            _chances = chances.Value;
+            _yesNo = yesNo.Value;
+        }
+        public static IEnumerable<KeyValueModel> AdministrativeUnits()
+        {
+            
+            var administrativeUnit = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "Sherbimi privat", Value = "Sherbimi privat" },
+                new KeyValueModel { Key = "Sherbimi publik", Value = "Sherbimi publik" },
             };
             return administrativeUnit;
         }
 
-        public static IEnumerable<GeneralDemandModel> GeneralDemands()
+        public static IEnumerable<KeyValueModel> GeneralDemands()
         {
-            var generalDemand = new List<GeneralDemandModel>() {
-                new GeneralDemandModel { Key = "Infrastruktura", Value = "Infrastruktura" },
-                new GeneralDemandModel { Key = "Shkolla", Value = "Shkolla" },
-                new GeneralDemandModel { Key = "Ujësjellsi", Value = "Ujësjellsi" },
+            var generalDemand = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "Infrastruktura", Value = "Infrastruktura" },
+                new KeyValueModel { Key = "Shkolla", Value = "Shkolla" },
+                new KeyValueModel { Key = "Ujësjellsi", Value = "Ujësjellsi" },
             };
             return generalDemand;
         }
 
-        public static IEnumerable<GeneralReasonModel> GeneralReason()
+        public static IEnumerable<KeyValueModel> GeneralReason()
         {
-            var generalReason = new List<GeneralReasonModel>() {
-                new GeneralReasonModel { Key = "Familja", Value = "Familja" },
-                new GeneralReasonModel { Key = "Puna/Biznesi", Value = "Puna/Biznesi" },
-                new GeneralReasonModel { Key = "Bindja politike", Value = "Bindja politike" },
-                new GeneralReasonModel { Key = "Shoqëria", Value = "Shoqëria" },
+            var generalReason = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "Familja", Value = "Familja" },
+                new KeyValueModel { Key = "Puna/Biznesi", Value = "Puna/Biznesi" },
+                new KeyValueModel { Key = "Bindja politike", Value = "Bindja politike" },
+                new KeyValueModel { Key = "Shoqëria", Value = "Shoqëria" },
 
             };
             return generalReason;
         }
 
-        public static IEnumerable<YesNo> YesNo()
+        public static IEnumerable<YesNoModel> YesNo()
         {
-            var yesNo = new List<YesNo>() {
-                new YesNo { Key = 1, Value = "Yes" },
-                new YesNo { Key = 0, Value = "No" },
+            var yesNo = new List<YesNoModel>() {
+                new YesNoModel { Key = 1, Value = "Yes" },
+                new YesNoModel { Key = 0, Value = "No" },
             };
             return yesNo;
         }
 
 
-        public static IEnumerable<SuccessChance> SuccessChances()
+        public static IEnumerable<KeyValueModel> SuccessChances()
         {
-            var successChance = new List<SuccessChance>() {
-                new SuccessChance { Key = "0", Value = "0%" },
-                new SuccessChance { Key = "25", Value = "25%" },
-                new SuccessChance { Key = "50", Value = "50%" },
-                new SuccessChance { Key = "75", Value = "75%" },
-                new SuccessChance { Key = "100", Value = "100%" },
+            var successChance = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "0", Value = "0%" },
+                new KeyValueModel { Key = "25", Value = "25%" },
+                new KeyValueModel { Key = "50", Value = "50%" },
+                new KeyValueModel { Key = "75", Value = "75%" },
+                new KeyValueModel { Key = "100", Value = "100%" },
             };
             return successChance;
         }
 
 
-        public static IEnumerable<ActualStatusModel> ActualStatus()
+        public static IEnumerable<KeyValueModel> ActualStatus()
         {
-            var actualStatus = new List<ActualStatusModel>() {
-                new ActualStatusModel { Key = "I pa perfunduar", Value = "I pa perfunduar" },
-                new ActualStatusModel { Key = "Ne proces", Value = "Ne proces" },
-                new ActualStatusModel { Key = "I perfunduar", Value = "I perfunduar" },
+            var actualStatus = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "I pa perfunduar", Value = "I pa perfunduar" },
+                new KeyValueModel { Key = "Ne proces", Value = "Ne proces" },
+                new KeyValueModel { Key = "I perfunduar", Value = "I perfunduar" },
             };
             return actualStatus;
         }

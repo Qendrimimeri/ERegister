@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
+using Application.Models.Services;
 
 namespace Presentation.Controllers
 {
@@ -21,18 +23,21 @@ namespace Presentation.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<DashboardController> _logger;
+        private readonly Toaster _toaster;
 
         public DashboardController(IUnitOfWork unitOfWork, 
                                   UserManager<ApplicationUser> userManager,
                                   IWebHostEnvironment env,
                                   SignInManager<ApplicationUser> signInManager,
-                                  ILogger<DashboardController> logger)
+                                  ILogger<DashboardController> logger, 
+                                  IOptionsSnapshot<Toaster> toaster)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _env = env;
             _signInManager = signInManager;
             _logger = logger;
+            _toaster = toaster.Value;
         }
 
 
@@ -94,7 +99,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData["success"] = "U ndryshua me sukses!";
+                    TempData[_toaster.Success] = "U ndryshua me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
@@ -124,7 +129,7 @@ namespace Presentation.Controllers
 
         public IActionResult Cancel()
         {
-            TempData["success"] = "U anulua!";
+            TempData[_toaster.Success] = "U anulua!";
             return RedirectToAction("KqzResult");
         }
 
@@ -136,7 +141,7 @@ namespace Presentation.Controllers
             {
                 _unitOfWork.KqzRegister.Update(appuser);
                 await _unitOfWork.Done();
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)
@@ -154,7 +159,7 @@ namespace Presentation.Controllers
             {
                 _unitOfWork.KqzRegister.Update(appuser);
                 await _unitOfWork.Done();
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("KqzResult");
             }
             catch (Exception err)
@@ -217,7 +222,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData["success"] = "U ndryshua me sukses!";
+                            TempData[_toaster.Success] = "U ndryshua me sukses!";
                             return View(user);
                         }
                     }
@@ -267,7 +272,7 @@ namespace Presentation.Controllers
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        TempData["Success"] = "Fjalëkalimi juaj u ndryshua me sukses!";
+                        TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
                         return View();
 
                     }
@@ -283,5 +288,7 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
+
     }
 }

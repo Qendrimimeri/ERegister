@@ -16,16 +16,19 @@ namespace Presentation.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
-        private readonly AppRoles _roles;
+        private readonly Toaster _toaster;
+        private readonly Roles _roles;
 
         public AccountController( IUnitOfWork unitOfWork, 
                                   SignInManager<ApplicationUser> signInManager,
                                   ILogger<AccountController> logger,
-                                  IOptionsSnapshot<AppRoles> roles)
+                                  IOptionsSnapshot<Roles> roles,
+                                  IOptionsSnapshot<Toaster> toaster)
         {
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _logger = logger;
+            _toaster = toaster.Value;
             _roles = roles.Value;
         }
 
@@ -42,17 +45,17 @@ namespace Presentation.Controllers
 
                     if (roles.Contains(_roles.AnetarIThjeshte))
                     {
-                        if (await _unitOfWork.Account.LoginAsync(login))
+                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                             return RedirectToAction("AddVoter", "AddsAdmin");
                     }
-                    else if(roles.Contains("KryetarIFshatit"))
+                    else if(roles.Contains(_roles.KryetarIFshatit))
                     {
-                        if (await _unitOfWork.Account.LoginAsync(login))
+                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                             return RedirectToAction("Index", "Crm");
                     }
-                    else if ((roles.Contains("KryetarIPartise")) || (roles.Contains("KryetarIKomunes")))
+                    else if ((roles.Contains(_roles.KryetarIPartise)) || (roles.Contains(_roles.KryetarIKomunes)))
                     {
-                        if (await _unitOfWork.Account.LoginAsync(login))
+                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                             return RedirectToAction("Index", "Dashboard");
                     }
                 }
@@ -134,7 +137,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    await _unitOfWork.Account.ForgotPasswordAsync(model.Email);
+                    await _unitOfWork.ApplicationUser.ForgotPasswordAsync(model.Email);
 
                     model.IsEmailSent = true;
                     return RedirectToAction("forgot", "home", model);
@@ -177,7 +180,7 @@ namespace Presentation.Controllers
                     string replaceToken = model.Token.Replace(" ", "+");
                     model.Token = replaceToken;
 
-                    var res = await _unitOfWork.Account.ResetPasswordAsync(model);
+                    var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
                         TempData["success"] = "You are Logged in!";
@@ -199,7 +202,7 @@ namespace Presentation.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData["success"] = "You are logged out!";
+                TempData[_toaster.Success] = "You are logged out!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)

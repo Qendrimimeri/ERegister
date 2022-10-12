@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Application.Models.Services
 {
-    public class ExceptionHandler
+    public class YesNo
     {
-        public static string? SectionName { get; set; } = "ExceptionHandlerView";
-        
-        public string? RazorView { get; set; }
+        public static string? SectionName { get; set; } = "YesNo";
+
+        public string? Yes { get; set; }
+
+        public string? No { get; set; }
     }
 }

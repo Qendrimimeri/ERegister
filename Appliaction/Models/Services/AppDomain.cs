@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Models.Services
 {
-    public class ExceptionHandler
+    public class AppDomain
     {
-        public static string? SectionName { get; set; } = "ExceptionHandlerView";
-        
-        public string? RazorView { get; set; }
+        public static string? SectionName { get; set; } = "Domain";
+
+        public string? AppUrl { get; set; }
     }
 }

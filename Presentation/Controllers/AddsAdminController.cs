@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Domain.Data.Entities;
 using System.Net.NetworkInformation;
+using Microsoft.Extensions.Options;
+using System.Web.Providers.Entities;
+using Application.Models.Services;
 
 namespace Presentation.Controllers
 {
@@ -17,21 +20,27 @@ namespace Presentation.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ILogger<AddsAdminController> _logger;
+        private readonly Toaster _toaster;
+        private readonly Roles _roles;
 
         public AddsAdminController( IUnitOfWork unitOfWork, 
                                     IHttpContextAccessor httpContext,
-                                    ILogger<AddsAdminController> logger)
+                                    ILogger<AddsAdminController> logger,
+                                    IOptionsSnapshot<Roles> roles, 
+                                    IOptionsSnapshot<Toaster> toaster)
         {
             _unitOfWork = unitOfWork;
             _httpContext = httpContext;
             _logger = logger;
+            _toaster = toaster.Value;
+            _roles = roles.Value;
         }
-
 
 
         [HttpGet, Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
         public IActionResult AddVoter()
         {
+            
             try
             {
                 VoterAddress();
@@ -53,10 +62,10 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var res = await _unitOfWork.Account.RegisterVoterAsync(register);
+                    var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
                     if (res)
                     {
-                        TempData["success"] = "U regjistrua me sukses!";
+                        TempData[_toaster.Success] = "U regjistrua me sukses!";
                         return RedirectToAction("Index", "dashboard");
                     }
                 }
@@ -97,9 +106,9 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
+                    var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res)
-                        TempData["success"] = "U regjistrua me sukses!";
+                        TempData[_toaster.Success] = "U regjistrua me sukses!";
                     return RedirectToAction("Index", "Dashboard");
                 }
 
@@ -116,7 +125,7 @@ namespace Presentation.Controllers
 
         public IActionResult Cancel()
         {
-            TempData["success"] = "U anulua!";
+            TempData[_toaster.Success] = "U anulua!";
             return RedirectToAction("Index","Dashboard");
         }
 
@@ -129,7 +138,7 @@ namespace Presentation.Controllers
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
                 await _unitOfWork.Done();
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)
@@ -147,10 +156,10 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var res = await _unitOfWork.Account.RegisterVoterAsync(register);
+                    var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
                     if (res)
                     {
-                        TempData["success"] = "U regjistrua me sukses!";
+                        TempData[_toaster.Success] = "U regjistrua me sukses!";
                         return RedirectToAction("AddVoter", "AddsAdmin");
                     }
 
@@ -169,7 +178,7 @@ namespace Presentation.Controllers
 
         public IActionResult CancelPoliticalOfficial()
         {
-            TempData["success"] = "U anulua!";
+            TempData[_toaster.Success] = "U anulua!";
             return RedirectToAction("PoliticalOffical");
         }
 
@@ -181,7 +190,7 @@ namespace Presentation.Controllers
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
                 await _unitOfWork.Done();
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)
@@ -199,10 +208,10 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var res = await _unitOfWork.Account.AddPoliticalOfficialAsync(model);
+                    var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res)
                     {
-                        TempData["success"] = "U regjistrua me sukses!";
+                        TempData[_toaster.Success] = "U regjistrua me sukses!";
                         return RedirectToAction("PoliticalOffical", "AddsAdmin");
                     }
                 }
@@ -222,6 +231,7 @@ namespace Presentation.Controllers
 
         private async void VoterAddress()
         {
+
             ViewBag.PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
             ViewBag.villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
@@ -241,7 +251,7 @@ namespace Presentation.Controllers
             ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
             ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
             ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
-            var roles = new List<Application.Models.RoleModel>();
+            var roles = new List<Application.Models.KeyValueModel>();
 
             bool userInrole = User.IsInRole("KryetarIKomunes");
             var rolesFromDb = await _unitOfWork.ApplicationUser.GetAllRolesAsync();

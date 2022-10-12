@@ -1,16 +1,22 @@
+@using Application.Models.Services
 @using Application.Repository
 @using Application.ViewModels
 @using Domain.Data.Entities
+@using Microsoft.Extensions.Options
 @{
     Layout = "_DashboardLayout";
 }
 @model PoliticalOfficalVM;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 @inject IUnitOfWork _unitOfWork;
+@inject IOptionsSnapshot<Roles> _roles;
+
 @{
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
+    var roles = _roles.Value;
+
 }
 
 <style>
@@ -113,7 +119,7 @@
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
-                            @if (User.IsInRole("KryetarIPartise"))
+                            @if (User.IsInRole(roles.KryetarIPartise))
                             {
 
                             <div class="col-md-4 mb-2 pe-2">
@@ -145,7 +151,7 @@
                             </div>
 
                             }
-                            @if (User.IsInRole("KryetarIKomunes"))
+                            @if (User.IsInRole(roles.KryetarIKomunes))
                             {
                                 <div class="col-md-6 mb-2 pe-2">
                                     <label asp-for="Village">Fshati</label>
@@ -168,7 +174,7 @@
                             </div>
 
                             }
-                            @if (User.IsInRole("KryetariIFshatit"))
+                            @if (User.IsInRole(roles.KryetarIFshatit))
                             {
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
 
@@ -385,7 +391,7 @@
     </div>
 
 </section>
-@if (User.IsInRole("KryetarIKomunes"))
+@if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
     {

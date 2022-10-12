@@ -1,16 +1,19 @@
-﻿ @using Application.ViewModels
+﻿@using Application.Models.Services
+ @using Application.ViewModels
 @using Domain.Data.Entities
+@using Microsoft.Extensions.Options
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
-
+@inject IOptionsSnapshot<Roles> _roles;
 @{
     Layout = "_DashboardLayout";
+    var roles = _roles.Value;
 }
 @model RegisterVM;
 <div>
     <div class="card">
         <h4 class="text-center pt-4">Mirë se vini <strong> @((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</strong> </h4>
         <hr />
-        @if (User.IsInRole("KryetarIPartise"))
+        @if (User.IsInRole(roles.KryetarIPartise))
         {
             <div class="d-flex justify-content-around p-2 pt-2">
                 <div class="pt-2">

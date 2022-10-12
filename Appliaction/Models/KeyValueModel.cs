@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Models
 {
-    public class RoleModel
+    public class KeyValueModel
     {
         public string? Key { get; set; }
-
         public string? Value { get; set; }
     }
 }
