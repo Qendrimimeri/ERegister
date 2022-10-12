@@ -24,7 +24,7 @@ namespace Application.Repository.IRepository
         
         Task<List<PersonVM>> GetPersonInfoAsync();
 
-        Task<List<VoterDetailsVM>> GetVoterInfoAsync();
+        Task<VoterDetailsVM> GetVoterInfoAsync(string name);
 
         Task<int?> GetMunicipalityIdOfUser(string id);
 
@@ -61,6 +61,8 @@ namespace Application.Repository.IRepository
         Task<bool> ForgotPasswordAsync(string email);
 
         Task<IdentityResult> ResetPasswordAsync(ResetPasswordVM model);
+
+        string GetLoginUser();
 
     }
 }

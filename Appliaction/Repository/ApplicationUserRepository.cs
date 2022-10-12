@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using System.Xml.Linq;
 
 
 namespace Application.Repository
@@ -78,7 +79,7 @@ namespace Application.Repository
         }
 
         //VoterDetails
-        public async Task<List<VoterDetailsVM>> GetVoterInfoAsync()
+        public async Task<VoterDetailsVM> GetVoterInfoAsync(string name)
         {
             var getAllUsers = await _context.Users.Select(person => new VoterDetailsVM()
             {
@@ -116,7 +117,9 @@ namespace Application.Repository
                         result.Add(user);
                 }
             }
-            return result;
+
+            var res = result.Where(c => c.FullName == name).FirstOrDefault();
+            return res;
         }
 
         public async Task<IList<string>> GetRoles(string email)
@@ -461,6 +464,9 @@ namespace Application.Repository
 
             return new string(chars);
         }
+
+        public string GetLoginUser()
+            => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 #pragma warning restore CS8602
 }

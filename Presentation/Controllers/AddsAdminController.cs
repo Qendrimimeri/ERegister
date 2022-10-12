@@ -253,15 +253,24 @@ namespace Presentation.Controllers
             ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
             var roles = new List<Application.Models.KeyValueModel>();
 
-            bool userInrole = User.IsInRole("KryetarIKomunes");
+            bool komunes = User.IsInRole("KryetarIKomunes");
+            bool fshatit = User.IsInRole("KryetarIFshatit");
             var rolesFromDb = await _unitOfWork.ApplicationUser.GetAllRolesAsync();
-            if (userInrole)
-                foreach (var item in rolesFromDb)
-                    if (!(item.Value == "KryetarIPartise"))
-                        roles.Add(item);
 
+            if (komunes || fshatit)
+                foreach (var item in rolesFromDb)
+                    if (komunes) {
+                        if (!(item.Value == "Kryetar i partise"))
+                            roles.Add(item);
+                    }
+                    else {
+                        if (!((item.Value == "Kryetar i partise") || (item.Value == "Kryetar i komunes")))
+                            roles.Add(item);
+                    }
             ViewBag.roles = new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value");
         }
+
+
 
         #endregion
     }

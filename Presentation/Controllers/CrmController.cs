@@ -53,19 +53,10 @@ namespace Presentation.Controllers
         {
             try
             {
-                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
-                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
-
-                var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
-
-                var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-                if (vm1 == null)
-                {
+                Data();
+                if ((await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)) == null)
                     return BadRequest();
-
-                }
-                return PartialView("_Voters", vm1);
+                return PartialView("_Voters", (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)));
             }
             catch (Exception err)
             {
@@ -188,6 +179,18 @@ namespace Presentation.Controllers
         public async Task<bool> SpecificDemand([FromQuery] string reason, string userId)
             => await _unitOfWork.PollRelated.updateSpecificDemandAsync(reason, userId);
 
+        #endregion
+
+
+        #region ViewBag Data
+        
+        private void Data()
+        {
+            ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+            ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+            ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+        }
+        
         #endregion
     }
 }
