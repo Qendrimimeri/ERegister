@@ -10,12 +10,16 @@
   <ItemGroup>
     <Compile Remove="Helpers\**" />
     <Compile Remove="Helper\**" />
+    <Compile Remove="Middlewares\**" />
     <Content Remove="Helpers\**" />
     <Content Remove="Helper\**" />
+    <Content Remove="Middlewares\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Helper\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
     <None Remove="Helpers\**" />
     <None Remove="Helper\**" />
+    <None Remove="Middlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
     <Folder Include="wwwroot\Document\" />
   </ItemGroup>
 

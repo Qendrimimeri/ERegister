@@ -1,5 +1,4 @@
-﻿using Appliaction.Repository;
-using Application.Repository.IRepository;
+﻿using Application.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace Application.Repository
 {
     public interface IUnitOfWork:IDisposable
     {
-        IAccountRepository Account { get; }
         IAddressRepository Address { get; }
         IApplicationUserRepository ApplicationUser { get; }
         IBlockRepository Block { get; }

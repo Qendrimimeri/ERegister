@@ -1,17 +1,14 @@
-﻿@using Application.Repository
-@using Application.ViewModels
-@using Domain.Data.Entities
-@{
-    Layout = "_DashboardLayout";
-}
-@model RegisterVM;
+﻿@model RegisterVM;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 @inject IUnitOfWork _unitOfWork;
+@inject IOptionsSnapshot<Roles> _roles;
 @{
+    Layout = "_DashboardLayout";
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
     var userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfUser((userId.Id));
+    var roles = _roles.Value;
 }
 <style>
 
@@ -87,7 +84,7 @@
                             <input type="text" class="form-control" asp-for="Facebook" id="InputFacebook">
                         </div>
                         <div class="d-flex justify-content-between flex-md-row flex-column">
-                            @if (User.IsInRole("KryetarIPartise"))
+                            @if (User.IsInRole(roles.KryetarIKomunes))
                             {
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label asp-for="Municipality">Qyteti</label>
@@ -115,7 +112,7 @@
                                     </select>
                                 </div>
                             }
-                            @if (User.IsInRole("KryetarIKomunes"))
+                            @if (User.IsInRole(roles.KryetarIKomunes))
                             {
                                 <div class="col-md-6 mb-3 pe-2">
                                     <label>Fshati</label>
@@ -137,7 +134,7 @@
                                 </div>
                             }
                         </div>
-                        @if (User.IsInRole("KryetarIFshatit"))
+                        @if (User.IsInRole(roles.KryetarIFshatit))
                         {
                             <div class=" d-flex justify-content-between flex-sm-row flex-column">
                                 <div id="neigborhoods-container" class="col-md-6 mb-3 pe-2">
@@ -179,7 +176,7 @@
                                 </div>
                             </div>
                         }
-                        @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes") || User.IsInRole("AnetarIThjeshte"))
+                        @if (User.IsInRole(roles.KryetarIPartise) || User.IsInRole(roles.KryetarIKomunes) || User.IsInRole(roles.AnetarIThjeshte))
                         {
                             <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                                 <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
@@ -301,7 +298,7 @@
         </div>
     </div>
 </section>
-@if (User.IsInRole("KryetarIKomunes"))
+@if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
     {

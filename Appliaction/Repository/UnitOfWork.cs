@@ -1,5 +1,3 @@
-using Appliaction.Repository;
-using Application.Repository;
 using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
@@ -7,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Services
+namespace Application.Repository
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
@@ -37,11 +35,8 @@ namespace Infrastructure.Services
             _mail = mail;
             _roleManager = roleManager;
             _logger = logger.CreateLogger("logs");
-            Account = new AccountRepository(_dbContext, _logger, _userManager, _signInManager, _mail, _httpContext);
             Address = new AddressRepository(_dbContext);
-
-            ApplicationUser = new ApplicationUserRepository(_dbContext, _userManager,_httpContext,_roleManager);
-
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _logger, _mail, _userManager, _signInManager, _roleManager, _httpContext);
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
             KqzRegister = new KqzRegisterRepository(_dbContext);
@@ -55,7 +50,6 @@ namespace Infrastructure.Services
             Work = new WorkRepository(_dbContext);
 
         }
-        public IAccountRepository Account { get; private set; }
 
 
         public IAddressRepository Address { get; }

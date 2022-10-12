@@ -375,7 +375,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var userId = await GetUser();
+                var userId =  GetUser();
                 var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
                 int municipalityId;
                 if (!(id <= 0))
@@ -507,7 +507,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var userId = await GetUser();
+                var userId = GetUser();
                 var municipality = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
@@ -556,7 +556,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var userId = await GetUser();
+                var userId =  GetUser();
                 var muni = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
@@ -901,8 +901,8 @@ namespace Presentation.Controllers
             }
         }
 
-        private async Task<string> GetUser() =>
-            _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private string GetUser()
+            => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
 

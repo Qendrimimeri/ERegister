@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Models
 {
-    public class ErrorHandler
+    public class KeyValueModel
     {
-        public static string? SectionName { get; set; } = "ExceptionHandlerView";
-        public string? RazorView { get; set; }
+        public string? Key { get; set; }
+        public string? Value { get; set; }
     }
 }
