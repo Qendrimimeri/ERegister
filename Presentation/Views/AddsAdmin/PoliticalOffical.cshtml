@@ -50,12 +50,16 @@
     }
    
     .swal-content__input:focus{
-         border-color : #0d6efd;
+         border-color : #ced4da;
+         border-bottom: 3px solid #ced4da;
     }
     .swal-text {
        font-weight:500;
         font-size:20px;
     }
+     .swal-button--confirm {
+         background-color : #0d6efd;
+     }
 
 
 </style>
@@ -284,11 +288,17 @@
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
                                 <a href='javascript:
                                swal({
-                               title: "A jeni të sigurt?" ,
+                               title: "A jeni të sigurtë?" ,
 
                                icon: "warning" ,
-                               buttons: true,
-                               dangerMode: "true" ,
+                                   buttons: {
+                                      cancel:"Anulo",
+                                      
+                                      confirm:{
+                                          text:"Konfirmo",
+                                          className:"test",
+                                      } }
+                             
                                })
                                .then((willDelete)=>
                                 {
@@ -303,7 +313,7 @@
 
                                 } else {
                                 swal({
-                                title: "Te dhenat nuk jane anuluar!",
+                                title: "Te dhënat nuk janë anuluar!",
                                 icon: "error",
 
                                 });
@@ -390,7 +400,7 @@
                                                         <input type="text" class="form-control" id="subjekti-politik">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulo</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Anulo</button>
                                                         <button type="submit" id="btnCall" onclick="getValue()" class="btn btn-primary">Ruaj edhe mbyll</button>
                                                     </div>
                                                 </form>
@@ -679,7 +689,7 @@
              buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -726,7 +736,7 @@
               buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -797,7 +807,7 @@
               buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -844,7 +854,7 @@
               buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -893,7 +903,7 @@
               buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1259,7 +1269,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1730,7 +1740,7 @@ else
                     buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1780,7 +1790,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1829,7 +1839,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1878,7 +1888,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1927,7 +1937,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1976,7 +1986,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -2003,7 +2013,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -2052,7 +2062,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -2101,7 +2111,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -2150,7 +2160,7 @@ else
                       buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }

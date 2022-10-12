@@ -48,7 +48,7 @@
     }
 
    
-    .test{
+   .test{
         background-color: #0d6efd;
         
     }
@@ -74,12 +74,16 @@
     }
    
     .swal-content__input:focus{
-         border-color : #0d6efd;
+         border-color : #ced4da;
+         border-bottom: 3px solid #ced4da;
     }
     .swal-text {
        font-weight:500;
         font-size:20px;
     }
+     .swal-button--confirm {
+         background-color : #0d6efd;
+     }
 
 </style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -302,10 +306,14 @@
                         <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
                             <a href='javascript:
                                swal({
-                               title: "A jeni të sigurt?" ,
+                               title: "A jeni të sigurtë?" ,
                                icon: "warning" ,
-                               buttons: true,
-                               dangerMode: "true" ,
+                                         buttons: {
+                                         cancel:"Anulo",
+                                      confirm:{
+                                    text:"Konfirmo",
+                                  className:"test",
+                                } }
                                })
                                .then((willDelete)=>
                                 {
@@ -318,7 +326,7 @@
                                 });
                                 } else {
                                 swal({
-                                title: "Te dhenat nuk jane anuluar!",
+                                title: "Te dhënat nuk janë anuluar!",
                                 icon: "error",
 
                                 });
@@ -505,7 +513,7 @@
              buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -552,7 +560,7 @@
                  buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -623,7 +631,7 @@
                  buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -671,7 +679,7 @@
                  buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -718,7 +726,7 @@
                  buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -767,7 +775,7 @@
                  buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -998,12 +1006,12 @@ else
             }
             function addVillageToDb() {
                 let endpoint = url + "addvillage";
-                let input = swal("Emri i fshatit:", {
+                let input = swal("Emri i fshatit: ", {
       content: "input",
        buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1054,7 +1062,7 @@ else
                          buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1139,8 +1147,9 @@ else
        buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
+                    
                      className:"test",
                  } }
     })
@@ -1188,7 +1197,7 @@ else
                  buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1238,7 +1247,7 @@ else
                      buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1290,7 +1299,7 @@ else
                      buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1340,7 +1349,7 @@ else
                      buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
@@ -1389,7 +1398,7 @@ else
                      buttons: {
                  cancel:"Anulo",
                  
-                 catch:{
+                 confirm:{
                      text:"Shto",
                      className:"test",
                  } }
