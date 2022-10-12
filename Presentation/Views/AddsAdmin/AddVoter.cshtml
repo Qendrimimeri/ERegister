@@ -46,6 +46,45 @@
             font-size: 13px;
         }
     }
+
+   
+   .test{
+        background-color: #0d6efd;
+        
+    }
+    .test:hover{
+        background-color:#0b5ed7;
+        
+    }
+    .swal-button--catch:hover{
+        background-color:#0d6efd;
+    }
+
+    .swal-button:not([disabled]):hover {
+        background-color:#0b5ed7;
+
+    }
+    .swal-button--cancel{
+        background-color :#dc3545;
+        color : white;
+    }
+    .swal-button--cancel:not([disabled]):hover {
+
+          background-color:#bb2d3b;
+    }
+   
+    .swal-content__input:focus{
+         border-color : #ced4da;
+         border-bottom: 3px solid #ced4da;
+    }
+    .swal-text {
+       font-weight:500;
+        font-size:20px;
+    }
+     .swal-button--confirm {
+         background-color : #0d6efd;
+     }
+
 </style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <section class="section">
@@ -253,10 +292,14 @@
                         <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
                             <a href='javascript:
                                swal({
-                               title: "A jeni të sigurt?" ,
+                               title: "A jeni të sigurtë?" ,
                                icon: "warning" ,
-                               buttons: true,
-                               dangerMode: "true" ,
+                                         buttons: {
+                                         cancel:"Anulo",
+                                      confirm:{
+                                    text:"Konfirmo",
+                                  className:"test",
+                                } }
                                })
                                .then((willDelete)=>
                                 {
@@ -269,7 +312,7 @@
                                 });
                                 } else {
                                 swal({
-                                title: "Te dhenat nuk jane anuluar!",
+                                title: "Te dhënat nuk janë anuluar!",
                                 icon: "error",
 
                                 });
@@ -906,7 +949,6 @@ else if (User.IsInRole("KryetarIFshatit"))
             body: JSON.stringify({ villageId: userVillageId, streetName: value })
         }).then(() => addStreetToList(userVillageId));
         });
-
     }
     //street by neighborhood
     function addStreetNeighborhoodToList(neighId) {
@@ -1163,8 +1205,15 @@ else
             }
             function addVillageToDb() {
                 let endpoint = url + "addvillage";
-                let input = swal("Write something here:", {
+                let input = swal("Emri i fshatit: ", {
       content: "input",
+       buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
     })
     .then((value) => {
          //let selectedMuni = $('#munis').val();
@@ -1207,8 +1256,15 @@ else
             }
             function addNeigborhoodToDb() {
                 let endpoint = url + "addneighborhood";
-                let input =swal("Shto lagje te re:",{
+                let input =swal("Emri i lagjes:",{
                         content:"input",
+                         buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                     })
                     .then((value)=>{
                           let sm = document.querySelector("#munis").value;
@@ -1285,8 +1341,16 @@ else
         }
         function addVillageToDb(){
             let endpoint = url + "addvillage";
-            let input =swal("Shto fshat te ri:", {
+            let input =swal("Emri i fshatit:", {
       content: "input",
+       buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                    
+                     className:"test",
+                 } }
     })
     .then((value) => {
             let sm = document.querySelector("#munis").value;
@@ -1327,8 +1391,15 @@ else
         }
         function addNeigborhoodToDb(){
             let endpoint = url + "addneighborhood";
-            let input =swal ("Shto lagje te re:",{
+            let input =swal ("Emri i lagjes:",{
                 content:"input",
+                 buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
             })
             .then((value)=>{
                   let sm = document.querySelector("#munis").value;
@@ -1370,8 +1441,15 @@ else
 
             function addNeigborhoodVillageToDb() {
                 let endpoint = url + "addneighborhoodbyvillage";
-                let input = swal("Shto lagje te re :",{
+                let input = swal("Emri i lagjes:",{
                     content:"input",
+                     buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                .then((value)=>{
                    let sm = document.querySelector("#villages").value;
@@ -1415,8 +1493,15 @@ else
 
             function addBlockToDb() {
                 let endpoint = url + "addblock";
-                let input = swal("Shto bllok te ri:", {
+                let input = swal("Emri i bllokut:", {
                     content:"input",
+                     buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                  let sm = document.querySelector("#munis").value;
@@ -1458,8 +1543,15 @@ else
             }
             function addStreetToDb() {
                 let endpoint = url + "addstreetbyvillage";
-                let input = swal("Shto rruge te re:", {
+                let input = swal("Emri i rrugës:", {
                     content:"input",
+                     buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                      let sm = document.querySelector("#villages").value;
@@ -1500,8 +1592,15 @@ else
             }
             function addStreetNeighborhoodToDb() {
                 let endpoint = url + "addstreetbyneighborhood";
-                let input =swal("Shto rruge te re:",{
+                let input =swal("Emri i rrugës:",{
                     content:"input",
+                     buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
                 })
                 .then((value)=>{
                       let sm = document.querySelector("#neigborhoods").value;
