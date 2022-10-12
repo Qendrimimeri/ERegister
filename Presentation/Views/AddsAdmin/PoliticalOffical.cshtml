@@ -37,20 +37,6 @@
           .button-responsive{
             font-size: 12px;
           }
-          .divi{
-              display:flex ;
-              flex-direction: column !important;
-          }
-          .zgjedhje{
-              width: 100%;
-          }
-
-          .data{
-              width:100%;
-          }
-          .politika{
-              width:100%;
-          }
         }
         @@media screen and (max-width:425px) {
           .button-responsive{
@@ -232,7 +218,7 @@
                             <div class="col-md-6 mb-2 pe-2">
                                 <label asp-for="Role">Pozita në parti</label>
 
-                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select"
+                                <select asp-for="Role" asp-items="@ViewBag.roles" class="form-select option-select"
                                     id="inputGroupSelect05">
 
                                     <option disabled selected>Zgjedh rolin...</option>
@@ -256,12 +242,14 @@
                                 </select>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
+                            @*ME HJEK*@
+                            <hr />
                         </div>
 
                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
                                 <a href='javascript:
                                swal({
-                               title: "A jeni të sigurtë?" ,
+                               title: "A jeni të sigurt?" ,
 
                                icon: "warning" ,
                                buttons: true,
@@ -298,11 +286,62 @@
                         </div>
                     </form>
 
+                    @*<div class="col-12" id="table">
+                        <h5 class="card-title pt-4">Pershkruaj numrin e votuesve dhe rezultateve nga KQZ</h5>
+                        <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                        <th @*scope="col">Numri i votuesëve</th>
+                        <th class="w-50 " @*scope="col">Total : <span id="span" class="float-end"> </span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="">
+                        <tr>
+                        <th scope="row">VV</th>
+                        <td id="vv"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">LDK</th>
+                        <td id="ldk" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">PDK</th>
+                        <td id="pdk" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">AAK</th>
+                        <td id="aak" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">AKR</th>
+                        <td id="akr" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">Nisma</th>
+                        <td id="nisma" colspan="2" class="Votat"></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">Partite serbe</th>
+                        <td id="serbe" colspan="2" class="Votat"></td>
+
+                        </tr>
+                        <tr>
+                        <th scope="row">Partite joserbe</th>
+                        <td id="joserbe" colspan="2" class="Votat"></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>*@
+
                     <div class="" id="table">
 
 
-                        <div class="d-flex flex-row justify-content-around p-4 divi" >
-                         @*   <div class=" pt-4">
+                        <div class="d-flex flex-row justify-content-between p-4">
+                            <div class=" pt-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                                     Shto nje subjekt politik
                                 </button>
@@ -324,9 +363,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>*@
+                            </div>
 
-                            <div class="col-4 zgjedhje">
+                            <div class="col-4">
                                 <label class="">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
                                     <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
@@ -335,19 +374,19 @@
                                 </select>
                                 @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
                             </div>
-                            <div class="col-4 data">
+                            <div class="col-4">
                                 <label class="">Data e zgjedhjeve</label>
                                 <input type="date" id="year" class="form-control" required>
                                 @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
                             </div>
                         </div>
 
-                        <div class="col-md-6 w-100 ">
+                        <div class="col-md-6 w-100 pt-5">
                             <div class="table-responsive">
                                 @*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
 
-                                <table class="table table-responsive">
-                                    <thead class="thead-dark">
+                                <table class="table table-bordered">
+                                    <thead>
                                         <tr>
                                             <th scope="col" class="w-50">Partia Politike</th>
                                             <th scope="col" class="w-50">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
@@ -390,30 +429,6 @@
                                 </table>
                             </div>
                         </div>
-
-                              <div class=" pt-4">
-                                <button type="button" class="btn btn-primary politika" data-toggle="modal" data-target="#exampleModalCenter">
-                                    Shto nje subjekt politik
-                                </button>
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="subjekti-politik" class="py-2">Emri i subjektit politik</label>
-                                                        <input type="text" class="form-control" id="subjekti-politik">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulo</button>
-                                                        <button type="submit" id="btnCall" onclick="getValue()" class="btn btn-primary">Ruaj edhe mbyll</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                     </div>
 
                 </div>
@@ -479,45 +494,6 @@
             $('#pollcenter-neighborhood-container').hide();
         }
     });
-</script>
-<script>
-    document.querySelector(".validation-message").style.display = "none";
-    const BreakException = {};
-    const forma = document.querySelector("#forma");
-    forma.addEventListener("submit", function(e){
-        const parties = document.querySelectorAll(".partyNumber");
-        try {
-            parties.forEach(el => {
-                if (el.value === "") {
-                       swal({
-                title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
-                //text: "You clicked the button!",
-                icon: "warning",
-                button: "Plotëso rezultatet!",
-
-                  }).then(okay => {
-                                if (okay) {
-                                
-                                const linku1= document.getElementById('klasa1');
-                                const linku2 = document.getElementById('klasa2');
-
-                                linku1.classList.remove('active');
-                                linku2.classList.add('active');
-
-                                $('#table').show();
-                                $('#forma').hide();
-                                $('#titulli').hide();
-                                }
-                                });
-
-                    e.preventDefault();
-                }
-            });
-        } catch (err) {
-            if (err !== BreakException) throw err;
-        }
-    });
-
 </script>
 <script>
     const url = "https://localhost:7278/api/service/";
@@ -1001,213 +977,92 @@
         //var polls = null;
         //console.log(polls);
 
-     
+
 
 
        function addDataToDb() {
-            let endpoint = url + "addkqzresult";
+        let endpoint = url + "addkqzresult";
 
-            const munis = document.getElementById('munis');
-            const villages = document.getElementById('villages');
-            const election = document.getElementById("inputGroupSelect03").value;
-            const year = document.getElementById('year');
+        const munis = document.getElementById('munis');
+        const villages = document.getElementById('villages');
+        const election = document.getElementById("inputGroupSelect03").value;
+        const year = document.getElementById('year');
         //const poll = document.getElementById('poll');
-            const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-            console.log(neighborhoodVillage);
-            const neigboorhood = document.getElementById('neigborhoods');
-            console.log(neigboorhood);
-            var neighbors;
+        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+        console.log(neighborhoodVillage);
+        const neigboorhood = document.getElementById('neigborhoods');
+        console.log(neigboorhood);
+        var neighbors;
 
-            const poll = document.getElementById('poll');
+        const poll = document.getElementById('poll');
         //console.log(poll);
-            const pollNeighborhood = document.getElementById('pollNeighborhood');
+        const pollNeighborhood = document.getElementById('pollNeighborhood');
         //console.log(pollNeighborhood);
-            var polls;
-            var villagess;
-
-             if(villages.selectedIndex !== 0) {
-                 villagess = villages.options[villages.selectedIndex].value;
-
-              }
-             else{
-                  villagess = null;
-              }
-
-
-        //var neighbors;
-              if(neighborhoodVillage.selectedIndex !== 0) {
-                 neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
-              }
-              else if(neigboorhood.selectedIndex !== 0) {
-                neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
-
-              }else{
-                  neighbors = null;
-              }
-
-              if(poll.selectedIndex !== 0) {
-                 polls = poll.options[poll.selectedIndex].value;
-              }
-              else if(pollNeighborhood.selectedIndex !== 0) {
-                polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
-
-
-              }else{
-                  polls = null;
-              }
-
-
-            const parti = document.getElementsByClassName("parti");
-            const votat = document.getElementsByClassName("votat");
-            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
-
-
-            for (var i=1; i <= votat.length; i++) {
-            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
-
-
-
-                fetch(endpoint, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'post',
-                    body: JSON.stringify({
-                        municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
-
-                        electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
-                    })
-                });
-
-            }
-    }
-</script>
-<script>
-        const poll1 = document.getElementById('pollNeighborhood');
-        const poll2 = document.getElementById('poll');
-
-        poll1.addEventListener('change', event => {
-            event.preventDefault();
-            if (event.target.value == 'shto'){
-                 addPollToDb();
-
-            }
-
-        });
-
-          poll2.addEventListener('change', event => {
-            event.preventDefault();
-            if (event.target.value == 'shto'){
-                 addPollToDb();
-
-            }
-
-        });
-        function addPollToDb(){
-            //console.log(neigborhoods.value);
-            let endpoint = url + "addpollcenter";
-            let input = prompt("Shto Qendren e re:");
-            //var villagess;
-            if(input){
-           
-            let sm1 = document.querySelector("#neigborhoods");
-            console.log(sm1);
-            let sm2= document.querySelector("#neigborhoodsVillage");
-            console.log(sm2);
-             var sm;
-             console.log(sm)
-             if(sm1.selectedIndex !== 0) {
-             sm = sm1.options[sm1.selectedIndex].value;
-             
-              } else if(sm2.selectedIndex !== 0){
-              sm = sm2.options[sm2.selectedIndex].value;
-              }
-             else{
-                  sm = null;
-              }
-            
-
-            let munis = document.getElementById('munis');
-            let villages = document.getElementById('villages');
-            var villagess;
+        var polls;
+        var villagess;
 
          if(villages.selectedIndex !== 0) {
              villagess = villages.options[villages.selectedIndex].value;
-             
+
+          }
+         else{
+              villagess = null;
           }
 
-           //var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-        
-            
+
+        //var neighbors;
+          if(neighborhoodVillage.selectedIndex !== 0) {
+             neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
+          }
+          else if(neigboorhood.selectedIndex !== 0) {
+            neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
+
+          }else{
+              neighbors = null;
+          }
+
+          if(poll.selectedIndex !== 0) {
+             polls = poll.options[poll.selectedIndex].value;
+          }
+          else if(pollNeighborhood.selectedIndex !== 0) {
+            polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
+
+
+          }else{
+              polls = null;
+          }
+
+
+        const parti = document.getElementsByClassName("parti");
+        const votat = document.getElementsByClassName("votat");
+        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+
+
+        for (var i=1; i <= votat.length; i++) {
+            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+
+
+
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({ centerNumber: input,
-   
-                    centerName: "", municipalitydId: @userMuniId  , neighborhoodId: sm, villageId: villagess })
-            })
-            .then(() => addPollCenterNeighborhoodToList(sm))
-            .then(()=> addPollCenterToList(villagess));
+                body: JSON.stringify({
+                    municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
 
-            }
+                    electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                })
+            });
 
         }
-
-     function addPollCenterToList(villId){
-        poll.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren e votimit...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        poll.appendChild(chooseOption);
-
-        let addOption = document.createElement("option");
-            addOption.innerText = "Shto qendren e re...";
-            addOption.value = "shto";
-            poll.appendChild(addOption);
-
-      
-        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            poll.appendChild(item);
-        }));
-    }
-    //poll center by neighborhood
-    function addPollCenterNeighborhoodToList(neighId){
-        pollNeighborhood.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh qendren e votimit...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        pollNeighborhood.appendChild(chooseOption);
-
-         let addOption = document.createElement("option");
-            addOption.innerText = "Shto qendren e re...";
-            addOption.value = "shto";
-            pollNeighborhood.appendChild(addOption);
-
-        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
-        let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            pollNeighborhood.appendChild(item);
-        }));
     }
 </script>
     }
-}else
+}
+
+else
 {
 
     @section Scripts
@@ -1270,18 +1125,6 @@
         const poll1 = document.getElementById('pollNeighborhood');
         const poll2 = document.getElementById('poll');
 
-                   var muniss;
-        const munisi = document.getElementById('munis');
-        console.log(munisi);
-    
-     if(munisi == null){
-         muniss = @userMuniId;
-     }else{
-         muniss = munisi.value;
-     }
-
-     console.log(muniss);
-
         poll1.addEventListener('change', event => {
             event.preventDefault();
             if (event.target.value == 'shto'){
@@ -1302,12 +1145,11 @@
         function addPollToDb(){
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            //let input = swal("Shto qender te re:",{
-            //        content:"input",
-            //    })
-            //    .then((value)=>{
+            let input = swal("Shto qender te re:",{
+                    content:"input",
+                })
+                .then((value)=>{
                     //var villagess;
-            let input = prompt("shto");
             if(input){
 
             let sm1 = document.querySelector("#neigborhoods");
@@ -1327,24 +1169,13 @@
           }
 
 
-        var muniss;
-        const munis = document.getElementById('munis');
-
-     if(munis == null){
-         muniss = @userMuniId;
-     }else{
-         muniss = munis.value;
-     }
-
-     
+            let munis = document.getElementById('munis');
             let villages = document.getElementById('villages');
                var villagess;
 
          if(villages.selectedIndex !== 0) {
              villagess = villages.options[villages.selectedIndex].value;
 
-          }else{
-              villagess = null;
           }
 
 
@@ -1354,16 +1185,16 @@
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({ centerNumber: input,
-                    centerName: "", municipalitydId: muniss, neighborhoodId: sm, villageId: villagess })
+                body: JSON.stringify({ centerNumber: value,
+                    centerName: "", municipalitydId: munis.value, neighborhoodId: sm, villageId: villagess })
             })
             .then(() => addPollCenterNeighborhoodToList(sm))
             .then(()=> addPollCenterToList(villagess));
 
-            
-
-               
             }
+
+                });
+
         }
 
     const linku1= document.getElementById('klasa1');
@@ -1860,7 +1691,7 @@
             item.innerText = x.name;
             neigborhoodsVillage.appendChild(item);
         }));
-    }
+
          function addNeigborhoodVillageToDb() {
             let endpoint = url + "addneighborhoodbyvillage";
             let input = swal("Shto lagje te re:",{
@@ -2290,70 +2121,61 @@
 
 
        function addDataToDb() {
-            let endpoint = url + "addkqzresult";
+        let endpoint = url + "addkqzresult";
 
-            var muniss;
-            const munis = document.getElementById('munis');
+        const munis = document.getElementById('munis');
+        const villages = document.getElementById('villages');
+        const election = document.getElementById("inputGroupSelect03").value;
+        const year = document.getElementById('year');
+        //const poll = document.getElementById('poll');
+        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+        console.log(neighborhoodVillage);
+        const neigboorhood = document.getElementById('neigborhoods');
+        console.log(neigboorhood);
+        var neighbors;
 
-             if(munis == null){
-                 muniss = @userMuniId;
-             }else{
-                 muniss = munis.value;
-             }
+        const poll = document.getElementById('poll');
+        //console.log(poll);
+        const pollNeighborhood = document.getElementById('pollNeighborhood');
+        //console.log(pollNeighborhood);
+        var polls;
+        var villagess;
 
-            //console.log(munis);
-            const villages = document.getElementById('villages');
-            const election = document.getElementById("inputGroupSelect03").value;
-            const year = document.getElementById('year');
-            //const poll = document.getElementById('poll');
-            const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-            console.log(neighborhoodVillage);
-            const neigboorhood = document.getElementById('neigborhoods');
-            console.log(neigboorhood);
-            var neighbors;
+         if(villages.selectedIndex !== 0) {
+             villagess = villages.options[villages.selectedIndex].value;
 
-            const poll = document.getElementById('poll');
-            //console.log(poll);
-            const pollNeighborhood = document.getElementById('pollNeighborhood');
-            //console.log(pollNeighborhood);
-            var polls;
-            var villagess;
-
-             if(villages.selectedIndex !== 0) {
-                 villagess = villages.options[villages.selectedIndex].value;
-
-              }
-             else{
-                  villagess = null;
-              }
+          }
+         else{
+              villagess = null;
+          }
 
 
         //var neighbors;
-              if(neighborhoodVillage.selectedIndex !== 0) {
-                 neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
-              }
-              else if(neigboorhood.selectedIndex !== 0) {
-                neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
+          if(neighborhoodVillage.selectedIndex !== 0) {
+             neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
+          }
+          else if(neigboorhood.selectedIndex !== 0) {
+            neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
 
-              }else{
-                  neighbors = null;
-              }
+          }else{
+              neighbors = null;
+          }
 
-              if(poll.selectedIndex !== 0) {
-                 polls = poll.options[poll.selectedIndex].value;
-              }
-              else if(pollNeighborhood.selectedIndex !== 0) {
-                polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
-
-
-              }else{
-                  polls = null;
-              }
+          if(poll.selectedIndex !== 0) {
+             polls = poll.options[poll.selectedIndex].value;
+          }
+          else if(pollNeighborhood.selectedIndex !== 0) {
+            polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
 
 
-            const parti = document.getElementsByClassName("parti");
-            const votat = document.getElementsByClassName("votat");
-            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
+          }else{
+              polls = null;
+          }
+
+
+        const parti = document.getElementsByClassName("parti");
+        const votat = document.getElementsByClassName("votat");
+        //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
 
 
         for (var i=1; i <= votat.length; i++) {
@@ -2361,18 +2183,18 @@
 
 
 
-                fetch(endpoint, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'post',
-                    body: JSON.stringify({
-                        municipalityId: muniss, villageId: villagess, neighborhoodId: neighbors,
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({
+                    municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
 
-                        electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
-                    })
-                });
+                    electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i-1].value
+                })
+            });
 
         }
     }
@@ -2400,7 +2222,6 @@
             });
     }
 </script>
-
 <script>
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
@@ -2440,7 +2261,6 @@
     });
 
 </script>
-
 
 }
 }
