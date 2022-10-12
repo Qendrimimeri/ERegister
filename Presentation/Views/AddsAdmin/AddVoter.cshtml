@@ -240,7 +240,9 @@
                             <div class="col-md-4 mb-3 pe-2">
                                 <label class="">Vendi i punës</label>
                                 <input asp-for="WorkPlace" class="form-control">
-                                <span class="text-danger"></span>
+
+                            <span asp-validation-for="WorkPlace" class="text-danger"></span>
+                                
                             </div>
                             <div class="col-md-4 mb-2 pe-2 ">
                                 <label>Shërbimi</label>
@@ -251,7 +253,8 @@
                             <div class="col-md-4 mb-3 pe-2">
                                 <label class="l">Detyra</label>
                                 <input asp-for="Duty" class="form-control">
-                                <span class="text-danger"></span>
+                            <span asp-validation-for="Duty" class="text-danger"></span>
+                                
                             </div>
                         </div>
                         <h6 class="pt-4">III - Të dhënat partiake<hr></h6>

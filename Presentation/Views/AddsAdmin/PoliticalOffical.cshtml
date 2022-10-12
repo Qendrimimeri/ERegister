@@ -126,7 +126,7 @@
             <div class="card">
                 <div class="card-body" id="">
                     <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
-                    <form asp-action="PoliticalOffical" method="post" id="forma">
+                    <form asp-action="PoliticalOffical" method="post" id="forma" >
                         <a><span class="text-danger validation-message">Ju lutem plotësoni tabelën me rezultatet e KQZ!</span></a>
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
@@ -136,6 +136,7 @@
                                 <input asp-for="FullName" class="form-control" id="mbiemripersonal"
                                        placeholder="Shkruaj emrin dhe mbiemrin">
                                 <span asp-validation-for="FullName" class="text-danger"></span>
+                                <div class="demo"></div>
                             </div>
                         </div>
                         <span>Numri i telefonit</span>
@@ -487,6 +488,8 @@
         }
     });
 </script>
+
+                                            
 <script>
     $('#table').hide();
     $('#neigborhoodsVillage-container').hide();
