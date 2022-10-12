@@ -1222,6 +1222,34 @@ else if (User.IsInRole("KryetarIFshatit"))
 </script>
 
 <script>
+
+     const linku1= document.getElementById('klasa1');
+    const linku2 = document.getElementById('klasa2');
+
+    linku1.addEventListener('click', event=>{
+        //console.log('u thirr 1');
+        event.preventDefault();
+        $('#table').hide();
+        $('#forma').show();
+        $('#titulli').show();
+        linku2.classList.remove('active');
+        linku1.classList.add('active');
+        //linku1.setAttribute('style','background-color: white' );
+
+    });
+
+    linku2.addEventListener('click', event=>{
+                //console.log('u thirr 2');
+
+        event.preventDefault();
+        $('#forma').hide();
+        $('#table').show();
+        $('#titulli').hide();
+        linku1.classList.remove('active');
+        linku2.classList.add('active');
+    });
+
+
         const url = "https://localhost:7278/api/service/";
      if (document.querySelector("#villages") != undefined)
     {
