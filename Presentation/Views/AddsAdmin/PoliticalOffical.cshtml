@@ -22,13 +22,21 @@
         cursor: pointer;
     }
 
-     tr:nth-child(even) {
+   /*  td:nth-child(even) {
+  background-color: #f2f2f2;
+}*/
+
+    .c{
+        background-color: #f2f2f2;
+    }
+       
+       tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-    .votat:nth-child(odd){
+    /*.votat:nth-child(odd){
         background-color: #f2f2f2;
-    }
+    }*/
 
   .test{
         background-color: #0d6efd;
@@ -73,16 +81,8 @@
 
 
     <style>
-        @@media screen and (max-width:502px) {
-          .button-responsive{
-            font-size: 14px;
-          }
-        }
-         @@media screen and (max-width:462px) {
-          .button-responsive{
-            font-size: 12px;
-          }
-          .divi{
+        @@media screen and (max-width:620px) {
+            .divi{
               display:flex ;
               flex-direction: column !important;
           }
@@ -95,6 +95,18 @@
           .politika{
               width:100%;
           }
+        }
+
+        @@media screen and (max-width:502px) {
+          .button-responsive{
+            font-size: 14px;
+          }
+        }
+         @@media screen and (max-width:462px) {
+          .button-responsive{
+            font-size: 12px;
+          }
+          
 
         }
         @@media screen and (max-width:425px) {
@@ -405,7 +417,7 @@
                     <div class="" id="table">
 
 
-                        <div class="d-flex flex-row justify-content-around p-4 divi">
+                        <div class="d-flex flex-row justify-content-around divi">
                           @*  <div class=" pt-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                                     Shto nje subjekt politik
@@ -430,7 +442,7 @@
                                 </div>
                             </div>*@
 
-                            <div class="col-4 zgjedhje">
+                            <div class="col-4 pt-4 zgjedhje">
                                 <label class="">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
                                     <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
@@ -439,7 +451,7 @@
                                 </select>
                                 @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
                             </div>
-                            <div class="col-4 data">
+                            <div class="col-4 pt-4 pb-4 data">
                                 <label class="">Data e zgjedhjeve</label>
                                 <input type="date" id="year" class="form-control" required>
                                 @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
@@ -450,7 +462,7 @@
                             <div class="table-responsive">
                                 @*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
 
-                                <table class="table table-responsive">
+                                <table class="table table-responsive align-center table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col" class="w-50">Partia Politike</th>
@@ -464,15 +476,15 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="2">LDK</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="3">PDK</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 " required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="4">AAK</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="5">AKR</th>
@@ -480,7 +492,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="6">Nisma</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="7">Partite serbe</th>
@@ -488,7 +500,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="8">Partite joserbe</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -496,7 +508,7 @@
                         </div>
 
 
-                          <div class=" pt-4">
+                          <div class=" pt-4 d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary politika" data-toggle="modal" data-target="#exampleModalCenter">
                                     Shto nje subjekt politik
                                 </button>
