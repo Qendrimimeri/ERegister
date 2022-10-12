@@ -9,8 +9,8 @@
 @inject IUnitOfWork _unitOfWork;
 @{
     var userId = await _userManager.FindByNameAsync(User.Identity.Name);
-    var userMuniId = _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-    var userVillageId = _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
+    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
 }
 <style>
     #klasa1:hover {
@@ -19,6 +19,15 @@
     #klasa2:hover {
         cursor: pointer;
     }
+
+    tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+    .votat:nth-child(odd){
+        background-color: #f2f2f2;
+    }
+   
 </style>
     <style>
         @@media screen and (max-width:502px) {
@@ -480,6 +489,7 @@
 </script>
 <script>
     const url = "https://localhost:7278/api/service/";
+     //const villages = document.getElementById('villages');
     if (document.querySelector("#munis") != undefined)
     {
         getMunis();
@@ -680,8 +690,8 @@
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({municipalityId: sm, villageName: value})
-        }).then(() => addVillagesToList(sm));
+            body: JSON.stringify({municipalityId: @userMuniId, villageName: value})
+        }).then(() => addVillagesToList(@userMuniId));
         });
     }
     //neigborhoods
