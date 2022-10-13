@@ -3,11 +3,12 @@
 @inject IUnitOfWork _unitOfWork;
 @inject IOptionsSnapshot<Roles> _roles;
 @{
-<<<<<<< HEAD
+    Layout = "_DashboardLayout";
     var user = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(user.Id);
     int? userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((user.Id));
     int? userNeigborhoodId;
+    var roles = _roles.Value;
 
     if (userVillageId == null)
     {
@@ -17,16 +18,6 @@
     {
         userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfVillageForUser(user.Id, userVillageId);
     }
-
-
-=======
-    Layout = "_DashboardLayout";
-    var userId = await _userManager.FindByNameAsync(User.Identity.Name);
-    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-    var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
-    var userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfUser((userId.Id));
-    var roles = _roles.Value;
->>>>>>> 875a63156803cd6fa0fc4c4d0b03aff1ea80d54f
 }
 <style>
     @@media screen and (max-width:502px) {
@@ -936,9 +927,6 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addneighborhoodbyvillage";
         let input = swal("Shto lagje te re:",{
             content:"input",
-<<<<<<< HEAD
-        }).
-=======
              buttons: {
                  cancel:"Anulo",
                  
@@ -947,7 +935,6 @@ else if (User.IsInRole("KryetarIFshatit"))
                      className:"test",
                  } }
         })
->>>>>>> 875a63156803cd6fa0fc4c4d0b03aff1ea80d54f
         .then((value)=>{
         fetch(endpoint, {
             headers: {

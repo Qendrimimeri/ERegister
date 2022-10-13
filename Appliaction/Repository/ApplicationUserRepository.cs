@@ -338,6 +338,7 @@ namespace Application.Repository
                 VillageId = model.Village,
                 BlockId = model.Block,
                 StreetId = model.Street,
+                NeighborhoodId = model.Neigborhood,
                 PollCenterId = int.Parse(model.PollCenter),
             };
             await _context.Addresses.AddAsync(address);
@@ -409,6 +410,7 @@ namespace Application.Repository
                 VillageId = model.Village,
                 BlockId = model.Block,
                 StreetId = model.Street,
+                NeighborhoodId = model.Neigborhood,
                 PollCenterId = int.Parse(model.PollCenter),
             };
 
