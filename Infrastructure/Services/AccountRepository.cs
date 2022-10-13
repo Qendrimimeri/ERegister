@@ -69,6 +69,7 @@ namespace Infrastructure.Services
                 HouseNo = model.HouseNo,
                 VillageId = model.Village,
                 BlockId = model.Block,
+                NeighborhoodId = model.Neigborhood,
                 StreetId = model.Street,
                 PollCenterId = int.Parse(model.PollCenter),
             };
@@ -141,6 +142,7 @@ namespace Infrastructure.Services
                 VillageId = model.Village,
                 BlockId = model.Block,
                 StreetId = model.Street,
+                NeighborhoodId = model.Neigborhood,
                 PollCenterId = int.Parse(model.PollCenter),
             };
 

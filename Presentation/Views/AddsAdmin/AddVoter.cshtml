@@ -8,10 +8,21 @@
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 @inject IUnitOfWork _unitOfWork;
 @{
-    var userId = await _userManager.FindByNameAsync(User.Identity.Name);
-    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
-    var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
-    var userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfUser((userId.Id));
+    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(user.Id);
+    int? userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((user.Id));
+    int? userNeigborhoodId;
+
+    if (userVillageId == null)
+    {
+        userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfCityForUser(user.Id);
+    }
+    else
+    {
+        userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfVillageForUser(user.Id, userVillageId);
+    }
+
+
 }
 <style>
 
@@ -898,7 +909,7 @@ else if (User.IsInRole("KryetarIFshatit"))
         let endpoint = url + "addneighborhoodbyvillage";
         let input = swal("Shto lagje te re:",{
             content:"input",
-        })
+        }).
         .then((value)=>{
         fetch(endpoint, {
             headers: {
@@ -1040,20 +1051,20 @@ else if (User.IsInRole("AnetarIThjeshte"))
     {
         <script>
 
-         $('#streetByNeighborhood').hide();
-
-        $('#villages').change(function(){
+         $('#streetByVillage').hide();
+         
+        $('#neigborhoodsVillage').change(function(){
             var selectedNeighborhood = $(this).children('option:selected').val();
             if(selectedNeighborhood != null){
-                $('#streetByNeighborhood').hide();
-                $('#streetByVillage').show();
+                $('#streetByVillage').hide();
+                $('#streetByNeighborhood').show();
             }
         })
-        $('#neigborhoodsVillage').change(function(){
+        $('#villages').change(function(){
             var selectedVillages = $(this).children('option:selected').val();
             if(selectedVillages != null){
-                $('#streetByNeighborhood').show();
-                $('#streetByVillage').hide();
+                $('#streetByVillage').show();
+                $('#streetByNeighborhood').hide();
             }
         })
          $('#pollcenter-neighborhood-container').hide();
@@ -1075,43 +1086,22 @@ else if (User.IsInRole("AnetarIThjeshte"))
 </script>
         <script>
              const url = "https://localhost:7278/api/service/";
-             if (document.querySelector("#villages") != undefined)
+            if (document.querySelector("#neighborhoods") != undefined)
             {
-                getVillages();
+                getneighborhoodsbymuni();
             }
             else {
-                addStreetToList(@userVillageId);
-                addPollCenterToList(@userVillageId)
-            }
-            neigborhoodsVillage.addEventListener('change', event =>{
-                 if(event.target.value !== "shto")
-                {
-                 addStreetNeighborhoodToList(event.target.value);
-                 addPollCenterNeighborhoodToList(event.target.value);
-                }
-                else{
+                addStreetNeighborhoodToList(@userNeigborhoodId);
 
-                }
-            });
-            neigborhoodsVillage.addEventListener('change', event => {
-                event.preventDefault()
-                if (event.target.value == "shto") {
-                    addNeigborhoodVillageToDb(@userVillageId);
-                }
-            });
-            streets.addEventListener('change', event => {
-                event.preventDefault()
-                if (event.target.value == 'shto') {
-                    addStreetToDb(@userVillageId);
-                }
-            });
+            }
             streetsNeighborhood.addEventListener('change', event => {
                 event.preventDefault()
                 if (event.target.value == "shto") {
-                    addStreetNeighborhoodToDb();
+                    addStreetNeighborhoodToDb(@userNeigborhoodId);
                 }
             });
-            function getVillages(userId){
+
+            function getneighborhoodsbymuni(user){
             let endpoint = url + "getmunis";
             let result = fetch(endpoint)
             .then(res => res.json())
@@ -1123,46 +1113,51 @@ else if (User.IsInRole("AnetarIThjeshte"))
                 });
             });
             }
-            //street by village
-    function addStreetToList(userVillageId) {
-        streets.innerHTML = '';
-        let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh rrugen...";
-        chooseOption.selected = true;
-        chooseOption.disabled = true;
-        streets.appendChild(chooseOption);
 
-        let addOption = document.createElement("option");
-        addOption.innerText = "Shto rrugë te re...";
-        addOption.value = "shto";
-        streets.appendChild(addOption);
+            //street by neighborhood
+            function addStreetNeighborhoodToList(userNeigborhoodId) {
+                streetsNeighborhood.innerHTML = '';
+                let chooseOption = document.createElement("option");
+                chooseOption.innerText = "Zgjedh rrugen...";
+                chooseOption.selected = true;
+                chooseOption.disabled = true;
+                streetsNeighborhood.appendChild(chooseOption);
 
-        let endpoint = url + "getstreetbyvillage?villId=" + userVillageId;
-        let result = fetch(endpoint)
-            .then(res => res.json())
-            .then(data => data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                streets.appendChild(item);
-            }));
-    }
-    function addStreetToDb(userVillageId) {
-        let endpoint = url + "addstreetbyvillage";
-        let input =swal("Shto rruge te re",{
-            content:"input",
-        })
-        .then((value)=>{
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify({ villageId: userVillageId, streetName: value })
-        }).then(() => addStreetToList(userVillageId));
-        });
-    }
+                let addOption = document.createElement("option");
+                addOption.innerText = "Shto rrugë te re...";
+                addOption.value = "shto";
+                streetsNeighborhood.appendChild(addOption);
+
+                let endpoint = url + "getstreetbyneighborhood?neighId=" + userNeigborhoodId;
+                let result = fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => data.forEach(x => {
+                        let item = document.createElement("option");
+                        item.value = x.id;
+                        item.innerText = x.name;
+                        streetsNeighborhood.appendChild(item);
+                    }));
+            }
+             function addStreetNeighborhoodToDb(userNeigborhoodId) {
+                let endpoint = url + "addstreetbyneighborhood";
+                let input = swal("Shto rruge te re:",{
+                    content:"input",
+                })
+                then((value)=>{ 
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ neighborhoodId: userNeigborhoodId, streetName: value })
+                }).then(() => addStreetNeighborhoodToList(userNeigborhoodId));
+
+                })
+            }
+           
+
+
         </script>
     }
 }

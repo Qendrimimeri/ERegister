@@ -578,6 +578,23 @@ namespace Presentation.Controllers
             }
         }
 
+        [Route("getneighborhood")]
+        public ActionResult GetNeighborhood()
+        {
+            try
+            {
+                return Ok(_context.Neighborhoods.ToList().Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }));
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
 
         [HttpPost]
         [Route("addneighborhood")]

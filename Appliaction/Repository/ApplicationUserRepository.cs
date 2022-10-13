@@ -230,9 +230,11 @@ namespace Application.Repository
         public async Task<int?> GetVillageIdOfUser(string id)
             => await _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.VillageId).FirstOrDefaultAsync();
 
-        public async Task<int?> GetNeigborhoodIdOfUser(string id)
-            => await _db.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
+        public async Task<int?> GetNeigborhoodIdOfCityForUser(string id)
+            => await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == id && x.Address.Village == null).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
 
+        public async Task<int?> GetNeigborhoodIdOfVillageForUser(string city, int? fshatiId)
+           => await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == city && x.Address.VillageId == fshatiId).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
     }
 
 }
