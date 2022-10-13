@@ -122,8 +122,12 @@ namespace Application.Repository
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
             var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
                                  .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIPartise");
-            var user = await _userManager.IsInRoleAsync((await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync()), "SimpleRole");
 
+            var userFromDb = await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync();
+            if (userFromDb == null)
+                return null;
+
+            var user = await _userManager.IsInRoleAsync(userFromDb, "SimpleRole");
 
             if (isThisUserSuperAdmin)
             {

@@ -34,21 +34,17 @@
                     <h5 class="card-title" id="city-nacinale"></h5>
                     <div id="columnChart"></div>
                     <script>
-
                         const kqzrez = "https://localhost:7278/api/service";
                         var endpoint = "/kqzresultsbymuni";
                         let response = fetch(`${kqzrez}${endpoint}`).then(res => res.json());
                         let rez = response.then((values) => {
-
                             const lastYear = values.Nacionale["lastYear"];
                             const thisYear = values.Nacionale["thisYear"];
                             const cityName = values.Nacionale["city"];
                             const lastYearValues = Object.values(lastYear);
                             const thisYearValues = Object.values(thisYear);
                             var politicalSubjects = Object.keys(lastYear);
-
                             var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
-
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
                                     name: 'Viti 2021',
@@ -107,7 +103,6 @@
                     <div id="columnChart1"></div>
                     <script>
                         let res = response.then((results) => {
-
                             const lastYearLocal = results.Lokale["lastYear"]
                             const thisYearLocal = results.Lokale["thisYear"]
                             const cityNameLocal = results.Nacionale["city"];
@@ -115,7 +110,6 @@
                             const thisYearValuesLocal = Object.values(thisYearLocal);
                             var politicalSubjectsNow = Object.keys(lastYearLocal)
                             var selectedLocalCity = document.getElementById("city-name").innerText = `${cityNameLocal} - Zgjedhjet Lokale`;
-
                             new ApexCharts(document.querySelector("#columnChart1"), {
                                 series: [{
                                     name: 'Viti 2021',
@@ -189,7 +183,6 @@
                     });
                 });
         }
-
         function getId() {
             var select = document.getElementById("munis").value
             fetch(`https://localhost:7278/api/service/kqzresultsbymuni?id=${select}`)

@@ -54,7 +54,8 @@ namespace Presentation.Controllers
             try
             {
                 Data();
-                if ((await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)) == null)
+                var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
+                if (res == null)
                 {
                     ViewBag.Name = name;
                     ViewBag.UserNull = "Nuk ka te dhena";
