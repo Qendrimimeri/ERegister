@@ -12,7 +12,7 @@ namespace Application.ViewModels
         public int Id { get; set; }
 
 
-        [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri")]
+       [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri"), RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
         public string? FullName { get; set; }
 
        [Required(ErrorMessage = "Numri i telefonit nuk është valid!"),MinLength(8,ErrorMessage =("Ju lutem shkruani minimumi 8 numra!")), MaxLength(13),DataType(DataType.PhoneNumber)]
@@ -21,10 +21,15 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Email adresa nuk është valide!"), DataType(DataType.EmailAddress,ErrorMessage ="Ju lutem shkruani një email adresë valide!")]
         public string? Email { get; set; }
 
-
+        
         public int? Municipality { get; set; }
+        
+
         public int? Village { get; set; }
+        
+
         public int? Neigborhood { get; set; }
+
         public int? Street { get; set; }
         public int? Block { get; set; }
         public int? HouseNo { get; set; }

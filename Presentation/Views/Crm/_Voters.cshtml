@@ -1,7 +1,14 @@
 ﻿@model VoterDetailsVM
 
+@if(ViewBag.UserNull == "Nuk ka te dhena")
+{
+    <p class="text-danger"> "@ViewBag.Name" nuk u gjend!</p>
+    
+  
+}
+else
+{
 <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
-
     <div class="col-lg-6 pe-2">
         <div class="table-responsive">
             <table class="table table-bordered"
@@ -41,11 +48,10 @@
                 </tr>
                 <tr>
                     <td>Facebook</td>
-                    <td id="DataSearching"><a href="#@Model.FacebookLink">Shiko profilin <a /></td>
+                    <td id="DataSearching"><a href="#@Model.FacebookLink">@Model.FullName <a /></td>
                 </tr>
             </table>
         </div>
-
     </div>
     <style>
         td {
@@ -96,9 +102,7 @@
                 </tr>
             </table>
         </div>
-
     </div>
-
 </div>
 <form asp-controller="Crm" asp-action="Voters" method="post">
     <input hidden asp-for="Id" id="userId"/>
@@ -115,7 +119,6 @@
             <label class="pt-3">A mund ta menaxhoni personin?</label>
             <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" asp-items="ViewBag.YesNo">
                 <option disabled selected>Zgjedhni opsionet...</option>
-
             </select>
         </div>
     </div>
@@ -140,15 +143,10 @@
             </select>
         </div>
     </div>
-
-
     <div class="form-group pe-2 pb-3 ">
         <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
         <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
     </div>
-    
-
-
 <div class="d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
     <a href='javascript:
        swal({
@@ -170,17 +168,58 @@
         swal({
         title: "Te dhenat nuk jane anuluar!",
         icon: "error",
-
         });
         }
         });'
         class = "btn btn-danger">Anulo
-    </a>&nbsp  &nbsp 
+    </a>&nbsp&nbsp 
      <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp 
      <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
-
 </div>
 </form>
+
+}
+
+<style>
+    
+  .test{
+        background-color: #0d6efd;
+        
+    }
+    .test:hover{
+        background-color:#0b5ed7;
+        
+    }
+    .swal-button--catch:hover{
+        background-color:#0d6efd;
+    }
+
+    .swal-button:not([disabled]):hover {
+        background-color:#0b5ed7;
+
+    }
+    .swal-button--cancel{
+        background-color :#dc3545;
+        color : white;
+    }
+    .swal-button--cancel:not([disabled]):hover {
+
+          background-color:#bb2d3b;
+    }
+   
+    .swal-content__input:focus{
+         border-color : #ced4da;
+         border-bottom: 3px solid #ced4da;
+    }
+    .swal-text {
+       font-weight:500;
+        font-size:20px;
+    }
+     .swal-button--confirm {
+         background-color : #0d6efd;
+     }
+</style>
+
 <script>
    const Specificreasons = document.querySelector('#general-demand');
     Specificreasons.addEventListener('change', event => {
@@ -189,13 +228,24 @@
                 var userId = document.getElementById("userId").value;
                  //if (data === "shto") {
 
-                 var input = prompt();
-
-                 let item = document.createElement("option");
-                        item.value = input;
-                        item.innerText = input;
+                 var input = swal("Arsyeja përcaktuese:",{
+                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
+                 }).then((value)=>{
+                      let item = document.createElement("option");
+                        item.value = value;
+                        item.innerText = value;
                         Specificreasons.appendChild(item);
-                        Specificreasons.value = input;
+                        Specificreasons.value = value;
+                 });
+
+                
       }
   });
 
@@ -204,12 +254,22 @@
              var data = document.getElementById("specific-reason").value;
              if (event.target.value === "shto"){
                 var userId = document.getElementById("userId").value;
-                    var input = prompt();
+                    var input = swal("Ndihma e nevojshme:",{
+                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
+                 }).then((value)=>{
                      let item = document.createElement("option");
-                        item.value = input;
-                        item.innerText = input;
+                        item.value = value;
+                        item.innerText = value;
                         Specificdemands.appendChild(item);
-                        Specificdemands.value = input;
+                        Specificdemands.value = value;
+                 });
       }
   });
 </script>

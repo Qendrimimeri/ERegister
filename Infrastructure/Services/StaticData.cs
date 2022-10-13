@@ -64,9 +64,10 @@ namespace Infrastructure.Services
 
         public static IEnumerable<YesNoModel> YesNo()
         {
-            var yesNo = new List<YesNoModel>() {
-                new YesNoModel { Key = 1, Value = "Yes" },
-                new YesNoModel { Key = 0, Value = "No" },
+            var yesNo = new List<YesNoModel>() 
+            {
+                new YesNoModel { Key = 1, Value = "Po" },
+                new YesNoModel { Key = 0, Value = "Jo" },
             };
             return yesNo;
         }

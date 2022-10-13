@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Xml.Linq;
 
 
+
 namespace Application.Repository
 {
 #pragma warning disable CS8602
@@ -427,11 +428,11 @@ namespace Application.Repository
                 // Send Email
                 var emailReques = new MailRequestModel();
 
-                emailReques.Subject = "PBCA: Konfirmimi i llogarisë.";
+                emailReques.Subject = "PBCA: Konfirmimi i llogarisï¿½.";
                 emailReques.Body = $"" +
-                    $"Llogaria juaj është regjistruar!" +
-                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
-                    $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
+                    $"Llogaria juaj ï¿½shtï¿½ regjistruar!" +
+                    $"<br>Fjalï¿½kalimi i juaj ï¿½shtï¿½ <strong>Admin!23</strong>" +
+                    $"<br>Pï¿½r tï¿½ konfirmuar llogarinï¿½ tuaj ju lutemi tï¿½ <a href={confimrEmailUrs}>klikoni kï¿½tu</a>!" +
                     $"<br><br><strong>E-Register</strong>";
 
                 emailReques.ToEmail = simpleUser.Email;
@@ -457,8 +458,8 @@ namespace Application.Repository
 
             // Send Email
             var emailReques = new MailRequestModel();
-            emailReques.Subject = "PBCA: Ndrysho fjalëkalimin.";
-            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
+            emailReques.Subject = "PBCA: Ndrysho fjalï¿½kalimin.";
+            emailReques.Body = $"Pï¿½r tï¿½ ndryshuar fjalï¿½kalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni kï¿½tu</a>!" +
                 $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);

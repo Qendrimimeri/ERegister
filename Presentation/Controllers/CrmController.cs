@@ -55,7 +55,10 @@ namespace Presentation.Controllers
             {
                 Data();
                 if ((await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)) == null)
-                    return BadRequest();
+                {
+                    ViewBag.Name = name;
+                    ViewBag.UserNull = "Nuk ka te dhena";
+                }
                 return PartialView("_Voters", (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)));
             }
             catch (Exception err)

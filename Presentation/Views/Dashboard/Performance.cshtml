@@ -3,32 +3,120 @@
     ViewBag.Title = "Tabela e Votueseve";
     Layout = "_DashboardLayout";
 }
-<div class="btn float-end d-flex justify-content-end">
+<style>
+ @@media only screen and (max-width: 768px) {
+     #noHover{
+    pointer-events: none !important;
+}
+     .navbar{
+         margin-left: 27px;
+     }
+     .toggle-vis{
+         display:flex;
+         justify-content:center;
+     }
+     .btnwidth{
+         width:100%;
+     }
+      .butonipdf{
+      background-color:#2A7EEC;
+       color: white !important;
+       font-weight: 200 !important;
+ } 
+ .butonixls{
+      background-color:#2A7EEC;
+       color: white !important;
+        font-weight: 200 !important;
+ }
+ .butonitoggle{
+      background-color:#2A7EEC;
+       color: white !important;                                         
+        font-weight: 200 !important;
+ }
+}
+ @@media only screen and (min-width: 768px) {
+ .testing{
+     display:flex !important;
+     justify-content:end !important;
+     }
+ .butonixls{
+     box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
+      cursor:pointer;
+      color:white !important;
+      
+ }
+  .butonipdf{
+     box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
+      cursor:pointer;
+          color:white !important;
+
+ }
+  .butonitoggle{
+     box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
+      cursor:pointer;
+         color:white !important;
+ }
+ td{
+      text-align: center; 
+       vertical-align: middle;
+    
+ }
+  th{
+      text-align: center; 
+    vertical-align: middle;
+ }
+ }
+</style>
+
+<div class="btn float-end d-flex justify-content-end" id="test">
     <div class="dropdown pe-2">
-        <a class="btn btn-primary dropdown-toggle pe-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Shfaq/Largo kolonat nga lista
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="toggle-vis text-decoration-none" data-column="0">Qyteti</a></li>
-            <li><a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a></li>
-            <li><a class="toggle-vis" data-column="2">Numri i votuesve</a> </li>
-            <li><a class="toggle-vis" data-column="3">Numri i telefonit</a> </li>
-            <li><a class="toggle-vis" data-column="4">Qendra e votimit</a> </li>
-            <li><a class="toggle-vis" data-column="5">Votues paraprak</a> </li>
-            <li><a class="toggle-vis" data-column="6">Votues i tanishëm</a> </li>
-            <li><a class="toggle-vis" data-column="7">Gjasat fillestare</a> </li>
-            <li><a class="toggle-vis" data-column="8">Gjasat aktuale</a> </li>
-            <li><a class="toggle-vis" data-column="9">Statusi aktual</a> </li>
-        </ul>
+       
     </div>
-    <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp   
-    <button type="submit" class="btn btn-primary" id="butoni" @*onclick="ExportToPdf()"*@><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>
+  @*  <button type="button" class="btn btn-primary" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne Excel</button> &nbsp
+    <button type="submit" class="btn btn-primary" id="butoni" onclick="ExportToPdf()"><span class="bi bi-file-pdf"></span> Eksporto ne PDF</button>*@
 
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="bg-white">
+    <nav b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light ">
 
+        <div b-fhvjq1vla1="" class="container-fluid d-flex">
+
+            <a class="navbar-brand fw-semibold" href="/">
+            </a>
+            <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span b-fhvjq1vla1="" class="bi bi-three-dots-vertical noHover"></span>
+            </button>
+            <div class="testing collapse navbar-collapse justify-content-end align-items-center text-center text-sm-center " id="main-nav">
+                <ul class="navbar-nav d-flex align-items-center justify-content-center">&nbsp;&nbsp;
+                      <li b-fhvjq1vla1="" class="nav-item btnwidth">
+                        <a class="nav-link text-md-center hover-link dropdown-toggle butonitoggle btn btn-primary"role="button" id="dropdownMenuLink"data-bs-toggle="dropdown"aria-expanded="false">Shfaq/Largo kolonat nga lista </a>
+                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="toggle-vis text-decoration-none" data-column="0">Qyteti</a></li>
+                            <li><a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a></li>
+                            <li><a class="toggle-vis" data-column="2">Numri i votuesve</a> </li>
+                            <li><a class="toggle-vis" data-column="3">Numri i telefonit</a> </li>
+                            <li><a class="toggle-vis" data-column="4">Qendra e votimit</a> </li>
+                            <li><a class="toggle-vis" data-column="5">Votues paraprak</a> </li>
+                            <li><a class="toggle-vis" data-column="6">Votues i tanishëm</a> </li>
+                            <li><a class="toggle-vis" data-column="7">Gjasat fillestare</a> </li>
+                            <li><a class="toggle-vis" data-column="8">Gjasat aktuale</a> </li>
+                            <li><a class="toggle-vis" data-column="9">Statusi aktual</a> </li>
+                        </ul>
+                    </li>&nbsp;&nbsp;
+                    <li class="nav-item btnwidth">
+                        <a class="nav-link text-sm-center hover-link butonixls btn btn-primary"role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne excel</a>
+                    </li>&nbsp;&nbsp;
+                    <li class="nav-item btnwidth">
+                        <a class="nav-link text-md-center hover-link butonipdf btn btn-primary"role="button" onclick="ExportToPdf()"><span class="bi bi-file-pdf "></span> Eksporto ne pdf </a>
+                    </li>&nbsp;&nbsp;
+            
+                   
+                </ul>
+            </div>
+
+        </div>
+    </nav>
     <div class="table table-responsive">
         <table class="table table-striped table-hover small" id="example">
             <thead>
@@ -72,6 +160,10 @@
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 <script type="text/javascript" src="~/datatable/datatables.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+
+
 <script>
 
     $(document).ready(function () {
@@ -96,12 +188,8 @@
     });
 </script>
 <script>
-
-
-
-    document.getElementById('butoni').addEventListener('click', ExportToPdf);
     function ExportToExcel(type, fn, dl) {
-           var elt = document.getElementById('test');
+           var elt = document.getElementById('example');
 
            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
            return dl ?
@@ -124,7 +212,7 @@
                             image: data,
                             width: 500
                         }]
-                    };       
+                    };
                     pdfMake.createPdf(docDefinition).download("Table.pdf");
                     setTimeout(()=>{
                     location.reload();
