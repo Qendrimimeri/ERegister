@@ -39,8 +39,8 @@ namespace Infrastructure.Services
         public static IEnumerable<YesNo> YesNo()
         {
             var yesNo = new List<YesNo>() {
-                new YesNo { Key = 1, Value = "Yes" },
-                new YesNo { Key = 0, Value = "No" },
+                new YesNo { Key = 1, Value = "Po" },
+                new YesNo { Key = 0, Value = "Jo" },
             };
             return yesNo;
         }
