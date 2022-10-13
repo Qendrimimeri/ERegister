@@ -695,7 +695,7 @@
      }
      function addStreetToDb() {
          let endpoint = url + "addstreetbyvillage";
-         let input =swal("Shto rruge te re",{
+         let input =swal("Emri i rrugës:",{
              content:"input",
               buttons: {
                  cancel:"Anulo",
@@ -744,7 +744,7 @@
      }
      function addStreetNeighborhoodToDb() {
          let endpoint = url + "addstreetbyneighborhood";
-         let input = swal("Shto rruge te re:",{
+         let input = swal("Emri i rrugës:",{
              content:"input",
               buttons: {
                  cancel:"Anulo",
@@ -973,7 +973,7 @@ else if (User.IsInRole("KryetarIFshatit"))
     }
     function addStreetToDb(userVillageId) {
         let endpoint = url + "addstreetbyvillage";
-        let input =swal("Shto rruge te re",{
+        let input =swal("Emri i rrugës",{
             content:"input",
              buttons: {
                  cancel:"Anulo",
@@ -1020,7 +1020,7 @@ else if (User.IsInRole("KryetarIFshatit"))
     }
     function addStreetNeighborhoodToDb() {
         let endpoint = url + "addstreetbyneighborhood";
-        let input = swal("Shto rruge te re:",{
+        let input = swal("Emri i rrugës:",{
             content:"input",
              buttons: {
                  cancel:"Anulo",
@@ -1180,8 +1180,16 @@ else if (User.IsInRole("AnetarIThjeshte"))
             }
              function addStreetNeighborhoodToDb(userNeigborhoodId) {
                 let endpoint = url + "addstreetbyneighborhood";
-                let input = swal("Shto rruge te re:",{
+                let input = swal("Emri i rrugës:",{
                     content:"input",
+                      buttons: {
+                 cancel:"Anulo",
+                 
+                 confirm:{
+                     text:"Shto",
+                     className:"test",
+                 } }
+                    
                 })
                 .then((value)=>{ 
                 fetch(endpoint, {
