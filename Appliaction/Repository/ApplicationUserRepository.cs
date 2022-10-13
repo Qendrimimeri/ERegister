@@ -14,6 +14,9 @@ using System.Xml.Linq;
 
 namespace Application.Repository
 {
+#pragma warning disable CS8602
+#pragma warning disable CS8604
+
     public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -81,45 +84,74 @@ namespace Application.Repository
         //VoterDetails
         public async Task<VoterDetailsVM> GetVoterInfoAsync(string name)
         {
-            var getAllUsers = await _context.Users.Select(person => new VoterDetailsVM()
+            var loginUserId = GetLoginUser();
+            var userMuni = await GetMunicipalityIdOfUser(loginUserId);
+            var isThisUserAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIPartise");
+            var user = await _userManager.IsInRoleAsync((await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync()), "SimpleRole");
+
+
+            if (isThisUserAdmin)
             {
-
-                Id = person.Id,
-                FullName = person.FullName,
-                Neigborhood = person.Address.Neighborhood.Name,
-                Village = person.Address.Village.Name,
-                Block = person.Address.Block.Name,
-                HouseNo = person.Address.HouseNo,
-                PhoneNumber = person.PhoneNumber,
-                Email = person.Email,
-                FacebookLink = person.SocialNetwork,
-                WorkPlace = person.Work.WorkPlace,
-                AdministrativeUnit = person.Work.AdministrativeUnit,
-                Duty = person.Work.Duty,
-                MunicipalityName = person.Address.Municipality.Name,
-                PollCenter = person.Address.PollCenter.CenterName,
-                VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-
-            }).ToListAsync();
-
-            var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
-
-            var result = new List<VoterDetailsVM>();
-
-            foreach (var user in getAllUsers)
-            {
-                foreach (var item in usersInRole)
+                var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
                 {
-                    if (user.Id == item.Id)
-                        result.Add(user);
-                }
-            }
 
-            var res = result.Where(c => c.FullName == name).FirstOrDefault();
-            return res;
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    Neigborhood = person.Address.Neighborhood.Name,
+                    Village = person.Address.Village.Name,
+                    Block = person.Address.Block.Name,
+                    HouseNo = person.Address.HouseNo,
+                    PhoneNumber = person.PhoneNumber,
+                    Email = person.Email,
+                    FacebookLink = person.SocialNetwork,
+                    WorkPlace = person.Work.WorkPlace,
+                    AdministrativeUnit = person.Work.AdministrativeUnit,
+                    Duty = person.Work.Duty,
+                    MunicipalityName = person.Address.Municipality.Name,
+                    PollCenter = person.Address.PollCenter.CenterName,
+                    VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                    InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                    PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                    CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+
+                }).FirstOrDefaultAsync();
+
+                if (user)
+                    return getUser;
+                return null;
+            }
+            else
+            {
+                var getUser = await _context.ApplicationUsers.Include(x => x.Address)
+                    .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni).Select(person => new VoterDetailsVM()
+                {
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    Neigborhood = person.Address.Neighborhood.Name,
+                    Village = person.Address.Village.Name,
+                    Block = person.Address.Block.Name,
+                    HouseNo = person.Address.HouseNo,
+                    PhoneNumber = person.PhoneNumber,
+                    Email = person.Email,
+                    FacebookLink = person.SocialNetwork,
+                    WorkPlace = person.Work.WorkPlace,
+                    AdministrativeUnit = person.Work.AdministrativeUnit,
+                    Duty = person.Work.Duty,
+                    MunicipalityName = person.Address.Municipality.Name,
+                    PollCenter = person.Address.PollCenter.CenterName,
+                    VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                    InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                    PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                    CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+
+                }).FirstOrDefaultAsync();
+
+                if (user)
+                    return getUser;
+                return null;
+            }
+;
         }
 
         public async Task<IList<string>> GetRoles(string email)
@@ -468,5 +500,8 @@ namespace Application.Repository
         public string GetLoginUser()
             => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
-#pragma warning restore CS8602
+
+#pragma warning restore CS8604 
+#pragma warning restore CS8602 
+
 }

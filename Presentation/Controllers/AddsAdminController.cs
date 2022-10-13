@@ -232,25 +232,25 @@ namespace Presentation.Controllers
         private async void VoterAddress()
         {
 
-            ViewBag.PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
-            ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
-            ViewBag.villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
-            ViewBag.neigborhoods = new SelectList(await _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
-            ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
-            ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
-            ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.PS = new SelectList( _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+            ViewBag.municipalities = new SelectList( _unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.villages = new SelectList( _unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = new SelectList( _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.pollCenters = new SelectList( _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.blocks = new SelectList( _unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.streets = new SelectList( _unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
             ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
         }
 
         private async void PoliticalOfficialAddress()
         {
-            ViewBag.municipalities = new SelectList(await _unitOfWork.Municipality.GetAll(), "Id", "Name");
-            ViewBag.villages = new SelectList(await _unitOfWork.Village.GetAll(), "Id", "Name");
-            ViewBag.neigborhoods = new SelectList(await _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
-            ViewBag.pollCenters = new SelectList(await _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
-            ViewBag.blocks = new SelectList(await _unitOfWork.Block.GetAll(), "Id", "Name");
-            ViewBag.streets = new SelectList(await _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.municipalities = new SelectList( _unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.villages = new SelectList( _unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = new SelectList( _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.pollCenters = new SelectList( _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.blocks = new SelectList( _unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.streets = new SelectList( _unitOfWork.Street.GetAll(), "Id", "Name");
             var roles = new List<Application.Models.KeyValueModel>();
 
             bool komunes = User.IsInRole("KryetarIKomunes");

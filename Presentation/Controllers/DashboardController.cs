@@ -78,7 +78,7 @@ namespace Presentation.Controllers
             try
             {
                 var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
-                ViewBag.PS = new SelectList(await _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+                ViewBag.PS = new SelectList( _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
                 ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
                 ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
                 return View(users);

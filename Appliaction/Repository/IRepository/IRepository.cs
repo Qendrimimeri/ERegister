@@ -10,7 +10,7 @@ namespace Application.Repository.IRepository
     public interface IRepository<T> where T : class    
     {
         Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter);
-        Task<IEnumerable<T>> GetAll();
+        IEnumerable<T> GetAll();
         Task Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
