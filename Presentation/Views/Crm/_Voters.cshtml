@@ -110,7 +110,7 @@ else
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
             
-            <select asp-for="GeneralReason" class="form-select" id="general-demand" onchange="generalDemand()" asp-items="@ViewBag.ArysjetPercaktues">
+            <select asp-for="GeneralReason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
                 <option disabled selected>Zgjedhni opsionet...</option>
                 <option value="shto">Shto +</option>
             </select>
@@ -137,7 +137,7 @@ else
         <div class="col-md-6 mb-2 pe-2">
 
             <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-            <select asp-for="GeneralDemands" class="form-select" id="specific-reason" onclick="specificdemand()" asp-items="@ViewBag.NdihmaNevojshme">
+            <select asp-for="GeneralDemands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
                  <option disabled selected>Zgjedhni opsionet...</option>
                 <option value="shto">Shto +</option>
             </select>
@@ -238,11 +238,24 @@ else
                      className:"test",
                  } }
                  }).then((value)=>{
-                      let item = document.createElement("option");
-                        item.value = value;
-                        item.innerText = value;
-                        Specificreasons.appendChild(item);
-                        Specificreasons.value = value;
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju duhet te shkruani!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
+
+                     console.log(value);
+
+                    let item = document.createElement("option");
+                    item.value = value;
+                    item.innerText = value;
+                    Specificreasons.appendChild(item);
+                    Specificreasons.value = value;
+
+                }
                  });
 
                 
