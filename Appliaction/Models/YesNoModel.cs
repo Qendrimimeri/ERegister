@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Appliaction.Models
 {
-    public class AdministrativeUnit
+    public class YesNoModel
     {
-        public string Value { get; set; }
-        public string Key { get; set; }
+        public int? Key { get; set; }
+        public string? Value { get; set; }
     }
 }

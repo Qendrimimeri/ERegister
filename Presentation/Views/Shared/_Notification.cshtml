@@ -1,17 +1,24 @@
-@if(TempData["success"] != null)
+@using Application.Models.Services
+@using Microsoft.Extensions.Options
+@inject IOptionsSnapshot<Toaster> _toaster;
+
+@{
+    Toaster toaster = _toaster.Value;
+}
+@if (TempData[toaster.Success] != null)
 {
-   
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.min.js"></script>
     <script type="text/javascript">
         toastr.success('@TempData["success"]');
-   </script> 
+    </script>
 }
-@if(TempData["error"] != null)
+@if (TempData[toaster.Error] != null)
 {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.min.js"></script>
     <script type="text/javascript">
         toastr.success('@TempData["error"]');
-   </script> 
+    </script>
 }

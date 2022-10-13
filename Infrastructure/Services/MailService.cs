@@ -1,6 +1,6 @@
-﻿using Appliaction.Repository;
-using Application.Models;
-using Infrastructure.Settings;
+﻿using Application.Models;
+using Application.Models.Services;
+using Application.Repository.IRepository;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -9,16 +9,17 @@ namespace Infrastructure.Services
 {
     public class MailService : IMailService
     {
-        private readonly MailSettings _mailSettings;
-        public MailService(IOptionsSnapshot<MailSettings> mailSettings)
+        private readonly Mail _mailSettings;
+        public MailService(IOptionsSnapshot<Mail> mailSettings)
         {
             _mailSettings = mailSettings.Value;
         }
-        public async Task SendEmailAsync(MailRequest mailRequest)
+        public async Task SendEmailAsync(MailRequestModel mailRequest)
         {
-            var email = new MimeMessage();
-
-            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
+            MimeMessage email = new()
+            {
+                Sender = MailboxAddress.Parse(_mailSettings.Email)
+            };
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
             email.Subject = mailRequest.Subject;
 
@@ -46,7 +47,7 @@ namespace Infrastructure.Services
             using (var smtp = new SmtpClient())
             {
                 smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-                smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+                smtp.Authenticate(_mailSettings.Email, _mailSettings.Password);
                 await smtp.SendAsync(email);
                 smtp.Disconnect(true);
             }
