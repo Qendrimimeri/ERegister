@@ -1101,7 +1101,7 @@ else if (User.IsInRole("AnetarIThjeshte"))
                 }
             });
 
-            function getneighborhoodsbymuni(user){
+            function getneighborhoodsbymuni(userId){
             let endpoint = url + "getmunis";
             let result = fetch(endpoint)
             .then(res => res.json())
@@ -1143,7 +1143,7 @@ else if (User.IsInRole("AnetarIThjeshte"))
                 let input = swal("Shto rruge te re:",{
                     content:"input",
                 })
-                then((value)=>{ 
+                .then((value)=>{ 
                 fetch(endpoint, {
                     headers: {
                         'Accept': 'application/json',
