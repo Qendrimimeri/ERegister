@@ -375,7 +375,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var userId =  GetUser();
+                var userId = await GetUser();
                 var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
                 int municipalityId;
                 if (!(id <= 0))
@@ -507,7 +507,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var userId = GetUser();
+                var userId = await GetUser();
                 var municipality = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
@@ -556,7 +556,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var userId =  GetUser();
+                var userId = await GetUser();
                 var muni = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
@@ -570,6 +570,24 @@ namespace Presentation.Controllers
                         Name = x.Name
                     });
                 return Ok(res);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
+
+        [Route("getneighborhood")]
+        public ActionResult GetNeighborhood()
+        {
+            try
+            {
+                return Ok(_context.Neighborhoods.ToList().Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }));
             }
             catch (Exception err)
             {
@@ -900,8 +918,8 @@ namespace Presentation.Controllers
             }
         }
 
-        private string GetUser()
-            => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private async Task<string> GetUser() =>
+            _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
 
