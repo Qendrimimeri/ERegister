@@ -24,6 +24,17 @@
 
 
 
+    .c{
+        background-color: #f2f2f2;
+    }
+       
+       tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+
+
     .test {
         background-color: #0d6efd;
     }
@@ -67,9 +78,30 @@
 
 
 
-<style>
+
+    <style>
+        @@media screen and (max-width:620px) {
+            .divi{
+              display:flex ;
+              flex-direction: column !important;
+          }
+          .zgjedhje{
+              width: 100%;
+          }
+          .data{
+              width:100%;
+          }
+          .politika{
+              width:100%;
+          }
+        }
+
+        @@media screen and (max-width:502px) {
+          .button-responsive{
+
     @@media screen and (max-width:502px) {
         .button-responsive {
+
             font-size: 14px;
         }
     }
@@ -77,6 +109,11 @@
     @@media screen and (max-width:462px) {
         .button-responsive {
             font-size: 12px;
+
+          }
+          
+
+
         }
     }
 
@@ -347,9 +384,99 @@
                     <div class="" id="table">
 
 
-                        <div class="d-flex flex-row justify-content-between p-4">
-                            <div class=" pt-4">
+                        <div class="d-flex flex-row justify-content-around divi">
+                          @*  <div class=" pt-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Shto nje subjekt politik
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="subjekti-politik" class="py-2">Emri i subjektit politik</label>
+                                                        <input type="text" class="form-control" id="subjekti-politik">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Anulo</button>
+                                                        <button type="submit" id="btnCall" onclick="getValue()" class="btn btn-primary">Ruaj edhe mbyll</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            <div class="col-4 pt-4 zgjedhje">
+                                <label class="">Lloji i zgjedhjeve</label>
+                                <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
+                                    <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
+                                    <option>Zgjedhjet Nacionale</option>
+                                    <option>Zgjedhjet Lokale</option>
+                                </select>
+                                @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
+                            </div>
+                            <div class="col-4 pt-4 pb-4 data">
+                                <label class="">Data e zgjedhjeve</label>
+                                <input type="date" id="year" class="form-control" required>
+                                @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 w-100 ">
+                            <div class="table-responsive">
+                                @*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
+
+                                <table class="table table-responsive align-center table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="w-50">Partia Politike</th>
+                                            <th scope="col" class="w-50">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="parti" value="1">VV</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="2">LDK</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="3">PDK</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 " required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="4">AAK</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="5">AKR</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="6">Nisma</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="7">Partite serbe</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="8">Partite joserbe</th>
+                                            <td><input type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                          <div class=" pt-4 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary politika" data-toggle="modal" data-target="#exampleModalCenter">
                                     Shto nje subjekt politik
                                 </button>
                                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -372,70 +499,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-4">
-                                <label class="">Lloji i zgjedhjeve</label>
-                                <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
-                                    <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
-                                    <option>Zgjedhjet Nacionale</option>
-                                    <option>Zgjedhjet Lokale</option>
-                                </select>
-                                @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
-                            </div>
-                            <div class="col-4">
-                                <label class="">Data e zgjedhjeve</label>
-                                <input type="date" id="year" class="form-control" required>
-                                @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
-                            </div>
-                        </div>
 
-                        <div class="col-md-6 w-100 pt-5">
-                            <div class="table-responsive">
-                                @*<span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>*@
-
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="w-50">Partia Politike</th>
-                                            <th scope="col" class="w-50">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row" class="parti" value="1">VV</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="2">LDK</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="3">PDK</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="4">AAK</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="5">AKR</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="6">Nisma</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="7">Partite serbe</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="8">Partite joserbe</th>
-                                            <td><input type="number" class="partyNumber border-0 votat w-100" required /></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
