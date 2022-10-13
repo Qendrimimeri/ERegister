@@ -50,36 +50,69 @@ namespace Application.Repository
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
-
-            var getAllUsers = await _context.Users.Select(person => new PersonVM()
+            var loginUserId = GetLoginUser();
+            var userMuni = await GetMunicipalityIdOfUser(loginUserId);
+            var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIPartise");
+            if (isThisUserSuperAdmin)
             {
-                Id = person.Id,
-                FullName = person.FullName,
-                PhoneNumber = person.PhoneNumber,
-                MunicipalityName = person.Address.Municipality.Name,
-                PollCenter = person.Address.PollCenter.CenterNumber,
-                VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
-
-
-                ActualStatus = person.ActualStatus
-            }).ToListAsync();
-
-            var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
-
-            var result = new List<PersonVM>();
-            foreach (var user in getAllUsers)
-            {
-                foreach (var item in usersInRole)
+                var getAllUsers = await _context.Users.Select(person => new PersonVM()
                 {
-                    if (user.Id == item.Id)
-                        result.Add(user);
-                }
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    PhoneNumber = person.PhoneNumber,
+                    MunicipalityName = person.Address.Municipality.Name,
+                    PollCenter = person.Address.PollCenter.CenterNumber,
+                    VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                    PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                    CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                    InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                    ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+
+
+                    ActualStatus = person.ActualStatus
+                }).ToListAsync();
+
+                var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+
+                var result = new List<PersonVM>();
+                foreach (var user in getAllUsers)
+                    foreach (var item in usersInRole)
+                        if (user.Id == item.Id)
+                            result.Add(user);
+
+                return result;
             }
-            return result;
+            else
+            {
+                var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address)
+                    .Where(x => x.Address.MunicipalityId == userMuni).Select(person => new PersonVM()
+                {
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    PhoneNumber = person.PhoneNumber,
+                    MunicipalityName = person.Address.Municipality.Name,
+                    PollCenter = person.Address.PollCenter.CenterNumber,
+                    VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                    PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                    CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                    InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                    ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+
+
+                    ActualStatus = person.ActualStatus
+                }).ToListAsync();
+
+                var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+
+                var result = new List<PersonVM>();
+                foreach (var user in getAllUsers)
+                    foreach (var item in usersInRole)
+                        if (user.Id == item.Id)
+                            result.Add(user);
+
+                return result;
+            }
         }
 
         //VoterDetails
@@ -87,12 +120,12 @@ namespace Application.Repository
         {
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
-            var isThisUserAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+            var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
                                  .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIPartise");
             var user = await _userManager.IsInRoleAsync((await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync()), "SimpleRole");
 
 
-            if (isThisUserAdmin)
+            if (isThisUserSuperAdmin)
             {
                 var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
                 {
