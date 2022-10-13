@@ -1,7 +1,13 @@
-﻿@model VoterDetailsVM
-
+@model VoterDetailsVM
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
+@inject IUnitOfWork _unitOfWork;
+@inject IOptionsSnapshot<Roles> _roles;
 @{
     Layout = "_DashboardLayout";
+    var userId = await _userManager.FindByNameAsync(User.Identity.Name);
+    var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
+    var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
+    var roles = _roles.Value;
 }
 <style>
 
@@ -105,7 +111,7 @@
                 source: function (request, response) {
                     $.ajax({
                         url: '/Crm/AutoComplete/',
-                        data: { "prefix": request.term },
+                        data: { "prefix": request.term, "id": @userMuniId },
                         type: "POST",
                         success: function (data) {
                             response($.map(data, function (item) {
