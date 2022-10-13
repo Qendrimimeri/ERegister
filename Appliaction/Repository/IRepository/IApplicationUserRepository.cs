@@ -30,7 +30,9 @@ namespace Application.Repository.IRepository
 
         Task<int?> GetVillageIdOfUser(string id);
 
-        Task<int?> GetNeigborhoodIdOfUser(string id);
+        Task<int?> GetNeigborhoodIdOfCityForUser(string id);
+
+        Task<int?> GetNeigborhoodIdOfVillageForUser(string city, int? fshati);
 
         Task<ApplicationUser> FindUserByIdAsync(string id);
 

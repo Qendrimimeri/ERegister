@@ -578,7 +578,6 @@ namespace Presentation.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("addneighborhood")]
         public ActionResult AddNeighborhood([FromBody] AddNeighborhoodVM model)

@@ -309,8 +309,12 @@ namespace Application.Repository
         public async Task<int?> GetVillageIdOfUser(string id)
             => await _context.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.VillageId).FirstOrDefaultAsync();
 
-        public async Task<int?> GetNeigborhoodIdOfUser(string id)
-            => await _context.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
+        public async Task<int?> GetNeigborhoodIdOfCityForUser(string id)
+            => await _context.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == id && x.Address.Village == null).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
+
+        public async Task<int?> GetNeigborhoodIdOfVillageForUser(string city, int? fshatiId)
+           => await _context.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == city && x.Address.VillageId == fshatiId).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
+
 
         public async Task<bool> LoginAsync(LoginVM login)
         {
@@ -338,6 +342,7 @@ namespace Application.Repository
                 VillageId = model.Village,
                 BlockId = model.Block,
                 StreetId = model.Street,
+                NeighborhoodId = model.Neigborhood,
                 PollCenterId = int.Parse(model.PollCenter),
             };
             await _context.Addresses.AddAsync(address);
@@ -409,6 +414,7 @@ namespace Application.Repository
                 VillageId = model.Village,
                 BlockId = model.Block,
                 StreetId = model.Street,
+                NeighborhoodId = model.Neigborhood,
                 PollCenterId = int.Parse(model.PollCenter),
             };
 
