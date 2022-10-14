@@ -10,12 +10,16 @@
   <ItemGroup>
     <Compile Remove="Helpers\**" />
     <Compile Remove="Helper\**" />
+    <Compile Remove="Middlewares\**" />
     <Content Remove="Helpers\**" />
     <Content Remove="Helper\**" />
+    <Content Remove="Middlewares\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Helper\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
     <None Remove="Helpers\**" />
     <None Remove="Helper\**" />
+    <None Remove="Middlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +27,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
@@ -45,7 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
     <Folder Include="wwwroot\Document\" />
   </ItemGroup>
 

@@ -454,9 +454,12 @@ namespace Presentation.Controllers
                         gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
                     }
 
+                var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
+
                 var nacionale = new KqzResultsByCity()
                 {
                     City = municipalityName,
+                    PoliticSubjects = politicSubjects,
                     LastYear = zgjedhjetNacionale,
                     ThisYear = gruping
                 };
@@ -464,6 +467,7 @@ namespace Presentation.Controllers
                 var lokale = new KqzResultsByCity()
                 {
                     City = municipalityName,
+                    PoliticSubjects = politicSubjects,
                     LastYear = zgjedhjetLokale,
                     ThisYear = gruping
                 };
@@ -578,6 +582,23 @@ namespace Presentation.Controllers
             }
         }
 
+        [Route("getneighborhood")]
+        public ActionResult GetNeighborhood()
+        {
+            try
+            {
+                return Ok(_context.Neighborhoods.ToList().Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }));
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
 
         [HttpPost]
         [Route("addneighborhood")]

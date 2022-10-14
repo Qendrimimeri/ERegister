@@ -1,20 +1,14 @@
 using Application.Repository;
-using Appliaction.Repository;
-using Application.Repository;
 using Domain.Data;
 using Domain.Data.Entities;
-using Appliaction.Models;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Presentation;
-using System;
-using Application.Repository.IRepository;
-using Infrastructure.Settings;
 using Serilog;
-using System.Configuration;
 using Microsoft.Extensions.Options;
-using Application.Models;
+using Application.Models.Services;
+using AppDomain = Application.Models.Services.AppDomain;
+using Application.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Dev");
@@ -23,10 +17,8 @@ var connectionString = builder.Configuration.GetConnectionString("Dev");
 builder.Services.AddTransient<SuperAdminInitializer>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(MailSettings.SectionName));
+builder.Services.Configure<Mail>(builder.Configuration.GetSection(Mail.SectionName));
 builder.Services.AddTransient<IMailService, MailService>();
-
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedEmail = false;
@@ -41,27 +33,33 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
 
+
+builder.Services.Configure<ActualStatus>(builder.Configuration.GetSection(ActualStatus.SectionName));
 builder.Services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
-builder.Services.Configure<AppRoles>(builder.Configuration.GetSection(AppRoles.SectionName));
+builder.Services.Configure<AdministrativeUnits>(builder.Configuration.GetSection(AdministrativeUnits.SectionName));
+builder.Services.Configure<AppDomain>(builder.Configuration.GetSection(AppDomain.SectionName));
+builder.Services.Configure<ExceptionHandler>(builder.Configuration.GetSection(ExceptionHandler.SectionName));
+builder.Services.Configure<GeneralDemands>(builder.Configuration.GetSection(GeneralDemands.SectionName));
+builder.Services.Configure<GeneralReasons>(builder.Configuration.GetSection(GeneralReasons.SectionName));
+builder.Services.Configure<Roles>(builder.Configuration.GetSection(Roles.SectionName));
+builder.Services.Configure<SuccessChances>(builder.Configuration.GetSection(SuccessChances.SectionName));
 builder.Services.Configure<Toaster>(builder.Configuration.GetSection(Toaster.SectionName));
-builder.Services.Configure<ErrorHandler>(builder.Configuration.GetSection(ErrorHandler.SectionName));
-
-
-
+builder.Services.Configure<YesNo>(builder.Configuration.GetSection(YesNo.SectionName));
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
-
-
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)), ServiceLifetime.Transient);
-
-
+    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)), 
+                                ServiceLifetime.Transient);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 
 var app = builder.Build();
 
@@ -94,5 +92,5 @@ app.MapControllerRoute(
 var init = app.Services.CreateScope();
 new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>(),
                           init.ServiceProvider.GetService<IOptionsSnapshot<Admin>>(),
-                          init.ServiceProvider.GetService<IOptionsSnapshot<AppRoles>>()).Initialize();
+                          init.ServiceProvider.GetService<IOptionsSnapshot<Roles>>()).Initialize();
 app.Run();

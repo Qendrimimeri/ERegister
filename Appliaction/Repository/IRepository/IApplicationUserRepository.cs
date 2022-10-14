@@ -24,13 +24,15 @@ namespace Application.Repository.IRepository
         
         Task<List<PersonVM>> GetPersonInfoAsync();
 
-        Task<List<VoterDetailsVM>> GetVoterInfoAsync();
+        Task<VoterDetailsVM> GetVoterInfoAsync(string name);
 
         Task<int?> GetMunicipalityIdOfUser(string id);
 
         Task<int?> GetVillageIdOfUser(string id);
 
-        Task<int?> GetNeigborhoodIdOfUser(string id);
+        Task<int?> GetNeigborhoodIdOfCityForUser(string id);
+
+        Task<int?> GetNeigborhoodIdOfVillageForUser(string city, int? fshati);
 
         Task<ApplicationUser> FindUserByIdAsync(string id);
 
@@ -50,8 +52,19 @@ namespace Application.Repository.IRepository
 
         Task<bool> EditUserProfile(ProfileVM user);
 
-        Task<List<RoleModel>> GetAllRolesAsync();
+        Task<List<KeyValueModel>> GetAllRolesAsync();
 
+        Task<bool> LoginAsync(LoginVM login);
+
+        Task<bool> RegisterVoterAsync(RegisterVM register);
+
+        Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model);
+
+        Task<bool> ForgotPasswordAsync(string email);
+
+        Task<IdentityResult> ResetPasswordAsync(ResetPasswordVM model);
+
+        string GetLoginUser();
 
     }
 }

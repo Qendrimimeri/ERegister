@@ -2,7 +2,7 @@
 
 @if(ViewBag.UserNull == "Nuk ka te dhena")
 {
-    <p class="text-danger"> "@ViewBag.Name" nuk u gjend!</p>
+    <small class="text-danger">Nuk ka të dhëna për "@ViewBag.Name"!</small>
     
   
 }
@@ -108,7 +108,7 @@ else
     <input hidden asp-for="Id" id="userId"/>
     <div class="d-flex flex-row align-content-around flex-md-row flex-column">
         <div class="col-md-6 mb-2 pe-2">
-            <label class="pt-3">Zgjedh/Shto një arsye përcaktuese </label>
+            <label class="pt-3">Zgjedh/Shto arsyjen që percakton voten tuaj</label>
             
             <select asp-for="GeneralReason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
                 <option disabled selected>Zgjedhni opsionet...</option>
@@ -123,7 +123,7 @@ else
         </div>
     </div>
     <div class="form-group pe-2">
-        <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet : </label>
+        <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet: </label>
         <textarea type="text" asp-for="ActivitiesYourPlan" class="form-control" id="AktivitetePerNdryshim"> </textarea>
     </div>
     <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
@@ -144,7 +144,7 @@ else
         </div>
     </div>
     <div class="form-group pe-2 pb-3 ">
-        <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kerkuar dhe ndikimin e sukses</label>
+        <label class="pt-3" for="NdihmaEKerkuar">Pershkruani arsyeshmerine e ndihmes se kërkuar dhe ndikimin në sukses</label>
         <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
     </div>
 <div class="d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
@@ -172,7 +172,7 @@ else
         }
         });'
         class = "btn btn-danger">Anulo
-    </a>&nbsp&nbsp 
+    </a>&nbsp &nbsp 
      <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp 
      <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
 </div>
@@ -277,11 +277,20 @@ else
                      className:"test",
                  } }
                  }).then((value)=>{
+                      if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                      let item = document.createElement("option");
                         item.value = value;
                         item.innerText = value;
                         Specificdemands.appendChild(item);
                         Specificdemands.value = value;
+                    }
                  });
       }
   });

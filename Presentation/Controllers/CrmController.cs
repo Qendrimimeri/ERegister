@@ -1,4 +1,5 @@
-﻿using Application.Repository;
+﻿using Application.Models.Services;
+using Application.Repository;
 using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
@@ -6,6 +7,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 
 namespace Presentation.Controllers
 
@@ -17,15 +19,18 @@ namespace Presentation.Controllers
         private readonly string errorView = "../Error/ErrorInfo";
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
+        private readonly Toaster _toaster;
         private readonly ILogger<CrmController> _logger;
 
         public CrmController(IUnitOfWork unitOfWork,
                              ILogger<CrmController> logger,
-                             ApplicationDbContext context)
+                             ApplicationDbContext context,
+                             IOptionsSnapshot<Toaster> toaster)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _context = context;
+            _toaster = toaster.Value;
         }
 
 
@@ -42,23 +47,20 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
+
         public async Task<IActionResult> Voters(string name)
         {
             try
             {
-                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
-                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
-
-                var vm = await _unitOfWork.ApplicationUser.GetVoterInfoAsync();
-
-                var vm1 = vm.Where(c => c.FullName == name).FirstOrDefault();
-                if (vm1 == null)
+                Data();
+                var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
+                if (res == null)
                 {
                     ViewBag.Name = name;
                     ViewBag.UserNull = "Nuk ka te dhena";
                 }
-                return PartialView("_Voters", vm1);
+                return PartialView("_Voters", (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)));
             }
             catch (Exception err)
             {
@@ -78,7 +80,7 @@ namespace Presentation.Controllers
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
                 ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
 
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index");
             }
             catch (Exception err)
@@ -146,7 +148,7 @@ namespace Presentation.Controllers
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
                 ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
 
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index","Dashboard");
             }
             catch (Exception err)
@@ -163,7 +165,7 @@ namespace Presentation.Controllers
             {
                 _unitOfWork.PollRelated.Update(pollRelated);
                 await _unitOfWork.Done();
-                TempData["success"] = "U ruajt me sukses!";
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index");
             }
             catch (Exception err)
@@ -185,16 +187,22 @@ namespace Presentation.Controllers
 
         #region API CALL
 
-        //public async Task<bool> GeneralDemand([FromQuery] string reason, string userId)
-        //{
-        //    var res = await _unitOfWork.PollRelated.updateSpecificReasonAsync(reason, userId);
-        //    return true;
-        //}
+
         public async Task<bool> SpecificDemand([FromQuery] string reason, string userId)
+            => await _unitOfWork.PollRelated.updateSpecificDemandAsync(reason, userId);
+
+        #endregion
+
+
+        #region ViewBag Data
+        
+        private void Data()
         {
-            var res = await _unitOfWork.PollRelated.updateSpecificDemandAsync(reason, userId);
-            return true;
+            ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+            ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+            ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
         }
+        
         #endregion
     }
 }

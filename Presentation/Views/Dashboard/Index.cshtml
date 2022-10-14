@@ -1,16 +1,20 @@
-﻿ @using Application.ViewModels
-@using Domain.Data.Entities
-@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
-
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+@inject IOptionsSnapshot<Roles> _roles;
 @{
     Layout = "_DashboardLayout";
+    var roles = _roles.Value;
 }
 @model RegisterVM;
 <div>
     <div class="card">
-        <h4 class="text-center pt-4">Mirë se vini <strong> @((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</strong> </h4>
+        <h4 class="text-center pt-4">
+            Mirë se vini <strong>
+                @((await
+                    _userManager.FindByNameAsync(User.Identity.Name)).FullName)
+            </strong>
+        </h4>
         <hr />
-        @if (User.IsInRole("KryetarIPartise"))
+        @if (User.IsInRole(roles.KryetarIPartise))
         {
             <div class="d-flex justify-content-around p-2 pt-2">
                 <div class="pt-2">
@@ -23,8 +27,6 @@
                 </div>
             </div>
         }
-
-
     </div>
 </div>
 <div class="col-lg-12">
@@ -34,144 +36,148 @@
                 <div class="card-body">
                     <h5 class="card-title" id="city-nacinale"></h5>
                     <div id="columnChart"></div>
-                    <script>
-
-                        const kqzrez = "https://localhost:7278/api/service";
-                        var endpoint = "/kqzresultsbymuni";
-                        let response = fetch(`${kqzrez}${endpoint}`).then(res => res.json());
-                        let rez = response.then((values) => {
-
-                            const lastYear = values.Nacionale["lastYear"];
-                            const thisYear = values.Nacionale["thisYear"];
-                            const cityName = values.Nacionale["city"];
-                            const lastYearValues = Object.values(lastYear);
-                            const thisYearValues = Object.values(thisYear);
-                            var politicalSubjects = Object.keys(lastYear);
-
-                            var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
-
-                            new ApexCharts(document.querySelector("#columnChart"), {
-                                series: [{
-                                    name: 'Viti 2021',
-                                    data: lastYearValues
-                                }, {
-                                    name: 'Tani',
-                                    data: thisYearValues
-                                }],
-                                chart: {
-                                    type: 'bar',
-                                    height: 350
-                                }, colors: ['#339af0', '#f76707'],
-                                stroke: {
-                                    curve: 'smooth',
-                                    width: 0.5,
-                                },
-                                plotOptions: {
-                                    bar: {
-                                        horizontal: false,
-                                        columnWidth: '55%',
-                                        endingShape: 'rounded'
-                                    },
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                stroke: {
-                                    show: true,
-                                    width: 2,
-                                    colors: ['transparent']
-                                },
-                                xaxis: {
-                                    categories: politicalSubjects,
-                                },
-                                fill: {
-                                    opacity: 1,
-                                    colors: ['#339af0', '#f76707']
-                                },
-                                tooltip: {
-                                    y: {
-                                        formatter: function (val) {
-                                            return " " + val + " vota"
-                                        }
-                                    }
-                                }
-                            }).render();
-                        })
-                    </script>
                 </div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" id="city-name">Komuna e Prishtines - Zgjedhjet Lokale</h5>
+                    <h5 class="card-title" id="city-lokale"></h5>
                     <div id="columnChart1"></div>
-                    <script>
-                        let res = response.then((results) => {
-
-                            const lastYearLocal = results.Lokale["lastYear"]
-                            const thisYearLocal = results.Lokale["thisYear"]
-                            const cityNameLocal = results.Nacionale["city"];
-                            const lastYearValuesLocal = Object.values(lastYearLocal);
-                            const thisYearValuesLocal = Object.values(thisYearLocal);
-                            var politicalSubjectsNow = Object.keys(lastYearLocal)
-                            var selectedLocalCity = document.getElementById("city-name").innerText = `${cityNameLocal} - Zgjedhjet Lokale`;
-
-                            new ApexCharts(document.querySelector("#columnChart1"), {
-                                series: [{
-                                    name: 'Viti 2021',
-                                    data: lastYearValuesLocal
-                                }, {
-                                    name: 'Tani',
-                                    data: thisYearValuesLocal
-                                }],
-                                chart: {
-                                    type: 'bar',
-                                    height: 350
-                                }, colors: ['#339af0', '#f76707'],
-                                stroke: {
-                                    curve: 'smooth',
-                                    width: 0.5,
-                                },
-                                plotOptions: {
-                                    bar: {
-                                        horizontal: false,
-                                        columnWidth: '55%',
-                                        endingShape: 'rounded'
-                                    },
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                stroke: {
-                                    show: true,
-                                    width: 2,
-                                    colors: ['transparent']
-                                },
-                                xaxis: {
-                                    categories: politicalSubjectsNow
-                                },
-                                fill: {
-                                    opacity: 1,
-                                    colors: ['#339af0', '#f76707']
-                                },
-                                tooltip: {
-                                    y: {
-                                        formatter: function (val) {
-                                            return " " + val + " vota"
-                                        }
-                                    }
-                                }
-                            }).render();
-                        })
-                    </script>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts
+@if (!User.IsInRole(roles.KryetarIPartise))
+{
+    @section Scripts
+    {
+    <script>
+        const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni";
+        let response = fetch(kqzrez).then(res => res.json());
+        let rez = response.then((values) => {
+            const lastYear = values.Nacionale["lastYear"];
+            const thisYear = values.Nacionale["thisYear"];
+            const cityName = values.Nacionale["city"];
+            const politicalSubjects = values.Nacionale["politicSubjects"];
+
+            var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
+            var selectedCity = document.getElementById("city-lokale").innerText = `${cityName} - Zgjedhjet Lokale`;
+
+            console.log(values)
+            console.log(lastYear)
+            console.log(thisYear)
+            console.log(politicalSubjects)
+
+            new ApexCharts(document.querySelector("#columnChart"), {
+                series: [{
+                    name: 'Viti 2021',
+                    data: [lastYear[politicalSubjects[0]], lastYear[politicalSubjects[1]], lastYear[politicalSubjects[2]], lastYear[politicalSubjects[3]], lastYear[politicalSubjects[4]], lastYear[politicalSubjects[5]], lastYear[politicalSubjects[6]], lastYear[politicalSubjects[7]]]
+                }, {
+                    name: 'Tani',
+                    data: [thisYear[politicalSubjects[0]], thisYear[politicalSubjects[1]], thisYear[politicalSubjects[2]], thisYear[politicalSubjects[3]], thisYear[politicalSubjects[4]], thisYear[politicalSubjects[5]], thisYear[politicalSubjects[6]], thisYear[politicalSubjects[7]]]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                }, colors: ['#339af0', '#f76707'],
+                stroke: {
+                    curve: 'smooth',
+                    width: 0.5,
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: politicalSubjects,
+                },
+                fill: {
+                    opacity: 1,
+                    colors: ['#339af0', '#f76707']
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return " " + val + " vota"
+                        }
+                    }
+                }
+            }).render();
+        })
+
+        response.then((results) => {
+            const lastYearLocal = results.Lokale["lastYear"]
+            const thisYearLocal = results.Lokale["thisYear"]
+
+            const politicalSubjects = results.Nacionale["politicSubjects"];
+
+            new ApexCharts(document.querySelector("#columnChart1"), {
+                series: [{
+                    name: 'Viti 2021',
+                    data: [lastYearLocal[politicalSubjects[0]], lastYearLocal[politicalSubjects[1]], lastYearLocal[politicalSubjects[2]], lastYearLocal[politicalSubjects[3]], lastYearLocal[politicalSubjects[4]], lastYearLocal[politicalSubjects[5]], lastYearLocal[politicalSubjects[6]], lastYearLocal[politicalSubjects[7]]]
+                }, {
+                    name: 'Tani',
+                    data: [thisYearLocal[politicalSubjects[0]], thisYearLocal[politicalSubjects[1]], thisYearLocal[politicalSubjects[2]], thisYearLocal[politicalSubjects[3]], thisYearLocal[politicalSubjects[4]], thisYearLocal[politicalSubjects[5]], thisYearLocal[politicalSubjects[6]], thisYearLocal[politicalSubjects[7]]]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                }, colors: ['#339af0', '#f76707'],
+                stroke: {
+                    curve: 'smooth',
+                    width: 0.5,
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: politicalSubjects
+                },
+                fill: {
+                    opacity: 1,
+                    colors: ['#339af0', '#f76707']
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return " " + val + " vota"
+                        }
+                    }
+                }
+            }).render();
+        })
+    </script>
+}
+}
+else
+{
+    @section Scripts
     {
     <script>
         const munis = document.querySelector('#munis');
@@ -190,10 +196,129 @@
                     });
                 });
         }
-
         function getId() {
             var select = document.getElementById("munis").value
-            fetch(`https://localhost:7278/api/service/kqzresultsbymuni?id=${select}`)
+
+            console.log(select)
+            const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni?id=" + select;
+            let response = fetch(kqzrez).then(res => res.json());
+            let rez = response.then((values) => {
+                const lastYear = values.Nacionale["lastYear"];
+                const thisYear = values.Nacionale["thisYear"];
+                const cityName = values.Nacionale["city"];
+                const politicalSubjects = values.Nacionale["politicSubjects"];
+
+                var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
+                var selectedCity = document.getElementById("city-lokale").innerText = `${cityName} - Zgjedhjet Lokale`;
+
+                console.log(values)
+                console.log(lastYear)
+                console.log(thisYear)
+                console.log(politicalSubjects)
+
+                new ApexCharts(document.querySelector("#columnChart"), {
+                    series: [{
+                        name: 'Viti 2021',
+                        data: [lastYear[politicalSubjects[0]], lastYear[politicalSubjects[1]], lastYear[politicalSubjects[2]], lastYear[politicalSubjects[3]], lastYear[politicalSubjects[4]], lastYear[politicalSubjects[5]], lastYear[politicalSubjects[6]], lastYear[politicalSubjects[7]]]
+                    }, {
+                        name: 'Tani',
+                        data: [thisYear[politicalSubjects[0]], thisYear[politicalSubjects[1]], thisYear[politicalSubjects[2]], thisYear[politicalSubjects[3]], thisYear[politicalSubjects[4]], thisYear[politicalSubjects[5]], thisYear[politicalSubjects[6]], thisYear[politicalSubjects[7]]]
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350
+                    }, colors: ['#339af0', '#f76707'],
+                    stroke: {
+                        curve: 'smooth',
+                        width: 0.5,
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            endingShape: 'rounded'
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: ['transparent']
+                    },
+                    xaxis: {
+                        categories: politicalSubjects,
+                    },
+                    fill: {
+                        opacity: 1,
+                        colors: ['#339af0', '#f76707']
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function (val) {
+                                return " " + val + " vota"
+                            }
+                        }
+                    }
+                }).render();
+            })
+
+            response.then((results) => {
+                const lastYearLocal = results.Lokale["lastYear"]
+                const thisYearLocal = results.Lokale["thisYear"]
+
+                const politicalSubjects = results.Nacionale["politicSubjects"];
+
+                new ApexCharts(document.querySelector("#columnChart1"), {
+                    series: [{
+                        name: 'Viti 2021',
+                        data: [lastYearLocal[politicalSubjects[0]], lastYearLocal[politicalSubjects[1]], lastYearLocal[politicalSubjects[2]], lastYearLocal[politicalSubjects[3]], lastYearLocal[politicalSubjects[4]], lastYearLocal[politicalSubjects[5]], lastYearLocal[politicalSubjects[6]], lastYearLocal[politicalSubjects[7]]]
+                    }, {
+                        name: 'Tani',
+                        data: [thisYearLocal[politicalSubjects[0]], thisYearLocal[politicalSubjects[1]], thisYearLocal[politicalSubjects[2]], thisYearLocal[politicalSubjects[3]], thisYearLocal[politicalSubjects[4]], thisYearLocal[politicalSubjects[5]], thisYearLocal[politicalSubjects[6]], thisYearLocal[politicalSubjects[7]]]
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350
+                    }, colors: ['#339af0', '#f76707'],
+                    stroke: {
+                        curve: 'smooth',
+                        width: 0.5,
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            endingShape: 'rounded'
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: ['transparent']
+                    },
+                    xaxis: {
+                        categories: politicalSubjects
+                    },
+                    fill: {
+                        opacity: 1,
+                        colors: ['#339af0', '#f76707']
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function (val) {
+                                return " " + val + " vota"
+                            }
+                        }
+                    }
+                }).render();
+            })
         }
+
     </script>
+}
 }

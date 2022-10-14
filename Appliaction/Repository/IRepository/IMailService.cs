@@ -1,14 +1,9 @@
 ﻿using Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Appliaction.Repository
+namespace Application.Repository.IRepository
 {
     public interface IMailService
     {
-        Task SendEmailAsync(MailRequest mailRequest);
+        Task SendEmailAsync(MailRequestModel mailRequest);
     }
 }

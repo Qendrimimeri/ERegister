@@ -51,6 +51,8 @@ namespace Application.Repository
             return true;
 
         }
+
+
         public async Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model)
         {
             var random = new Random();
@@ -77,6 +79,7 @@ namespace Application.Repository
             return true;
         }
 
+
         public async Task<bool> updateSpecificReasonAsync(string? reason, string userId)
         {
             var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
@@ -84,6 +87,8 @@ namespace Application.Repository
             var res = await _db.SaveChangesAsync();   
             return true;
         }
+
+
         public async Task<bool> updateSpecificDemandAsync(string? reason, string userId)
         {
             var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();

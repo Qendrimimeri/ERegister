@@ -1,14 +1,16 @@
-﻿@using Domain.Data.Entities
-@using System.Security.Claims
-@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
-@inject IHttpContextAccessor _context;
-
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
+@inject IOptionsSnapshot<Roles> _roles;
+@inject RoleManager<IdentityRole> _roleManager;
+@inject IUnitOfWork _unitOfWork;
 @{
-    var res = _context.HttpContext.Response.StatusCode;
-    var result = res;
+    Roles roles = _roles.Value;
+    var userRole = User.Identities.FirstOrDefault().Claims.Select(x => x.Value).Skip(4).Take(1).FirstOrDefault();
+    var roleConfig = userRole.Replace("I", " i ").ToLower().Capitalize();
+    var userName = await _userManager.FindByNameAsync(User.Identity.Name);
 }
 <!DOCTYPE html>
-<html lang="en">.
+<html lang="en">
+.
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -50,8 +52,8 @@
                     </a><!-- End Profile Iamge Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>@((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</h6>
-                            <span>@((await _userManager.FindByNameAsync(User.Identity.Name)).FullName)</span>
+                            <h6>@(userName.FullName)</h6>
+                            <span>@(roleConfig)</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -99,7 +101,7 @@
     </header>
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav mb-auto" id="sidebar-nav">
-            @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
+            @if (User.IsInRole(roles.KryetarIPartise) || User.IsInRole(roles.KryetarIKomunes))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Index">
@@ -107,8 +109,8 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-}
- @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes") || User.IsInRole("KryetarIFshatit"))
+            }
+            @if (User.IsInRole(roles.KryetarIPartise) || User.IsInRole(roles.KryetarIKomunes) || User.IsInRole(roles.KryetarIFshatit))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Crm" asp-action="Index">
@@ -140,7 +142,7 @@
                     </ul>
                 </li>
             }
-           @if (User.IsInRole("AnetarIThjeshte"))
+            @if (User.IsInRole(roles.AnetarIThjeshte))
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="AddsAdmin" asp-action="AddVoter">
@@ -149,15 +151,6 @@
                     </a>
                 </li>
             }
-           @* @if (User.IsInRole("KryetarIPartise") || User.IsInRole("KryetarIKomunes"))
-            {
-                <li class="nav-item">
-                    <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="KqzResult">
-                        <i class="bi bi-check-lg"></i>
-                        <span>Rezultatet KQZ</span>
-                    </a>
-                </li>
-            }*@
             <li class="accordion-item mt-5">
                 <form asp-controller="Account" asp-action="Logout">
                     <button class="dropdown-item d-flex align-items-center nav-link collapsed">
@@ -187,9 +180,9 @@
         </div>
     </footer><!-- End Footer -->
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-   
+
     <script src="~/dashboard-admin/vendor/apexcharts/apexcharts.min.js"></script>
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/dashboard-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/dashboard-admin/vendor/chart.js/chart.min.js"></script>
     <script src="~/dashboard-admin/vendor/echarts/echarts.min.js"></script>

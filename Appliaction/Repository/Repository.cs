@@ -39,8 +39,8 @@ namespace Application.Repository
         public async Task Add(T entity) 
             => await db.Set<T>().AddAsync(entity);
 
-        public async Task<IEnumerable<T>> GetAll() 
-            => db.Set<T>().ToList();
+        public  IEnumerable<T> GetAll() 
+            =>  db.Set<T>().ToList();
 
         public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter) 
             => await db.Set<T>().Where(filter).FirstOrDefaultAsync();
