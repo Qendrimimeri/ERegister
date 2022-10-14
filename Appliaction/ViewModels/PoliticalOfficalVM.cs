@@ -26,8 +26,9 @@ namespace Application.ViewModels
         
 
         public int? Village { get; set; }
-        
 
+
+        [Required(ErrorMessage = "Ju lutem zgjedhni lagjen!")]
         public int? Neigborhood { get; set; }
 
         public int? Street { get; set; }

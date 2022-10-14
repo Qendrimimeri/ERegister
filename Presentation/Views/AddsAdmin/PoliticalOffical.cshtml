@@ -184,6 +184,7 @@
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
                                     <label>Lagja</label>
@@ -206,6 +207,8 @@
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
+
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
                                     <label>Lagja</label>
@@ -223,6 +226,8 @@
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
+
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2" id="streetByVillage">
                                     <label>Rruga</label>
@@ -1095,40 +1100,52 @@ function addNeigborhoodToDb(userMuniId) {
                  } }
                 })
                 .then((value)=>{
-                    //var villagess;
-            if(input){
-            let sm1 = document.querySelector("#neigborhoods");
-            console.log(sm1);
-            let sm2= document.querySelector("#neigborhoodsVillage");
-            console.log(sm2);
-             var sm;
-             console.log(sm)
-             if(sm1.selectedIndex !== 0) {
-             sm = sm1.options[sm1.selectedIndex].value;
-              } else if(sm2.selectedIndex !== 0){
-              sm = sm2.options[sm2.selectedIndex].value;
-          }
-         else{
-              sm = null;
-          }
-            let munis = document.getElementById('munis');
-            let villages = document.getElementById('villages');
-               var villagess;
-         if(villages.selectedIndex !== 0) {
-             villagess = villages.options[villages.selectedIndex].value;
-          }
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ centerNumber: value,
-                    centerName: "", municipalitydId: @userMuniId, neighborhoodId: sm, villageId: villagess })
-            })
-            .then(() => addPollCenterNeighborhoodToList(sm))
-            .then(()=> addPollCenterToList(villagess));
-            }
+                    if (value == "") {
+
+                        console.log(value);
+                        swal("Ju lutem shkruani të dhëna valide!");
+                        return false;
+
+                    }
+                    else if (value !== null) {
+                        //var villagess;
+
+                        if (input) {
+                            let sm1 = document.querySelector("#neigborhoods");
+                            console.log(sm1);
+                            let sm2 = document.querySelector("#neigborhoodsVillage");
+                            console.log(sm2);
+                            var sm;
+                            console.log(sm)
+                            if (sm1.selectedIndex !== 0) {
+                                sm = sm1.options[sm1.selectedIndex].value;
+                            } else if (sm2.selectedIndex !== 0) {
+                                sm = sm2.options[sm2.selectedIndex].value;
+                            }
+                            else {
+                                sm = null;
+                            }
+                            let munis = document.getElementById('munis');
+                            let villages = document.getElementById('villages');
+                            var villagess;
+                            if (villages.selectedIndex !== 0) {
+                                villagess = villages.options[villages.selectedIndex].value;
+                            }
+                            fetch(endpoint, {
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                method: 'post',
+                                body: JSON.stringify({
+                                    centerNumber: value,
+                                    centerName: "", municipalitydId: @userMuniId, neighborhoodId: sm, villageId: villagess
+                                })
+                            })
+                                .then(() => addPollCenterNeighborhoodToList(sm))
+                                .then(() => addPollCenterToList(villagess));
+                        }
+                    }
                 });
         }
 

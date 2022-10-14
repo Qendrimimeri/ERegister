@@ -151,7 +151,6 @@ namespace Presentation.Controllers
             }
         }
 
-
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAndOpenCase(Kqzregister appuser)
         {
