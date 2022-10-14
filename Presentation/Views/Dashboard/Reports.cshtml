@@ -103,14 +103,14 @@
                         <div class="d-flex flex-row justify-content-end pt-3 ">
                                  <a href = 'javascript:
                                   swal({
-                                  title: "A jeni i sigurt?",
+                                  title: "A jeni të sigurtë?",
                                   icon: "warning",
                                   buttons: true,
                                   dangerMode: "true",
                                 })
                                 .then((willDelete) => {
                                   if (willDelete) {
-                                   swal({ title: "U fshi me sukses!",
+                                   swal({ title: "U anulua me sukses!",
                                  icon: "success"}).then(okay => {
                                    if (okay) {
                                     window.location.href = "/Dashboard/Reports";
@@ -118,13 +118,13 @@
                                 });
                                   } else {
                                     swal({
-                                    title: "Te dhenat nuk jane anuluar!",
+                                    title: "Të dhënat nuk janë anuluar!",
                                      icon: "error",
                                     });
                                   }
                                 });'
 
-                                class = "btn btn-danger">Delete</a>&nbsp &nbsp
+                                class = "btn btn-danger">Anulo</a>&nbsp &nbsp
                               <button type="submit" class="btn btn-primary pe-2" id="saveBtn" disabled>Ruaj dhe mbyll</button>
                         </div>
                     </form>
