@@ -454,9 +454,12 @@ namespace Presentation.Controllers
                         gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
                     }
 
+                var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
+
                 var nacionale = new KqzResultsByCity()
                 {
                     City = municipalityName,
+                    PoliticSubjects = politicSubjects,
                     LastYear = zgjedhjetNacionale,
                     ThisYear = gruping
                 };
@@ -464,6 +467,7 @@ namespace Presentation.Controllers
                 var lokale = new KqzResultsByCity()
                 {
                     City = municipalityName,
+                    PoliticSubjects = politicSubjects,
                     LastYear = zgjedhjetLokale,
                     ThisYear = gruping
                 };
