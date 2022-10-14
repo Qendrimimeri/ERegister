@@ -277,11 +277,20 @@ else
                      className:"test",
                  } }
                  }).then((value)=>{
+                      if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                      let item = document.createElement("option");
                         item.value = value;
                         item.innerText = value;
                         Specificdemands.appendChild(item);
                         Specificdemands.value = value;
+                    }
                  });
       }
   });

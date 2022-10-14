@@ -623,6 +623,14 @@
                  } }
             })
             .then((value) => {
+                 if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
@@ -631,6 +639,7 @@
                 method: 'post',
                 body: JSON.stringify({ MunicipalityId: userMuniId, villageName: value })
             }).then(() => addVillagesToList(userMuniId));
+                    }
             });
         }
     //neigborhoods
@@ -667,6 +676,14 @@
                  } }
         })
         .then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
@@ -675,6 +692,7 @@
             method: 'post',
             body: JSON.stringify({ municipalityId: userMuniId, neighborhoodName: value })
         }).then(() => addNeigborhoodToList(userMuniId));
+                    }
         });
     }
     //neigborhood by village
@@ -733,6 +751,14 @@
                  } }
         })
         .then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
@@ -741,6 +767,7 @@
             method: 'post',
             body: JSON.stringify({ municipalityId: userMuniId, blockName: value })
         }).then(() => addBlockToList(userMuniId));
+                    }
         });
     }
     //street by village
@@ -777,6 +804,14 @@
                  } }
         })
         .then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
              let sm = document.querySelector("#villages").value;
         fetch(endpoint, {
             headers: {
@@ -786,6 +821,7 @@
             method: 'post',
             body: JSON.stringify({ villageId: sm, streetName: value })
         }).then(() => addStreetToList(sm));
+                    }
         });
     }
     //street by neighborhood
@@ -822,6 +858,14 @@
                  } }
         })
         .then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
              let sm = document.querySelector("#neigborhoods").value;
         fetch(endpoint, {
             headers: {
@@ -831,6 +875,7 @@
             method: 'post',
             body: JSON.stringify({ neighborhoodId: sm, streetName: value })
         }).then(() => addStreetNeighborhoodToList(sm));
+                    }
         });
     }
     //poll center by village
@@ -1206,6 +1251,14 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                  } }
         })
         .then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
@@ -1214,6 +1267,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             method: 'post',
             body: JSON.stringify({ villageId: userVillageId, neighborhoodName: value })
         }).then(() => addNeigborhoodVillageToList(userVillageId));
+                    }
         });
     }
     //street by village
@@ -1251,6 +1305,14 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                  } }
         })
         .then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
         fetch(endpoint, {
             headers: {
                 'Accept': 'application/json',
@@ -1259,6 +1321,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             method: 'post',
             body: JSON.stringify({ villageId: userVillageId, streetName: value })
         }).then(() => addStreetToList(userVillageId));
+                    }
         });
     }
     //street by neighborhood
@@ -1296,6 +1359,14 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                  } }
         }).
         then((value)=>{
+             if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                    let sm = document.querySelector("#neigborhoodsVillage").value;
         fetch(endpoint, {
             headers: {
@@ -1305,6 +1376,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             method: 'post',
             body: JSON.stringify({ neighborhoodId: sm, streetName: value })
         }).then(() => addStreetNeighborhoodToList(sm));
+                    }
         })
     }
     //poll center by village
@@ -1426,40 +1498,51 @@ else
                  } }
                 })
                 .then((value)=>{
-                    //var villagess;
-            if(input){
-            let sm1 = document.querySelector("#neigborhoods");
-            console.log(sm1);
-            let sm2= document.querySelector("#neigborhoodsVillage");
-            console.log(sm2);
-             var sm;
-             console.log(sm)
-             if(sm1.selectedIndex !== 0) {
-             sm = sm1.options[sm1.selectedIndex].value;
-              } else if(sm2.selectedIndex !== 0){
-              sm = sm2.options[sm2.selectedIndex].value;
-          }
-         else{
-              sm = null;
-          }
-            let munis = document.getElementById('munis');
-            let villages = document.getElementById('villages');
-               var villagess;
-         if(villages.selectedIndex !== 0) {
-             villagess = villages.options[villages.selectedIndex].value;
-          }
-            fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'post',
-                body: JSON.stringify({ centerNumber: value,
-                    centerName: "", municipalitydId: munis.value, neighborhoodId: sm, villageId: villagess })
-            })
-            .then(() => addPollCenterNeighborhoodToList(sm))
-            .then(()=> addPollCenterToList(villagess));
-            }
+                    if (value == "") {
+
+                        console.log(value);
+                        swal("Ju lutem shkruani të dhëna valide!");
+                        return false;
+
+                    }
+                    else if (value !== null) {
+                        //var villagess;
+                        if (input) {
+                            let sm1 = document.querySelector("#neigborhoods");
+                            console.log(sm1);
+                            let sm2 = document.querySelector("#neigborhoodsVillage");
+                            console.log(sm2);
+                            var sm;
+                            console.log(sm)
+                            if (sm1.selectedIndex !== 0) {
+                                sm = sm1.options[sm1.selectedIndex].value;
+                            } else if (sm2.selectedIndex !== 0) {
+                                sm = sm2.options[sm2.selectedIndex].value;
+                            }
+                            else {
+                                sm = null;
+                            }
+                            let munis = document.getElementById('munis');
+                            let villages = document.getElementById('villages');
+                            var villagess;
+                            if (villages.selectedIndex !== 0) {
+                                villagess = villages.options[villages.selectedIndex].value;
+                            }
+                            fetch(endpoint, {
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                method: 'post',
+                                body: JSON.stringify({
+                                    centerNumber: value,
+                                    centerName: "", municipalitydId: munis.value, neighborhoodId: sm, villageId: villagess
+                                })
+                            })
+                                .then(() => addPollCenterNeighborhoodToList(sm))
+                                .then(() => addPollCenterToList(villagess));
+                        }
+                    }
                 });
         }
     const linku1= document.getElementById('klasa1');
@@ -1765,6 +1848,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
        //let selectedMuni = $('#munis').val();
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
@@ -1775,6 +1866,7 @@ else
             method: 'post',
             body: JSON.stringify({municipalityId: sm, villageName: value})
         }).then(() => addVillagesToList(sm));
+                    }
                 });
     }
     //neigborhoods
@@ -1811,6 +1903,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
           let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -1820,6 +1920,7 @@ else
             method: 'post',
             body: JSON.stringify({municipalityId: sm, neighborhoodName: value})
         }).then(() => addNeigborhoodToList(sm));
+                    }
                 });
     }
     //neigborhood by village
@@ -1855,6 +1956,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                       let sm = document.querySelector("#villages").value;
             fetch(endpoint, {
                 headers: {
@@ -1864,6 +1973,7 @@ else
                 method: 'post',
                 body: JSON.stringify({ villageId: sm, neighborhoodName: value })
             }).then(() => addNeigborhoodVillageToList(sm));
+                    }
                 });
         }
         //block
@@ -1900,6 +2010,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                      let sm = document.querySelector("#munis").value;
             fetch(endpoint, {
                 headers: {
@@ -1909,6 +2027,7 @@ else
                 method: 'post',
                 body: JSON.stringify({ municipalityId: sm, blockName: value })
             }).then(() => addBlockToList(sm));
+                    }
                 });
         }
         //street by village
@@ -1945,6 +2064,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                     let sm = document.querySelector("#villages").value;
             fetch(endpoint, {
                 headers: {
@@ -1954,6 +2081,7 @@ else
                 method: 'post',
                 body: JSON.stringify({ villageId: sm, streetName: value })
             }).then(() => addStreetToList(sm));
+                    }
                 });
         }
         //street by neighborhood
@@ -1990,6 +2118,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                            let sm = document.querySelector("#neigborhoods").value;
             fetch(endpoint, {
                 headers: {
@@ -1999,6 +2135,7 @@ else
                 method: 'post',
                 body: JSON.stringify({ neighborhoodId: sm, streetName: value })
             }).then(() => addStreetNeighborhoodToList(sm));
+                    }
                 });
         }
     }
@@ -2014,6 +2151,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
          let sm = document.querySelector("#villages").value;
         fetch(endpoint, {
             headers: {
@@ -2023,6 +2168,7 @@ else
             method: 'post',
             body: JSON.stringify({villageId: sm, neighborhoodName: value})
         }).then(() => addNeigborhoodVillageToList(sm));
+                    }
                 });
     }
     //block
@@ -2059,6 +2205,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
         let sm = document.querySelector("#munis").value;
         fetch(endpoint, {
             headers: {
@@ -2068,6 +2222,7 @@ else
             method: 'post',
             body: JSON.stringify({municipalityId: sm, blockName: value})
         }).then(() => addBlockToList(sm));
+                    }
                 });
     }
     //street by village
@@ -2104,6 +2259,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
           let sm = document.querySelector("#villages").value;
         fetch(endpoint, {
             headers: {
@@ -2113,6 +2276,7 @@ else
             method: 'post',
             body: JSON.stringify({villageId: sm, streetName: value})
         }).then(() => addStreetToList(sm));
+                    }
                 });
     }
     //street by neighborhood
@@ -2149,6 +2313,14 @@ else
                  } }
                 })
                 .then((value)=>{
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                      let sm = document.querySelector("#neigborhoods").value;
         fetch(endpoint, {
             headers: {
@@ -2158,6 +2330,7 @@ else
             method: 'post',
             body: JSON.stringify({neighborhoodId: sm, streetName: value})
         }).then(() => addStreetNeighborhoodToList(sm));
+                    }
                 });
     }
     //poll center by village
