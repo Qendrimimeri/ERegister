@@ -691,38 +691,40 @@
                 neigborhoods.appendChild(item);
             }));
     }
-    function addNeigborhoodToDb(userMuniId) {
-        let endpoint = url + "addneighborhood";
-        let input = swal("Emri i lagjes:",{
-            content:"input",
-              buttons: {
-                 cancel:"Anulo",
-                 confirm:{
-                     text:"Shto",
-                     className:"test",
-                 } }
-        })
-        .then((value)=>{
-             if (value == "") {
+function addNeigborhoodToDb(userMuniId) {
+    let endpoint = url + "addneighborhood";
+    let input = swal("Emri i lagjes:", {
+        content: "input",
+        buttons: {
+            cancel: "Anulo",
+            confirm: {
+                text: "Shto",
+                className: "test",
+            }
+        }
+    })
+        .then((value) => {
+            if (value == "") {
 
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-                  
-                     }
-                    else if(value !== null){
-        fetch(endpoint, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
 
-            body: JSON.stringify({ municipalityId: @userMuniId, neighborhoodName: value })
-        }).then(() => addNeigborhoodToList(@userMuniId));
+            }
+            else if (value !== null) {
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
 
+                    body: JSON.stringify({ municipalityId: @userMuniId, neighborhoodName: value })
+                }).then(() => addNeigborhoodToList(@userMuniId));
+
+            };
         });
-    }
+}
     //neigborhood by village
     function addNeigborhoodVillageToList(villId) {
         neigborhoodsVillage.innerHTML = '';
