@@ -2009,7 +2009,7 @@
 			// Backwards compatibility - if there is no sEmptyTable given, then use the same as
 			// sZeroRecords - assuming that is given.
 			if ( ! lang.sEmptyTable && zeroRecords &&
-				defaults.sEmptyTable === "Nuk ka të dhëna" )
+				defaults.sEmptyTable === "No data available in table" )
 			{
 				_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
 			}
@@ -11637,7 +11637,7 @@
 			 * parameter - if it is not given, the value of `zeroRecords` will be used
 			 * instead (either the default or given value).
 			 *  @type string
-			 *  @default Nuk ka të dhëna!
+			 *  @default No data available in table
 			 *
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.emptyTable
@@ -11646,12 +11646,12 @@
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "emptyTable": "Nuk ka të dhëna!"
+			 *          "emptyTable": "No data available in table"
 			 *        }
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "Nuk ka të dhëna!",
+			"sEmptyTable": "No data available in table",
 	
 	
 			/**
@@ -15640,9 +15640,7 @@ var DataTable = $.fn.dataTable;
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
 	dom:
-		"<'row'<'col-sm-12 col-md-6 
-	
-	'l><'col - sm - 12 col- md - 6 'f>>" +
+		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 		"<'row'<'col-sm-12'tr>>" +
 		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 	renderer: 'bootstrap'
