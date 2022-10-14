@@ -881,27 +881,6 @@ namespace Presentation.Controllers
             }
         }
 
-
-        [HttpPost]
-        [Route("addblock")]
-        public ActionResult AddRole([FromBody] AddBlockVM model)
-        {
-            try
-            {
-                _context.Blocks.Add(new Block
-                {
-                    Name = model.BlockName
-                });
-                _context.SaveChanges();
-                return Ok();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
         [HttpPost]
         [Route("addpoliticalsubject")]
         public async Task<IActionResult> AddPoliticalSubject([FromBody] Name model)
