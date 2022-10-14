@@ -28,23 +28,18 @@
                                            width="100%"
                                            cellspacing="0">
                                         <tr>
-                                            <th colspan="2">Emri dhe Mbiemri</th>
-                                            <td colspan="2">@Model.FullName</td>
-
-
+                                            <th colspan="2"> Emri dhe Mbiemri</th>
+                                            <td colspan="2"> @Model.FullName </td>
                                         </tr>
-                                        <tr>
+                                        <tr >
                                             <th colspan="2">Numri i votuesve</th>
                                             <td colspan="2">@Model.VotersNumber</td>
-
                                         </tr>
                                         <tr >
                                             <th >Votues paraprak </th>
                                             <td>@Model.CurrentVoter</td>
-
                                             <th >Gjasat fillestare</th>
                                             <td>@Model.ActualChances%</td>
-
                                         </tr>
                                     </table>
                                     <input type="hidden" asp-for="@Model.Id" />
@@ -123,7 +118,6 @@
                                     });
                                   }
                                 });'
-
                                 class = "btn btn-danger">Anulo</a>&nbsp &nbsp
                               <button type="submit" class="btn btn-primary pe-2" id="saveBtn" disabled>Ruaj dhe mbyll</button>
                         </div>
