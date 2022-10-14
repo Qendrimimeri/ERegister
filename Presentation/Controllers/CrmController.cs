@@ -92,13 +92,15 @@ namespace Presentation.Controllers
 
 
 
-      public IActionResult AutoComplete(string prefix, int id)
+        public IActionResult AutoComplete(string prefix, int id)
         {
             try
             {
                 var users = (from a in this._context.ApplicationUsers
                              from c in this._context.Addresses
-                             from b in this._context.UserRoles.Where(x =>  x.RoleId == "04445284-5327-4e00-9014-8385ac639412"
+                             from d in this._context.Roles
+                             from b in this._context.UserRoles.Where(x =>  d.Name == "SimpleRole"
+                                                                           && x.RoleId == d.Id
                                                                            && a.FullName.StartsWith(prefix)
                                                                            && a.Id == x.UserId 
                                                                            && c.Id == a.AddressId
