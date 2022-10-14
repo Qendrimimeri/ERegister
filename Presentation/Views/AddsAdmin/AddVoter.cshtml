@@ -253,7 +253,7 @@
                         <div class="d-flex justify-content-between flex-sm-row flex-column">
                             <div class="col-sm-6 mb-2 pe-2">
                                 <label for="FamilyMember" class="">Numri i anëtarëve</label>
-                                <input asp-for="FamMembers" type="number" class="form-control" id="FamilyMember">
+                                <input asp-for="FamMembers" type="number" class="form-control" id="FamilyMember" value="1" min="1">
                                 <span asp-validation-for="FamMembers" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6 mb-3 pe-2">

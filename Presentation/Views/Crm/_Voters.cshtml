@@ -3,9 +3,8 @@
 @if(ViewBag.UserNull == "Nuk ka te dhena")
 {
     <small class="text-danger">Nuk ka të dhëna për "@ViewBag.Name"!</small>
-    
-  
 }
+
 else
 {
 <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
@@ -54,7 +53,7 @@ else
         </div>
     </div>
     <style>
-        td {
+        td{
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -98,7 +97,6 @@ else
                 <tr>
                     <td>Qendra e votimit</td>
                     <td id="DataSearching">@Model.PollCenter</td>
-
                 </tr>
             </table>
         </div>
@@ -109,7 +107,6 @@ else
     <div class="d-flex flex-row align-content-around flex-md-row flex-column">
         <div class="col-md-6 mb-2 pe-2">
             <label class="pt-3">Zgjedh/Shto arsyjen që percakton voten tuaj</label>
-            
             <select asp-for="GeneralReason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
                 <option disabled selected>Zgjedhni opsionet...</option>
                 <option value="shto">Shto +</option>
@@ -135,16 +132,15 @@ else
             </select>
         </div>
         <div class="col-md-6 mb-2 pe-2">
-
             <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
             <select asp-for="GeneralDemands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
                  <option disabled selected>Zgjedhni opsionet...</option>
-                <option value="shto">Shto +</option>
+                <option value="shto">Shto + </option>
             </select>
         </div>
     </div>
     <div class="form-group pe-2 pb-3 ">
-        <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyeshmërinë e ndihmës së kërkuar dhe ndikimin në sukses :</label>
+        <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyeshmërinë e ndihmës së kërkuar dhe ndikimin në sukses: </label>
         <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
     </div>
 <div class="d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
@@ -184,11 +180,9 @@ else
     
   .test{
         background-color: #0d6efd;
-        
     }
     .test:hover{
         background-color:#0b5ed7;
-        
     }
     .swal-button--catch:hover{
         background-color:#0d6efd;
@@ -196,7 +190,6 @@ else
 
     .swal-button:not([disabled]):hover {
         background-color:#0b5ed7;
-
     }
     .swal-button--cancel{
         background-color :#dc3545;
