@@ -1,3 +1,4 @@
+using Application.Models;
 using Application.Repository;
 using Application.ViewModels;
 using Domain.Data;
@@ -6,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Web.WebPages;
 
 namespace Presentation.Controllers
 {
@@ -901,8 +903,29 @@ namespace Presentation.Controllers
             }
         }
 
-        private async Task<string> GetUser() =>
-            _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private async Task<string> GetUser()
+            => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+        [Route("kqzvalidation")]
+        public async Task<IActionResult> KqzValidation([FromQuery] string id)
+        {
+
+            var res = await _context.Kqzregisters.Where(x => x.PollCenterId == id.AsInt()).Select(x => x.NoOfvotes).ToListAsync();
+            if (res.Count <= 0)
+            {
+                return Ok(new KqzValidationModel()
+                {
+                    Value = "Nuk ka të dhëna për këtë qendër të votimit",
+                });
+            }
+            return Ok(new KqzValidationModel()
+            {
+                Value = "Të dhënat janë të regjistruar për këtë qendër të votimit",
+            });
+        }
+
+
     }
 
 
