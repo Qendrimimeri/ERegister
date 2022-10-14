@@ -8,6 +8,9 @@
      #noHover{
     pointer-events: none !important;
 }
+li a{color:black;
+ cursor:pointer;
+ }
      .navbar{
          margin-left: 27px;
      }
@@ -61,6 +64,13 @@
        vertical-align: middle;
     
  }
+ .ultest{
+     width:97%;
+     text-align: center;
+ }
+ li a{color:black;
+ cursor:pointer;
+ }
  
  }
 </style>
@@ -78,8 +88,9 @@
             <div class="testing collapse navbar-collapse justify-content-end align-items-center text-center text-sm-center pe-0" id="main-nav">
                 <ul class="navbar-nav d-flex align-items-center justify-content-center">&nbsp;&nbsp;
                       <li b-fhvjq1vla1="" class="nav-item btnwidth">
+                          <div class="dropdown pe-2">
                         <a class="nav-link text-md-center hover-link dropdown-toggle butonitoggle btn btn-primary"role="button" id="dropdownMenuLink"data-bs-toggle="dropdown"aria-expanded="false">Shfaq/Largo kolonat nga lista </a>
-                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                         <ul class="dropdown-menu ultest" aria-labelledby="dropdownMenuLink">
                             <li><a class="toggle-vis text-decoration-none" data-column="0">Qyteti</a></li>
                             <li><a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a></li>
                             <li><a class="toggle-vis" data-column="2">Numri i votuesve</a> </li>
@@ -91,10 +102,11 @@
                             <li><a class="toggle-vis" data-column="8">Gjasat aktuale</a> </li>
                             <li><a class="toggle-vis" data-column="9">Statusi aktual</a> </li>
                         </ul>
-                    </li>&nbsp;&nbsp;
+                        </div>
+                    </li>&nbsp;
                     <li class="nav-item btnwidth">
                         <a class="nav-link text-sm-center hover-link butonixls btn btn-primary"role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne excel</a>
-                    </li>&nbsp;&nbsp;
+                    </li>&nbsp;&nbsp;&nbsp;
                     <li class="nav-item btnwidth">
                         <a class="nav-link text-md-center hover-link butonipdf btn btn-primary"role="button" onclick="ExportToPdf()"><span class="bi bi-file-pdf "></span> Eksporto ne pdf </a>
                     </li>
