@@ -92,27 +92,56 @@ namespace Presentation.Controllers
 
 
 
-        public IActionResult AutoComplete(string prefix, int id)
+        public IActionResult AutoComplete(string prefix, int id, string role)
         {
             try
             {
-                var users = (from a in this._context.ApplicationUsers
-                             from c in this._context.Addresses
-                             from d in this._context.Roles
-                             from b in this._context.UserRoles.Where(x =>  d.Name == "SimpleRole"
-                                                                           && x.RoleId == d.Id
-                                                                           && a.FullName.StartsWith(prefix)
-                                                                           && a.Id == x.UserId 
-                                                                           && c.Id == a.AddressId
-                                                                           && c.MunicipalityId == id
-                                                                           )
-                             select new
-                             {
-                                 label = a.FullName,
-                                 val = a.Id
-                             }).ToList();
+              
 
-                return Json(users);
+                if (role == "KryetarIPartise")
+                {
+
+                    var users = (from a in this._context.ApplicationUsers
+                                 
+                                 from d in this._context.Roles
+                                 from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
+                                                                               && x.RoleId == d.Id
+                                                                               && a.FullName.StartsWith(prefix)
+                                                                               && a.Id == x.UserId)
+                                                                               
+                                 select new
+                                 {
+                                     label = a.FullName,
+                                     val = a.Id
+                                 }).ToList();
+
+                    return Json(users);
+
+                }
+                else
+                {
+
+
+                    var users = (from a in this._context.ApplicationUsers
+                                 from c in this._context.Addresses
+                                 from d in this._context.Roles
+                                 from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
+                                                                               && x.RoleId == d.Id
+                                                                               && a.FullName.StartsWith(prefix)
+                                                                               && a.Id == x.UserId
+                                                                               && c.Id == a.AddressId
+                                                                               && c.MunicipalityId == id
+                                                                               )
+                                 select new
+                                 {
+                                     label = a.FullName,
+                                     val = a.Id
+                                 }).ToList();
+
+                    return Json(users);
+                }
+
+                
             }
             catch (Exception err)
             {

@@ -8,7 +8,12 @@
     var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
     var roles = _roles.Value;
+    var userRole = User.Identities.FirstOrDefault().Claims.Select(x => x.Value).Skip(4).Take(1).FirstOrDefault();
+
 }
+
+
+
 <style>
 
     @@media screen and (max-width:575px) {
@@ -104,12 +109,15 @@
     {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+
+
+
          $(function () {
             $("#SearchBtn").autocomplete({
                 source: function (request, response) {
                     $.ajax({
                         url: '/Crm/AutoComplete/',
-                        data: { "prefix": request.term, "id": @userMuniId },
+                        data: { "prefix": request.term, "id": @userMuniId, "role":"@userRole" },
                         type: "POST",
                         success: function (data) {
                             response($.map(data, function (item) {
