@@ -55,6 +55,7 @@
     @section Scripts
     {
     <script>
+        //const kqzrez = "http://eregisterpbc-001-site1.atempurl.com/api/service/kqzresultsbymuni";
         const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni";
         let response = fetch(kqzrez).then(res => res.json());
         let rez = response.then((values) => {
@@ -181,6 +182,7 @@ else
     {
     <script>
         const munis = document.querySelector('#munis');
+        //const url = "http://eregisterpbc-001-site1.atempurl.com/";
         const url = "https://localhost:7278/api/service/";
         getMunis();
         function getMunis(id) {
