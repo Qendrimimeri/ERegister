@@ -147,7 +147,7 @@ namespace Application.Repository
                     AdministrativeUnit = person.Work.AdministrativeUnit,
                     Duty = person.Work.Duty,
                     MunicipalityName = person.Address.Municipality.Name,
-                    PollCenter = person.Address.PollCenter.CenterName,
+                    PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                     InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                     PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
