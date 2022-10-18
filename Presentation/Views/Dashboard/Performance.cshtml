@@ -166,7 +166,18 @@
         <table class="table table-striped table-hover small" id="example">
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
-                    <th scope="col"class="text-center pe-1">Qyteti</th>
+                         @if (User.IsInRole("KryetarIFshatit")){
+                    <th scope="col"class="text-center pe-1">
+                                  Fshati
+                                  </th>
+                         }
+                        else
+                        {
+                              <th scope="col"class="text-center pe-1">
+                                  Qyteti
+                                  </th>
+
+                        }
                     <th scope="col" class="text-center pe-1">Emri dhe Mbiemri</th>
                     <th scope="col"class="text-center pe-1">Numri i votuesve</th>
                     <th scope="col"class="text-center pe-1">Numri i telefonit</th>
@@ -183,7 +194,17 @@
                 @foreach (var voter in Model)
                 {
                     <tr style="font-size:13px;" class="align-middle">
-                        <td class="text-center">@voter.MunicipalityName</td>
+                        <td class="text-center">
+                            @if (User.IsInRole("KryetarIFshatit"))
+                            {
+                                @voter.Village
+                            }
+                            else{
+                               @voter.MunicipalityName 
+                            } 
+                            </td>
+                           
+                      
                         <td class="text-center">@voter.FullName</td>
                         <td class="text-center">@voter.VotersNumber</td>
                         <td class="text-center">@voter.PhoneNumber</td>
@@ -195,6 +216,7 @@
                         <td class="text-center">@voter.ActualStatus</td>
                         <td><a class="no-export" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
                     </tr>
+                  
                 }
             </tbody>
         </table>
