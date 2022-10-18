@@ -25,6 +25,7 @@
     #klasa2 {
           box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     }
+    
      .ttest{
          background-color:#ffffff;
      }
@@ -105,12 +106,20 @@
                 .button-responsive {
                     font-size: 14px;
                 }
+              .partyNumber{
+               font-size:10px;
+               -o-object-fit:fill;
+           }
             }
 
             @@media screen and (max-width:462px) {
                 .button-responsive {
                     font-size: 12px;
                 }
+                 .partyNumber{
+               font-size:10px;
+               -o-object-fit:fill;
+           }
             }
         }
 
@@ -118,15 +127,48 @@
             .button-responsive {
                 font-size: 10px;
             }
+             .partyNumber{
+               font-size:10px;
+               -o-object-fit:fill;
+           }
         }
 
         @@media screen and (max-width:393px) {
             .tabs {
-                font-size: 14px;
+                font-size: 16px;
             }
+           .partyNumber{
+               font-size:10px;
+               -o-object-fit:fill;
+           }
+           
+        }
+          @@media screen and (max-width:320px) {
+            .button-responsive {
+                font-size: 8px;
+            }
+
+            .tabs {
+                font-size: 10px;
+            }
+            a{
+                font-size: 10px;
+            }
+
+            input::placeholder {
+                font-size: 10px;
+            }
+
+            .option-select {
+                font-size: 10px;
+            }
+            .partyNumber{
+               font-size:10px;
+               -o-object-fit:fill;
+           }
         }
 
-        @@media screen and (max-width:379px) {
+        @@media screen and (max-width:377px) {
             .button-responsive {
                 font-size: 8px;
             }
@@ -142,20 +184,25 @@
             .option-select {
                 font-size: 13px;
             }
+            .partyNumber{
+               font-size:10px;
+               -o-object-fit:fill;
+           }
+        }
         }
 </style>
 
 <section class="section">
-    
+    <div class="somediv">
     <ul class="nav nav-tabs ttest">
         <li class="nav-item tabs">
-            <a class="nav-link active link-secondary tabs" id="klasa1" aria-current="page">Regjistro zyrtarë</a>
+            <a class="nav-link active link-secondary tabs" onclick="BoldText(this);" id="klasa1" aria-current="page">Regjistro Zyrtarë</a>
         </li>
         <li class="nav-item tabs">
-            <a class="nav-link link-secondary tabs" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
+            <a class="nav-link link-secondary tabs" onclick="BoldText(this);" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
         </li>
     </ul>
-
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card ">
@@ -459,10 +506,30 @@
         </div>
     </div>
 </section>
+<script>
+            var currElem = null;
+
+             function BoldText(elem) {
+ 
+              if (elem != currElem) { 
+
+               if (currElem) 
+
+	            currElem.style.fontWeight='normal';
+
+               currElem = elem; 
+
+               elem.style.fontWeight='600'; 
+ 
+              }
+
+      }
+</script>
 @if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
     {
+        
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
