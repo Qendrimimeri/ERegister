@@ -4,6 +4,7 @@ using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -222,12 +223,12 @@ namespace Presentation.Controllers
             try
             {
                 return Ok(_context.Kqzregisters.Where(v => v.NeighborhoodId == muniId).Select(x => new
-                           {
-                               Id = x.Id,
-                               NoOfVotes = x.NoOfvotes,
-                               PoliticalSubject = x.PoliticialSubjectId,
-                               Name = x.PoliticialSubject.Name
-                           }));
+                {
+                    Id = x.Id,
+                    NoOfVotes = x.NoOfvotes,
+                    PoliticalSubject = x.PoliticialSubjectId,
+                    Name = x.PoliticialSubject.Name
+                }));
             }
             catch (Exception err)
             {
@@ -373,114 +374,222 @@ namespace Presentation.Controllers
 
 
         [Route("kqzresultsbymuni")]
-        public async Task<ActionResult> KqzResultsbymuni([FromQuery] int id)
+        [AllowAnonymous]
+        public async Task<ActionResult> KqzResultsbymuni([FromQuery] int? id)
+
         {
             try
             {
+                var cities = await _unitOfWork.Municipality.GetAllCities();
                 var userId = await GetUser();
-                var muniId = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
-                int municipalityId;
-                if (!(id <= 0))
-                    municipalityId = id;
+                var isUserAdmin = User.IsInRole("KryetarIPartise");
+                var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
+
+                if (isUserAdmin)
+                {
+                    var rezultatetZgjedhore = new Dictionary<string, Dictionary<string, KqzResultsByCity>>();
+                    foreach (var city in cities)
+                    {
+                        var zgjedhjetNacionaleDB = _context.Kqzregisters
+                            .Include(x => x.Municipality)
+                            .OrderBy(x => x.PoliticialSubjectId)
+                            .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.Municipality.Name == city.Name)
+                            .Select(x => new KqzLastYear()
+                            {
+                                PoliticalSubject = x.PoliticialSubject.Name,
+                                NumberOfVotes = (int)x.NoOfvotes,
+                            }).ToList();
+
+                        var zgjedhjetNacionale = new Dictionary<string, int>();
+
+                        foreach (var voter in zgjedhjetNacionaleDB)
+                            if (!zgjedhjetNacionale.Any(x => x.Key == voter.PoliticalSubject))
+                                zgjedhjetNacionale.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                            else if (zgjedhjetNacionale.Any(x => x.Key == voter.PoliticalSubject))
+                            {
+                                var value = zgjedhjetNacionale.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                                zgjedhjetNacionale[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                            }
+
+
+                        // zgjedhjet Lokale te vitit 2021 
+                        var zgjedhjetLokaleDB = _context.Kqzregisters
+                            .Include(x => x.Municipality)
+                            .OrderBy(x => x.PoliticialSubjectId)
+                            .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.Municipality.Name == city.Name)
+                            .Select(x => new KqzLastYear()
+                            {
+                                PoliticalSubject = x.PoliticialSubject.Name,
+                                NumberOfVotes = (int)x.NoOfvotes,
+                            }).ToList();
+
+                        var zgjedhjetLokale = new Dictionary<string, int>();
+
+                        foreach (var voter in zgjedhjetLokaleDB)
+                            if (!zgjedhjetLokale.Any(x => x.Key == voter.PoliticalSubject))
+                                zgjedhjetLokale.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                            else if (zgjedhjetLokale.Any(x => x.Key == voter.PoliticalSubject))
+                            {
+                                var value = zgjedhjetLokale.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                                zgjedhjetLokale[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                            }
+
+
+                        var rez = _context.PollRelateds
+                            .Where(x => x.User.Address.Municipality.Name == city.Name)
+                            .OrderBy(x => x.PoliticialSubjectId)
+                            .ToList();
+
+                        var removeDuplicated = new List<PollRelated>();
+
+                        foreach (var user in rez.OrderByDescending(x => x.Date))
+                            if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                                removeDuplicated.Add(user);
+
+                        var voters = new List<CurrentVoters>();
+                        foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectId))
+
+                            voters.Add(new CurrentVoters()
+                            {
+                                Municipality = "Prishtine",
+                                NumberOfVotes = user.FamMembers,
+                                PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
+                                                                             .FirstOrDefault().Name
+                            });
+
+                        var gruping = new Dictionary<string, int>();
+
+                        foreach (var voter in voters)
+                            if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
+                                gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                            else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                            {
+                                var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                                gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                            }
+
+                        var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
+
+                        var nacionale = new KqzResultsByCity()
+                        {
+                            PoliticSubjects = politicSubjects,
+                            LastYear = zgjedhjetNacionale,
+                            ThisYear = gruping
+                        };
+
+                        var lokale = new KqzResultsByCity()
+                        {
+                            PoliticSubjects = politicSubjects,
+                            LastYear = zgjedhjetLokale,
+                            ThisYear = gruping
+                        };
+
+                        var zgjedhjet = new Dictionary<string, KqzResultsByCity>
+                        {
+                            { "Nacionale", nacionale },
+                            { "Lokale", lokale },
+                        };
+                        rezultatetZgjedhore.Add(city.Name, zgjedhjet);
+                    }
+                    return Ok(rezultatetZgjedhore.ToArray());
+                }
                 else
-                    municipalityId = muniId;
-
-                string municipalityName = _context.Municipalities.Where(x => x.Id == municipalityId).FirstOrDefault().Name;
-
-                // zgjedhjet nacionale te vitit 2021 
-                var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
-                .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.MunicipalityId == municipalityId).Select(x => new KqzLastYear()
                 {
-                    PoliticalSubject = x.PoliticialSubject.Name,
-                    NumberOfVotes = (int)x.NoOfvotes,
-                }).ToList();
 
-                var zgjedhjetNacionale = new Dictionary<string, int>();
-
-                foreach (var voter in zgjedhjetNacionaleDB)
-                    if (!zgjedhjetNacionale.Any(x => x.Key == voter.PoliticalSubject))
-                        zgjedhjetNacionale.Add(voter.PoliticalSubject, voter.NumberOfVotes);
-                    else if (zgjedhjetNacionale.Any(x => x.Key == voter.PoliticalSubject))
+                    // zgjedhjet nacionale te vitit 2021 
+                    var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
+                    .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.MunicipalityId == municipality.Id).Select(x => new KqzLastYear()
                     {
-                        var value = zgjedhjetNacionale.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
-                        zgjedhjetNacionale[voter.PoliticalSubject] = voter.NumberOfVotes + value;
-                    }
+                        PoliticalSubject = x.PoliticialSubject.Name,
+                        NumberOfVotes = (int)x.NoOfvotes,
+                    }).ToList();
+
+                    var zgjedhjetNacionale = new Dictionary<string, int>();
+
+                    foreach (var voter in zgjedhjetNacionaleDB)
+                        if (!zgjedhjetNacionale.Any(x => x.Key == voter.PoliticalSubject))
+                            zgjedhjetNacionale.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                        else if (zgjedhjetNacionale.Any(x => x.Key == voter.PoliticalSubject))
+                        {
+                            var value = zgjedhjetNacionale.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                            zgjedhjetNacionale[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                        }
 
 
-                // zgjedhjet Lokale te vitit 2021 
-                var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
-                .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.MunicipalityId == municipalityId).Select(x => new KqzLastYear()
-                {
-                    PoliticalSubject = x.PoliticialSubject.Name,
-                    NumberOfVotes = (int)x.NoOfvotes,
-                }).ToList();
-
-                var zgjedhjetLokale = new Dictionary<string, int>();
-
-                foreach (var voter in zgjedhjetLokaleDB)
-                    if (!zgjedhjetLokale.Any(x => x.Key == voter.PoliticalSubject))
-                        zgjedhjetLokale.Add(voter.PoliticalSubject, voter.NumberOfVotes);
-                    else if (zgjedhjetLokale.Any(x => x.Key == voter.PoliticalSubject))
+                    // zgjedhjet Lokale te vitit 2021 
+                    var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
+                    .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.MunicipalityId == municipality.Id).Select(x => new KqzLastYear()
                     {
-                        var value = zgjedhjetLokale.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
-                        zgjedhjetLokale[voter.PoliticalSubject] = voter.NumberOfVotes + value;
-                    }
+                        PoliticalSubject = x.PoliticialSubject.Name,
+                        NumberOfVotes = (int)x.NoOfvotes,
+                    }).ToList();
+
+                    var zgjedhjetLokale = new Dictionary<string, int>();
+
+                    foreach (var voter in zgjedhjetLokaleDB)
+                        if (!zgjedhjetLokale.Any(x => x.Key == voter.PoliticalSubject))
+                            zgjedhjetLokale.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                        else if (zgjedhjetLokale.Any(x => x.Key == voter.PoliticalSubject))
+                        {
+                            var value = zgjedhjetLokale.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                            zgjedhjetLokale[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                        }
 
 
-                var rez = _context.PollRelateds.Where(x => x.User.Address.MunicipalityId == municipalityId).OrderBy(x => x.PoliticialSubjectId).ToList();
-                var removeDuplicated = new List<PollRelated>();
+                    var rez = _context.PollRelateds.Where(x => x.User.Address.MunicipalityId == municipality.Id).OrderBy(x => x.PoliticialSubjectId).ToList();
+                    var removeDuplicated = new List<PollRelated>();
 
-                foreach (var user in rez.OrderByDescending(x => x.Date))
-                    if (!removeDuplicated.Any(x => x.UserId == user.UserId))
-                        removeDuplicated.Add(user);
+                    foreach (var user in rez.OrderByDescending(x => x.Date))
+                        if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                            removeDuplicated.Add(user);
 
-                var voters = new List<CurrentVoters>();
-                foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectId))
+                    var voters = new List<CurrentVoters>();
+                    foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectId))
 
-                    voters.Add(new CurrentVoters()
+                        voters.Add(new CurrentVoters()
+                        {
+                            Municipality = "Prishtine",
+                            NumberOfVotes = user.FamMembers,
+                            PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
+                                                                         .FirstOrDefault().Name
+                        });
+
+                    var gruping = new Dictionary<string, int>();
+
+                    foreach (var voter in voters)
+                        if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
+                            gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                        else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                        {
+                            var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                            gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                        }
+
+                    var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
+
+                    var nacionale = new KqzResultsByCity()
                     {
-                        Municipality = "Prishtine",
-                        NumberOfVotes = user.FamMembers,
-                        PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
-                                                                     .FirstOrDefault().Name
-                    });
+                        PoliticSubjects = politicSubjects,
+                        LastYear = zgjedhjetNacionale,
+                        ThisYear = gruping
+                    };
 
-                var gruping = new Dictionary<string, int>();
-
-                foreach (var voter in voters)
-                    if (!gruping.Any(x => x.Key == voter.PoliticalSubject))
-                        gruping.Add(voter.PoliticalSubject, voter.NumberOfVotes);
-                    else if (gruping.Any(x => x.Key == voter.PoliticalSubject))
+                    var lokale = new KqzResultsByCity()
                     {
-                        var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
-                        gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
-                    }
+                        PoliticSubjects = politicSubjects,
+                        LastYear = zgjedhjetLokale,
+                        ThisYear = gruping
+                    };
 
-                var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
-
-                var nacionale = new KqzResultsByCity()
-                {
-                    City = municipalityName,
-                    PoliticSubjects = politicSubjects,
-                    LastYear = zgjedhjetNacionale,
-                    ThisYear = gruping
-                };
-
-                var lokale = new KqzResultsByCity()
-                {
-                    City = municipalityName,
-                    PoliticSubjects = politicSubjects,
-                    LastYear = zgjedhjetLokale,
-                    ThisYear = gruping
-                };
-
-                var zgjedhjet = new Dictionary<string, KqzResultsByCity>
-            {
-                { "Nacionale", nacionale },
-                { "Lokale", lokale },
-            };
-                return Ok(zgjedhjet);
+                    var zgjedhjet = new Dictionary<string, KqzResultsByCity>
+                    {
+                        { "Nacionale", nacionale },
+                        { "Lokale", lokale },
+                    };
+                    return Ok(zgjedhjet);
+                }
             }
+
             catch (Exception err)
             {
                 _logger.LogError("An error has occurred", err);
@@ -514,10 +623,10 @@ namespace Presentation.Controllers
             try
             {
                 var userId = await GetUser();
-                var municipality = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+                var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
-                    municipalityId = municipality;
+                    municipalityId = municipality.Id;
                 municipalityId = muniId;
 
                 var res = await _context.Villages.Where(v => v.MunicipalityId == municipalityId).Select(x => new
@@ -563,10 +672,10 @@ namespace Presentation.Controllers
             try
             {
                 var userId = await GetUser();
-                var muni = _unitOfWork.Municipality.GetMuniNameByUserIdAsync(userId).Result;
+                var muni = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
-                    municipalityId = muni;
+                    municipalityId = muni.Id;
                 municipalityId = muniId;
                 var res = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId)
                     .Select(x =>

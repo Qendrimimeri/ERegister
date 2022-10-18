@@ -9,7 +9,6 @@ namespace Application.ViewModels
 {
     public class KqzResultsByCity
     {
-        public string? City { get; set; }
         public IEnumerable<string>? PoliticSubjects { get; set; }
         public Dictionary<string, int>? LastYear { get; set; }
         public Dictionary<string, int>? ThisYear { get; set; }

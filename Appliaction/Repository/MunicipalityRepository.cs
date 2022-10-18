@@ -23,13 +23,16 @@ namespace Application.Repository
             var res = _db.Municipalities.Where(x => x.Name == name).FirstOrDefault();
             return (res);
         }
-        public void Save()
+
+        public async Task<Municipality> GetMuniOfUser(string id)
         {
-            _db.SaveChanges();
+            if (id.Contains('@'))
+                return await _db.Users.Where(x => x.Email == id).Select(x => x.Address.Municipality).FirstOrDefaultAsync();
+            return await _db.Users.Where(x => x.Id == id).Select(x => x.Address.Municipality).FirstOrDefaultAsync();
         }
 
-        public async Task<int> GetMuniNameByUserIdAsync(string Id)
-            => (int) await _db.Users.Where(x => x.Id == Id).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync();
+        public async Task<List<Municipality>> GetAllCities()
+            => await _db.Municipalities.ToListAsync();
     }
 }
 
