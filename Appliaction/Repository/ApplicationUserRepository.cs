@@ -52,8 +52,11 @@ namespace Application.Repository
         {
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
+            var userVillage = await GetVillageIdOfUser(loginUserId);
             var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
                                  .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIPartise");
+            var isThisMunicipalityAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIKomunes");
             if (isThisUserSuperAdmin)
             {
                 var getAllUsers = await _context.Users.Select(person => new PersonVM()
@@ -84,7 +87,8 @@ namespace Application.Repository
 
                 return result;
             }
-            else
+
+            else if(isThisMunicipalityAdmin)
             {
                 var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address)
                     .Where(x => x.Address.MunicipalityId == userMuni).Select(person => new PersonVM()
@@ -115,6 +119,39 @@ namespace Application.Repository
                             result.Add(user);
 
                 return result;
+            }
+            else
+            {
+                var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address)
+                  .Where(x => x.Address.VillageId == userVillage).Select(person => new PersonVM()
+                  {
+                      Id = person.Id,
+                      FullName = person.FullName,
+                      PhoneNumber = person.PhoneNumber,
+                        //PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
+
+                      Village = person.Address.Village.Name,
+                      PollCenter = person.Address.PollCenter.CenterNumber,
+                      VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                      PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                      CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+                      InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                      ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+
+
+                      ActualStatus = person.ActualStatus
+                  }).ToListAsync();
+
+                var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+
+                var result = new List<PersonVM>();
+                foreach (var user in getAllUsers)
+                    foreach (var item in usersInRole)
+                        if (user.Id == item.Id)
+                            result.Add(user);
+
+                return result;
+
             }
         }
 
