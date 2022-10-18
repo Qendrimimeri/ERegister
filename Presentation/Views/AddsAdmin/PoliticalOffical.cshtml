@@ -181,7 +181,7 @@
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-8 ps-2 col-sm-10">
-                                    <input asp-for="PhoneNumber" class="form-control" id="nrtel" type="number" placeholder="49123123" min="0">
+                                    <input asp-for="PhoneNumber" class="form-control" id="nrtel" type="number" placeholder="" min="0">
                                 </div>
                             </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
@@ -1159,7 +1159,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             linku1.classList.remove('active');
             linku2.classList.add('active');
         });
-        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
         const url = "https:localhost:7278/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
@@ -1527,7 +1526,6 @@ else
         });
         const munis = document.querySelector('#munis');
         const villages = document.querySelector('#villages');
-        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
         const url = "https:localhost:7278/api/service/";
         var votat = document.getElementsByClassName('Votat');
         const tabela = document.getElementById('tabela');

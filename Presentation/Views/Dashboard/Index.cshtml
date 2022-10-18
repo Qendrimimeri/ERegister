@@ -203,7 +203,6 @@ else
             var select = document.getElementById("munis").value
 
             console.log(select)
-            //const kqzrez = "https://eregisterpbc-001-site1.atempurl.com/api/service/kqzresultsbymuni?id=" + select;
             const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni?id=" + select;
             let response = fetch(kqzrez).then(res => res.json());
             let rez = response.then((values) => {
