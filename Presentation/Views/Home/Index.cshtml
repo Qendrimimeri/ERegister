@@ -5,20 +5,30 @@
         .forgetpassword {
             font-size: 14px;
         }
+         @@media screen and (max-width:320px) {
+             .forgotpass{
+                 font-size:10px;
+             }
+             .rememberme{
+                  font-size:10px;
+             }
+       
+          
+    }
     </style>
 }
 
 @model LoginVM
 ﻿
-<div class="row justify-content-center align-items-center pt-5 mt-5">
+<div class="row justify-content-center align-items-center pt-5 px-4">
     <div class="col-6 d-none d-md-block text-center ">
         <img src="/images/harta.svg" class="harta img-fluid " style="min-width:190px; max-width:450px;">
     </div>
-    <div class="col-md-6 d-flex justify-content-center flex-column bg-light box-shadow">
+    <div class="col-md-6 d-flex justify-content-center flex-column bg-light ml-4  box-shadow">
         <h4 class="text-center pt-5">KYÇU</h4>
         <form class="ml-5" asp-controller="Account" asp-action="Login" method="post">
 
-            <div class="p-5">
+            <div class="p-5 ml-5">
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label">Përdoruesi</label>
                     <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
@@ -33,17 +43,17 @@
 
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
                     <div class="col-6">
-                        <label  asp-for="RememberMe"class="form-check-label pr-3 mr-3">
+                        <label  asp-for="RememberMe"class="rememberme form-check-label pr-3 mr-3">
                             Më mbaj mend
                         <input asp-for="RememberMe" class="form-check-input">
                             <span asp-validation-for="RememberMe" class="text-danger"></span>
                         </label>
                     </div>
                     <div class="col-6 forgetpassword">
-                        <a style="float:right;text-decoration:none;" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
+                        <a style="float:right;text-decoration:none;" class="forgotpass" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">KYQU</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">KYÇU</button>
 
             </div>
         </form>

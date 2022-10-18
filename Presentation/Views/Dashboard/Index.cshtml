@@ -56,12 +56,13 @@
     {
     <script>
         //const kqzrez = "http://eregisterpbc-001-site1.atempurl.com/api/service/kqzresultsbymuni";
+        
         const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni";
         let response = fetch(kqzrez).then(res => res.json());
         let rez = response.then((values) => {
             const lastYear = values.Nacionale["lastYear"];
             const thisYear = values.Nacionale["thisYear"];
-            const cityName = values.Nacionale["city"];
+            const cityName = values.Nacionale["city"];      
             const politicalSubjects = values.Nacionale["politicSubjects"];
             var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
             var selectedCity = document.getElementById("city-lokale").innerText = `${cityName} - Zgjedhjet Lokale`;
@@ -178,7 +179,8 @@ else
 
 
         const munis = document.querySelector('#munis');
-        //const url = "http://eregisterpbc-001-site1.atempurl.com/";
+
+        //const url = "https://eregisterpbc-001-site1.atempurl.com/"
         const url = "https://localhost:7278/api/service/";
         getMunis();
         function getMunis(id) {
