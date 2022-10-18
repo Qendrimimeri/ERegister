@@ -34,8 +34,8 @@ namespace Infrastructure.Services
         {
             
             var administrativeUnit = new List<KeyValueModel>() {
-                new KeyValueModel { Key = "Sherbimi privat", Value = "Sherbimi privat" },
-                new KeyValueModel { Key = "Sherbimi publik", Value = "Sherbimi publik" },
+                new KeyValueModel { Key = "Sektori privat", Value = "Sektori  privat" },
+                new KeyValueModel { Key = "Sektori  publik", Value = "Sektori  publik" },
             };
             return administrativeUnit;
         }

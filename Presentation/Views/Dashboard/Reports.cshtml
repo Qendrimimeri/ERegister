@@ -18,6 +18,45 @@
                                 font-weight: 500;
                             }
 
+                            .test {
+                                background-color: #0d6efd;
+                            }
+
+                                .test:hover {
+                                    background-color: #0b5ed7;
+                                }
+
+                            .swal-button--catch:hover {
+                                background-color: #0d6efd;
+                            }
+
+                            .swal-button:not([disabled]):hover {
+                                background-color: #0b5ed7;
+                            }
+
+                            .swal-button--cancel {
+                                background-color: #dc3545;
+                                color: white;
+                            }
+
+                                .swal-button--cancel:not([disabled]):hover {
+                                    background-color: #bb2d3b;
+                                }
+
+                            .swal-content__input:focus {
+                                border-color: #ced4da;
+                                border-bottom: 3px solid #ced4da;
+                            }
+
+                            .swal-text {
+                                font-weight: 500;
+                                font-size: 20px;
+                            }
+
+                            .swal-button--confirm {
+                                background-color: #0d6efd;
+                            }
+
                         </style>
                         <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
                             <div class="col-lg-6 pe-2">
@@ -97,26 +136,31 @@
                         </div>
                         <div class="d-flex flex-row justify-content-end pt-3 ">
                                  <a href = 'javascript:
-                                  swal({
-                                  title: "A jeni të sigurtë?",
-                                  icon: "warning",
-                                  buttons: true,
-                                  dangerMode: "true",
-                                })
-                                .then((willDelete) => {
-                                  if (willDelete) {
-                                   swal({ title: "U anulua me sukses!",
-                                 icon: "success"}).then(okay => {
-                                   if (okay) {
-                                    window.location.href = "/Dashboard/Performance";
-                                  }
+                               swal({
+                               title: "A jeni të sigurtë?" ,
+                               icon: "warning" ,
+                                         buttons: {
+                                         cancel:"Anulo",
+                                      confirm:{
+                                    text:"Konfirmo",
+                                  className:"test",
+                                } }
+                               })
+                               .then((willDelete)=>
+                                {
+                                if (willDelete) {
+                                swal({ title: "U anulua me sukses!",
+                                icon: "success"}).then(okay => {
+                                if (okay) {
+                                window.location.href = "/AddsAdmin/AddVoter";
+                                }
                                 });
-                                  } else {
-                                    swal({
-                                    title: "Të dhënat nuk janë anuluar!",
-                                     icon: "error",
-                                    });
-                                  }
+                                } else {
+                                swal({
+                                title: "Te dhënat nuk janë anuluar!",
+                                icon: "error",
+                                });
+                                }
                                 });'
                                 class = "btn btn-danger">Anulo</a>&nbsp &nbsp
                               <button type="submit" class="btn btn-primary pe-2" id="saveBtn" disabled>Ruaj dhe mbyll</button>
