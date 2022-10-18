@@ -60,7 +60,7 @@ namespace Application.Repository
                 {
                     Id = person.Id,
                     FullName = person.FullName,
-                    PhoneNumber = person.PhoneNumber
+                    PhoneNumber = person.PhoneNumber,
                    // PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
@@ -249,7 +249,7 @@ namespace Application.Repository
             {
                 Id = user.Id,
                 FullName = user.FullName,
-                PhoneNo = person.PhoneNo,
+                PhoneNo = user.PhoneNumber,
                 //PhoneNo = EncryptionService.Decrypt(user.PhoneNumber),
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
@@ -278,7 +278,7 @@ namespace Application.Repository
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
-            getUser.PhoneNumber = person.PhoneNo;
+            getUser.PhoneNumber = user.PhoneNo;
             //getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
             await _context.SaveChangesAsync();
             return true;
@@ -383,7 +383,7 @@ namespace Application.Repository
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
-                PhoneNumber = person.PhoneNumber,
+                PhoneNumber = model.PhoneNumber,
 
                 //PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
 
@@ -459,7 +459,7 @@ namespace Application.Repository
                 AddressId = addressId,
                 ActualStatus = "unset",
                 ImgPath = "default.png",
-                PhoneNumber = person.PhoneNumber,
+                PhoneNumber = model.PhoneNumber,
 
                 //PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
             };
