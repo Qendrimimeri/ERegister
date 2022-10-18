@@ -60,7 +60,9 @@ namespace Application.Repository
                 {
                     Id = person.Id,
                     FullName = person.FullName,
-                    PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
+                    PhoneNumber = person.PhoneNumber,
+
+                    //PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -90,7 +92,9 @@ namespace Application.Repository
                     {
                         Id = person.Id,
                         FullName = person.FullName,
-                        PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
+                        PhoneNumber = person.PhoneNumber,
+
+                        //PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
 
                         MunicipalityName = person.Address.Municipality.Name,
                         PollCenter = person.Address.PollCenter.CenterNumber,
@@ -141,7 +145,8 @@ namespace Application.Repository
                     Village = person.Address.Village.Name,
                     Block = person.Address.Block.Name,
                     HouseNo = person.Address.HouseNo,
-                    PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
+                    PhoneNumber = person.PhoneNumber,
+                    //PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
                     Email = person.Email,
                     FacebookLink = person.SocialNetwork,
                     WorkPlace = person.Work.WorkPlace,
@@ -171,7 +176,8 @@ namespace Application.Repository
                         Village = person.Address.Village.Name,
                         Block = person.Address.Block.Name,
                         HouseNo = person.Address.HouseNo,
-                        PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
+                        PhoneNumber= person.PhoneNumber,
+                        //PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
 
                         Email = person.Email,
                         FacebookLink = person.SocialNetwork,
@@ -259,7 +265,9 @@ namespace Application.Repository
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
-            getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
+            getUser.PhoneNumber = user.PhoneNo;
+
+            //getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
             await _context.SaveChangesAsync();
 
             return true;
@@ -269,7 +277,9 @@ namespace Application.Repository
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
-            getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
+            getUser.PhoneNumber = user.PhoneNo;
+
+            //getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
             await _context.SaveChangesAsync();
             return true;
 
@@ -373,7 +383,9 @@ namespace Application.Repository
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
-                PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
+                PhoneNumber = model.PhoneNumber,
+
+                //PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
 
             };
 
@@ -447,7 +459,8 @@ namespace Application.Repository
                 AddressId = addressId,
                 ActualStatus = "unset",
                 ImgPath = "default.png",
-                PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
+                PhoneNumber=model.PhoneNumber,
+                //PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
             };
 
             // Use this for Development env.
