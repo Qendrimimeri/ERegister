@@ -1,9 +1,4 @@
 ﻿using Domain.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Repository.IRepository
 {
@@ -11,6 +6,8 @@ namespace Application.Repository.IRepository
     {
         Task<Municipality> GetByName(string name);
 
-        Task<int> GetMuniNameByUserIdAsync(string Id);
+        Task<Municipality> GetMuniOfUser(string Id);
+
+        Task<List<Municipality>> GetAllCities();
     }
 }

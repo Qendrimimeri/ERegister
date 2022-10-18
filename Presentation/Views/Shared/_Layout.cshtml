@@ -47,8 +47,69 @@
         width: 150px;
 
     }
+   @@media screen and (max-width: 396px){ 
+         .foto {
+              display: none;
+         }
+          .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+}
+      @@media screen and (max-width:502px) {
+        .foto{
+            display: none;
+        }
+         .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+    }
+    @@media screen and (max-width:462px) {
+        .foto {
+            display: none;
+          }
+          .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+         
+         
+          
+        }
+    
+    @@media screen and (max-width:425px) {
+        .foto {
+             display: none;
+        }
+         .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+    }
+      @@media screen and (max-width:320px) {
+        .foto {
+             display: none;
+        }
+         .adresa {
+            font-size:10px;
+            width:50%;
+          }
+          .kontakti {
+             font-size:10px;
+            width:50%;
+          }
+    }
+</style>
    
- </style>
 }
     <div class="d-flex flex-column "> 
       
@@ -57,17 +118,17 @@
         </div>
             
 
-        <div class="container">
+        <div class="container w-100">
             <hr />
             <footer class="text-center text-lg-start bg-white text-muted">
                 <div class="row ps-20">
 
-                    <div class="col-4">
-                        <a class="navbar-brand img-fluid" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:145px" src="~/images/ERegisterLogo.svg" /></a>
+                    <div class="col-4 foto">
+                        <a class="navbar-brand img-fluid foto" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:145px" src="~/images/ERegisterLogo.svg" /></a>
 
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-4 adresa">
                         <h5 class="mb-2">ADRESA</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Bulevardi Bill Klinton</a></li>
@@ -76,7 +137,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-4 ">
+                    <div class="col-4 kontakti">
                         <h5 class="mb-2">Kontakti</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">e-register@info.com</a></li>
