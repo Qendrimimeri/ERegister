@@ -87,10 +87,10 @@
                         </li>
                         <li>
                             <form method="post" asp-controller="Account" asp-action="Logout">
-                                <button class="dropdown-item d-flex align-items-center" href="#">
+                             @*   <button class="dropdown-item d-flex align-items-center" href="#">*@
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Dil</span>
-                                </button>
+                           
                             </form>
                         </li>
                     </ul><!-- End Profile Dropdown Items -->
@@ -151,7 +151,7 @@
                     </a>
                 </li>
             }
-            <li class="accordion-item mt-5">
+            <li class="mt-5">
                 <form asp-controller="Account" asp-action="Logout">
                     <button class="dropdown-item d-flex align-items-center nav-link collapsed">
                         <i class="bi bi-box-arrow-right"></i>

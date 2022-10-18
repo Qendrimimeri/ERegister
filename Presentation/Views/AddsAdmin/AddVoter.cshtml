@@ -107,7 +107,7 @@
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-8 ps-2 col-sm-10">
-                                    <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="49123123" min="0">
+                                    <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="" min="0">
                                 </div>
                             </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
@@ -239,9 +239,9 @@
                                 
                             </div>
                             <div class="col-md-4 mb-2 pe-2 ">
-                                <label>Shërbimi</label>
+                                <label>Sektori</label>
                                 <select class="form-select " asp-for="AdministrativeUnit" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
-                                    <option disabled selected>Zgjedh shërbimin...</option>
+                                    <option disabled selected>Zgjedh sektorin...</option>
                                 </select>
                             </div>
                             <div class="col-md-4 mb-3 pe-2">
