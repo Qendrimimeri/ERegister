@@ -15,7 +15,7 @@ namespace Application.ViewModels
         public string? FullName { get; set; }
 
 
-        [Required(ErrorMessage = "Numri i telefonit nuk eshte valid!"), DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "Numri i telefonit nuk është valid!"), DataType(DataType.PhoneNumber)]
         public string? PhoneNumber { get; set; }
 
 
@@ -35,24 +35,24 @@ namespace Application.ViewModels
         public int? Block { get; set; }
 
         public int? HouseNo { get; set; }
-        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
+        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruani numra!")]
         public string? WorkPlace { get; set; }
-        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
+        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruani numra!")]
         public string? AdministrativeUnit { get; set; }
-        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
+        [RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruani numra!")]
         public string? Duty { get; set; }
 
 
-        [Required(ErrorMessage ="Ju lutem shkruani numrin e sakte te antareve!"),Range(1,99,ErrorMessage = "Ju lutem shkruani nje numer real te anetareve te familjes!")]
+        [Required(ErrorMessage = "Ju lutem shkruani numrin e saktë të anëtarëve!"),Range(1,99,ErrorMessage = "Ju lutem shkruani një numër real të anëtarëve të familjes!")]
         public int? FamMembers { get; set; }
         
         [Required]
         public string? SuccessChance { get; set; }
 
-        [Required(ErrorMessage="Ju lutem zgjedhni partine politike!")]
+        [Required(ErrorMessage= "Ju lutem zgjedhni partinë politike!")]
         public int? PoliticalSubject { get; set; }
 
-        [Required(ErrorMessage = "Ju lutem zgjedhni qendren e votimit!")]
+        [Required(ErrorMessage = "Ju lutem zgjedhni qendrën e votimit!")]
         public string? PollCenter { get; set; }
     }
 }

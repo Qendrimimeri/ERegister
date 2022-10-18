@@ -37,7 +37,7 @@
             </div>
         </div>
     </nav>
-    <div class="vh-100">
+    <div class="vh-100 w-100">
        <partial name="_Notifications"/>
             @RenderBody()
             </div>
@@ -45,27 +45,90 @@
  <style>
     .width50{
         width: 150px;
+
     }
- </style>
+   @@media screen and (max-width: 396px){ 
+         .foto {
+              display: none;
+         }
+          .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
 }
-    <div class="d-flex flex-column max-vh-100"> 
+      @@media screen and (max-width:502px) {
+        .foto{
+            display: none;
+        }
+         .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+    }
+    @@media screen and (max-width:462px) {
+        .foto {
+            display: none;
+          }
+          .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+         
+         
+          
+        }
+    
+    @@media screen and (max-width:425px) {
+        .foto {
+             display: none;
+        }
+         .adresa {
+            width:50%;
+          }
+          .kontakti {
+            width:50%;
+          }
+    }
+      @@media screen and (max-width:320px) {
+        .foto {
+             display: none;
+        }
+         .adresa {
+            font-size:10px;
+            width:50%;
+          }
+          .kontakti {
+             font-size:10px;
+            width:50%;
+          }
+    }
+</style>
+   
+}
+    <div class="d-flex flex-column "> 
       
 
         @RenderBody() 
         </div>
             
 
-        <div class="container">
+        <div class="container w-100">
             <hr />
             <footer class="text-center text-lg-start bg-white text-muted">
-                <div class="row ps-6">
+                <div class="row ps-20">
 
-                    <div class="col-12 col-md-2 mb-3">
-                        <a class="navbar-brand img-fluid" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:145px" src="~/images/ERegisterLogo.svg" /></a>
+                    <div class="col-4 foto">
+                        <a class="navbar-brand img-fluid foto" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:145px" src="~/images/ERegisterLogo.svg" /></a>
 
                     </div>
 
-                    <div class="col-6 col-md-2 mb-3">
+                    <div class="col-4 adresa">
                         <h5 class="mb-2">ADRESA</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Bulevardi Bill Klinton</a></li>
@@ -74,7 +137,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-6 col-md-2 mb-3">
+                    <div class="col-4 kontakti">
                         <h5 class="mb-2">Kontakti</h5>
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">e-register@info.com</a></li>
@@ -83,17 +146,6 @@
                         </ul>
                     </div>
 
-                    <div class="col-md-4 mb-3 offset-md-1">
-                        <form>
-                            <h5>SUBSCRIBE</h5>
-                            <p>Do merrni informata për gjëra të reja</p>
-                            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label for="newsletter1" class="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                                <button class="btn btn-primary text-white" type="button">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
 
                 <div class="h-100 text-center text-dark p-3 m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
