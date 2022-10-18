@@ -378,7 +378,7 @@
     });
 </script>
 <script>
-    //const url = "http://eregisterpbc-001-site1.atempurl.com/";
+        //const url = "https:eregisterpbc-001-site1.atempurl.com/api/service";
      const url = "https://localhost:7278/api/service/";
      if (document.querySelector("#munis") != undefined)
      {
@@ -888,7 +888,7 @@ else if (User.IsInRole("KryetarIFshatit"))
 </script>
 
 <script>
-        //const url = "http://eregisterpbc-001-site1.atempurl.com/"
+        //const url = "https://eregisterpbc-001-site1.atempurl.com/"
         const url = "https://localhost:7278/api/service/";
      if (document.querySelector("#villages") != undefined)
     {
@@ -1181,7 +1181,7 @@ else if (User.IsInRole("AnetarIThjeshte"))
         });
 </script>
         <script>
-            //const url = "http://eregisterpbc-001-site1.atempurl.com/"
+            //const url = "https://eregisterpbc-001-site1.atempurl.com/"
              const url = "https://localhost:7278/api/service/";
             if (document.querySelector("#neighborhoods") != undefined)
             {
@@ -1375,8 +1375,8 @@ else
 </script>
 <script>
         const munis = document.querySelector('#munis');
-        const url = "http://eregisterpbc-001-site1.atempurl.com/"
-        //const url = "https://localhost:7278/api/service/";
+        //const url = "https://eregisterpbc-001-site1.atempurl.com/"
+        const url = "https://localhost:7278/api/service/";
         getMunis();
         munis.addEventListener('change', event => {
             addVillagesToList(event.target.value);

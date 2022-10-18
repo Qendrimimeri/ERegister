@@ -139,7 +139,7 @@
 <section class="section">
     <ul class="nav nav-tabs">
         <li class="nav-item tabs">
-            <a class="nav-link active link-secondary tabs" id="klasa1" aria-current="page">Regjistro Zyrtarë</a>
+            <a class="nav-link active link-secondary tabs" id="klasa1" aria-current="page">Regjistro zyrtarë</a>
         </li>
         <li class="nav-item tabs">
             <a class="nav-link link-secondary tabs" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
@@ -536,7 +536,7 @@
         });
     </script>
     <script>
-        //const url = "http://eregisterpbc-001-site1.atempurl.com/";
+        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
         const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -1052,6 +1052,7 @@
                 });
             }
         }
+        </script>
         <script src="~/js/KqzValidation.js"></script>
     }
 }
@@ -1148,7 +1149,8 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             linku1.classList.remove('active');
             linku2.classList.add('active');
         });
-        const url = "https://localhost:7278/api/service/";
+        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
+        const url = "https:localhost:7278/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
         }
@@ -1515,7 +1517,8 @@ else
         });
         const munis = document.querySelector('#munis');
         const villages = document.querySelector('#villages');
-        const url = "https://localhost:7278/api/service/";
+        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
+        const url = "https:localhost:7278/api/service/";
         var votat = document.getElementsByClassName('Votat');
         const tabela = document.getElementById('tabela');
         const neigborhoods = document.getElementById('neigborhoods');
