@@ -973,27 +973,7 @@
                 }));
         }
     </script>
-    <script>
-        function getValue() {
-            let value = document.getElementById("subjekti-politik").value;
-            const data = { Text: value };
-            fetch('https://localhost:7278/api/service/addpoliticalsubject', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application.json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        }
-    </script>
+    <script src="~/js/addPoliticalSubject.js"></script>
     <script>
         $('#table').hide();
         const linku1 = document.getElementById('klasa1');
@@ -2438,27 +2418,7 @@ else
             }
         }
     </script>
-    <script>
-        function getValue() {
-            let value = document.getElementById("subjekti-politik").value;
-            const data = { Text: value };
-            fetch('https://localhost:7278/api/service/addpoliticalsubject', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application.json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        }
-    </script>
+    <script src="~/js/addPoliticalSubject.js"></script>
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
@@ -2493,5 +2453,5 @@ else
         });
     </script>
     <script src="~/js/KqzValidation.js"></script>
-}
+    }
 }
