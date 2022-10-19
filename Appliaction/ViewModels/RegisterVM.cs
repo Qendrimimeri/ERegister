@@ -11,7 +11,7 @@ namespace Application.ViewModels
     {
 
        
-        [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5), MaxLength(255), Display(Name = "Emri dhe Mbiemri"), RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
+        [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5,ErrorMessage= "Ju lutem plotësoni të dhënat me minimum 5 karaktere!"), MaxLength(255), Display(Name = "Emri dhe Mbiemri"), RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruni numra!")]
         public string? FullName { get; set; }
 
 
@@ -19,7 +19,8 @@ namespace Application.ViewModels
         public string? PhoneNumber { get; set; }
 
 
-        //[Required(ErrorMessage = "Email adresa nuk eshte valide!"), DataType(DataType.EmailAddress)]
+        //[Required(ErrorMessage = "Email adresa nuk eshte valide!"),]
+       [DataType(DataType.EmailAddress,ErrorMessage ="Ju lutem shkruani email adresen valide!")] 
         public string? Email { get; set; }
 
         public string? Facebook { get; set; }
