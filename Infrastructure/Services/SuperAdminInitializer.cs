@@ -66,7 +66,7 @@ public class SuperAdminInitializer
             WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
             AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
             ActualStatus = "Ne Process",
-            PhoneNumber = EncryptionService.Encrypt("213123123")
+            //PhoneNumber = EncryptionService.Encrypt("213123123")
 
             };
 
