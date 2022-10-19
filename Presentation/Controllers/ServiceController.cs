@@ -451,7 +451,7 @@ namespace Presentation.Controllers
 
                             voters.Add(new CurrentVoters()
                             {
-                                Municipality = "Prishtine",
+                                Municipality = city.Name,
                                 NumberOfVotes = user.FamMembers,
                                 PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
                                                                              .FirstOrDefault().Name
@@ -472,6 +472,7 @@ namespace Presentation.Controllers
 
                         var nacionale = new KqzResultsByCity()
                         {
+                            CityName = city.Name,
                             PoliticSubjects = politicSubjects,
                             LastYear = zgjedhjetNacionale,
                             ThisYear = gruping
@@ -479,6 +480,7 @@ namespace Presentation.Controllers
 
                         var lokale = new KqzResultsByCity()
                         {
+                            CityName = city.Name,
                             PoliticSubjects = politicSubjects,
                             LastYear = zgjedhjetLokale,
                             ThisYear = gruping
@@ -548,7 +550,7 @@ namespace Presentation.Controllers
 
                         voters.Add(new CurrentVoters()
                         {
-                            Municipality = "Prishtine",
+                            Municipality = municipality.Name,
                             NumberOfVotes = user.FamMembers,
                             PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
                                                                          .FirstOrDefault().Name
@@ -569,6 +571,7 @@ namespace Presentation.Controllers
 
                     var nacionale = new KqzResultsByCity()
                     {
+                        CityName = municipality.Name,
                         PoliticSubjects = politicSubjects,
                         LastYear = zgjedhjetNacionale,
                         ThisYear = gruping
@@ -576,6 +579,7 @@ namespace Presentation.Controllers
 
                     var lokale = new KqzResultsByCity()
                     {
+                        CityName = municipality.Name,
                         PoliticSubjects = politicSubjects,
                         LastYear = zgjedhjetLokale,
                         ThisYear = gruping
