@@ -47,6 +47,11 @@ namespace Application.Repository
 
             var getUser = await _appUser.FindUserByIdAsync(pollRelated.UserId);
             getUser.ActualStatus = (editPerson.ActualStatus == null? getUser.ActualStatus : editPerson.ActualStatus);
+ 
+
+
+            
+  
             var res = await _appUser.UpdateUserAsync(getUser);
             return true;
 
@@ -96,5 +101,10 @@ namespace Application.Repository
             var res = await _db.SaveChangesAsync();
             return true;
         }
+
+        //public async Task<bool> ReplacePreviousVoter (string userId)
+        //{
+        //    var pollRelated=await _db.PollRelateds.Where(x=>x.User==userId).
+        //}
     }
 }
