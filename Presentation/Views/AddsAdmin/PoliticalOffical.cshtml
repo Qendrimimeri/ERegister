@@ -1466,7 +1466,14 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             })
                 .then((value) => {
                     //var villagess;
-                    if (input) {
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
                         //let sm1 = document.querySelector("#neigborhoods");
                         //console.log(sm1);
                         let sm2 = document.querySelector("#neigborhoodsVillage");
