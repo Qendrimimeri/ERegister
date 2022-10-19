@@ -31,21 +31,38 @@ $('#neigborhoodsVillage').change(function () {
     }
 });
 
+var userNeigborhoodId = document.getElementById("get-user-neighborhoodId").value
+var userVillageId = document.getElementById("get-user-villageId").value
+var userMuniId = document.getElementById("get-user-muniId").value
+
 //const url = "https://eregisterpbc-001-site1.atempurl.com/"
 const url = "https://localhost:7278/api/service/";
 if (document.querySelector("#neighborhoods") != undefined) {
     getneighborhoodsbymuni();
 }
 else {
-    addStreetNeighborhoodToList(@userNeigborhoodId);
-    addPollCenterNeighborhoodToList(@userNeigborhoodId);
+    addStreetNeighborhoodToList(userNeigborhoodId);
+    addPollCenterNeighborhoodToList(userNeigborhoodId);
+}
+
+if (document.querySelector("#munis") != undefined) {
+    getMunis();
+}
+else {
+    addBlockToList(userMuniId);
 }
 streetsNeighborhood.addEventListener('change', event => {
     event.preventDefault()
     if (event.target.value == "shto") {
-        addStreetNeighborhoodToDb(@userNeigborhoodId);
+        addStreetNeighborhoodToDb(userNeigborhoodId);
                 }
-            });
+});
+blocks.addEventListener('change', event => {
+    event.preventDefault()
+    if (event.target.value == 'shto') {
+        addBlockToDb(userMuniId);
+    }
+});
 
 function getneighborhoodsbymuni(userId) {
     let endpoint = url + "getmunis";
@@ -137,4 +154,53 @@ function addPollCenterNeighborhoodToList(userNeigborhoodId) {
             item.innerText = x.name;
             pollNeighborhood.appendChild(item);
         }));
+}
+
+//block
+function addBlockToList(userMuniId) {
+    blocks.innerHTML = '';
+    let chooseOption = document.createElement("option");
+    chooseOption.innerText = "Zgjedh bllokun...";
+    chooseOption.selected = true;
+    chooseOption.disabled = true;
+    blocks.appendChild(chooseOption);
+
+    let addOption = document.createElement("option");
+    addOption.innerText = "Shto bllok të ri...";
+    addOption.value = "shto";
+    blocks.appendChild(addOption);
+
+    let endpoint = url + "getblocksbymuni?muniid=" + userMuniId;
+    let result = fetch(endpoint)
+        .then(res => res.json())
+        .then(data => data.forEach(x => {
+            let item = document.createElement("option");
+            item.value = x.id;
+            item.innerText = x.name;
+            blocks.appendChild(item);
+        }));
+}
+function addBlockToDb(userMuniId) {
+    let endpoint = url + "addblock";
+    let input = swal("Shto bllok te ri:", {
+        content: "input",
+        buttons: {
+            cancel: "Anulo",
+
+            confirm: {
+                text: "Shto",
+                className: "test",
+            }
+        }
+    })
+        .then((value) => {
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ MunicipalityId: userMuniId, blockName: value })
+            }).then(() => addBlockToList(userMuniId));
+        });
 }
