@@ -127,8 +127,8 @@ namespace Application.Repository
                   {
                       Id = person.Id,
                       FullName = person.FullName,
-                      PhoneNumber = person.PhoneNumber,
-                        //PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
+                      //PhoneNumber = person.PhoneNumber,
+                      PhoneNumber = EncryptionService.Decrypt(person.PhoneNumber),
 
                       Village = person.Address.Village.Name,
                       PollCenter = person.Address.PollCenter.CenterNumber,
@@ -417,9 +417,7 @@ namespace Application.Repository
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
                 //PhoneNumber = model.PhoneNumber,
-
                 PhoneNumber = EncryptionService.Encrypt(model.PhoneNumber),
-
             };
 
             await _userManager.CreateAsync(simpleUser, "Eregister@!12");
@@ -560,7 +558,7 @@ namespace Application.Repository
         }
 
 
-        public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
+        public async Task<Microsoft.AspNetCore.Identity.IdentityResult>ResetPasswordAsync(ResetPasswordVM model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);

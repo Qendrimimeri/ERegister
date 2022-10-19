@@ -96,7 +96,7 @@
                         <div class="pb-3 d-flex pe-2 justify-content-between">
                             <div class="col-12 p">
                                 <label asp-for="FullName" class="">Emri dhe mbiemri</label>
-                                <input class="form-control" asp-for="FullName" placeholder="Shkruaj emrin dhe mbiemrin" min="0">
+                                <input class="form-control" asp-for="FullName" placeholder="Shkruaj emrin dhe mbiemrin" >
                                 <span asp-validation-for="FullName" class="text-danger"></span>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-8 ps-2 col-sm-10">
-                                    <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="" min="0" min="0">
+                                    <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="" min="0" >
                                 </div>
                             </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
@@ -115,12 +115,12 @@
                         </div>
                         <div class="form-group pb-3 pe-2">
                             <label for="exampleInputEmail1">Email adresa</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email" min="0" placeholder="Shkruaj email adresen">
+                            <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email"  placeholder="Shkruaj email adresen">
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group pb-3 pe-2">
                             <label for="InputFacebook">Facebook</label>
-                            <input type="text" class="form-control" asp-for="Facebook" min="0" id="InputFacebook">
+                            <input type="text" class="form-control" asp-for="Facebook"  id="InputFacebook">
                         </div>
                         <div class="d-flex justify-content-between flex-md-row flex-column">
                             @if (User.IsInRole(roles.KryetarIPartise))
@@ -233,7 +233,7 @@
                         <div class=" mb-4 d-flex justify-content-between flex-md-row flex-column">
                             <div class="col-md-4 mb-3 pe-2">
                                 <label class="">Vendi i punës</label>
-                                <input asp-for="WorkPlace" class="form-control" min="0">
+                                <input asp-for="WorkPlace" class="form-control" >
 
                             <span asp-validation-for="WorkPlace" class="text-danger"></span>
                                 

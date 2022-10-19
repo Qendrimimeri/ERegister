@@ -32,8 +32,6 @@ public static class EncryptionService
         return encryptString;
     }
 
-
-
     public static string Decrypt(string cipherText)
     {
         string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Domain.Data;
 using Domain.Data.Entities;
 using Application.Models.Services;
+using Application.Repository;
 
 namespace Infrastructure.Services;
 
@@ -52,19 +53,21 @@ public class SuperAdminInitializer
 
             _context.SaveChanges();
 
-            var admin = new ApplicationUser
-            {
-                FullName = _admin.FirstName,
-                Email = _admin.Email,
-                NormalizedEmail = _admin.Email.ToUpper(),
-                EmailConfirmed = true,
-                UserName = _admin.Email,
-                NormalizedUserName = _admin.Email.ToUpper(),
-                CreatedAt = DateTime.Now,
-                SocialNetwork = "http://www.facebook.com/eregister",
-                WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
-                AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
-                ActualStatus = "Ne Process"
+        var admin = new ApplicationUser
+        {
+            FullName = _admin.FirstName,
+            Email = _admin.Email,
+            NormalizedEmail = _admin.Email.ToUpper(),
+            EmailConfirmed = true,
+            UserName = _admin.Email,
+            NormalizedUserName = _admin.Email.ToUpper(),
+            CreatedAt = DateTime.Now,
+            SocialNetwork = "http://www.facebook.com/eregister",
+            WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
+            AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
+            ActualStatus = "Ne Process",
+            PhoneNumber = EncryptionService.Encrypt("213123123")
+
             };
 
 
