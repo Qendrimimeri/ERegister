@@ -107,7 +107,7 @@
                                     <input type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-8 ps-2 col-sm-10">
-                                    <input class="form-control" asp-for="PhoneNumber" type="number" placeholder="" min="0" >
+                                    <input class="form-control" asp-for="PhoneNumber" type="number" min="0" placeholder=""  >
                                 </div>
                             </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
@@ -196,7 +196,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label class="">Numri i shtëpisë</label>
-                                    <input class="form-control" placeholder="opsionale" asp-for="HouseNo" min="0">
+                                    <input class="form-control" placeholder="opsionale" min="0" asp-for="HouseNo" >
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
