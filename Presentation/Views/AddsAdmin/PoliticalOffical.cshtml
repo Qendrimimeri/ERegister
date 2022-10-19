@@ -1425,7 +1425,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
 	    let addOption = document.createElement("option");
             addOption.innerText = "Shto qendren e re...";
             addOption.value = "shto";
-            poll.appendChild(addOption);							  
+            pollNeighborhood.appendChild(addOption);							  
             let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
             let result = fetch(endpoint)
                 .then(res => res.json())
