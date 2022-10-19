@@ -497,6 +497,30 @@ function addPollCenterToList(villId) {
             poll.appendChild(item);
         }));
 }
+function addPollCenterToDb(villId) {
+    let endpoint = url + "addblock";
+    let input = swal("Shto qender te re:", {
+        content: "input",
+        buttons: {
+            cancel: "Anulo",
+
+            confirm: {
+                text: "Shto",
+                className: "test",
+            }
+        }
+    })
+        .then((value) => {
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ MunicipalityId: userMuniId, blockName: value })
+            }).then(() => addBlockToList(userMuniId));
+        });
+}
 //poll center by neighborhood
 function addPollCenterNeighborhoodToList(neighId) {
     pollNeighborhood.innerHTML = '';
