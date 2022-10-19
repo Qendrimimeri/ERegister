@@ -384,10 +384,10 @@ namespace Application.Repository
                 Id = addressId,
                 MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
-                VillageId = model.Village,
+                VillageId = (model.Village == null ? await AdminVillageId() : model.Village),
                 BlockId = model.Block,
                 StreetId = model.Street,
-                NeighborhoodId = model.Neigborhood,
+                NeighborhoodId = (model.Neigborhood == null ? await AdminNeigborhoodId() : model.Neigborhood),
                 PollCenterId = int.Parse(model.PollCenter),
             };
             await _context.Addresses.AddAsync(address);
@@ -567,11 +567,18 @@ namespace Application.Repository
 
 
         public async Task<int> AdminMunicipalityId()
-        {
-            var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var res = ((int)await _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
-            return res;
-        }
+        => ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            .Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
+
+        public async Task<int> AdminVillageId() =>
+            ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            .Select(x => x.Address.VillageId).FirstOrDefaultAsync());
+
+
+        public async Task<int> AdminNeigborhoodId() =>
+            ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            .Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync());
+
 
 
         private static string CreateRandomPassword(int passwordLength)
