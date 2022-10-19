@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Models.Services;
+using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -6,16 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Repository;
-public static class EncryptionService
+public class EncryptionService
 {
-    public static string Encrypt(string encryptString)
+    private readonly Encrypt _encrypt;
+
+    public EncryptionService(IOptionsSnapshot<Encrypt> encrypt)
     {
-        string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        _encrypt = encrypt.Value;
+    }
+    public EncryptionService(){ }
+
+
+    public string Encrypt(string encryptString)
+    {
+        string EncryptionKey = _encrypt.EncryptKey;
         byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
         using (Aes encryptor = Aes.Create())
         {
             Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+            0x49, 0x76, 0x61, 0x6e, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
         });
             encryptor.Key = pdb.GetBytes(32);
             encryptor.IV = pdb.GetBytes(16);
@@ -32,10 +43,10 @@ public static class EncryptionService
         return encryptString;
     }
 
-    public static string Decrypt(string cipherText)
+    public string Decrypt(string cipherText)
     {
 
-        string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        string EncryptionKey = _encrypt.EncryptKey;
         cipherText = cipherText.Replace(" ", "+");
         byte[] cipherBytes = Convert.FromBase64String(cipherText);
         using (Aes encryptor = Aes.Create())

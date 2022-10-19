@@ -45,6 +45,7 @@ builder.Services.Configure<Roles>(builder.Configuration.GetSection(Roles.Section
 builder.Services.Configure<SuccessChances>(builder.Configuration.GetSection(SuccessChances.SectionName));
 builder.Services.Configure<Toaster>(builder.Configuration.GetSection(Toaster.SectionName));
 builder.Services.Configure<YesNo>(builder.Configuration.GetSection(YesNo.SectionName));
+builder.Services.Configure<Encrypt>(builder.Configuration.GetSection(Encrypt.SectionName));
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
