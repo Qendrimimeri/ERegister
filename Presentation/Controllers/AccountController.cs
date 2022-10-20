@@ -19,7 +19,7 @@ namespace Presentation.Controllers
         private readonly Toaster _toaster;
         private readonly Roles _roles;
 
-        public AccountController( IUnitOfWork unitOfWork, 
+        public AccountController(IUnitOfWork unitOfWork,
                                   SignInManager<ApplicationUser> signInManager,
                                   ILogger<AccountController> logger,
                                   IOptionsSnapshot<Roles> roles,
@@ -46,17 +46,22 @@ namespace Presentation.Controllers
                     if (roles.Contains(_roles.AnetarIThjeshte))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                            return RedirectToAction("AddVoter", "AddsAdmin");
+                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                        return RedirectToAction("AddVoter", "AddsAdmin");
                     }
-                    else if(roles.Contains(_roles.KryetarIFshatit))
+                    else if (roles.Contains(_roles.KryetarIFshatit))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                            return RedirectToAction("Index", "Crm");
+                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+
+                        return RedirectToAction("Index", "Crm");
                     }
                     else if ((roles.Contains(_roles.KryetarIPartise)) || (roles.Contains(_roles.KryetarIKomunes)))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                            return RedirectToAction("Index", "Dashboard");
+                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+
+                        return RedirectToAction("Index", "Dashboard");
                     }
                 }
                 ModelState.AddModelError("", "Kreencialet e gabuara");
@@ -91,7 +96,7 @@ namespace Presentation.Controllers
         {
             try
             {
-               return View("ConfirmEmail");
+                return View("ConfirmEmail");
             }
             catch (Exception err)
             {
@@ -197,7 +202,7 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task<IActionResult>Logout()
+        public async Task<IActionResult> Logout()
         {
             try
             {
