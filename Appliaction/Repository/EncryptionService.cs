@@ -16,7 +16,6 @@ public class EncryptionService
     {
         _encrypt = encrypt.Value;
     }
-    public EncryptionService(){ }
 
 
     public string Encrypt(string encryptString)
