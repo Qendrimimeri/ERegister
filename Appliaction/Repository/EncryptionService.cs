@@ -16,10 +16,6 @@ public class EncryptionService
     {
         _encrypt = encrypt.Value;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 3f7a6862d5fe89c74752febdd2594f33beceb7b2
 
 
     public string Encrypt(string encryptString)

@@ -15,13 +15,16 @@ public class SuperAdminInitializer
     {
         private readonly Admin _admin;
         private readonly ApplicationDbContext _context;
-        private readonly Roles _roles;
+    private readonly IOptionsSnapshot<Encrypt> _encrypt;
+    private readonly Roles _roles;
 
         public SuperAdminInitializer(ApplicationDbContext context,
                                     IOptionsSnapshot<Admin> admin,
-                                    IOptionsSnapshot<Roles> roles)
+                                    IOptionsSnapshot<Roles> roles,
+                                    IOptionsSnapshot<Encrypt> encrypt)
         {
             _context = context;
+            _encrypt = encrypt;
             _roles = roles.Value;
             _admin = admin.Value;
         }
@@ -30,7 +33,7 @@ public class SuperAdminInitializer
 
         public async void Initialize()
         {
-            EncryptionService encryption = new ();
+            EncryptionService encryption = new (_encrypt);
             var roles = new List<string>() 
             {   _roles.KryetarIPartise, 
                 _roles.KryetarIKomunes,

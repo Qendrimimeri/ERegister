@@ -93,5 +93,6 @@ app.MapControllerRoute(
 var init = app.Services.CreateScope();
 new SuperAdminInitializer(init.ServiceProvider.GetService<ApplicationDbContext>(),
                           init.ServiceProvider.GetService<IOptionsSnapshot<Admin>>(),
-                          init.ServiceProvider.GetService<IOptionsSnapshot<Roles>>()).Initialize();
+                          init.ServiceProvider.GetService<IOptionsSnapshot<Roles>>(),
+                          init.ServiceProvider.GetService<IOptionsSnapshot<Encrypt>>()).Initialize();
 app.Run();
