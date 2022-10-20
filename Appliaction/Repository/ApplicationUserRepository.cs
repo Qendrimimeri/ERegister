@@ -71,7 +71,7 @@ namespace Application.Repository
                     Id = person.Id,
                     FullName = person.FullName,
                     //PhoneNumber = person.PhoneNumber,
-                    PhoneNumber = encrpyt.Decrypt(person.PhoneNumber),
+                    //PhoneNumber = encrpyt.Decrypt(person.PhoneNumber),
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -79,7 +79,7 @@ namespace Application.Repository
                     CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
                     InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                     ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
-
+                    
 
                     ActualStatus = person.ActualStatus
                 }).ToListAsync();
@@ -136,7 +136,6 @@ namespace Application.Repository
                       FullName = person.FullName,
                       //PhoneNumber = person.PhoneNumber,
                       PhoneNumber = encrpyt.Decrypt(person.PhoneNumber),
-
                       Village = person.Address.Village.Name,
                       PollCenter = person.Address.PollCenter.CenterNumber,
                       VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
