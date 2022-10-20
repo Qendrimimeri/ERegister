@@ -1,4 +1,5 @@
 using Application.Models;
+using Application.Models.Services;
 using Application.Repository.IRepository;
 using Application.Settings;
 using Application.ViewModels;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Xml.Linq;
 
@@ -26,6 +28,7 @@ namespace Application.Repository
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly IOptionsSnapshot<Encrypt> _encrypt;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
@@ -37,7 +40,8 @@ namespace Application.Repository
                                          UserManager<ApplicationUser> userManager,
                                          SignInManager<ApplicationUser> signInManager,
                                          RoleManager<IdentityRole> roleManager,
-                                         IHttpContextAccessor httpContext) : base(context)
+                                         IHttpContextAccessor httpContext,
+                                         IOptionsSnapshot<Encrypt> encrypt) : base(context)
         {
             _context = context;
             _logger = logger;
@@ -46,11 +50,12 @@ namespace Application.Repository
             _signInManager = signInManager;
             _roleManager = roleManager;
             _httpContext = httpContext;
+            _encrypt = encrypt;
         }
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
-            var  encrpyt = new EncryptionService();
+            var  encrpyt = new EncryptionService(_encrypt);
 
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
@@ -160,7 +165,7 @@ namespace Application.Repository
         //VoterDetails
         public async Task<VoterDetailsVM> GetVoterInfoAsync(string name)
         {
-            EncryptionService encryption = new ();
+            EncryptionService encryption = new (_encrypt);
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
             var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
@@ -250,7 +255,7 @@ namespace Application.Repository
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
         {
-            EncryptionService encryption = new();
+            EncryptionService encryption = new(_encrypt);
             var getUser = _context.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
@@ -280,7 +285,7 @@ namespace Application.Repository
 
         public async Task<ProfileVM> GetProfileDetails(string email)
         {
-            EncryptionService encryption = new();
+            EncryptionService encryption = new(_encrypt);
 
             var getUserDetails = await _context.Users.Select(user => new ProfileVM()
             {
@@ -299,7 +304,7 @@ namespace Application.Repository
         }
         public async Task<bool> EditProfileDetails(ProfileVM user, string fullPath)
         {
-            EncryptionService encryption = new();
+            EncryptionService encryption = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
@@ -313,7 +318,7 @@ namespace Application.Repository
         }
         public async Task<bool> EditUserProfile(ProfileVM user)
         {
-            EncryptionService encryption = new();
+            EncryptionService encryption = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
@@ -384,7 +389,7 @@ namespace Application.Repository
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            EncryptionService encryption = new();
+            EncryptionService encryption = new(_encrypt);
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
@@ -455,7 +460,8 @@ namespace Application.Repository
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
-            EncryptionService encryption = new();
+            
+            EncryptionService encryption = new(_encrypt);
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {

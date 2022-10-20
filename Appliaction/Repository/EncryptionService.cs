@@ -12,11 +12,11 @@ public class EncryptionService
 {
     private readonly Encrypt _encrypt;
 
-    public EncryptionService(IOptionsSnapshot<Encrypt> encrypt)
+    public EncryptionService(IOptionsSnapshot<Encrypt>? encrypt)
     {
         _encrypt = encrypt.Value;
     }
-    public EncryptionService(){ }
+
 
 
     public string Encrypt(string encryptString)
