@@ -183,7 +183,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "You are Logged in!";
+                        TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -202,7 +202,7 @@ namespace Presentation.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData[_toaster.Success] = "You are logged out!";
+                TempData[_toaster.Success] = "Jeni shkyqur nga llogaria juaj!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)
