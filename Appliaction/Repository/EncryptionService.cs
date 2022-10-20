@@ -1,31 +1,30 @@
-﻿using Application.Models.Services;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Models.Services;
 
 namespace Application.Repository;
+
 public class EncryptionService
 {
-    private readonly Encrypt _encrypt;
+    private readonly Encrypt _encrypy;
 
-    public EncryptionService(IOptionsSnapshot<Encrypt>? encrypt)
+    public EncryptionService(Encrypt encrypy)
     {
-        _encrypt = encrypt.Value;
+        _encrypy = encrypy;
     }
-
-
     public string Encrypt(string encryptString)
     {
-        string EncryptionKey = _encrypt.EncryptKey;
+        string EncryptionKey = _encrypy.EncryptKey;
         byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
         using (Aes encryptor = Aes.Create())
         {
             Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-            0x49, 0x76, 0x61, 0x6e, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+            0x71, 0x65, 0x6e, 0x64, 0x72, 0x69, 0x6d
         });
             encryptor.Key = pdb.GetBytes(32);
             encryptor.IV = pdb.GetBytes(16);
@@ -44,14 +43,13 @@ public class EncryptionService
 
     public string Decrypt(string cipherText)
     {
-
-        string EncryptionKey = _encrypt.EncryptKey;
+        string EncryptionKey = _encrypy.EncryptKey;
         cipherText = cipherText.Replace(" ", "+");
         byte[] cipherBytes = Convert.FromBase64String(cipherText);
         using (Aes encryptor = Aes.Create())
         {
             Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+            0x71, 0x65, 0x6e, 0x64, 0x72, 0x69, 0x6d
         });
             encryptor.Key = pdb.GetBytes(32);
             encryptor.IV = pdb.GetBytes(16);
@@ -68,9 +66,8 @@ public class EncryptionService
         return cipherText;
     }
 
-//    internal static string Encrypt(object phoneNumber)
-//    {
-//        throw new NotImplementedException();
-//    }
+    internal static string Encrypt(object phoneNumber)
+    {
+        throw new NotImplementedException();
+    }
 }
-

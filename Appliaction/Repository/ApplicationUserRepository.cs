@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
-using System.Xml.Linq;
 
 
 
@@ -22,13 +21,13 @@ namespace Application.Repository
 
     public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
+        
         private readonly RoleManager<IdentityRole> _roleManager;
-
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
         private readonly IHttpContextAccessor _httpContext;
-        private readonly IOptionsSnapshot<Encrypt> _encrypt;
+        private readonly Encrypt _encrypt;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
 
@@ -50,13 +49,12 @@ namespace Application.Repository
             _signInManager = signInManager;
             _roleManager = roleManager;
             _httpContext = httpContext;
-            _encrypt = encrypt;
+            _encrypt = encrypt.Value;
         }
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
-            var  encrpyt = new EncryptionService(_encrypt);
-
+            EncryptionService encrypt = new (_encrypt);
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
             var userVillage = await GetVillageIdOfUser(loginUserId);
@@ -71,7 +69,7 @@ namespace Application.Repository
                     Id = person.Id,
                     FullName = person.FullName,
                     //PhoneNumber = person.PhoneNumber,
-                    //PhoneNumber = encrpyt.Decrypt(person.PhoneNumber),
+                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -79,7 +77,7 @@ namespace Application.Repository
                     CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
                     InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                     ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
-                    
+
 
                     ActualStatus = person.ActualStatus
                 }).ToListAsync();
@@ -95,7 +93,7 @@ namespace Application.Repository
                 return result;
             }
 
-            else if(isThisMunicipalityAdmin)
+            else if (isThisMunicipalityAdmin)
             {
                 var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address)
                     .Where(x => x.Address.MunicipalityId == userMuni).Select(person => new PersonVM()
@@ -103,7 +101,7 @@ namespace Application.Repository
                         Id = person.Id,
                         FullName = person.FullName,
                         //PhoneNumber = person.PhoneNumber,
-                        PhoneNumber = encrpyt.Decrypt(person.PhoneNumber),
+                        PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
                         MunicipalityName = person.Address.Municipality.Name,
                         PollCenter = person.Address.PollCenter.CenterNumber,
@@ -135,7 +133,8 @@ namespace Application.Repository
                       Id = person.Id,
                       FullName = person.FullName,
                       //PhoneNumber = person.PhoneNumber,
-                      PhoneNumber = encrpyt.Decrypt(person.PhoneNumber),
+                      PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
                       Village = person.Address.Village.Name,
                       PollCenter = person.Address.PollCenter.CenterNumber,
                       VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -164,7 +163,7 @@ namespace Application.Repository
         //VoterDetails
         public async Task<VoterDetailsVM> GetVoterInfoAsync(string name)
         {
-            EncryptionService encryption = new (_encrypt);
+            EncryptionService encrypt = new(_encrypt);
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
             var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
@@ -188,7 +187,7 @@ namespace Application.Repository
                     Block = person.Address.Block.Name,
                     HouseNo = person.Address.HouseNo,
                     //PhoneNumber = person.PhoneNumber,
-                    PhoneNumber = encryption.Decrypt(person.PhoneNumber),
+                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
                     Email = person.Email,
                     FacebookLink = person.SocialNetwork,
                     WorkPlace = person.Work.WorkPlace,
@@ -219,7 +218,8 @@ namespace Application.Repository
                         Block = person.Address.Block.Name,
                         HouseNo = person.Address.HouseNo,
                         //PhoneNumber = person.PhoneNumber,
-                        PhoneNumber = encryption.Decrypt(person.PhoneNumber),
+                        PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
                         Email = person.Email,
                         FacebookLink = person.SocialNetwork,
                         WorkPlace = person.Work.WorkPlace,
@@ -254,13 +254,13 @@ namespace Application.Repository
 
         public async Task<PersonVM> GetUserByIdAsync(string id)
         {
-            EncryptionService encryption = new(_encrypt);
+            EncryptionService encrypt = new(_encrypt);
             var getUser = _context.Users.Select(person => new PersonVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
                 //PhoneNumber = person.PhoneNumber,
-                PhoneNumber = encryption.Decrypt(person.PhoneNumber),
+                PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -284,14 +284,13 @@ namespace Application.Repository
 
         public async Task<ProfileVM> GetProfileDetails(string email)
         {
-            EncryptionService encryption = new(_encrypt);
-
+            EncryptionService encrypt = new(_encrypt);
             var getUserDetails = await _context.Users.Select(user => new ProfileVM()
             {
                 Id = user.Id,
                 FullName = user.FullName,
                 //PhoneNo = user.PhoneNumber,
-                PhoneNo = encryption.Decrypt(user.PhoneNumber),
+                PhoneNo = encrypt.Decrypt(user.PhoneNumber),
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
                 Village = user.Address.Village.Name,
@@ -303,26 +302,24 @@ namespace Application.Repository
         }
         public async Task<bool> EditProfileDetails(ProfileVM user, string fullPath)
         {
-            EncryptionService encryption = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
             //getUser.PhoneNumber = user.PhoneNo;
 
-            getUser.PhoneNumber = encryption.Encrypt(user.PhoneNo);
+            getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
             await _context.SaveChangesAsync();
 
             return true;
         }
         public async Task<bool> EditUserProfile(ProfileVM user)
         {
-            EncryptionService encryption = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
             //getUser.PhoneNumber = user.PhoneNo;
-            getUser.PhoneNumber = encryption.Encrypt(user.PhoneNo);
+            getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
             await _context.SaveChangesAsync();
             return true;
 
@@ -388,17 +385,17 @@ namespace Application.Repository
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            EncryptionService encryption = new(_encrypt);
+            EncryptionService encrypt = new (_encrypt);
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
                 MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
-                VillageId = (model.Village == null ? await AdminVillageId() : model.Village),
+                VillageId = model.Village,
                 BlockId = model.Block,
                 StreetId = model.Street,
-                NeighborhoodId = (model.Neigborhood == null ? await AdminNeigborhoodId() : model.Neigborhood),
+                NeighborhoodId = model.Neigborhood,
                 PollCenterId = int.Parse(model.PollCenter),
             };
             await _context.Addresses.AddAsync(address);
@@ -428,7 +425,7 @@ namespace Application.Repository
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
                 //PhoneNumber = model.PhoneNumber,
-                PhoneNumber = encryption.Encrypt(model.PhoneNumber),
+                PhoneNumber = encrypt.Encrypt(model.PhoneNumber),
             };
 
             await _userManager.CreateAsync(simpleUser, "Eregister@!12");
@@ -459,8 +456,8 @@ namespace Application.Repository
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
-            
-            EncryptionService encryption = new(_encrypt);
+            EncryptionService encrypt = new(_encrypt);
+
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
@@ -501,8 +498,8 @@ namespace Application.Repository
                 AddressId = addressId,
                 ActualStatus = "unset",
                 ImgPath = "default.png",
-                //PhoneNumber = model.PhoneNumber,
-                PhoneNumber = encryption.Encrypt(model.PhoneNumber),
+
+                PhoneNumber = encrypt.Encrypt(model.PhoneNumber),
             };
 
             // Use this for Development env.
@@ -568,7 +565,7 @@ namespace Application.Repository
         }
 
 
-        public async Task<Microsoft.AspNetCore.Identity.IdentityResult>ResetPasswordAsync(ResetPasswordVM model)
+        public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
             var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
@@ -577,18 +574,11 @@ namespace Application.Repository
 
 
         public async Task<int> AdminMunicipalityId()
-        => ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-            .Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
-
-        public async Task<int> AdminVillageId() =>
-            ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-            .Select(x => x.Address.VillageId).FirstOrDefaultAsync());
-
-
-        public async Task<int> AdminNeigborhoodId() =>
-            ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-            .Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync());
-
+        {
+            var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var res = ((int)await _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
+            return res;
+        }
 
 
         private static string CreateRandomPassword(int passwordLength)

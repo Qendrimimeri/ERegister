@@ -12,49 +12,49 @@ namespace Infrastructure.Services;
 #pragma warning disable CS8604
 
 public class SuperAdminInitializer
-    {
-        private readonly Admin _admin;
-        private readonly ApplicationDbContext _context;
-    private readonly IOptionsSnapshot<Encrypt> _encrypt;
+{
+    private readonly Admin _admin;
+    private readonly ApplicationDbContext _context;
+    private readonly Encrypt _encrypt;
     private readonly Roles _roles;
 
-        public SuperAdminInitializer(ApplicationDbContext context,
-                                    IOptionsSnapshot<Admin> admin,
-                                    IOptionsSnapshot<Roles> roles,
-                                    IOptionsSnapshot<Encrypt> encrypt)
-        {
-            _context = context;
-            _encrypt = encrypt;
-            _roles = roles.Value;
-            _admin = admin.Value;
-        }
+    public SuperAdminInitializer(ApplicationDbContext context,
+                                IOptionsSnapshot<Admin> admin,
+                                IOptionsSnapshot<Roles> roles,
+                                IOptionsSnapshot<Encrypt> encrypt)
+    {
+        _context = context;
+        _encrypt = encrypt.Value;
+        _roles = roles.Value;
+        _admin = admin.Value;
+    }
 
-        public ApplicationDbContext Context { get; }
+    public ApplicationDbContext Context { get; }
 
-        public async void Initialize()
-        {
-            EncryptionService encryption = new (_encrypt);
-            var roles = new List<string>() 
-            {   _roles.KryetarIPartise, 
+    public async void Initialize()
+    {
+        EncryptionService encrypt = new (_encrypt);
+        var roles = new List<string>()
+            {   _roles.KryetarIPartise,
                 _roles.KryetarIKomunes,
                 _roles.KryetarIFshatit,
-                _roles.AnetarIThjeshte, 
-                "SimpleRole" 
+                _roles.AnetarIThjeshte,
+                "SimpleRole"
             };
 
-            foreach (var role in roles)
+        foreach (var role in roles)
+        {
+            if (!_context.Roles.Any(r => r.Name == role))
             {
-                if (!_context.Roles.Any(r => r.Name == role))
+                await new RoleStore<IdentityRole>(Context).CreateAsync(new IdentityRole()
                 {
-                    await new RoleStore<IdentityRole>(Context).CreateAsync(new IdentityRole()
-                    {
-                        Name = role,
-                        NormalizedName = role.ToUpper()
-                    });
-                }
+                    Name = role,
+                    NormalizedName = role.ToUpper()
+                });
             }
+        }
 
-            _context.SaveChanges();
+        _context.SaveChanges();
 
         var admin = new ApplicationUser
         {
@@ -69,23 +69,23 @@ public class SuperAdminInitializer
             WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
             AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
             ActualStatus = "Ne Process",
-            PhoneNumber = encryption.Encrypt("213123123")
+            PhoneNumber = encrypt.Encrypt("213123123")
 
-            };
+        };
 
 
-            var userstore = new UserStore<ApplicationUser>(_context);
+        var userstore = new UserStore<ApplicationUser>(_context);
 
-            if (!_context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
-            {
-                var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, _admin.Password);
-                admin.PasswordHash = password;
+        if (!_context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
+        {
+            var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, _admin.Password);
+            admin.PasswordHash = password;
 
-                await userstore.CreateAsync(admin);
-                await userstore.AddToRoleAsync(admin, roles[0]);
-            }
-            await _context.SaveChangesAsync();
+            await userstore.CreateAsync(admin);
+            await userstore.AddToRoleAsync(admin, roles[0]);
         }
+        await _context.SaveChangesAsync();
     }
+}
 
-#pragma warning restore CS8604 
+#pragma warning restore CS8604

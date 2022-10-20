@@ -46,6 +46,8 @@ builder.Services.Configure<SuccessChances>(builder.Configuration.GetSection(Succ
 builder.Services.Configure<Toaster>(builder.Configuration.GetSection(Toaster.SectionName));
 builder.Services.Configure<YesNo>(builder.Configuration.GetSection(YesNo.SectionName));
 builder.Services.Configure<Encrypt>(builder.Configuration.GetSection(Encrypt.SectionName));
+
+
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
@@ -56,7 +58,7 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)), 
+    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)),
                                 ServiceLifetime.Transient);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
