@@ -2,11 +2,13 @@
 @inject IOptionsSnapshot<Roles> _roles;
 @inject RoleManager<IdentityRole> _roleManager;
 @inject IUnitOfWork _unitOfWork;
+
 @{
     Roles roles = _roles.Value;
     var userRole = User.Identities.FirstOrDefault().Claims.Select(x => x.Value).Skip(4).Take(1).FirstOrDefault();
     var roleConfig = userRole.Replace("I", " i ").ToLower().Capitalize();
     var userName = await _userManager.FindByNameAsync(User.Identity.Name);
+    var userMuniName = await _unitOfWork.Municipality.GetMuniName(userName.Id);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +56,10 @@
                         <li class="dropdown-header">
                             <h6>@(userName.FullName)</h6>
                             <span>@(roleConfig)</span>
+
+                            <br /><span>Qyteti: @userMuniName</span>
+
+                            
                         </li>
                         <li>
                             <hr class="dropdown-divider">

@@ -9,5 +9,7 @@ namespace Application.Repository.IRepository
         Task<Municipality> GetMuniOfUser(string Id);
 
         Task<List<Municipality>> GetAllCities();
+
+        Task<string> GetMuniName(string userId);
     }
 }
