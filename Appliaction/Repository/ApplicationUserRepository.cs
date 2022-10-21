@@ -259,7 +259,7 @@ namespace Application.Repository
             {
                 Id = person.Id,
                 FullName = person.FullName,
-                //PhoneNumber = person.PhoneNumber,
+                //PhoneNumber = person.PhoneNumber,EditProfileDetails
                 PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterName,
