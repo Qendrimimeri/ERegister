@@ -1,11 +1,8 @@
 ﻿using Application.Repository.IRepository;
+using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repository
 {
@@ -17,9 +14,41 @@ namespace Application.Repository
         {
             _db = db;
         }
-        public void Save()
+
+        public async Task<Neighborhood> GetByIdAsync(int id) =>
+            await _db.Neighborhoods.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+
+        public async Task<List<Neighborhood>> GetAllAsync() =>
+            await _db.Neighborhoods.ToListAsync();
+
+
+        public async Task<Neighborhood> GetByMunicipalityAsync(int id) =>
+            await _db.Neighborhoods.Where(x => x.MunicipalityId == id).FirstOrDefaultAsync();
+
+
+        public async Task<Neighborhood> GetByVillageAsync(int id) =>
+            await _db.Neighborhoods.Where(x => x.VillageId == id).FirstOrDefaultAsync();
+
+
+        public async Task AddAsync(AddNeighborhoodVM model)
         {
-            _db.SaveChanges();
+            await _db.Neighborhoods.AddAsync(new Neighborhood
+            {
+                Name = model.NeighborhoodName,
+                MunicipalityId = model.MunicipalityId
+            });
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task AddByVillageAsync(AddNeighborhoodVM model)
+        {
+            await _db.Neighborhoods.AddAsync(new Neighborhood
+            {
+                Name = model.NeighborhoodName,
+                VillageId = model.VillageId
+            });
+            await _db.SaveChangesAsync();
         }
     }
 }

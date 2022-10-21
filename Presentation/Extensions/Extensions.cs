@@ -32,7 +32,10 @@ public static class OptionPatterns
         services.Configure<Mail>(builder.Configuration.GetSection(Mail.SectionName));
         return services;
     }
+
 }
+
+
 
 public static class Identity
 {
@@ -54,6 +57,8 @@ public static class Identity
         return services;
     }
 }
+
+
 
 
 public static class Logger

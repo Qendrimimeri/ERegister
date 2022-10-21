@@ -8,6 +8,6 @@ namespace Application.Repository.IRepository
 
         Task<Municipality> GetMuniOfUser(string Id);
 
-        Task<List<Municipality>> GetAllCities();
+        Task<List<Municipality>> GetAllMunicipalityAsync();
     }
 }
