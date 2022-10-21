@@ -9,5 +9,6 @@ namespace Application.Repository.IRepository
 {
     public interface IVillageRepository:IRepository<Village>
     {
+        Task<string> GetVillageName(string userId);
     }
 }

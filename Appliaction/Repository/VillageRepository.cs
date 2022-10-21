@@ -1,6 +1,7 @@
 ﻿using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,8 @@ namespace Application.Repository
         {
             _db.SaveChanges();
         }
+        public async Task<string> GetVillageName(string userId) =>
+        await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == userId).Select(x => x.Address.Village.Name).FirstOrDefaultAsync();
+
     }
 }

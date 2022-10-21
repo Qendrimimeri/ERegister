@@ -216,7 +216,7 @@ namespace Presentation.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData[_toaster.Success] = "Jeni shkyqur nga llogaria juaj!";
+                TempData[_toaster.Success] = "Jeni shkyçur nga llogaria juaj!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)

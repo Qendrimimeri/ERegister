@@ -9,5 +9,6 @@ namespace Application.Repository.IRepository
 {
     public interface INeighborhoodRepository:IRepository<Neighborhood>
     {
+      Task<string> GetNeigborhoodName(string userId);
     }
 }

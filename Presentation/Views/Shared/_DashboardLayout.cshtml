@@ -9,6 +9,9 @@
     var roleConfig = userRole.Replace("I", " i ").ToLower().Capitalize();
     var userName = await _userManager.FindByNameAsync(User.Identity.Name);
     var userMuniName = await _unitOfWork.Municipality.GetMuniName(userName.Id);
+    var neighboorhoodName = await _unitOfWork.Neighborhood.GetNeigborhoodName(userName.Id);
+    var villageName = await _unitOfWork.Village.GetVillageName(userName.Id);
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -54,12 +57,33 @@
                     </a><!-- End Profile Iamge Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>@(userName.FullName)</h6>
-                            <span>@(roleConfig)</span>
+                                @if (User.IsInRole(roles.KryetarIPartise) || User.IsInRole(roles.KryetarIKomunes))
+                                {
+                                <h6>@(userName.FullName)</h6>
+                                <span>@(roleConfig)</span>
+                                <br />
+                                    <span>Qyteti: @userMuniName</span>
+                                }
+                                else if( User.IsInRole(roles.KryetarIFshatit))
+                                {
+                                <h6>@(userName.FullName)</h6>
+                                <span>@(roleConfig)</span>
+                                <br />
+                                 <span>Fshati : @neighboorhoodName</span>
+                                <br />
+                                <span>Qyteti: @userMuniName</span>
+                                    
+                                }
+                                else 
+                                {
+                                <h6>@(userName.FullName)</h6>
+                                <span>Anëtar</span>
+                                <br />
+                                 <span>Fshati : @villageName</span>
+                                <br />
+                                <span>Qyteti: @userMuniName</span>
 
-                            <br /><span>Qyteti: @userMuniName</span>
-
-                            
+                                }
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -93,10 +117,10 @@
                         </li>
                         <li>
                             <form method="post" asp-controller="Account" asp-action="Logout">
-                            <button class="dropdown-item d-flex align-items-center" href="#">
+                                <button class="dropdown-item d-flex align-items-center" href="#">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Dil</span>
-                           
+
                             </form>
                         </li>
                     </ul><!-- End Profile Dropdown Items -->
