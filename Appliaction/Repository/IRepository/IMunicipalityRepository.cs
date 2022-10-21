@@ -23,7 +23,9 @@ namespace Application.Repository.IRepository
         /// Gets a list of Municipalities 
         /// </summary>
         /// <returns>List of type Municipality</returns>
-        Task<List<Municipality>> GetAllCities();
+        Task<List<Municipality>> GetAllMunicipalityAsync();
+        
+        
         /// <summary>
         /// Gets the name of municipality based on specified userId
         /// </summary>

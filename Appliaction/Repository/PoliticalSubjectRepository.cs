@@ -1,4 +1,5 @@
-﻿using Application.Repository.IRepository;
+﻿using Application.Models;
+using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +24,17 @@ namespace Application.Repository
             => await _db.PoliticalSubjects.ToListAsync();
 
 
+        public async Task<PoliticalSubject> GetByNameAsync(string name) =>
+            await _db.PoliticalSubjects.Where(x => x.Name == name).FirstOrDefaultAsync();
 
-        public void Save()
+
+        public async Task AddAsync(NameModel model)
         {
-            _db.SaveChanges();
+            await _db.PoliticalSubjects.AddAsync(new PoliticalSubject
+            {
+                Name = model.Text
+            });
+            await _db.SaveChangesAsync();
         }
     }
 }
