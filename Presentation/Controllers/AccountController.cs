@@ -197,7 +197,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                        TempData["success"] = "Jeni kyçur në llogarinë tuaj";
                         return RedirectToAction("Index", "Home");
                     }
                 }
