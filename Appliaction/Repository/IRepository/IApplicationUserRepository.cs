@@ -66,5 +66,7 @@ namespace Application.Repository.IRepository
 
         string GetLoginUser();
 
+        bool GetEmail(string email);
+
     }
 }

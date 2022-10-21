@@ -597,6 +597,15 @@ namespace Application.Repository
 
         public string GetLoginUser()
             => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        public bool GetEmail(string email)
+        {
+            var res = _context.ApplicationUsers.Where(x => x.Email == email).Select(x => x.Email).FirstOrDefault();
+            if (res != null)
+                return true;
+            return false;
+
+        }
     }
 
 #pragma warning restore CS8604 

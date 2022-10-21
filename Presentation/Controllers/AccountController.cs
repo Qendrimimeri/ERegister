@@ -38,7 +38,16 @@ namespace Presentation.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var hasEmail = _unitOfWork.ApplicationUser.GetEmail(login.Email);
+
+                if (!hasEmail)
+                {
+                    ViewBag.Email = login;
+                    ViewBag.EmailNull = hasEmail;
+                }
+
+
+                else if (ModelState.IsValid)
                 {
                     // get the role of the signin user 
                     var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
@@ -64,8 +73,8 @@ namespace Presentation.Controllers
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }
-                ModelState.AddModelError("", "Kreencialet e gabuara");
-                return RedirectToAction("Index", "Home", ModelState);
+                // ModelState.AddModelError("", "Kreencialet e gabuara");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception err)
             {

@@ -1,5 +1,7 @@
 ﻿@using Application.ViewModels
-
+@{
+    var isEmailNull = ViewBag.EmailNull;
+}
 @{
     <style>
         .forgetpassword {
@@ -40,7 +42,10 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
-
+                @if(@isEmailNull == false)
+                {
+                    <small class="text-danger">Nuk ka të dhëna për !</small>
+                }
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
                     <div class="col-6">
                         <label  asp-for="RememberMe"class="rememberme form-check-label pr-3 mr-3">
