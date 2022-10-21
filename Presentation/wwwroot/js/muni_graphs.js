@@ -1,29 +1,14 @@
-﻿
-const munis = document.querySelector('#munis');
+﻿const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni";
+let response = fetch(kqzrez).then(res => res.json());
+let rez = response.then((values) => {
 
-//const url = "https://eregisterpbc-001-site1.atempurl.com/"
-const url = "https://localhost:7278/api/service/";
-
-async function getId() {
-    const select = document.getElementById("munis").value
-    const baseUrl = 'https://localhost:7278/api/service/';
-    const kqzrez = baseUrl + "kqzresultsbymuni?id=" + select;
-    let response = await fetch(kqzrez).then(res => res.json());
-    var data = [];
-
-    response.forEach(x => {
-        console.log(x)
-        data.push(x)
-    });
-
-    console.log(data)
-    const lastYear = data[select - 1].value.Nacionale["lastYear"];
-    const thisYear = data[select - 1].value.Nacionale["thisYear"];
-    const cityName = data[select - 1].value.Nacionale["city"];
-    const politicalSubjects = data[select - 1].value.Nacionale["politicSubjects"];
-    var selectedCity = document.getElementById("city-nacinale").innerText = `${data[select - 1].key} - Zgjedhjet Nacionale`;
-    var selectedCity = document.getElementById("city-lokale").innerText = `${data[select - 1].key} - Zgjedhjet Lokale`;
-
+    console.log(values)
+    const lastYear = values.Nacionale["lastYear"];
+    const thisYear = values.Nacionale["thisYear"];
+    const cityName = values.Nacionale["cityName"];
+    const politicalSubjects = values.Nacionale["politicSubjects"];
+    var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
+    var selectedCity = document.getElementById("city-lokale").innerText = `${cityName} - Zgjedhjet Lokale`;
     new ApexCharts(document.querySelector("#columnChart"), {
         series: [{
             name: 'Viti 2021',
@@ -70,9 +55,11 @@ async function getId() {
             }
         }
     }).render();
-
-    const lastYearLocal = data[select - 1].value.Lokale["lastYear"]
-    const thisYearLocal = data[select - 1].value.Lokale["thisYear"]
+})
+response.then((results) => {
+    const lastYearLocal = results.Lokale["lastYear"]
+    const thisYearLocal = results.Lokale["thisYear"]
+    const politicalSubjects = results.Nacionale["politicSubjects"];
     new ApexCharts(document.querySelector("#columnChart1"), {
         series: [{
             name: 'Viti 2021',
@@ -119,4 +106,4 @@ async function getId() {
             }
         }
     }).render();
-}
+})
