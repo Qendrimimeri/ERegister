@@ -15,5 +15,7 @@ namespace Application.Repository.IRepository
         Task<List<Village>> GetByMunicipalityAsync(int id);
 
         Task AddAsync(AddVillageVM model);
+        
+        Task<string> GetVillageName(string userId);
     }
 }

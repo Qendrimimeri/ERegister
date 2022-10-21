@@ -7,6 +7,13 @@ namespace Application.Repository.IRepository
     {
         Task<Kqzregister> GetByMunicipalityAsync(int id);
 
+        /// <summary>
+        /// Updates KqzResult based on specified KqzRegister model
+        /// </summary>
+        /// <param name="kqz"></param>
+        /// <returns>KqzRegister result</returns>
+        Task<Kqzregister> UpdateKqzAsync(Kqzregister kqz);
+
         Task<Kqzregister> GetByVillageAsync(int id);
 
         Task<Kqzregister> GetByNeigborhoodAsync(int id);

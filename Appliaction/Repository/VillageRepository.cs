@@ -37,6 +37,9 @@ namespace Application.Repository
             });
             _db.SaveChanges();
         }
+        
+        public async Task<string> GetVillageName(string userId) =>
+        await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == userId).Select(x => x.Address.Village.Name).FirstOrDefaultAsync();
 
     }
 }

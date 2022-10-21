@@ -124,25 +124,25 @@ namespace Domain.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Blocks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    MunicipalityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Blocks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Blocks_Municipalities_MunicipalityId",
-                        column: x => x.MunicipalityId,
-                        principalTable: "Municipalities",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+             name: "Blocks",
+             columns: table => new
+             {
+                 Id = table.Column<int>(type: "int", nullable: false)
+                     .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                 Name = table.Column<string>(type: "longtext", nullable: true)
+                     .Annotation("MySql:CharSet", "utf8mb4"),
+                 MunicipalityId = table.Column<int>(type: "int", nullable: true)
+             },
+             constraints: table =>
+             {
+                 table.PrimaryKey("PK_Blocks", x => x.Id);
+                 table.ForeignKey(
+                     name: "FK_Blocks_Municipalities_MunicipalityId",
+                     column: x => x.MunicipalityId,
+                     principalTable: "Municipalities",
+                     principalColumn: "Id");
+             })
+             .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Villages",

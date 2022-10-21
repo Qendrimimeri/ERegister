@@ -3,20 +3,6 @@ const munis = document.querySelector('#munis');
 
 //const url = "https://eregisterpbc-001-site1.atempurl.com/"
 const url = "https://localhost:7278/api/service/";
-getMunis();
-function getMunis(id) {
-    let endpoint = url + "getmunis";
-    let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            data.forEach(x => {
-                let item = document.createElement("option");
-                item.value = x.id;
-                item.innerText = x.name;
-                munis.appendChild(item);
-            });
-        });
-}
 
 async function getId() {
     const select = document.getElementById("munis").value

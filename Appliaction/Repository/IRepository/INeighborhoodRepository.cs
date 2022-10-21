@@ -21,5 +21,7 @@ namespace Application.Repository.IRepository
         Task AddAsync(AddNeighborhoodVM model);
 
         Task AddByVillageAsync(AddNeighborhoodVM model);
+        
+        Task<string> GetNeigborhoodName(string userId);
     }
 }

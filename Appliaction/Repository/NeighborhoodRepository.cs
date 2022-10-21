@@ -3,6 +3,11 @@ using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Repository
 {
@@ -50,5 +55,10 @@ namespace Application.Repository
             });
             await _db.SaveChangesAsync();
         }
+
+        public async Task<string> GetNeigborhoodName(string userId) =>
+            await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == userId).Select(x => x.Address.Neighborhood.Name).FirstOrDefaultAsync();
+
     }
+    
 }

@@ -50,11 +50,17 @@
     </div>
 </div>
 
-@if (!User.IsInRole(roles.KryetarIPartise))
+@if (User.IsInRole(roles.KryetarIPartise))
 {
-    @section Scripts { <script src="~/js/admin_graphs.js"></script> }
+    @section Scripts { 
+        <script src="~/js/municipalities.js"></script> 
+        <script src="~/js/admin_graphs.js"></script> 
+    }
 }
 else
 { 
-    @section Scripts { <script src="~/js/muni_graphs.js"></script> } 
+    @section Scripts { 
+        <script src="~/js/municipalities.js"></script> 
+        <script src="~/js/muni_graphs.js"></script> 
+    } 
 }

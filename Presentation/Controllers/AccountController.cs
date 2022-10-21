@@ -38,7 +38,16 @@ namespace Presentation.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var hasEmail = _unitOfWork.ApplicationUser.GetEmail(login.Email);
+
+                if (!hasEmail)
+                {
+                    ViewBag.Email = login;
+                    ViewBag.EmailNull = hasEmail;
+                }
+
+
+                else if (ModelState.IsValid)
                 {
                     // get the role of the signin user 
                     var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
@@ -64,8 +73,8 @@ namespace Presentation.Controllers
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }
-                ModelState.AddModelError("", "Kreencialet e gabuara");
-                return RedirectToAction("Index", "Home", ModelState);
+                // ModelState.AddModelError("", "Kreencialet e gabuara");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception err)
             {
@@ -188,7 +197,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                        TempData["success"] = "Jeni kyçur në llogarinë tuaj";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -207,7 +216,7 @@ namespace Presentation.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData[_toaster.Success] = "Jeni shkyqur nga llogaria juaj!";
+                TempData[_toaster.Success] = "Jeni shkyçur nga llogaria juaj!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)
