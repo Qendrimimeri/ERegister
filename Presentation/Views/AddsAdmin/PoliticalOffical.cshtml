@@ -799,6 +799,31 @@
                     neigborhoodsVillage.appendChild(item);
                 }));
         }
+        function addNeigborhoodVillageToDb() {
+            let endpoint = url + "addneighborhoodbyvillage";
+            let input = swal("Shto lagje te re:", {
+                content: "input",
+                buttons: {
+                    cancel: "Anulo",
+
+                    confirm: {
+                        text: "Shto",
+                        className: "test",
+                    }
+                }
+            })
+                .then((value) => {
+                    let sm = document.querySelector("#villages").value;
+                    fetch(endpoint, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'post',
+                        body: JSON.stringify({ villageId: sm, neighborhoodName: value })
+                    }).then(() => addNeigborhoodVillageToList(sm));
+                });
+        }
         //block
         function addBlockToList(muniId) {
             blocks.innerHTML = '';
@@ -973,7 +998,6 @@
                 }));
         }
     </script>
-    <script src="~/js/add_political_subject.js"></script>
     <script>
         $('#table').hide();
         const linku1 = document.getElementById('klasa1');
@@ -1110,7 +1134,6 @@
             }
         }
         </script>
-        <script src="~/js/kqz_validations.js"></script>
     }
 }
 else if (User.IsInRole(roles.KryetarIFshatit))
@@ -2538,6 +2561,5 @@ else
             }
         });
     </script>
-    <script src="~/js/kqz_validations.js"></script>
     }
 }
