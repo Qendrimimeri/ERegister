@@ -510,11 +510,11 @@ namespace Application.Repository
                 // Send Email
                 var emailReques = new MailRequestModel();
 
-                emailReques.Subject = "PBCA: Konfirmimi i llogaris�.";
+                emailReques.Subject = "E-Register: Konfirmimi i llogaris�.";
                 emailReques.Body = $"" +
-                    $"Llogaria juaj �sht� regjistruar!" +
-                    $"<br>Fjal�kalimi i juaj �sht� <strong>Admin!23</strong>" +
-                    $"<br>P�r t� konfirmuar llogarin� tuaj ju lutemi t� <a href={confimrEmailUrs}>klikoni k�tu</a>!" +
+                    $"Llogaria juaj është regjistruar!" +
+                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
+                    $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
                     $"<br><br><strong>E-Register</strong>";
 
                 emailReques.ToEmail = simpleUser.Email;
@@ -540,8 +540,8 @@ namespace Application.Repository
 
             // Send Email
             var emailReques = new MailRequestModel();
-            emailReques.Subject = "PBCA: Ndrysho fjal�kalimin.";
-            emailReques.Body = $"P�r t� ndryshuar fjal�kalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni k�tu</a>!" +
+            emailReques.Subject = "E-Register: Ndrysho fjalëkalimin.";
+            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
                 $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);

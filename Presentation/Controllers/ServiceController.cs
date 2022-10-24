@@ -644,7 +644,7 @@ namespace Presentation.Controllers
             {
                 _logger.LogError("An error has occurred", err);
                 return View(errorView);
-            }
+            } 
         }
 
 
