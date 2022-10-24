@@ -101,6 +101,17 @@ namespace Presentation.Controllers
         {
             try
             {
+                var PollCenterByNeighborhood = _context.PollCenters.Where(v => v.NeighborhoodId == id).FirstOrDefault();
+                var PollCenterByNeighborhoodMap = _mapper.Map<PollCenterVM>(PollCenterByNeighborhood);
+
+                return Ok(PollCenterByNeighborhoodMap);
+                //    .Select(x => new
+                //{
+                //    Id = x.Id,
+                //    CenterNumber = x.CenterNumber,
+                //    CenterName = x.CenterName,
+                //    MuniCipalityId = x.MunicipalitydId
+                //}));
                 var testing = _context.PollCenters.Where(v => v.NeighborhoodId == id).FirstOrDefault();
                 var test = _mapper.Map<PollCenterVM>(testing);
                 return Ok(test);
@@ -146,6 +157,18 @@ namespace Presentation.Controllers
         {
             try
             {
+                var PollCenterById = _context.PollCenters.Where(v => v.CenterNumber == id);
+                var PollCenterByIdMap = _mapper.Map<PollCenterVM>(PollCenterById);
+                return Ok(PollCenterByIdMap);
+                //    .Select(x => new
+                //{
+                //    Id = x.Id,
+                //    CenterNumber = x.CenterNumber,
+                //    CenterName = x.CenterName,
+                //    MuniCipalityId = x.MunicipalitydId
+                //}));
+
+
                 return Ok(_context.PollCenters.Where(v => v.CenterNumber == id).Select(x => new
                 {
                     Id = x.Id,
@@ -167,18 +190,22 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.PollCenters.Add(new PollCenter
-                {
-                    Id = model.Id,
-                    CenterNumber = model.CenterNumber,
-                    CenterName = model.CenterName,
-                    MunicipalitydId = model.MunicipalitydId,
-                    NeighborhoodId = model.NeighborhoodId,
-                    VillageId = model.VillageId
+                //_context.PollCenters.Add(new PollCenter
+                //{
+                //    Id = model.Id,
+                //    CenterNumber = model.CenterNumber,
+                //    CenterName = model.CenterName,
+                //    MunicipalitydId = model.MunicipalitydId,
+                //    NeighborhoodId = model.NeighborhoodId,
+                //    VillageId = model.VillageId
 
-                });
+                //});
+            
+                var test = _mapper.Map<PollCenter>(model);
+
+                _context.PollCenters.Add(test);
                 _context.SaveChanges();
-                return Ok(PollCenterByIdMap);
+                return Ok();
             }
             catch (Exception err)
             {
