@@ -530,6 +530,15 @@
     @section Scripts
     {
     <script src="~/js/kqz_validations.js"></script> 
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
@@ -1126,6 +1135,15 @@ else if (User.IsInRole(roles.KryetarIFshatit))
     @section Scripts
     {
     <script src="~/js/kqz_validations.js"></script> 
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         $('#table').hide();
         $('#streetByNeighborhood').hide();
@@ -1531,6 +1549,15 @@ else
     @section Scripts
     {
     <script src="~/js/kqz_validations.js"></script>
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         $('#neigborhoodsVillage-container').hide();
         $('#table').hide();
