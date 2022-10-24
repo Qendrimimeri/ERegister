@@ -9,6 +9,7 @@ namespace Presentation.AutoMapper
         public ApplicationMapper()
         {
             CreateMap<PollCenter, PollCenterVM>().ReverseMap();
+            CreateMap<Kqzregister, KqzRegisterVM>().ReverseMap();
 
         }
     }
