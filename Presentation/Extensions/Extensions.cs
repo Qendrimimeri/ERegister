@@ -84,6 +84,15 @@ public static class DataBase
     }
 }
 
+public static class AutoMapper
+{
+    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+    {
+        var builder = WebApplication.CreateBuilder();
+        services.AddAutoMapper(typeof(Program));
+        return services;
+    }
+}
 
 public static class Custom
 {

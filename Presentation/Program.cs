@@ -7,6 +7,7 @@ builder.Services.OptionPattern();
 builder.Logging.CustomLogger();
 builder.Services.CustomExtension();
 builder.Services.CustomDataBase();
+builder.Services.AddAutoMapper();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) app.UseMigrationsEndPoint();

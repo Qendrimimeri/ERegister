@@ -43,7 +43,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.PollCenters.ToList().Select(x => new
+                return Ok(_context.PollCenters.ToList().Select(x => new PollCenterVM
                 {
                     Id = x.Id,
                     CenterNumber = x.CenterNumber
@@ -175,7 +175,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Kqzregisters.Where(v => v.MunicipalityId == muniId).Select(x => new
+                return Ok(_context.Kqzregisters.Where(v => v.MunicipalityId == muniId).Select(x => new 
                 {
                     Id = x.Id,
                     NoOfVotes = x.NoOfvotes,
