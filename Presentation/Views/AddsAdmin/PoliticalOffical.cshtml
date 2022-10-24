@@ -529,7 +529,7 @@
 {
     @section Scripts
     {
-        
+    <script src="~/js/kqz_validations.js"></script> 
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
@@ -563,7 +563,6 @@
             }
         });
     </script>
-
     <script>
         $('#table').hide();
         $('#neigborhoodsVillage-container').hide();
@@ -1134,12 +1133,14 @@
             }
         }
         </script>
+        
     }
 }
 else if (User.IsInRole(roles.KryetarIFshatit))
 {
     @section Scripts
     {
+    <script src="~/js/kqz_validations.js"></script> 
     <script>
         $('#table').hide();
         $('#streetByNeighborhood').hide();
@@ -1544,6 +1545,7 @@ else
 {
     @section Scripts
     {
+    <script src="~/js/kqz_validations.js"></script>
     <script>
         $('#neigborhoodsVillage-container').hide();
         $('#table').hide();
@@ -2563,3 +2565,4 @@ else
     </script>
     }
 }
+
