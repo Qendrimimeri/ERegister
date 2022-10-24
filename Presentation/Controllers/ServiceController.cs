@@ -1,6 +1,7 @@
 using Application.Models;
 using Application.Repository;
 using Application.ViewModels;
+using AutoMapper;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
@@ -24,37 +25,49 @@ namespace Presentation.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ILogger<ServiceController> _logger;
+        private readonly IMapper _mapper;
 
         public ServiceController(IUnitOfWork unit,
                                  ApplicationDbContext context,
                                  IHttpContextAccessor httpContext,
-                                 ILogger<ServiceController> logger)
+                                 ILogger<ServiceController> logger,
+                                 IMapper mapper)
         {
             _unitOfWork = unit;
             _context = context;
             _httpContext = httpContext;
             _logger = logger;
+            _mapper = mapper;
         }
 
 
         // Get All Poll Centers
         [Route("getpollcenter")]
-        public ActionResult GetPollCenter()
+        public IActionResult GetPollCenter()
         {
-            try
-            {
-                return Ok(_context.PollCenters.ToList().Select(x => new PollCenterVM
-                {
-                    Id = x.Id,
-                    CenterNumber = x.CenterNumber
-                }));
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
+            var users = _context.PollCenters.ToList();
+
+            var usersViewModel = _mapper.Map<List<PollCenterVM>>(users);
+
+            return Ok(usersViewModel);
         }
+        //public ActionResult GetPollCenter()
+        //{
+        //    try
+        //    {
+        //        return Ok(_context.PollCenters.ToList()
+        //            .Select(x => new PollCenterVM
+        //        {
+        //            Id = x.Id,
+        //            CenterNumber = x.CenterNumber
+        //        }));
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occurred", err);
+        //        return View(errorView);
+        //    }
+        //}
 
         // GetPoll
         [Route("getpollcenterbyvillageid")]
@@ -62,14 +75,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.PollCenters.Where(v => v.VillageId == id).Select(x => new
-                {
-                    Id = x.Id,
-                    CenterNumber = x.CenterNumber,
-                    CenterName = x.CenterName,
-                    MuniCipalityId = x.MunicipalitydId
-                }));
+                var testing = _context.PollCenters.Where(v => v.VillageId == id).FirstOrDefault();
+                var test = _mapper.Map<PollCenterVM>(testing);
+                return Ok(test);
             }
+
+            //        .Select(x => new
+            //    {
+            //        Id = x.Id,
+            //        CenterNumber = x.CenterNumber,
+            //        CenterName = x.CenterName,
+            //        MuniCipalityId = x.MunicipalitydId
+            //    }));
+            //}
             catch (Exception err)
             {
                 _logger.LogError("An error has occurred", err);

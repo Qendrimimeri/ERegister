@@ -8,7 +8,7 @@ namespace Presentation.AutoMapper
     {
         public ApplicationMapper()
         {
-            CreateMap<PollCenter, PollCenterVM>();
+            CreateMap<PollCenter, PollCenterVM>().ReverseMap();
 
         }
     }
