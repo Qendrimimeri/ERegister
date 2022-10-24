@@ -613,7 +613,6 @@
         });
     </script>
     <script>
-        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
         const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -1062,18 +1061,6 @@
             addDataToDb();
             //location.reload();
         });
-        //const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-        //console.log(neighborhoodVillage);
-        //const neigboorhood = document.getElementById('neigborhoods');
-        //console.log(neigboorhood);
-        //var neighbors;
-        //console.log(neighbors);
-        //const poll = document.getElementById('poll');
-        //console.log(poll);
-        //const pollNeighborhood = document.getElementById('pollNeighborhood');
-        //console.log(pollNeighborhood);
-        //var polls = null;
-        //console.log(polls);
         function addDataToDb() {
             let endpoint = url + "addkqzresult";
             const munis = document.getElementById('munis');
@@ -1117,9 +1104,7 @@
             }
             const parti = document.getElementsByClassName("parti");
             const votat = document.getElementsByClassName("votat");
-            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
             for (var i = 1; i <= votat.length; i++) {
-                //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
                 fetch(endpoint, {
                     headers: {
                         'Accept': 'application/json',
