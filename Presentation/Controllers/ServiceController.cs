@@ -1118,19 +1118,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                var test = _mapper.Map<PollCenter>(model);
+                //var test = _mapper.Map<PollCenter>(model);
 
-                _context.PollCenters.Add(test);
-                _context.SaveChanges();
-                return Ok();
-                //_context.PollCenters.Add(new PollCenter
-                //{
-                //    CenterNumber = model.CenterNumber,
-                //    NeighborhoodId = model.NeighborhoodId
-                //});
+                //_context.PollCenters.Add(test);
                 //_context.SaveChanges();
-
                 //return Ok();
+                _context.PollCenters.Add(new PollCenter
+                {
+                    CenterNumber = model.CenterNumber,
+                    NeighborhoodId = model.NeighborhoodId
+                });
+                _context.SaveChanges();
+
+                return Ok();
             }
             catch (Exception err)
             {
