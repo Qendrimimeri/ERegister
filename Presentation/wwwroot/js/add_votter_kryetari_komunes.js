@@ -491,6 +491,10 @@ function addPollCenterToList(villId) {
     chooseOption.selected = true;
     chooseOption.disabled = true;
     poll.appendChild(chooseOption);
+    let addOption = document.createElement("option");
+    addOption.innerText = "Shto qendren e re...";
+    addOption.value = "shto";
+    poll.appendChild(addOption);
 
 
     let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
@@ -535,6 +539,10 @@ function addPollCenterNeighborhoodToList(neighId) {
     chooseOption.selected = true;
     chooseOption.disabled = true;
     pollNeighborhood.appendChild(chooseOption);
+    let addOption = document.createElement("option");
+    addOption.innerText = "Shto qendren e re...";
+    addOption.value = "shto";
+    pollNeighborhood.appendChild(addOption);
 
     let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
     let result = fetch(endpoint)
@@ -545,4 +553,72 @@ function addPollCenterNeighborhoodToList(neighId) {
             item.innerText = x.name;
             pollNeighborhood.appendChild(item);
         }));
+}
+
+const poll1 = document.getElementById('pollNeighborhood');
+const poll2 = document.getElementById('poll');
+
+poll1.addEventListener('change', event => {
+    event.preventDefault();
+    if (event.target.value == 'shto') {
+        addPollToDb();
+    }
+});
+poll2.addEventListener('change', event => {
+    event.preventDefault();
+    if (event.target.value == 'shto') {
+        addPollToDb();
+    }
+});
+function addPollToDb() {
+    //console.log(neigborhoods.value);
+    let endpoint = url + "addpollcenter";
+    let input = swal("Emri i qendrës së votimit:", {
+        content: "input",
+        buttons: {
+            cancel: "Anulo",
+            confirm: {
+                text: "Shto",
+                className: "test",
+            }
+        }
+    })
+        .then((value) => {
+            if (input) {
+                let sm1 = document.querySelector("#neigborhoods");
+                console.log(sm1);
+                let sm2 = document.querySelector("#neigborhoodsVillage");
+                console.log(sm2);
+                var sm;
+                console.log(sm)
+                if (sm1.selectedIndex !== 0) {
+                    sm = sm1.options[sm1.selectedIndex].value;
+                } else if (sm2.selectedIndex !== 0) {
+                    sm = sm2.options[sm2.selectedIndex].value;
+                }
+                else {
+                    sm = null;
+                }
+                console.log(sm)
+                //let munis = document.getElementById('munis');
+                let villages = document.getElementById('villages');
+                var villagess;
+                if (villages.selectedIndex !== 0) {
+                    villagess = villages.options[villages.selectedIndex].value;
+                }
+                console.log(villagess)
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({
+                        centerNumber: value,
+                        centerName: "", municipalitydId: userMuniId, neighborhoodId: sm, villageId: villagess
+                    })
+                }).then(() => addPollCenterNeighborhoodToList(sm))
+                  .then(() => addPollCenterToList(villagess));
+            }
+        });
 }

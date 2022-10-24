@@ -1,11 +1,9 @@
-﻿using Application.Repository.IRepository;
+﻿using Application.Models;
+using Application.Repository.IRepository;
+using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repository
 {
@@ -17,14 +15,39 @@ namespace Application.Repository
         {
             _db = db;
         }
-        public void Save()
+
+
+        public async Task<Kqzregister> GetByMunicipalityAsync(int id) =>
+            await _db.Kqzregisters.Where(v => v.MunicipalityId == id).FirstOrDefaultAsync();
+
+
+        public async Task<Kqzregister> GetByVillageAsync(int id) =>
+            await _db.Kqzregisters.Where(v => v.VillageId == id && v.ElectionType == "Zgjedhjet Nacionale")
+                                  .FirstOrDefaultAsync();
+
+
+        public async Task<Kqzregister> GetByNeigborhoodAsync(int id) =>
+            await _db.Kqzregisters.Where(v => v.NeighborhoodId == id).FirstOrDefaultAsync();
+
+
+        public async Task AddAsync(KqzRegisterVM model)
         {
-            _db.SaveChanges();
+            await _db.AddAsync(new Kqzregister
+            {
+                Id = model.Id,
+                PoliticialSubjectId = model.PoliticialSubjectId,
+                MunicipalityId = model.MunicipalityId,
+                NoOfvotes = model.NoOfvotes,
+                PollCenterId = model.PollCenterId,
+                DataCreated = model.DataCreated,
+                VillageId = model.VillageId,
+                NeighborhoodId = model.NeighborhoodId,
+                ElectionType = model.ElectionType
+            });
+            await _db.SaveChangesAsync();
         }
 
-        public Task<Kqzregister> UpdateKqzAsync(Kqzregister kqz)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<int?>> KqzValidationAsync(int id) => 
+            await _db.Kqzregisters.Where(x => x.PollCenterId == id).Select(x => x.NoOfvotes).ToListAsync();
     }
 }

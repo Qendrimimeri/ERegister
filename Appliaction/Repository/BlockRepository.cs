@@ -1,11 +1,9 @@
 ﻿using Application.Repository.IRepository;
+using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repository
 {
@@ -17,9 +15,19 @@ namespace Application.Repository
         {
             _db = db;
         }
-        public void Save()
+
+        public async Task<Block> GetByMunicipalityAsync(int id) =>
+            await _db.Blocks.Where(x => x.MunicipalityId == id).FirstOrDefaultAsync();
+
+
+        public async Task AddAsync(AddBlockVM model)
         {
-            _db.SaveChanges();
+            await _db.Blocks.AddAsync(new Block
+            {
+                Name = model.BlockName,
+                MunicipalityId = model.MunicipalityId
+            });
+            await _db.SaveChangesAsync();
         }
     }
 }

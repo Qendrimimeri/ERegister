@@ -19,7 +19,7 @@ namespace Presentation.Controllers
         private readonly Toaster _toaster;
         private readonly Roles _roles;
 
-        public AccountController( IUnitOfWork unitOfWork, 
+        public AccountController(IUnitOfWork unitOfWork,
                                   SignInManager<ApplicationUser> signInManager,
                                   ILogger<AccountController> logger,
                                   IOptionsSnapshot<Roles> roles,
@@ -40,27 +40,50 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // get the role of the signin user 
-                    var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
-
+                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
+                    {
+                        ViewBag.NotAuth = true;
+                        return View("../home/index", login);
+                    }
+                    var roles = await _unitOfWork.ApplicationUser.GetRoles(login.Email);
+                    bool isLogIn = false;
                     if (roles.Contains(_roles.AnetarIThjeshte))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
+                        {
+                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            isLogIn = true;
                             return RedirectToAction("AddVoter", "AddsAdmin");
+                        }
+                        
                     }
-                    else if(roles.Contains(_roles.KryetarIFshatit))
+                    else if (roles.Contains(_roles.KryetarIFshatit))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
+                        {
+                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            isLogIn = true;
                             return RedirectToAction("Index", "Crm");
+                            
+                        }
                     }
                     else if ((roles.Contains(_roles.KryetarIPartise)) || (roles.Contains(_roles.KryetarIKomunes)))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
+                        {
+                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            isLogIn = true;
                             return RedirectToAction("Index", "Dashboard");
+                        }
+                    }
+                    if (!isLogIn)
+                    {
+                        ViewBag.NotAuth = true;
+                        return View("../home/index", login);
                     }
                 }
-                ModelState.AddModelError("", "Kreencialet e gabuara");
-                return RedirectToAction("Index", "Home", ModelState);
+                
+                return View("../Home/Index", login);
             }
             catch (Exception err)
             {
@@ -91,7 +114,7 @@ namespace Presentation.Controllers
         {
             try
             {
-               return View("ConfirmEmail");
+                return View("ConfirmEmail");
             }
             catch (Exception err)
             {
@@ -183,7 +206,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "You are Logged in!";
+                        TempData["success"] = "Jeni kyçur në llogarinë tuaj";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -197,12 +220,12 @@ namespace Presentation.Controllers
         }
 
 
-        public async Task<IActionResult>Logout()
+        public async Task<IActionResult> Logout()
         {
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData[_toaster.Success] = "You are logged out!";
+                TempData[_toaster.Success] = "Jeni shkyçur nga llogaria juaj!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)

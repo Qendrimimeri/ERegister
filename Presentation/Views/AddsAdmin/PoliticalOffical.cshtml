@@ -316,7 +316,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label class="">Numri i shtëpisë</label>
-                                    <input class="form-control" placeholder="opsionale" asp-for="HouseNo" min="0">
+                                    <input class="form-control" placeholder="opsionale" asp-for="HouseNo" min="0" >
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -344,7 +344,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label class="">Numri i shtëpisë</label>
-                                    <input class="form-control option-select" placeholder="opsionale" asp-for="HouseNo">
+                                    <input class="form-control option-select" min="0" placeholder="opsionale" asp-for="HouseNo">
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -443,35 +443,35 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row" class="parti" value="1">VV</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="2">LDK</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="3">PDK</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100 " required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 " required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="4">AAK</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="5">AKR</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="6">Nisma</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="7">Partite serbe</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" required /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="8">Partite joserbe</th>
-                                            <td><input placeholder="Shkruaj numrin e votave..." type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -529,7 +529,7 @@
 {
     @section Scripts
     {
-        
+    <script src="~/js/kqz_validations.js"></script> 
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
@@ -563,7 +563,6 @@
             }
         });
     </script>
-
     <script>
         $('#table').hide();
         $('#neigborhoodsVillage-container').hide();
@@ -613,7 +612,6 @@
         });
     </script>
     <script>
-        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
         const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -799,6 +797,31 @@
                     neigborhoodsVillage.appendChild(item);
                 }));
         }
+        function addNeigborhoodVillageToDb() {
+            let endpoint = url + "addneighborhoodbyvillage";
+            let input = swal("Shto lagje te re:", {
+                content: "input",
+                buttons: {
+                    cancel: "Anulo",
+
+                    confirm: {
+                        text: "Shto",
+                        className: "test",
+                    }
+                }
+            })
+                .then((value) => {
+                    let sm = document.querySelector("#villages").value;
+                    fetch(endpoint, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'post',
+                        body: JSON.stringify({ villageId: sm, neighborhoodName: value })
+                    }).then(() => addNeigborhoodVillageToList(sm));
+                });
+        }
         //block
         function addBlockToList(muniId) {
             blocks.innerHTML = '';
@@ -973,7 +996,6 @@
                 }));
         }
     </script>
-    <script src="~/js/add_political_subject.js"></script>
     <script>
         $('#table').hide();
         const linku1 = document.getElementById('klasa1');
@@ -1038,18 +1060,6 @@
             addDataToDb();
             //location.reload();
         });
-        //const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-        //console.log(neighborhoodVillage);
-        //const neigboorhood = document.getElementById('neigborhoods');
-        //console.log(neigboorhood);
-        //var neighbors;
-        //console.log(neighbors);
-        //const poll = document.getElementById('poll');
-        //console.log(poll);
-        //const pollNeighborhood = document.getElementById('pollNeighborhood');
-        //console.log(pollNeighborhood);
-        //var polls = null;
-        //console.log(polls);
         function addDataToDb() {
             let endpoint = url + "addkqzresult";
             const munis = document.getElementById('munis');
@@ -1093,9 +1103,7 @@
             }
             const parti = document.getElementsByClassName("parti");
             const votat = document.getElementsByClassName("votat");
-            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
             for (var i = 1; i <= votat.length; i++) {
-                //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
                 fetch(endpoint, {
                     headers: {
                         'Accept': 'application/json',
@@ -1110,13 +1118,14 @@
             }
         }
         </script>
-        <script src="~/js/kqz_validations.js"></script>
+        
     }
 }
 else if (User.IsInRole(roles.KryetarIFshatit))
 {
     @section Scripts
     {
+    <script src="~/js/kqz_validations.js"></script> 
     <script>
         $('#table').hide();
         $('#streetByNeighborhood').hide();
@@ -1400,6 +1409,10 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             chooseOption.selected = true;
             chooseOption.disabled = true;
             poll.appendChild(chooseOption);
+	    let addOption = document.createElement("option");
+            addOption.innerText = "Shto qendren e re...";
+            addOption.value = "shto";
+            poll.appendChild(addOption);							  
             let endpoint = url + "getpollcenterbyvillage?villId=" + userVillageId;
             let result = fetch(endpoint)
                 .then(res => res.json())
@@ -1418,6 +1431,10 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             chooseOption.selected = true;
             chooseOption.disabled = true;
             pollNeighborhood.appendChild(chooseOption);
+	    let addOption = document.createElement("option");
+            addOption.innerText = "Shto qendren e re...";
+            addOption.value = "shto";
+            pollNeighborhood.appendChild(addOption);							  
             let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
             let result = fetch(endpoint)
                 .then(res => res.json())
@@ -1428,6 +1445,84 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                     pollNeighborhood.appendChild(item);
                 }));
         }
+					
+	const poll1 = document.getElementById('pollNeighborhood');
+        const poll2 = document.getElementById('poll');
+        poll1.addEventListener('change', event => {
+            event.preventDefault();
+            if (event.target.value == 'shto') {
+                addPollToDb();
+            }
+        });
+        poll2.addEventListener('change', event => {
+            event.preventDefault();
+            if (event.target.value == 'shto') {
+                addPollToDb();
+            }
+        });
+        function addPollToDb() {
+            //console.log(neigborhoods.value);
+            let endpoint = url + "addpollcenter";
+            let input = swal("Emri i qendrës së votimit:", {
+                content: "input",
+                buttons: {
+                    cancel: "Anulo",
+                    confirm: {
+                        text: "Shto",
+                        className: "test",
+                    }
+                }
+            })
+                .then((value) => {
+                    //var villagess;
+                     if (value == "") {
+
+                    console.log(value);
+                    swal("Ju lutem shkruani të dhëna valide!");
+                    return false;
+                  
+                     }
+                    else if(value !== null){
+                        //let sm1 = document.querySelector("#neigborhoods");
+                        //console.log(sm1);
+                        let sm2 = document.querySelector("#neigborhoodsVillage");
+                        console.log(sm2);
+                        var sm;
+                        console.log(sm)
+                        //if (sm1.selectedIndex !== 0) {
+                        //    sm = sm1.options[sm1.selectedIndex].value;
+                        //} else
+                        if (sm2.selectedIndex !== 0) {
+                            sm = sm2.options[sm2.selectedIndex].value;
+                        }
+                        else {
+                            sm = null;
+                        }
+                                                console.log(sm)
+
+                        //let munis = document.getElementById('munis');
+                        //let villages = document.getElementById('villages');
+                        //var villagess;
+                        //if (villages.selectedIndex !== 0) {
+                        //    villagess = villages.options[villages.selectedIndex].value;
+                        //}
+                        fetch(endpoint, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            method: 'post',
+                            body: JSON.stringify({
+                                centerNumber: value,
+                                centerName: "", municipalitydId: @userMuniId, neighborhoodId: sm, villageId: @userVillageId
+                            })
+                        })
+                            .then(() => addPollCenterNeighborhoodToList(sm))
+                            .then(() => addPollCenterToList(@userVillageId));
+                    }
+                });
+        }						      
+							      
     </script>
     }
 }
@@ -1435,6 +1530,7 @@ else
 {
     @section Scripts
     {
+    <script src="~/js/kqz_validations.js"></script>
     <script>
         $('#neigborhoodsVillage-container').hide();
         $('#table').hide();
@@ -2452,6 +2548,6 @@ else
             }
         });
     </script>
-    <script src="~/js/kqz_validations.js"></script>
     }
 }
+

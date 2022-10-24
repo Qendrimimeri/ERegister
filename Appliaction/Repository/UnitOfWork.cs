@@ -1,9 +1,10 @@
+using Application.Models.Services;
 using Application.Repository.IRepository;
 using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Application.Repository
 {
@@ -14,34 +15,32 @@ namespace Application.Repository
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mail;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ILogger _logger;
         private readonly IHttpContextAccessor _httpContext;
-
-
+        private readonly IOptionsSnapshot<Encrypt> _encrypt;
 
         public UnitOfWork(ApplicationDbContext dbContext,
-                          ILoggerFactory logger,
                           UserManager<ApplicationUser> userManager,
                           SignInManager<ApplicationUser> signInManager,
                           RoleManager<IdentityRole> roleManager,
                           IMailService mail,
-                          IHttpContextAccessor httpContext)
+                          IHttpContextAccessor httpContext,
+                          IOptionsSnapshot<Encrypt> encrypt)
 
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _httpContext= httpContext;
+            _encrypt = encrypt;
             _mail = mail;
             _roleManager = roleManager;
-            _logger = logger.CreateLogger("logs");
             Address = new AddressRepository(_dbContext);
-            ApplicationUser = new ApplicationUserRepository(_dbContext, _logger, _mail, _userManager, _signInManager, _roleManager, _httpContext);
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _mail, _userManager, _signInManager, _roleManager, _httpContext, _encrypt);
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
-            KqzRegister = new KqzRegisterRepository(_dbContext);
             Municipality = new MunicipalityRepository(_dbContext);
-            Neighborhood=new NeighborhoodRepository(_dbContext);
+            KqzRegister = new KqzRegisterRepository(_dbContext);
+            Neighborhood = new NeighborhoodRepository(_dbContext);
             PoliticalSubject = new PoliticalSubjectRepository(_dbContext);
             PollCenter = new PollCenterRepository(_dbContext);
             PollRelated = new PollRelatedRepository(_dbContext, ApplicationUser);

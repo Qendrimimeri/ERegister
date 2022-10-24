@@ -31,8 +31,11 @@ namespace Application.Repository
             return await _db.Users.Where(x => x.Id == id).Select(x => x.Address.Municipality).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Municipality>> GetAllCities()
+        public async Task<List<Municipality>> GetAllMunicipalityAsync()
             => await _db.Municipalities.ToListAsync();
+
+        public async Task<string> GetMuniName(string userId) =>
+            await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == userId).Select(x => x.Address.Municipality.Name).FirstOrDefaultAsync();
     }
 }
 

@@ -380,7 +380,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var cities = await _unitOfWork.Municipality.GetAllCities();
+                var cities = await _unitOfWork.Municipality.GetAllMunicipalityAsync();
                 var userId = await GetUser();
                 var isUserAdmin = User.IsInRole("KryetarIPartise");
                 var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
@@ -644,7 +644,7 @@ namespace Presentation.Controllers
             {
                 _logger.LogError("An error has occurred", err);
                 return View(errorView);
-            }
+            } 
         }
 
 
@@ -1047,4 +1047,3 @@ namespace Presentation.Controllers
 #pragma warning restore CS8602
 #pragma warning restore CS8604
 }
-
