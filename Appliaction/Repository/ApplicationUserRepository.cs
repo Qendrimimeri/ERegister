@@ -357,11 +357,9 @@ namespace Application.Repository
 
         public async Task<bool> LoginAsync(LoginVM login)
         {
-
             var user = await _userManager.FindByEmailAsync(login.Email);
             if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, login.Password)))
                 return false;
-
             var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
             if (result.Succeeded)
                 return true;
