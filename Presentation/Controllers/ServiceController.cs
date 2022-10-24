@@ -112,9 +112,6 @@ namespace Presentation.Controllers
                 //    CenterName = x.CenterName,
                 //    MuniCipalityId = x.MunicipalitydId
                 //}));
-                var testing = _context.PollCenters.Where(v => v.NeighborhoodId == id).FirstOrDefault();
-                var test = _mapper.Map<PollCenterVM>(testing);
-                return Ok(test);
 
             }
             catch (Exception err)
@@ -168,14 +165,6 @@ namespace Presentation.Controllers
                 //    MuniCipalityId = x.MunicipalitydId
                 //}));
 
-
-                return Ok(_context.PollCenters.Where(v => v.CenterNumber == id).Select(x => new
-                {
-                    Id = x.Id,
-                    CenterNumber = x.CenterNumber,
-                    CenterName = x.CenterName,
-                    MuniCipalityId = x.MunicipalitydId
-                }));
             }
             catch (Exception err)
             {
@@ -275,13 +264,16 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Kqzregisters.Where(v => v.NeighborhoodId == muniId).Select(x => new
-                {
-                    Id = x.Id,
-                    NoOfVotes = x.NoOfvotes,
-                    PoliticalSubject = x.PoliticialSubjectId,
-                    Name = x.PoliticialSubject.Name
-                }));
+                var testing = _context.Kqzregisters.Where(v => v.NeighborhoodId == muniId).FirstOrDefault();
+                var test = _mapper.Map<KqzRegisterVM>(testing);
+                return Ok(test);
+                //    return Ok(_context.Kqzregisters.Where(v => v.NeighborhoodId == muniId).Select(x => new
+                //    {
+                //        Id = x.Id,
+                //        NoOfVotes = x.NoOfvotes,
+                //        PoliticalSubject = x.PoliticialSubjectId,
+                //        Name = x.PoliticialSubject.Name
+                //    }));
             }
             catch (Exception err)
             {
@@ -296,7 +288,9 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.PoliticalSubjects.Where(v => v.Name == name));
+                var usertest = _context.PoliticalSubjects.Where(v => v.Name == name).FirstOrDefault();
+                var tw = _mapper.Map<List<PollRelated>>(usertest);
+                return Ok(tw);
             }
             catch (Exception err)
             {
@@ -311,7 +305,9 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.PollRelateds.ToList());
+                var users = _context.PollRelateds.ToList();
+                var usersViewModel = _mapper.Map<List<PollRelated>>(users);
+                return Ok(usersViewModel);
             }
             catch (Exception err)
             {
@@ -326,13 +322,17 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.PollRelateds.Add(new PollRelated
-                {
-                    Id = model.Id,
-                    SpecificReason = model.SpecificReason
-                });
+                var test = _mapper.Map<PollRelated>(model);
+
+                _context.PollRelateds.Add(test);
                 _context.SaveChanges();
                 return Ok();
+                //_context.PollRelateds.Add(new PollRelated
+                //{
+                //    Id = model.Id,
+                //    SpecificReason = model.SpecificReason
+                //});
+                //_context.SaveChanges();
             }
             catch (Exception err)
             {
@@ -348,7 +348,10 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.PollRelateds.ToList());
+                var users = _context.PollRelateds.ToList();
+                var usersViewModel = _mapper.Map<List<PollRelated>>(users);
+                return Ok(usersViewModel);
+               
             }
             catch (Exception err)
             {
@@ -363,13 +366,18 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.PollRelateds.Add(new PollRelated
-                {
-                    Id = model.Id,
-                    SpecificDemand = model.SpecificDemand
-                });
+                var test = _mapper.Map<PollRelated>(model);
+
+                _context.PollRelateds.Add(test);
                 _context.SaveChanges();
                 return Ok();
+                //_context.PollRelateds.Add(new PollRelated
+                //{
+                //    Id = model.Id,
+                //    SpecificDemand = model.SpecificDemand
+                //});
+                //_context.SaveChanges();
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -384,20 +392,25 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.Kqzregisters.Add(new Kqzregister
-                {
-                    Id = model.Id,
-                    PoliticialSubjectId = model.PoliticialSubjectId,
-                    MunicipalityId = model.MunicipalityId,
-                    NoOfvotes = model.NoOfvotes,
-                    PollCenterId = model.PollCenterId,
-                    DataCreated = model.DataCreated,
-                    VillageId = model.VillageId,
-                    NeighborhoodId = model.NeighborhoodId,
-                    ElectionType = model.ElectionType
-                });
+                var test = _mapper.Map<Kqzregister>(model);
+
+                _context.Kqzregisters.Add(test);
                 _context.SaveChanges();
                 return Ok();
+                //_context.Kqzregisters.Add(new Kqzregister
+                //{
+                //    Id = model.Id,
+                //    PoliticialSubjectId = model.PoliticialSubjectId,
+                //    MunicipalityId = model.MunicipalityId,
+                //    NoOfvotes = model.NoOfvotes,
+                //    PollCenterId = model.PollCenterId,
+                //    DataCreated = model.DataCreated,
+                //    VillageId = model.VillageId,
+                //    NeighborhoodId = model.NeighborhoodId,
+                //    ElectionType = model.ElectionType
+                //});
+                //_context.SaveChanges();
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -412,11 +425,14 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Municipalities.ToList().Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+                var users = _context.Municipalities.ToList();
+                var usersViewModel = _mapper.Map<List<Municipality>>(users);
+                return Ok(usersViewModel);
+                //return Ok(_context.Municipalities.ToList().Select(x => new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name
+                //}));
             }
             catch (Exception err)
             {
@@ -660,11 +676,14 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Villages.ToList().Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+                var users = _context.Villages.ToList();
+                var usersViewModel = _mapper.Map<List<Village>>(users);
+                return Ok(usersViewModel);
+                //return Ok(_context.Villages.ToList().Select(x => new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name
+                //}));
             }
             catch (Exception err)
             {
@@ -686,12 +705,16 @@ namespace Presentation.Controllers
                     municipalityId = municipality.Id;
                 municipalityId = muniId;
 
-                var res = await _context.Villages.Where(v => v.MunicipalityId == municipalityId).Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }).ToListAsync();
-                return Ok(res);
+                var testing = _context.Villages.Where(v => v.MunicipalityId == municipalityId).ToList();
+                var test = _mapper.Map<List<Village>>(testing);
+                return Ok(test);
+
+                //var res = await _context.Villages.Where(v => v.MunicipalityId == municipalityId).Select(x => new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name 
+                //}).ToListAsync();
+                //return Ok(res);
             }
             catch (Exception err)
             {
@@ -706,14 +729,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.Villages.Add(new Village
-                {
-                    Name = model.VillageName,
-                    MunicipalityId = model.MunicipalityId
-                });
-                _context.SaveChanges();
+                var test = _mapper.Map<Village>(model);
 
+                _context.Villages.Add(test);
+                _context.SaveChanges();
                 return Ok();
+                //    _context.Villages.Add(new Village
+                //    {
+                //        Name = model.VillageName,
+                //        MunicipalityId = model.MunicipalityId
+                //    });
+                //    _context.SaveChanges();
+
+                //    return Ok();
             }
             catch (Exception err)
             {
@@ -734,14 +762,17 @@ namespace Presentation.Controllers
                 if (!(muniId <= 0))
                     municipalityId = muni.Id;
                 municipalityId = muniId;
-                var res = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId)
-                    .Select(x =>
-                    new
-                    {
-                        Id = x.Id,
-                        Name = x.Name
-                    });
-                return Ok(res);
+                var testing = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId).ToList();
+                var test = _mapper.Map<List<Neighborhood>>(testing);
+                return Ok(test);
+                //var res = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId)
+                //    .Select(x =>
+                //    new
+                //    {
+                //        Id = x.Id,
+                //        Name = x.Name
+                //    });
+                //return Ok(res);
             }
             catch (Exception err)
             {
@@ -755,11 +786,14 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Neighborhoods.ToList().Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+                var testing = _context.Neighborhoods.ToList();
+                var test = _mapper.Map<List<Neighborhood>>(testing);
+                return Ok(test);
+                //return Ok(_context.Neighborhoods.ToList().Select(x => new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name
+                //}));
             }
             catch (Exception err)
             {
@@ -774,14 +808,20 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.Neighborhoods.Add(new Neighborhood
-                {
-                    Name = model.NeighborhoodName,
-                    MunicipalityId = model.MunicipalityId
-                });
-                _context.SaveChanges();
 
+                var test = _mapper.Map<Neighborhood>(model);
+
+                _context.Neighborhoods.Add(test);
+                _context.SaveChanges();
                 return Ok();
+                //_context.Neighborhoods.Add(new Neighborhood
+                //{
+                //    Name = model.NeighborhoodName,
+                //    MunicipalityId = model.MunicipalityId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -797,13 +837,17 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Neighborhoods.Where(v => v.VillageId == villId)
-                .Select(x =>
-                new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+                var testing = _context.Neighborhoods.Where(v => v.VillageId == villId).ToList();
+                var test = _mapper.Map<List<Neighborhood>>(testing);
+                return Ok(test);
+
+                //return Ok(_context.Neighborhoods.Where(v => v.VillageId == villId)
+                //.Select(x =>
+                //new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name
+                //}));
 
             }
             catch (Exception err)
@@ -819,14 +863,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.Neighborhoods.Add(new Neighborhood
-                {
-                    Name = model.NeighborhoodName,
-                    VillageId = model.VillageId
-                });
-                _context.SaveChanges();
+                var test = _mapper.Map<Neighborhood>(model);
 
+                _context.Neighborhoods.Add(test);
+                _context.SaveChanges();
                 return Ok();
+                //_context.Neighborhoods.Add(new Neighborhood
+                //{
+                //    Name = model.NeighborhoodName,
+                //    VillageId = model.VillageId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -841,11 +890,14 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Blocks.Where(v => v.MunicipalityId == muniId).Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+                var testing = _context.Blocks.Where(v => v.MunicipalityId == muniId).ToList();
+                var test = _mapper.Map<List<Block>>(testing);
+                return Ok(test);
+                //return Ok(_context.Blocks.Where(v => v.MunicipalityId == muniId).Select(x => new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name
+                //}));
             }
             catch (Exception err)
             {
@@ -861,14 +913,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.Blocks.Add(new Block
-                {
-                    Name = model.BlockName,
-                    MunicipalityId = model.MunicipalityId
-                });
-                _context.SaveChanges();
+                var test = _mapper.Map<Block>(model);
 
+                _context.Blocks.Add(test);
+                _context.SaveChanges();
                 return Ok();
+                //_context.Blocks.Add(new Block
+                //{
+                //    Name = model.BlockName,
+                //    MunicipalityId = model.MunicipalityId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -883,13 +940,16 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Streets.Where(v => v.VillageId == villId)
-                                .Select(x =>
-                                new
-                                {
-                                    Id = x.Id,
-                                    Name = x.Name
-                                }));
+                var testing = _context.Streets.Where(v => v.VillageId == villId).ToList();
+                var test = _mapper.Map<List<Street>>(testing);
+                return Ok(test);
+                //return Ok(_context.Streets.Where(v => v.VillageId == villId)
+                //                .Select(x =>
+                //                new
+                //                {
+                //                    Id = x.Id,
+                //                    Name = x.Name
+                //                }));
             }
             catch (Exception err)
             {
@@ -905,6 +965,12 @@ namespace Presentation.Controllers
         {
             try
             {
+
+                //var test = _mapper.Map<Street>(model);
+
+                //_context.Streets.Add(test);
+                //_context.SaveChanges();
+                //return Ok();
                 _context.Streets.Add(new Street
                 {
                     Name = model.StreetName,
@@ -927,11 +993,14 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.Streets.Where(n => n.NeighborhoodId == neighId).Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }));
+                var testing = _context.Streets.Where(n => n.NeighborhoodId == neighId).ToList();
+                var test = _mapper.Map<List<Street>>(testing);
+                return Ok(test);
+                //return Ok(_context.Streets.Where(n => n.NeighborhoodId == neighId).Select(x => new
+                //{
+                //    Id = x.Id,
+                //    Name = x.Name
+                //}));
 
             }
             catch (Exception err)
@@ -947,14 +1016,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.Streets.Add(new Street
-                {
-                    Name = model.StreetName,
-                    NeighborhoodId = model.NeighborhoodId
-                });
-                _context.SaveChanges();
+                var test = _mapper.Map<Street>(model);
 
+                _context.Streets.Add(test);
+                _context.SaveChanges();
                 return Ok();
+                //_context.Streets.Add(new Street
+                //{
+                //    Name = model.StreetName,
+                //    NeighborhoodId = model.NeighborhoodId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -963,25 +1037,28 @@ namespace Presentation.Controllers
             }
         }
         //pollCenter by village
-        [Route("getpollcenterbyvillage")]
-        public ActionResult GetPollCenterByVillage([FromQuery] int villId)
-        {
-            try
-            {
-                return Ok(_context.PollCenters.Where(v => v.VillageId == villId)
-                                .Select(x =>
-                                new
-                                {
-                                    Id = x.Id,
-                                    Name = x.CenterNumber
-                                }));
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
+        //[Route("getpollcenterbyvillage")]
+        //public ActionResult GetPollCenterByVillage([FromQuery] int villId)
+        //{
+        //    try
+        //    {
+        //        var testing = _context.PollCenters.Where(v => v.VillageId == villId).ToList();
+        //        var test = _mapper.Map<List<PollCenter>>(testing);
+        //        return Ok(test);
+        //        //return Ok(_context.PollCenters.Where(v => v.VillageId == villId)
+        //        //                .Select(x =>
+        //        //                new
+        //        //                {
+        //        //                    Id = x.Id,
+        //        //                    Name = x.CenterNumber
+        //        //                }));
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occurred", err);
+        //        return View(errorView);
+        //    }
+        //}
 
 
         [HttpPost]
@@ -990,6 +1067,11 @@ namespace Presentation.Controllers
         {
             try
             {
+                //var test = _mapper.Map<PollCenter>(model);
+
+                //_context.PollCenters.Add(test);
+                //_context.SaveChanges();
+                //return Ok();
                 _context.PollCenters.Add(new PollCenter
                 {
                     CenterNumber = model.CenterNumber,
@@ -1011,13 +1093,16 @@ namespace Presentation.Controllers
         {
             try
             {
-                return Ok(_context.PollCenters.Where(n => n.NeighborhoodId == neighId)
-                               .Select(x =>
-                               new
-                               {
-                                   Id = x.Id,
-                                   Name = x.CenterNumber
-                               }));
+                var testing = _context.PollCenters.Where(n => n.NeighborhoodId == neighId).ToList();
+                        var test = _mapper.Map<List<PollCenter>>(testing);
+                        return Ok(test);
+                //return Ok(_context.PollCenters.Where(n => n.NeighborhoodId == neighId)
+                //               .Select(x =>
+                //               new
+                //               {
+                //                   Id = x.Id,
+                //                   Name = x.CenterNumber
+                //               }));
 
             }
             catch (Exception err)
@@ -1033,14 +1118,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                _context.PollCenters.Add(new PollCenter
-                {
-                    CenterNumber = model.CenterNumber,
-                    NeighborhoodId = model.NeighborhoodId
-                });
-                _context.SaveChanges();
+                var test = _mapper.Map<PollCenter>(model);
 
+                _context.PollCenters.Add(test);
+                _context.SaveChanges();
                 return Ok();
+                //_context.PollCenters.Add(new PollCenter
+                //{
+                //    CenterNumber = model.CenterNumber,
+                //    NeighborhoodId = model.NeighborhoodId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {

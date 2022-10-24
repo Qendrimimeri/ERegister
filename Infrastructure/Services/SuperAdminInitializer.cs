@@ -33,7 +33,7 @@ public class SuperAdminInitializer
 
     public async void Initialize()
     {
-        EncryptionService encrypt = new (_encrypt);
+       // EncryptionService encrypt = new (_encrypt);
         var roles = new List<string>()
             {   _roles.KryetarIPartise,
                 _roles.KryetarIKomunes,
@@ -69,7 +69,7 @@ public class SuperAdminInitializer
             WorkId = "5355f324-fa20-4bbe-900d-b16c925dd890",
             AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
             ActualStatus = "Ne Process",
-            PhoneNumber = encrypt.Encrypt("213123123")
+           // PhoneNumber = encrypt.Encrypt("213123123")
 
         };
 
