@@ -201,5 +201,7 @@ namespace Application.Repository.IRepository
         /// <returns>True or False</returns>
         bool GetEmail(string email);
 
+
+        Task<bool> CheckUser(string email, string password);
     }
 }

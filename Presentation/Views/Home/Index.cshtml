@@ -1,7 +1,5 @@
 ﻿@using Application.ViewModels
-@{
-    var isEmailNull = ViewBag.EmailNull;
-}
+
 @{
     <style>
         .forgetpassword {
@@ -42,9 +40,9 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
-                @if(@isEmailNull == false)
+                @if (ViewBag.NotAuth == true)
                 {
-                    <small class="text-danger">Nuk ka të dhëna për !</small>
+                    <span class="text-danger">Kredencialet e gabuara</span>
                 }
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
                     <div class="col-6">

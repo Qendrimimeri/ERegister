@@ -10,11 +10,14 @@ namespace Presentation.Controllers
         private readonly string errorView = "../Error/ErrorInfo";
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor _httpContext;
 
         public HomeController(IUnitOfWork unitOfWork,
-                              ILogger<HomeController> logger)
+                              ILogger<HomeController> logger,
+                              IHttpContextAccessor httpContext)
         {
             _logger = logger;
+            _httpContext = httpContext;
             _unitOfWork = unitOfWork;   
         }
 
@@ -24,6 +27,8 @@ namespace Presentation.Controllers
         {
             try
             {
+                if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
+                    return RedirectToAction("index", "Dashboard");
                 return View();
             }
             catch (Exception err)

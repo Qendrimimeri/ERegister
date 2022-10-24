@@ -38,43 +38,52 @@ namespace Presentation.Controllers
         {
             try
             {
-                var hasEmail = _unitOfWork.ApplicationUser.GetEmail(login.Email);
-
-                if (!hasEmail)
+                if (ModelState.IsValid)
                 {
-                    ViewBag.Email = login;
-                    ViewBag.EmailNull = hasEmail;
-                }
-
-
-                else if (ModelState.IsValid)
-                {
-                    // get the role of the signin user 
-                    var roles = (await _unitOfWork.ApplicationUser.GetRoles(login.Email));
-
+                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
+                    {
+                        ViewBag.NotAuth = true;
+                        return View("../home/index", login);
+                    }
+                    var roles = await _unitOfWork.ApplicationUser.GetRoles(login.Email);
+                    bool isLogIn = false;
                     if (roles.Contains(_roles.AnetarIThjeshte))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
+                        {
                             TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                        return RedirectToAction("AddVoter", "AddsAdmin");
+                            isLogIn = true;
+                            return RedirectToAction("AddVoter", "AddsAdmin");
+                        }
+                        
                     }
                     else if (roles.Contains(_roles.KryetarIFshatit))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
+                        {
                             TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-
-                        return RedirectToAction("Index", "Crm");
+                            isLogIn = true;
+                            return RedirectToAction("Index", "Crm");
+                            
+                        }
                     }
                     else if ((roles.Contains(_roles.KryetarIPartise)) || (roles.Contains(_roles.KryetarIKomunes)))
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
+                        {
                             TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-
-                        return RedirectToAction("Index", "Dashboard");
+                            isLogIn = true;
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+                    }
+                    if (!isLogIn)
+                    {
+                        ViewBag.NotAuth = true;
+                        return View("../home/index", login);
                     }
                 }
-                // ModelState.AddModelError("", "Kreencialet e gabuara");
-                return RedirectToAction("Index", "Home");
+                
+                return View("../Home/Index", login);
             }
             catch (Exception err)
             {

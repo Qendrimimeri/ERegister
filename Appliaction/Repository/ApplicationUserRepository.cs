@@ -582,6 +582,10 @@ namespace Application.Repository
             return false;
 
         }
+
+        public async Task<bool> CheckUser(string email, string password) =>
+            await _userManager.CheckPasswordAsync(await _userManager.FindByEmailAsync(email), password);
+            
     }
 
 #pragma warning restore CS8604 
