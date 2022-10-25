@@ -529,7 +529,16 @@
 {
     @section Scripts
     {
-        
+    <script src="~/js/kqz_validations.js"></script> 
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
@@ -563,7 +572,6 @@
             }
         });
     </script>
-
     <script>
         $('#table').hide();
         $('#neigborhoodsVillage-container').hide();
@@ -613,7 +621,6 @@
         });
     </script>
     <script>
-        //const url = "https://eregisterpbc-001-site1.atempurl.com/";
         const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -799,6 +806,31 @@
                     neigborhoodsVillage.appendChild(item);
                 }));
         }
+        function addNeigborhoodVillageToDb() {
+            let endpoint = url + "addneighborhoodbyvillage";
+            let input = swal("Shto lagje te re:", {
+                content: "input",
+                buttons: {
+                    cancel: "Anulo",
+
+                    confirm: {
+                        text: "Shto",
+                        className: "test",
+                    }
+                }
+            })
+                .then((value) => {
+                    let sm = document.querySelector("#villages").value;
+                    fetch(endpoint, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'post',
+                        body: JSON.stringify({ villageId: sm, neighborhoodName: value })
+                    }).then(() => addNeigborhoodVillageToList(sm));
+                });
+        }
         //block
         function addBlockToList(muniId) {
             blocks.innerHTML = '';
@@ -973,7 +1005,6 @@
                 }));
         }
     </script>
-    <script src="~/js/add_political_subject.js"></script>
     <script>
         $('#table').hide();
         const linku1 = document.getElementById('klasa1');
@@ -1038,18 +1069,6 @@
             addDataToDb();
             //location.reload();
         });
-        //const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-        //console.log(neighborhoodVillage);
-        //const neigboorhood = document.getElementById('neigborhoods');
-        //console.log(neigboorhood);
-        //var neighbors;
-        //console.log(neighbors);
-        //const poll = document.getElementById('poll');
-        //console.log(poll);
-        //const pollNeighborhood = document.getElementById('pollNeighborhood');
-        //console.log(pollNeighborhood);
-        //var polls = null;
-        //console.log(polls);
         function addDataToDb() {
             let endpoint = url + "addkqzresult";
             const munis = document.getElementById('munis');
@@ -1093,9 +1112,7 @@
             }
             const parti = document.getElementsByClassName("parti");
             const votat = document.getElementsByClassName("votat");
-            //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
             for (var i = 1; i <= votat.length; i++) {
-                //let endpoint1 = url + "getpoliticalsubjectbyname?name=" + parti[i].innerHTML;
                 fetch(endpoint, {
                     headers: {
                         'Accept': 'application/json',
@@ -1110,13 +1127,23 @@
             }
         }
         </script>
-        <script src="~/js/kqz_validations.js"></script>
+        
     }
 }
 else if (User.IsInRole(roles.KryetarIFshatit))
 {
     @section Scripts
     {
+    <script src="~/js/kqz_validations.js"></script> 
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         $('#table').hide();
         $('#streetByNeighborhood').hide();
@@ -1521,6 +1548,16 @@ else
 {
     @section Scripts
     {
+    <script src="~/js/kqz_validations.js"></script>
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         $('#neigborhoodsVillage-container').hide();
         $('#table').hide();
@@ -2538,6 +2575,6 @@ else
             }
         });
     </script>
-    <script src="~/js/kqz_validations.js"></script>
     }
 }
+

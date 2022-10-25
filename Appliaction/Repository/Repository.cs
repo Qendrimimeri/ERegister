@@ -46,6 +46,7 @@ namespace Application.Repository
             => await db.Set<T>().Where(filter).FirstOrDefaultAsync();
 
         public void Remove(T entity) => db.Set<T>().Remove(entity);
+
         public void Update(T entity) => db.Set<T>().Update(entity);
 
 

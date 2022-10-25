@@ -1,4 +1,5 @@
-﻿using Domain.Data.Entities;
+﻿using Application.Models;
+using Domain.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,9 @@ namespace Application.Repository.IRepository
         /// </summary>
         /// <returns>Collection of generic type of PoliticalSubjects</returns>
         Task<IEnumerable<PoliticalSubject>> GetPoliticalSubjectsAsync();
+
+        Task AddAsync(NameModel model);
+
+        Task<PoliticalSubject> GetByNameAsync(string name);
     }
 }

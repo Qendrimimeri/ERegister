@@ -1,6 +1,8 @@
 ﻿using Application.Repository.IRepository;
+using Application.ViewModels;
 using Domain.Data;
 using Domain.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,27 @@ namespace Application.Repository
         {
             _db = db;
         }
-        public void Save()
+
+        public async Task<List<Village>> GetAllAsync() =>
+            await _db.Villages.ToListAsync();
+
+
+        public async Task<List<Village>> GetByMunicipalityAsync(int id) =>
+            await _db.Villages.Where( x=> x.MunicipalityId == id).ToListAsync();
+
+
+        public async Task AddAsync(AddVillageVM model)
         {
+            _db.Villages.Add(new Village
+            {
+                Name = model.VillageName,
+                MunicipalityId = model.MunicipalityId
+            });
             _db.SaveChanges();
         }
+        
+        public async Task<string> GetVillageName(string userId) =>
+        await _db.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == userId).Select(x => x.Address.Village.Name).FirstOrDefaultAsync();
+
     }
 }

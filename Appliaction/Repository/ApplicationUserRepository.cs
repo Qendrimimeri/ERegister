@@ -29,12 +29,8 @@ namespace Application.Repository
         private readonly IHttpContextAccessor _httpContext;
         private readonly Encrypt _encrypt;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger _logger;
-
-
 
         public ApplicationUserRepository(ApplicationDbContext context,
-                                         ILogger logger,
                                          IMailService mail,
                                          UserManager<ApplicationUser> userManager,
                                          SignInManager<ApplicationUser> signInManager,
@@ -43,7 +39,6 @@ namespace Application.Repository
                                          IOptionsSnapshot<Encrypt> encrypt) : base(context)
         {
             _context = context;
-            _logger = logger;
             _mail = mail;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -68,8 +63,12 @@ namespace Application.Repository
                 {
                     Id = person.Id,
                     FullName = person.FullName,
-                    //PhoneNumber = person.PhoneNumber,
-                   // PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
+                    PhoneNumber = person.PhoneNumber,
+                   
+
+                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -132,8 +131,12 @@ namespace Application.Repository
                   {
                       Id = person.Id,
                       FullName = person.FullName,
-                      //PhoneNumber = person.PhoneNumber,
+
+                      PhoneNumber = person.PhoneNumber,
                      // PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
+
+                      PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
                       Village = person.Address.Village.Name,
                       PollCenter = person.Address.PollCenter.CenterNumber,
@@ -186,8 +189,10 @@ namespace Application.Repository
                     Village = person.Address.Village.Name,
                     Block = person.Address.Block.Name,
                     HouseNo = person.Address.HouseNo,
-                    //PhoneNumber = person.PhoneNumber,
-                   // PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
+                    PhoneNumber = person.PhoneNumber,
+                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+
                     Email = person.Email,
                     FacebookLink = person.SocialNetwork,
                     WorkPlace = person.Work.WorkPlace,
@@ -275,12 +280,8 @@ namespace Application.Repository
         }
 
 
-        public Claim Profile()
-        {
-            var user = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-
-            return user;
-        }
+        public Claim Profile() =>
+            _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
 
         public async Task<ProfileVM> GetProfileDetails(string email)
         {
@@ -289,8 +290,12 @@ namespace Application.Repository
             {
                 Id = user.Id,
                 FullName = user.FullName,
-                //PhoneNo = user.PhoneNumber,
-               // PhoneNo = encrypt.Decrypt(user.PhoneNumber),
+
+                PhoneNo = user.PhoneNumber,
+               
+
+                PhoneNo = encrypt.Decrypt(user.PhoneNumber),
+
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
                 Village = user.Address.Village.Name,
@@ -300,26 +305,36 @@ namespace Application.Repository
             }).Where(x => x.Email == email).FirstOrDefaultAsync();
             return getUserDetails;
         }
+
         public async Task<bool> EditProfileDetails(ProfileVM user, string fullPath)
         {
+            EncryptionService encrypt = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
-            //getUser.PhoneNumber = user.PhoneNo;
 
            // getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
+
+            getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
+
             await _context.SaveChangesAsync();
 
             return true;
         }
+
         public async Task<bool> EditUserProfile(ProfileVM user)
         {
+            EncryptionService encrypt = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
-            //getUser.PhoneNumber = user.PhoneNo;
+
+            getUser.PhoneNumber = user.PhoneNo;
             //getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
+
+            getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
+
             await _context.SaveChangesAsync();
             return true;
 
@@ -367,21 +382,16 @@ namespace Application.Repository
         public async Task<int?> GetNeigborhoodIdOfVillageForUser(string city, int? fshatiId)
            => await _context.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == city && x.Address.VillageId == fshatiId).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
 
-
         public async Task<bool> LoginAsync(LoginVM login)
         {
-
             var user = await _userManager.FindByEmailAsync(login.Email);
             if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, login.Password)))
                 return false;
-
             var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
             if (result.Succeeded)
                 return true;
             return false;
         }
-
-
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
@@ -525,11 +535,11 @@ namespace Application.Repository
                 // Send Email
                 var emailReques = new MailRequestModel();
 
-                emailReques.Subject = "PBCA: Konfirmimi i llogaris�.";
+                emailReques.Subject = "E-Register: Konfirmimi i llogaris�.";
                 emailReques.Body = $"" +
-                    $"Llogaria juaj �sht� regjistruar!" +
-                    $"<br>Fjal�kalimi i juaj �sht� <strong>Admin!23</strong>" +
-                    $"<br>P�r t� konfirmuar llogarin� tuaj ju lutemi t� <a href={confimrEmailUrs}>klikoni k�tu</a>!" +
+                    $"Llogaria juaj është regjistruar!" +
+                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
+                    $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
                     $"<br><br><strong>E-Register</strong>";
 
                 emailReques.ToEmail = simpleUser.Email;
@@ -555,8 +565,8 @@ namespace Application.Repository
 
             // Send Email
             var emailReques = new MailRequestModel();
-            emailReques.Subject = "PBCA: Ndrysho fjal�kalimin.";
-            emailReques.Body = $"P�r t� ndryshuar fjal�kalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni k�tu</a>!" +
+            emailReques.Subject = "E-Register: Ndrysho fjalëkalimin.";
+            emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
                 $" < br >< br >< strong > E - Register </ strong > ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
@@ -565,20 +575,13 @@ namespace Application.Repository
         }
 
 
-        public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
-        {
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            var res = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
-            return res;
-        }
+        public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model) =>
+            await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
 
 
-        public async Task<int> AdminMunicipalityId()
-        {
-            var userCalim = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var res = ((int)await _context.Users.Where(x => x.Id == userCalim).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
-            return res;
-        }
+        public async Task<int> AdminMunicipalityId() =>
+            ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                                      .Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
 
 
         private static string CreateRandomPassword(int passwordLength)
@@ -588,9 +591,7 @@ namespace Application.Repository
             Random rd = new Random();
 
             for (int i = 0; i < passwordLength; i++)
-            {
                 chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
-            }
 
             return new string(chars);
         }
@@ -606,6 +607,10 @@ namespace Application.Repository
             return false;
 
         }
+
+        public async Task<bool> CheckUser(string email, string password) =>
+            await _userManager.CheckPasswordAsync(await _userManager.FindByEmailAsync(email), password);
+            
     }
 
 #pragma warning restore CS8604 
