@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,10 @@ namespace Application.ViewModels
 {
     public class AddNeighborhoodVM
     {
-        public int MunicipalityId { get; set; }
+        public int? MunicipalityId { get; set; }
         public string NeighborhoodName { get; set; }
-        public int VillageId { get; set; }
+
+        [ValidateNever]
+        public int? VillageId { get; set; }
     }
 }

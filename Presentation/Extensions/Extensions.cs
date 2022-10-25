@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Services;
 using Application.Repository;
 using Application.Repository.IRepository;
+using Presentation.AutoMapper;
 
 namespace Presentation.Extensions;
 
@@ -89,6 +90,15 @@ public static class DataBase
     }
 }
 
+public static class AutoMapper
+{
+    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+    {
+        var builder = WebApplication.CreateBuilder();
+        services.AddAutoMapper(typeof(ApplicationMapper));
+        return services;
+    }
+}
 
 public static class Custom
 {
