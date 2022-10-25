@@ -132,8 +132,7 @@ function addVillageToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -189,8 +188,7 @@ function addNeigborhoodToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -280,8 +278,7 @@ function addVillageToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -336,8 +333,7 @@ function addNeigborhoodToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -392,8 +388,7 @@ function addNeigborhoodVillageToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -448,8 +443,7 @@ function addBlockToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -504,8 +498,7 @@ function addStreetToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -560,8 +553,7 @@ function addStreetNeighborhoodToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -655,6 +647,12 @@ function addPollToDb() {
         }
     })
         .then((value) => {
+            if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
             if (input) {
                 let sm1 = document.querySelector("#neigborhoods");
                 console.log(sm1);
