@@ -140,9 +140,9 @@
                                title: "A jeni të sigurtë?" ,
                                icon: "warning" ,
                                          buttons: {
-                                         cancel:"Anulo",
+                                         cancel:"Jo",
                                       confirm:{
-                                    text:"Konfirmo",
+                                    text:"Po",
                                   className:"test",
                                 } }
                                })
@@ -152,7 +152,7 @@
                                 swal({ title: "U anulua me sukses!",
                                 icon: "success"}).then(okay => {
                                 if (okay) {
-                                window.location.href = "/AddsAdmin/AddVoter";
+                                window.location.href = "/AddsAdmin/Performance";
                                 }
                                 });
                                 } else {
