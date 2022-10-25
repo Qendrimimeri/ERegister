@@ -145,30 +145,34 @@ else
     </div>
 <div class="d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
     <a href='javascript:
-       swal({
-       title: "A jeni të sigurt?" ,
-       icon: "warning" ,
-       buttons: true,
-       dangerMode: "true" ,
-       })
-       .then((willDelete)=>
-        {
-        if (willDelete) {
-        swal({ title: "U anulua me sukses!",
-        icon: "success"}).then(okay => {
-        if (okay) {
-        window.location.href = "/Crm/Cancel";
-        }
-        });
-        } else {
-        swal({
-        title: "Te dhenat nuk jane anuluar!",
-        icon: "error",
-        });
-        }
-        });'
-        class = "btn btn-danger">Anulo
-    </a>&nbsp &nbsp 
+           swal({
+           title: "A jeni të sigurt?" ,
+           icon: "warning" ,
+           buttons: {
+           cancel:"Jo",
+           confirm:{
+           text:"Po",
+           className:"test",
+           } }
+           })
+           .then((willDelete)=>
+            {
+            if (willDelete) {
+            swal({ title: "U anulua me sukses!",
+            icon: "success"}).then(okay => {
+            if (okay) {
+            window.location.href = "/Crm/Cancel";
+            }
+            });
+            } else {
+            swal({
+            title: "Te dhenat nuk jane anuluar!",
+            icon: "error",
+            });
+            }
+            });'
+            class = "btn btn-danger">Anulo
+            </a>&nbsp &nbsp 
      <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp 
      <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
 </div>
