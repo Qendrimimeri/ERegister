@@ -163,6 +163,12 @@ function addVillageToDb(userMuniId) {
         }
     })
         .then((value) => {
+            if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
@@ -211,6 +217,12 @@ function addNeigborhoodToDb(userMuniId) {
         }
     })
         .then((value) => {
+            if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
@@ -283,6 +295,12 @@ function addNeigborhoodVillageToDb() {
         }
     })
         .then((value) => {
+            if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
             let sm = document.querySelector("#villages").value;
             fetch(endpoint, {
                 headers: {
@@ -332,6 +350,12 @@ function addBlockToDb(userMuniId) {
         }
     })
         .then((value) => {
+            if (value == "") {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
@@ -380,21 +404,13 @@ function addStreetToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
 
             }
-            else if (value !== null) {
-                if (value == "") {
-
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-
-                }
+            
                 else if (value !== null) {
                     let sm = document.querySelector("#villages").value;
                     fetch(endpoint, {
@@ -446,23 +462,16 @@ function addStreetNeighborhoodToDb() {
                 className: "test",
             }
         }
-    }).
+    })
         then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
 
             }
-            else if (value !== null) {
-                if (value == "") {
-
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-
-                }
+         
+              
                 else if (value !== null) {
                     let sm = document.querySelector("#neigborhoods").value;
                     fetch(endpoint, {
@@ -554,6 +563,11 @@ function addPollToDb() {
         }
     })
         .then((value) => {
+            if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+            }
             if (input) {
                 let sm1 = document.querySelector("#neigborhoods");
                 console.log(sm1);
