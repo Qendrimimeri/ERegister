@@ -67,7 +67,7 @@ namespace Application.Repository
                     PhoneNumber = person.PhoneNumber,
                    
 
-                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                   // PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
@@ -136,7 +136,7 @@ namespace Application.Repository
                      // PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
 
-                      PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                     // PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
                       Village = person.Address.Village.Name,
                       PollCenter = person.Address.PollCenter.CenterNumber,
@@ -191,7 +191,7 @@ namespace Application.Repository
                     HouseNo = person.Address.HouseNo,
 
                     PhoneNumber = person.PhoneNumber,
-                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                  //  PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
                     Email = person.Email,
                     FacebookLink = person.SocialNetwork,
@@ -294,7 +294,7 @@ namespace Application.Repository
                 PhoneNo = user.PhoneNumber,
                
 
-                PhoneNo = encrypt.Decrypt(user.PhoneNumber),
+              //  PhoneNo = encrypt.Decrypt(user.PhoneNumber),
 
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
@@ -308,7 +308,7 @@ namespace Application.Repository
 
         public async Task<bool> EditProfileDetails(ProfileVM user, string fullPath)
         {
-            EncryptionService encrypt = new(_encrypt);
+          //  EncryptionService encrypt = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
@@ -316,7 +316,7 @@ namespace Application.Repository
 
            // getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
 
-            getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
+          //  getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
 
             await _context.SaveChangesAsync();
 
@@ -325,7 +325,7 @@ namespace Application.Repository
 
         public async Task<bool> EditUserProfile(ProfileVM user)
         {
-            EncryptionService encrypt = new(_encrypt);
+        //    EncryptionService encrypt = new(_encrypt);
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
@@ -333,7 +333,7 @@ namespace Application.Repository
             getUser.PhoneNumber = user.PhoneNo;
             //getUser.PhoneNumber = EncryptionService.Encrypt(user.PhoneNo);
 
-            getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
+          //  getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
 
             await _context.SaveChangesAsync();
             return true;

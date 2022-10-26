@@ -702,10 +702,10 @@ namespace Presentation.Controllers
                 var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
-                    municipalityId = municipality.Id;
+                   // municipalityId = municipality.Id;
                 municipalityId = muniId;
 
-                var testing = _context.Villages.Where(v => v.MunicipalityId == municipalityId).ToList();
+                var testing = _context.Villages.Where(v => v.MunicipalityId == muniId).ToList();
                 var test = _mapper.Map<List<Village>>(testing);
                 return Ok(test);
 
@@ -760,9 +760,9 @@ namespace Presentation.Controllers
                 var muni = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
                 int municipalityId;
                 if (!(muniId <= 0))
-                    municipalityId = muni.Id;
+                 //   municipalityId = muni.Id;
                 municipalityId = muniId;
-                var testing = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId).ToList();
+                var testing = _context.Neighborhoods.Where(v => v.MunicipalityId == muniId).ToList();
                 var test = _mapper.Map<List<Neighborhood>>(testing);
                 return Ok(test);
                 //var res = _context.Neighborhoods.Where(v => v.MunicipalityId == municipalityId)
@@ -1036,29 +1036,29 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-        //pollCenter by village
-        //[Route("getpollcenterbyvillage")]
-        //public ActionResult GetPollCenterByVillage([FromQuery] int villId)
-        //{
-        //    try
-        //    {
-        //        var testing = _context.PollCenters.Where(v => v.VillageId == villId).ToList();
-        //        var test = _mapper.Map<List<PollCenter>>(testing);
-        //        return Ok(test);
-        //        //return Ok(_context.PollCenters.Where(v => v.VillageId == villId)
-        //        //                .Select(x =>
-        //        //                new
-        //        //                {
-        //        //                    Id = x.Id,
-        //        //                    Name = x.CenterNumber
-        //        //                }));
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        _logger.LogError("An error has occurred", err);
-        //        return View(errorView);
-        //    }
-        //}
+       // pollCenter by village
+        [Route("getpollcenterbyvillage")]
+        public ActionResult GetPollCenterByVillage([FromQuery] int villId)
+        {
+            try
+             {
+                var testing = _context.PollCenters.Where(v => v.VillageId == villId).ToList();
+                var test = _mapper.Map<List<PollCenter>>(testing);
+                return Ok(test);
+                //return Ok(_context.PollCenters.Where(v => v.VillageId == villId)
+                //                .Select(x =>
+                //                new
+                //                {
+                //                    Id = x.Id,
+                //                    Name = x.CenterNumber
+                //                }));
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
 
 
         [HttpPost]
@@ -1067,19 +1067,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                //var test = _mapper.Map<PollCenter>(model);
+                var test = _mapper.Map<PollCenter>(model);
 
-                //_context.PollCenters.Add(test);
-                //_context.SaveChanges();
-                //return Ok();
-                _context.PollCenters.Add(new PollCenter
-                {
-                    CenterNumber = model.CenterNumber,
-                    VillageId = model.VillageId
-                });
+                _context.PollCenters.Add(test);
                 _context.SaveChanges();
-
                 return Ok();
+                //_context.PollCenters.Add(new PollCenter
+                //{
+                //    CenterNumber = model.CenterNumber,
+                //    VillageId = model.VillageId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {
@@ -1094,8 +1094,8 @@ namespace Presentation.Controllers
             try
             {
                 var testing = _context.PollCenters.Where(n => n.NeighborhoodId == neighId).ToList();
-                        var test = _mapper.Map<List<PollCenter>>(testing);
-                        return Ok(test);
+                var test = _mapper.Map<List<PollCenter>>(testing);
+                return Ok(test);
                 //return Ok(_context.PollCenters.Where(n => n.NeighborhoodId == neighId)
                 //               .Select(x =>
                 //               new
@@ -1118,19 +1118,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                //var test = _mapper.Map<PollCenter>(model);
+                var test = _mapper.Map<PollCenter>(model);
 
-                //_context.PollCenters.Add(test);
-                //_context.SaveChanges();
-                //return Ok();
-                _context.PollCenters.Add(new PollCenter
-                {
-                    CenterNumber = model.CenterNumber,
-                    NeighborhoodId = model.NeighborhoodId
-                });
+                _context.PollCenters.Add(test);
                 _context.SaveChanges();
-
                 return Ok();
+                //_context.PollCenters.Add(new PollCenter
+                //{
+                //    CenterNumber = model.CenterNumber,
+                //    NeighborhoodId = model.NeighborhoodId
+                //});
+                //_context.SaveChanges();
+
+                //return Ok();
             }
             catch (Exception err)
             {
