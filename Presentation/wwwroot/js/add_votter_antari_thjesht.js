@@ -152,7 +152,7 @@ function addPollCenterNeighborhoodToList(userNeigborhoodId) {
         .then(data => data.forEach(x => {
             let item = document.createElement("option");
             item.value = x.id;
-            item.innerText = x.name;
+            item.innerText = x.centerNumber;
             pollNeighborhood.appendChild(item);
         }));
 }

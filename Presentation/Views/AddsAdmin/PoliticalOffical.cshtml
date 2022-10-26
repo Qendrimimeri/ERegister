@@ -1032,7 +1032,7 @@
                 .then(data => data.forEach(x => {
                     let item = document.createElement("option");
                     item.value = x.id;
-                    item.innerText = x.name;
+                    item.innerText = x.centerNumber;
                     poll.appendChild(item);
                 }));
         }
@@ -1050,7 +1050,7 @@
                 .then(data => data.forEach(x => {
                     let item = document.createElement("option");
                     item.value = x.id;
-                    item.innerText = x.name;
+                    item.innerText = x.centerNumber;
                     pollNeighborhood.appendChild(item);
                 }));
         }
@@ -1505,7 +1505,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 .then(data => data.forEach(x => {
                     let item = document.createElement("option");
                     item.value = x.id;
-                    item.innerText = x.name;
+                    item.innerText = x.centerNumber;
                     poll.appendChild(item);
                 }));
         }
@@ -1527,7 +1527,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 .then(data => data.forEach(x => {
                     let item = document.createElement("option");
                     item.value = x.id;
-                    item.innerText = x.name;
+                    item.innerText = x.centerNumber;
                     pollNeighborhood.appendChild(item);
                 }));
         }
@@ -2536,7 +2536,7 @@ else
                 .then(data => data.forEach(x => {
                     let item = document.createElement("option");
                     item.value = x.id;
-                    item.innerText = x.name;
+                    item.innerText = x.centerNumber;
                     poll.appendChild(item);
                 }));
         }

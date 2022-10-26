@@ -590,7 +590,7 @@ function addPollCenterToList(villId) {
         .then(data => data.forEach(x => {
             let item = document.createElement("option");
             item.value = x.id;
-            item.innerText = x.name;
+            item.innerText = x.centerNumber;
             poll.appendChild(item);
         }));
 }
@@ -612,7 +612,7 @@ function addPollCenterNeighborhoodToList(neighId) {
         .then(data => data.forEach(x => {
             let item = document.createElement("option");
             item.value = x.id;
-            item.innerText = x.name;
+            item.innerText = x.centerNumber;
             pollNeighborhood.appendChild(item);
         }));
 }
