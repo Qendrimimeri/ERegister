@@ -88,7 +88,7 @@ public static class DataBase
         //services.AddDbContext<ApplicationDbContext>(
         //    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)),
         //                        ServiceLifetime.Transient);
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServer));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServer), ServiceLifetime.Transient);
         return services;
     }
 }
