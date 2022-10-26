@@ -386,9 +386,9 @@
                                title: "A jeni të sigurtë?" ,
                                icon: "warning" ,
                                buttons: {
-                               cancel:"Anulo",
+                               cancel:"Jo",
                                confirm:{
-                               text:"Konfirmo",
+                               text:"Po",
                                className:"test",
                                } }
                                })
@@ -530,6 +530,15 @@
     @section Scripts
     {
     <script src="~/js/kqz_validations.js"></script> 
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
@@ -720,6 +729,15 @@
                 }
             })
                 .then((value) => {
+                   if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
+
+            
+              else if (value !== null{
                     fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
@@ -729,6 +747,9 @@
                         body: JSON.stringify({ MunicipalityId: userMuniId, villageName: value })
                     }).then(() => addVillagesToList(userMuniId));
                 });
+              }
+
+                  
         }
         //neigborhoods
         function addNeigborhoodToList(userMuniId) {
@@ -765,7 +786,17 @@
                 }
             })
                 .then((value) => {
-                    fetch(endpoint, {
+                     if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
+
+            
+             else if (value !== null) {
+
+                  fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -774,6 +805,10 @@
                         body: JSON.stringify({ municipalityId: userMuniId, neighborhoodName: value })
                     }).then(() => addNeigborhoodToList(userMuniId));
                 });
+             }
+
+
+                   
         }
         //neigborhood by village
         function addNeigborhoodVillageToList(villId) {
@@ -811,6 +846,12 @@
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#villages").value;
                     fetch(endpoint, {
                         headers: {
@@ -857,6 +898,12 @@
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
@@ -902,6 +949,12 @@
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#villages").value;
                     fetch(endpoint, {
                         headers: {
@@ -948,6 +1001,12 @@
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#neigborhoods").value;
                     fetch(endpoint, {
                         headers: {
@@ -1126,6 +1185,15 @@ else if (User.IsInRole(roles.KryetarIFshatit))
     @section Scripts
     {
     <script src="~/js/kqz_validations.js"></script> 
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         $('#table').hide();
         $('#streetByNeighborhood').hide();
@@ -1298,6 +1366,12 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
@@ -1344,6 +1418,12 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
@@ -1390,6 +1470,12 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             }).
                 then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#neigborhoodsVillage").value;
                     fetch(endpoint, {
                         headers: {
@@ -1475,13 +1561,12 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             })
                 .then((value) => {
                     //var villagess;
-                     if (value == "") {
+                        if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
 
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-                  
-                     }
+            }
                     else if(value !== null){
                         //let sm1 = document.querySelector("#neigborhoods");
                         //console.log(sm1);
@@ -1531,6 +1616,15 @@ else
     @section Scripts
     {
     <script src="~/js/kqz_validations.js"></script>
+    <script language="javascript">
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#year').attr('max',today);
+    </script>
     <script>
         $('#neigborhoodsVillage-container').hide();
         $('#table').hide();
@@ -1608,6 +1702,12 @@ else
                 }
             })
                 .then((value) => {
+                        if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     //var villagess;
                     if (input) {
                         let sm1 = document.querySelector("#neigborhoods");
@@ -1950,7 +2050,14 @@ else
                 }
             })
                 .then((value) => {
-                    //let selectedMuni = $('#munis').val();
+               if (value == "" || value.match(/\d/)) {
+
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
+                //let selectedMuni = $('#munis').val();
                     let sm = document.querySelector("#munis").value;
                     fetch(endpoint, {
                         headers: {
@@ -1997,6 +2104,13 @@ else
                 }
             })
                 .then((value) => {
+                        if (value == "" || value.match(/\d/)) {
+
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#munis").value;
                     fetch(endpoint, {
                         headers: {
@@ -2042,6 +2156,13 @@ else
                     }
                 })
                     .then((value) => {
+                     if (value == "" || value.match(/\d/)) {
+
+            console.log(value);
+            swal("Ju lutem shkruani të dhëna valide!");
+            return false;
+
+        }
                         let sm = document.querySelector("#villages").value;
                         fetch(endpoint, {
                             headers: {
@@ -2088,6 +2209,13 @@ else
                     }
                 })
                     .then((value) => {
+                         if (value == "" || value.match(/\d/)) {
+
+                         console.log(value);
+                          swal("Ju lutem shkruani të dhëna valide!");
+                          return false;
+
+            }
                         let sm = document.querySelector("#munis").value;
                         fetch(endpoint, {
                             headers: {
@@ -2134,6 +2262,12 @@ else
                     }
                 })
                     .then((value) => {
+                         if (value == "" || value.match(/\d/)) {
+                         console.log(value);
+                         swal("Ju lutem shkruani të dhëna valide!");
+                         return false;
+
+                      }
                         let sm = document.querySelector("#villages").value;
                         fetch(endpoint, {
                             headers: {
@@ -2180,6 +2314,12 @@ else
                     }
                 })
                     .then((value) => {
+                         if (value == "" || value.match(/\d/)) {
+                         console.log(value);
+                         swal("Ju lutem shkruani të dhëna valide!");
+                         return false;
+
+            }
                         let sm = document.querySelector("#neigborhoods").value;
                         fetch(endpoint, {
                             headers: {
@@ -2205,6 +2345,12 @@ else
                 }
             })
                 .then((value) => {
+                     if (value == "" || value.match(/\d/)) {
+                      console.log(value);
+                      swal("Ju lutem shkruani të dhëna valide!");
+                      return false;
+
+            }
                     let sm = document.querySelector("#villages").value;
                     fetch(endpoint, {
                         headers: {
@@ -2251,6 +2397,12 @@ else
                 }
             })
                 .then((value) => {
+                     if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#munis").value;
                     fetch(endpoint, {
                         headers: {
@@ -2297,6 +2449,12 @@ else
                 }
             })
                 .then((value) => {
+                     if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#villages").value;
                     fetch(endpoint, {
                         headers: {
@@ -2343,6 +2501,12 @@ else
                 }
             })
                 .then((value) => {
+                          if (value == "" || value.match(/\d/)) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
                     let sm = document.querySelector("#neigborhoods").value;
                     fetch(endpoint, {
                         headers: {
