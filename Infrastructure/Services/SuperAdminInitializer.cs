@@ -29,7 +29,6 @@ public class SuperAdminInitializer
         _admin = admin.Value;
     }
 
-    public ApplicationDbContext Context { get; }
 
     public async void Initialize()
     {
@@ -46,7 +45,7 @@ public class SuperAdminInitializer
         {
             if (!_context.Roles.Any(r => r.Name == role))
             {
-                await new RoleStore<IdentityRole>(Context).CreateAsync(new IdentityRole()
+                await new RoleStore<IdentityRole>(_context).CreateAsync(new IdentityRole()
                 {
                     Name = role,
                     NormalizedName = role.ToUpper()

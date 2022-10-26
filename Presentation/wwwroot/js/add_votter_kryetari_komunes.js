@@ -112,6 +112,12 @@ streetsNeighborhood.addEventListener('change', event => {
         addStreetNeighborhoodToDb();
     }
 });
+poll.addEventListener('change', event => {
+    event.preventDefault()
+    if (event.target.value == 'shto') {
+        addPollCenterToDb(userMuniId);
+    }
+});
 
 function getMunis(userId) {
     let endpoint = url + "getmunis";
@@ -509,6 +515,30 @@ function addPollCenterToList(villId) {
             item.innerText = x.name;
             poll.appendChild(item);
         }));
+}
+function addPollCenterToDb(villId) {
+    let endpoint = url + "addpollcenterbyvillage";
+    let input = swal("Shto qender te re:", {
+        content: "input",
+        buttons: {
+            cancel: "Anulo",
+
+            confirm: {
+                text: "Shto",
+                className: "test",
+            }
+        }
+    })
+        .then((value) => {
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ villageId: sm, blockName: value })
+            }).then(() => addPollCenterToList(sm));
+        });
 }
 //poll center by neighborhood
 function addPollCenterNeighborhoodToList(neighId) {
