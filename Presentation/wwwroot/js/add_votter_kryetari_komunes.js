@@ -593,7 +593,7 @@ function addPollToDb() {
         }
     })
         .then((value) => {
-            if (value == "" || value.match(/\d/)) {
+            if (value == "" ) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
