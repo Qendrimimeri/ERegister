@@ -84,11 +84,11 @@ public static class DataBase
         
         var builder = WebApplication.CreateBuilder();
         var sqlServer = builder.Configuration.GetConnectionString("sqlServer");
-        //var connectionString = builder.Configuration.GetConnectionString("Dev");
-        //services.AddDbContext<ApplicationDbContext>(
-        //    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)),
-        //                        ServiceLifetime.Transient);
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServer));
+        var connectionString = builder.Configuration.GetConnectionString("Dev");
+        services.AddDbContext<ApplicationDbContext>(
+            options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)),
+                                ServiceLifetime.Transient);
+        // services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServer));
         return services;
     }
 }

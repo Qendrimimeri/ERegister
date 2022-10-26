@@ -428,7 +428,7 @@ function addStreetToDb() {
                         body: JSON.stringify({ villageId: sm, streetName: value })
                     }).then(() => addStreetToList(sm));
                 }
-            }
+            
         });
 
 }
@@ -489,7 +489,7 @@ function addStreetNeighborhoodToDb() {
                         body: JSON.stringify({ neighborhoodId: sm, streetName: value })
                     }).then(() => addStreetNeighborhoodToList(sm));
                 }
-            }
+            
         })
 }
 //poll center by village

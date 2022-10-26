@@ -737,7 +737,7 @@
             }
 
             
-              else if (value !== null{
+              else if (value !== null){
                     fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
@@ -746,10 +746,9 @@
                         method: 'post',
                         body: JSON.stringify({ MunicipalityId: userMuniId, villageName: value })
                     }).then(() => addVillagesToList(userMuniId));
-                });
+               
               }
-
-                  
+        });
         }
         //neigborhoods
         function addNeigborhoodToList(userMuniId) {
@@ -804,10 +803,10 @@
                         method: 'post',
                         body: JSON.stringify({ municipalityId: userMuniId, neighborhoodName: value })
                     }).then(() => addNeigborhoodToList(userMuniId));
-                });
+               
              }
 
-
+              });
                    
         }
         //neigborhood by village
