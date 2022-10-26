@@ -12,3 +12,4 @@ namespace Application.ViewModels
         public string VillageName { get; set; }
     }
 }
+
