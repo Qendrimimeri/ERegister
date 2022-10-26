@@ -11,63 +11,59 @@ namespace Application.Repository;
 
 public class EncryptionService
 {
-    //private readonly Encrypt _encrypy;
+    private readonly Encrypt _encrypy;
 
-    //public EncryptionService(Encrypt encrypy)
-    //{
-    //    _encrypy = encrypy;
-    //}
-    //public string Encrypt(string encryptString)
-    //{
-    //    string EncryptionKey = _encrypy.EncryptKey;
-    //    byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
-    //    using (Aes encryptor = Aes.Create())
-    //    {
-    //        Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-    //        0x71, 0x65, 0x6e, 0x64, 0x72, 0x69, 0x6d
-    //    });
-    //        encryptor.Key = pdb.GetBytes(32);
-    //        encryptor.IV = pdb.GetBytes(16);
-    //        using (MemoryStream ms = new MemoryStream())
-    //        {
-    //            using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
-    //            {
-    //                cs.Write(clearBytes, 0, clearBytes.Length);
-    //                cs.Close();
-    //            }
-    //            encryptString = Convert.ToBase64String(ms.ToArray());
-    //        }
-    //    }
-    //    return encryptString;
-    //}
+    public EncryptionService(Encrypt encrypy)
+    {
+        _encrypy = encrypy;
+    }
 
-    //public string Decrypt(string cipherText)
-    //{
-    //    string EncryptionKey = _encrypy.EncryptKey;
-    //    cipherText = cipherText.Replace(" ", "+");
-    //    byte[] cipherBytes = Convert.FromBase64String(cipherText);
-    //    using (Aes encryptor = Aes.Create())
-    //    {
-    //        Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-    //        0x71, 0x65, 0x6e, 0x64, 0x72, 0x69, 0x6d
-    //    });
-    //        encryptor.Key = pdb.GetBytes(32);
-    //        encryptor.IV = pdb.GetBytes(16);
-    //        using (MemoryStream ms = new MemoryStream())
-    //        {
-    //            using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-    //            {
-    //                cs.Write(cipherBytes, 0, cipherBytes.Length);
-    //                cs.Close();
-    //            }
-    //            cipherText = Encoding.Unicode.GetString(ms.ToArray());
-    //        }
-    //    }
-    //    return cipherText;
-    //}
+    public string Encrypt(string encryptstring)
+    {
+        string encryptionkey = _encrypy.EncryptKey;
+        byte[] clearbytes = Encoding.Unicode.GetBytes(encryptstring);
+        using (Aes encryptor = Aes.Create())
+        {
+            Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionkey, new byte[] {
+            0x71, 0x65, 0x6e, 0x64, 0x72, 0x69, 0x6d
+        });
+            encryptor.Key = pdb.GetBytes(32);
+            encryptor.IV = pdb.GetBytes(16);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                {
+                    cs.Write(clearbytes, 0, clearbytes.Length);
+                    cs.Close();
+                }
+                encryptstring = Convert.ToBase64String(ms.ToArray());
+            }
+        }
+        return encryptstring;
+    }
 
-    //internal static string Encrypt(object phoneNumber)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    public string Decrypt(string ciphertext)
+    {
+        string encryptionkey = _encrypy.EncryptKey;
+        ciphertext = ciphertext.Replace(" ", "+");
+        byte[] cipherbytes = Convert.FromBase64String(ciphertext);
+        using (Aes encryptor = Aes.Create())
+        {
+            Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionkey, new byte[] {
+            0x71, 0x65, 0x6e, 0x64, 0x72, 0x69, 0x6d
+        });
+            encryptor.Key = pdb.GetBytes(32);
+            encryptor.IV = pdb.GetBytes(16);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                {
+                    cs.Write(cipherbytes, 0, cipherbytes.Length);
+                    cs.Close();
+                }
+                ciphertext = Encoding.Unicode.GetString(ms.ToArray());
+            }
+        }
+        return ciphertext;
+    }
 }

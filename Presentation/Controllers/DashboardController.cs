@@ -59,16 +59,16 @@ namespace Presentation.Controllers
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> Performance() 
         {
-            try
-            {
+            //try
+            //{
                 var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
                 return View(users);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
+            //}
+            //catch (Exception err)
+            //{
+            //    _logger.LogError("An error has occured", err);
+            //    return View(errorView);
+            //}
         }
 
 
