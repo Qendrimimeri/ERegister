@@ -116,11 +116,12 @@ function addStreetNeighborhoodToDb(userNeigborhoodId) {
 
     })
         .then((value) => {
-            if (value == "") {
-
+            if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
+
+            }
 
             }
             else if (value !== null) {
@@ -194,6 +195,12 @@ function addBlockToDb(userMuniId) {
         }
     })
         .then((value) => {
+            if (value == "" ) {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+            }
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
