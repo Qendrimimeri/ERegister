@@ -24,9 +24,10 @@ namespace Application.ViewModels
         public string? Email { get; set; }
 
         public string? Facebook { get; set; }
-
+        [Required(ErrorMessage = "Ju lutem zgjedhni komunen!")]
         public int? Municipality { get; set; }
 
+        [Required(ErrorMessage = "Ju lutem zgjedhni fshatin!")]
         public int? Village { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni lagjen!")]

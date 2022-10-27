@@ -140,18 +140,22 @@
                                     <select class="form-select fshati-selected option-select" asp-for="Village" id="villages">
                                         <option value=" " disabled selected selectcard>Zgjedh fshatin...</option>
                                     </select>
+                                    <span asp-validation-for="Village" class="text-danger"></span>
+
                                 </div>
                                 <div id="neigborhoods-container" class="col-md-4 mb-3 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-4 mb-3 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
                                 </div>
                             }
                             @if (User.IsInRole(roles.KryetarIKomunes))
@@ -161,18 +165,24 @@
                                     <select class="form-select fshati-selected option-select" asp-for="Village" id="villages">
                                         <option value=" " disabled selected selectcard>Zgjedh fshatin...</option>
                                     </select>
+                                   <span asp-validation-for="Village" class="text-danger"></span>
+
                                 </div>
                                 <div id="neigborhoods-container" class="col-md-6 mb-3 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                  <span asp-validation-for="Neigborhood" class="text-danger"></span>
+
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-3 pe-2">
                                     <label>Lagja</label>
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
+
                                 </div>
                             }
                         </div>
@@ -184,6 +194,8 @@
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
+
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2" id="streetByVillage">
                                     <label>Rruga </label>
@@ -273,12 +285,16 @@
                                 <select class="form-select option-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
                                     <option disabled selected>Zgjedh partinë...</option>
                                 </select>
+                                <span asp-validation-for="PoliticalSubject" class="text-danger"></span>
+
                             </div>
                             <div class="col-sm-6 mb-3 pe-2" id="pollcenter-villages-container">
                                 <label>Qendra e votimit</label>
                                 <select class="form-select option-select" id="poll" asp-for="PollCenter">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
                                 </select>
+                                <span asp-validation-for="PollCenter" class="text-danger"></span>
+
                             </div>
                             <div class="col-sm-6 mb-3 pe-2" id="pollcenter-neighborhood-container">
                                 <label>Qendra e votimit</label>
