@@ -425,7 +425,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var users = _context.Municipalities.ToList();
+                var users = _context.Municipalities.OrderBy(x => x.Name).ToList();
                 var usersViewModel = _mapper.Map<List<Municipality>>(users);
                 return Ok(usersViewModel);
                 //return Ok(_context.Municipalities.ToList().Select(x => new
@@ -676,7 +676,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var users = _context.Villages.ToList();
+                var users = _context.Villages.OrderBy(x => x.Name).ToList();
                 var usersViewModel = _mapper.Map<List<Village>>(users);
                 return Ok(usersViewModel);
                 //return Ok(_context.Villages.ToList().Select(x => new
