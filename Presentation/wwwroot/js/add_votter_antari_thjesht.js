@@ -21,8 +21,8 @@ $('#villages').change(function () {
     if (selectedVillage != null) {
         $('#pollcenter-neighborhood-container').hide();
         $('#pollcenter-villages-container').show();
-    } villages
-})
+    }
+});
 $('#neigborhoodsVillage').change(function () {
     var selectedNeighborhood = $(this).children('option:selected').val();
     if (selectedNeighborhood != null) {
@@ -55,7 +55,7 @@ streetsNeighborhood.addEventListener('change', event => {
     event.preventDefault()
     if (event.target.value == "shto") {
         addStreetNeighborhoodToDb(userNeigborhoodId);
-                }
+    }
 });
 blocks.addEventListener('change', event => {
     event.preventDefault()
@@ -120,8 +120,6 @@ function addStreetNeighborhoodToDb(userNeigborhoodId) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
-
-            }
 
             }
             else if (value !== null) {
