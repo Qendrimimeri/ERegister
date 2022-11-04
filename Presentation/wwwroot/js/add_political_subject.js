@@ -28,7 +28,7 @@ function getValue() {
             console.log(value);
             console.log(input.value);
             input.value = '';
-        });
+        })
 
 }
 
@@ -69,9 +69,9 @@ async function getPoliticalSubjectByName(name) {
 
 
 
-            
 
-            
+
+
             });
-        });
+        }).then(() => numroVotat());
 }

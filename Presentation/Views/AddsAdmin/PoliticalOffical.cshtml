@@ -2705,10 +2705,15 @@ else
 setTimeout(numroVotat, 2000);
 
 function numroVotat() {
-    const votes = document.getElementsByClassName("votat");
+    var votes = document.getElementsByClassName("votat");
+    console.log(votes);
+    console.log(votes.length);
     var shuma = 0;
     var input;
     var vlera;
+    for(let i = 0; i<votes.length; i++){
+        console.log(votes[i].value)
+    }
     for (let i = 0; i < votes.length; i++) {
         votes[i].addEventListener('focus', e => {
             e.preventDefault();
@@ -2820,11 +2825,7 @@ function numroVotat() {
     <script src="~/js/add_political_subject.js">
         
     </script>
-    <script>
-
-
-}
-    </script>
+ 
     <script>
         document.querySelector(".validation-message").style.display = "none";
         const BreakException = {};
