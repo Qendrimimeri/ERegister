@@ -282,15 +282,12 @@ namespace Presentation.Controllers
             }
         }
 
-
         [Route("getpoliticalsubjectbyname")]
         public ActionResult GetPoliticalSubjectByName([FromQuery] string name)
         {
             try
             {
-                var usertest = _context.PoliticalSubjects.Where(v => v.Name == name).FirstOrDefault();
-                var tw = _mapper.Map<List<PollRelated>>(usertest);
-                return Ok(tw);
+                return Ok(_context.PoliticalSubjects.Where(v => v.Name == name));
             }
             catch (Exception err)
             {
@@ -298,6 +295,22 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
+        //[Route("getpoliticalsubjectbyname")]
+        //public ActionResult GetPoliticalSubjectByName([FromQuery] string name)
+        //{
+        //    try
+        //    {
+        //        var usertest = _context.PoliticalSubjects.Where(v => v.Name == name).FirstOrDefault();
+        //        var tw = _mapper.Map<List<PollRelated>>(usertest);
+        //        return Ok(tw);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occurred", err);
+        //        return View(errorView);
+        //    }
+        //}
 
 
         [Route("getgeneraldemand")]
@@ -1158,7 +1171,19 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-
+        [Route("getpolitical")]
+        public ActionResult GetPolitical()
+        {
+            try
+            {
+                return Ok(_context.PoliticalSubjects.ToList());
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
         private async Task<string> GetUser()
             => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
