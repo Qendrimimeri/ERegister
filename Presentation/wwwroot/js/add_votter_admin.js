@@ -652,8 +652,8 @@ function addPollToDb() {
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
 
-            }
-            if (input) {
+            }else if(value != null){
+            
                 let sm1 = document.querySelector("#neigborhoods");
                 console.log(sm1);
                 let sm2 = document.querySelector("#neigborhoodsVillage");

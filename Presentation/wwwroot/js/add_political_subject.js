@@ -36,7 +36,7 @@ function getValue() {
 
 
 
-async function getPoliticalSubjectByName(name) {
+ function getPoliticalSubjectByName(name) {
     console.log(name);
     let endpoint = url + "getpoliticalsubjectbyname?name=" + name;
     let result = fetch(endpoint)
@@ -66,12 +66,6 @@ async function getPoliticalSubjectByName(name) {
                 tr.appendChild(th);
                 tr.appendChild(td);
                 rreshti.appendChild(tr);
-
-
-
-
-
-
             });
         }).then(() => numroVotat());
 }
