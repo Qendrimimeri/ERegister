@@ -12,23 +12,123 @@
              .rememberme{
                   font-size:10px;
              }
+             .mobile{
+              width:100% !important;
+          }
+
        
           
+    }
+     @@media screen and (max-width: 396px){ 
+         .foto {
+              display: none;
+         }
+          .form-control {
+            width:100%;
+          }
+          .form-control {
+            width:100%;
+          }
+            .test{
+              padding:15px !important;
+          }
+          .mobile{
+              width:100% !important;
+          }
+}
+      @@media screen and (max-width:502px) {
+        .foto{
+            display: none;
+        }
+         .form-control {
+            width:100%;
+          }
+          .form-control {
+            width:100%;
+          }
+            .test{
+              padding:15px !important;
+          }
+          .mobile{
+              width:100% !important;
+          }
+    }
+    @@media screen and (max-width:462px) {
+        .foto {
+            display: none;
+          }
+          .form-control {
+            width:100%;
+          }
+          .form-control {
+            width:100%;
+          }
+            .test{
+              padding:15px !important;
+          }
+          .mobile{
+              width:100% !important;
+          }
+         
+         
+          
+        }
+    
+    @@media screen and (max-width:425px) {
+        .foto {
+             display: none;
+        }
+         .form-control {
+            width:100%;
+          }
+          .form-control {
+            width:100%;
+          }
+          .test{
+              padding:15px !important;
+          }
+          .mobile{
+              width:100% !important;
+          }
+    }
+      @@media screen and (max-width:320px) {
+        .foto {
+             display: none;
+        }
+         .form-control {
+            font-size:10px;
+            width:100%;
+          }
+          .form-control {
+             font-size:10px;
+            width:100%;
+          }
+            .test{
+              padding:15px !important;
+          }
+          .mobile{
+              width:100% !important;
+          }
+    }
+    @@media screen and (max-width:840px){
+        margin-left:0px !important;
+        padding-right:0px !important;
+        padding-left:0px !important;
     }
     </style>
 }
 
 @model LoginVM
 ﻿
-<div class="row justify-content-center align-items-center pt-5 px-4">
+<div class="row justify-content-center align-items-center pt-5 px-4 w-100 mx-0"style="padding-top: 80px !important;">
     <div class="col-6 d-none d-md-block text-center ">
         <img src="/images/harta.svg" class="harta img-fluid " style="min-width:190px; max-width:450px;">
     </div>
-    <div class="col-md-6 d-flex justify-content-center flex-column bg-light ml-4  box-shadow">
+    <div class="col-md-6 d-flex justify-content-center flex-column bg-light px-0 mx-0 box-shadow mobile"style="width: 43%;">
         <h4 class="text-center pt-5">KYÇU</h4>
         <form class="ml-5" asp-controller="Account" asp-action="Login" method="post">
 
-            <div class="p-5 ml-5">
+            <div class="p-3 ml-4 test mobile">
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label">Përdoruesi</label>
                     <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
