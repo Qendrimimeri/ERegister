@@ -45,7 +45,7 @@ $('#villages').change(function () {
 });
 
 const munis = document.querySelector('#munis');
-const url = "https://localhost:7278/api/service/";
+const url = "/api/service/";
 getMunis();
 munis.addEventListener('change', event => {
     addVillagesToList(event.target.value);

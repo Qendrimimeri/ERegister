@@ -3,14 +3,14 @@
     let pollNeighborhood = document.getElementById("pollNeighborhood").value;
 
     if (poll === null || poll === undefined) {
-        const endpoint = 'https://localhost:7278/api/service/KqzValidation?id=' + pollNeighborhood;
+        const endpoint = '/api/service/KqzValidation?id=' + pollNeighborhood;
         let response = fetch(endpoint).then(x => x.json());
         response.then(y => {
             var show = document.getElementById("response-village").innerText = y["value"];
         });
 
     } else {
-        const endpoint = 'https://localhost:7278/api/service/KqzValidation?id=' + poll;
+        const endpoint = '/api/service/KqzValidation?id=' + poll;
         let response = fetch(endpoint).then(x => x.json());
         response.then(y => {
             var show = document.getElementById("response-city").innerText = y["value"];

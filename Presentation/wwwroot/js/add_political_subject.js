@@ -14,7 +14,7 @@ function getValue() {
     let value = document.getElementById("subjekti-politik").value;
     const data = { Text: value };
     if (value != '') {
-        fetch('https://localhost:7278/api/service/addpoliticalsubject', {
+        fetch('/api/service/addpoliticalsubject', {
 
             headers: {
                 'Accept': 'application/json',
