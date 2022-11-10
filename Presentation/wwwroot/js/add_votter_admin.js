@@ -512,7 +512,7 @@ function addStreetToDb() {
                         'Content-Type': 'application/json'
                     },
                     method: 'post',
-                    body: JSON.stringify({ villageId: sm, streetName: input })
+                    body: JSON.stringify({ villageId: sm, streetName: value })
                 }).then(() => addStreetToList(sm));
             }
         });

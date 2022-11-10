@@ -244,7 +244,7 @@ function addStreetNeighborhoodToDb() {
                         'Content-Type': 'application/json'
                     },
                     method: 'post',
-                    body: JSON.stringify({ neighborhoodId: sm, streetName: value })
+                    body: JSON.stringify({ villageId: userVillageId, neighborhoodId: sm, streetName: value })
                 }).then(() => addStreetNeighborhoodToList(sm));
             }
         })
