@@ -130,7 +130,7 @@ namespace Presentation.Controllers
             {
                 if (userId == null || token == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                    ModelState.AddModelError(string.Empty, "Id e përdoruesit ose Tokeni nuk janë valid.");
                     return View();
                 }
                 var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
@@ -206,7 +206,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "Jeni kyçur në llogarinë tuaj";
+                        TempData["success"] = "Fjalëkalimi juaj është ndryshuar me sukses!";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -225,7 +225,7 @@ namespace Presentation.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData[_toaster.Success] = "Jeni shkyçur nga llogaria juaj!";
+                TempData[_toaster.Success] = "Jeni çkyçur nga llogaria juaj!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)

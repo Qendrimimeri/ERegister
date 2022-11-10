@@ -412,6 +412,7 @@ namespace Application.Repository
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
+                SocialNetwork = model.Facebook,
                 PhoneNumber = encrypt.Encrypt(model.PhoneNumber),
             };
 
@@ -490,16 +491,16 @@ namespace Application.Repository
             };
 
             // Use this for Development env.
-            var password = CreateRandomPassword(10);
+            var password = CreateRandomPassword(8);
 
-            var result = await _userManager.CreateAsync(simpleUser, "Admin!23");
+            var result = await _userManager.CreateAsync(simpleUser, password);
             await _context.SaveChangesAsync();
 
 
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(simpleUser);
-                string domainApp = "https://www.vota.live";
+                string domainApp = "https://vota.live";
 
                 var confimrEmailUrs = $"{domainApp}/Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
 
@@ -515,7 +516,7 @@ namespace Application.Repository
                 emailReques.Subject = "E-Register: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
-                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
+                    $"<br>Fjalëkalimi i juaj është <strong>{password}</strong>" +
                     $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
                     $"<br><br><strong>E-Register</strong>";
 
@@ -536,14 +537,14 @@ namespace Application.Repository
                 return false;
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            string domain = "https://www.vota.live";
+            string domain = "https://vota.live";
             var confimrEmailUrs = $"{domain}/Account/ResetPassword?userId={user.Id}&token={token}";
 
             // Send Email
             var emailReques = new MailRequestModel();
             emailReques.Subject = "E-Register: Ndrysho fjalëkalimin.";
             emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
-                $" < br >< br >< strong > E - Register </ strong > ";
+                               $"<br><br><strong> E - Register </strong> ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
