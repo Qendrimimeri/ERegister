@@ -8,7 +8,6 @@ using Domain.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
@@ -182,7 +181,7 @@ namespace Application.Repository
                     PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
 
                     Email = person.Email,
-                    FacebookLink =  FacebookUserName(person.SocialNetwork),
+                    FacebookLink = person.SocialNetwork,
                     WorkPlace = person.Work.WorkPlace,
                     AdministrativeUnit = person.Work.AdministrativeUnit,
                     Duty = person.Work.Duty,
@@ -212,7 +211,7 @@ namespace Application.Repository
                         HouseNo = person.Address.HouseNo,
                         PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
                         Email = person.Email,
-                        FacebookLink = FacebookUserName(person.SocialNetwork),
+                        FacebookLink = person.SocialNetwork,
                         WorkPlace = person.Work.WorkPlace,
                         AdministrativeUnit = person.Work.AdministrativeUnit,
                         Duty = person.Work.Duty,
@@ -587,21 +586,8 @@ namespace Application.Repository
 
         public async Task<bool> CheckUser(string email, string password) =>
             await _userManager.CheckPasswordAsync(await _userManager.FindByEmailAsync(email), password);
-
-        public string FacebookUserName(string url)
-        {
-            var foundIndexes = new List<int>();
-
-            for (int i = url.IndexOf('/'); i > -1; i = url.IndexOf('/', i + 1))
-            {
-                foundIndexes.Add(i);
-            }
-            var res = url.Substring(foundIndexes[2] + 1);
-            return res;
-        }
     }
 
 #pragma warning restore CS8604 
 #pragma warning restore CS8602 
-
 }
