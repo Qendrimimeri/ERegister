@@ -13,22 +13,27 @@ input.addEventListener("keypress", function (event) {
 function getValue() {
     let value = document.getElementById("subjekti-politik").value;
     const data = { Text: value };
-    fetch('https://localhost:7278/api/service/addpoliticalsubject', {
+    if (value != '') {
+        fetch('https://localhost:7278/api/service/addpoliticalsubject', {
 
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            method: 'post',
 
-        body: JSON.stringify(data)
-    }).then(() => getPoliticalSubjectByName(value))
+            body: JSON.stringify(data)
+        }).then(() => getPoliticalSubjectByName(value))
 
-        .then(() => {
-            console.log(value);
-            console.log(input.value);
-            input.value = '';
-        })
+            .then(() => {
+                console.log(value);
+                console.log(input.value);
+                input.value = '';
+            })
+    }
+    else {
+        swal("Ju lutem shkruani të dhëna valide!");
+    }
 
 }
 
