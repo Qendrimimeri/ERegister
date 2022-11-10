@@ -1,7 +1,7 @@
+using Microsoft.Extensions.Hosting.Internal;
 using Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.CustomIdentity();
 builder.Services.OptionPattern();
 builder.Logging.CustomLogger();
@@ -17,8 +17,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment()) app.UseMigrationsEndPoint();
 else
 {
-    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+    app.UseDeveloperExceptionPage();
 }
 app.MiddleWareCustomPipline();
 

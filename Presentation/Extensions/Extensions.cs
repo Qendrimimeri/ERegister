@@ -14,6 +14,7 @@ namespace Presentation.Extensions;
 
 public static class OptionPatterns
 {
+
     public static IServiceCollection OptionPattern(this IServiceCollection services)
     {
         var builder = WebApplication.CreateBuilder();
@@ -81,15 +82,22 @@ public static class DataBase
 {
     public static IServiceCollection CustomDataBase(this IServiceCollection services)
     {
-        
         var builder = WebApplication.CreateBuilder();
-        var sqlServer = builder.Configuration.GetConnectionString("sqlServer");
+        if (!builder.Environment.IsDevelopment())
+        {
+            var  sqlServer = builder.Configuration.GetConnectionString("sqlServer");
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServer), ServiceLifetime.Transient);
+        }
+        var localConnection = builder.Configuration.GetConnectionString("localConnection");
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(localConnection), ServiceLifetime.Transient);
+
         var connectionString = builder.Configuration.GetConnectionString("Dev");
         //services.AddDbContext<ApplicationDbContext>(
         //    options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)),
         //                        ServiceLifetime.Transient);
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServer), ServiceLifetime.Transient);
         return services;
+
+
     }
 }
 
