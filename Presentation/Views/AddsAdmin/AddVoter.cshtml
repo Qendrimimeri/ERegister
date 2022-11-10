@@ -26,14 +26,23 @@
         .button-responsive {
             font-size: 14px;
         }
+        .btnanulo{
+            font-size: 14px;
+        }
     }
     @@media screen and (max-width:462px) {
         .button-responsive {
             font-size: 12px;
         }
+        .btnanulo{
+            font-size: 12px;
+        }
     }
     @@media screen and (max-width:425px) {
         .button-responsive {
+            font-size: 10px;
+        }
+        .btnanulo{
             font-size: 10px;
         }
     }
@@ -46,6 +55,9 @@
         }
         .option-select {
             font-size: 13px;
+        }
+        .btnanulo{
+            font-size: 8px;
         }
     }
    
@@ -332,7 +344,7 @@
                                 });
                                 }
                                 });'
-                                class = "btn btn-danger">Anulo</a>&nbsp &nbsp
+                                class = "btnanulo btn btn-danger">Anulo</a>&nbsp &nbsp
                             <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
                             <button type="submit" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
                         </div>

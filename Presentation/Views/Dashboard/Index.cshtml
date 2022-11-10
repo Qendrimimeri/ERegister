@@ -16,11 +16,11 @@
         <hr />
         @if (User.IsInRole(roles.KryetarIPartise))
         {
-            <div class="d-flex justify-content-around p-2 pt-2">
-                <div class="pt-2">
+            <div class="test d-flex justify-content-around p-2 pt-2">
+                <div class="test pt-2">
                     <p>Zgjedhni qytetin për grafe:</p>
                 </div>
-                <div class="col-md-4 mb-2 pe-2">
+                <div class=" mb-2 test ">
                     <select class="form-select" id="munis" onchange="getId()" asp-for="Municipality">
                         <option disabled selected>Zgjedh qytetin..</option>
                     </select>
@@ -49,7 +49,16 @@
         </div>
     </div>
 </div>
-
+<style>
+      @@media screen and (max-width:488px){
+     .test{
+         display: flex;
+        flex-flow: row wrap;
+        justify-content:center;
+        width:100% !important;
+     }
+    }
+</style>
 @if (User.IsInRole(roles.KryetarIPartise))
 {
     @section Scripts { 

@@ -143,7 +143,7 @@ else
         <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyeshmërinë e ndihmës së kërkuar dhe ndikimin në sukses: </label>
         <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
     </div>
-<div class="d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
+<div class="btntest d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
     <a href='javascript:
            swal({
            title: "A jeni të sigurt?" ,
@@ -181,7 +181,30 @@ else
 }
 
 <style>
-    
+   
+      @@media screen and (max-width:488px){
+     .btn{
+         font-size:14px !important;
+     }
+    }
+    @@media screen and (max-width:450px){
+     .btn{
+         font-size:12px !important;
+     }
+    }
+    @@media screen and (max-width:410px){
+     .btn{
+         font-size:10px !important;
+     }
+    }
+     @@media screen and (max-width:372px){
+     .btn{
+         font-size:8px !important;
+        
+     }
+    }
+
+
   .test{
         background-color: #0d6efd;
     }
