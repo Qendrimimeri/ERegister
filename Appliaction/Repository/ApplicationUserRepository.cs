@@ -499,9 +499,9 @@ namespace Application.Repository
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(simpleUser);
-                var baseUrl = "https://localhost:7278";
-                var confimrEmailUrs = $"Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
-                confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+                string domainApp = "https://www.vota.live";
+
+                var confimrEmailUrs = $"{domainApp}/Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
 
                 var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
 
@@ -512,7 +512,7 @@ namespace Application.Repository
                 // Send Email
                 var emailReques = new MailRequestModel();
 
-                emailReques.Subject = "E-Register: Konfirmimi i llogaris�.";
+                emailReques.Subject = "E-Register: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
                     $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
@@ -536,9 +536,8 @@ namespace Application.Repository
                 return false;
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var baseUrl = "https://localhost:7278";
-            var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
-            confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+            string domain = "https://www.vota.live";
+            var confimrEmailUrs = $"{domain}/Account/ResetPassword?userId={user.Id}&token={token}";
 
             // Send Email
             var emailReques = new MailRequestModel();
