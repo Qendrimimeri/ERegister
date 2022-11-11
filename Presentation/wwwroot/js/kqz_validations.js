@@ -1,4 +1,5 @@
 ﻿function getPollCenterId() {
+
     let poll = document.getElementById("poll").value;
     let pollNeighborhood = document.getElementById("pollNeighborhood").value;
 
@@ -6,14 +7,72 @@
         const endpoint = '/api/service/KqzValidation?id=' + pollNeighborhood;
         let response = fetch(endpoint).then(x => x.json());
         response.then(y => {
-            var show = document.getElementById("response-village").innerText = y["value"];
+            document.getElementById("response-village").innerText = y["value"];
+            document.querySelector(".validation-message").style.display = "none";
+            const forma = document.querySelector("#forma");
+            forma.addEventListener("submit", function (e) {
+                if (!(y["value"] === "Të dhënat janë të regjistruar për këtë qendër të votimit")) {
+
+                    const parties = document.querySelectorAll(".partyNumber");
+                    parties.forEach(el => {
+                        if (el.value === "") {
+                            swal({
+                                title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
+                                icon: "warning",
+                                button: "Plotëso rezultatet!",
+                            }).then(okay => {
+                                if (okay) {
+                                    const linku1 = document.getElementById('klasa1');
+                                    const linku2 = document.getElementById('klasa2');
+                                    linku1.classList.remove('active');
+                                    linku2.classList.add('active');
+                                    $('#table').show();
+                                    $('#forma').hide();
+                                    $('#titulli').hide();
+                                }
+                            });
+                            e.preventDefault();
+                        }
+                    });
+                }
+            });
         });
 
     } else {
         const endpoint = '/api/service/KqzValidation?id=' + poll;
         let response = fetch(endpoint).then(x => x.json());
         response.then(y => {
-            var show = document.getElementById("response-city").innerText = y["value"];
+            document.getElementById("response-city").innerText = y["value"];
+            console.log(y["value"])
+            document.querySelector(".validation-message").style.display = "none";
+            const forma = document.querySelector("#forma");
+            forma.addEventListener("submit", function (e) {
+                console.log(y["value"])
+                if (!(y["value"] === "Të dhënat janë të regjistruar për këtë qendër të votimit")) {
+                    console.log("hii");
+                    const parties = document.querySelectorAll(".partyNumber");
+                    parties.forEach(el => {
+                        if (el.value === "") {
+                            swal({
+                                title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
+                                icon: "warning",
+                                button: "Plotëso rezultatet!",
+                            }).then(okay => {
+                                if (okay) {
+                                    const linku1 = document.getElementById('klasa1');
+                                    const linku2 = document.getElementById('klasa2');
+                                    linku1.classList.remove('active');
+                                    linku2.classList.add('active');
+                                    $('#table').show();
+                                    $('#forma').hide();
+                                    $('#titulli').hide();
+                                }
+                            });
+                            e.preventDefault();
+                        }
+                    });
+                }
+            });
         });
     }
 }
