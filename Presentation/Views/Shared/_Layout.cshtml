@@ -15,7 +15,10 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
 <body class="d-flex bg-light flex-column">
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav class="navbar navbar-expand-md navbar-light"style="
+    padding-top: 0px;
+    padding-bottom: 0px;
+">
         <div class="container-fluid w-100">
             <a asp-controller="Home" asp-action="index" class="navbar-brand fw-semibold">
                 <img src="~/images/E-Vota.svg" alt="brand logo" width="150px">
@@ -47,38 +50,13 @@
     </div>
    
 
-    <div class="container pt-5 tablet" style="padding-top: 195px !important;">
+    <div class="container tablet">
         <hr />
         <footer class="text-center text-lg-start text-muted">
-            <div class="row ps-20">
 
-                <div class="col-4 foto pt-3">
-                    <a class="navbar-brand img-fluid foto" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:180px" src="~/images/ERegisterLogo.svg" /></a>
 
-                </div>
-
-                <div class="col-4 adresa">
-                    <h5 class="mb-2">ADRESA</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Bulevardi Bill Klinton</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">10000</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Prishtinë, Kosovë</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-4 kontakti">
-                    <h5 class="mb-2">Kontakti</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">e-register@info.com</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 49 123-123</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 38 123-123</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="h-100 text-center text-dark p-3 m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
-                © eRegister 2022
+            <div class="h-100 text-center text-dark m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
+                © eVota 2022
             </div>
 
         </footer>
