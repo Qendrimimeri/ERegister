@@ -1,0 +1,163 @@
+﻿.forgetpassword {
+    font-size: 14px;
+}
+
+@media screen and (min-width:1000px) {
+    .inputform {
+        width: 43%;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .forgotpass {
+        font-size: 10px;
+    }
+
+    .rememberme {
+        font-size: 10px;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:502px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .test {
+        padding: 15px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 396px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .test {
+        padding: 15px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:502px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .test {
+        padding: 15px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:462px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .test {
+        padding: 15px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .test {
+        padding: 15px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        font-size: 10px;
+        width: 100%;
+    }
+
+    .form-control {
+        font-size: 10px;
+        width: 100%;
+    }
+
+    .test {
+        padding: 15px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
+
+@@media screen and (max-width:840px) {
+    margin-left: 0px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}

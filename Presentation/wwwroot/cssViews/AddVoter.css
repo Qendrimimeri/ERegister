@@ -1,0 +1,86 @@
+﻿@media screen and (max-width:502px) {
+    .button-responsive {
+        font-size: 14px;
+    }
+
+    .btnanulo {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width:462px) {
+    .button-responsive {
+        font-size: 12px;
+    }
+
+    .btnanulo {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .button-responsive {
+        font-size: 10px;
+    }
+
+    .btnanulo {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width:379px) {
+    .button-responsive {
+        font-size: 8px;
+    }
+
+    input::placeholder {
+        font-size: 13px;
+    }
+
+    .option-select {
+        font-size: 13px;
+    }
+
+    .btnanulo {
+        font-size: 8px;
+    }
+}
+
+.test {
+    background-color: #0d6efd;
+}
+
+    .test:hover {
+        background-color: #0b5ed7;
+    }
+
+.swal-button--catch:hover {
+    background-color: #0d6efd;
+}
+
+.swal-button:not([disabled]):hover {
+    background-color: #0b5ed7;
+}
+
+.swal-button--cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+    .swal-button--cancel:not([disabled]):hover {
+        background-color: #bb2d3b;
+    }
+
+.swal-content__input:focus {
+    border-color: #ced4da;
+    border-bottom: 3px solid #ced4da;
+}
+
+.swal-text {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.swal-button--confirm {
+    background-color: #0d6efd;
+}
