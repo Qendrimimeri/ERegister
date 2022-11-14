@@ -55,7 +55,8 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
+                    var zz = await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password);
+                    if (!(zz))
                     {
                         ViewBag.NotAuth = true;
                         return View("../home/index", login);
@@ -66,7 +67,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("AddVoter", "AddsAdmin");
                         }
@@ -76,7 +77,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("Index", "Crm");
 
@@ -86,7 +87,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("Index", "Dashboard");
                         }

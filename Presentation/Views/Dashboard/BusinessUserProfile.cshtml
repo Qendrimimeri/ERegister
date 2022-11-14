@@ -1,8 +1,11 @@
 ﻿@using Domain.Data.Entities
+@inject IOptionsSnapshot<Roles> _roles;
 
 @model ProfileVM
 @{
     Layout = "_DashboardLayout"; 
+    Roles roles = _roles.Value;
+
 }
 <link rel="stylesheet" href="~/cssViews/UserProfile.css">
 <section class="section">
@@ -11,24 +14,73 @@
             <div class="card">
                 <div class="card-body p-8">
                     <h2 class="card-title ">Të dhënat personale</h2>
-                    <form asp-action="BusinessUserProfile" asp-controller="Dashboard" enctype="multipart/form-data" method="post">
+                      
+                               <form asp-action="BusinessUserProfile" asp-controller="Dashboard" enctype="multipart/form-data" method="post">
                         <hr>
 
                         <div class="text-center">
                             <img src="~/Document/@Model.ProfileImage" class="rounded" style="width:100px;" alt="...">
                         
                         </div>
-                        <div class="text-center">
+                        <div class="text-center pt-4">
                             <h4>@Model.FullName</h4>
                         </div>
-                        <div class="text-center pt-4">
-                            <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
-                            <p><strong>Email adresa: </strong>@Model.Email</p>
-                            <p><strong>Qyteti: </strong>@Model.Municipality</p>
-                            <p><strong>Fshati: </strong>@Model.Village</p>
-                          @*  <p><strong>Pozita në parti: </strong></p>*@
-                            <p><strong>Qendra e votimit: </strong>@Model.PollCenter</p>
-                        </div>
+                      @if (User.IsInRole(roles.KryetarIPartise))
+                        {
+                            <div class="text-center pt-4">
+
+
+                                <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
+                                <p><strong>Email adresa: </strong>@Model.Email</p>
+                                <p><strong>Qyteti: </strong>@Model.Municipality</p>
+
+
+
+                            </div>
+                        }
+                        else if (User.IsInRole(roles.KryetarIKomunes))
+                        {
+                                     <div class="text-center pt-4">
+
+
+                                <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
+                                <p><strong>Email adresa: </strong>@Model.Email</p>
+                                <p><strong>Qyteti: </strong>@Model.Municipality</p>
+                                <p><strong>Qendra e votimit: </strong>@Model.PollCenter</p>
+
+
+
+                            </div>
+                        }
+                        else if (User.IsInRole(roles.KryetarIFshatit))
+                        {
+                                       <div class="text-center pt-4">
+
+
+                                <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
+                                <p><strong>Email adresa: </strong>@Model.Email</p>
+                                <p><strong>Qyteti: </strong>@Model.Municipality</p>
+                                 <p><strong>Fshati: </strong>@Model.Village</p>
+                                <p><strong>Qendra e votimit: </strong>@Model.PollCenter</p>
+
+
+
+                            </div>
+                        }
+                        else
+                        {
+                                 <div class="text-center pt-4">
+                                <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
+                                <p><strong>Email adresa: </strong>@Model.Email</p>
+                                <p><strong>Qyteti: </strong>@Model.Municipality</p>
+                                 <p><strong>Fshati: </strong>@Model.Village</p>
+                                 <p><strong>Lagja: </strong>@Model.Neighborhood</p>
+
+                                <p><strong>Qendra e votimit: </strong>@Model.PollCenter</p>
+
+                            </div>
+                            
+                        }
 
                         <h6 class="pt-4">Ndrysho të dhënat</h6>
                         <hr>
@@ -66,6 +118,9 @@
                             </div>
                         
                     </form>
+                            
+                        
+                 
                     
                 </div>
             </div>

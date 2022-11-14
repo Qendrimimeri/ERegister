@@ -18,6 +18,7 @@ namespace Application.ViewModels
         public string? Village { get; set; }
         public string? Role { get; set; }
         public string? PollCenter { get; set; }
+        public string ? Neighborhood { get; set; }
 
         [DataType(DataType.Upload)]
         public IFormFile? Image { get; set; }

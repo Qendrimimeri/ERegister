@@ -277,7 +277,7 @@ namespace Presentation.Controllers
                     }
 
                     await _signInManager.RefreshSignInAsync(user);
-                    return RedirectToAction("BusinessUserProfile");
+                    return RedirectToAction("Index","Dashboard");
                 }
                 return View(model);
             }
