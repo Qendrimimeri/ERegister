@@ -86,16 +86,16 @@ namespace Presentation.Controllers
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public IActionResult PoliticalOffical()
         {
-            try
-            {
+            //try
+            //{
                 PoliticalOfficialAddress();
                 return View();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
+            //}
+            //catch (Exception err)
+            //{
+            //    _logger.LogError("An error has occured", err);
+            //    return View(errorView);
+            //}
         }
 
 

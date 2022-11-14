@@ -44,11 +44,9 @@ function getValue() {
  function getPoliticalSubjectByName(name) {
     console.log(name);
     let endpoint = url + "getpoliticalsubjectbyname?name=" + name;
-    let result = fetch(endpoint)
+    fetch(endpoint)
         .then(res => res.json())
         .then(data => {
-            //alert('u thirr');
-            //alert(data);
             console.log(data);
             data.forEach(x => {
                 let tr = document.createElement("tr");
@@ -57,7 +55,6 @@ function getValue() {
                 let input = document.createElement('input');
                 th.value = x.id;
                 c++;
-                console.log(c);
                 th.innerText = x.name;
                 th.classList = "parti";
                 input.placeholder = "Shkruaj numrin e votave...";
