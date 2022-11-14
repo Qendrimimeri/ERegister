@@ -50,7 +50,8 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
+                    var zz = await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password);
+                    if (!(zz))
                     {
                         ViewBag.NotAuth = true;
                         return View("../home/index", login);

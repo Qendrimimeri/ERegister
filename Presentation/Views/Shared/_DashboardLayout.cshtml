@@ -59,7 +59,15 @@
                     </a><!-- End Profile Iamge Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                                @if (User.IsInRole(roles.KryetarIPartise) || User.IsInRole(roles.KryetarIKomunes))
+                                   @if (User.IsInRole(roles.KryetarIPartise))
+                                {
+                                <h6>@(userName.FullName)</h6>
+                                <span>@(roleConfig)</span>
+                                <br />
+                                  
+                                }
+
+                                else if (User.IsInRole(roles.KryetarIKomunes))
                                 {
                                 <h6>@(userName.FullName)</h6>
                                 <span>@(roleConfig)</span>
