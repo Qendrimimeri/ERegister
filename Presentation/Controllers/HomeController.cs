@@ -29,12 +29,17 @@ namespace Presentation.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var res = _httpContext.HttpContext.User.Identity;
+                    if (await _unitOfWork.ApplicationUser.IsInSimpleRole(res.Name))
+                        return RedirectToAction("AddVoter", "AddsAdmin");
                     return RedirectToAction("index", "Dashboard");
+                }
                 return View();
             }
             catch (Exception err)

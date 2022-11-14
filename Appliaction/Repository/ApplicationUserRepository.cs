@@ -586,6 +586,10 @@ namespace Application.Repository
 
         public async Task<bool> CheckUser(string email, string password) =>
             await _userManager.CheckPasswordAsync(await _userManager.FindByEmailAsync(email), password);
+
+
+        public async Task<bool> IsInSimpleRole(string email) =>
+            await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
     }
 
 #pragma warning restore CS8604 

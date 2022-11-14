@@ -30,10 +30,11 @@ namespace Application.ViewModels
         public int? Municipality { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni fshatin!")]
-
+        [ValidateNever]
         public int? Village { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni lagjen!")]
+        [ValidateNever]
         public int? Neigborhood { get; set; }
 
         public int? Street { get; set; }
