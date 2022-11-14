@@ -62,7 +62,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("AddVoter", "AddsAdmin");
                         }
@@ -72,7 +72,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("Index", "Crm");
 
@@ -82,7 +82,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("Index", "Dashboard");
                         }
