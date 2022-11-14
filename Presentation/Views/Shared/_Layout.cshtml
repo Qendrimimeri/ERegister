@@ -3,22 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-Register</title>
-    <meta content="E-Register" name="description">
-    <meta content="E-Register" name="keywords">
-    <link rel="icon" href="images/e-registerlogo64.svg"/>
+    <title>E-Vota</title>
+    <meta content="E-Vota" name="description">
+    <meta content="E-Vota" name="keywords">
+    <link rel="icon" href="images/e-registerlogo64.svg" />
     <link rel="apple-touch-icon" href="images/e-registerlogo128.svg" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/cssViews/Layout.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-	<link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/Presentation.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
-<body class="d-flex flex-column">
-    <nav class="navbar navbar-expand-md navbar-light">
+<body class="d-flex bg-light flex-column">
+    <nav class="navbar navbar-expand-md navbar-light"style="
+    padding-top: 0px;
+    padding-bottom: 0px;
+">
         <div class="container-fluid w-100">
             <a asp-controller="Home" asp-action="index" class="navbar-brand fw-semibold">
-                <img src="~/images/ERegisterLogo.svg" alt="brand logo" width="150px">
+                <img src="~/images/E-Vota.svg" alt="brand logo" width="150px">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
                     aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,132 +45,22 @@
         </div>
     </nav>
     <div class="vh-80 w-100">
-       <partial name="_Notifications"/>
-            @RenderBody()
-            </div>
-    @{
- <style>
-    .width50{
-        width: 150px;
-
-    }
-   @@media screen and (max-width: 396px){ 
-         .foto {
-              display: none;
-         }
-          .adresa {
-            width:50%;
-          }
-          .kontakti {
-            width:50%;
-          }
-   }
-     @@media (min-width: 768px) and (max-width: 1024px){
-            .adresa {
-            width:50%;
-          }
-          .kontakti {
-            width:50%;
-          }
-          .foto {
-              display: none;
-         }
-         .container{
-             padding-top:418px;
-         }
-        }
-      @@media screen and (max-width:502px) {
-        .foto{
-            display: none;
-        }
-         .adresa {
-            width:50%;
-          }
-          .kontakti {
-            width:50%;
-          }
-    }
-    @@media screen and (max-width:462px) {
-        .foto {
-            display: none;
-          }
-          .adresa {
-            width:50%;
-          }
-          .kontakti {
-            width:50%;
-          }
-         
-         
-          
-        }
-    
-    @@media screen and (max-width:425px) {
-        .foto {
-             display: none;
-        }
-         .adresa {
-            width:50%;
-          }
-          .kontakti {
-            width:50%;
-          }
-    }
-      @@media screen and (max-width:320px) {
-        .foto {
-             display: none;
-        }
-         .adresa {
-            font-size:10px;
-            width:50%;
-          }
-          .kontakti {
-             font-size:10px;
-            width:50%;
-          }
-    }
-</style>
+        <partial name="_Notifications" />
+        @RenderBody()
+    </div>
    
-}
-    
-            
 
-        <div class="container pt-5 tablet"style="padding-top: 195px !important;">
-            <hr />
-            <footer class="text-center text-lg-start bg-white text-muted">
-                <div class="row ps-20">
+    <div class="container tablet">
+        <hr />
+        <footer class="text-center text-lg-start text-muted">
 
-                    <div class="col-4 foto pt-3">
-                        <a class="navbar-brand img-fluid foto" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:180px" src="~/images/ERegisterLogo.svg" /></a>
 
-                    </div>
+            <div class="h-100 text-center text-dark m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
+                © eVota 2022
+            </div>
 
-                    <div class="col-4 adresa">
-                        <h5 class="mb-2">ADRESA</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Bulevardi Bill Klinton</a></li>
-                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">10000</a></li>
-                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Prishtinë, Kosovë</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-4 kontakti">
-                        <h5 class="mb-2">Kontakti</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">e-register@info.com</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 49 123-123</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">+383 (0) 38 123-123</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-
-                <div class="h-100 text-center text-dark p-3 m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
-                    © eRegister 2022
-                </div>
-          
-            </footer>
-  </div>
+        </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

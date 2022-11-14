@@ -1,0 +1,53 @@
+﻿@media screen and (max-width:600px) {
+    .test {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    input::placeholder {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:472px) {
+    .button-responsive {
+        font-size: 12px;
+    }
+
+    input::placeholder {
+        font-size: 13px;
+    }
+
+    td {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width:432px) {
+    .button-responsive {
+        font-size: 10px;
+    }
+
+    input::placeholder {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width:394px) {
+    .button-responsive {
+        font-size: 8px;
+    }
+
+    input::placeholder {
+        font-size: 10px;
+    }
+
+    .option-select {
+        font-size: 13px;
+    }
+}
