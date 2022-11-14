@@ -29,12 +29,17 @@ namespace Presentation.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var res = _httpContext.HttpContext.User.Identity;
+                    if (await _unitOfWork.ApplicationUser.IsInSimpleRole(res.Name))
+                        return RedirectToAction("AddVoter", "AddsAdmin");
                     return RedirectToAction("index", "Dashboard");
+                }
                 return View();
             }
             catch (Exception err)
@@ -50,7 +55,8 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
+                    var zz = await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password);
+                    if (!(zz))
                     {
                         ViewBag.NotAuth = true;
                         return View("../home/index", login);
@@ -61,7 +67,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("AddVoter", "AddsAdmin");
                         }
@@ -71,7 +77,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("Index", "Crm");
 
@@ -81,7 +87,7 @@ namespace Presentation.Controllers
                     {
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
+                            TempData["success"] = "Jeni kyçur në  llogarinë tuaj";
                             isLogIn = true;
                             return RedirectToAction("Index", "Dashboard");
                         }

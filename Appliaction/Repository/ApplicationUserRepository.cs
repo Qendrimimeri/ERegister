@@ -278,8 +278,9 @@ namespace Application.Repository
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
                 Village = user.Address.Village.Name,
-                PollCenter = user.Address.PollCenter.CenterName,
-                ProfileImage = user.ImgPath
+                PollCenter = user.Address.PollCenter.CenterNumber,
+                ProfileImage = user.ImgPath,
+                Neighborhood=user.Address.Neighborhood.Name
 
             }).Where(x => x.Email == email).FirstOrDefaultAsync();
             return getUserDetails;
@@ -292,6 +293,7 @@ namespace Application.Repository
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
+            getUser.NormalizedEmail = user.Email.ToUpper();
 
 
             getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
@@ -307,6 +309,8 @@ namespace Application.Repository
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
+            getUser.NormalizedEmail = user.Email.ToUpper();
+           
 
             getUser.PhoneNumber = user.PhoneNo;
 
@@ -586,6 +590,10 @@ namespace Application.Repository
 
         public async Task<bool> CheckUser(string email, string password) =>
             await _userManager.CheckPasswordAsync(await _userManager.FindByEmailAsync(email), password);
+
+
+        public async Task<bool> IsInSimpleRole(string email) =>
+            await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
     }
 
 #pragma warning restore CS8604 
