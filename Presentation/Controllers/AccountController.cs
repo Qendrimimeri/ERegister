@@ -33,64 +33,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM login)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
-                    {
-                        ViewBag.NotAuth = true;
-                        return View("../home/index", login);
-                    }
-                    var roles = await _unitOfWork.ApplicationUser.GetRoles(login.Email);
-                    bool isLogIn = false;
-                    if (roles.Contains(_roles.AnetarIThjeshte))
-                    {
-                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                        {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                            isLogIn = true;
-                            return RedirectToAction("AddVoter", "AddsAdmin");
-                        }
-                        
-                    }
-                    else if (roles.Contains(_roles.KryetarIFshatit))
-                    {
-                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                        {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                            isLogIn = true;
-                            return RedirectToAction("Index", "Crm");
-                            
-                        }
-                    }
-                    else if ((roles.Contains(_roles.KryetarIPartise)) || (roles.Contains(_roles.KryetarIKomunes)))
-                    {
-                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                        {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                            isLogIn = true;
-                            return RedirectToAction("Index", "Dashboard");
-                        }
-                    }
-                    if (!isLogIn)
-                    {
-                        ViewBag.NotAuth = true;
-                        return View("../home/index", login);
-                    }
-                }
-                
-                return View("../Home/Index", login);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError(message: "An error has occurred ", err);
-                return View(errorView);
-            }
-        }
+       
 
 
         [HttpGet]
