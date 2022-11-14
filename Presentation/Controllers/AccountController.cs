@@ -33,64 +33,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM login)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    if (!(await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password)))
-                    {
-                        ViewBag.NotAuth = true;
-                        return View("../home/index", login);
-                    }
-                    var roles = await _unitOfWork.ApplicationUser.GetRoles(login.Email);
-                    bool isLogIn = false;
-                    if (roles.Contains(_roles.AnetarIThjeshte))
-                    {
-                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                        {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                            isLogIn = true;
-                            return RedirectToAction("AddVoter", "AddsAdmin");
-                        }
-                        
-                    }
-                    else if (roles.Contains(_roles.KryetarIFshatit))
-                    {
-                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                        {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                            isLogIn = true;
-                            return RedirectToAction("Index", "Crm");
-                            
-                        }
-                    }
-                    else if ((roles.Contains(_roles.KryetarIPartise)) || (roles.Contains(_roles.KryetarIKomunes)))
-                    {
-                        if (await _unitOfWork.ApplicationUser.LoginAsync(login))
-                        {
-                            TempData["success"] = "Jeni kyqur ne llogarinë tuaj";
-                            isLogIn = true;
-                            return RedirectToAction("Index", "Dashboard");
-                        }
-                    }
-                    if (!isLogIn)
-                    {
-                        ViewBag.NotAuth = true;
-                        return View("../home/index", login);
-                    }
-                }
-                
-                return View("../Home/Index", login);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError(message: "An error has occurred ", err);
-                return View(errorView);
-            }
-        }
+       
 
 
         [HttpGet]
@@ -130,7 +73,7 @@ namespace Presentation.Controllers
             {
                 if (userId == null || token == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Id e perdoruesit ose Tokeni nuk jane valid.");
+                    ModelState.AddModelError(string.Empty, "Id e përdoruesit ose Tokeni nuk janë valid.");
                     return View();
                 }
                 var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
@@ -206,7 +149,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "Jeni kyçur në llogarinë tuaj";
+                        TempData["success"] = "Fjalëkalimi juaj është ndryshuar me sukses!";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -225,7 +168,7 @@ namespace Presentation.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                TempData[_toaster.Success] = "Jeni shkyçur nga llogaria juaj!";
+                TempData[_toaster.Success] = "Jeni çkyçur nga llogaria juaj!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception err)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,12 +26,15 @@ namespace Application.ViewModels
 
         public string? Facebook { get; set; }
         [Required(ErrorMessage = "Ju lutem zgjedhni komunen!")]
+        [ValidateNever]
         public int? Municipality { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni fshatin!")]
+        [ValidateNever]
         public int? Village { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni lagjen!")]
+        [ValidateNever]
         public int? Neigborhood { get; set; }
 
         public int? Street { get; set; }

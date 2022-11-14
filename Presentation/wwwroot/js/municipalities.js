@@ -1,4 +1,4 @@
-const url = "https://localhost:7278/api/service/";
+const url = "/api/service/";
 getMunis();
 function getMunis() {
     let endpoint = url + "getmunis";

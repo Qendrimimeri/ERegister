@@ -59,17 +59,17 @@ namespace Presentation.Controllers
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> Performance() 
         {
-            //try
-            //{
+            try
+            {
                 var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
                 return View(users);
-            //}
-            //catch (Exception err)
-            //{
-            //    _logger.LogError("An error has occured", err);
-            //    return View(errorView);
-            //}
-        }
+            }
+                catch (Exception err)
+                {
+                    _logger.LogError("An error has occured", err);
+                    return View(errorView);
+            }
+}
 
 
         [HttpGet]
@@ -99,7 +99,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData[_toaster.Success] = "Të dhenat u ndryshuan me sukses!";
+                    TempData[_toaster.Success] = "TÃ« dhenat u ndryshuan me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
@@ -201,7 +201,7 @@ namespace Presentation.Controllers
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
 
-                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+                            TempData[_toaster.Success] = "TÃ« dhÃ«nat u ndryshuan me sukses!";
 
                             return View(user);
                         }
@@ -223,7 +223,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+                            TempData[_toaster.Success] = "TÃ« dhÃ«nat u ndryshuan me sukses!";
                             return View(user);
                         }
                     }
@@ -281,9 +281,11 @@ namespace Presentation.Controllers
                     }
 
                     await _signInManager.RefreshSignInAsync(user);
-                    TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
 
-                    return RedirectToAction("BusinessUserProfile");
+                    TempData[_toaster.Success] = "FjalÃ«kalimi juaj u ndryshua me sukses!";
+
+                    return RedirectToAction("Index","Dashboard");
+
                 }
                 return View(model);
             }

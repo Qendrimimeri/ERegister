@@ -1,4 +1,4 @@
-﻿const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni";
+﻿const kqzrez = "/api/service/kqzresultsbymuni";
 let response = fetch(kqzrez).then(res => res.json());
 let rez = response.then((values) => {
 

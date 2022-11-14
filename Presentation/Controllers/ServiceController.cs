@@ -1191,13 +1191,26 @@ namespace Presentation.Controllers
         [Route("kqzvalidation")]
         public async Task<IActionResult> KqzValidation([FromQuery] string id)
         {
-
-            var res = await _context.Kqzregisters.Where(x => x.PollCenterId == id.AsInt()).Select(x => x.NoOfvotes).ToListAsync();
-            if (res.Count <= 0)
+            var res = await _context.Kqzregisters.Where(x => x.PollCenterId == id.AsInt()).ToListAsync();
+            if (res.Select(x => x.NoOfvotes).Count() <= 0)
             {
                 return Ok(new KqzValidationModel()
                 {
-                    Value = "Nuk ka të dhëna për këtë qendër të votimit",
+                    Value = "Nuk ka të dhëna për këtë qendër të votimit ",
+                });
+            }
+            else if (res.Where(x => x.ElectionType == "Zgjedhjet Lokale").Select(x => x.NoOfvotes).Count() <= 0)
+            {
+                return Ok(new KqzValidationModel()
+                {
+                    Value = "Nuk ka të dhëna për Zgjedhje Lokale",
+                });
+            }
+            else if (res.Where(x => x.ElectionType == "Zgjedhjet Nacionale").Select(x => x.NoOfvotes).Count() <= 0)
+            {
+                return Ok(new KqzValidationModel()
+                {
+                    Value = "Nuk ka të dhëna për Zgjedhje Nacionale",
                 });
             }
             return Ok(new KqzValidationModel()

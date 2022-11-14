@@ -96,7 +96,7 @@ namespace Presentation.Controllers
                 _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
-        }
+}
 
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -149,7 +149,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        [HttpPost]
         public async Task<IActionResult>SaveAndOpenCase(RegisterVM register)
         {
             try
@@ -201,7 +201,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        [HttpPost, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit,AnetarIThjeshte")]
         public async Task<IActionResult> SaveAndOpenCasePoliticalOfficial(PoliticalOfficalVM model)
         {
             try

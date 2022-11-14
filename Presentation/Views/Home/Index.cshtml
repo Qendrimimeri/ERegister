@@ -1,136 +1,19 @@
 ﻿@using Application.ViewModels
 
-@{
-    <style>
-        .forgetpassword {
-            font-size: 14px;
-        }
-         @@media screen and (max-width:320px) {
-             .forgotpass{
-                 font-size:10px;
-             }
-             .rememberme{
-                  font-size:10px;
-             }
-             .mobile{
-              width:100% !important;
-          }
-
-       
-          
-    }
-     @@media screen and (max-width: 396px){ 
-         .foto {
-              display: none;
-         }
-          .form-control {
-            width:100%;
-          }
-          .form-control {
-            width:100%;
-          }
-            .test{
-              padding:15px !important;
-          }
-          .mobile{
-              width:100% !important;
-          }
-}
-      @@media screen and (max-width:502px) {
-        .foto{
-            display: none;
-        }
-         .form-control {
-            width:100%;
-          }
-          .form-control {
-            width:100%;
-          }
-            .test{
-              padding:15px !important;
-          }
-          .mobile{
-              width:100% !important;
-          }
-    }
-    @@media screen and (max-width:462px) {
-        .foto {
-            display: none;
-          }
-          .form-control {
-            width:100%;
-          }
-          .form-control {
-            width:100%;
-          }
-            .test{
-              padding:15px !important;
-          }
-          .mobile{
-              width:100% !important;
-          }
-         
-         
-          
-        }
-    
-    @@media screen and (max-width:425px) {
-        .foto {
-             display: none;
-        }
-         .form-control {
-            width:100%;
-          }
-          .form-control {
-            width:100%;
-          }
-          .test{
-              padding:15px !important;
-          }
-          .mobile{
-              width:100% !important;
-          }
-    }
-      @@media screen and (max-width:320px) {
-        .foto {
-             display: none;
-        }
-         .form-control {
-            font-size:10px;
-            width:100%;
-          }
-          .form-control {
-             font-size:10px;
-            width:100%;
-          }
-            .test{
-              padding:15px !important;
-          }
-          .mobile{
-              width:100% !important;
-          }
-    }
-    @@media screen and (max-width:840px){
-        margin-left:0px !important;
-        padding-right:0px !important;
-        padding-left:0px !important;
-    }
-    </style>
-}
-
 @model LoginVM
+<link rel="stylesheet" href="~/cssViews/HomeIndex.css">
 ﻿
-<div class="row justify-content-center align-items-center px-4 w-100 mx-0" style="height: 80vh;">
+<div class="row justify-content-center align-items-center pb-5 px-4 w-100 mx-0" style="height: 80vh;">
     <div class="col-6 d-none d-md-block text-center ">
         <img src="/images/harta.svg" class="harta img-fluid " style="min-width:190px; max-width:450px;">
     </div>
-    <div class="col-md-6 d-flex justify-content-center flex-column bg-light px-0 mx-0 box-shadow mobile"style="width: 43%;">
+    <div class="col-md-6 d-flex justify-content-center flex-column px-0 mx-0 box-shadow mobileb inputform">
         <h4 class="text-center pt-5">KYÇU</h4>
-        <form class="ml-5" asp-controller="Account" asp-action="Login" method="post">
+        <form class="ml-5" asp-controller="Home" asp-action="Index" method="post">
 
             <div class="p-5 ml-4 test mobile">
                 <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Përdoruesi</label>
+                    <label asp-for="Email" class="form-label">Email adresa juaj</label>
                     <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
@@ -144,15 +27,15 @@
                 {
                     <span class="text-danger">Kredencialet e gabuara</span>
                 }
-                <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-betwen">
-                    <div class="col-6">
+                <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-between">
+                    <div class="">
                         <label  asp-for="RememberMe"class="rememberme form-check-label pr-3 mr-3">
                             Më mbaj mend
                         <input asp-for="RememberMe" class="form-check-input">
                             <span asp-validation-for="RememberMe" class="text-danger"></span>
                         </label>
                     </div>
-                    <div class="col-6 forgetpassword">
+                    <div class="forgetpassword">
                         <a style="float:right;text-decoration:none;" class="forgotpass" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
                     </div>
                 </div>

@@ -35,8 +35,7 @@ var userNeigborhoodId = document.getElementById("get-user-neighborhoodId").value
 var userVillageId = document.getElementById("get-user-villageId").value
 var userMuniId = document.getElementById("get-user-muniId").value
 
-//const url = "https://eregisterpbc-001-site1.atempurl.com/"
-const url = "https://localhost:7278/api/service/";
+const url = "/api/service/";
 if (document.querySelector("#neighborhoods") != undefined) {
     getneighborhoodsbymuni();
 }

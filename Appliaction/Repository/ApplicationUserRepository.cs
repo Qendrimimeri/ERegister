@@ -8,7 +8,6 @@ using Domain.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
@@ -279,8 +278,9 @@ namespace Application.Repository
                 Email = user.Email,
                 Municipality = user.Address.Municipality.Name,
                 Village = user.Address.Village.Name,
-                PollCenter = user.Address.PollCenter.CenterName,
-                ProfileImage = user.ImgPath
+                PollCenter = user.Address.PollCenter.CenterNumber,
+                ProfileImage = user.ImgPath,
+                Neighborhood=user.Address.Neighborhood.Name
 
             }).Where(x => x.Email == email).FirstOrDefaultAsync();
             return getUserDetails;
@@ -293,6 +293,7 @@ namespace Application.Repository
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
+            getUser.NormalizedEmail = user.Email.ToUpper();
 
 
             getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
@@ -308,6 +309,8 @@ namespace Application.Repository
             var userId = Profile();
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.Email = user.Email;
+            getUser.NormalizedEmail = user.Email.ToUpper();
+           
 
             getUser.PhoneNumber = user.PhoneNo;
 
@@ -412,6 +415,7 @@ namespace Application.Repository
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
+                SocialNetwork = model.Facebook,
                 PhoneNumber = encrypt.Encrypt(model.PhoneNumber),
             };
 
@@ -490,18 +494,18 @@ namespace Application.Repository
             };
 
             // Use this for Development env.
-            var password = CreateRandomPassword(10);
+            var password = CreateRandomPassword(8);
 
-            var result = await _userManager.CreateAsync(simpleUser, "Admin!23");
+            var result = await _userManager.CreateAsync(simpleUser, password);
             await _context.SaveChangesAsync();
 
 
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(simpleUser);
-                var baseUrl = "https://localhost:7278";
-                var confimrEmailUrs = $"Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
-                confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+                string domainApp = "https://vota.live";
+
+                var confimrEmailUrs = $"{domainApp}/Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
 
                 var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
 
@@ -512,10 +516,10 @@ namespace Application.Repository
                 // Send Email
                 var emailReques = new MailRequestModel();
 
-                emailReques.Subject = "E-Register: Konfirmimi i llogaris�.";
+                emailReques.Subject = "E-Register: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
-                    $"<br>Fjalëkalimi i juaj është <strong>Admin!23</strong>" +
+                    $"<br>Fjalëkalimi i juaj është <strong>{password}</strong>" +
                     $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
                     $"<br><br><strong>E-Register</strong>";
 
@@ -536,15 +540,14 @@ namespace Application.Repository
                 return false;
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var baseUrl = "https://localhost:7278";
-            var confimrEmailUrs = $"Account/ResetPassword?userId={user.Id}&token={token}";
-            confimrEmailUrs = $"{baseUrl}/{confimrEmailUrs}";
+            string domain = "https://vota.live";
+            var confimrEmailUrs = $"{domain}/Account/ResetPassword?userId={user.Id}&token={token}";
 
             // Send Email
             var emailReques = new MailRequestModel();
             emailReques.Subject = "E-Register: Ndrysho fjalëkalimin.";
             emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
-                $" < br >< br >< strong > E - Register </ strong > ";
+                               $"<br><br><strong> E - Register </strong> ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
@@ -587,10 +590,12 @@ namespace Application.Repository
 
         public async Task<bool> CheckUser(string email, string password) =>
             await _userManager.CheckPasswordAsync(await _userManager.FindByEmailAsync(email), password);
-            
+
+
+        public async Task<bool> IsInSimpleRole(string email) =>
+            await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
     }
 
 #pragma warning restore CS8604 
 #pragma warning restore CS8602 
-
 }

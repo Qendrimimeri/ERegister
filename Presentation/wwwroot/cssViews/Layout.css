@@ -1,0 +1,93 @@
+﻿.width50 {
+    width: 150px;
+}
+
+@media screen and (max-width: 396px) {
+    .foto {
+        display: none;
+    }
+
+    .adresa {
+        width: 50%;
+    }
+
+    .kontakti {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .adresa {
+        width: 50%;
+    }
+
+    .kontakti {
+        width: 50%;
+    }
+
+    .foto {
+        display: none;
+    }
+
+    .container {
+        padding-top: 418px;
+    }
+}
+
+@media screen and (max-width:502px) {
+    .foto {
+        display: none;
+    }
+
+    .adresa {
+        width: 50%;
+    }
+
+    .kontakti {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:462px) {
+    .foto {
+        display: none;
+    }
+
+    .adresa {
+        width: 50%;
+    }
+
+    .kontakti {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .foto {
+        display: none;
+    }
+
+    .adresa {
+        width: 50%;
+    }
+
+    .kontakti {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .foto {
+        display: none;
+    }
+
+    .adresa {
+        font-size: 10px;
+        width: 50%;
+    }
+
+    .kontakti {
+        font-size: 10px;
+        width: 50%;
+    }
+}

@@ -6,6 +6,7 @@ builder.Services.CustomIdentity();
 builder.Services.OptionPattern();
 builder.Logging.CustomLogger();
 builder.Services.CustomExtension();
+
 builder.Services.CustomDataBase();
 
 builder.Services.AddAutoMapper();

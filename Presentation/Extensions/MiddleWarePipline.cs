@@ -4,7 +4,7 @@
     {
         public static WebApplication MiddleWareCustomPipline( this WebApplication app )
         {
-
+            app.UseStatusCodePagesWithReExecute("/ErrorHandler/Error/{0}");
 
             app.UseHttpsRedirection();
             

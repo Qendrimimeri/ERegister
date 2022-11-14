@@ -48,7 +48,7 @@ $('#villages').change(function () {
 
 var userMuniId = document.getElementById("get-user-muniId").value
 
-const url = "https://localhost:7278/api/service/";
+const url = "/api/service/";
 if (document.querySelector("#munis") != undefined) {
     getMunis();
 }

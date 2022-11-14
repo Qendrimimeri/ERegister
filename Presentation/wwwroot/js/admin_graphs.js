@@ -1,7 +1,6 @@
 ﻿
-//const kqzrez = "http://eregisterpbc-001-site1.atempurl.com/api/service/kqzresultsbymuni";
 
-const kqzrez = "https://localhost:7278/api/service/kqzresultsbymuni";
+const kqzrez = "/api/service/kqzresultsbymuni";
 let response = fetch(kqzrez).then(res => res.json());
 //let rez = response.then((values) => {
 
@@ -118,7 +117,7 @@ var nacionaleChart = null;
 async function getId() {
     
     const select = document.getElementById("munis").value
-    const baseUrl = 'https://localhost:7278/api/service/';
+    const baseUrl = '/api/service/';
     const kqzrez = baseUrl + "kqzresultsbymuni?id=" + select;
     let response = await fetch(kqzrez).then(res => res.json());
     var data = [];
