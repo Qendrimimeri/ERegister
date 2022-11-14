@@ -1,0 +1,12 @@
+-The servise is unavailable - bie serveri nga sistemi ne nje pjese te kodit (Muhameti)
+-Vota.live/users-profile.html - nuk funksionon kjo url ()
+-Korigjime drejteshkrimore
+-Toasters time set 
+-Qyteti te largohet nga kryetari i partise (Profile)
+-Pas ndryshimit te fjalekalimit te kthehet view tek Homescreen
+-Qendra e votimit nuk po shafqet ()
+-Tek profili te largohen dy funksione qe nuk jane te perdorshme 
+-Te provohet ndryshimi i email adreses dhe paswordit 
+-Te shikohet  vota.live/account/login
+-Emaili pasi te ndryshohet mos te kete mundesi te kyqemi me emailin e vjeter
+

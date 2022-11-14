@@ -99,7 +99,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData[_toaster.Success] = "U ndryshua me sukses!";
+                    TempData[_toaster.Success] = "Të dhenat u ndryshuan me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
@@ -200,9 +200,11 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+
                             return View(user);
                         }
-
                     }
                     else if (editUser.Image != null)
                     {
@@ -221,10 +223,12 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData[_toaster.Success] = "U ndryshua me sukses!";
+                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
                             return View(user);
                         }
                     }
+
+                  
                 }
                 return View();
             }
@@ -271,12 +275,14 @@ namespace Presentation.Controllers
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
+                        
                         return View();
 
                     }
 
                     await _signInManager.RefreshSignInAsync(user);
+                    TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
+
                     return RedirectToAction("BusinessUserProfile");
                 }
                 return View(model);
