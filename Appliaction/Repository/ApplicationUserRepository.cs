@@ -293,6 +293,7 @@ namespace Application.Repository
             var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
+            getUser.NormalizedEmail = user.Email.ToUpper();
 
 
             getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
