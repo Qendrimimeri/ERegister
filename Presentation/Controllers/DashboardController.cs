@@ -200,6 +200,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
                             return View(user);
                         }
 
@@ -221,7 +222,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData[_toaster.Success] = "U ndryshua me sukses!";
+                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
                             return View(user);
                         }
                     }
@@ -271,12 +272,10 @@ namespace Presentation.Controllers
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
                         return View();
-
                     }
-
                     await _signInManager.RefreshSignInAsync(user);
+                    TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
                     return RedirectToAction("Index","Dashboard");
                 }
                 return View(model);
@@ -287,7 +286,5 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-
-
     }
 }
