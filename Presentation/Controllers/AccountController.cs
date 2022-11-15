@@ -73,7 +73,7 @@ namespace Presentation.Controllers
             {
                 if (userId == null || token == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Id e përdoruesit ose Tokeni nuk janë valid.");
+                    ModelState.AddModelError(string.Empty, "Id-ja e përdoruesit ose Tokeni nuk janë valid.");
                     return View();
                 }
                 var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);

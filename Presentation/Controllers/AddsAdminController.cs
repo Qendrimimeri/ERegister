@@ -159,7 +159,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
                     if (res)
                     {
-                        TempData[_toaster.Success] = "U regjistrua me sukses!";
+                        TempData[_toaster.Success] = "U ruajt me sukses!";
                         return RedirectToAction("AddVoter", "AddsAdmin");
                     }
 

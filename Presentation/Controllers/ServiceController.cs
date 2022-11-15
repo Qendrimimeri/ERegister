@@ -1198,26 +1198,26 @@ namespace Presentation.Controllers
             {
                 return Ok(new KqzValidationModel()
                 {
-                    Value = "Nuk ka të dhëna për këtë qendër të votimit ",
+                    Value = "Nuk ka të dhëna për këtë qendër të votimit!",
                 });
             }
             else if (res.Where(x => x.ElectionType == "Zgjedhjet Lokale").Select(x => x.NoOfvotes).Count() <= 0)
             {
                 return Ok(new KqzValidationModel()
                 {
-                    Value = "Nuk ka të dhëna për Zgjedhje Lokale",
+                    Value = "Nuk ka të dhëna për Zgjedhje Lokale!",
                 });
             }
             else if (res.Where(x => x.ElectionType == "Zgjedhjet Nacionale").Select(x => x.NoOfvotes).Count() <= 0)
             {
                 return Ok(new KqzValidationModel()
                 {
-                    Value = "Nuk ka të dhëna për Zgjedhje Nacionale",
+                    Value = "Nuk ka të dhëna për Zgjedhje Nacionale!",
                 });
             }
             return Ok(new KqzValidationModel()
             {
-                Value = "Të dhënat janë të regjistruar për këtë qendër të votimit",
+                Value = "Të dhënat janë regjistruar për këtë qendër të votimit!",
             });
         }
 
