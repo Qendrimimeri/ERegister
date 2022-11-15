@@ -132,7 +132,7 @@ function getMunis(userId) {
             });
         });
 }
-villages
+//villages
 function addVillagesToList(userMuniId) {
     villages.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -186,7 +186,7 @@ function addVillageToDb(userMuniId) {
             }).then(() => addVillagesToList(userMuniId));
         });
 }
-neigborhoods
+//neigborhoods
 function addNeigborhoodToList(userMuniId) {
     neigborhoods.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -241,7 +241,7 @@ function addNeigborhoodToDb(userMuniId) {
         });
 }
 
-neigborhood by village
+//neigborhood by village
 function addNeigborhoodVillageToList(villId) {
     neigborhoodsVillage.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -296,7 +296,7 @@ function addNeigborhoodVillageToDb() {
             }).then(() => addNeigborhoodVillageToList(sm));
         });
 }
-block
+//block
 function addBlockToList(userMuniId) {
     blocks.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -350,7 +350,7 @@ function addBlockToDb(userMuniId) {
             }).then(() => addBlockToList(userMuniId));
         });
 }
-street by village
+//street by village
 function addStreetToList(userVillageId) {
     streets.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -410,7 +410,7 @@ function addStreetToDb(userVillageId) {
         });
 
 }
-street by neighborhood
+//street by neighborhood
 function addStreetNeighborhoodToList(neighId) {
     streetsNeighborhood.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -468,7 +468,7 @@ function addStreetNeighborhoodToDb() {
             
         })
 }
-poll center by village
+//poll center by village
 function addPollCenterToList(villId) {
     poll.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -516,7 +516,7 @@ function addPollCenterToDb(villId) {
             }).then(() => addPollCenterToList(sm));
         });
 }
-poll center by neighborhood
+//poll center by neighborhood
 function addPollCenterNeighborhoodToList(neighId) {
     pollNeighborhood.innerHTML = '';
     let chooseOption = document.createElement("option");
