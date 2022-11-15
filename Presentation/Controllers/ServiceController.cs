@@ -1029,19 +1029,19 @@ namespace Presentation.Controllers
         {
             try
             {
-                var test = _mapper.Map<Street>(model);
+                //var test = _mapper.Map<Street>(model);
 
-                _context.Streets.Add(test);
-                _context.SaveChanges();
-                return Ok();
-                //_context.Streets.Add(new Street
-                //{
-                //    Name = model.StreetName,
-                //    NeighborhoodId = model.NeighborhoodId
-                //});
+                //_context.Streets.Add(test);
                 //_context.SaveChanges();
-
                 //return Ok();
+                _context.Streets.Add(new Street
+                {
+                    Name = model.StreetName,
+                    NeighborhoodId = model.NeighborhoodId
+                });
+                _context.SaveChanges();
+
+                return Ok();
             }
             catch (Exception err)
             {

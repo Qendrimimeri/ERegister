@@ -149,7 +149,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
                     if (res.Succeeded)
                     {
-                        TempData["success"] = "Fjalëkalimi juaj është ndryshuar me sukses!";
+                        //TempData["success"] = "Fjalëkalimi juaj është ndryshuar me sukses!";
                         return RedirectToAction("Index", "Home");
                     }
                 }

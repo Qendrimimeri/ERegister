@@ -18,7 +18,6 @@ namespace Domain.Data.Entities
         public int? BlockId { get; set; }
         public int? StreetId { get; set; }
         public int? PollCenterId { get; set; }
-
         public virtual Block? Block { get; set; }
         public virtual Municipality? Municipality { get; set; }
         public virtual Neighborhood? Neighborhood { get; set; }
