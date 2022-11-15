@@ -588,7 +588,7 @@
         });
     </script>
     <script>
-        const url = "https://localhost:7278/api/service/";
+        const url = /api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
         }
@@ -1318,7 +1318,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             linku1.classList.remove('active');
             linku2.classList.add('active');
         });
-        const url = "https://localhost:7278/api/service/";
+        const url = "/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
         }
@@ -1794,7 +1794,7 @@ else
         });
         const munis = document.querySelector('#munis');
         const villages = document.querySelector('#villages');
-        const url = "https://localhost:7278/api/service/";
+        const url = "/api/service/";
         var votat = document.getElementsByClassName('Votat');
         const tabela = document.getElementById('tabela');
         const neigborhoods = document.getElementById('neigborhoods');
