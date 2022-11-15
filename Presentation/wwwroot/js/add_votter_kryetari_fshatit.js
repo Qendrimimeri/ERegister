@@ -174,7 +174,7 @@ function addStreetToDb(userVillageId) {
         }
     })
         .then((value) => {
-            if (value == "" || value.match(/\d/)) {
+            if (value == "" ) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -230,7 +230,7 @@ function addStreetNeighborhoodToDb() {
         }
     }).
         then((value) => {
-            if (value == "" || value.match(/\d/)) {
+            if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
