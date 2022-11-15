@@ -30,6 +30,7 @@
                             <div class="text-center pt-4">
 
 
+
                                 <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
                                 <p><strong>Email adresa: </strong>@Model.Email</p>
                       
@@ -95,13 +96,13 @@
                         </div>
 
                         <span>Numri i telefonit</span>
-                        <div class="mb-4 pe-2">
+                        <div class=" pe-2">
                             <div class=" d-flex align-items-center ">
                                 <div class="col-2">
-                                    <input type="text" class="form-control" id="prefix" value="+383">
+                                    <input type="text" class="form-control prefix " id="prefix" value="+383">
                                 </div>
                                 <div class="col-10 ps-2">
-                                    <input class="form-control" type="number" asp-for="PhoneNo" placeholder="">
+                                    <input class="form-control number" type="number" asp-for="PhoneNo" placeholder="">
                                 </div>
                             </div>
                             <span class="text-danger"></span>

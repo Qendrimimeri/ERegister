@@ -1,11 +1,11 @@
 ﻿ @model EmailVM;
 
 
-<div class="container-fluid row justify-content-center align-items-center pt-5 mt-5">
+<div class="divmargin container-fluid row justify-content-center align-items-center pt-5 mt-5"style="padding-bottom:171px;">
     <div class="col-6 d-none d-md-block text-center ">
         <img src="/images/harta.svg" class="harta img-fluid " style="min-width:190px; max-width:450px;">
     </div>
-    <div class="col-12 col-md-6 d-flex justify-content-center flex-column bg-light box-shadow ">
+    <div class="col-12 col-md-6 d-flex justify-content-center flex-column bg-light box-shadow " >
         @if (Model?.IsEmailSent == true)
         {
             <div class="row align-center justify-content-center">
@@ -15,12 +15,12 @@
         }
         else
         {
-        <h4 class="text-center pt-5">Gjeni llogarinë tuaj</h4>
+        <h4 class="txt text-center pt-5">Gjeni llogarinë tuaj</h4>
         <form asp-controller="Account" asp-action="ForgotPassword" method="post">
-			<div class=" p-5">
+			<div class=" p-5 findacc">
                     <div class="mb-3">
                         <label asp-for="Email" class="form-label">Email Adresa</label>
-                        <input type="email" asp-for="Email" class="form-control" aria-describedby="emailHelp">
+                        <input type="email" asp-for="Email" class="form-control " aria-describedby="emailHelp">
                         <span asp-validation-for="Email" class="text-center"></span>
                     </div>
                 <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">VAZHDO</button>
@@ -29,4 +29,64 @@
         }
     </div>
 </div>
+<style>
+@@media screen and (max-width: 396px) {
+    .findacc{
+        padding:0px !important;
+       
+    }
+    .divmargin{
+         margin-left:0px !important;
+        margin-right:0px !important;
+        padding-bottom: 265px !important;
+    }
+    .txt{
+        padding-bottom:25px !important;
+    }
+}
 
+@@media screen and (max-width:502px) {
+   .findacc{
+        padding:0px !important;
+       
+    }
+    .divmargin{
+         margin-left:0px !important;
+        margin-right:0px !important;
+        padding-bottom: 265px !important;
+    }
+     .txt{
+        padding-bottom:25px !important;
+    }
+}
+
+@@media screen and (max-width:462px) {
+    .findacc{
+        padding:0px !important;
+       
+    }
+    .divmargin{
+         margin-left:0px !important;
+        margin-right:0px !important;
+        padding-bottom: 265px !important;
+    }
+     .txt{
+        padding-bottom:25px !important;
+    }
+}
+
+@@media screen and (max-width:425px) {
+    .findacc{
+        padding:0px !important;
+       
+    }
+    .divmargin{
+         margin-left:0px !important;
+        margin-right:0px !important;
+        padding-bottom: 265px !important;
+    }
+     .txt{
+        padding-bottom:25px !important;
+    }
+}
+</Style>
