@@ -14,22 +14,22 @@ $('#munis').change(function () {
     }
 });
 
-$('#streetByVillage').hide();
+//$('#streetByVillage').hide();
 
-$('#neighborhoods').change(function () {
-    var selectedNeighborhood = $(this).children('option:selected').val();
-    if (selectedNeighborhood != null) {
-        $('#streetByVillage').hide();
-        $('#streetByNeighborhood').show();
-    }
-})
-$('#villages').change(function () {
-    var selectedVillages = $(this).children('option:selected').val();
-    if (selectedVillages != null) {
-        $('#streetByVillage').show();
-        $('#streetByNeighborhood').hide();
-    }
-})
+//$('#neighborhoods').change(function () {
+//    var selectedNeighborhood = $(this).children('option:selected').val();
+//    if (selectedNeighborhood != null) {
+//        $('#streetByNeighborhood').hide();
+//        $('#streetByVillage').show();
+//    } 
+//})
+//$('#villages').change(function () {
+//    var selectedVillages = $(this).children('option:selected').val();
+//    if (selectedVillages != null) {
+//        $('#streetByNeighborhood').show();
+//        $('#streetByVillage').hide();
+//    }
+//})
 $('#pollcenter-villages-container').hide();
 $('#neigborhoods').change(function () {
     var selectedVillage = $(this).children('option:selected').val();
@@ -47,6 +47,7 @@ $('#villages').change(function () {
 });
 
 var userMuniId = document.getElementById("get-user-muniId").value
+var userVillageId = document.getElementById("get-user-villageId").value
 
 const url = "/api/service/";
 if (document.querySelector("#munis") != undefined) {
@@ -239,30 +240,7 @@ function addNeigborhoodToDb(userMuniId) {
             }).then(() => addNeigborhoodToList(userMuniId));
         });
 }
-//neigborhood by village
-function addNeigborhoodVillageToList(villId) {
-    neigborhoodsVillage.innerHTML = '';
-    let chooseOption = document.createElement("option");
-    chooseOption.innerText = "Zgjedh lagjen...";
-    chooseOption.selected = true;
-    chooseOption.disabled = true;
-    neigborhoodsVillage.appendChild(chooseOption);
 
-    let addOption = document.createElement("option");
-    addOption.innerText = "Shto lagjen e re...";
-    addOption.value = "shto";
-    neigborhoodsVillage.appendChild(addOption);
-
-    let endpoint = url + "getneighborhoodsbyvillage?villId=" + villId;
-    let result = fetch(endpoint)
-        .then(res => res.json())
-        .then(data => data.forEach(x => {
-            let item = document.createElement("option");
-            item.value = x.id;
-            item.innerText = x.name;
-            neigborhoodsVillage.appendChild(item);
-        }));
-}
 //neigborhood by village
 function addNeigborhoodVillageToList(villId) {
     neigborhoodsVillage.innerHTML = '';
@@ -373,7 +351,7 @@ function addBlockToDb(userMuniId) {
         });
 }
 //street by village
-function addStreetToList(villId) {
+function addStreetToList(userVillageId) {
     streets.innerHTML = '';
     let chooseOption = document.createElement("option");
     chooseOption.innerText = "Zgjedh rrugen...";
@@ -386,7 +364,7 @@ function addStreetToList(villId) {
     addOption.value = "shto";
     streets.appendChild(addOption);
 
-    let endpoint = url + "getstreetbyvillage?villId=" + villId;
+    let endpoint = url + "getstreetbyvillage?villId=" + userVillageId;
     let result = fetch(endpoint)
         .then(res => res.json())
         .then(data => data.forEach(x => {
@@ -396,7 +374,7 @@ function addStreetToList(villId) {
             streets.appendChild(item);
         }));
 }
-function addStreetToDb() {
+function addStreetToDb(userVillageId) {
     let endpoint = url + "addstreetbyvillage";
     let input = swal("Emri i rrugës:", {
         content: "input",
@@ -425,8 +403,8 @@ function addStreetToDb() {
                             'Content-Type': 'application/json'
                         },
                         method: 'post',
-                        body: JSON.stringify({ villageId: sm, streetName: value })
-                    }).then(() => addStreetToList(sm));
+                        body: JSON.stringify({ villageId: userVillageId, streetName: value })
+                    }).then(() => addStreetToList(userVillageId));
                 }
             
         });
@@ -476,17 +454,15 @@ function addStreetNeighborhoodToDb() {
                 return false;
 
             }
-         
-              
                 else if (value !== null) {
-                    let sm = document.querySelector("#neigborhoods").value;
+                let sm = document.querySelector("#neigborhoodsVillage").value;
                     fetch(endpoint, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
                         method: 'post',
-                        body: JSON.stringify({ neighborhoodId: sm, streetName: value })
+                        body: JSON.stringify({ villageId: userVillageId, neighborhoodId: sm, streetName: value })
                     }).then(() => addStreetNeighborhoodToList(sm));
                 }
             
