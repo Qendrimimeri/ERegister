@@ -373,7 +373,7 @@ function addStreetToDb() {
         }
     })
         .then((value) => {
-            if (value == "" || value.match(/\d/)) {
+            if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -425,7 +425,7 @@ function addStreetNeighborhoodToDb() {
         }
     })
         .then((value) => {
-            if (value == "" || value.match(/\d/)) {
+            if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -451,7 +451,7 @@ function addPollCenterToList(villId) {
     chooseOption.disabled = true;
     poll.appendChild(chooseOption);
     let addOption = document.createElement("option");
-    addOption.innerText = "Shto rrugë te re...";
+    addOption.innerText = "Shto qendren e re...";
     addOption.value = "shto";
     poll.appendChild(addOption);
     let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
