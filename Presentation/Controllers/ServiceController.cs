@@ -401,29 +401,31 @@ namespace Presentation.Controllers
 
 
         [HttpPost, Route("addkqzresult")]
-        public ActionResult AddKqzResult([FromBody] KqzRegisterVM model)
+        public async Task<ActionResult> AddKqzResult([FromBody] KqzRegisterVM model)
         {
             try
             {
-                var test = _mapper.Map<Kqzregister>(model);
+                var hasData = _context.Kqzregisters
+                    .Where(x => x.PollCenterId == model.PollCenterId && x.ElectionType == model.ElectionType).ToList();
 
-                _context.Kqzregisters.Add(test);
-                _context.SaveChanges();
-                return Ok();
-                //_context.Kqzregisters.Add(new Kqzregister
-                //{
-                //    Id = model.Id,
-                //    PoliticialSubjectId = model.PoliticialSubjectId,
-                //    MunicipalityId = model.MunicipalityId,
-                //    NoOfvotes = model.NoOfvotes,
-                //    PollCenterId = model.PollCenterId,
-                //    DataCreated = model.DataCreated,
-                //    VillageId = model.VillageId,
-                //    NeighborhoodId = model.NeighborhoodId,
-                //    ElectionType = model.ElectionType
-                //});
-                //_context.SaveChanges();
-                //return Ok();
+                if (hasData.Count <= 0)
+                {
+                    var test = _mapper.Map<Kqzregister>(model);
+                    await _context.Kqzregisters.AddAsync(test);
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                } 
+                else
+                {
+                    var kqz = _context.Kqzregisters.Where(x => x.PollCenterId == model.PollCenterId && 
+                                                                x.PoliticialSubjectId == model.PoliticialSubjectId && 
+                                                                x.ElectionType == model.ElectionType).FirstOrDefault();
+                    kqz.NoOfvotes = model.NoOfvotes;
+
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+
             }
             catch (Exception err)
             {
