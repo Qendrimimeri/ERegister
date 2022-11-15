@@ -1,5 +1,3 @@
-
-
 @model PoliticalOfficalVM;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 @inject IUnitOfWork _unitOfWork;
@@ -185,6 +183,7 @@
                 <div class="card-body" id="">
                     <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                     <form asp-action="PoliticalOffical" method="post" id="forma">
+                        <a><span class="text-danger validation-message">Ju lutem plotësoni tabelën me rezultatet e KQZ!</span></a>
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
                         <div class="mb-4 d-flex justify-content-between">
@@ -280,13 +279,13 @@
                                 <div class="col-md-4 mb-3 pe-2" id="streetByVillage">
                                     <label>Rruga</label>
                                     <select class="form-select option-select" asp-for="Street" id="streets">
-                                        <option disabled selected>Zgjedh rrugen...</option>
+                                        <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class=col-md-4 mb-3 pe-2" id="streetByNeighborhood">
                                     <label>Rruga</label>
                                     <select class="form-select option-select" asp-for="Street" id="streetsNeighborhood">
-                                        <option disabled selected>Zgjedh rrugen...</option>
+                                        <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
@@ -302,13 +301,13 @@
                                 <div class="col-md-4 mb-2 pe-2" id="streetByVillage">
                                     <label>Rruga</label>
                                     <select class="form-select option-select" asp-for="Street" id="streets">
-                                        <option disabled selected>Zgjedh rrugen...</option>
+                                        <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2" id="streetByNeighborhood">
                                     <label>Rruga</label>
                                     <select class="form-select option-select" asp-for="Street" id="streetsNeighborhood">
-                                        <option disabled selected>Zgjedh rrugen...</option>
+                                        <option disabled selected>Zgjedh rrugën...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
@@ -589,7 +588,7 @@
         });
     </script>
     <script>
-        const url = "/api/service/";
+        const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
         }
@@ -1319,7 +1318,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             linku1.classList.remove('active');
             linku2.classList.add('active');
         });
-        const url = "/api/service/";
+        const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
         }
@@ -1795,7 +1794,7 @@ else
         });
         const munis = document.querySelector('#munis');
         const villages = document.querySelector('#villages');
-        const url = "/api/service/";
+        const url = "https://localhost:7278/api/service/";
         var votat = document.getElementsByClassName('Votat');
         const tabela = document.getElementById('tabela');
         const neigborhoods = document.getElementById('neigborhoods');
