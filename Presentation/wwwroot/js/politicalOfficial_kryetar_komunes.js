@@ -27,7 +27,7 @@ $('#villages').change(function () {
         $('#streetByVillage').show();
         $('#streetByNeighborhood').hide();
     }
-})
+});
 $('#pollcenter-villages-container').hide();
 $('#neigborhoods').change(function () {
     var selectedVillage = $(this).children('option:selected').val();
