@@ -319,7 +319,7 @@
         </div>
     </div>
 </section>
-@if (User.IsInRole("KryetarIKomunes"))
+@if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
     { <script src="~/js/add_votter_kryetari_komunes.js"> </script> }
