@@ -58,23 +58,18 @@ munis.addEventListener('change', event => {
     addVillagesToList(event.target.value);
     addNeigborhoodToList(event.target.value);
     addBlockToList(event.target.value);
-    //getKqzResultByMuniId(event.target.value);
 });
 villages.addEventListener('change', event => {
     addNeigborhoodVillageToList(event.target.value);
     addStreetToList(event.target.value);
     addPollCenterToList(event.target.value);
-    //getKqzResultByVillageId(event.target.value);
 });
 neigborhoodsVillage.addEventListener('change', event => {
     getKqzResultByNeighborhoodId(event.target.value);
-    //console.log('u thirr 2');
 });
 neigborhoods.addEventListener('change', event => {
     addStreetNeighborhoodToList(event.target.value);
     addPollCenterNeighborhoodToList(event.target.value);
-    //getKqzResultByNeighborhoodId(event.target.value);
-    //console.log('u thirr 1');
 });
 villages.addEventListener('change', event => {
     event.preventDefault()
@@ -340,7 +335,7 @@ function addNeigborhoodVillageToList(villId) {
     function addStreetToList(villId) {
         streets.innerHTML = '';
         let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh rrugen...";
+        chooseOption.innerText = "Zgjedh rrugën...";
         chooseOption.selected = true;
         chooseOption.disabled = true;
         streets.appendChild(chooseOption);
@@ -392,7 +387,7 @@ function addNeigborhoodVillageToList(villId) {
     function addStreetNeighborhoodToList(neighId) {
         streetsNeighborhood.innerHTML = '';
         let chooseOption = document.createElement("option");
-        chooseOption.innerText = "Zgjedh rrugen...";
+        chooseOption.innerText = "Zgjedh rrugën...";
         chooseOption.selected = true;
         chooseOption.disabled = true;
         streetsNeighborhood.appendChild(chooseOption);
