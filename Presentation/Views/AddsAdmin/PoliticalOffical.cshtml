@@ -185,7 +185,6 @@
                 <div class="card-body" id="">
                     <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                     <form asp-action="PoliticalOffical" method="post" id="forma">
-                        <a><span class="text-danger validation-message">Ju lutem plotësoni tabelën me rezultatet e KQZ!</span></a>
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
                         <div class="mb-4 d-flex justify-content-between">
@@ -590,7 +589,7 @@
         });
     </script>
     <script>
-        const url = "https://localhost:7278/api/service/";
+        const url = "/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
         }
@@ -1320,7 +1319,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             linku1.classList.remove('active');
             linku2.classList.add('active');
         });
-        const url = "https://localhost:7278/api/service/";
+        const url = "/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
         }
@@ -1796,7 +1795,7 @@ else
         });
         const munis = document.querySelector('#munis');
         const villages = document.querySelector('#villages');
-        const url = "https://localhost:7278/api/service/";
+        const url = "/api/service/";
         var votat = document.getElementsByClassName('Votat');
         const tabela = document.getElementById('tabela');
         const neigborhoods = document.getElementById('neigborhoods');

@@ -1,19 +1,19 @@
-﻿$('#streetByNeighborhood').hide();
-
-$('#villages').change(function () {
+﻿
+$('#streetByVillage').hide();
+$('#neighborhoods').change(function () {
     var selectedNeighborhood = $(this).children('option:selected').val();
     if (selectedNeighborhood != null) {
-        $('#streetByNeighborhood').hide();
-        $('#streetByVillage').show();
+        $('#streetByVillage').hide();
+        $('#streetByNeighborhood').show();
     }
 })
-$('#neigborhoodsVillage').change(function () {
+$('#villages').change(function () {
     var selectedVillages = $(this).children('option:selected').val();
     if (selectedVillages != null) {
-        $('#streetByNeighborhood').show();
-        $('#streetByVillage').hide();
+        $('#streetByVillage').show();
+        $('#streetByNeighborhood').hide();
     }
-})
+});
 $('#pollcenter-neighborhood-container').hide();
 
 $('#villages').change(function () {

@@ -421,6 +421,7 @@ function addStreetToDb(userVillageId) {
 
 }
 //street by neighborhood
+//street by neighborhood
 function addStreetNeighborhoodToList(neighId) {
     streetsNeighborhood.innerHTML = '';
     let chooseOption = document.createElement("option");
@@ -428,12 +429,10 @@ function addStreetNeighborhoodToList(neighId) {
     chooseOption.selected = true;
     chooseOption.disabled = true;
     streetsNeighborhood.appendChild(chooseOption);
-
     let addOption = document.createElement("option");
     addOption.innerText = "Shto rrugë te re...";
     addOption.value = "shto";
     streetsNeighborhood.appendChild(addOption);
-
     let endpoint = url + "getstreetbyneighborhood?neighId=" + neighId;
     let result = fetch(endpoint)
         .then(res => res.json())
@@ -450,35 +449,29 @@ function addStreetNeighborhoodToDb() {
         content: "input",
         buttons: {
             cancel: "Anulo",
-
             confirm: {
                 text: "Shto",
                 className: "test",
             }
         }
     })
-
-        then((value) => {
+        .then((value) => {
             if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
 
             }
-                else if (value !== null) {
-                let sm = document.querySelector("#neigborhoodsVillage").value;
-                    fetch(endpoint, {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        method: 'post',
-                        body: JSON.stringify({ villageId: userVillageId, neighborhoodId: sm, streetName: value })
-                    }).then(() => addStreetNeighborhoodToList(sm));
-                }
-            
-        })
-
+            let sm = document.querySelector("#neigborhoods").value;
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({ neighborhoodId: sm, streetName: value })
+            }).then(() => addStreetNeighborhoodToList(sm));
+        });
 }
 //poll center by village
 function addPollCenterToList(villId) {
