@@ -482,7 +482,7 @@ namespace Application.Repository
             string email = model.Email.ToLower();
             var simpleUser = new ApplicationUser()
             {
-                FullName = email,
+                FullName = model.FullName,
                 Email = email,
                 UserName = email,
                 WorkId = workId,
