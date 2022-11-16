@@ -25,11 +25,11 @@ namespace Presentation.Controllers
         private readonly ILogger<DashboardController> _logger;
         private readonly Toaster _toaster;
 
-        public DashboardController(IUnitOfWork unitOfWork, 
+        public DashboardController(IUnitOfWork unitOfWork,
                                   UserManager<ApplicationUser> userManager,
                                   IWebHostEnvironment env,
                                   SignInManager<ApplicationUser> signInManager,
-                                  ILogger<DashboardController> logger, 
+                                  ILogger<DashboardController> logger,
                                   IOptionsSnapshot<Toaster> toaster)
         {
             _unitOfWork = unitOfWork;
@@ -41,7 +41,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
         public IActionResult Index()
         {
             try
@@ -57,28 +57,28 @@ namespace Presentation.Controllers
 
 
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
-        public async Task<IActionResult> Performance() 
+        public async Task<IActionResult> Performance()
         {
             try
             {
                 var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
                 return View(users);
             }
-                catch (Exception err)
-                {
-                    _logger.LogError("An error has occured", err);
-                    return View(errorView);
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
             }
-}
+        }
 
 
         [HttpGet]
-        public async Task<IActionResult> Reports(string id) 
+        public async Task<IActionResult> Reports(string id)
         {
             try
             {
                 var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
-                ViewBag.PS = new SelectList( _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+                ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
                 ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
                 ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
                 return View(users);
@@ -92,7 +92,7 @@ namespace Presentation.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reports(PersonVM  editVoter)
+        public async Task<IActionResult> Reports(PersonVM editVoter)
         {
             try
             {
@@ -187,8 +187,8 @@ namespace Presentation.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async  Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
-         {
+        public async Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
+        {
             try
             {
                 if (ModelState.IsValid)
@@ -214,14 +214,18 @@ namespace Presentation.Controllers
 
                         var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
                         var fullPath = Path.Combine(filePath, fileName);
+                        var getUser = await _userManager.GetUserAsync(User);
+                        if (getUser.ImgPath != null && getUser.ImgPath != "default.png")
+                            if (System.IO.File.Exists(Path.Combine(filePath, getUser.ImgPath)))
+                                System.IO.File.Delete(Path.Combine(filePath, getUser.ImgPath));
 
                         using (var fileStream = new FileStream(fullPath, FileMode.Create))
                             editUser.Image.CopyTo(fileStream);
+
                         var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
                         if (result)
                         {
-                            var res = _userManager.GetUserAsync(User);
-                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
                             TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
                             return View(user);
                         }
@@ -253,7 +257,7 @@ namespace Presentation.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult>ChangePassword(ChangePasswordVM model)
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
         {
             try
             {
@@ -276,7 +280,7 @@ namespace Presentation.Controllers
                     }
                     await _signInManager.RefreshSignInAsync(user);
                     TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
-                    return RedirectToAction("Index","Dashboard");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 return View(model);
             }

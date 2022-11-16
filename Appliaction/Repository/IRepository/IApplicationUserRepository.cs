@@ -205,5 +205,7 @@ namespace Application.Repository.IRepository
         Task<bool> CheckUser(string email, string password);
 
         Task<bool> IsInSimpleRole(string email);
+
+        Task<bool> IsInRoleKryetarIFshatit(string id);
     }
 }

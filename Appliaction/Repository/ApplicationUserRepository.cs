@@ -516,12 +516,12 @@ namespace Application.Repository
                 // Send Email
                 var emailReques = new MailRequestModel();
 
-                emailReques.Subject = "E-Register: Konfirmimi i llogarisë.";
+                emailReques.Subject = "E-Vota: Konfirmimi i llogarisë.";
                 emailReques.Body = $"" +
                     $"Llogaria juaj është regjistruar!" +
                     $"<br>Fjalëkalimi i juaj është <strong>{password}</strong>" +
                     $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
-                    $"<br><br><strong>E-Register</strong>";
+                    $"<br><br><strong>E-Vota</strong>";
 
                 emailReques.ToEmail = simpleUser.Email;
 
@@ -545,9 +545,9 @@ namespace Application.Repository
 
             // Send Email
             var emailReques = new MailRequestModel();
-            emailReques.Subject = "E-Register: Ndrysho fjalëkalimin.";
+            emailReques.Subject = "E-Vota: Ndrysho fjalëkalimin.";
             emailReques.Body = $"Për të ndryshuar fjalëkalimin tuaj ju lutem <a href={confimrEmailUrs}>Klikoni këtu</a>!" +
-                               $"<br><br><strong> E - Register </strong> ";
+                               $"<br><br><strong> E - Vota </strong> ";
             emailReques.ToEmail = user.Email;
             await _mail.SendEmailAsync(emailReques);
 
@@ -594,6 +594,9 @@ namespace Application.Repository
 
         public async Task<bool> IsInSimpleRole(string email) =>
             await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
+
+        public async Task<bool> IsInRoleKryetarIFshatit(string id) =>
+            await _userManager.IsInRoleAsync((await _userManager.FindByIdAsync(id)), "KryetarIFshatit");
     }
 
 #pragma warning restore CS8604 
