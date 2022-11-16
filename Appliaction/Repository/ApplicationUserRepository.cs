@@ -594,6 +594,9 @@ namespace Application.Repository
 
         public async Task<bool> IsInSimpleRole(string email) =>
             await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
+
+        public async Task<bool> IsInRoleKryetarIFshatit(string id) =>
+            await _userManager.IsInRoleAsync((await _userManager.FindByIdAsync(id)), "KryetarIFshatit");
     }
 
 #pragma warning restore CS8604 

@@ -62,10 +62,14 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var userId = _unitOfWork.ApplicationUser.GetLoginUser();
+                    var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
                     if (res)
                     {
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
+                        if (userInRoleKryetarIFshatit)
+                            return RedirectToAction("Index", "Crm");
                         return RedirectToAction("Index", "dashboard");
                     }
                 }
@@ -139,6 +143,7 @@ namespace Presentation.Controllers
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
                 await _unitOfWork.Done();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
+
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)
