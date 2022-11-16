@@ -201,10 +201,14 @@ namespace Presentation.Controllers
         {
             try
             {
+                var userId = _unitOfWork.ApplicationUser.GetLoginUser();
+                var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                 _unitOfWork.PollRelated.Update(pollRelated);
                 await _unitOfWork.Done();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
-                return RedirectToAction("Index");
+                if (userInRoleKryetarIFshatit)
+                    return RedirectToAction("Index", "Crm");
+                return RedirectToAction("Index", "dashboard");
             }
             catch (Exception err)
             {
