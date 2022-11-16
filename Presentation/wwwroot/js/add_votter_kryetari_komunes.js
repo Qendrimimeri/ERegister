@@ -53,6 +53,7 @@ $('#villages').change(function () {
 var userMuniId = document.getElementById("get-user-muniId").value
 var userVillageId = document.getElementById("get-user-villageId").value
 
+
 const url = "/api/service/";
 if (document.querySelector("#munis") != undefined) {
     getMunis();
@@ -361,7 +362,7 @@ function addBlockToDb(userMuniId) {
         });
 }
 //street by village
-function addStreetToList(userVillageId) {
+function addStreetToList(villId) {
     streets.innerHTML = '';
     let chooseOption = document.createElement("option");
     chooseOption.innerText = "Zgjedh rrugen...";
@@ -374,7 +375,7 @@ function addStreetToList(userVillageId) {
     addOption.value = "shto";
     streets.appendChild(addOption);
 
-    let endpoint = url + "getstreetbyvillage?villId=" + userVillageId;
+    let endpoint = url + "getstreetbyvillage?villId=" + villId;
     let result = fetch(endpoint)
         .then(res => res.json())
         .then(data => data.forEach(x => {
@@ -384,9 +385,9 @@ function addStreetToList(userVillageId) {
             streets.appendChild(item);
         }));
 }
-function addStreetToDb(userVillageId) {
+function addStreetToDb(vilId) {
     let endpoint = url + "addstreetbyvillage";
-    let input = swal("Emri i rrugës:", {
+    let input = swal("Emri i rrugës", {
         content: "input",
         buttons: {
             cancel: "Anulo",
@@ -403,24 +404,19 @@ function addStreetToDb(userVillageId) {
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
 
-            }            
-                else if (value !== null) {
-                    let sm = document.querySelector("#villages").value;
-                    fetch(endpoint, {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        method: 'post',
-                        body: JSON.stringify({ villageId: userVillageId, streetName: value })
-                    }).then(() => addStreetToList(userVillageId));
-                }
+            }
+            let sm = document.querySelector("#villages").value;
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ villageId: sm, streetName: value })
+                }).then(() => addStreetToList(sm));
             
-
         });
-
 }
-//street by neighborhood
 //street by neighborhood
 function addStreetNeighborhoodToList(neighId) {
     streetsNeighborhood.innerHTML = '';
