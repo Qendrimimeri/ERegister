@@ -117,6 +117,7 @@ namespace Presentation.Controllers
                 }
 
                 PoliticalOfficialAddress();
+                return RedirectToAction("Service", "AddKqzResult");
                 return View();
             }
             catch (Exception err)
