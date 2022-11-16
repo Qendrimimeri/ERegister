@@ -56,9 +56,9 @@ namespace Presentation.Controllers
                 Data();
                 var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
                 if (res == null)
-                {
+                .{
                     ViewBag.Name = name;
-                    ViewBag.UserNull = true; 
+                    ViewBag.UserNull = "nuk ka te dhena"; 
                 }
                 return PartialView("_Voters", (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)));
             }

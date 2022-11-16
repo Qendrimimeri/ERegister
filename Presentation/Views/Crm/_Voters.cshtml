@@ -1,7 +1,7 @@
 ﻿@model VoterDetailsVM
 <link rel="stylesheet" href="~/cssViews/_Voters.css">
 
-@if(ViewBag.UserNull)
+@if (ViewBag.UserNull == "nuk ka te dhena")
 {
     <small >Nuk ka të dhëna për <span class="text-danger">"@ViewBag.Name"</span>!</small>
 }
