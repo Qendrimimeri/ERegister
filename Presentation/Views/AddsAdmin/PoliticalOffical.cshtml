@@ -1,3 +1,5 @@
+
+
 @model PoliticalOfficalVM;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 @inject IUnitOfWork _unitOfWork;
@@ -588,9 +590,7 @@
         });
     </script>
     <script>
-
-        const url = "/api/service/";
-
+        const url = "https://localhost:7278/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
         }
@@ -1135,7 +1135,7 @@
                     },
                     method: 'post',
                     body: JSON.stringify({
-                        municipalityId: munis.value, villageId: villagess, neighborhoodId: neighbors,
+                        municipalityId: @userMuniId, villageId: villagess, neighborhoodId: neighbors,
                         electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i - 1].value
                     })
                 });

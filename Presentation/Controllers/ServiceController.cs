@@ -420,7 +420,10 @@ namespace Presentation.Controllers
                     var kqz = _context.Kqzregisters.Where(x => x.PollCenterId == model.PollCenterId && 
                                                                 x.PoliticialSubjectId == model.PoliticialSubjectId && 
                                                                 x.ElectionType == model.ElectionType).FirstOrDefault();
-                    kqz.NoOfvotes = model.NoOfvotes;
+                    if (kqz != null)
+                    {
+                        kqz.NoOfvotes = model.NoOfvotes;
+                    }
 
                     await _context.SaveChangesAsync();
                     return Ok();
