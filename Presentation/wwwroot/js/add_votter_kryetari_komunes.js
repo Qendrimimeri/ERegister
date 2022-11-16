@@ -52,6 +52,8 @@ $('#villages').change(function () {
 
 var userMuniId = document.getElementById("get-user-muniId").value
 var userVillageId = document.getElementById("get-user-villageId").value
+var userNeigborhoodId = document.getElementById("get-user-neighborhoodId").value
+
 
 const url = "/api/service/";
 if (document.querySelector("#munis") != undefined) {
@@ -386,7 +388,7 @@ function addStreetToList(userVillageId) {
 }
 function addStreetToDb(userVillageId) {
     let endpoint = url + "addstreetbyvillage";
-    let input = swal("Emri i rrugës:", {
+    let input = swal("Emri i rrugës", {
         content: "input",
         buttons: {
             cancel: "Anulo",
@@ -403,24 +405,19 @@ function addStreetToDb(userVillageId) {
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
 
-            }            
-                else if (value !== null) {
-                    let sm = document.querySelector("#villages").value;
-                    fetch(endpoint, {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        method: 'post',
-                        body: JSON.stringify({ villageId: userVillageId, streetName: value })
-                    }).then(() => addStreetToList(userVillageId));
-                }
-            
-
+            }
+            else if (value !== null) {
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({ villageId: userVillageId, streetName: value })
+                }).then(() => addStreetToList(userVillageId));
+            }
         });
-
 }
-//street by neighborhood
 //street by neighborhood
 function addStreetNeighborhoodToList(neighId) {
     streetsNeighborhood.innerHTML = '';
