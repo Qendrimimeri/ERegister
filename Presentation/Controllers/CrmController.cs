@@ -58,7 +58,7 @@ namespace Presentation.Controllers
                 if (res == null)
                 {
                     ViewBag.Name = name;
-                    ViewBag.UserNull = "Nuk ka të dhena per kete person!";
+                    ViewBag.UserNull = true; 
                 }
                 return PartialView("_Voters", (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)));
             }

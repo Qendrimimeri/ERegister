@@ -416,7 +416,7 @@ namespace Application.Repository
                 AddressId = addressId,
                 ActualStatus = "Ne Process",
                 SocialNetwork = model.Facebook,
-                PhoneNumber = encrypt.Encrypt(model.PhoneNumber),
+                PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
             };
 
             await _userManager.CreateAsync(simpleUser, "Eregister@!12");
@@ -479,18 +479,18 @@ namespace Application.Repository
             await _context.Works.AddAsync(work);
             await _context.SaveChangesAsync();
 
-
+            string email = model.Email.ToLower();
             var simpleUser = new ApplicationUser()
             {
-                FullName = model.FullName,
-                Email = model.Email,
-                UserName = model.Email,
+                FullName = email,
+                Email = email,
+                UserName = email,
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
                 ImgPath = "default.png",
 
-                PhoneNumber = encrypt.Encrypt(model.PhoneNumber),
+                PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
             };
 
             // Use this for Development env.
