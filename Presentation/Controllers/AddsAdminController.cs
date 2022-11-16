@@ -110,14 +110,17 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var userId = _unitOfWork.ApplicationUser.GetLoginUser();
+                    var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res)
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
-                    return RedirectToAction("Index", "Dashboard");
+                    if (userInRoleKryetarIFshatit)
+                        return RedirectToAction("Index", "Crm");
+                    return RedirectToAction("Index", "dashboard");
                 }
 
                 PoliticalOfficialAddress();
-                return RedirectToAction("Service", "AddKqzResult");
                 return View();
             }
             catch (Exception err)

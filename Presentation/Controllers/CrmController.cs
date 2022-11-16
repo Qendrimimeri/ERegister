@@ -172,13 +172,22 @@ namespace Presentation.Controllers
         {
             try
             {
-                var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
-                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
-                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+                if (ModelState.IsValid)
+                {
+                    var userId = _unitOfWork.ApplicationUser.GetLoginUser();
+                    var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
+                    var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
+                    ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+                    ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+                    ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
 
-                TempData[_toaster.Success] = "U ruajt me sukses!";
-                return RedirectToAction("Index","Dashboard");
+                    TempData[_toaster.Success] = "U ruajt me sukses!";
+                    if (userInRoleKryetarIFshatit)
+                        return RedirectToAction("Index", "Crm");
+                    return RedirectToAction("Index", "dashboard");
+                }
+                return RedirectToAction("index", "Crm");
+
             }
             catch (Exception err)
             {
