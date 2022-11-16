@@ -110,7 +110,7 @@ blocks.addEventListener('change', event => {
 streets.addEventListener('change', event => {
     event.preventDefault()
     if (event.target.value == 'shto') {
-        addStreetToDb();
+        addStreetToDb(userVillageId);
     }
 });
 neigborhoodsVillage.addEventListener('change', event => {
