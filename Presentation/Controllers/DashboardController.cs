@@ -23,6 +23,7 @@ namespace Presentation.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<DashboardController> _logger;
+        private readonly IHttpContextAccessor _httpContext;
         private readonly Toaster _toaster;
 
         public DashboardController(IUnitOfWork unitOfWork,
@@ -30,24 +31,36 @@ namespace Presentation.Controllers
                                   IWebHostEnvironment env,
                                   SignInManager<ApplicationUser> signInManager,
                                   ILogger<DashboardController> logger,
-                                  IOptionsSnapshot<Toaster> toaster)
+                                  IOptionsSnapshot<Toaster> toaster,
+                                  IHttpContextAccessor httpContext)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _env = env;
             _signInManager = signInManager;
             _logger = logger;
+            _httpContext = httpContext;
             _toaster = toaster.Value;
         }
 
 
-        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
-        public IActionResult Index()
+        [HttpGet, Authorize(Roles = "KryetarIPartise, KryetarIKomunes, KryetarIFshatit")]
+        public async Task<IActionResult> Index()
         {
             try
             {
+                if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var user = _httpContext.HttpContext.User.Identity;
+                    var kryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatitWithEmail(user.Name);
+                    var anetarIThjesht = await _unitOfWork.ApplicationUser.IsInRoleAnetarIThjeshtWithEmail(user.Name);
+
+                    if (kryetarIFshatit)  return RedirectToAction("Index", "Crm");
+                    if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
+
+                }
                 return View();
-            }
+            } 
             catch (Exception err)
             {
                 _logger.LogError("An error has occured", err);

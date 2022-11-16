@@ -207,5 +207,9 @@ namespace Application.Repository.IRepository
         Task<bool> IsInSimpleRole(string email);
 
         Task<bool> IsInRoleKryetarIFshatit(string id);
+
+        Task<bool> IsInRoleKryetarIFshatitWithEmail(string email);
+
+        Task<bool> IsInRoleAnetarIThjeshtWithEmail(string email);
     }
 }
