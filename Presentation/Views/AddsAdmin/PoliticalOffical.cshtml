@@ -216,7 +216,7 @@
                             <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1"
                                    placeholder="Shkruaj email adresen">
                             <span asp-validation-for="Email" class="text-danger"></span>
-                            @if (ViewBag.EmailExist === "nuk ka email")
+                            @if (ViewBag.EmailExist == "nuk ka email")
                             {
                                 <span class="text-danger"> Email adresa e dhënë është regjistruar </span>
                             }

@@ -279,7 +279,8 @@ namespace Application.Repository
                 ProfileImage = user.ImgPath,
                 Neighborhood=user.Address.Neighborhood.Name
 
-            }).Where(x => x.Email == email).FirstOrDefaultAsync();
+            }).Where(x => x.Email == email)
+              .FirstOrDefaultAsync();
             return getUserDetails;
         }
 
@@ -287,7 +288,8 @@ namespace Application.Repository
         {
             EncryptionService encrypt = new(_encrypt);
             var userId = Profile();
-            var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
+            var getUser = await _context.Users.Where(x => x.Id == userId.Value)
+                                              .FirstOrDefaultAsync();
             getUser.ImgPath = fullPath;
             getUser.Email = user.Email;
             getUser.NormalizedEmail = user.Email.ToUpper();
@@ -304,7 +306,8 @@ namespace Application.Repository
         {
             EncryptionService encrypt = new(_encrypt);
             var userId = Profile();
-            var getUser = await _context.Users.Where(x => x.Id == userId.Value).FirstOrDefaultAsync();
+            var getUser = await _context.Users.Where(x => x.Id == userId.Value)
+                                              .FirstOrDefaultAsync();
             getUser.Email = user.Email;
             getUser.NormalizedEmail = user.Email.ToUpper();
            
@@ -345,20 +348,33 @@ namespace Application.Repository
                 if (role.Name != "SimpleRole" )
                     roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
+            var orderedRoles = roles.OrderBy(x => x.Value);
+            roles.Remove(roles[roles.Count - 1]);
+            roles.Add(new KeyValueModel { Key = "AnetarIThjeshte", Value = "Anetarë i thjeshte" });
             return roles;
         }
 
         public async Task<int?> GetMunicipalityIdOfUser(string id)
-            => await _context.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync();
+            => await _context.ApplicationUsers.Where(x => x.Id == id)
+                                              .Select(x => x.Address.MunicipalityId)
+                                              .FirstOrDefaultAsync();
 
         public async Task<int?> GetVillageIdOfUser(string id)
-            => await _context.ApplicationUsers.Where(x => x.Id == id).Select(x => x.Address.VillageId).FirstOrDefaultAsync();
+            => await _context.ApplicationUsers.Where(x => x.Id == id)
+                                              .Select(x => x.Address.VillageId)
+                                              .FirstOrDefaultAsync();
 
         public async Task<int?> GetNeigborhoodIdOfCityForUser(string id)
-            => await _context.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == id && x.Address.Village == null).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
+            => await _context.ApplicationUsers.Include(x => x.Address)
+                                              .Where(x => x.Id == id && x.Address.Village == null)
+                                              .Select(x => x.Address.NeighborhoodId)
+                                              .FirstOrDefaultAsync();
 
         public async Task<int?> GetNeigborhoodIdOfVillageForUser(string city, int? fshatiId)
-           => await _context.ApplicationUsers.Include(x => x.Address).Where(x => x.Id == city && x.Address.VillageId == fshatiId).Select(x => x.Address.NeighborhoodId).FirstOrDefaultAsync();
+           => await _context.ApplicationUsers.Include(x => x.Address)
+                                             .Where(x => x.Id == city && x.Address.VillageId == fshatiId)
+                                             .Select(x => x.Address.NeighborhoodId)
+                                             .FirstOrDefaultAsync();
 
         public async Task<bool> LoginAsync(LoginVM login)
         {
@@ -399,7 +415,8 @@ namespace Application.Repository
             };
 
 
-            await _context.Works.Where(x => x.WorkPlace == model.WorkPlace).FirstOrDefaultAsync();
+            await _context.Works.Where(x => x.WorkPlace == model.WorkPlace)
+                                .FirstOrDefaultAsync();
             await _context.Works.AddAsync(work);
             await _context.SaveChangesAsync();
 
@@ -487,6 +504,7 @@ namespace Application.Repository
                 FullName = model.FullName,
                 Email = email,
                 UserName = email,
+                CreatedAt = DateTime.Now,
                 WorkId = workId,
                 AddressId = addressId,
                 ActualStatus = "unset",
@@ -558,11 +576,13 @@ namespace Application.Repository
 
         public async Task<int> AdminMunicipalityId() =>
             ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                                      .Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
+                                      .Select(x => x.Address.MunicipalityId)
+                                      .FirstOrDefaultAsync());
 
         public async Task<int> AdminVillageId() =>
             ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                              .Select(x => x.Address.VillageId).FirstOrDefaultAsync());
+                                      .Select(x => x.Address.VillageId)
+                                      .FirstOrDefaultAsync());
 
         private static string CreateRandomPassword(int passwordLength)
         {
@@ -581,7 +601,9 @@ namespace Application.Repository
 
         public bool GetEmail(string email)
         {
-            var res = _context.ApplicationUsers.Where(x => x.Email == email).Select(x => x.Email).FirstOrDefault();
+            var res = _context.ApplicationUsers.Where(x => x.Email == email)
+                                               .Select(x => x.Email)
+                                               .FirstOrDefault();
             if (res != null)
                 return true;
             return false;
