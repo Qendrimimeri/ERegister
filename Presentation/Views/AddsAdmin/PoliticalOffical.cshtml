@@ -908,7 +908,7 @@
                 }
             })
                 .then((value) => {
-                          if (value == "" || value.match(/\d/)) {
+                          if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -959,7 +959,7 @@
                 }
             })
                 .then((value) => {
-                          if (value == "" || value.match(/\d/)) {
+                          if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -984,7 +984,7 @@
             chooseOption.disabled = true;
             poll.appendChild(chooseOption);
             let addOption = document.createElement("option");
-            addOption.innerText = "Shto rrugë te re...";
+            addOption.innerText = "Shto qendren e re..."
             addOption.value = "shto";
             poll.appendChild(addOption);
             let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
@@ -1006,7 +1006,7 @@
             chooseOption.disabled = true;
             pollNeighborhood.appendChild(chooseOption);
             let addOption = document.createElement("option");
-            addOption.innerText = "Shto rrugë te re...";
+            addOption.innerText = "Shto qendren e re...";
             addOption.value = "shto";
             pollNeighborhood.appendChild(addOption);
             let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
@@ -1452,7 +1452,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             })
                 .then((value) => {
-                          if (value == "" || value.match(/\d/)) {
+                          if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -1502,7 +1502,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             }).
                 then((value) => {
-                          if (value == "" || value.match(/\d/)) {
+                          if (value == "" ) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -2281,7 +2281,7 @@ else
                     }
                 })
                     .then((value) => {
-                         if (value == "" || value.match(/\d/)) {
+                         if (value == "" ) {
                          console.log(value);
                          swal("Ju lutem shkruani të dhëna valide!");
                          return false;
@@ -2464,7 +2464,7 @@ else
                 }
             })
                 .then((value) => {
-                     if (value == "" || value.match(/\d/)) {
+                     if (value == "" ) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -2515,7 +2515,7 @@ else
                 }
             })
                 .then((value) => {
-                          if (value == "" || value.match(/\d/)) {
+                          if (value == "") {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
