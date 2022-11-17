@@ -118,7 +118,7 @@ namespace Presentation.Controllers
                     else
                     {
                         ModelState.AddModelError("", "Ky email egziston");
-                        ViewBag.EmailExist = true;
+                        ViewBag.EmailExist = "nuk ka email";
                         return View();
                     }
                     if (userInRoleKryetarIFshatit)
