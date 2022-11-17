@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
 <body class="d-flex bg-light flex-column">
-    <nav class="navbar navbar-expand-md navbar-light"style="
+    <nav class="navbar navbar-expand-md navbar-light" style="
     padding-top: 0px;
     padding-bottom: 0px;
 ">
@@ -48,20 +48,21 @@
         <partial name="_Notifications" />
         @RenderBody()
     </div>
-   
 
-    <div class="container tablet">
+
+    <footer class="container tablet">
         <hr />
-        <footer class="text-center text-lg-start text-muted">
+        <div class="text-center text-lg-start text-muted">
 
 
             <div class="h-100 text-center text-dark m-2 " style="background-color: rgba(248, 244, 246, 0.8);">
                 © eVota 2022
             </div>
 
-        </footer>
-    </div>
-   @* <script src="~/toastr/toastr.js"></script>*@
+
+        </div>
+    </footer>
+    @* <script src="~/toastr/toastr.js"></script>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

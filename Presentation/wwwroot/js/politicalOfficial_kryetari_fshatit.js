@@ -173,6 +173,7 @@ function addStreetToDb(userVillageId) {
                 return false;
 
             }
+            let sm = document.querySelector("#neigborhoodsVillage").value;
             fetch(endpoint, {
                 headers: {
                     'Accept': 'application/json',
@@ -219,12 +220,6 @@ function addStreetNeighborhoodToDb() {
         }
     }).
         then((value) => {
-            if (value == "") {
-                console.log(value);
-                swal("Ju lutem shkruani të dhëna valide!");
-                return false;
-
-            }
             let sm = document.querySelector("#neigborhoodsVillage").value;
             fetch(endpoint, {
                 headers: {
