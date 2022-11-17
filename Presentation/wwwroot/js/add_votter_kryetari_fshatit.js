@@ -326,13 +326,7 @@ function addPollToDb() {
         }
     })
         .then((value) => {
-            if (value == "") {
-                console.log(value);
-                swal("Ju lutem shkruani të dhëna valide!");
-                return false;
-
-            }
-            if (input) {
+            if (value) {
                 let sm1 = document.querySelector("#neigborhoods");
                 console.log(sm1);
                 let sm2 = document.querySelector("#neigborhoodsVillage");
