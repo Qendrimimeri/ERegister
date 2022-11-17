@@ -1158,7 +1158,7 @@
         function addPollToDb() {
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = swal("Emri i qendrës së votimit:", {
+            let input = swal("Emri i qendrës së votimit 1:", {
                 content: "input",
                 buttons: {
                     cancel: "Anulo",
@@ -1169,14 +1169,8 @@
                 }
             })
                 .then((value) => {
-                    //var villagess;
-                     if (value == "") {
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-                  
-                     }
-                    else if(value !== null){
+            
+                    if(value){
                         //let sm1 = document.querySelector("#neigborhoods");
                         //console.log(sm1);
                         let sm2 = document.querySelector("#neigborhoodsVillage");
@@ -1212,7 +1206,11 @@
                         })
                             .then(() => addPollCenterNeighborhoodToList(sm))
                             .then(() => addPollCenterToList(@userVillageId));
+
                     }
+                   
+                        
+            
                 });
         }	
         </script>
@@ -1580,7 +1578,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         function addPollToDb() {
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = swal("Emri i qendrës së votimit:", {
+            let input = swal("Emri i qendrës së votimit: ", {
                 content: "input",
                 buttons: {
                     cancel: "Anulo",
@@ -1591,13 +1589,8 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             })
                 .then((value) => {
-                    //var villagess;
-                        if (value == "") {
-                console.log(value);
-                swal("Ju lutem shkruani të dhëna valide!");
-                return false;
-            }
-                    else if(value !== null){
+           
+                   if(value !== null){
                         //let sm1 = document.querySelector("#neigborhoods");
                         //console.log(sm1);
                         let sm2 = document.querySelector("#neigborhoodsVillage");
@@ -1719,7 +1712,7 @@ else
         function addPollToDb() {
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = swal("Emri i qendrës së votimit:", {
+            let input = swal("Emri i qendrës së votimit: ", {
                 content: "input",
                 buttons: {
                     cancel: "Anulo",
@@ -1730,13 +1723,9 @@ else
                 }
             })
                 .then((value) => {
-                        if (value == "") {
-                console.log(value);
-                swal("Ju lutem shkruani të dhëna valide!");
-                return false;
-            }
+            
                     //var villagess;
-                    if (input) {
+                    if (value) {
                         let sm1 = document.querySelector("#neigborhoods");
                         console.log(sm1);
                         let sm2 = document.querySelector("#neigborhoodsVillage");
