@@ -216,6 +216,10 @@
                             <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1"
                                    placeholder="Shkruaj email adresen">
                             <span asp-validation-for="Email" class="text-danger"></span>
+                            @if (ViewBag.EmailExist === "nuk ka email")
+                            {
+                                <span class="text-danger"> Email adresa e dhënë është regjistruar </span>
+                            }
                         </div>
                         <div class="mb-2 d-flex justify-content-between flex-md-row flex-column">
                             @if (User.IsInRole(roles.KryetarIPartise))
@@ -908,7 +912,7 @@
                 }
             })
                 .then((value) => {
-                          if (value == "") {
+                          if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -959,7 +963,7 @@
                 }
             })
                 .then((value) => {
-                          if (value == "") {
+                          if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -984,7 +988,7 @@
             chooseOption.disabled = true;
             poll.appendChild(chooseOption);
             let addOption = document.createElement("option");
-            addOption.innerText = "Shto qendren e re..."
+            addOption.innerText = "Shto rrugë te re...";
             addOption.value = "shto";
             poll.appendChild(addOption);
             let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
@@ -1006,7 +1010,7 @@
             chooseOption.disabled = true;
             pollNeighborhood.appendChild(chooseOption);
             let addOption = document.createElement("option");
-            addOption.innerText = "Shto qendren e re...";
+            addOption.innerText = "Shto rrugë te re...";
             addOption.value = "shto";
             pollNeighborhood.appendChild(addOption);
             let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
@@ -1450,7 +1454,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             })
                 .then((value) => {
-                          if (value == "") {
+                          if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -1500,7 +1504,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             }).
                 then((value) => {
-                          if (value == "" ) {
+                          if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -2270,7 +2274,7 @@ else
                     }
                 })
                     .then((value) => {
-                         if (value == "" ) {
+                         if (value == "" || value.match(/\d/)) {
                          console.log(value);
                          swal("Ju lutem shkruani të dhëna valide!");
                          return false;
@@ -2453,7 +2457,7 @@ else
                 }
             })
                 .then((value) => {
-                     if (value == "" ) {
+                     if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
@@ -2504,7 +2508,7 @@ else
                 }
             })
                 .then((value) => {
-                          if (value == "") {
+                          if (value == "" || value.match(/\d/)) {
                 console.log(value);
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
