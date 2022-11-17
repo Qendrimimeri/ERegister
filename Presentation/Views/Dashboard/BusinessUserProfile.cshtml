@@ -17,10 +17,8 @@
                       
                                <form asp-action="BusinessUserProfile" asp-controller="Dashboard" enctype="multipart/form-data" method="post">
                         <hr>
-
                         <div class="text-center">
                             <img src="~/Document/@Model.ProfileImage" class="rounded" style="width:100px;" alt="...">
-                        
                         </div>
                         <div class="text-center pt-4">
                             <h4>@Model.FullName</h4>
@@ -28,26 +26,17 @@
                       @if (User.IsInRole(roles.KryetarIPartise))
                         {
                             <div class="text-center pt-4">
-
-
-
                                 <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
                                 <p><strong>Email adresa: </strong>@Model.Email</p>
-                      
                             </div>
                         }
                         else if (User.IsInRole(roles.KryetarIKomunes))
                         {
-                                     <div class="text-center pt-4">
-
-
+                            <div class="text-center pt-4">
                                 <p><strong>Numri telefonit: </strong>@Model.PhoneNo</p>
                                 <p><strong>Email adresa: </strong>@Model.Email</p>
                                 <p><strong>Qyteti: </strong>@Model.Municipality</p>
                                 <p><strong>Qendra e votimit: </strong>@Model.PollCenter</p>
-
-
-
                             </div>
                         }
                         else if (User.IsInRole(roles.KryetarIFshatit))
@@ -93,7 +82,7 @@
                         </div>
 
                         <span>Numri i telefonit</span>
-                        <div class=" pe-2">
+                        <div class=" pe-2 pb-4">
                             <div class=" d-flex align-items-center ">
                                 <div class="col-2">
                                     <input type="text" class="form-control prefix " id="prefix" value="+383">
