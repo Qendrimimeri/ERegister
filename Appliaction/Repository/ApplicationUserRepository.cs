@@ -345,7 +345,7 @@ namespace Application.Repository
             var res = await _roleManager.Roles.ToListAsync();
             var roles = new List<KeyValueModel>();
             foreach (var role in res)
-                if (role.Name != "SimpleRole")
+                if (role.Name != "SimpleRole" )
                     roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
             return roles;
@@ -447,6 +447,10 @@ namespace Application.Repository
 
         public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
         {
+            string email = model.Email.ToLower();
+            var userExist = await _userManager.FindByEmailAsync(model.Email);
+            if (!(userExist == null))return false;
+
             EncryptionService encrypt = new(_encrypt);
 
             string addressId = Guid.NewGuid().ToString();
@@ -479,7 +483,8 @@ namespace Application.Repository
             await _context.Works.AddAsync(work);
             await _context.SaveChangesAsync();
 
-            string email = model.Email.ToLower();
+
+
             var simpleUser = new ApplicationUser()
             {
                 FullName = model.FullName,
@@ -509,11 +514,6 @@ namespace Application.Repository
 
                 var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
 
-                if (true)
-                {
-
-                }
-                // Send Email
                 var emailReques = new MailRequestModel();
 
                 emailReques.Subject = "E-Vota: Konfirmimi i llogarisë.";

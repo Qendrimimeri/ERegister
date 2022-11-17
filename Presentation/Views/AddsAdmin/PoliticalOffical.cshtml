@@ -216,6 +216,10 @@
                             <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1"
                                    placeholder="Shkruaj email adresen">
                             <span asp-validation-for="Email" class="text-danger"></span>
+                            @if (ViewBag.EmailExist)
+                            {
+                                <span class="text-danger"> Email adresa e dhënë është regjistruar </span>
+                            }
                         </div>
                         <div class="mb-2 d-flex justify-content-between flex-md-row flex-column">
                             @if (User.IsInRole(roles.KryetarIPartise))

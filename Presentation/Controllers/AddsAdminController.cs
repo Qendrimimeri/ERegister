@@ -115,6 +115,12 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res)
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
+                    else
+                    {
+                        ModelState.AddModelError("", "Ky email egziston");
+                        ViewBag.EmailExist = true;
+                        return View();
+                    }
                     if (userInRoleKryetarIFshatit)
                         return RedirectToAction("Index", "Crm");
                     return RedirectToAction("Index", "dashboard");
