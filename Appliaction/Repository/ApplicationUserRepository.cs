@@ -120,8 +120,8 @@ namespace Application.Repository
             }
             else
             {
-                var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address)
-                  .Where(x => x.Address.VillageId == userVillage).Select(person => new PersonVM()
+                var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address) //krejt users qe kane id te fshatit
+                  .Where(x => x.Address.MunicipalityId==userMuni && x.Address.VillageId==userVillage).Select(person => new PersonVM()
                   {
                       Id = person.Id,
                       FullName = person.FullName,
@@ -133,15 +133,12 @@ namespace Application.Repository
                       CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
                       InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                       ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
-
-
                       ActualStatus = person.ActualStatus
                   }).ToListAsync();
 
                 var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
-
                 var result = new List<PersonVM>();
-                foreach (var user in getAllUsers)
+                foreach (var user in getAllUsers) 
                     foreach (var item in usersInRole)
                         if (user.Id == item.Id)
                             result.Add(user);
@@ -383,7 +380,7 @@ namespace Application.Repository
                 Id = addressId,
                 MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
-                VillageId = model.Village,
+                VillageId = (model.Village == null ? await AdminVillageId():model.Village),
                 BlockId = model.Block,
                 StreetId = model.Street,
                 NeighborhoodId = model.Neigborhood,
@@ -563,6 +560,9 @@ namespace Application.Repository
             ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
                                       .Select(x => x.Address.MunicipalityId).FirstOrDefaultAsync());
 
+        public async Task<int> AdminVillageId() =>
+            ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                              .Select(x => x.Address.VillageId).FirstOrDefaultAsync());
 
         private static string CreateRandomPassword(int passwordLength)
         {
