@@ -528,17 +528,20 @@ namespace Application.Repository
                 var confimrEmailUrs = $"{domainApp}/Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
 
                 var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
-
-                var emailReques = new MailRequestModel();
-
-                emailReques.Subject = "E-Vota: Konfirmimi i llogarisë.";
-                emailReques.Body = $"" +
-                    $"Llogaria juaj është regjistruar!" +
-                    $"<br>Fjalëkalimi i juaj është <strong>{password}</strong>" +
-                    $"<br>Për të konfirmuar llogarinë tuaj ju lutemi të <a href={confimrEmailUrs}>klikoni këtu</a>!" +
-                    $"<br><br><strong>E-Vota</strong>";
-
-                emailReques.ToEmail = simpleUser.Email;
+                string domainName = "https://vota.live";
+                var emailReques = new MailRequestModel
+                {
+                    Subject = "E-Vota: Konfirmimi i llogarisë.",
+                    Body =
+                    "Përshëndetje!" +
+                    $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën <a href={domainName}>Vota.live</a>" +
+                    $"<br>Klikoni <a href={confimrEmailUrs}>këtu</a> për të verifikuar adresen tuaj elektronike, ju lutem." +
+                    $"<br>Fjalëkalimi juaj është <strong>{password}</strong>, ju lusim ta ndërroni fjalëkalimin tuaj në platformën <a href={domainName}>Vota.live</a> <br> Fjalëkalimin mund të ndërroni duke klikuar mbi Profile => Ndrysho fjalëkalimin" +
+                    $"<br>Suksese në punën tuaj, i'u priftë e mbara!" +
+                    $"<br><br>Me respekt," +
+                    $"<br>Personeli i <a href={domainName}>Vota.live</a>",
+                    ToEmail = simpleUser.Email
+                };
 
                 await _mail.SendEmailAsync(emailReques);
             }
