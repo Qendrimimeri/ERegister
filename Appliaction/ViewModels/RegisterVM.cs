@@ -33,7 +33,6 @@ namespace Application.ViewModels
         [ValidateNever]
         public int? Municipality { get; set; }
 
-        [Required(ErrorMessage = "Ju lutem zgjedhni fshatin!")]
         [ValidateNever]
         public int? Village { get; set; }
 
