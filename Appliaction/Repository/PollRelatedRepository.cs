@@ -60,7 +60,6 @@ namespace Application.Repository
 
         public async Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model)
         {
-            var random = new Random();
             var helpId = _db.Helps.ToList().OrderByDescending(x => x.Id).FirstOrDefault().Id + 1;
 
             var helpTable = new Help()

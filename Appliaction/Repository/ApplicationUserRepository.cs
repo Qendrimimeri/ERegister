@@ -423,7 +423,7 @@ namespace Application.Repository
 
             var simpleUser = new ApplicationUser()
             {
-                FullName = model.FullName,
+                FullName = model.FullName.Trim().ToLower(),
                 Email = model.Email,
                 UserName = model.Email,
                 WorkId = workId,
@@ -501,7 +501,7 @@ namespace Application.Repository
 
             var simpleUser = new ApplicationUser()
             {
-                FullName = model.FullName,
+                FullName = model.FullName.Trim().ToLower(),
                 Email = email,
                 UserName = email,
                 CreatedAt = DateTime.Now,
