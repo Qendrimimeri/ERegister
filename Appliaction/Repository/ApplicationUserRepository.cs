@@ -20,7 +20,7 @@ namespace Application.Repository
 
     public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
-        
+
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -48,7 +48,7 @@ namespace Application.Repository
 
         public async Task<List<PersonVM>> GetPersonInfoAsync()
         {
-            EncryptionService encrypt = new (_encrypt);
+            EncryptionService encrypt = new(_encrypt);
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
             var userVillage = await GetVillageIdOfUser(loginUserId);
@@ -121,7 +121,7 @@ namespace Application.Repository
             else
             {
                 var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address) //krejt users qe kane id te fshatit
-                  .Where(x => x.Address.MunicipalityId==userMuni && x.Address.VillageId==userVillage).Select(person => new PersonVM()
+                  .Where(x => x.Address.MunicipalityId == userMuni && x.Address.VillageId == userVillage).Select(person => new PersonVM()
                   {
                       Id = person.Id,
                       FullName = person.FullName,
@@ -138,7 +138,7 @@ namespace Application.Repository
 
                 var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
                 var result = new List<PersonVM>();
-                foreach (var user in getAllUsers) 
+                foreach (var user in getAllUsers)
                     foreach (var item in usersInRole)
                         if (user.Id == item.Id)
                             result.Add(user);
@@ -154,8 +154,13 @@ namespace Application.Repository
             EncryptionService encrypt = new(_encrypt);
             var loginUserId = GetLoginUser();
             var userMuni = await GetMunicipalityIdOfUser(loginUserId);
-            var isThisUserSuperAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
-                                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIPartise");
+            var userVillage = await GetVillageIdOfUser(loginUserId);
+
+            var isThisUserMunicipalityAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIKomunes");
+
+            var isThisUserVillageAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                     .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIFshatit");
 
             var userFromDb = await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync();
             if (userFromDb == null)
@@ -163,7 +168,68 @@ namespace Application.Repository
 
             var user = await _userManager.IsInRoleAsync(userFromDb, "SimpleRole");
 
-            if (isThisUserSuperAdmin)
+            if (isThisUserVillageAdmin)
+            {
+                var getUser = await _context.ApplicationUsers.Include(x => x.Address)
+                    .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni && x.Address.VillageId == userVillage)
+                    .Select(person => new VoterDetailsVM()
+                    {
+                        Id = person.Id,
+                        FullName = person.FullName,
+                        Neigborhood = person.Address.Neighborhood.Name,
+                        Village = person.Address.Village.Name,
+                        Block = person.Address.Block.Name,
+                        HouseNo = person.Address.HouseNo,
+                        PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                        Email = person.Email,
+                        FacebookLink = person.SocialNetwork,
+                        WorkPlace = person.Work.WorkPlace,
+                        AdministrativeUnit = person.Work.AdministrativeUnit,
+                        Duty = person.Work.Duty,
+                        MunicipalityName = person.Address.Municipality.Name,
+                        PollCenter = person.Address.PollCenter.CenterName,
+                        VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                        InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                        PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                        CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+
+                    }).FirstOrDefaultAsync();
+
+                if (user)
+                    return getUser;
+                return null;
+            }
+            else if (isThisUserMunicipalityAdmin)
+            {
+                var getUser = await _context.ApplicationUsers.Include(x => x.Address)
+                    .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni).Select(person => new VoterDetailsVM()
+                    {
+                        Id = person.Id,
+                        FullName = person.FullName,
+                        Neigborhood = person.Address.Neighborhood.Name,
+                        Village = person.Address.Village.Name,
+                        Block = person.Address.Block.Name,
+                        HouseNo = person.Address.HouseNo,
+                        PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                        Email = person.Email,
+                        FacebookLink = person.SocialNetwork,
+                        WorkPlace = person.Work.WorkPlace,
+                        AdministrativeUnit = person.Work.AdministrativeUnit,
+                        Duty = person.Work.Duty,
+                        MunicipalityName = person.Address.Municipality.Name,
+                        PollCenter = person.Address.PollCenter.CenterName,
+                        VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
+                        InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                        PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                        CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
+
+                    }).FirstOrDefaultAsync();
+
+                if (user)
+                    return getUser;
+                return null;
+            }
+            else
             {
                 var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
                 {
@@ -190,36 +256,6 @@ namespace Application.Repository
                     CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
 
                 }).FirstOrDefaultAsync();
-
-                if (user)
-                    return getUser;
-                return null;
-            }
-            else
-            {
-                var getUser = await _context.ApplicationUsers.Include(x => x.Address)
-                    .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni).Select(person => new VoterDetailsVM()
-                    {
-                        Id = person.Id,
-                        FullName = person.FullName,
-                        Neigborhood = person.Address.Neighborhood.Name,
-                        Village = person.Address.Village.Name,
-                        Block = person.Address.Block.Name,
-                        HouseNo = person.Address.HouseNo,
-                        PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
-                        Email = person.Email,
-                        FacebookLink = person.SocialNetwork,
-                        WorkPlace = person.Work.WorkPlace,
-                        AdministrativeUnit = person.Work.AdministrativeUnit,
-                        Duty = person.Work.Duty,
-                        MunicipalityName = person.Address.Municipality.Name,
-                        PollCenter = person.Address.PollCenter.CenterName,
-                        VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                        InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                        PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
-                        CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-
-                    }).FirstOrDefaultAsync();
 
                 if (user)
                     return getUser;
@@ -277,7 +313,7 @@ namespace Application.Repository
                 Village = user.Address.Village.Name,
                 PollCenter = user.Address.PollCenter.CenterNumber,
                 ProfileImage = user.ImgPath,
-                Neighborhood=user.Address.Neighborhood.Name
+                Neighborhood = user.Address.Neighborhood.Name
 
             }).Where(x => x.Email == email)
               .FirstOrDefaultAsync();
@@ -310,7 +346,7 @@ namespace Application.Repository
                                               .FirstOrDefaultAsync();
             getUser.Email = user.Email;
             getUser.NormalizedEmail = user.Email.ToUpper();
-           
+
 
             getUser.PhoneNumber = user.PhoneNo;
 
@@ -345,7 +381,7 @@ namespace Application.Repository
             var res = await _roleManager.Roles.ToListAsync();
             var roles = new List<KeyValueModel>();
             foreach (var role in res)
-                if (role.Name != "SimpleRole" )
+                if (role.Name != "SimpleRole")
                     roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
             var orderedRoles = roles.OrderBy(x => x.Value);
@@ -389,14 +425,14 @@ namespace Application.Repository
 
         public async Task<bool> RegisterVoterAsync(RegisterVM model)
         {
-            EncryptionService encrypt = new (_encrypt);
+            EncryptionService encrypt = new(_encrypt);
             string addressId = Guid.NewGuid().ToString();
             var address = new Address()
             {
                 Id = addressId,
                 MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
                 HouseNo = model.HouseNo,
-                VillageId = (model.Village == null ? await AdminVillageId():model.Village),
+                VillageId = (model.Village == null ? await AdminVillageId() : model.Village),
                 BlockId = model.Block,
                 StreetId = model.Street,
                 NeighborhoodId = model.Neigborhood,
@@ -463,7 +499,7 @@ namespace Application.Repository
         {
             string email = model.Email.ToLower();
             var userExist = await _userManager.FindByEmailAsync(model.Email);
-            if (!(userExist == null))return false;
+            if (!(userExist == null)) return false;
 
             EncryptionService encrypt = new(_encrypt);
 
