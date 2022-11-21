@@ -1607,7 +1607,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             addDataToDb();
             //location.reload();
         });
-        function addDataToDb() {
+         function addDataToDb() {
             let endpoint = url + "addkqzresult";
             const munis = document.getElementById('munis');
             const villages = document.getElementById('villages');
@@ -1658,14 +1658,13 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                     },
                     method: 'post',
                     body: JSON.stringify({
-                        municipalityId: @userMuniId, villageId: villagess, neighborhoodId: neighbors,
+                        municipalityId: @userMuniId, villageId: @userVillageId, neighborhoodId: neighbors,
                         electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i - 1].value
                     })
                 });
             }
         }
-					
-	const poll1 = document.getElementById('pollNeighborhood');
+        const poll1 = document.getElementById('pollNeighborhood');
         const poll2 = document.getElementById('poll');
         poll1.addEventListener('change', event => {
             event.preventDefault();
@@ -1682,7 +1681,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         function addPollToDb() {
             //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
-            let input = swal("Emri i qendrës së votimit: ", {
+            let input = swal("Emri i qendrës së votimit 1:", {
                 content: "input",
                 buttons: {
                     cancel: "Anulo",
@@ -1693,8 +1692,8 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 }
             })
                 .then((value) => {
-           
-                   if(value !== null){
+            
+                    if(value){
                         //let sm1 = document.querySelector("#neigborhoods");
                         //console.log(sm1);
                         let sm2 = document.querySelector("#neigborhoodsVillage");
@@ -1730,7 +1729,11 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                         })
                             .then(() => addPollCenterNeighborhoodToList(sm))
                             .then(() => addPollCenterToList(@userVillageId));
+
                     }
+                   
+                        
+            
                 });
         }						      
 							      

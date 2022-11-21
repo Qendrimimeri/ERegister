@@ -20,7 +20,7 @@ namespace Application.ViewModels
 
         public string? PrefixPhoneNo { get; set; }
 
-        [Required(ErrorMessage = "Numri i telefonit nuk është valid!"), DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "Numri i telefonit nuk është valid!"), DataType(DataType.PhoneNumber),MinLength(8,ErrorMessage ="Ju lutem shkruani minimuni 8 numra!")]
         public string? PhoneNumber { get; set; }
 
 
@@ -33,7 +33,6 @@ namespace Application.ViewModels
         [ValidateNever]
         public int? Municipality { get; set; }
 
-        [Required(ErrorMessage = "Ju lutem zgjedhni fshatin!")]
         [ValidateNever]
         public int? Village { get; set; }
 
