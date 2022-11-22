@@ -438,7 +438,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             UserName = model.Email,
             WorkId = workId,
             AddressId = addressId,
-            ActualStatus = "Ne Process",
+            ActualStatus = "Në proces",
             SocialNetwork = model.Facebook,
             CreatedAt = DateTime.Now,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
