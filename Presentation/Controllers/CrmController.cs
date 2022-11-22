@@ -55,7 +55,6 @@ namespace Presentation.Controllers
             {
                 Data();
                 var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
-                 _unitOfWork.Dispose();
 
                 if (res == null)
                 {
@@ -84,7 +83,6 @@ namespace Presentation.Controllers
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
                 ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
                 TempData[_toaster.Success] = "U ruajt me sukses!";
-                 _unitOfWork.Dispose();
 
                 if (userInRoleKryetarIFshatit)
                     return RedirectToAction("Index", "Crm");
@@ -186,7 +184,6 @@ namespace Presentation.Controllers
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
                 ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
                 TempData[_toaster.Success] = "U ruajt me sukses!";
-                 _unitOfWork.Dispose();
 
                 if (userInRoleKryetarIFshatit)
                     return RedirectToAction("Index", "Crm");
@@ -208,7 +205,6 @@ namespace Presentation.Controllers
                 var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                 var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                 _unitOfWork.PollRelated.Update(pollRelated);
-                 _unitOfWork.Dispose();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 if (userInRoleKryetarIFshatit)
                     return RedirectToAction("Index", "Crm");

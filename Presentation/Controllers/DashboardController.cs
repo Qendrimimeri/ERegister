@@ -54,7 +54,6 @@ namespace Presentation.Controllers
                     var user = _httpContext.HttpContext.User.Identity;
                     var kryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatitWithEmail(user.Name);
                     var anetarIThjesht = await _unitOfWork.ApplicationUser.IsInRoleAnetarIThjeshtWithEmail(user.Name);
-                     _unitOfWork.Dispose();
 
                     if (kryetarIFshatit)  return RedirectToAction("Index", "Crm");
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
@@ -76,7 +75,6 @@ namespace Presentation.Controllers
             try
             {
                 var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
-                 _unitOfWork.Dispose();
 
                 return View(users);
             }
@@ -97,7 +95,6 @@ namespace Presentation.Controllers
                 ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
                 ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
                 ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
-                 _unitOfWork.Dispose();
 
                 return View(users);
             }
@@ -158,7 +155,6 @@ namespace Presentation.Controllers
             try
             {
                 _unitOfWork.KqzRegister.Update(appuser);
-                 _unitOfWork.Dispose();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -175,7 +171,6 @@ namespace Presentation.Controllers
             try
             {
                 _unitOfWork.KqzRegister.Update(appuser);
-                 _unitOfWork.Dispose();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("KqzResult");
             }
@@ -194,7 +189,6 @@ namespace Presentation.Controllers
             {
                 var res = await _userManager.GetUserAsync(User);
                 var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
-                 _unitOfWork.Dispose();
 
                 return View(user);
             }
@@ -221,7 +215,6 @@ namespace Presentation.Controllers
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
                             TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
-                             _unitOfWork.Dispose();
 
                             return View(user);
                         }
@@ -249,7 +242,6 @@ namespace Presentation.Controllers
                         {
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
                             TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
-                             _unitOfWork.Dispose();
 
                             return View(user);
                         }
@@ -304,7 +296,6 @@ namespace Presentation.Controllers
                     }
                     await _signInManager.RefreshSignInAsync(user);
                     TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
-                     _unitOfWork.Dispose();
 
                     return RedirectToAction("Index", "Dashboard");
                 }

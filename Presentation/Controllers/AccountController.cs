@@ -78,7 +78,6 @@ namespace Presentation.Controllers
                 }
                 var userIdentity = await _unitOfWork.ApplicationUser.FindUserByIdAsync(userId);
                 var result = await _unitOfWork.ApplicationUser.ConfirmEmailAsync(userIdentity, token.Replace(" ", "+"));
-                 _unitOfWork.Dispose();
 
                 if (result.Succeeded)
                     return RedirectToAction("ConfirmedEmail");
@@ -105,7 +104,6 @@ namespace Presentation.Controllers
                 {
 
                     await _unitOfWork.ApplicationUser.ForgotPasswordAsync(model.Email);
-                     _unitOfWork.Dispose();
 
                     model.IsEmailSent = true;
                     return RedirectToAction("forgot", "home", model);
@@ -149,7 +147,6 @@ namespace Presentation.Controllers
                     model.Token = replaceToken;
 
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
-                     _unitOfWork.Dispose();
 
                     if (res.Succeeded)
                     {

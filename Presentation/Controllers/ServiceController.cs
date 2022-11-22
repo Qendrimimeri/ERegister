@@ -344,7 +344,7 @@ namespace Presentation.Controllers
             try
             {
                 var cities = await _unitOfWork.Municipality.GetAllMunicipalityAsync();
-                var userId =  GetUser();
+                var userId = GetUser();
                 var isUserAdmin = User.IsInRole("KryetarIPartise");
                 var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
 

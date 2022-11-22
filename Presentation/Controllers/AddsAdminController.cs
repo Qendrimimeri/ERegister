@@ -66,7 +66,6 @@ namespace Presentation.Controllers
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
-                     _unitOfWork.Dispose();
 
                     if (res)
                     {
@@ -121,7 +120,6 @@ namespace Presentation.Controllers
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
-                     _unitOfWork.Dispose();
 
                     if (res)
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
@@ -161,7 +159,6 @@ namespace Presentation.Controllers
             try
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-                 _unitOfWork.Dispose();
 
                 TempData[_toaster.Success] = "U ruajt me sukses!";
 
@@ -183,7 +180,6 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
-                     _unitOfWork.Dispose();
 
                     if (res)
                     {
@@ -217,7 +213,6 @@ namespace Presentation.Controllers
             try
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-                 _unitOfWork.Dispose();
 
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
@@ -238,7 +233,6 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
-                     _unitOfWork.Dispose();
 
                     if (res)
                     {
