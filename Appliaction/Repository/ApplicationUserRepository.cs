@@ -395,6 +395,11 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     public async Task<bool> RegisterVoterAsync(RegisterVM model)
     {
         EncryptionService encrypt = new(_encrypt);
+
+        string email = model.Email.ToLower();
+        var userExist = await _userManager.FindByEmailAsync(model.Email);
+        if (!(userExist == null)) return false;
+
         string addressId = Guid.NewGuid().ToString();
         var address = new Address()
         {
@@ -435,6 +440,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             AddressId = addressId,
             ActualStatus = "Ne Process",
             SocialNetwork = model.Facebook,
+            CreatedAt = DateTime.Now,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
