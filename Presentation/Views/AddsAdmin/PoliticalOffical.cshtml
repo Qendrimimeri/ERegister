@@ -10,6 +10,16 @@
     var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
     var roles = _roles.Value;
+     int? userNeigborhoodId;
+
+    if (userVillageId == null)
+    {
+        userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfCityForUser(userId.Id);
+    }
+    else
+    {
+        userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfVillageForUser(userId.Id, userVillageId);
+    }
 }
 
 <style>
