@@ -55,10 +55,12 @@ namespace Presentation.Controllers
             {
                 Data();
                 var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
+                 _unitOfWork.Dispose();
+
                 if (res == null)
                 {
                     ViewBag.Name = name;
-                    ViewBag.UserNull = "nuk ka te dhena"; 
+                    ViewBag.UserNull = "nuk ka te dhena";
                 }
                 return PartialView("_Voters", (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name)));
             }
@@ -81,8 +83,9 @@ namespace Presentation.Controllers
                 ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
                 ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
                 ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
-
                 TempData[_toaster.Success] = "U ruajt me sukses!";
+                 _unitOfWork.Dispose();
+
                 if (userInRoleKryetarIFshatit)
                     return RedirectToAction("Index", "Crm");
                 return RedirectToAction("Index", "dashboard");
@@ -100,19 +103,19 @@ namespace Presentation.Controllers
         {
             try
             {
-              
+
 
                 if (role == "KryetarIPartise")
                 {
 
                     var users = (from a in this._context.ApplicationUsers
-                                 
+
                                  from d in this._context.Roles
                                  from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
                                                                                && x.RoleId == d.Id
                                                                                && a.FullName.StartsWith(prefix)
                                                                                && a.Id == x.UserId)
-                                                                               
+
                                  select new
                                  {
                                      label = a.FullName,
@@ -145,7 +148,7 @@ namespace Presentation.Controllers
                     return Json(users);
                 }
 
-                
+
             }
             catch (Exception err)
             {
@@ -160,7 +163,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                
+
                 return RedirectToAction("Index");
             }
             catch (Exception err)
@@ -176,17 +179,18 @@ namespace Presentation.Controllers
         {
             try
             {
-                    var userId = _unitOfWork.ApplicationUser.GetLoginUser();
-                    var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
-                    var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
-                    ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-                    ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
-                    ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+                var userId = _unitOfWork.ApplicationUser.GetLoginUser();
+                var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
+                var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
+                ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
+                ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+                ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+                TempData[_toaster.Success] = "U ruajt me sukses!";
+                 _unitOfWork.Dispose();
 
-                    TempData[_toaster.Success] = "U ruajt me sukses!";
-                    if (userInRoleKryetarIFshatit)
-                        return RedirectToAction("Index", "Crm");
-                    return RedirectToAction("Index", "dashboard");
+                if (userInRoleKryetarIFshatit)
+                    return RedirectToAction("Index", "Crm");
+                return RedirectToAction("Index", "dashboard");
 
             }
             catch (Exception err)
@@ -204,7 +208,7 @@ namespace Presentation.Controllers
                 var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                 var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                 _unitOfWork.PollRelated.Update(pollRelated);
-                await _unitOfWork.Done();
+                 _unitOfWork.Dispose();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 if (userInRoleKryetarIFshatit)
                     return RedirectToAction("Index", "Crm");
@@ -237,14 +241,14 @@ namespace Presentation.Controllers
 
 
         #region ViewBag Data
-        
+
         private void Data()
         {
             ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
             ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
             ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
         }
-        
+
         #endregion
     }
 }

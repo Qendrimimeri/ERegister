@@ -24,8 +24,9 @@ namespace Application.Repository
         IWorkRepository Work { get; }
 
         Task<int> Done();
+
         void SaveChanges();
 
-      
+        void Dispose();
     }
 }

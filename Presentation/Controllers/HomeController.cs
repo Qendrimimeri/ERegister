@@ -37,7 +37,10 @@ namespace Presentation.Controllers
                 {
                     var res = _httpContext.HttpContext.User.Identity;
                     if (await _unitOfWork.ApplicationUser.IsInSimpleRole(res.Name))
+                    {
+                         _unitOfWork.Dispose();
                         return RedirectToAction("AddVoter", "AddsAdmin");
+                    }
                     return RedirectToAction("index", "Dashboard");
                 }
                 return View();
@@ -69,6 +72,7 @@ namespace Presentation.Controllers
                         {
                             TempData["success"] = "Jeni kyçur në  llogarinë tuaj!";
                             isLogIn = true;
+                             _unitOfWork.Dispose();
                             return RedirectToAction("AddVoter", "AddsAdmin");
                         }
 
@@ -79,6 +83,7 @@ namespace Presentation.Controllers
                         {
                             TempData["success"] = "Jeni kyçur në  llogarinë tuaj!";
                             isLogIn = true;
+                             _unitOfWork.Dispose();
                             return RedirectToAction("Index", "Crm");
 
                         }
@@ -89,6 +94,7 @@ namespace Presentation.Controllers
                         {
                             TempData["success"] = "Jeni kyçur në  llogarinë tuaj!";
                             isLogIn = true;
+                             _unitOfWork.Dispose();
                             return RedirectToAction("Index", "Dashboard");
                         }
                     }
@@ -98,7 +104,7 @@ namespace Presentation.Controllers
                         return View("../home/index", login);
                     }
                 }
-
+                 _unitOfWork.Dispose();
                 return View("../Home/Index", login);
             }
             catch (Exception err)
