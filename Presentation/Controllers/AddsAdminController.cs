@@ -62,6 +62,7 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
@@ -71,6 +72,11 @@ namespace Presentation.Controllers
                         if (userInRoleKryetarIFshatit)
                             return RedirectToAction("Index", "Crm");
                         return RedirectToAction("Index", "dashboard");
+                    }
+                    else
+                    {
+                        ViewBag.UserExist = "Ky email egziston ne sistem";
+                        return View("AddVoter", register);
                     }
                 }
 

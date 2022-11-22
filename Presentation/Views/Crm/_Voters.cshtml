@@ -18,7 +18,6 @@ else
                    style="table-layout:fixed">
                 <tr>
                     <td width="50%">Emri dhe mbiemri</td>
-
                     <td width="50%" id="DataSearching">@Model.FullName</td>
                 </tr>
                 <tr>
@@ -42,9 +41,12 @@ else
                     <td id="DataSearching">@Model.PhoneNumber</td>
                 </tr>
                 <tr>
+                    
                     <td>Email adresa</td>
-                    <td id="DataSearching">@Model.Email</td>
-
+                        <td id="tooltip">@Model.Email
+                    <span class="tooltiptext">Tooltip text</span>
+                        </td>
+            
                 </tr>
                 <tr>
                     <td>Facebook</td>
@@ -167,7 +169,7 @@ else
             });
             } else {
             swal({
-            title: "Te dhenat nuk jane anuluar!",
+            title: "Te dhenat nuk janë anuluar!",
             icon: "error",
             });
             }
@@ -181,7 +183,29 @@ else
 
 }
 
+<style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
 
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+    }
+    .tooltiphover .tooltiptext {
+      visibility: visible;
+    }
+</style>
 
 <script>
    const Specificreasons = document.querySelector('#general-demand');
