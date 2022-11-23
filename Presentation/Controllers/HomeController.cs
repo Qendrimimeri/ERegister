@@ -37,7 +37,9 @@ namespace Presentation.Controllers
                 {
                     var res = _httpContext.HttpContext.User.Identity;
                     if (await _unitOfWork.ApplicationUser.IsInSimpleRole(res.Name))
+                    {
                         return RedirectToAction("AddVoter", "AddsAdmin");
+                    }
                     return RedirectToAction("index", "Dashboard");
                 }
                 return View();
@@ -98,7 +100,6 @@ namespace Presentation.Controllers
                         return View("../home/index", login);
                     }
                 }
-
                 return View("../Home/Index", login);
             }
             catch (Exception err)

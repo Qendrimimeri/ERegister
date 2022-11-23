@@ -68,7 +68,7 @@ namespace Application.Repository
 
         public async Task <int> Done() => await _dbContext.SaveChangesAsync();
 
-        public async void Dispose() => await _dbContext.DisposeAsync();
+        public void Dispose() => _dbContext.Dispose();
 
         public void SaveChanges()
         {

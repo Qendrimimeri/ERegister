@@ -40,14 +40,10 @@ else
                     <td>Numri i telefonit </td>
                     <td id="DataSearching">@Model.PhoneNumber</td>
                 </tr>
-                <tr>
-                    
-                    <td>Email adresa</td>
-                        <td id="tooltip">@Model.Email
-                    <span class="tooltiptext">Tooltip text</span>
-                        </td>
-            
-                </tr>
+                    <tr>
+                        <td>Email Adresa </td>
+                        <td id="DataSearching">@Model.Email</td>
+                    </tr>
                 <tr>
                     <td>Facebook</td>
                     <td id="DataSearching"><a href="@Model.FacebookLink" target="_blank">@Model.FullName </a></td>
@@ -149,7 +145,7 @@ else
 <div class="btntest d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
     <a href='javascript:
            swal({
-           title: "A jeni të sigurt?" ,
+           title: "A jeni të sigurt?",
            icon: "warning" ,
            buttons: {
            cancel:"Jo",

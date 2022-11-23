@@ -147,6 +147,7 @@ namespace Presentation.Controllers
                     model.Token = replaceToken;
 
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
+
                     if (res.Succeeded)
                     {
                         //TempData["success"] = "Fjalëkalimi juaj është ndryshuar me sukses!";

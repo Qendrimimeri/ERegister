@@ -62,15 +62,22 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
+
                     if (res)
                     {
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
                         if (userInRoleKryetarIFshatit)
                             return RedirectToAction("Index", "Crm");
                         return RedirectToAction("Index", "dashboard");
+                    }
+                    else
+                    {
+                        ViewBag.UserExist = "Ky email egziston ne sistem";
+                        return View("AddVoter", register);
                     }
                 }
 
@@ -113,6 +120,7 @@ namespace Presentation.Controllers
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
+
                     if (res)
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
                     else
@@ -151,7 +159,7 @@ namespace Presentation.Controllers
             try
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-                await _unitOfWork.Done();
+
                 TempData[_toaster.Success] = "U ruajt me sukses!";
 
                 return RedirectToAction("Index", "Dashboard");
@@ -172,6 +180,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var res = await _unitOfWork.ApplicationUser.RegisterVoterAsync(register);
+
                     if (res)
                     {
                         TempData[_toaster.Success] = "U ruajt me sukses!";
@@ -204,7 +213,7 @@ namespace Presentation.Controllers
             try
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-                await _unitOfWork.Done();
+
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -224,6 +233,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
+
                     if (res)
                     {
                         TempData[_toaster.Success] = "U regjistrua me sukses!";

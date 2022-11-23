@@ -75,6 +75,7 @@ namespace Presentation.Controllers
             try
             {
                 var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+
                 return View(users);
             }
             catch (Exception err)
@@ -94,6 +95,7 @@ namespace Presentation.Controllers
                 ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
                 ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
                 ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
+
                 return View(users);
             }
             catch (Exception err)
@@ -153,7 +155,6 @@ namespace Presentation.Controllers
             try
             {
                 _unitOfWork.KqzRegister.Update(appuser);
-                await _unitOfWork.Done();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -170,7 +171,6 @@ namespace Presentation.Controllers
             try
             {
                 _unitOfWork.KqzRegister.Update(appuser);
-                await _unitOfWork.Done();
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("KqzResult");
             }
@@ -189,6 +189,7 @@ namespace Presentation.Controllers
             {
                 var res = await _userManager.GetUserAsync(User);
                 var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
+
                 return View(user);
             }
             catch (Exception err)
@@ -214,6 +215,7 @@ namespace Presentation.Controllers
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
                             TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+
                             return View(user);
                         }
 
@@ -240,6 +242,7 @@ namespace Presentation.Controllers
                         {
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
                             TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+
                             return View(user);
                         }
                     }
@@ -293,6 +296,7 @@ namespace Presentation.Controllers
                     }
                     await _signInManager.RefreshSignInAsync(user);
                     TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
+
                     return RedirectToAction("Index", "Dashboard");
                 }
                 return View(model);
