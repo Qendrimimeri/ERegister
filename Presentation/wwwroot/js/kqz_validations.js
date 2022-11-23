@@ -1,19 +1,19 @@
 ﻿function getPollCenterId() {
-    let poll = document.getElementById("poll").value;
-    let pollNeighborhood = document.getElementById("pollNeighborhood").value;
+    let poll = document.getElementById("poll");
+    let pollNeighborhood = document.getElementById("pollNeighborhood");
 
-    if (poll === null || poll === undefined) {
-        const endpoint = '/api/service/KqzValidation?id=' + pollNeighborhood;
+    if (document.getElementById("pollcenter-villages-container").style.display === "none") {
+        const endpoint = '/api/service/KqzValidation?id=' + pollNeighborhood.value;
         let response = fetch(endpoint).then(x => x.json());
         response.then(y => {
-            var show = document.getElementById("response-village").innerText = y["value"];
+            document.getElementById("response-village").innerText = y["value"];
         });
 
     } else {
-        const endpoint = '/api/service/KqzValidation?id=' + poll;
+        const endpoint = '/api/service/KqzValidation?id=' + poll.value;
         let response = fetch(endpoint).then(x => x.json());
         response.then(y => {
-            var show = document.getElementById("response-city").innerText = y["value"];
+            document.getElementById("response-city").innerText = y["value"];
         });
     }
 }
