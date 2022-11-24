@@ -43,6 +43,27 @@
         width: 100% !important;
     }
 }
+@media screen and (max-width:317px) {
+    .foto {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .test {
+        padding: 5px !important;
+    }
+
+    .mobile {
+        width: 100% !important;
+    }
+}
 
 @media screen and (max-width: 396px) {
     .foto {
