@@ -388,8 +388,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var user = await _userManager.FindByEmailAsync(login.Email);
         if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, login.Password)))
             return false;
-        await _signInManager.SignInAsync(user, login.RememberMe);
-        return true;
+        var res = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
+        if (res.Succeeded) return true;
+        return false;
     }
 
     public async Task<bool> RegisterVoterAsync(RegisterVM model)
