@@ -8,7 +8,7 @@
     var userMuniId = await _unitOfWork.ApplicationUser.GetMunicipalityIdOfUser(userId.Id);
     var userVillageId = await _unitOfWork.ApplicationUser.GetVillageIdOfUser((userId.Id));
     var roles = _roles.Value;
-     int? userNeigborhoodId;
+    int? userNeigborhoodId;
 
     if (userVillageId == null)
     {
@@ -230,7 +230,7 @@
                         <div>
                             <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                         </div>
-                        
+
 
                         <div>
                             <partial name="_ManualiAdminPoliticalOfficialPartial"></partial>
@@ -240,7 +240,7 @@
 
 
                     </div>
-                   
+
                     <form asp-action="PoliticalOffical" method="post" id="forma">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
@@ -559,97 +559,97 @@
 {
     @section Scripts
     {
-      <script src="~/js/kqz_validation_for_admin.js"></script>
-    <script language="javascript">
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-        today = yyyy + '-' + mm + '-' + dd;
-        $('#year').attr('max',today);
-    </script>
-    <script>
-        document.querySelector(".validation-message").style.display = "none";
-        const BreakException = {};
-        const forma = document.querySelector("#forma");
-        forma.addEventListener("submit", function (e) {
-            const parties = document.querySelectorAll(".partyNumber");
-            try {
-                parties.forEach(el => {
-                    if (el.value === "") {
-                        swal({
-                            title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
-                            //text: "You clicked the button!",
-                            icon: "warning",
-                            button: "Plotëso rezultatet!",
-                        }).then(okay => {
-                            if (okay) {
-                                const linku1 = document.getElementById('klasa1');
-                                const linku2 = document.getElementById('klasa2');
-                                linku1.classList.remove('active');
-                                linku2.classList.add('active');
-                                $('#table').show();
-                                $('#forma').hide();
-                                $('#titulli').hide();
-                            }
-                        });
-                        e.preventDefault();
-                    }
-                });
-            } catch (err) {
-                if (err !== BreakException) throw err;
-            }
-        });
-    </script>
-    <script>
-        $('#table').hide();
-        $('#neigborhoodsVillage-container').hide();
-        $('#villages').change(function () {
-            var selectedVillage = $(this).children('option:selected').val();
-            if (selectedVillage != null) {
-                $('#neigborhoods-container').hide();
-                $('#neigborhoodsVillage-container').show();
-            }
-        });
-        $('#munis').change(function () {
-            var selectedMunis = $(this).children('option:selected').val();
-            if (selectedMunis != null) {
-                $('#neigborhoods-container').show();
-                $('#neigborhoodsVillage-container').hide();
-            }
-        });
-        $('#streetByVillage').hide();
-        $('#neighborhoods').change(function () {
-            var selectedNeighborhood = $(this).children('option:selected').val();
-            if (selectedNeighborhood != null) {
-                $('#streetByVillage').hide();
-                $('#streetByNeighborhood').show();
-            }
-        })
-        $('#villages').change(function () {
-            var selectedVillages = $(this).children('option:selected').val();
-            if (selectedVillages != null) {
-                $('#streetByVillage').show();
-                $('#streetByNeighborhood').hide();
-            }
-        })
-        $('#pollcenter-villages-container').hide();
-        $('#neigborhoods').change(function () {
-            var selectedVillage = $(this).children('option:selected').val();
-            if (selectedVillage != null) {
-                $('#pollcenter-villages-container').hide();
-                $('#pollcenter-neighborhood-container').show();
-            }
-        })
-        $('#villages').change(function () {
-            var selectedNeighborhood = $(this).children('option:selected').val();
-            if (selectedNeighborhood != null) {
-                $('#pollcenter-villages-container').show();
-                $('#pollcenter-neighborhood-container').hide();
-            }
-        });
-    </script>
-    <script>
+<script src="~/js/kqz_validation_for_admin.js"></script>
+<script language="javascript">
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    $('#year').attr('max',today);
+</script>
+<script>
+    document.querySelector(".validation-message").style.display = "none";
+    const BreakException = {};
+    const forma = document.querySelector("#forma");
+    forma.addEventListener("submit", function (e) {
+        const parties = document.querySelectorAll(".partyNumber");
+        try {
+            parties.forEach(el => {
+                if (el.value === "") {
+                    swal({
+                        title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
+                        //text: "You clicked the button!",
+                        icon: "warning",
+                        button: "Plotëso rezultatet!",
+                    }).then(okay => {
+                        if (okay) {
+                            const linku1 = document.getElementById('klasa1');
+                            const linku2 = document.getElementById('klasa2');
+                            linku1.classList.remove('active');
+                            linku2.classList.add('active');
+                            $('#table').show();
+                            $('#forma').hide();
+                            $('#titulli').hide();
+                        }
+                    });
+                    e.preventDefault();
+                }
+            });
+        } catch (err) {
+            if (err !== BreakException) throw err;
+        }
+    });
+</script>
+<script>
+    $('#table').hide();
+    $('#neigborhoodsVillage-container').hide();
+    $('#villages').change(function () {
+        var selectedVillage = $(this).children('option:selected').val();
+        if (selectedVillage != null) {
+            $('#neigborhoods-container').hide();
+            $('#neigborhoodsVillage-container').show();
+        }
+    });
+    $('#munis').change(function () {
+        var selectedMunis = $(this).children('option:selected').val();
+        if (selectedMunis != null) {
+            $('#neigborhoods-container').show();
+            $('#neigborhoodsVillage-container').hide();
+        }
+    });
+    $('#streetByVillage').hide();
+    $('#neighborhoods').change(function () {
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if (selectedNeighborhood != null) {
+            $('#streetByVillage').hide();
+            $('#streetByNeighborhood').show();
+        }
+    })
+    $('#villages').change(function () {
+        var selectedVillages = $(this).children('option:selected').val();
+        if (selectedVillages != null) {
+            $('#streetByVillage').show();
+            $('#streetByNeighborhood').hide();
+        }
+    })
+    $('#pollcenter-villages-container').hide();
+    $('#neigborhoods').change(function () {
+        var selectedVillage = $(this).children('option:selected').val();
+        if (selectedVillage != null) {
+            $('#pollcenter-villages-container').hide();
+            $('#pollcenter-neighborhood-container').show();
+        }
+    })
+    $('#villages').change(function () {
+        var selectedNeighborhood = $(this).children('option:selected').val();
+        if (selectedNeighborhood != null) {
+            $('#pollcenter-villages-container').show();
+            $('#pollcenter-neighborhood-container').hide();
+        }
+    });
+</script>
+<script>
         const url = "/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -763,7 +763,7 @@
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
             }
-            
+
               else if (value !== null){
                     fetch(endpoint, {
                         headers: {
@@ -773,7 +773,7 @@
                         method: 'post',
                         body: JSON.stringify({ MunicipalityId: userMuniId, villageName: value })
                     }).then(() => addVillagesToList(userMuniId));
-               
+
               }
         });
         }
@@ -817,7 +817,7 @@
                 swal("Ju lutem shkruani të dhëna valide!");
                 return false;
             }
-            
+
              else if (value !== null) {
                   fetch(endpoint, {
                         headers: {
@@ -827,10 +827,10 @@
                         method: 'post',
                         body: JSON.stringify({ municipalityId: userMuniId, neighborhoodName: value })
                     }).then(() => addNeigborhoodToList(userMuniId));
-               
+
              }
               });
-                   
+
         }
         //neigborhood by village
         function addNeigborhoodVillageToList(villId) {
@@ -1035,247 +1035,251 @@
                     }).then(() => addStreetNeighborhoodToList(sm));
                 });
         }
-        //poll center by village
-        function addPollCenterToList(villId) {
-            poll.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh qendren e votimit...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            poll.appendChild(chooseOption);
-            let addOption = document.createElement("option");
-            addOption.innerText = "Shto qender të votimit...";
-            addOption.value = "shto";
-            poll.appendChild(addOption);
-            let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.centerNumber;
-                    poll.appendChild(item);
-                }));
-        }
-        //poll center by neighborhood
-        function addPollCenterNeighborhoodToList(neighId) {
-            pollNeighborhood.innerHTML = '';
-            let chooseOption = document.createElement("option");
-            chooseOption.innerText = "Zgjedh qendren e votimit...";
-            chooseOption.selected = true;
-            chooseOption.disabled = true;
-            pollNeighborhood.appendChild(chooseOption);
-            let addOption = document.createElement("option");
-            addOption.innerText = "Shto qender të votimit...";
-            addOption.value = "shto";
-            pollNeighborhood.appendChild(addOption);
-            let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
-            let result = fetch(endpoint)
-                .then(res => res.json())
-                .then(data => data.forEach(x => {
-                    let item = document.createElement("option");
-                    item.value = x.id;
-                    item.innerText = x.centerNumber;
-                    pollNeighborhood.appendChild(item);
-                }));
-        }
-    </script>
-    <script>
+           //poll center by village
+    function addPollCenterToList(villId) {
+        poll.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren e votimit...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        poll.appendChild(chooseOption);
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto qendren e re...";
+        addOption.value = "shto";
+        poll.appendChild(addOption);
+        let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+        let result = fetch(endpoint)
+            .then(res => res.json())
+            .then(data => data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.centerNumber;
+                poll.appendChild(item);
+            }));
+    }
+    //poll center by neighborhood
+    function addPollCenterNeighborhoodToList(neighId) {
+        pollNeighborhood.innerHTML = '';
+        let chooseOption = document.createElement("option");
+        chooseOption.innerText = "Zgjedh qendren e votimit...";
+        chooseOption.selected = true;
+        chooseOption.disabled = true;
+        pollNeighborhood.appendChild(chooseOption);
+        let addOption = document.createElement("option");
+        addOption.innerText = "Shto qendren e re...";
+        addOption.value = "shto";
+        pollNeighborhood.appendChild(addOption);
+        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
+        let result = fetch(endpoint)
+            .then(res => res.json())
+            .then(data => data.forEach(x => {
+                let item = document.createElement("option");
+                item.value = x.id;
+                item.innerText = x.centerNumber;
+                pollNeighborhood.appendChild(item);
+            }));
+    }
+</script>
+<script>
+    $('#table').hide();
+    const linku1 = document.getElementById('klasa1');
+    const linku2 = document.getElementById('klasa2');
+    linku1.addEventListener('click', event => {
+        //console.log('u thirr 1');
+        event.preventDefault();
         $('#table').hide();
-        const linku1 = document.getElementById('klasa1');
-        const linku2 = document.getElementById('klasa2');
-        linku1.addEventListener('click', event => {
-            //console.log('u thirr 1');
-            event.preventDefault();
-            $('#table').hide();
-            $('#forma').show();
-            $('#titulli').show();
-            linku2.classList.remove('active');
-            linku1.classList.add('active');
-            //linku1.setAttribute('style','background-color: white' );
+        $('#forma').show();
+        $('#titulli').show();
+        linku2.classList.remove('active');
+        linku1.classList.add('active');
+        //linku1.setAttribute('style','background-color: white' );
+    });
+    linku2.addEventListener('click', event => {
+        //console.log('u thirr 2');
+        event.preventDefault();
+        $('#forma').hide();
+        $('#table').show();
+        $('#titulli').hide();
+        linku1.classList.remove('active');
+        linku2.classList.add('active');
+    });
+    const button = document.getElementById('main-button');
+    const butoni = document.getElementById('second-button');
+    const votes = document.getElementsByClassName("votat");
+    var shuma = 0;
+    var input;
+    var vlera;
+    for (let i = 0; i < votes.length; i++) {
+        votes[i].addEventListener('focus', e => {
+            e.preventDefault();
+            vlera = 0;
+            if (votes[i].value !== '') {
+                vlera = parseInt(votes[i].value);
+            }
         });
-        linku2.addEventListener('click', event => {
-            //console.log('u thirr 2');
-            event.preventDefault();
-            $('#forma').hide();
-            $('#table').show();
-            $('#titulli').hide();
-            linku1.classList.remove('active');
-            linku2.classList.add('active');
-        });
-        const button = document.getElementById('main-button');
-        const butoni = document.getElementById('second-button');
-        const votes = document.getElementsByClassName("votat");
-        var shuma = 0;
-        var input;
-        var vlera;
-        for (let i = 0; i < votes.length; i++) {
-            votes[i].addEventListener('focus', e => {
-                e.preventDefault();
-                vlera = 0;
-                if (votes[i].value !== '') {
-                    vlera = parseInt(votes[i].value);
-                }
-            });
-            votes[i].addEventListener('blur', e => {
-                e.preventDefault();
-                input = parseInt(votes[i].value);
-                //console.log("Inputi"+input);
-                if (!isNaN(input)) {
-                    if (vlera !== 0) {
-                        shuma = shuma - vlera;
-                    }
-                    shuma += input;
-                    span.innerHTML = shuma;
-                }
-                else if (isNaN(input)) {
+        votes[i].addEventListener('blur', e => {
+            e.preventDefault();
+            input = parseInt(votes[i].value);
+            //console.log("Inputi"+input);
+            if (!isNaN(input)) {
+                if (vlera !== 0) {
                     shuma = shuma - vlera;
-                    span.innerHTML = shuma;
                 }
+                shuma += input;
+                span.innerHTML = shuma;
+            }
+            else if (isNaN(input)) {
+                shuma = shuma - vlera;
+                span.innerHTML = shuma;
+            }
+        });
+    }
+    button.addEventListener('click', event => {
+        //event.preventDefault();
+        addDataToDb();
+        //location.reload();
+    });
+    butoni.addEventListener('click', event => {
+        //event.preventDefault();
+        addDataToDb();
+        //location.reload();
+    });
+    function addDataToDb() {
+        let endpoint = url + "addkqzresult";
+        const munis = document.getElementById('munis');
+        const villages = document.getElementById('villages');
+        const election = document.getElementById("inputGroupSelect03").value;
+        const year = document.getElementById('year');
+        //const poll = document.getElementById('poll');
+        const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
+        console.log(neighborhoodVillage);
+        const neigboorhood = document.getElementById('neigborhoods');
+        console.log(neigboorhood);
+        var neighbors;
+        const poll = document.getElementById('poll');
+        //console.log(poll);
+        const pollNeighborhood = document.getElementById('pollNeighborhood');
+        //console.log(pollNeighborhood);
+        var polls;
+        var villagess;
+        if (villages.selectedIndex !== 0) {
+            villagess = villages.options[villages.selectedIndex].value;
+        }
+        else {
+            villagess = null;
+        }
+        //var neighbors;
+        if (neighborhoodVillage.selectedIndex !== 0) {
+            neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
+        }
+        else if (neigboorhood.selectedIndex !== 0) {
+            neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
+        } else {
+            neighbors = null;
+        }
+        if (poll.selectedIndex !== 0) {
+            polls = poll.options[poll.selectedIndex].value;
+        }
+        else if (pollNeighborhood.selectedIndex !== 0) {
+            polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
+        } else {
+            polls = null;
+        }
+        const parti = document.getElementsByClassName("parti");
+        const votat = document.getElementsByClassName("votat");
+        for (var i = 1; i <= votat.length; i++) {
+            fetch(endpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({
+                    municipalityId: @userMuniId, villageId: villagess, neighborhoodId: neighbors,
+                    electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i - 1].value
+                })
             });
         }
-        button.addEventListener('click', event => {
-            //event.preventDefault();
-            addDataToDb();
-            //location.reload();
-        });
-        butoni.addEventListener('click', event => {
-            //event.preventDefault();
-            addDataToDb();
-            //location.reload();
-        });
-        function addDataToDb() {
-            let endpoint = url + "addkqzresult";
-            const munis = document.getElementById('munis');
-            const villages = document.getElementById('villages');
-            const election = document.getElementById("inputGroupSelect03").value;
-            const year = document.getElementById('year');
-            //const poll = document.getElementById('poll');
-            const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
-            console.log(neighborhoodVillage);
-            const neigboorhood = document.getElementById('neigborhoods');
-            console.log(neigboorhood);
-            var neighbors;
-            const poll = document.getElementById('poll');
-            //console.log(poll);
-            const pollNeighborhood = document.getElementById('pollNeighborhood');
-            //console.log(pollNeighborhood);
-            var polls;
-            var villagess;
-            if (villages.selectedIndex !== 0) {
-                villagess = villages.options[villages.selectedIndex].value;
-            }
-            else {
-                villagess = null;
-            }
-            //var neighbors;
-            if (neighborhoodVillage.selectedIndex !== 0) {
-                neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
-            }
-            else if (neigboorhood.selectedIndex !== 0) {
-                neighbors = neigboorhood.options[neigboorhood.selectedIndex].value;
-            } else {
-                neighbors = null;
-            }
-            if (poll.selectedIndex !== 0) {
-                polls = poll.options[poll.selectedIndex].value;
-            }
-            else if (pollNeighborhood.selectedIndex !== 0) {
-                polls = pollNeighborhood.options[pollNeighborhood.selectedIndex].value;
-            } else {
-                polls = null;
-            }
-            const parti = document.getElementsByClassName("parti");
-            const votat = document.getElementsByClassName("votat");
-            for (var i = 1; i <= votat.length; i++) {
-                fetch(endpoint, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'post',
-                    body: JSON.stringify({
-                        municipalityId: @userMuniId, villageId: villagess, neighborhoodId: neighbors,
-                        electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i - 1].value
-                    })
-                });
-            }
+    }
+    const poll1 = document.getElementById('pollNeighborhood');
+    const poll2 = document.getElementById('poll');
+    poll1.addEventListener('change', event => {
+        event.preventDefault();
+        if (event.target.value == 'shto') {
+            addPollToDb();
         }
-        const poll1 = document.getElementById('pollNeighborhood');
-        const poll2 = document.getElementById('poll');
-        poll1.addEventListener('change', event => {
-            event.preventDefault();
-            if (event.target.value == 'shto') {
-                addPollToDb();
-            }
-        });
-        poll2.addEventListener('change', event => {
-            event.preventDefault();
-            if (event.target.value == 'shto') {
-                addPollToDb();
-            }
-        });
-        function addPollToDb() {
-            //console.log(neigborhoods.value);
-            let endpoint = url + "addpollcenter";
-            let input = swal("Emri i qendrës së votimit:", {
-                content: "input",
-                buttons: {
-                    cancel: "Anulo",
-                    confirm: {
-                        text: "Shto",
-                        className: "test",
-                    }
+    });
+    poll2.addEventListener('change', event => {
+        event.preventDefault();
+        if (event.target.value == 'shto') {
+            addPollToDb();
+        }
+    });
+    function addPollToDb() {
+        //console.log(neigborhoods.value);
+        let endpoint = url + "addpollcenter";
+        let input = swal("Emri i qendrës së votimit:", {
+            content: "input",
+            buttons: {
+                cancel: "Anulo",
+                confirm: {
+                    text: "Shto",
+                    className: "test",
                 }
-            })
-                .then((value) => {
-                    //var villagess;
-                     if (value == "") {
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-                  
-                     }
-                    else if(value !== null){
-                        //let sm1 = document.querySelector("#neigborhoods");
-                        //console.log(sm1);
-                        let sm2 = document.querySelector("#neigborhoodsVillage");
-                        console.log(sm2);
-                        var sm;
-                        console.log(sm)
-                        //if (sm1.selectedIndex !== 0) {
-                        //    sm = sm1.options[sm1.selectedIndex].value;
-                        //} else
-                        if (sm2.selectedIndex !== 0) {
-                            sm = sm2.options[sm2.selectedIndex].value;
-                        }
-                        else {
-                            sm = null;
-                        }
-                                                console.log(sm)
-                        //let munis = document.getElementById('munis');
-                        let villages = document.getElementById('villages');
-                        var villagess;
-                        if (villages.selectedIndex !== 0) {
-                            villagess = villages.options[villages.selectedIndex].value;
-                        }
-                        fetch(endpoint, {
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            method: 'post',
-                            body: JSON.stringify({
-                                centerNumber: value,
-                                centerName: "", municipalitydId: @userMuniId, neighborhoodId: sm, villageId: villagess
-                            })
-                        })
-                            .then(() => addPollCenterNeighborhoodToList(sm))
-                            .then(() => addPollCenterToList(villagess));
+            }
+        })
+            .then((value) => {
+                //var villagess;
+                 if (value == "") {
+                console.log(value);
+                swal("Ju lutem shkruani të dhëna valide!");
+                return false;
+
+                 }
+                else if(value !== null){
+                    //let sm1 = document.querySelector("#neigborhoods");
+                    //console.log(sm1);
+                    let sm2 = document.querySelector("#neigborhoodsVillage");
+                    let pnc = document.querySelector("#neigborhoods");
+                    console.log(sm2);
+                    var sm;
+                    //console.log(sm)
+                    //if (sm1.selectedIndex !== 0) {
+                    //    sm = sm1.options[sm1.selectedIndex].value;
+                    //} else
+                    if (sm2.selectedIndex !== 0) {
+                        sm = sm2.options[sm2.selectedIndex].value;
                     }
-                });
-        }	
-        </script>
+                    else if (pnc.selectedIndex !== 0){
+                        sm = pnc.options[pnc.selectedIndex].value;
+                    }
+                    else {
+                        sm = null;
+                    }
+                                            console.log(sm)
+                    //let munis = document.getElementById('munis');
+                    let villages = document.getElementById('villages');
+                    var villagess;
+                    if (villages.selectedIndex !== 0) {
+                        villagess = villages.options[villages.selectedIndex].value;
+                    }
+                    fetch(endpoint, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'post',
+                        body: JSON.stringify({
+                            centerNumber: value,
+                            centerName: "", municipalitydId: @userMuniId, neighborhoodId: sm, villageId: villagess
+                        })
+                    })
+                        .then(() => addPollCenterNeighborhoodToList(sm))
+                        .then(() => addPollCenterToList(villagess));
+                }
+            });
+    }
+</script>
 
     }
 }
