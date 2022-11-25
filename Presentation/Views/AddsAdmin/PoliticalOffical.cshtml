@@ -226,9 +226,22 @@
         <div class="col-lg-12">
             <div class="card ">
                 <div class="card-body" id="">
-                    <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
+                        </div>
+                        
+
+                        <div>
+                            <partial name="_ManualiAdminPoliticalOfficialPartial"></partial>
+                        </div>
+
+
+
+
+                    </div>
+                   
                     <form asp-action="PoliticalOffical" method="post" id="forma">
-                        <a><span class="text-danger validation-message">Ju lutem plotësoni tabelën me rezultatet e KQZ!</span></a>
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />
                         <div class="mb-4 d-flex justify-content-between">
