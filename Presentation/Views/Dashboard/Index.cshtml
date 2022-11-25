@@ -16,67 +16,76 @@
                     </strong>
                 </h4>
             </div>
-            <div class="ps-2 position-absolute end-0 me-2">
-                <partial name="_ManualiAdminDashboardPartial"></partial>
+            @if (User.IsInRole(roles.KryetarIPartise))
+            {
+                <div class="ps-2 position-absolute end-0 me-2">
+                    <partial name="_ManualiAdminDashboardPartial"></partial>
+                </div>
+            }
+            @if(User.IsInRole(roles.KryetarIKomunes))
+            {
+                <div class="ps-2 position-absolute end-0 me-2">
+                    <partial name="_ManualiKryetarKomunesDashboardPartial"></partial>
+                </div>
+            }
+        </div>
+
+            <hr />
+                @if (User.IsInRole(roles.KryetarIPartise))
+                {
+                <div class="test d-flex justify-content-around p-2 pt-2">
+                    <div class="test pt-2">
+                        <p>Zgjedhni qytetin për grafe:</p>
+                    </div>
+                    <div class=" mb-2 test ">
+                        <select class="form-select" id="munis" onchange="getId()" asp-for="Municipality">
+                            <option disabled selected>Zgjedh qytetin...</option>
+                        </select>
+                    </div>
+                </div>
+                }
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="city-nacinale"></h5>
+                        <div id="columnChart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="city-lokale"></h5>
+                        <div id="columnChart1"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <hr />
-        @if (User.IsInRole(roles.KryetarIPartise))
-        {
-            <div class="test d-flex justify-content-around p-2 pt-2">
-                <div class="test pt-2">
-                    <p>Zgjedhni qytetin për grafe:</p>
-                </div>
-                <div class=" mb-2 test ">
-                    <select class="form-select" id="munis" onchange="getId()" asp-for="Municipality">
-                        <option disabled selected>Zgjedh qytetin...</option>
-                    </select>
-                </div>
-            </div>
+    </div>
+    <style>
+        @@media screen and (max-width:488px) {
+            .test {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                width: 100% !important;
+            }
         }
-    </div>
-</div>
-<div class="col-lg-12">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" id="city-nacinale"></h5>
-                    <div id="columnChart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" id="city-lokale"></h5>
-                    <div id="columnChart1"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<style>
-      @@media screen and (max-width:488px){
-     .test{
-         display: flex;
-        flex-flow: row wrap;
-        justify-content:center;
-        width:100% !important;
-     }
+    </style>
+                @if (User.IsInRole(roles.KryetarIPartise))
+                {
+                    @section Scripts {
+    <script src="~/js/municipalities.js"></script>
+    <script src="~/js/admin_graphs.js"></script>
     }
-</style>
-@if (User.IsInRole(roles.KryetarIPartise))
-{
-    @section Scripts { 
-        <script src="~/js/municipalities.js"></script> 
-        <script src="~/js/admin_graphs.js"></script> 
+                }
+                else
+                {
+                    @section Scripts {
+    <script src="~/js/muni_graphs.js"></script>
     }
-}
-else
-{ 
-    @section Scripts { 
-        <script src="~/js/muni_graphs.js"></script> 
-    } 
-}
+                }

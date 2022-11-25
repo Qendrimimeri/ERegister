@@ -36,9 +36,27 @@
                         <div>
                             <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
                         </div>
-                        <div>
-                            <partial name="_ManualiAdminAddsAdminPartial"></partial>
-                        </div>
+                       @if (User.IsInRole(roles.KryetarIPartise))
+                        { 
+                            <div>
+                                <partial name="_ManualiAdminAddsAdminPartial"></partial>
+                            </div>
+                        }
+                        @if(User.IsInRole(roles.KryetarIKomunes)){
+                            <div>
+                                <partial name="_ManualiKryetarKomunesAddVoterPartial"></partial>
+                            </div>
+                        }
+                        @if(User.IsInRole(roles.KryetarIFshatit)){
+                            <div>
+                                <partial name="_ManualiKryetarFshatiAddVoterPartial"></partial>
+                            </div>
+                        }
+                        @if(User.IsInRole(roles.AnetarIThjeshte)){
+                            <div>
+                                <partial name="_ManualiAntarThjeshtAddVoterPartial"></partial>
+                            </div>
+                        }
                     </div>
                    
 

@@ -17,9 +17,30 @@
                         <div>
                             <h2 class="card-title ">Të dhënat personale</h2>
                         </div>
-                        <div>
-                            <partial name="_ManualiAdminBusinessUserProfilePartial"></partial>
-                        </div>
+                        @if (User.IsInRole(roles.KryetarIPartise))
+                        {
+                            <div>
+                                <partial name="_ManualiAdminBusinessUserProfilePartial"></partial>
+                            </div>
+                        }
+                        @if (User.IsInRole(roles.KryetarIKomunes))
+                        {
+                            <div>
+                                <partial name="_ManualiKryetarKomunesBusinessUserProfilePartial"></partial>
+                            </div>
+                        }
+                        @if (User.IsInRole(roles.KryetarIFshatit))
+                        {
+                            <div>
+                                <partial name="_ManualiKryetarFshatitBusinessUserProfilePartial"></partial>
+                            </div>
+                        }
+                        @if (User.IsInRole(roles.AnetarIThjeshte))
+                        {
+                            <div>
+                                <partial name="_ManualiAntarThjeshtBusinessUserProfilePartial"></partial>
+                            </div>
+                        }
                     </div>
                     <form asp-action="BusinessUserProfile" asp-controller="Dashboard" enctype="multipart/form-data" method="post">
                         <hr>

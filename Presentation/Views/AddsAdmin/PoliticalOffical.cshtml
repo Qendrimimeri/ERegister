@@ -230,17 +230,25 @@
                         <div>
                             <h5 class="card-title" id="titulli">Krijo llogarinë për zyrtarin e partisë dhe territorin përkatës</h5>
                         </div>
-
-
-                        <div>
-                            <partial name="_ManualiAdminPoliticalOfficialPartial"></partial>
-                        </div>
-
-
-
-
+                        @if (User.IsInRole(roles.KryetarIPartise))
+                        {
+                            <div>
+                                <partial name="_ManualiAdminPoliticalOfficialPartial"></partial>
+                            </div>
+                        }
+                        @if (User.IsInRole(roles.KryetarIKomunes))
+                        {
+                            <div>
+                                <partial name="_ManualiKryetarKomunesPoliticalOfficialPartial"></partial>
+                            </div>
+                        }
+                        @if (User.IsInRole(roles.KryetarIFshatit))
+                        {
+                           <div>
+                                <partial name="_ManualiKryetarFshatitPoliticalOfficialPartial"></partial>
+                            </div>
+                        }
                     </div>
-
                     <form asp-action="PoliticalOffical" method="post" id="forma">
                         <h6 class="pt-4">I - Të dhënat personale</h6>
                         <hr />

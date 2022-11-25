@@ -1,15 +1,32 @@
 ﻿@model IEnumerable<PersonVM>
+@inject IOptionsSnapshot<Roles> _roles;
 @{
     ViewBag.Title = "Tabela e Votueseve";
     Layout = "_DashboardLayout";
+    var roles = _roles.Value;
 }
 <head><link rel="stylesheet" href="~/cssViews/Performance.css">
 </head>
 <div class="bg-white pe-3">
     <div class="d-flex justify-content-between">
-        <div class="ps-2">
-            <partial name="_ManualiAdminPerformancePartial"></partial>
-        </div>
+        @if (User.IsInRole(roles.KryetarIPartise))
+        {
+            <div class="ps-2">
+                <partial name="_ManualiAdminPerformancePartial"></partial>
+            </div>
+        }
+        @if (User.IsInRole(roles.KryetarIKomunes))
+        {
+            <div class="ps-3">
+                <partial name="_ManualiKryetarKomunesPerformancePartial"></partial>
+            </div>
+        }
+        @if (User.IsInRole(roles.KryetarIFshatit))
+        {
+            <div class="ps-3">
+                <partial name="_ManualiKryetarFshatitPerformancePartial"></partial>
+            </div>
+        }
         <div b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light pe-0 d-flex justify-content-between">
                 <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
                     <a class="navbar-brand fw-semibold" href="/">
