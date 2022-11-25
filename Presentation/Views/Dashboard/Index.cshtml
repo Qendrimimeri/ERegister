@@ -7,12 +7,20 @@
 @model RegisterVM;
 <div>
     <div class="card">
-        <h4 class="text-center pt-4">
-            Mirë se vini <strong>
-                @((await
-                    _userManager.FindByNameAsync(User.Identity.Name)).FullName)
-            </strong>
-        </h4>
+        <div class="d-flex justify-content-center align-items-center position-relative">
+            <div>
+                <h4 class="text-center pt-4">
+                    Mirë se vini <strong>
+                        @((await
+                            _userManager.FindByNameAsync(User.Identity.Name)).FullName)
+                    </strong>
+                </h4>
+            </div>
+            <div class="ps-2 position-absolute end-0 me-2">
+                <partial name="_ManualiAdminDashboardPartial"></partial>
+            </div>
+        </div>
+        
         <hr />
         @if (User.IsInRole(roles.KryetarIPartise))
         {
