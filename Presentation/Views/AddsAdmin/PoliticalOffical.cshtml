@@ -1595,7 +1595,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         addOption.innerText = "Shto qendren e re...";
         addOption.value = "shto";
         pollNeighborhood.appendChild(addOption);
-        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;
+        let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;   ///////neigh?????
         let result = fetch(endpoint)
             .then(res => res.json())
             .then(data => data.forEach(x => {
