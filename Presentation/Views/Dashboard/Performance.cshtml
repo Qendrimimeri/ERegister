@@ -5,26 +5,18 @@
 }
 <head><link rel="stylesheet" href="~/cssViews/Performance.css">
 </head>
-
 <div class="bg-white pe-3">
     <div class="d-flex justify-content-between">
         <div class="ps-2">
-            <partial name="_ManualiAdminPoliticalOfficialPartial"></partial>
+            <partial name="_ManualiAdminPerformancePartial"></partial>
         </div>
         <div b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light pe-0 d-flex justify-content-between">
-
-
-      
-
                 <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
-
                     <a class="navbar-brand fw-semibold" href="/">
                     </a>
                     <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                         <span b-fhvjq1vla1="" class="bi bi-three-dots-vertical noHover"></span>
                     </button>
-
-
                         <div class="testing collapse navbar-collapse justify-content-end align-items-center text-center text-sm-center pe-0" id="main-nav">
                             <ul class="navbar-nav d-flex align-items-center justify-content-center">
                                 &nbsp;&nbsp;
@@ -51,12 +43,8 @@
                                 <li class="nav-item btnwidth ">
                                     <a class="nav-link text-md-center hover-link butonipdf btn btn-primary testli" role="button" onclick="ExportToPdf()"><span class="bi bi-file-pdf "></span> Eksporto ne pdf </a>
                                 </li>
-
-
                             </ul>
                         </div>
-                
-
                 </div>
         </div>
     </div>
@@ -65,15 +53,15 @@
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
                          @if (User.IsInRole("KryetarIFshatit")){
-                    <th scope="col"class="text-center pe-1">
-                                  Fshati
-                                  </th>
+                            <th scope="col"class="text-center pe-1">
+                              Fshati
+                            </th>
                          }
                         else
                         {
                               <th scope="col"class="text-center pe-1">
                                   Qyteti
-                                  </th>
+                              </th>
 
                         }
                     <th scope="col" class="text-center pe-1">Emri dhe Mbiemri</th>
@@ -100,9 +88,7 @@
                             else{
                                @voter.MunicipalityName 
                             } 
-                            </td>
-                           
-                      
+                        </td>
                         <td class="text-center">@voter.FullName</td>
                         <td class="text-center">@voter.VotersNumber</td>
                         <td class="text-center">@voter.PhoneNumber</td>
