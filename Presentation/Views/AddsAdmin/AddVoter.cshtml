@@ -18,11 +18,9 @@
     {
         userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfVillageForUser(user.Id, userVillageId);
     }
-
-   
 }
-<link rel="stylesheet" href="~/cssViews/AddVoter.css">
 
+<link rel="stylesheet" href="~/cssViews/AddVoter.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <section class="section">
     <input hidden asp-for="@userMuniId" id="get-user-muniId"/>
@@ -36,6 +34,7 @@
                         <div>
                             <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
                         </div>
+<<<<<<< HEAD
                        @if (User.IsInRole(roles.KryetarIPartise))
                         { 
                             <div>
@@ -57,11 +56,18 @@
                                 <partial name="_ManualiAntarThjeshtAddVoterPartial"></partial>
                             </div>
                         }
+=======
+                        
+
+                        <div>
+                            <partial name="_ManualiAdminAddsAdminPartial"></partial>
+                        </div>
+>>>>>>> ce211f804f1eed62852f5eec3c6fb55325b54e38
                     </div>
                    
 
                     <form asp-action="Register" asp-controller="AddsAdmin" method="post" id="listform">
-                        <h6 class="pt-4">I - Të dhënat personale</h6>
+                        <h6 class="pt-4">I - Të dhënat përsonale</h6>
                         <hr>
                         <div class="pb-3 d-flex pe-2 justify-content-between">
                             <div class="col-12 p">
