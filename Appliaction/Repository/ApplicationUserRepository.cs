@@ -526,9 +526,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         };
 
         // Use this for Development env.
-        var password = CreateRandomPassword(8);
+        var password = CreateRandomPassword(10);
 
-        var result = await _userManager.CreateAsync(simpleUser, password);
+        var result = await _userManager.CreateAsync(simpleUser, "Qendrimi!1");
         await _context.SaveChangesAsync();
 
 
@@ -587,8 +587,11 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     }
 
 
-    public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model) =>
-        await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
+    public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
+    {
+        var res = await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
+        return res;
+    }
 
 
     public async Task<int> AdminMunicipalityId() =>
