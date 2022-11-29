@@ -526,9 +526,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         };
 
         // Use this for Development env.
-        var password = CreateRandomPassword(10);
+        var password = CreateRandomPassword(8);
 
-        var result = await _userManager.CreateAsync(simpleUser, "Qendrimi!1");
+        var result = await _userManager.CreateAsync(simpleUser, password);
         await _context.SaveChangesAsync();
 
 
@@ -571,13 +571,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
         string domain = "https://vota.live";
-        var confimrEmailUrs = $"{domain}/Account/ResetPassword?userId={user.Id}&token={token}";
+        var resetPasswordUrl = $"{domain}/Account/ResetPassword?userId={user.Id}&token={token}";
 
         // Send Email
         var emailReques = new MailRequestModel();
         emailReques.Subject = "e-Vota: Ndrysho fjalëkalimin.";
         emailReques.Body = $"Përshëndetje!" +
-                           $"<br><br>Për të krijuar fjalëkalim të ri ju lutem <a href={confimrEmailUrs}>klikoni këtu</a>!" +
+                           $"<br><br>Për të krijuar fjalëkalim të ri ju lutem <a href={resetPasswordUrl}>klikoni këtu</a>!" +
                            $"<br><br>Suksese!" +
                            $"<br>Personeli i<strong> e-Vota </strong> ";
         emailReques.ToEmail = user.Email;
@@ -587,11 +587,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     }
 
 
-    public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
-    {
-        var res = await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
-        return res;
-    }
+    public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model) =>
+        await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
 
 
     public async Task<int> AdminMunicipalityId() =>

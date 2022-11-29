@@ -113,8 +113,8 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> PoliticalOffical(PoliticalOfficalVM model)
         {
-            //try
-            //{
+            try
+            {
                 if (ModelState.IsValid)
                 {
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
@@ -136,12 +136,12 @@ namespace Presentation.Controllers
 
                 PoliticalOfficialAddress();
                 return View();
-            //}
-            //catch (Exception err)
-            //{
-            //    _logger.LogError("An error has occured", err);
-            //    return View(errorView);
-            //}
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
         }
 
 
