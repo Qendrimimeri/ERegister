@@ -587,8 +587,12 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     }
 
 
-    public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model) =>
-        await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
+    public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ResetPasswordAsync(ResetPasswordVM model)
+    {
+        var res = await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
+        return res;
+    }
+      
 
 
     public async Task<int> AdminMunicipalityId() =>

@@ -147,16 +147,12 @@ namespace Presentation.Controllers
                     model.Token = replaceToken;
 
                     var res = await _unitOfWork.ApplicationUser.ResetPasswordAsync(model);
-
                     if (res.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        ViewBag.PasswordDoesntMatch = "Fjalëkalimi duhet të përputhet";
-                    }
                 }
+                ViewBag.PasswordDoesntMatch = "Fjalëkalimi duhet të përputhet";
                 return View();
             }
             catch (Exception err)
