@@ -150,8 +150,11 @@ namespace Presentation.Controllers
 
                     if (res.Succeeded)
                     {
-                        //TempData["success"] = "Fjalëkalimi juaj është ndryshuar me sukses!";
                         return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.PasswordDoesntMatch = "Fjalëkalimi duhet të përputhet";
                     }
                 }
                 return View();
