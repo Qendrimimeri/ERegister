@@ -577,9 +577,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var emailReques = new MailRequestModel();
         emailReques.Subject = "e-Vota: Ndrysho fjalëkalimin.";
         emailReques.Body = $"Përshëndetje!" +
-                           $"Për të krijuar fjalëkalim të ri ju lutem <a href={confimrEmailUrs}>klikoni këtu</a>!" +
-                           $"Suksese!" +
-                           $"Personeli i<br><br><strong> e-Vota </strong> ";
+                           $"<br><br>Për të krijuar fjalëkalim të ri ju lutem <a href={confimrEmailUrs}>klikoni këtu</a>!" +
+                           $"<br><br>Suksese!" +
+                           $"<br>Personeli i<strong> e-Vota </strong> ";
         emailReques.ToEmail = user.Email;
         await _mail.SendEmailAsync(emailReques);
 
