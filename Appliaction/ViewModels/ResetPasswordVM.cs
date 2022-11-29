@@ -13,8 +13,9 @@ namespace Application.ViewModels
 
         public string? Token { get; set; }
         [Required]
+
         public string? NewPassword { get; set; }
-        [Required]
+        [Required, Compare("NewPassword", ErrorMessage = "Fjalëkalimi duhet të përputhet")]
         public string? ConfirmPassword { get; set; }
     }
 }
