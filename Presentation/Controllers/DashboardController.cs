@@ -44,7 +44,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpGet, Authorize(Roles = "KryetarIPartise, KryetarIKomunes, KryetarIFshatit")]
+        [HttpGet, Authorize(Roles = "KryetarIPartise, KryetarIKomunes, KryetarIFshatit, AnetarIThjeshte")]
         public async Task<IActionResult> Index()
         {
             try
