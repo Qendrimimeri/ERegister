@@ -170,43 +170,15 @@ public class CrmController : Controller
 
     }
 
-
-    public async Task<IActionResult> SaveAndClose(VoterDetailsVM model)
+    public async Task<IActionResult> SaveAndOpenCase(VoterDetailsVM model)
     {
         try
         {
-            var userId = _unitOfWork.ApplicationUser.GetLoginUser();
-            var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
-            var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
-            ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-            ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
-            ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
-            TempData[_toaster.Success] = "U ruajt me sukses!";
-
-            if (userInRoleKryetarIFshatit)
+                Data();
+                await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
+                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Crm");
-            return RedirectToAction("Index", "dashboard");
-
-        }
-        catch (Exception err)
-        {
-            _logger.LogError("An error has occured", err);
-            return View(errorView);
-        }
-    }
-
-
-    public async Task<IActionResult> SaveAndOpenCase(PollRelated pollRelated)
-    {
-        try
-        {
-            var userId = _unitOfWork.ApplicationUser.GetLoginUser();
-            var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
-            _unitOfWork.PollRelated.Update(pollRelated);
-            TempData[_toaster.Success] = "U ruajt me sukses!";
-            if (userInRoleKryetarIFshatit)
-                return RedirectToAction("Index", "Crm");
-            return RedirectToAction("Index", "dashboard");
+            
         }
         catch (Exception err)
         {
