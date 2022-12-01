@@ -3,149 +3,163 @@
 
 @if (ViewBag.UserNull == "nuk ka te dhena")
 {
-    <small >Nuk ka të dhëna për <span class="text-danger">"@ViewBag.Name"</span>!</small>
+    <small>Nuk ka të dhëna për <span class="text-danger">"@ViewBag.Name"</span>!</small>
 }
 
 else
 {
-<div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
-    <div class="col-lg-6 pe-2">
-        <div class="table-responsive">
-            <table class="table table-bordered"
+    <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
+        <div class="col-lg-6 pe-2">
+            <div class="table-responsive">
+                <table class="table table-bordered"
                    id="dataTable"
                    width="100%"
                    cellspacing="0"
                    style="table-layout:fixed">
-                <tr>
-                    <td width="50%">Emri dhe mbiemri</td>
-                    <td width="50%" id="DataSearching">@Model.FullName</td>
-                </tr>
-                <tr>
-                    <td>Fshati</td>
-                    <td id="DataSearching">@Model.Village</td>
-                </tr>
-                <tr>
-                    <td>Lagja</td>
-                    <td id="DataSearching">@Model.Neigborhood</td>
-                </tr>
-                <tr>
-                    <td>Blloku</td>
-                    <td id="DataSearching">@Model.Block</td>
-                </tr>
-                <tr>
-                    <td>Hyrja </td>
-                    <td id="DataSearching">@Model.HouseNo</td>
-                </tr>
-                <tr>
-                    <td>Numri i telefonit </td>
-                    <td id="DataSearching">@Model.PhoneNumber</td>
-                </tr>
+                    <tr>
+                        <td width="50%">Emri dhe mbiemri</td>
+                        <td width="50%" id="DataSearching">@Model.FullName</td>
+                    </tr>
+                    <tr>
+                        <td>Fshati</td>
+                        <td id="DataSearching">@Model.Village</td>
+                    </tr>
+                    <tr>
+                        <td>Lagja</td>
+                        <td id="DataSearching">@Model.Neigborhood</td>
+                    </tr>
+                    <tr>
+                        <td>Blloku</td>
+                        <td id="DataSearching">@Model.Block</td>
+                    </tr>
+                    <tr>
+                        <td>Hyrja </td>
+                        <td id="DataSearching">@Model.HouseNo</td>
+                    </tr>
+                    <tr>
+                        <td>Numri i telefonit </td>
+                        <td id="DataSearching">@Model.PhoneNumber</td>
+                    </tr>
                     <tr>
                         <td>Email Adresa </td>
                         <td id="DataSearching">@Model.Email</td>
                     </tr>
-                <tr>
-                    <td>Facebook</td>
-                    <td id="DataSearching"><a href="@Model.FacebookLink" target="_blank">@Model.FullName </a></td>
-                </tr>
-            </table>
+                    <tr>
+                        <td>Facebook</td>
+                        <td id="DataSearching"><a href="@Model.FacebookLink" target="_blank">@Model.FullName </a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
-    <style>
-        td{
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    </style>
-    <div class="col-lg-6 pe-2">
-        <div class="table-responsive">
-            <table class="table table-bordered"
+        <style>
+            td {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        </style>
+        <div class="col-lg-6 pe-2">
+            <div class="table-responsive">
+                <table class="table table-bordered"
                    id="dataTable"
                    width="100%"
                    cellspacing="0"
                    style="table-layout:fixed">
-                <tr>
-                    <td width="50%">Numri i familjarëve</td>
-                    <td width="50%" id="DataSearching">@Model.VotersNumber</td>
-                </tr>
-                <tr>
-                    <td>Votues paraprak</td>
-                    <td id="DataSearching">@Model.PreviousVoter</td>
-                </tr>
-                <tr>
-                    <td>Votues i tanishëm</td>
-                    <td id="DataSearching">@Model.CurrentVoter</td>
-                </tr>
-                <tr>
-                    <td>Gjasat e suksesit</td>
-                    <td id="DataSearching">@Model.InitialChance</td>
-                </tr>
-                <tr>
-                    <td>Vendi i punës</td>
-                    <td id="DataSearching">@Model.WorkPlace</td>
-                </tr>
-                <tr>
-                    <td>Statusi administrativ</td>
-                    <td id="DataSearching">@Model.AdministrativeUnit</td>
-                </tr>
-                <tr>
-                    <td>Pozita</td>
-                    <td id="DataSearching">@Model.Duty</td>
-                </tr>
-                <tr>
-                    <td>Qendra e votimit</td>
-                    <td id="DataSearching">@Model.PollCenter</td>
-                </tr>
-            </table>
+                    <tr>
+                        <td width="50%">Numri i familjarëve</td>
+                        <td width="50%" id="DataSearching">@Model.VotersNumber</td>
+                    </tr>
+                    <tr>
+                        <td>Votues paraprak</td>
+                        <td id="DataSearching">@Model.PreviousVoter</td>
+                    </tr>
+                    <tr>
+                        <td>Votues i tanishëm</td>
+                        <td id="DataSearching">@Model.CurrentVoter</td>
+                    </tr>
+                    <tr>
+                        <td>Gjasat e suksesit</td>
+                        <td id="DataSearching">@Model.InitialChance</td>
+                    </tr>
+                    <tr>
+                        <td>Vendi i punës</td>
+                        <td id="DataSearching">@Model.WorkPlace</td>
+                    </tr>
+                    <tr>
+                        <td>Statusi administrativ</td>
+                        <td id="DataSearching">@Model.AdministrativeUnit</td>
+                    </tr>
+                    <tr>
+                        <td>Pozita</td>
+                        <td id="DataSearching">@Model.Duty</td>
+                    </tr>
+                    <tr>
+                        <td>Qendra e votimit</td>
+                        <td id="DataSearching">@Model.PollCenter</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<form asp-controller="Crm" asp-action="Voters" method="post">
-    <input hidden asp-for="Id" id="userId"/>
-    <div class="d-flex flex-row align-content-around flex-md-row flex-column">
-        <div class="col-md-6 mb-2 pe-2">
-            <label class="pt-3">Zgjedh/Shto arsyen që percakton votën tuaj</label>
-            <select asp-for="GeneralReason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
-                <option disabled selected>Zgjedhni opsionet...</option>
-                <option value="shto">Shto +</option>
-            </select>
+    <form asp-controller="Crm" asp-action="Voters" method="post">
+        <input hidden asp-for="Id" id="userId" />
+        <div class="d-flex flex-row align-content-around flex-md-row flex-column">
+            <div class="col-md-6 mb-2 pe-2">
+                <label class="pt-3">Zgjedh/Shto arsyen që percakton votën tuaj</label>
+                <select asp-for="GeneralReason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
+                    @if (Model.GeneralReason == null || Model.GeneralReason == "Unset")
+                    {
+                        <option disabled selected>Zgjedhni opsionet...</option>
+                    }
+                    else
+                    {
+                        <option selected>@Model.GeneralReason</option>
+                        <option value="shto">Shto +</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6 mb-2 pe-2">
+                <label class="pt-3">A mund ta menaxhoni personin?</label>
+                <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" asp-items="ViewBag.YesNo">
+                    <option disabled selected>Zgjedhni opsionet...</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-6 mb-2 pe-2">
-            <label class="pt-3">A mund ta menaxhoni personin?</label>
-            <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" asp-items="ViewBag.YesNo">
-                <option disabled selected>Zgjedhni opsionet...</option>
-            </select>
+        <div class="form-group pe-2">
+            <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet: </label>
+            <textarea type="text" asp-for="ActivitiesYourPlan" class="form-control" id="AktivitetePerNdryshim"> </textarea>
         </div>
-    </div>
-    <div class="form-group pe-2">
-        <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet: </label>
-        <textarea type="text" asp-for="ActivitiesYourPlan" class="form-control" id="AktivitetePerNdryshim"> </textarea>
-    </div>
-    <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
-        <div class="col-md-6 mb-2 pe-2">
-            <label class="pt-3">A keni nevojë për ndihmë?</label>
-            <select asp-for="NeedHelp" class="form-select" id="gethelp" asp-items="ViewBag.YesNo">
-                <option disabled selected>Zgjedhni opsionet... </option>
+        <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
+            <div class="col-md-6 mb-2 pe-2">
+                <label class="pt-3">A keni nevojë për ndihmë?</label>
+                <select asp-for="NeedHelp" class="form-select" id="gethelp" asp-items="ViewBag.YesNo">
+                    <option disabled selected>Zgjedhni opsionet... </option>
 
-            </select>
+                </select>
+            </div>
+            <div class="col-md-6 mb-2 pe-2">
+                <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
+                <select asp-for="GeneralDemands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
+                    @if (Model.GeneralDemands == null || Model.GeneralDemands == "Unset")
+                    {
+                        <option disabled selected>Zgjedhni opsionet...</option>
+                    }
+                    else
+                    {
+                        <option selected>@Model.GeneralDemands</option>
+                        <option value="shto">Shto +</option>
+                    }
+                </select>
+            </div>
         </div>
-        <div class="col-md-6 mb-2 pe-2">
-            <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-            <select asp-for="GeneralDemands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
-                 <option disabled selected>Zgjedhni opsionet...</option>
-                <option value="shto">Shto + </option>
-            </select>
+        <div class="form-group pe-2 pb-3 ">
+            <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyeshmërinë e ndihmës së kërkuar dhe ndikimin në sukses: </label>
+            <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
         </div>
-    </div>
-    <div class="form-group pe-2 pb-3 ">
-        <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyeshmërinë e ndihmës së kërkuar dhe ndikimin në sukses: </label>
-        <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
-    </div>
-<div class="btntest d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
-    <a href='javascript:
+        <div class="btntest d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
+            <a href='javascript:
            swal({
-           title: "A jeni të sigurt?",
+           title: "A jeni të sigurt?" ,
            icon: "warning" ,
            buttons: {
            cancel:"Jo",
@@ -171,66 +185,68 @@ else
             }
             });'
             class = "btn btn-danger">Anulo
-            </a>&nbsp &nbsp 
-     <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp 
-     <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
-</div>
-</form>
+            </a>&nbsp &nbsp
+            <button type="submit" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp
+            <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+        </div>
+    </form>
 
 }
 
 <style>
     .tooltip {
-      position: relative;
-      display: inline-block;
-      border-bottom: 1px dotted black;
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
     }
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
 
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
-    }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
     .tooltiphover .tooltiptext {
-      visibility: visible;
+        visibility: visible;
     }
 </style>
 
 <script>
-   const Specificreasons = document.querySelector('#general-demand');
+    const Specificreasons = document.querySelector('#general-demand');
     Specificreasons.addEventListener('change', event => {
-             var data = document.getElementById("general-demand").value;
-             if (event.target.value === "shto"){
-                var userId = document.getElementById("userId").value;
-                 //if (data === "shto") {
+        var data = document.getElementById("general-demand").value;
+        if (event.target.value === "shto") {
+            var userId = document.getElementById("userId").value;
+            //if (data === "shto") {
 
-                 var input = swal("Arsyeja përcaktuese:",{
-                     content:"input",
-                      buttons: {
-                 cancel:"Anulo",
-                 
-                 confirm:{
-                     text:"Shto",
-                     className:"test",
-                 } }
-                 }).then((value)=>{
-                     if (value == "") {
+            var input = swal("Arsyeja përcaktuese:", {
+                content: "input",
+                buttons: {
+                    cancel: "Anulo",
+
+                    confirm: {
+                        text: "Shto",
+                        className: "test",
+                    }
+                }
+            }).then((value) => {
+                if (value == "") {
 
                     console.log(value);
                     swal("Ju lutem shkruani të dhëna valide!");
                     return false;
-                  
-                     }
-                    else if(value !== null){
 
-                     console.log(value);
+                }
+                else if (value !== null) {
+
+                    console.log(value);
 
                     let item = document.createElement("option");
                     item.value = value;
@@ -239,42 +255,43 @@ else
                     Specificreasons.value = value;
 
                 }
-                 });
+            });
 
-                
-      }
-  });
+
+        }
+    });
 
     const Specificdemands = document.querySelector('#specific-reason');
-     Specificdemands.addEventListener('change', event => {
-             var data = document.getElementById("specific-reason").value;
-             if (event.target.value === "shto"){
-                var userId = document.getElementById("userId").value;
-                    var input = swal("Ndihma e nevojshme:",{
-                     content:"input",
-                      buttons: {
-                 cancel:"Anulo",
-                 
-                 confirm:{
-                     text:"Shto",
-                     className:"test",
-                 } }
-                 }).then((value)=>{
-                      if (value == "") {
+    Specificdemands.addEventListener('change', event => {
+        var data = document.getElementById("specific-reason").value;
+        if (event.target.value === "shto") {
+            var userId = document.getElementById("userId").value;
+            var input = swal("Ndihma e nevojshme:", {
+                content: "input",
+                buttons: {
+                    cancel: "Anulo",
+
+                    confirm: {
+                        text: "Shto",
+                        className: "test",
+                    }
+                }
+            }).then((value) => {
+                if (value == "") {
 
                     console.log(value);
                     swal("Ju lutem shkruani të dhëna valide!");
                     return false;
-                  
-                     }
-                    else if(value !== null){
-                     let item = document.createElement("option");
-                        item.value = value;
-                        item.innerText = value;
-                        Specificdemands.appendChild(item);
-                        Specificdemands.value = value;
-                    }
-                 });
-      }
-  });
+
+                }
+                else if (value !== null) {
+                    let item = document.createElement("option");
+                    item.value = value;
+                    item.innerText = value;
+                    Specificdemands.appendChild(item);
+                    Specificdemands.value = value;
+                }
+            });
+        }
+    });
 </script>
