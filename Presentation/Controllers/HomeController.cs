@@ -53,10 +53,15 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(LoginVM login)
         {
-            //try
-            //{
+            try
+            {
                 if (ModelState.IsValid)
                 {
+                    if (!(await _unitOfWork.ApplicationUser.IsEmailConfirmed(login))) 
+                    {
+                        ViewBag.NotConfirmed = true;
+                        return View("../home/index", login);
+                    }
                     var zz = await _unitOfWork.ApplicationUser.CheckUser(login.Email, login.Password);
                     if (!(zz))
                     {
@@ -101,12 +106,12 @@ namespace Presentation.Controllers
                     }
                 }
                 return View("../Home/Index", login);
-            //}
-            //catch (Exception err)
-            //{
-            //    _logger.LogError(message: "An error has occurred ", err);
-            //    return View(errorView);
-            //}
+            }
+            catch (Exception err)
+            {
+                _logger.LogError(message: "An error has occurred ", err);
+                return View(errorView);
+            }
         }
 
 

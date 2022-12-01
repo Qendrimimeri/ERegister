@@ -394,6 +394,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         return false;
     }
 
+    public async Task<bool> IsEmailConfirmed(LoginVM model)
+    {
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user.EmailConfirmed == true) return true;
+        return false;
+    }
+
     public async Task<bool> RegisterVoterAsync(RegisterVM model)
     {
         EncryptionService encrypt = new(_encrypt);

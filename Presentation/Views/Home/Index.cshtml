@@ -27,6 +27,11 @@
                 {
                     <span class="text-danger">Kredencialet e gabuara</span>
                 }
+                @if (ViewBag.NotConfirmed == true)
+                {
+                    <span class="text-danger">Ju lutemi konfirmoni llogarinë tuaj!</span>
+                }
+                
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-between">
                     <div class="">
                         <label  asp-for="RememberMe"class="rememberme form-check-label pr-3 mr-3">

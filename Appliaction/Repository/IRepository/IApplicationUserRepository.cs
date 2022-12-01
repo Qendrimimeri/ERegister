@@ -215,5 +215,7 @@ namespace Application.Repository.IRepository
         Task<IdentityResult> ChangePassword(string password);
 
        Task<bool?> HasPasswordChange();
+
+        Task<bool> IsEmailConfirmed(LoginVM model);
     }
 }
