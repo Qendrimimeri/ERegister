@@ -5,6 +5,40 @@
     var roles = _roles.Value;
 }
 @model RegisterVM;
+@if (!ViewBag.HasPasswordChange)
+{
+    <div class="modal fade" id="change-password" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Ndrysho fjalëkalimin</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid row justify-content-center align-items-center pt-5 mt-5 klasa">
+                        <div class="col-12 card col-md-6 d-flex justify-content-center flex-column bg-light box-shadow ">
+                            <h4 class="text-center pt-5">Ndryshoni fjalëkalimin</h4>
+                            <div class="p-5 testt">
+                                <div class="mb-3">
+                                    <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
+                                    <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
+                                    <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                    <small id="response-text" class="text-danger"></small>
+                                </div>
+                                <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <div>
     <div class="card">
         <div class="d-flex justify-content-center align-items-center position-relative">
@@ -22,7 +56,7 @@
                     <partial name="_ManualiAdminDashboardPartial"></partial>
                 </div>
             }
-            @if(User.IsInRole(roles.KryetarIKomunes))
+            @if (User.IsInRole(roles.KryetarIKomunes))
             {
                 <div class="ps-2 position-absolute end-0 me-2">
                     <partial name="_ManualiKryetarKomunesDashboardPartial"></partial>
@@ -30,62 +64,63 @@
             }
         </div>
 
-            <hr />
-                @if (User.IsInRole(roles.KryetarIPartise))
-                {
-                <div class="test d-flex justify-content-around p-2 pt-2">
-                    <div class="test pt-2">
-                        <p>Zgjedhni qytetin për grafe:</p>
-                    </div>
-                    <div class=" mb-2 test ">
-                        <select class="form-select" id="munis" onchange="getId()" asp-for="Municipality">
-                            <option disabled selected>Zgjedh qytetin...</option>
-                        </select>
-                    </div>
+        <hr />
+        @if (User.IsInRole(roles.KryetarIPartise))
+        {
+            <div class="test d-flex justify-content-around p-2 pt-2">
+                <div class="test pt-2">
+                    <p>Zgjedhni qytetin për grafe:</p>
                 </div>
-                }
-        </div>
-    </div>
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" id="city-nacinale"></h5>
-                        <div id="columnChart"></div>
-                    </div>
+                <div class=" mb-2 test ">
+                    <select class="form-select" id="munis" onchange="getId()" asp-for="Municipality">
+                        <option disabled selected>Zgjedh qytetin...</option>
+                    </select>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" id="city-lokale"></h5>
-                        <div id="columnChart1"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <style>
-        @@media screen and (max-width:488px) {
-            .test {
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: center;
-                width: 100% !important;
-            }
         }
-    </style>
-                @if (User.IsInRole(roles.KryetarIPartise))
-                {
-                    @section Scripts {
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" id="city-nacinale"></h5>
+                    <div id="columnChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" id="city-lokale"></h5>
+                    <div id="columnChart1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    @@media screen and (max-width:488px) {
+        .test {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            width: 100% !important;
+        }
+    }
+</style>
+<script type="text/javascript" src="~/js/change_password.js"></script>
+@if (User.IsInRole(roles.KryetarIPartise))
+{
+    @section Scripts {
     <script src="~/js/municipalities.js"></script>
     <script src="~/js/admin_graphs.js"></script>
     }
-                }
-                else
-                {
-                    @section Scripts {
+}
+else
+{
+    @section Scripts {
     <script src="~/js/muni_graphs.js"></script>
     }
-                }
+}

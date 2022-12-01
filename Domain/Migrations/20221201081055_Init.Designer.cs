@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221024132653_ininisql")]
-    partial class ininisql
+    [Migration("20221201081055_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,6 +99,9 @@ namespace Domain.Migrations
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HasPasswordChange")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImgPath")
                         .HasColumnType("nvarchar(max)");

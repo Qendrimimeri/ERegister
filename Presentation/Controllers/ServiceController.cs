@@ -1,4 +1,5 @@
 using Application.Models;
+using Application.Models.Services;
 using Application.Repository;
 using Application.ViewModels;
 using AutoMapper;
@@ -6,6 +7,7 @@ using Domain.Data;
 using Domain.Data.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -974,6 +976,13 @@ namespace Presentation.Controllers
             });
         }
 
+        [HttpPost]
+        [Route("changepasswordasync")]
+        public async Task<IActionResult> ChangePasswordAsync([FromQuery] string password)
+        {
+            await _unitOfWork.ApplicationUser.ChangePassword(password);
+            return RedirectToAction("index", "dashboard");
+        }
 
     }
 
