@@ -22,7 +22,6 @@ namespace Application.Repository
             _appUser = appUser;
         }
 
-
         public async Task<bool> AddPollRelated(PersonVM editPerson)
         {
             var pollId =  _db.PollRelateds.Where(x => x.UserId == editPerson.Id).FirstOrDefault();
@@ -56,8 +55,6 @@ namespace Application.Repository
             return true;
 
         }
-
-
         public async Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model)
         {
             var helpId = _db.Helps.ToList().OrderByDescending(x => x.Id).FirstOrDefault().Id + 1;
@@ -82,8 +79,6 @@ namespace Application.Repository
             await _db.SaveChangesAsync();
             return true;
         }
-
-
         public async Task<bool> updateSpecificReasonAsync(string? reason, string userId)
         {
             var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
@@ -91,8 +86,6 @@ namespace Application.Repository
             var res = await _db.SaveChangesAsync();   
             return true;
         }
-
-
         public async Task<bool> updateSpecificDemandAsync(string? reason, string userId)
         {
             var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
