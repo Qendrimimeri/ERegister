@@ -10,6 +10,7 @@ namespace Application.Models.Services
     {
         public static string? SectionName { get; set; } = "Roles";
 
+        public string? SimpleRole { get; set; }
         public string? KryetarIPartise { get; set; }
 
         public string? KryetarIKomunes { get; set; }

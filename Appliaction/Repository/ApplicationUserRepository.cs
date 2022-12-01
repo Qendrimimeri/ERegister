@@ -28,6 +28,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IMailService _mail;
     private readonly IHttpContextAccessor _httpContext;
+    private readonly Roles _roles;
     private readonly Encrypt _encrypt;
     private readonly UserManager<ApplicationUser> _userManager;
 
@@ -37,7 +38,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                                      SignInManager<ApplicationUser> signInManager,
                                      RoleManager<IdentityRole> roleManager,
                                      IHttpContextAccessor httpContext,
-                                     IOptionsSnapshot<Encrypt> encrypt) : base(context)
+                                     IOptionsSnapshot<Encrypt> encrypt,
+                                     IOptionsSnapshot<Roles> roles) : base(context)
     {
         _context = context;
         _mail = mail;
@@ -45,6 +47,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         _signInManager = signInManager;
         _roleManager = roleManager;
         _httpContext = httpContext;
+        _roles = roles.Value;
         _encrypt = encrypt.Value;
     }
 
@@ -57,9 +60,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
         var appUser = await _context.ApplicationUsers.Where(x => x.Id == loginUserId).FirstOrDefaultAsync();
 
-        var isThisUserSuperAdmin = await _userManager.IsInRoleAsync(appUser, "KryetarIPartise");
+        var isThisUserSuperAdmin = await _userManager.IsInRoleAsync(appUser, _roles.KryetarIPartise);
         var isThisMunicipalityAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
-                             .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIKomunes");
+                             .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIKomunes);
         if (isThisUserSuperAdmin)
         {
             var getAllUsers = await _context.Users.Select(person => new PersonVM()
@@ -110,7 +113,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     ActualStatus = person.ActualStatus
                 }).ToListAsync();
 
-            var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+            var usersInRole = await _userManager.GetUsersInRoleAsync(_roles.SimpleRole);
 
             var result = new List<PersonVM>();
             foreach (var user in getAllUsers)
@@ -138,7 +141,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                   ActualStatus = person.ActualStatus
               }).ToListAsync();
 
-            var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
+            var usersInRole = await _userManager.GetUsersInRoleAsync(_roles.SimpleRole);
             var result = new List<PersonVM>();
             foreach (var user in getAllUsers)
                 foreach (var item in usersInRole)
@@ -159,16 +162,16 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var userVillage = await GetVillageIdOfUser(loginUserId);
 
         var isThisUserMunicipalityAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
-                             .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIKomunes");
+                             .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIKomunes);
 
         var isThisUserVillageAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
-                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), "KryetarIFshatit");
+                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIFshatit);
 
         var userFromDb = await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync();
         if (userFromDb == null)
             return null;
 
-        var user = await _userManager.IsInRoleAsync(userFromDb, "SimpleRole");
+        var user = await _userManager.IsInRoleAsync(userFromDb, _roles.SimpleRole);
 
         if (isThisUserVillageAdmin) return await GetOnlyVillagePerson(userVillage, userMuni, user, name);
         else if (isThisUserMunicipalityAdmin)
@@ -357,12 +360,12 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var res = await _roleManager.Roles.ToListAsync();
         var roles = new List<KeyValueModel>();
         foreach (var role in res)
-            if (role.Name != "SimpleRole")
+            if (role.Name != _roles.SimpleRole)
                 roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
         var orderedRoles = roles.OrderBy(x => x.Value);
         roles.Remove(roles[roles.Count - 1]);
-        roles.Add(new KeyValueModel { Key = "AnetarIThjeshte", Value = "Anetarë i thjeshte" });
+        roles.Add(new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anetarë i thjeshte" });
         return roles;
     }
 
@@ -452,7 +455,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
         await _userManager.CreateAsync(simpleUser, "Eregister@!12");
         await _context.SaveChangesAsync();
-        await _userManager.AddToRoleAsync(simpleUser, "SimpleRole");
+        await _userManager.AddToRoleAsync(simpleUser, _roles.SimpleRole);
 
         var userId = await _userManager.FindByEmailAsync(model.Email);
         var pollRelated = new PollRelated()
@@ -641,16 +644,16 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
 
     public async Task<bool> IsInSimpleRole(string email) =>
-        await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
+        await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), _roles.AnetarIThjeshte);
 
     public async Task<bool> IsInRoleKryetarIFshatit(string id) =>
-        await _userManager.IsInRoleAsync((await _userManager.FindByIdAsync(id)), "KryetarIFshatit");
+        await _userManager.IsInRoleAsync((await _userManager.FindByIdAsync(id)), _roles.KryetarIFshatit);
 
     public async Task<bool> IsInRoleKryetarIFshatitWithEmail(string email) =>
-        await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "KryetarIFshatit");
+        await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), _roles.KryetarIFshatit);
 
     public async Task<bool> IsInRoleAnetarIThjeshtWithEmail(string email) =>
-        await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), "AnetarIThjeshte");
+        await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), _roles.AnetarIThjeshte);
 
 
 

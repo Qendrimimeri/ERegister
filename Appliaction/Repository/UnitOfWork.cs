@@ -17,6 +17,7 @@ namespace Application.Repository
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IOptionsSnapshot<Encrypt> _encrypt;
+        private readonly IOptionsSnapshot<Roles> _roles;
 
         public UnitOfWork(ApplicationDbContext dbContext,
                           UserManager<ApplicationUser> userManager,
@@ -24,7 +25,8 @@ namespace Application.Repository
                           RoleManager<IdentityRole> roleManager,
                           IMailService mail,
                           IHttpContextAccessor httpContext,
-                          IOptionsSnapshot<Encrypt> encrypt)
+                          IOptionsSnapshot<Encrypt> encrypt,
+                          IOptionsSnapshot<Roles> roles)
 
         {
             _dbContext = dbContext;
@@ -32,10 +34,11 @@ namespace Application.Repository
             _signInManager = signInManager;
             _httpContext= httpContext;
             _encrypt = encrypt;
+            _roles = roles;
             _mail = mail;
             _roleManager = roleManager;
             Address = new AddressRepository(_dbContext);
-            ApplicationUser = new ApplicationUserRepository(_dbContext, _mail, _userManager, _signInManager, _roleManager, _httpContext, _encrypt);
+            ApplicationUser = new ApplicationUserRepository(_dbContext, _mail, _userManager, _signInManager, _roleManager, _httpContext, _encrypt, _roles);
             Block = new BlockRepository(_dbContext);
             Help = new HelpRepository(_dbContext);
             Municipality = new MunicipalityRepository(_dbContext);
