@@ -66,6 +66,18 @@
         </div>
     </div>
 </section>
+<style>
+    @@media screen and (max-width: 1800px){
+              #testManuali{
+                  max-width:70%;
+              }
+          }
+          @@media screen and (max-width: 600px){
+              #testManuali{
+                  max-width:100%;
+              }
+          }
+</style>
 @section Scripts
     {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -124,6 +136,26 @@
             });
          }
 </script>
+    <style>
+        @@media screen and (max-width:488px) {
+            .test {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                width: 100% !important;
+            }
+        }
+        @@media screen and (max-width: 1800px){
+            #testManuali{
+                max-width:70%;
+            }
+        }
+        @@media screen and (max-width: 600px){
+            #testManuali{
+                max-width:100%;
+            }
+        }
+    </style>
 <link rel="stylesheet" type="text/css" href="~/jquerycrm/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>@*
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@

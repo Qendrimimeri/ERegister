@@ -84,3 +84,15 @@
 .swal-button--confirm {
     background-color: #0d6efd;
 }
+
+@media screen and (max-width: 1800px) {
+    #testManuali {
+        max-width: 70%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #testManuali {
+        max-width: 100%;
+    }
+}
