@@ -1,5 +1,4 @@
-﻿
-@media screen and (max-width: 396px) {
+﻿@media screen and (max-width: 396px) {
     .button-responsive {
         font-size: 10px;
     }
@@ -8,21 +7,18 @@
         width:25%!important;
     }
 }
-
 @media screen and (max-width:502px) {
     .button-responsive {
         font-size: 14px;
         width: 100%;
     }
 }
-
 @media screen and (max-width:462px) {
     .button-responsive {
         font-size: 12px;
         width: 100%;
     }
 }
-
 @media screen and (max-width:425px) {
     .button-responsive {
         font-size: 10px;
