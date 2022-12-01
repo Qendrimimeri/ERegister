@@ -1,5 +1,9 @@
 ﻿$('document').ready(function () {
     $('#change-password').modal('show');
+    $('#change-password').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
 
     $('#change-password').click(function () {
         let newPassword = document.getElementById('newPassword').value;
@@ -9,16 +13,14 @@
         if (newPassword !== confirmPassword) {
             document.getElementById("response-text").innerText = "Fjalëkalimi nuk ësht i njëjt.";
         } else {
-            (async () => {
-                await fetch('/api/service/changepasswordasync?password=' + confirmPassword, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: ""
-                });
-            })();
+            fetch('/api/service/changepasswordasync?password=' + confirmPassword, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: ""
+            })
         }
     })
 })

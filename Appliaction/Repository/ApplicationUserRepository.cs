@@ -655,7 +655,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var result = await _userManager.ResetPasswordAsync(user, (await _userManager.GeneratePasswordResetTokenAsync(user)), password);
         if (result.Succeeded)
         {
-            user.HasPasswordChange = 0;
+            user.HasPasswordChange = 1;
             _context.Update(user);
             _context.SaveChanges();
         }
