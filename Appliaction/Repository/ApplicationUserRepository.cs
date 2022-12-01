@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System;
 using System.Security.Claims;
 
 
@@ -187,6 +188,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     WorkPlace = person.Work.WorkPlace,
                     AdministrativeUnit = person.Work.AdministrativeUnit,
                     Duty = person.Work.Duty,
+                    GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().GeneralDescription,
+                    ActivitiesYourPlan =  _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterName,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -202,6 +205,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         }
         else
         {
+            var userApp = _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefault();
+            var res = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == userApp.Id).OrderByDescending(x => x.Date).FirstOrDefault().Help;
             var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
             {
 
@@ -211,18 +216,20 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 Village = person.Address.Village.Name,
                 Block = person.Address.Block.Name,
                 HouseNo = person.Address.HouseNo,
-
                 PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
-
                 Email = person.Email,
                 FacebookLink = person.SocialNetwork,
                 WorkPlace = person.Work.WorkPlace,
                 AdministrativeUnit = person.Work.AdministrativeUnit,
                 Duty = person.Work.Duty,
                 MunicipalityName = person.Address.Municipality.Name,
+                GeneralDemands = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDemand,
+                GeneralReason = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralReason,
+                GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
+                ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == userApp.Id).OrderByDescending(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                 PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
                 PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
 
