@@ -205,8 +205,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         }
         else
         {
-            var userApp = _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefault();
-            var res = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == userApp.Id).OrderByDescending(x => x.Date).FirstOrDefault().Help;
             var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
             {
 
@@ -226,7 +224,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 GeneralDemands = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDemand,
                 GeneralReason = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralReason,
                 GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
-                ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == userApp.Id).OrderByDescending(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
+                ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                 PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
