@@ -7,12 +7,12 @@
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card ">
-                <div class="card-body p-5">
+            <div class="card">
+                <div>
 
                     <form asp-controller="Dashboard" asp-action="Reports" method="post">
 
-                        <br />
+                        <br/>
                         <style>
                             th {
                                 font-weight: 500;
@@ -56,45 +56,71 @@
                             .swal-button--confirm {
                                 background-color: #0d6efd;
                             }
+                            @@media screen and (max-width:472px) {
+                            input::placeholder {
+                                font-size: 13px;
+                            }
+
+                            td {
+                                font-size: 13px;
+                            }
+                            th{
+                                font-size:13px;
+                            }
+                            @@media screen and (max-width:432px) {
+                                .button-responsive {
+                                    font-size: 12px;
+                                }
+
+                                input::placeholder {
+                                    font-size: 12px;
+                                }
+
+                                td{
+                                    font-size: 12px;
+                                }
+                                th{
+                                    font-size:13px;
+                                }
+                            }
+}
 
                         </style>
                         <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
-                            <div class="col-lg-6 pe-2">
-                                <div>
+                            <div class="col-lg-6 ps-2 pe-2">
+                                <div class="tabkorrigjim">
                                     <p>Të dhënat nga regjistrimi</p>
                                     <table class="table table-bordered table table-responsive-sm"
                                            id="dataTable"
                                            width="100%"
                                            cellspacing="0">
                                         <tr>
-                                            <th colspan="2"> Emri dhe Mbiemri</th>
-                                            <td colspan="2"> @Model.FullName </td>
+                                            <th width="50%" colspan="2"> Emri dhe Mbiemri</th>
+                                            <td width="50%" colspan="2"> @Model.FullName </td>
                                         </tr>
                                         <tr >
                                             <th colspan="2">Numri i votuesve</th>
                                             <td colspan="2">@Model.VotersNumber</td>
                                         </tr>
-                                        <tr >
-                                            <th >Votues paraprak </th>
+                                        <tr>
+                                            <th>Votues paraprak </th>
                                             <td>@Model.CurrentVoter</td>
-                                            <th >Gjasat fillestare</th>
+                                            <th>Gjasat fillestare</th>
                                             <td>@Model.ActualChances%</td>
                                         </tr>
                                     </table>
                                     <input type="hidden" asp-for="@Model.Id" />
                                 </div>
                             </div>
-                            <div class="col-lg-6 pe-2">
+                            <div class="col-lg-6 ps-2 pe-2">
 
                                 <div>
                                     <p>Evidento ndryshimet me të dhënat e reja</p>
                                     <table class="table table-bordered table table-responsive"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0">
+                                           id="dataTable">
                                         <tr>
 
-                                            <th style="font-size:15px;" width = "50%">Votues i tanishëm</th>
+                                            <th width = "50%">Votues i tanishëm</th>
                                             <td width = "50%">
                                                 <select asp-for="CurrentVoter" asp-items="@ViewBag.PS" class="w-100 form border-0 selectList"
 
@@ -130,11 +156,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-2 ml-5">
+                        <div class="mb-2 ml-5 ps-2 pe-2">
                             <label for="exampleFormControlTextarea1" class="form-label">Përshkruaj gjendjen ekzistuese dhe mundësitë ose barrierat e suksesit:</label>
                             <textarea asp-for="GeneralDescription" class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
-                        <div class="d-flex flex-row justify-content-end pt-3 ">
+                        <div class="d-flex flex-row justify-content-end pt-3 pb-2 pe-2 ">
                                  <a href = 'javascript:
                                swal({
                                title: "A jeni të sigurtë?" ,
@@ -162,8 +188,9 @@
                                 });
                                 }
                                 });'
-                                class = "btn btn-danger">Anulo</a>&nbsp &nbsp
-                              <button type="submit" class="btn btn-primary pe-2" id="saveBtn" disabled>Ruaj dhe mbyll</button>
+                                class = "btn btn-danger button-responsive">Anulo
+                            </a>&nbsp &nbsp
+                            <button type="submit" class="btn btn-primary pe-2 button-responsive" id="saveBtn" disabled>Ruaj dhe mbyll</button>
                         </div>
                     </form>
                 </div>
