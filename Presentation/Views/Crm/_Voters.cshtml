@@ -3,7 +3,11 @@
 
 @if (ViewBag.UserNull == "nuk ka te dhena")
 {
-    <small>Nuk ka të dhëna për <span class="text-danger">"@ViewBag.Name"</span>!</small>
+    if (string.IsNullOrWhiteSpace(ViewBag.Name)) { } 
+    else
+    {
+        <small>Nuk ka të dhëna për <span class="text-danger">"@ViewBag.Name"</span>!</small>
+    }
 }
 
 else
@@ -188,7 +192,7 @@ else
             class = "btn btn-danger">Anulo
             </a>&nbsp &nbsp
             <button type="submit" asp-controller="Crm" asp-action="SaveAndOpenCase" class="btn btn-primary">Ruaj dhe hap rast</button>&nbsp &nbsp
-            <button type="submit" asp-action="SaveAndClose" asp-controller="Crm" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
+            <button type="submit" class="btn btn-primary pe-2">Ruaj dhe mbyll</button>
         </div>
     </form>
 
