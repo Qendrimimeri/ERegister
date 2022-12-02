@@ -191,7 +191,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     WorkPlace = person.Work.WorkPlace,
                     AdministrativeUnit = person.Work.AdministrativeUnit,
                     Duty = person.Work.Duty,
-                    GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().GeneralDescription,
+                    GeneralDemands = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDemand,
+                    GeneralReason = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralReason,
+                    GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
                     ActivitiesYourPlan =  _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterName,
@@ -210,7 +212,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         {
             var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
             {
-
                 Id = person.Id,
                 FullName = person.FullName,
                 Neigborhood = person.Address.Neighborhood.Name,
@@ -223,17 +224,16 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 WorkPlace = person.Work.WorkPlace,
                 AdministrativeUnit = person.Work.AdministrativeUnit,
                 Duty = person.Work.Duty,
-                MunicipalityName = person.Address.Municipality.Name,
                 GeneralDemands = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDemand,
                 GeneralReason = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralReason,
                 GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
-                ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
-                PollCenter = person.Address.PollCenter.CenterNumber,
+                ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
+                MunicipalityName = person.Address.Municipality.Name,
+                PollCenter = person.Address.PollCenter.CenterName,
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+                InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                 PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-
             }).FirstOrDefaultAsync();
 
             if (user)
@@ -442,7 +442,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
         var simpleUser = new ApplicationUser()
         {
-            FullName = model.FullName.Trim().ToLower(),
+            FullName = model.FullName.Trim(),
             Email = model.Email,
             UserName = model.Email,
             WorkId = workId,
@@ -521,7 +521,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
         var simpleUser = new ApplicationUser()
         {
-            FullName = model.FullName.Trim().ToLower(),
+            FullName = model.FullName.Trim(),
             Email = email,
             UserName = email,
             CreatedAt = DateTime.Now,
