@@ -1,100 +1,331 @@
-﻿<div class="pt-2">
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+﻿@*Modali Dashboard*@
+<div class="pt-2">
+    <div class="modal fade" id="exampleModalToggle1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" id="testManuali">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Manuali - regjistro votues</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Dashboard</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    -Në rubriken “Facebook”, duhet të jepet linku i llogarisë së rrjetit social “Facebook” të votuesit,
-                    -Në rubriken “Qyteti”, duhet patjetër të zgjidhni qytetin e votuesit, duke vazhduar me përzgjedhjen e një fshati, apo lagje të votuesit. Duhet të keni parasysh se duhet patjetër të zgjidhet një lagje e votuesit, edhe nëse votuesi i përket një fshati që nuk ka ndonjë lagje. Nëse ndonjë prej adresave të votuesit nuk është e regjistruar në listë, mund të shtoni adresa tjera në butonin “Shto+”.
-
+                    <div>
+                        <p>
+                            Në këtë faqe është shfaqur tabela me statistikat e përgjithshme të votave për njerin prej
+                            qyteteve të zgjedhura në listen <strong>“Zgjedhni qytetin për grafe”.</strong>
+                        </p>
+                    </div>
+                    <div class="w-100">
+                        <img src="~/images/finalgrafet.png" class="w-100" />
+                    </div>
+                    <p>
+                        -Butoni <strong>“Viti 2021”</strong> shfaq rezultatet e votave të regjistruara nga zyrtarët përkatës në bazë të rezultateve të dhëna nga KQZ për zgjedhjet e kaluara.
+                        <br />
+                        -Butoni <strong>“Tani”</strong>shfaq të dhënat për votat të cilat janë regjistruar nga zyrtarët për votuesit e tanishëm.
+                    </p>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Lexo manualin per faqe tjera</button>
+                <div class="modal-footer d-flex justify-content-end">
+
+                    <div>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Vazhdo para</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+
+    @*Modali CRM*@
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" id="testManuali">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Manuali - dashboard</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">CRM</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    Hide this modal and show the first with the button below.
+
+                <div class="modal-body ">
+                    <p>
+                        Faqja CRM (Costumer Relationship Management) ju shërben për të mbushur formularin e pyetjeve për votuesin të cilësuar si kryefamiljari, i cili është regjistruar paraprakisht. Votuesin e kërkoni përmes emrit dhe mbiemrit, siç është paraqitur në figurën 4.
+                    </p>
+                    <img src="~/images/SearchingCRMM.png" class="w-100" />
+                    <p>
+                        Të dhënat e votuesit të kërkuar shfaqen në tabelë siç janë paraçitur në Figurën 5.
+                    </p>
+                    <img src="~/images/TabelaEVotuesit.png" class="w-100" />
+                    <p>Ndërsa formulari për plotësimin e pyetësorit të votuesit shfaqet si në Figuren 6.</p>
+                    <img src=~/images/tedhenatpersonalevotuesi.png class="w-100">
+                    <p>
+                        -Në rubriken <strong>“Zgjedh/Shto arsyen që përcakton voten tuaj”</strong>  ju duhet të specifikoni një arsye që sipas votuesit është përcaktuese për voten e tyre,<br />
+                        -Në rubriken <strong>“A mund ta menaxhoni personin” </strong> ju duhet të specifikoni nëse votuesin e përcaktuar mund të menaxhoni apo jo, pra a mund të keni ndikim tek ai për bindjet e tyre politike,<br />
+                        -Në rubriken <strong>“Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimin”</strong> duhet të shkruani aktivitetet që sipas jush mund të ndikojnë në ndryshimin e bindjeve politike të votuesit,<br />
+                        -Në rubriken <strong>“A keni nevojë për ndihmë?”</strong> duhet të specifikoni nëse votuesi ka nevojë për ndihmë,<br />
+                        -Në rubriken  <strong>“Zgjedh/Shto ndihmën e nevojshme”</strong> rubrika duhet të plotësohet nese kerkesa paraprake është ”Po”, duke shtuar kështu ndihmen e caktuar nga votuesi,<br />
+                        -Në rubriken  <strong>“Pershkruani arsyeshmerinë e ndihmës së kërkuar dhe ndikim ne sukses”</strong> duhet përshkruar arsyjet për të cilat votuesi po kërkon ndihmën e caktuar, si dhe të përshkruani se sa ndikim do të kishte kjo ndihmë në bindjen politike të votuesit,<br />
+                        Tek listat në formular ju duhet të klikoni një opsion të caktuar, siç është paraqitur në Fig.7. Nëse asnjë nga opsionet në listë nuk përmbush kërkesat tuaja, mund të perdorni opsionin “Shto+”, duke e ruajtur vlerën përmes butonit ”Ruaj”.
+                    </p>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-8">
+                            <img src=~/images/Shto.png style="width:100%" />
+                        </div>
+                        <div class="col-2">
+                        </div>
+
+                    </div>
+
+
+
+
+                    <p>
+                        Në fund të pyetësorit janë tre butona, siç janë paraqitur në Figurë.
+                    </p>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-8">
+                            <img src="~/images/buttons.png" style=" width:100%" />
+
+                        </div>
+                        <div class="col-2">
+                        </div>
+
+
+                    </div>
+
+                    <p>
+                        -Butoni <strong>“Anulo”</strong> i cili i anulon ndryshimet e bëra, <br />
+                        -Butoni <strong>“Ruaj dhe hap”</strong> ruan ndryshimet dhe hap një faqe të re të CRM-it,<br />
+                        -Butoni <strong>“Ruaj dhe mbyll”</strong> ruan ndryshimet dhe ju kthen në dashboard. <br />
+                    </p>
+
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Kthehu mbrapa</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle1" data-bs-toggle="modal">Kthehu mbrapa</button>
                     </div>
                     <div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Lexo manualin per faqe tjera</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Vazhdo para</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+    @*Modali Performanca dhe Raporti*@
+    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel5" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" id="testManuali">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel3">Manuali - Crm</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Performanca dhe raporti</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" a ria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Hide this modal and show the first with the button below.
+                    <p>
+                        Në këtë faqe do të shfaqen të gjitha regjistrimet e votuesve më të dhënat e tyre.
+                    </p>
+
+                    <img src="~/images/VoterDatasPerformance.png" class="w-100" />
+                    <p>
+
+                        - Ikona e editimit të të dhenave gjendet në fund të qdo rreshti në kolonen “Menaxho”, përmes së cilës ofrohet mundësia për të edituar të dhënat e regjistruara.
+
+                    </p>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-6">
+                            <img src=~/images/VotuesParaprak.png style="width:100%" />
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+
+                    <p>
+                        -Në Figuren 18 është shfaqur tabela me të dhënat e regjistruara të votuesit, duke treguar se për cilin subjekt politik ka votuar në zgjedhjet e fundit, si dhe sa ka qenë përqindja e gjasave fillestare për të perkrahur subjektin tuaj politik.
+                    </p>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-6">
+                            <img src="~/images/tedhenatereja.png" style="width:100%" />
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+
+                    <p>
+                        -Ndërsa në Figuren 19 është shfaqur tabela me të dhënat e votuesve të cilat mund të editohen në rast te ndryshimeve eventuale,
+                        <br />-Në rubriken <strong>“Votues i tanishem”</strong> mund të ndryshoni partinë,
+                        <br />-Në rubriken <strong>“Gjasat aktuale”</strong>  mund të ndryshoni përqindjen e gjasave aktuale,
+                        <br />-Në rubriken <strong>“Statusi aktual”</strong> mund të ndryshoni statusin aktual mbi menaxhimin e votuesit.
+                    </p>
+                    <p>
+                        <br />
+                        -Në pjesen lart tabelës gjëndën butonat  <strong>“Shfaq/Largo kolonat nga lista”</strong>,<strong>"Eksporto në excel"</strong> dhe <strong>"Ekporto në pdf"</strong>,
+
+
+
+
+                    </p>
+                    <div class="row">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-6">
+                            <img src="~/images/eksporto.png" class="w-70" />
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+                    <p>
+                        -<strong>”Eksporto në excel”</strong> i eksporton të dhënat e tabelës në excel,
+                        <br />-<strong>”Exporto në pdf”</strong> i eksporton të dhënat e tabelës në pdf. <br />
+
+                    </p>
+                    <p>
+                        -Ndërsa butoni <strong>“Shfaq/Largo kolonat nga lista”</strong> përdoret për të larguar apo shfaqur kolonat nga lista e  regjistrimeve të votuesve, siç është paraqitur ne figurën 21.
+                    </p>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4">
+                            <img src="~/images/ShtoLargo.png" style="width:100%" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+
+
+
+                    </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <div>
                         <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Kthehu mbrapa</button>
                     </div>
                     <div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Lexo manualin per faqe tjera</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Vazhdo para</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @*Manuali Add Voter*@
     <div class="modal fade" id="exampleModalToggle4" aria-hidden="true" aria-labelledby="exampleModalToggleLabel4" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered " id="testManuali">
+            <div class="modal-content" style="160%">
                 <div class="modal-header">
-                    <h1 class="modal-title " id="exampleModalToggleLabel4">Manuali - Crm</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Regjistro Votues</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <img src="~/images/addadmin.png" />
+                <div class="modal-body">
+                    <img src="~/images/ShtoTeDhenatPersonaleVotuesi.png" id="tedhenatpersonalevotuesi" class="w-100" />
+                    <p>
+                        -Në rubriken<strong> “Facebook” </strong>, duhet të vendosni linkun e llogarisë së rrjetit social “Facebook” të votuesit,
+                        -Në rubriken <strong>“Qyteti”</strong>, duhet patjetër të zgjidhni qytetin e votuesit, duke vazhduar me përzgjedhjen e një fshati, apo lagje të votuesit. Duhet të keni parasysh se duhet patjetër të zgjidhet një lagje e votuesit, edhe nëse votuesi i përket një fshati që nuk ka ndonjë lagje. Nëse ndonjë prej adresave të votuesit nuk është e regjistruar në listë, mund të shtoni adresa tjera në butonin “Shto+”.
+                    </p>
+                    <img src="~/images/TedhenatProfesionale.png" class="w-100" />
+                    <p>
+                        -Tek të dhënat profesionale caktoni vendin e punës,sektorin e punës si dhe detyren e votuesit, siç është paraqitur në figurën 10.
+                    </p>
+                    <img src="~/images/ShtoVotuesPartiake.png" class="w-100" />
+                    <p>
+                        -Rubrika <strong>“Numri i anëtarëve“ </strong> përcakton numrin e votuesve në atë familje, pra numri i anëtarëve më të drejtë vote.
+                        -Rubrika <strong>”Gjasat e suksesit fillestar”</strong> percaktojn perqindjen se sa janë gjasat fillestare që votuesi të perkrahë partinë tuaj,
+                        -Rubrika <strong>”Votues i tanishëm” </strong>specifikon se cilen parti e përkrah votuesi të cilin jeni duke e regjistruar,
+                        -Rubrika <strong>”Qendra e votimit” </strong> përcakton qendren në të cilin votuesi ka votuar në zgjedhjet e kaluara të regjistruara nga KQZ. Në rast të ndryshimeve eventuale, tek lista e qendrave është opsioni “Shto+”, në të cilin  mund të shtojni një qënder të re, duke e ruajtur atë përmes butonit ”Ruaj”.
+                    </p>
+                </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <div>
                         <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Kthehu mbrapa</button>
                     </div>
                     <div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle5" data-bs-toggle="modal">Lexo manualin per faqe tjera</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle5" data-bs-toggle="modal">Vazhdo para</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @*Manuali Add Zyrtare*@
     <div class="modal fade" id="exampleModalToggle5" aria-hidden="true" aria-labelledby="exampleModalToggleLabel5" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered " id="testManuali">
+            <div class="modal-content " style="160%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Regjistro Zyrtarë</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Në këtë faqe bëhen regjistrimet e zyrtarëve të subjektit politik, si dhe plotësohen rezultatet e KQZ për secilin prej lokacionëve ku regjistrohet një zyrtarë i ri.
+                            Ju si zyrtarë komunal duhet te regjistroni zyrtarë në nivel fshatrash apo zyrtarë të thjeshtë.
+                            Në këtë dritare kemi dy butona
+
+
+                            <strong>Regjistro zyrtarë</strong>- bën regjistrimin e zyrtarëve të rinj,
+                            <strong>Rezultatet e KQZ</strong> - bën regjistrimin e rezultatëve të KQZ nga zgjedhjet e kaluara.
+
+
+                        </p>
+                        <img src=~/images/zyrtaripersonaltedhenat.png class="w-100" />
+                        <p>
+                            -Plotësohen të dhënat personale duke caktuar adresen e zyrtarit të cilin jemi duke e regjistuar, në këtë menyrë sipas adresave të caktuara, përcaktojme se në cilin lokacion do të ndërveproi zyrtari përkates.
+                            -Duhet të keni parasysh se nuk mund të ruhet një zyrtarë nëse adresat nuk janë të plotësuara si duhet. Nëse votuesi i përket një fshati të caktuar, duhet ti caktohet edhe lagja,  ndërsa në rastet kur fshati nuk ka lagje, lagjen e caktojmë “qender”.
+                        </p>
+                        <img src="~/images/Zyrtaripartiake.png" class="w-100" />
+                        <p>
+                            -Tek “Pozita në parti”, caktohet roli i zyrtarit të cilin jemi duke e regjistruar,
+                            -Tek “Qendra e votimit” caktohet qëndra e cila i perket lokacionit të zyrtarit të cilin jemi duke e regjistruar.
+
+                        </p>
+                        <h5>Rezultatet e KQZ</h5>
+                        <img src="~/images/kqzvota.png" style="width:100%" />
+                        <p>
+                            -Në rubriken <strong>“Rezultatet e KQZ”</strong> - regjistroni të dhënat e votave për secilen parti politike të
+                            lokacionit të cilit jemi duke i regjistruar zyrtarin përkates me rezultate të marrura nga KQZ.<br />
+                            -Në rubriken <strong>“Lloji i zgjedhjeve”</strong> percaktoni llojin e zgjedhjeve,<br />
+                            -Ndersa rubrika <strong>“Data e zgjedhjëve”</strong> ju kërkon te caktoni datën kur janë mbajtur zgjedhjet paraprake, pra
+                            zgjedhjet për të cilat po i marrim te dhënat e votave për partitë politike. <br /> <br />
+                        </p>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <div>
+                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Kthehu mbrapa</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle6" data-bs-toggle="modal">Vazhdo para</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Profili im*@
+    <div class="modal fade" id="exampleModalToggle6" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" id="testManuali">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel5">Manuali - Crm</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Manuali - Profili im</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Hide this modal and show the first with the button below.
+                    <p>
+                        -Tek <strong>“Profili im”</strong> mund të gjejmë të dhënat tona përsonale.Për ti ndryshuar këto të
+                        dhëna,poshtë faqes gjendet butoni “Ruaj ndryshimet”
+                    </p>
+                    <img src="~/images/ProfiliIm.png" style="width:100%" />
+                    <p>
+                        -Në rubriken <strong>"Ngarko foton e profilit"</strong> ju mund të ngarkoni/ndryshoni foton tuaj të profilit,<br />
+                        -Në rubriken <strong>"Numri i telefonit"</strong> ju mund të ngarkoni/ndryshoni foton tuaj të profilit,<br />
+                        -Në rubriken <strong>"Email adresa"</strong> ju mund të ngarkoni/ndryshoni foton tuaj të profilit.<br />
+                    </p>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer d-flex justify-content-between">
                     <div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Kthehu mbrapa</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle5" data-bs-toggle="modal">Kthehu</button>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <a class="btn btn-primary bi bi-info-lg" data-bs-toggle="modal" href="#exampleModalToggle" role="button"></a>
+    <a class="btn btn-primary bi bi-info-lg" data-bs-toggle="modal" href="#exampleModalToggle1" role="button"></a>
 </div>
