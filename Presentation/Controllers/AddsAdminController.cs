@@ -77,6 +77,7 @@ namespace Presentation.Controllers
                     else
                     {
                         ViewBag.UserExist = "Ky email egziston ne sistem";
+                        VoterAddress();
                         return View("AddVoter", register);
                     }
                 }
@@ -127,6 +128,7 @@ namespace Presentation.Controllers
                     {
                         ModelState.AddModelError("", "Ky email egziston");
                         ViewBag.EmailExist = "nuk ka email";
+                        PoliticalOfficialAddress();
                         return View();
                     }
                     if (userInRoleKryetarIFshatit)
