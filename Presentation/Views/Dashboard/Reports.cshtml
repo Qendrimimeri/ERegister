@@ -1,6 +1,9 @@
 ﻿@model PersonVM
+@inject IOptionsSnapshot<Roles> _roles;
+
 @{
     Layout = "_DashboardLayout";
+    var roles = _roles.Value;
 }
 
 <h3>Menaxho</h3>
@@ -9,9 +12,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div>
-
                     <form asp-controller="Dashboard" asp-action="Reports" method="post">
-
                         <br/>
                         <style>
                             th {
@@ -83,10 +84,10 @@
                                     font-size:13px;
                                 }
                             }
-}
+
 
                         </style>
-                        <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
+                        <div class="d-flex flex-row justify-content-between flex-lg-row flex-column position-relative">
                             <div class="col-lg-6 ps-2 pe-2">
                                 <div class="tabkorrigjim">
                                     <p>Të dhënat nga regjistrimi</p>
@@ -155,7 +156,29 @@
                                     </table>
                                 </div>
                             </div>
+                        
                         </div>
+                        <div class="">
+                            @if (User.IsInRole(roles.KryetarIPartise))
+                            {
+                                <div class="ps-2 position-absolute end-0 top-0 me-2">
+                                    <partial name="_ManualiAdminPerformancePartial"></partial>
+                                </div>
+                            }
+                            @if (User.IsInRole(roles.KryetarIKomunes))
+                            {
+                                <div class="ps-3">
+                                    <partial name="_ManualiKryetarKomunesPerformancePartial"></partial>
+                                </div>
+                            }
+                            @if (User.IsInRole(roles.KryetarIFshatit))
+                            {
+                                <div class="ps-3">
+                                    <partial name="_ManualiKryetarFshatitPerformancePartial"></partial>
+                                </div>
+                            }
+                        </div>
+                        
                         <div class="mb-2 ml-5 ps-2 pe-2">
                             <label for="exampleFormControlTextarea1" class="form-label">Përshkruaj gjendjen ekzistuese dhe mundësitë ose barrierat e suksesit:</label>
                             <textarea asp-for="GeneralDescription" class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
