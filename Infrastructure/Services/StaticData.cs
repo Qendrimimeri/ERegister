@@ -89,9 +89,9 @@ namespace Infrastructure.Services
         public static IEnumerable<KeyValueModel> ActualStatus()
         {
             var actualStatus = new List<KeyValueModel>() {
-                new KeyValueModel { Key = "I pa perfunduar", Value = "I pa perfunduar" },
-                new KeyValueModel { Key = "Ne proces", Value = "Ne proces" },
-                new KeyValueModel { Key = "I perfunduar", Value = "I perfunduar" },
+                new KeyValueModel { Key = "I pa perfunduar", Value = "I pa përfunduar" },
+                new KeyValueModel { Key = "Ne proces", Value = "Në proces" },
+                new KeyValueModel { Key = "I perfunduar", Value = "I përfunduar" },
             };
             return actualStatus;
         }
