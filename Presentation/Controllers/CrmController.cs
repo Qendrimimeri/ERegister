@@ -109,7 +109,7 @@ public class CrmController : Controller
                              from d in this._context.Roles
                              from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
                                                                            && x.RoleId == d.Id
-                                                                           && a.FullName.StartsWith(prefix)
+                                                                           && a.FullName.Contains(prefix)
                                                                            && a.Id == x.UserId)
 
                              select new
