@@ -10,7 +10,7 @@
 
 
 </head>
-<div class="bg-white pe-3">
+<div class="bg-white">
     <div class="d-flex justify-content-between">
         @if (User.IsInRole(roles.KryetarIPartise))
         {
@@ -20,13 +20,13 @@
         }
         @if (User.IsInRole(roles.KryetarIKomunes))
         {
-            <div class="ps-3">
+            <div class="ps-2">
                 <partial name="_ManualiKryetarKomunesPerformancePartial"></partial>
             </div>
         }
         @if (User.IsInRole(roles.KryetarIFshatit))
         {
-            <div class="ps-3">
+            <div class="ps-2">
                 <partial name="_ManualiKryetarFshatitPerformancePartial"></partial>
             </div>
         }
@@ -68,7 +68,7 @@
                 </div>
         </div>
     </div>
-    <div id="customers">
+    <div id="customers" class="table table-responsive">
         <table class="table table-striped table-hover small" id="example">
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
@@ -118,7 +118,7 @@
                         <td class="text-center">@voter.InitialChances</td>
                         <td class="text-center">@voter.ActualChances</td>
                         <td class="text-center">@voter.ActualStatus</td>
-                        <td><a class="no-export" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
+                        <td><a class="no-export text-center" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
                     </tr>
                   
                 }
