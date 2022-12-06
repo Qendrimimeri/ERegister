@@ -98,6 +98,9 @@ namespace Domain.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("HasPasswordChange")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImgPath")
                         .HasColumnType("nvarchar(max)");
 

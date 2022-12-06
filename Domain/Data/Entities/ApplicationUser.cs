@@ -17,8 +17,8 @@ namespace Domain.Data.Entities
         public string AddressId { get; set; } = null!;
         public string ActualStatus { get; set; } = null!;
         public string WorkId { get; set; } = null!;
-
         public string? ImgPath { get; set; }
+        public int? HasPasswordChange { get; set; }
 
 
         public virtual Address Address { get; set; } = null!;

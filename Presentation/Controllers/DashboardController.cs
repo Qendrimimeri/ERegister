@@ -49,6 +49,7 @@ namespace Presentation.Controllers
         {
             try
             {
+                ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
                 {
                     var user = _httpContext.HttpContext.User.Identity;
