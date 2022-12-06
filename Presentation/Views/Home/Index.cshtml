@@ -25,11 +25,11 @@
                 </div>
                 @if (ViewBag.NotAuth == true)
                 {
+                    if (ViewBag.NotConfirmed == true)
+                    {
+                        <span class="text-danger">Ju lutemi konfirmoni llogarinë tuaj!</span>
+                    }
                     <span class="text-danger">Kredencialet e gabuara</span>
-                }
-                @if (ViewBag.NotConfirmed == true)
-                {
-                    <span class="text-danger">Ju lutemi konfirmoni llogarinë tuaj!</span>
                 }
                 
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-between">
