@@ -11,9 +11,6 @@
     var userRole = User.Identities.FirstOrDefault().Claims.Select(x => x.Value).Skip(4).Take(1).FirstOrDefault();
 
 }
-
-
-
 <link rel="stylesheet" href="~/cssViews/CrmIndex.css">
 <section class="section">
     <div class="row">
@@ -21,39 +18,31 @@
             <div class="card">
                 @if (User.IsInRole(roles.KryetarIPartise))
                 {
-                    <div class="ps-3">
-                            <partial name="_ManualiAdminCrmPartial"></partial>
-                    </div>
+                    <div class="ps-3"><partial name="_ManualiAdminCrmPartial"></partial></div>
                 }
                 @if (User.IsInRole(roles.KryetarIKomunes))
                 {
-                    <div class="ps-3">
-                        <partial name="_ManualiKryetarKomunesCrmPartial"></partial>
-                    </div>
+                    <div class="ps-3"> <partial name="_ManualiKryetarKomunesCrmPartial"> </partial> </div>
                 }
                 @if (User.IsInRole(roles.KryetarIFshatit))
                 {
-                    <div class="ps-3">
-                        <partial name="_ManualiKryetarFshatitCrmPartial"></partial>
-                    </div>
+                    <div class="ps-3"> <partial name="_ManualiKryetarFshatitCrmPartial"> </partial> </div>
                 }
                 <div class="ps-3 pe-3">
                     <div class="row justify-content-between flex-sm-row flex-md-row flex-column">
-                      <div class=' aa col-sm-10 pt-4 pb-4'>
-                            <input type="text" class=" form-control border-2"  placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
+                        <div class=' aa col-sm-10 pt-4 pb-4'>
+                            <input type="text" class=" form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
                                    aria-describedby="button-addon1" id="SearchBtn">
-                      </div>
-                       <div class = "col-sm-2 mb-3 pt-4 pb-2">
-                       <button class="btn btn-primary w-100 text-white test" id="butoni"  onclick="SetVoters()">Kërko   </button>
                         </div>
-                                 @if(ViewBag.UserNull == "Nuk ka te dhena")
-                            {
-                                <div class="text-danger"> Nuk ka të dhëna për "@ViewBag.Name"!</div>
-                                
-                            }
-                        
+                        <div class="col-sm-2 mb-3 pt-4 pb-2">
+                            <button class="btn btn-primary w-100 text-white test" id="butoni" onclick="SetVoters()">Kërko   </button>
+                        </div>
+                        @if (ViewBag.UserNull == "Nuk ka te dhena")
+                        {
+                            <div class="text-danger"> Nuk ka të dhëna për "@ViewBag.Name"!</div>
+                        }
+
                     </div>
-                    
                     <style>
                         th {
                             font-weight: 580;
@@ -67,30 +56,28 @@
     </div>
 </section>
 <style>
-    @@media screen and (max-width: 1800px){
-              #testManuali{
-                  max-width:70%;
-              }
-          }
-          @@media screen and (max-width: 600px){
-              #testManuali{
-                  max-width:100%;
-              }
-          }
+    @@media screen and (max-width: 1800px) {
+        #testManuali {
+            max-width: 70%;
+        }
+    }
+
+    @@media screen and (max-width: 600px) {
+        #testManuali {
+            max-width: 100%;
+        }
+    }
 </style>
 @section Scripts
     {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-
-
-
-         $(function () {
+        $(function () {
             $("#SearchBtn").autocomplete({
                 source: function (request, response) {
                     $.ajax({
                         url: '/Crm/AutoComplete/',
-                        data: { "prefix": request.term, "id": @userMuniId, "role":"@userRole" },
+                        data: { "prefix": request.term, "id": @userMuniId, "role": "@userRole" },
                         type: "POST",
                         success: function (data) {
                             response($.map(data, function (item) {
@@ -112,12 +99,12 @@
             });
         });
 
-         const input = document.getElementById('SearchBtn');
-       input.addEventListener('keypress', event=>{
-         if(event.key == 'Enter'){
-             document.getElementById('butoni').click();
-         }
-     })
+        const input = document.getElementById('SearchBtn');
+        input.addEventListener('keypress', event => {
+            if (event.key == 'Enter') {
+                document.getElementById('butoni').click();
+            }
+        })
 
         function SetVoters() {
             let name = $('#SearchBtn').val();
@@ -129,13 +116,12 @@
                 success: function (data) {
                     table.empty(data)
                     table.append(data);
-
                     const SpecificDemand = document.querySelector('#inputGroupSelect03');
                     const SpecificReason = document.querySelector('#generaldemand');
                 }
             });
-         }
-</script>
+        }
+    </script>
     <style>
         @@media screen and (max-width:488px) {
             .test {
@@ -145,19 +131,21 @@
                 width: 100% !important;
             }
         }
-        @@media screen and (max-width: 1800px){
-            #testManuali{
-                max-width:70%;
+
+        @@media screen and (max-width: 1800px) {
+            #testManuali {
+                max-width: 70%;
             }
         }
-        @@media screen and (max-width: 600px){
-            #testManuali{
-                max-width:100%;
+
+        @@media screen and (max-width: 600px) {
+            #testManuali {
+                max-width: 100%;
             }
         }
     </style>
-<link rel="stylesheet" type="text/css" href="~/jquerycrm/jquery-ui.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>@*
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
-<script type="text/javascript" src="~/jquerycrm/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/jquerycrm/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="~/jquerycrm/jquery-ui.js"></script>
 }
+ 

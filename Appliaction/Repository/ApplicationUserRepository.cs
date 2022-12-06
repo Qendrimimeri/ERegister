@@ -77,7 +77,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
-                InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
+                InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().SuccessChances,
                 ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
                 ActualStatus = person.ActualStatus
             }).ToListAsync();
@@ -192,7 +192,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
                     ActivitiesYourPlan =  _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                     MunicipalityName = person.Address.Municipality.Name,
-                    PollCenter = person.Address.PollCenter.CenterName,
+                    PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                     InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                     PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
@@ -225,7 +225,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
                 ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                 MunicipalityName = person.Address.Municipality.Name,
-                PollCenter = person.Address.PollCenter.CenterName,
+                PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
                 InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                 PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
@@ -351,10 +351,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         getUser.ImgPath = fullPath;
         getUser.Email = user.Email;
         getUser.NormalizedEmail = user.Email.ToUpper();
-
-
         getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
-
         await _context.SaveChangesAsync();
 
         return true;
@@ -723,7 +720,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             AdministrativeUnit = person.Work.AdministrativeUnit,
             Duty = person.Work.Duty,
             MunicipalityName = person.Address.Municipality.Name,
-            PollCenter = person.Address.PollCenter.CenterName,
+            PollCenter = person.Address.PollCenter.CenterNumber,
             VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
             InitialChance = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
             PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
