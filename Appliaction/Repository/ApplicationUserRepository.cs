@@ -131,7 +131,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                   Village = person.Address.Village.Name,
                   PollCenter = person.Address.PollCenter.CenterNumber,
                   VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                  PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                  PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubject.Name,
                   CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
                   InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().SuccessChances,
                   ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,

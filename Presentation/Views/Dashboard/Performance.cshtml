@@ -6,6 +6,9 @@
     var roles = _roles.Value;
 }
 <head><link rel="stylesheet" href="~/cssViews/Performance.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+
 </head>
 <div class="bg-white pe-3">
     <div class="d-flex justify-content-between">
@@ -58,14 +61,14 @@
                                     <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne excel</a>
                                 </li>&nbsp;&nbsp;
                                 <li class="nav-item btnwidth ">
-                                    <a class="nav-link text-md-center hover-link butonipdf btn btn-primary testli" role="button" onclick="ExportToPdf()"><span class="bi bi-file-pdf "></span> Eksporto ne pdf </a>
+                                    <a class="nav-link text-md-center hover-link butonipdf btn btn-primary testli" role="button" onclick="demoFromHTML()"><span class="bi bi-file-pdf "></span> Eksporto ne pdf </a>
                                 </li>
                             </ul>
                         </div>
                 </div>
         </div>
     </div>
-    <div class="table table-responsive">
+    <div id="customers">
         <table class="table table-striped table-hover small" id="example">
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
@@ -123,6 +126,13 @@
         </table>
     </div>
 </div>
+<style>
+    @@media print { 
+ /* All your print styles go here */
+  #noexport { display: none !important; } 
+
+}
+</style>
 <link rel="stylesheet" type="text/css" href="~/datatable/datatables.css" />
 @section Scripts {
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -164,31 +174,62 @@
              XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
              XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
         }
-      function ExportToPdf() {
-             let tableClone = $('#example');
-                    tableClone
-                    .find(".no-export")
-                    .each(function(){
-                        $(this).hide();
-                    });
-                    //$("body").html(tableClone);
-                     html2canvas(document.getElementById('example'), {
-                onrendered: function (canvas) {
-                    var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500
-                        }]
-                    };
-                    pdfMake.createPdf(docDefinition).download("Table.pdf");
-                    setTimeout(()=>{
-                    location.reload();
+       
+        function demoFromHTML() {
+            var pdf = new jsPDF('l', 'mm', [620, 440]);
+            source = $('#customers')[0];
 
-                    },"1000");
+            specialElementHandlers = {
+                '#bypassme': function(element, renderer) {
+                    return true
                 }
-            });
+            };
+            margins = {
+                top: 20,
+                bottom: 15,
+                left: 60,
+                width: 1000
+            };
+
+       
+            pdf.fromHTML(
+                    source, // HTML string or DOM elem ref.
+                    margins.left, // x coord
+                    margins.top, {// y coord
+                        'width': margins.width, // max width of content on PDF
+                        'elementHandlers': specialElementHandlers
+                    },
+            function(dispose) {
+                pdf.save('Test.pdf');
+            }
+            , margins);
         }
+    
+      //function demoFromHTML() {
+      //       let tableClone = $('#example');
+      //              tableClone
+      //              .find(".no-export")
+      //              .each(function(){
+      //                  $(this).hide();
+      //              });
+      //              //$("body").html(tableClone);
+      //               html2canvas(document.getElementById('example'), {
+      //          onrendered: function (canvas) {
+      //              var data = canvas.toDataURL();
+      //              var docDefinition = {
+      //                  content: [{
+      //                      image: data,
+      //                      width: 500
+      //                  }]
+      //              };
+      //              pdfMake.createPdf(docDefinition).download("Table.pdf");
+      //              setTimeout(()=>{
+      //              location.reload();
+
+      //              },"1000");
+      //          }
+      //      });
+      //  }
 
 </script>
 <script>
