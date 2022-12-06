@@ -2,13 +2,14 @@
 let response = fetch(kqzrez).then(res => res.json());
 let rez = response.then((values) => {
 
-    console.log(values)
     const lastYear = values.Nacionale["lastYear"];
     const thisYear = values.Nacionale["thisYear"];
     const cityName = values.Nacionale["cityName"];
     const politicalSubjects = values.Nacionale["politicSubjects"];
-    var selectedCity = document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
-    var selectedCity = document.getElementById("city-lokale").innerText = `${cityName} - Zgjedhjet Lokale`;
+    document.getElementById("city-nacinale").innerText = `${cityName} - Zgjedhjet Nacionale`;
+    document.getElementById("city-lokale").innerText = `${cityName} - Zgjedhjet Lokale`;
+    console.log(lastYear)
+    console.log(thisYear)
     new ApexCharts(document.querySelector("#columnChart"), {
         series: [{
             name: 'Viti 2021',

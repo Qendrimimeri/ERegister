@@ -2,7 +2,7 @@ const url = "/api/service/";
 getMunis();
 function getMunis() {
     let endpoint = url + "getmunis";
-    let result = fetch(endpoint)
+    fetch(endpoint)
         .then(res => res.json())
         .then(data => {
             data.forEach(x => {
