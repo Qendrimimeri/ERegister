@@ -9,11 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-<<<<<<< HEAD
 using System;
-=======
 using System.Runtime.ConstrainedExecution;
->>>>>>> HasPass
 using System.Security.Claims;
 
 
