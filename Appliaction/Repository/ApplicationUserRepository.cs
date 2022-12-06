@@ -51,6 +51,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         _encrypt = encrypt.Value;
     }
 
+
+
     public async Task<List<PersonVM>> GetPersonInfoAsync()
     {
         EncryptionService encrypt = new(_encrypt);
@@ -73,17 +75,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 MunicipalityName = person.Address.Municipality.Name,
                 PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
                 InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                 ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
-
-
                 ActualStatus = person.ActualStatus
             }).ToListAsync();
-
             var usersInRole = await _userManager.GetUsersInRoleAsync("SimpleRole");
-
             var result = new List<PersonVM>();
             foreach (var user in getAllUsers)
                 foreach (var item in usersInRole)
@@ -92,7 +90,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
             return result;
         }
-
         else if (isThisMunicipalityAdmin)
         {
             var getAllUsers = await _context.ApplicationUsers.Include(x => x.Address)
@@ -104,7 +101,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
-                    PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
+                    PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubject.Name,
                     CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
                     InitialChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
                     ActualChances = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
@@ -149,7 +146,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                         result.Add(user);
 
             return result;
-
         }
     }
 
@@ -235,6 +231,53 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 PreviousVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().PoliticialSubject.Name,
                 CurrentVoter = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubject.Name,
             }).FirstOrDefaultAsync();
+
+            if (user)
+                return getUser;
+            return null;
+        }
+;
+    }
+
+    public async Task<List<AutoCompleteResult>> AutoCompleteResultAsync(string name)
+    {
+        EncryptionService encrypt = new(_encrypt);
+        var loginUserId = GetLoginUser();
+        var userMuni = await GetMunicipalityIdOfUser(loginUserId);
+        var userVillage = await GetVillageIdOfUser(loginUserId);
+
+        var isThisUserMunicipalityAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                             .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIKomunes);
+
+        var isThisUserVillageAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                 .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIFshatit);
+
+        var userFromDb = await _context.ApplicationUsers.Where(x => x.FullName == name).FirstOrDefaultAsync();
+        if (userFromDb == null)
+            return null;
+
+        var user = await _userManager.IsInRoleAsync(userFromDb, _roles.SimpleRole);
+
+        if (isThisUserMunicipalityAdmin)
+        {
+            var getUser = await _context.ApplicationUsers.Include(x => x.Address)
+                .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni).Select(person => new AutoCompleteResult()
+                {
+                    Id = person.Id,
+                    Name = person.FullName,
+                }).ToListAsync();
+
+            if (user)
+                return getUser;
+            return null;
+        }
+        else
+        {
+            var getUser = await _context.ApplicationUsers.Where(x => x.FullName == name).Select(person => new AutoCompleteResult()
+            {
+                Id = person.Id,
+                Name = person.FullName,
+            }).ToListAsync();
 
             if (user)
                 return getUser;
