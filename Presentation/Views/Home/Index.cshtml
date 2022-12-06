@@ -14,12 +14,12 @@
             <div class="p-5 ml-4 responziveMobile">
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label">Email adresa juaj</label>
-                    <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control font-mobile" asp-for="Email" aria-describedby="emailHelp">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="Password" class="form-label">Fjalëkalimi</label>
-                    <input type="password" class="form-control" asp-for="Password" aria-describedby="passwordHelp">
+                    <input type="password" class="form-control font-mobile" asp-for="Password" aria-describedby="passwordHelp">
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
@@ -39,7 +39,7 @@
                         <a style="float:right;text-decoration:none;" class="forgotpass" asp-controller="Home" asp-action="Forgot">Keni harruar fjalëkalimin?</a>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0">KYÇU</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0 font-mobile">Kyçu</button>
 
             </div>
         </form>
@@ -55,6 +55,12 @@
         }
         .responziveMobile{
             padding:10px !important;
+        }
+        .font-mobile{
+            font-size:16px;
+            padding-top:7px !important;
+            padding-bottom:7px !important;
+
         }
     }
 
