@@ -16,18 +16,18 @@
                 <div class="modal-body">
                     <div class="container-fluid row text-align-center justify-content-center pt-2 ">
                         <div class="col-12 col-md-8">
-                            <div class="">
+                            <div class="pb-4">
                                 <form>
-                                <div class="mb-3">
-                                    <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
-                                    <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
-                                    <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                    <small id="response-text" class="text-danger"></small>
-                                </div>
-                                <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
+                                    <div class="mb-3">
+                                        <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
+                                        <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
+                                        <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                        <small id="response-text" class="text-danger"></small>
+                                    </div>
+                                    <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
                                 </form>
                             </div>
                         </div>
@@ -40,17 +40,17 @@
 <div>
     <div class="card">
         <div class="d-flex justify-content-center align-items-center position-relative">
-            <div>
+            <div class="me-3">
                 <h4 class="text-center pt-4">
                     Mirë se vini <strong>
                         @((await
-                            _userManager.FindByNameAsync(User.Identity.Name)).FullName)
+                        _userManager.FindByNameAsync(User.Identity.Name)).FullName)
                     </strong>
                 </h4>
             </div>
             @if (User.IsInRole(roles.KryetarIPartise))
             {
-                <div class="ps-2 position-absolute end-0 me-2">
+                <div class="ps-2 position-absolute end-0 me-1">
                     <partial name="_ManualiAdminDashboardPartial"></partial>
                 </div>
             }
@@ -99,36 +99,38 @@
     </div>
 </div>
 <style>
-        @@media screen and (max-width:488px) {
-            .test {
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: center;
-                width: 100% !important;
-            }
+    @@media screen and (max-width:488px) {
+        .test {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            width: 100% !important;
         }
-        @@media screen and (max-width: 1800px){
-            #testManuali{
-                max-width:70%;
-            }
+    }
+
+    @@media screen and (max-width: 1800px) {
+        #testManuali {
+            max-width: 70%;
         }
-        @@media screen and (max-width: 600px){
-            #testManuali{
-                max-width:100%;
-            }
+    }
+
+    @@media screen and (max-width: 600px) {
+        #testManuali {
+            max-width: 100%;
         }
+    }
 </style>
 <script src="~/js/change_password.js"></script>
 @if (User.IsInRole(roles.KryetarIPartise))
 {
     @section Scripts {
-    <script src="~/js/municipalities.js"></script>
-    <script src="~/js/admin_graphs.js"></script>
+<script src="~/js/municipalities.js"></script>
+<script src="~/js/admin_graphs.js"></script>
     }
 }
 else
 {
     @section Scripts {
-    <script src="~/js/muni_graphs.js"></script>
+<script src="~/js/muni_graphs.js"></script>
     }
 }

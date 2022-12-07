@@ -285,20 +285,20 @@ namespace Presentation.Controllers
 
         [HttpPost, Route("addkqzresult")]
         public async Task<ActionResult> AddKqzResult([FromBody] KqzRegisterVM model)
-        {
+         {
             try
             {
                 var hasData = _context.Kqzregisters
                     .Where(x => x.PollCenterId == model.PollCenterId && x.ElectionType == model.ElectionType).ToList();
 
-                if (hasData.Count <= 0)
+                if (hasData.Count == 0)
                 {
                     var test = _mapper.Map<Kqzregister>(model);
                     await _context.Kqzregisters.AddAsync(test);
                     await _context.SaveChangesAsync();
                     return Ok();
                 } 
-                else
+                else if(hasData.Count >= 8)
                 {
                     var kqz = _context.Kqzregisters.Where(x => x.PollCenterId == model.PollCenterId && 
                                                                 x.PoliticialSubjectId == model.PoliticialSubjectId && 
@@ -311,6 +311,8 @@ namespace Presentation.Controllers
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
+                return Ok();
+
 
             }
             catch (Exception err)
