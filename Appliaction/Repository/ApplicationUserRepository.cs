@@ -571,16 +571,14 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             CreatedAt = DateTime.Now,
             WorkId = workId,
             AddressId = addressId,
-            ActualStatus = "unset",
             ImgPath = "default.png",
-            EmailConfirmed = true,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
         // Use this for Development env.
         var password = CreateRandomPassword(8);
 
-        var result = await _userManager.CreateAsync(simpleUser, "qendrimi");
+        var result = await _userManager.CreateAsync(simpleUser, password);
         await _context.SaveChangesAsync();
 
 
