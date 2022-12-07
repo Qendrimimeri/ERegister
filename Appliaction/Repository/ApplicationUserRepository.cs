@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Claims;
 
 
@@ -441,6 +442,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         return false;
     }
 
+    public async Task<bool> IsEmailConfirmed(LoginVM model)
+    {
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user.EmailConfirmed == true) return true;
+        return false;
+    }
+
     public async Task<bool> RegisterVoterAsync(RegisterVM model)
     {
         EncryptionService encrypt = new(_encrypt);
@@ -696,7 +704,26 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), _roles.AnetarIThjeshte);
 
 
+    public async Task<IdentityResult> ChangePassword(string password)
+    {
+        var user = await _userManager.FindByIdAsync(GetLoginUser());
+        var result = await _userManager.ResetPasswordAsync(user, (await _userManager.GeneratePasswordResetTokenAsync(user)), password);
+        if (result.Succeeded)
+        {
+            user.HasPasswordChange = 1;
+            _context.Update(user);
+            _context.SaveChanges();
+        }
+        return result;
+    }
 
+    public async Task<bool?> HasPasswordChange()
+    {
+        var user = await _userManager.FindByIdAsync(GetLoginUser());
+        var res = user.HasPasswordChange;
+        if (res == null || res == 0) return false;
+        return true;
+    }
 
     #region
 

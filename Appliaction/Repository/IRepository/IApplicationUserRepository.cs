@@ -211,5 +211,11 @@ namespace Application.Repository.IRepository
         Task<bool> IsInRoleKryetarIFshatitWithEmail(string email);
 
         Task<bool> IsInRoleAnetarIThjeshtWithEmail(string email);
+
+        Task<IdentityResult> ChangePassword(string password);
+
+       Task<bool?> HasPasswordChange();
+
+        Task<bool> IsEmailConfirmed(LoginVM model);
     }
 }
