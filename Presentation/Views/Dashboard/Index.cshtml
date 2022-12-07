@@ -10,13 +10,13 @@
     <div class="modal fade hide" id="change-password" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Ndrysho fjalëkalimin</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Ndrysho fjalëkalimin</h5>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid row text-align-center justify-content-center pt-2 ">
                         <div class="col-12 col-md-8">
-                            <div class="">
+                            <div class="pb-4">
                                 <form>
                                 <div class="mb-3">
                                     <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
@@ -42,17 +42,17 @@
 <div>
     <div class="card">
         <div class="d-flex justify-content-center align-items-center position-relative">
-            <div>
+            <div class="me-3">
                 <h4 class="text-center pt-4">
                     Mirë se vini <strong>
                         @((await
-                            _userManager.FindByNameAsync(User.Identity.Name)).FullName)
+                        _userManager.FindByNameAsync(User.Identity.Name)).FullName)
                     </strong>
                 </h4>
             </div>
             @if (User.IsInRole(roles.KryetarIPartise))
             {
-                <div class="ps-2 position-absolute end-0 me-2">
+                <div class="ps-2 position-absolute end-0 me-1">
                     <partial name="_ManualiAdminDashboardPartial"></partial>
                 </div>
             }
@@ -131,13 +131,13 @@
 @if (User.IsInRole(roles.KryetarIPartise))
 {
     @section Scripts {
-    <script src="~/js/municipalities.js"></script>
-    <script src="~/js/admin_graphs.js"></script>
+<script src="~/js/municipalities.js"></script>
+<script src="~/js/admin_graphs.js"></script>
     }
 }
 else
 {
     @section Scripts {
-    <script src="~/js/muni_graphs.js"></script>
+<script src="~/js/muni_graphs.js"></script>
     }
 }

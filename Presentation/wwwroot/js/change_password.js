@@ -11,7 +11,7 @@
         console.log(newPassword);
         console.log(confirmPassword)
         if (newPassword !== confirmPassword) {
-            document.getElementById("response-text").innerText = "Fjalëkalimi nuk ësht i njëjt.";
+            document.getElementById("response-text").innerText = "Fjalëkalimi nuk përputhet!";
         } else {
             fetch('/api/service/changepasswordasync?password=' + confirmPassword, {
                 method: 'POST',

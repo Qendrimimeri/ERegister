@@ -77,7 +77,7 @@ namespace Presentation.Controllers
                     }
                     else
                     {
-                        ViewBag.UserExist = "Ky email egziston ne sistem";
+                        ViewBag.UserExist = "Email i dhënë ekziston në sistem!";
                         VoterAddress();
                         return View("AddVoter", register);
                     }
@@ -127,7 +127,7 @@ namespace Presentation.Controllers
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
                     else
                     {
-                        ModelState.AddModelError("", "Ky email egziston");
+                        ModelState.AddModelError("", "Ky email ekziston!");
                         ViewBag.EmailExist = "nuk ka email";
                         PoliticalOfficialAddress();
                         return View();
