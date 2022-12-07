@@ -513,10 +513,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             UserId = userId.Id,
             PoliticialSubjectId = model.PoliticalSubject,
             SuccessChances = model.SuccessChance,
-            GeneralReason = "Unset",
-            GeneralDemand = "Unset",
-            SpecificDemand = "Unset",
-            GeneralDescription = "Unset",
             HelpId = 1
 
         };

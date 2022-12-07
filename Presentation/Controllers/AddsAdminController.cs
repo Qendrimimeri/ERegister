@@ -38,11 +38,12 @@ namespace Presentation.Controllers
 
 
         [HttpGet, Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
-        public IActionResult AddVoter()
+        public async Task<IActionResult> AddVoter()
         {
             
             try
             {
+                ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
                 VoterAddress();
                 return View();
             }
