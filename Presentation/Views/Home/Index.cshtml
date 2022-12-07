@@ -17,9 +17,11 @@
                     <input type="email" class="form-control font-mobile" asp-for="Email" aria-describedby="emailHelp">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div>
                     <label asp-for="Password" class="form-label">Fjalëkalimi</label>
-                    <input type="password" class="form-control font-mobile" asp-for="Password" aria-describedby="passwordHelp">
+                <div class="d-flex align-items-center"> 
+                    <input type="password" class="form-control font-mobile"  id="password" asp-for="Password" aria-describedby="passwordHelp">
+                      <i class="bi bi-eye-slash fs-4" id="togglePassword"></i>
+               
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
@@ -50,7 +52,10 @@
         </form>
     </div>
 </div>
+<script src="~/js/security_stamp.js"></script>
+
 <style>
+    
     @@media screen and (max-width:488px) {
         .test {
             display: flex;
