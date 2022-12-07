@@ -19,7 +19,41 @@
         userNeigborhoodId = await _unitOfWork.ApplicationUser.GetNeigborhoodIdOfVillageForUser(user.Id, userVillageId);
     }
 }
-
+@if (User.IsInRole(roles.AnetarIThjeshte))
+{
+    @if (!ViewBag.HasPasswordChange)
+    {
+        <div class="modal fade hide" id="change-password" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Ndrysho fjalëkalimin</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid pt-2 ">
+                            <div class="col-12">
+                                <div class="p-2">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
+                                            <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
+                                            <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                            <small id="response-text" class="text-danger"></small>
+                                        </div>
+                                        <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
 <head>
 <link rel="stylesheet" href="~/cssViews/AddVoter.css">
 </head>
@@ -88,7 +122,7 @@
                             <label for="exampleInputEmail1">Email adresa</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email"  placeholder="Shkruaj email adresen">
                             <span asp-validation-for="Email" class="text-danger"></span>
-                            @if (ViewBag.UserExist == "Ky email egziston ne sistem")
+                            @if (ViewBag.UserExist == "Email i dhënë ekziston në sistem!")
                             {
                                 <span class="text-danger">@ViewBag.UserExist</span>
                             }
@@ -351,6 +385,7 @@
         </div>
     </div>
 </section>
+<script src="~/js/change_password.js"></script>
 @if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts

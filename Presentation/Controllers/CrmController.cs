@@ -34,10 +34,11 @@ public class CrmController : Controller
 
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         try
         {
+            ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
             return View();
         }
         catch (Exception err)
