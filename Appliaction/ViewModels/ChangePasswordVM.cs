@@ -18,7 +18,7 @@ namespace Application.ViewModels
         [DataType(DataType.Password)]
         public string? NewPassword { get; set; }
 
-        [Required(ErrorMessage = "Ju lutem shkruani fjalëkalimin e e ri!")]
+        [Required(ErrorMessage = "Ju lutem shkruani fjalëkalimin e ri!")]
         [DataType(DataType.Password)]
         [Compare("NewPassword",ErrorMessage = "Fjalëkalimet nuk përputhen")]
         public string? ConfirmPassword { get; set; }

@@ -571,6 +571,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             CreatedAt = DateTime.Now,
             WorkId = workId,
             AddressId = addressId,
+            ActualStatus = "Unset",
             ImgPath = "default.png",
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
