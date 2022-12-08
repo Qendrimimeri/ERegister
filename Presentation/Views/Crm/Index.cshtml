@@ -100,7 +100,7 @@
         </div>
     </div>
 </section>
-<script src="~/js/security_stamp.js"></script>
+<script src="~/js/security_stamp.js" asp-append-version="true"></script>
 
 <style>
     #togglePassword, #togglePassword2, #togglePassword3 {
@@ -122,9 +122,9 @@
 </style>
 @section Scripts
     {
-    <script src="~/js/change_password.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+    <script src="~/js/change_password.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" asp-append-version="true"></script>
+    <script asp-append-version="true">
         $(function () {
             $("#SearchBtn").autocomplete({
                 source: function (request, response) {
@@ -198,7 +198,7 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="~/jquerycrm/jquery-ui.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="~/jquerycrm/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/jquerycrm/jquery-ui.js" asp-append-version="true"></script>
 }
  

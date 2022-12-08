@@ -551,7 +551,7 @@
         </div>
     </div>
 </section>
-<script>
+<script asp-append-version="true">
           var currElem = null;
            function BoldText(elem) {
 
@@ -568,8 +568,8 @@
 {
     @section Scripts
     {
-<script src="~/js/kqz_validation_for_admin.js"></script>
-<script language="javascript">
+<script src="~/js/kqz_validation_for_admin.js" asp-append-version="true"></script>
+<script language="javascript" asp-append-version="true">
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -577,7 +577,7 @@
     today = yyyy + '-' + mm + '-' + dd;
     $('#year').attr('max',today);
 </script>
-<script>
+<script asp-append-version="true">
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
     const forma = document.querySelector("#forma");
@@ -610,7 +610,7 @@
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
     $('#table').hide();
     $('#neigborhoodsVillage-container').hide();
     $('#villages').change(function () {
@@ -658,7 +658,7 @@
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
         const url = "/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -1089,7 +1089,7 @@
             }));
     }
 </script>
-<script>
+    <script asp-append-version="true">
     $('#table').hide();
     const linku1 = document.getElementById('klasa1');
     const linku2 = document.getElementById('klasa2');
@@ -1296,8 +1296,8 @@ else if (User.IsInRole(roles.KryetarIFshatit))
 {
     @section Scripts
     {
-<script src="~/js/kqz_validations.js"></script>
-<script language="javascript">
+<script src="~/js/kqz_validations.js" asp-append-version="true"></script>
+<script language="javascript" asp-append-version="true">
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -1305,7 +1305,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
     today = yyyy + '-' + mm + '-' + dd;
     $('#year').attr('max',today);
 </script>
-<script>
+<script asp-append-version="true">
     $('#table').hide();
     $('#streetByNeighborhood').hide();
     //$('#villages').change(function () {
@@ -1338,7 +1338,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
     const forma = document.querySelector("#forma");
@@ -1371,7 +1371,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         }
     });
 </script>
-<script>
+    <script asp-append-version="true">
     const url = "/api/service/";
     if (document.querySelector("#villages") != undefined) {
         getVillages();
@@ -1815,8 +1815,8 @@ else
 {
     @section Scripts
     {
-<script src="~/js/kqz_validation_for_admin.js"></script>
-<script language="javascript">
+<script src="~/js/kqz_validation_for_admin.js" asp-append-version="true"></script>
+<script language="javascript" asp-append-version="true">
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -1824,7 +1824,7 @@ else
     today = yyyy + '-' + mm + '-' + dd;
     $('#year').attr('max',today);
 </script>
-<script>
+<script asp-append-version="true">
     $('#neigborhoodsVillage-container').hide();
     $('#table').hide();
     $('#villages').change(function () {
@@ -1872,7 +1872,7 @@ else
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
     const poll1 = document.getElementById('pollNeighborhood');
     const poll2 = document.getElementById('poll');
     poll1.addEventListener('change', event => {
@@ -2743,7 +2743,7 @@ else
             }));
     }
 </script>
-<script>
+<script asp-append-version="true">
     $('#table').hide();
     const button = document.getElementById('main-button');
     const butoni = document.getElementById('second-button');
@@ -2858,8 +2858,8 @@ else
         }
     }
 </script>
-<script src="~/js/add_political_subject.js"></script>
-<script>
+    <script src="~/js/add_political_subject.js" asp-append-version="true"></script>
+<script asp-append-version="true">
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
     const forma = document.querySelector("#forma");
