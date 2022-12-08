@@ -36,11 +36,19 @@
                                     <form>
                                         <div class="mb-3">
                                             <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
-                                            <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                            <div class="d-flex align-items-center">
+                                                <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                                <i class="bi bi-eye-slash fs-5" id="newTogglePassword"></i>
+                                            </div>
+                                          
                                         </div>
                                         <div class="mb-3">
                                             <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
-                                            <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                           <div class="d-flex align-items-center">
+                                                <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                              <i class="bi bi-eye-slash fs-5" id="confirmtogglePassword"></i>
+
+                                           </div>
                                             <small id="response-text" class="text-danger"></small>
                                         </div>
                                         <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
@@ -57,6 +65,8 @@
 <head>
 <link rel="stylesheet" href="~/cssViews/AddVoter.css">
 </head>
+<script src="~/js/security_stamp.js"></script>
+
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <section class="section">
@@ -385,6 +395,13 @@
         </div>
     </div>
 </section>
+<script src="~/js/security_stamp.js"></script>
+<style>
+        #togglePassword, #togglePassword2{
+            margin-left: -30px;
+            cursor: pointer;
+        }
+</style>
 <script src="~/js/change_password.js"></script>
 @if (User.IsInRole(roles.KryetarIKomunes))
 {

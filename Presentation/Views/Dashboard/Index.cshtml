@@ -20,13 +20,17 @@
                                 <form>
                                 <div class="mb-3">
                                     <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
-                                    <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                     <i class="bi bi-eye-slash fs-4" id="togglePassword"></i>
+                                    <div class="d-flex align-items-center">
+                                         <input for="NewPassword" id="password" type="password" class="form-control" aria-describedby="emailHelp">
+                                         <i class="bi bi-eye-slash fs-5" id="togglePassword"></i>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
-                                    <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                      <i class="bi bi-eye-slash fs-4" id="togglePassword"></i>
+                                        <div class="d-flex align-items-center">
+                                            <input for="ConfirmPassword" id="password2" type="password" class="form-control" aria-describedby="emailHelp">
+                                            <i class="bi bi-eye-slash fs-5" id="togglePassword2"></i>
+                                    </div>
                                     <small id="response-text" class="text-danger"></small>
                                 </div>
                                 <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
@@ -100,7 +104,12 @@
         </div>
     </div>
 </div>
+<script src="~/js/security_stamp.js"></script>
 <style>
+        #togglePassword, #togglePassword2{
+            margin-left: -30px;
+            cursor: pointer;
+        }
         @@media screen and (max-width:488px) {
             .test {
                 display: flex;
@@ -120,7 +129,7 @@
             }
         }
 </style>
-<script src="~/js/security_stamp.js"></script>
+
 <script src="~/js/change_password.js"></script>
 @if (User.IsInRole(roles.KryetarIPartise))
 {
