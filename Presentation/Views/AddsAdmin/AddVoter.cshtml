@@ -46,7 +46,7 @@
                                             <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
                                            <div class="d-flex align-items-center">
                                                 <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                              <i class="bi bi-eye-slash fs-5" id="confirmtogglePassword"></i>
+                                              <i class="bi bi-eye-slash fs-5" id="confirmTogglePassword"></i>
 
                                            </div>
                                             <small id="response-text" class="text-danger"></small>
@@ -65,10 +65,11 @@
 <head>
 <link rel="stylesheet" href="~/cssViews/AddVoter.css">
 </head>
-<script src="~/js/security_stamp.js"></script>
+
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <section class="section">
     <input hidden asp-for="@userMuniId" id="get-user-muniId"/>
     <input hidden asp-for="@userVillageId" id="get-user-villageId"/>
@@ -395,13 +396,8 @@
         </div>
     </div>
 </section>
-<script src="~/js/security_stamp.js"></script>
-<style>
-        #togglePassword, #togglePassword2{
-            margin-left: -30px;
-            cursor: pointer;
-        }
-</style>
+
+
 <script src="~/js/change_password.js"></script>
 @if (User.IsInRole(roles.KryetarIKomunes))
 {
@@ -416,7 +412,8 @@ else if (User.IsInRole("KryetarIFshatit"))
 else if (User.IsInRole("AnetarIThjeshte"))
 {
     @section Scripts
-    { <script src="~/js/add_votter_antari_thjesht.js"> </script> }
+    {   
+        <script src="~/js/add_votter_antari_thjesht.js"> </script> }
 }
 else
 {

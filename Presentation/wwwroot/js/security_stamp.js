@@ -84,20 +84,21 @@ togglePassword3.addEventListener('click', () => {
 });
 
 
+//AddVoter Fjalekalimi ToggleEye
 const newTogglePassword = document
     .querySelector('#newTogglePassword');
 
-const password3 = document.querySelector('#newPassword');
+const newPassword = document.querySelector('#newPassword');
 
-newTogglePassword.addEventListener('click', () => {
+togglePassword.addEventListener('click', () => {
 
     // Toggle the type attribute using
     // getAttribure() method
-    const typeTest1 = newPassword
+    const newType = newPassword
         .getAttribute('type') === 'password' ?
         'text' : 'password';
 
-    password3.setAttribute('type', typeTest1);
+    newPassword.setAttribute('type', newType);
 
     // Toggle the eye and bi-eye icon
     if (document.querySelector('#newTogglePassword').classList.contains('bi-eye-slash')) {
@@ -112,32 +113,7 @@ newTogglePassword.addEventListener('click', () => {
 });
 
 
-const togglePassword3 = document
-    .querySelector('#togglePassword3');
 
-const password3 = document.querySelector('#confirmPassword');
-
-togglePassword3.addEventListener('click', () => {
-
-    // Toggle the type attribute using
-    // getAttribure() method
-    const typeTest = password3
-        .getAttribute('type') === 'password' ?
-        'text' : 'password';
-
-    password3.setAttribute('type', typeTest);
-
-    // Toggle the eye and bi-eye icon
-    if (document.querySelector('#togglePassword3').classList.contains('bi-eye-slash')) {
-        document.querySelector('#togglePassword3').classList.remove('bi-eye-slash');
-        document.querySelector('#togglePassword3').classList.add('bi-eye');
-    }
-    else {
-        document.querySelector('#togglePassword3').classList.remove('bi-eye');
-        document.querySelector('#togglePassword3').classList.add('bi-eye-slash');
-    }
-
-});
 
 
 
