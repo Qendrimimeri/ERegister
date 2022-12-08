@@ -213,7 +213,7 @@
 </style>
 
 <section class="section">
-    <div class="somediv">
+   @* <div class="somediv">
         <ul class="nav nav-tabs ttest">
             <li class="nav-item tabs">
                 <a class="nav-link active link-secondary tabs" onclick="BoldText(this);" id="klasa1" aria-current="page">Regjistro Zyrtarë</a>
@@ -222,7 +222,7 @@
                 <a class="nav-link link-secondary tabs" onclick="BoldText(this);" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
             </li>
         </ul>
-    </div>
+    </div>*@
     <div class="row">
         <div class="col-lg-12">
             <div class="card ">
@@ -422,45 +422,15 @@
                                 <small class="text-danger" id="response-village"></small>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
+
                             @*ME HJEK*@
                             <hr />
                         </div>
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-                            <a href='javascript:
-                               swal({
-                               title: "A jeni të sigurtë?" ,
-                               icon: "warning" ,
-                               buttons: {
-                               cancel:"Jo",
-                               confirm:{
-                               text:"Po",
-                               className:"test",
-                               } }
-                               })
-                               .then((willDelete)=>
-                                {
-                                if (willDelete) {
-                                swal({ title: "U anulua me sukses!",
-                                icon: "success"}).then(okay => {
-                                if (okay) {
-                                window.location.href = "/AddsAdmin/PoliticalOffical";
-                                }
-                                });
-                                } else {
-                                swal({
-                                title: "Te dhënat nuk janë anuluar!",
-                                icon: "error",
-                                });
-                                }
-                                });' class = "btn btn-danger button-responsive">Anulo
-                            </a>&nbsp&nbsp
-                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp&nbsp
-                            <button type="submit" id="second-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
-                        </div>
-                    </form>
-                    <div class="" id="table">
-                        <div class="d-flex flex-row justify-content-around divi">
-                            <div class="col-4 pt-4 zgjedhje">
+                        <h6 class="pt-4">III - Të dhënat e zgjedhjeve</h6>
+                        <hr />
+                        <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
+                        @*<div class="d-flex flex-row justify-content-around divi">*@
+                            <div class="col-md-6 mb-2 pe-2 zgjedhje">
                                 <label class="">Lloji i zgjedhjeve</label>
                                 <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
                                     <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
@@ -469,7 +439,7 @@
                                 </select>
                                 @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
                             </div>
-                            <div class="col-4 pt-4 pb-4 data">
+                            <div class="col-md-6 mb-2 pe-2 data">
                                 <label class="">Data e zgjedhjeve</label>
                                 <input type="date" id="year" class="form-control" required>
                                 @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
@@ -481,8 +451,8 @@
                                 <table class="table table-responsive align-center table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col" class="w-50">Partia Politike</th>
-                                            <th scope="col" class="w-50">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                            <th scope="col">Partia Politike</th>
+                                            <th scope="col">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -522,7 +492,43 @@
                                 </table>
                             </div>
                         </div>
-                        <div class=" pt-4 d-flex justify-content-start">
+                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+                            <a href='javascript:
+                               swal({
+                               title: "A jeni të sigurtë?" ,
+                               icon: "warning" ,
+                               buttons: {
+                               cancel:"Jo",
+                               confirm:{
+                               text:"Po",
+                               className:"test",
+                               } }
+                               })
+                               .then((willDelete)=>
+                                {
+                                if (willDelete) {
+                                swal({ title: "U anulua me sukses!",
+                                icon: "success"}).then(okay => {
+                                if (okay) {
+                                window.location.href = "/AddsAdmin/PoliticalOffical";
+                                }
+                                });
+                                } else {
+                                swal({
+                                title: "Te dhënat nuk janë anuluar!",
+                                icon: "error",
+                                });
+                                }
+                                });' class = "btn btn-danger button-responsive">Anulo
+                            </a>&nbsp&nbsp
+                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp&nbsp
+                            <button type="submit" id="second-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
+                        </div>
+                    </form>
+                    <div class="" id="table">
+                        
+             
+                      @*  <div class=" pt-4 d-flex justify-content-start">
                             <button type="button" class="btn btn-primary politika" data-toggle="modal" data-target="#exampleModalCenter">
                                 Shto një subjekt politik
                             </button>
@@ -530,7 +536,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <form>
+                                        @*    <form>
                                                 <div class="form-group">
                                                     <label for="subjekti-politik" class="py-2">Emri i subjektit politik</label>
                                                     <input type="text" class="form-control" id="subjekti-politik">
@@ -544,7 +550,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
