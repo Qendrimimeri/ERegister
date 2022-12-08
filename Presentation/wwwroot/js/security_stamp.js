@@ -90,7 +90,7 @@ const newTogglePassword = document
 
 const newPassword = document.querySelector('#newPassword');
 
-togglePassword.addEventListener('click', () => {
+newTogglePassword.addEventListener('click', () => {
 
     // Toggle the type attribute using
     // getAttribure() method
