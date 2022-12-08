@@ -287,18 +287,14 @@ namespace Presentation.Controllers
 
             if (komunes || fshatit)
                 foreach (var item in rolesFromDb)
-                    if (komunes) {
+                    if (komunes) 
                         if (!(item.Value == "Kryetar i partise"))
                             roles.Add(item);
-                    }
-                    else {
+                    else 
                         if (!((item.Value == "Kryetar i partise") || (item.Value == "Kryetar i komunes")))
                             roles.Add(item);
-                    }
-            ViewBag.roles = new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value");
+            ViewBag.roles = (new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value")).OrderBy(x => x.Text);
         }
-
-
 
         #endregion
     }
