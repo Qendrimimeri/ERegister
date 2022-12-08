@@ -65,11 +65,11 @@ togglePassword3.addEventListener('click', () => {
 
     // Toggle the type attribute using
     // getAttribure() method
-    const typeTest = password3
+    const typeTest1 = password3
         .getAttribute('type') === 'password' ?
         'text' : 'password';
 
-    password3.setAttribute('type', typeTest);
+    password3.setAttribute('type', typeTest1);
 
     // Toggle the eye and bi-eye icon
     if (document.querySelector('#togglePassword3').classList.contains('bi-eye-slash')) {
@@ -84,6 +84,11 @@ togglePassword3.addEventListener('click', () => {
 });
 
 
+
+
+
+
+
 //AddVoter Fjalekalimi ToggleEye
 const newTogglePassword = document
     .querySelector('#newTogglePassword');
@@ -91,9 +96,6 @@ const newTogglePassword = document
 const newPassword = document.querySelector('#newPassword');
 
 newTogglePassword.addEventListener('click', () => {
-
-    // Toggle the type attribute using
-    // getAttribure() method
     const newType = newPassword
         .getAttribute('type') === 'password' ?
         'text' : 'password';
@@ -111,6 +113,33 @@ newTogglePassword.addEventListener('click', () => {
     }
 
 });
+
+//AddVoter Fjalekalimi ToggleEye
+const confirmTogglePassword = document
+    .querySelector('#confirmTogglePassword');
+
+const confirmPassword = document.querySelector('#confirmPassword');
+
+confirmTogglePassword.addEventListener('click', () => {
+
+    const newType1 = confirmPassword
+        .getAttribute('type') === 'password' ?
+        'text' : 'password';
+
+    confirmPassword.setAttribute('type', newType1);
+
+    // Toggle the eye and bi-eye icon
+    if (document.querySelector('#confirmTogglePassword').classList.contains('bi-eye-slash')) {
+        document.querySelector('#confirmTogglePassword').classList.remove('bi-eye-slash');
+        document.querySelector('#confirmTogglePassword').classList.add('bi-eye');
+    }                                             
+    else {                                        
+        document.querySelector('#confirmTogglePassword').classList.remove('bi-eye');
+        document.querySelector('#confirmTogglePassword').classList.add('bi-eye-slash');
+    }
+
+});
+
 
 
 
