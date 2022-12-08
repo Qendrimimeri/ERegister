@@ -445,7 +445,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     public async Task<bool> IsEmailConfirmed(LoginVM model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user.EmailConfirmed == true) return true;
+        if (user == null || user.EmailConfirmed == true ) return true;
         return false;
     }
 
