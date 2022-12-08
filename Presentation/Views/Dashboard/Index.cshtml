@@ -21,15 +21,15 @@
                                 <div class="mb-3">
                                     <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
                                     <div class="d-flex align-items-center">
-                                         <input for="NewPassword" id="password" type="password" class="form-control" aria-describedby="emailHelp">
-                                         <i class="bi bi-eye-slash fs-5" id="togglePassword"></i>
+                                         <input for="NewPassword"  id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                         <i class="bi bi-eye-slash fs-5" id="newTogglePassword"></i>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
                                         <div class="d-flex align-items-center">
-                                            <input for="ConfirmPassword" id="password2" type="password" class="form-control" aria-describedby="emailHelp">
-                                            <i class="bi bi-eye-slash fs-5" id="togglePassword2"></i>
+                                            <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                            <i class="bi bi-eye-slash fs-5" id="confirmTogglePassword"></i>
                                     </div>
                                     <small id="response-text" class="text-danger"></small>
                                 </div>
@@ -104,9 +104,8 @@
         </div>
     </div>
 </div>
-<script src="~/js/security_stamp.js" asp-append-version="true"></script>
 <style>
-        #togglePassword, #togglePassword2{
+        #newTogglePassword, #confirmTogglePassword{
             margin-left: -30px;
             cursor: pointer;
         }
@@ -134,7 +133,7 @@
             }
         }
 </style>
-
+<script src="~/js/security_stamp.js"></script>
 <script src="~/js/change_password.js" asp-append-version="true"></script>
 @if (User.IsInRole(roles.KryetarIPartise))
 {
