@@ -115,6 +115,7 @@ else
                     @if (Model.GeneralReason == null || Model.GeneralReason == "Unset")
                     {
                         <option disabled selected>Zgjedhni opsionet...</option>
+                        <option value="shto">Shto +</option>
                     }
                     else
                     {
@@ -148,6 +149,7 @@ else
                     @if (Model.GeneralDemands == null || Model.GeneralDemands == "Unset")
                     {
                         <option disabled selected>Zgjedhni opsionet...</option>
+                        <option value="shto">Shto +</option>
                     }
                     else
                     {
@@ -223,7 +225,7 @@ else
     }
 </style>
 
-<script>
+<script asp-append-version="true">
     const Specificreasons = document.querySelector('#general-demand');
     Specificreasons.addEventListener('change', event => {
         var data = document.getElementById("general-demand").value;
