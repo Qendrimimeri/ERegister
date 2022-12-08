@@ -597,16 +597,6 @@
                         //text: "You clicked the button!",
                         icon: "warning",
                         button: "Plotëso rezultatet!",
-                    }).then(okay => {
-                        if (okay) {
-                            const linku1 = document.getElementById('klasa1');
-                            const linku2 = document.getElementById('klasa2');
-                            linku1.classList.remove('active');
-                            linku2.classList.add('active');
-                            $('#table').show();
-                            $('#forma').hide();
-                            $('#titulli').hide();
-                        }
                     });
                     e.preventDefault();
                 }
@@ -1096,28 +1086,6 @@
     }
 </script>
     <script asp-append-version="true">
-    $('#table').hide();
-    const linku1 = document.getElementById('klasa1');
-    const linku2 = document.getElementById('klasa2');
-    linku1.addEventListener('click', event => {
-        //console.log('u thirr 1');
-        event.preventDefault();
-        $('#table').hide();
-        $('#forma').show();
-        $('#titulli').show();
-        linku2.classList.remove('active');
-        linku1.classList.add('active');
-        //linku1.setAttribute('style','background-color: white' );
-    });
-    linku2.addEventListener('click', event => {
-        //console.log('u thirr 2');
-        event.preventDefault();
-        $('#forma').hide();
-        $('#table').show();
-        $('#titulli').hide();
-        linku1.classList.remove('active');
-        linku2.classList.add('active');
-    });
     const button = document.getElementById('main-button');
     const butoni = document.getElementById('second-button');
     const votes = document.getElementsByClassName("votat");
@@ -1358,16 +1326,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                         //text: "You clicked the button!",
                         icon: "warning",
                         button: "Plotëso rezultatet!",
-                    }).then(okay => {
-                        if (okay) {
-                            const linku1 = document.getElementById('klasa1');
-                            const linku2 = document.getElementById('klasa2');
-                            linku1.classList.remove('active');
-                            linku2.classList.add('active');
-                            $('#table').show();
-                            $('#forma').hide();
-                            $('#titulli').hide();
-                        }
                     });
                     e.preventDefault();
                 }
@@ -1620,28 +1578,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 pollNeighborhood.appendChild(item);
             }));
     }
-     $('#table').hide();
-    const linku1 = document.getElementById('klasa1');
-    const linku2 = document.getElementById('klasa2');
-    linku1.addEventListener('click', event => {
-        //console.log('u thirr 1');
-        event.preventDefault();
-        $('#table').hide();
-        $('#forma').show();
-        $('#titulli').show();
-        linku2.classList.remove('active');
-        linku1.classList.add('active');
-        //linku1.setAttribute('style','background-color: white' );
-    });
-    linku2.addEventListener('click', event => {
-        //console.log('u thirr 2');
-        event.preventDefault();
-        $('#forma').hide();
-        $('#table').show();
-        $('#titulli').hide();
-        linku1.classList.remove('active');
-        linku2.classList.add('active');
-    });
+   
 
     const button = document.getElementById('main-button');
     const butoni = document.getElementById('second-button');
@@ -1946,27 +1883,7 @@ else
                 }
             });
     }
-    const linku1 = document.getElementById('klasa1');
-    const linku2 = document.getElementById('klasa2');
-    linku1.addEventListener('click', event => {
-        //console.log('u thirr 1');
-        event.preventDefault();
-        $('#table').hide();
-        $('#forma').show();
-        $('#titulli').show();
-        linku2.classList.remove('active');
-        linku1.classList.add('active');
-        //linku1.setAttribute('style','background-color: white' );
-    });
-    linku2.addEventListener('click', event => {
-        //console.log('u thirr 2');
-        event.preventDefault();
-        $('#forma').hide();
-        $('#table').show();
-        $('#titulli').hide();
-        linku1.classList.remove('active');
-        linku2.classList.add('active');
-    });
+    
     const munis = document.querySelector('#munis');
     const villages = document.querySelector('#villages');
     const url = "/api/service/";
@@ -2879,16 +2796,6 @@ else
                         //text: "You clicked the button!",
                         icon: "warning",
                         button: "Plotëso rezultatet!",
-                    }).then(okay => {
-                        if (okay) {
-                            const linku1 = document.getElementById('klasa1');
-                            const linku2 = document.getElementById('klasa2');
-                            linku1.classList.remove('active');
-                            linku2.classList.add('active');
-                            $('#table').show();
-                            $('#forma').hide();
-                            $('#titulli').hide();
-                        }
                     });
                     e.preventDefault();
                 }
