@@ -56,7 +56,7 @@
             </div>
             @if (User.IsInRole(roles.KryetarIPartise))
             {
-                <div class="ps-2 position-absolute end-0 me-1">
+                <div class="ps-2 position-absolute end-0 me-2 manualResponzive">
                     <partial name="_ManualiAdminDashboardPartial"></partial>
                 </div>
             }
@@ -118,6 +118,11 @@
                 width: 100% !important;
             }
         }
+         @@media screen and (max-width:370px) {
+           .manualResponzive{
+                   position:relative !important;
+               }
+         }
         @@media screen and (max-width: 1800px){
             #testManuali{
                 max-width:70%;
