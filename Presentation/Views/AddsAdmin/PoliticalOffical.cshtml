@@ -22,6 +22,7 @@
 <head><link rel="stylesheet" href="~/cssViews/PoliticalOfficial.css">
 </head>
 <style>
+
     #klasa1:hover {
         cursor: pointer;
     }
@@ -195,15 +196,12 @@
             .tabs {
                 font-size: 12px;
             }
-
             input::placeholder {
                 font-size: 13px;
             }
-
             .option-select {
                 font-size: 13px;
             }
-
             .partyNumber {
                 font-size: 10px;
                 -o-object-fit: fill;
@@ -216,10 +214,10 @@
     <div class="somediv">
         <ul class="nav nav-tabs ttest">
             <li class="nav-item tabs">
-                <a class="nav-link active link-secondary tabs" onclick="BoldText(this);" id="klasa1" aria-current="page">Regjistro Zyrtarë</a>
+                <a class="nav-link active link-secondary tabs" onclick="BoldText(this);" id="klasa1" aria-current="page" style="background-color:#fff">Regjistro Zyrtarë</a>
             </li>
             <li class="nav-item tabs">
-                <a class="nav-link link-secondary tabs" onclick="BoldText(this);" id="klasa2" aria-current="page">Rezultatet e KQZ</a>
+                <a class="nav-link link-secondary tabs" onclick="BoldText(this);" id="klasa2" aria-current="page" style="background-color:#fff"> Rezultatet e KQZ</a>
             </li>
         </ul>
     </div>
@@ -290,7 +288,7 @@
                             @if (User.IsInRole(roles.KryetarIPartise))
                             {
                                 <div class="col-md-4 mb-2 pe-2">
-                                    <label asp-for="Municipality">Qyteti</label>
+                                    <label asp-for="Municipality"> Qyteti </label>
                                     <select class="form-select option-select" asp-for="Municipality" id="munis">
                                         <option disabled selected>Zgjedh qytetin...</option>
                                     </select>

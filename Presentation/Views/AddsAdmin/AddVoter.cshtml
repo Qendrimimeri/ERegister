@@ -23,7 +23,12 @@
 {
     @if (!ViewBag.HasPasswordChange)
     {
-        <div class="modal fade hide" id="change-password" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="
+fade hide" id="change-password" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="example
+
+
+
+CenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -295,6 +300,7 @@
                                 </select>
                             </div>
                         </div>
+                       
                         <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
                             <div class="col-sm-6 mb-3 pe-2">
                                 <label>Votues i tanishëm</label>
@@ -331,7 +337,7 @@
                                confirm:{
                                text:"Po",
                                className:"test",
-                               } }
+                               }}
                                })
                                .then((willDelete)=>
                                 {
@@ -351,42 +357,84 @@
                                 });'
                                 class = "btnanulo btn btn-danger">Anulo
                             </a>&nbsp &nbsp
-                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
+                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" id="BtnRuajDheHapRast" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
                             </div>
-                        }else{
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
-                            <a href='javascript:
-                               swal({
-                               title: "A jeni të sigurtë?" ,
-                               icon: "warning" ,
-                               buttons: {
-                               cancel:"Jo",
-                               confirm:{
-                               text:"Po",
-                               className:"test",
-                               } }
-                               })
-                               .then((willDelete)=>
-                                {
-                                if (willDelete) {
-                                swal({ title: "U anulua me sukses!",
-                                icon: "success"}).then(okay => {
-                                if (okay) {
-                                window.location.href = "/AddsAdmin/AddVoter";
-                                }
-                                });
-                                } else {
-                                swal({
-                                title: "Te dhënat nuk janë anuluar!",
-                                icon: "error",
-                                });
-                                }
-                                });'
-                                class = "btnanulo btn btn-danger">Anulo
-                            </a>&nbsp &nbsp
-                            <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
-                            <button type="submit" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
+                        } else {
+                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive ">
+                                <div class="pe-2">
+                                    <button type="button" class="btn btn-primary pe-2 button-responsive" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Anulo
+                                    </button>
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                        <h4>A jeni i sigurtë? </h4>
+                                                        <br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">PO</button>&nbsp &nbsp
+                                                        <a href="/AddsAdmin/AddVoter" class="btn btn-secondary pe-2 button-responsive">JO</a>&nbsp &nbsp
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pe-2">
+                                    <button type="button" class="btn btn-primary pe-2 button-responsive" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Ruaj dhe mbyll
+                                    </button>
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+
+                                                    <div class="text" >
+                                                        <h4 style="color: blue; font-size: 30px; line-height: 20px; text-align: center; width: 100%; font-family: inherit; font-weight: 500;">A jeni i sigurtë? </h4>
+                                                        
+                                                    </div>
+                                                    <div class="">
+                                                        <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">PO</button>&nbsp &nbsp
+                                                        <a href="/AddsAdmin/AddVoter" class="btn btn-secondary pe-2 button-responsive">JO</a>&nbsp &nbsp
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <button type="button" class="btn btn-primary pe-2 button-responsive" asp-controller="AddsAdmin" asp-action="AddVoter" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Ruaj dhe hap rast
+                                    </button>
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                        
+                                                        
+                                                        <p>Të dhënat jane regjistruar me sukses!</p>
+
+                                                    </div>
+                                                   
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
                         </div>
+                        
                         }
                        
                     </form>
@@ -395,7 +443,32 @@
         </div>
     </div>
 </section>
+<script>
+    //window.addEventListener("load", function(){
+    //    setTimeout(
+    //        function open (event){
+    //            document.querySelector(".popup").style.display ="block";
+    //        },
+    //        1000
+    //        )
+    //});
+
+
+    //document.querySelector(#"#close").addEventListener("click",function(){
+    //    document.querySelector(".popup").style.display = "none";
+    //});
+    
+</script>
 <script src="~/js/security_stamp.js"></script>
+<script>
+    document.getElementById("BtnRuajDheHapRAst").click{
+        swal({
+                               title: "U regjistrua me sukses!" ,
+                               icon: "warning" ,
+                               className:"test",
+    }
+    
+</script>
 <style>
         #togglePassword, #togglePassword2{
             margin-left: -30px;
