@@ -52,7 +52,6 @@ public class SuperAdminInitializer
                 });
             }
         }
-
         _context.SaveChanges();
 
         var admin = new ApplicationUser
@@ -71,15 +70,11 @@ public class SuperAdminInitializer
             PhoneNumber = encrypt.Encrypt("213123123")
 
         };
-
-
         var userstore = new UserStore<ApplicationUser>(_context);
-
         if (!_context.ApplicationUsers.Any(u => u.UserName == admin.UserName))
         {
             var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, _admin.Password);
             admin.PasswordHash = password;
-
             await userstore.CreateAsync(admin);
             await userstore.AddToRoleAsync(admin, roles[0]);
         }
