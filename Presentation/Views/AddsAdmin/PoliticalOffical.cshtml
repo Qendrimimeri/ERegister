@@ -211,19 +211,6 @@
 </style>
 
 <section class="section">
-<<<<<<< HEAD
-=======
-   @* <div class="somediv">
-        <ul class="nav nav-tabs ttest">
-            <li class="nav-item tabs">
-                <a class="nav-link active link-secondary tabs" onclick="BoldText(this);" id="klasa1" aria-current="page" style="background-color:#fff">Regjistro Zyrtarë</a>
-            </li>
-            <li class="nav-item tabs">
-                <a class="nav-link link-secondary tabs" onclick="BoldText(this);" id="klasa2" aria-current="page" style="background-color:#fff"> Rezultatet e KQZ</a>
-            </li>
-        </ul>
-    </div>*@
->>>>>>> b38890569c6c7b9590b789d2443599df68674bd5
     <div class="row">
         <div class="col-lg-12">
             <div class="card ">
@@ -432,22 +419,14 @@
                         <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
                             <div class="col-md-6 mb-2 pe-2 zgjedhje">
                                 <label class="">Lloji i zgjedhjeve</label>
-<<<<<<< HEAD
-                                <select  asp-for="ElectionType" asp-items="@ViewBag.electionType" class="form-select">
-=======
-                                <select class="form-select option-select" id="inputGroupSelect03" name="zgjedhjet" required>
->>>>>>> b38890569c6c7b9590b789d2443599df68674bd5
+                                <select asp-for="ElectionType" asp-items="@ViewBag.electionType" class="form-select option-select" id="inputGroupSelect03">
                                     <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-2 pe-2 data">
                                 <label class="">Data e zgjedhjeve</label>
-<<<<<<< HEAD
                                 <input asp-for="ElectionDate" type="date" id="year" class="form-control" required>
-=======
                                 <input type="date" id="year" class="form-control option-select" required>
-                                @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
->>>>>>> b38890569c6c7b9590b789d2443599df68674bd5
                             </div>
                         </div>
                         <div class="col-md-6 w-100 ">
