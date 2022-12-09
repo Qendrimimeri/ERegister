@@ -11,7 +11,6 @@ namespace Application.ViewModels
     {
         public int Id { get; set; }
 
-
         [Required(ErrorMessage = "Ju lutem shkruani emrin dhe mbiemrin!"), MinLength(5,ErrorMessage =("Ju lutem plotësoni të dhënat me minimum 5 karaktere!")), MaxLength(255), Display(Name = "Emri dhe Mbiemri"), RegularExpression(@"^(?:[a-zA-Z ]|<(?= ))+$", ErrorMessage = "Ju lutem mos shkruani numra!")]
         public string? FullName { get; set; }
 
@@ -23,10 +22,8 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Email adresa nuk është valide!"), DataType(DataType.EmailAddress,ErrorMessage ="Ju lutem shkruani një email adresë valide!")]
         public string? Email { get; set; }
 
-        
         public int? Municipality { get; set; }
         
-
         public int? Village { get; set; }
 
 
@@ -34,14 +31,35 @@ namespace Application.ViewModels
         public int? Neigborhood { get; set; }
 
         public int? Street { get; set; }
-        public int? Block { get; set; }
-        public int? HouseNo { get; set; }
 
+        public int? Block { get; set; }
+
+        public int? HouseNo { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni rolin!")]
         public string? Role { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni qendrën e votimit!")]
         public string? PollCenter { get; set; }
+
+        public string ElectionType { get; set; } 
+
+        public DateTime ElectionDate { get; set; }
+
+        public int AAK { get; set; }
+
+        public int AKR { get; set; }
+
+        public int LDK { get; set; }
+
+        public int NISMA { get; set; }
+
+        public int PDK { get; set; }
+
+        public int VV { get; set; }
+
+        public int PartitJoSerbe { get; set; }
+
+        public int PartitSerbe { get; set; }
     }
 }

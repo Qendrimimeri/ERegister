@@ -115,14 +115,11 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> PoliticalOffical(PoliticalOfficalVM model)
         {
-            try
-            {
                 if (ModelState.IsValid)
                 {
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
-
                     if (res)
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
                     else
@@ -139,12 +136,6 @@ namespace Presentation.Controllers
 
                 PoliticalOfficialAddress();
                 return View();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
         }
 
 
@@ -279,6 +270,7 @@ namespace Presentation.Controllers
             ViewBag.pollCenters = new SelectList( _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
             ViewBag.blocks = new SelectList( _unitOfWork.Block.GetAll(), "Id", "Name");
             ViewBag.streets = new SelectList( _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.electionType = new SelectList(StaticData.ElectionType(), "Key", "Value");
             var roles = new List<Application.Models.KeyValueModel>();
 
             bool komunes = User.IsInRole("KryetarIKomunes");

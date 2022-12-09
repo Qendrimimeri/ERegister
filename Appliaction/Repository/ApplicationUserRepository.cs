@@ -191,7 +191,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     GeneralDemands = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDemand,
                     GeneralReason = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralReason,
                     GeneralDescription = _context.PollRelateds.Where(x => x.UserId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().GeneralDescription,
-                    ActivitiesYourPlan =  _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
+                    ActivitiesYourPlan = _context.PollRelateds.Include(x => x.Help).Where(x => x.UserId == person.Id).OrderBy(x => x.Date).FirstOrDefault().Help.ActivitiesYouPlan,
                     MunicipalityName = person.Address.Municipality.Name,
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.UserId == person.Id).FirstOrDefault().FamMembers,
@@ -445,7 +445,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     public async Task<bool> IsEmailConfirmed(LoginVM model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user == null || user.EmailConfirmed == true ) return true;
+        if (user == null || user.EmailConfirmed == true) return true;
         return false;
     }
 
@@ -582,6 +582,49 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var result = await _userManager.CreateAsync(simpleUser, password);
         await _context.SaveChangesAsync();
 
+        var getPoliticalSubjectsId = _context.PoliticalSubjects.Select(x => x.Id).ToList();
+        var pollCenterId = _context.PollCenters.Where(x => x.Id == int.Parse(model.PollCenter)).Select(x => x.Id).FirstOrDefault();
+        var hasData = await _context.Kqzregisters.Where(x => x.ElectionType == model.ElectionType && x.PollCenterId == pollCenterId).ToListAsync();
+
+        var noOfVotes = new List<int>()
+        {
+            model.VV,
+            model.LDK,
+            model.PDK,
+            model.AAK,
+            model.AKR,
+            model.NISMA,
+            model.PartitSerbe,
+            model.PartitJoSerbe
+        };
+        if (hasData.Count <= 0)
+        {
+            for (int i = 0; i < noOfVotes.Count; i++)
+            {
+                var election = new Kqzregister()
+                {
+                    ElectionType = model.ElectionType,
+                    PollCenterId = pollCenterId,
+                    NoOfvotes = noOfVotes[i],
+                    MunicipalityId = model.Municipality,
+                    VillageId = model.Village,
+                    NeighborhoodId = model.Neigborhood,
+                    PoliticialSubjectId = getPoliticalSubjectsId[i],
+                    DataCreated = model.ElectionDate.ToString(),
+                };
+                await _context.Kqzregisters.AddAsync(election);
+            }
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            for (int i = 0; i < hasData.Count; i++)
+                hasData[i].NoOfvotes = noOfVotes[i];
+
+            await _context.SaveChangesAsync();
+        }
+
+
 
         if (result.Succeeded)
         {
@@ -643,7 +686,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var res = await _userManager.ResetPasswordAsync((await _userManager.FindByIdAsync(model.UserId)), model.Token, model.NewPassword);
         return res;
     }
-      
+
 
 
     public async Task<int> AdminMunicipalityId() =>

@@ -40,6 +40,16 @@ namespace Infrastructure.Services
             return administrativeUnit;
         }
 
+        public static IEnumerable<KeyValueModel> ElectionType()
+        {
+
+            var electionType = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "Zgjedhjet Nacionale", Value = "Zgjedhjet Nacionale" },
+                new KeyValueModel { Key = "Zgjedhjet Lokale", Value = "Zgjedhjet Lokale" },
+            };
+            return electionType;
+        }
+
         public static IEnumerable<KeyValueModel> GeneralDemands()
         {
             var generalDemand = new List<KeyValueModel>() {
