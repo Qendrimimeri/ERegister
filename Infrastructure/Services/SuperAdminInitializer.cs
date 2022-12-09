@@ -75,7 +75,6 @@ public class SuperAdminInitializer
         {
             var password = new PasswordHasher<ApplicationUser>().HashPassword(admin, _admin.Password);
             admin.PasswordHash = password;
-
             await userstore.CreateAsync(admin);
             await userstore.AddToRoleAsync(admin, roles[0]);
         }
