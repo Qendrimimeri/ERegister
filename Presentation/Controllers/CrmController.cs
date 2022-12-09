@@ -69,7 +69,6 @@ public class CrmController : Controller
         }
     }
 
-
     [HttpPost]
     public async Task<IActionResult> Voters(VoterDetailsVM model)
     {
@@ -146,6 +145,8 @@ public class CrmController : Controller
             }
 
 
+
+
         }
         catch (Exception err)
         {
@@ -179,7 +180,6 @@ public class CrmController : Controller
                 await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
                 TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Crm");
-            
         }
         catch (Exception err)
         {

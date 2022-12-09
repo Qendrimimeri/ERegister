@@ -138,14 +138,11 @@ namespace Presentation.Controllers
                 return View();
         }
 
-
         public IActionResult Cancel()
         {
             TempData[_toaster.Success] = "U anulua!";
             return RedirectToAction("Index","Dashboard");
         }
-
-
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
@@ -164,7 +161,6 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-
 
         [HttpPost]
         public async Task<IActionResult>SaveAndOpenCase(RegisterVM register)
@@ -192,7 +188,6 @@ namespace Presentation.Controllers
             }
 
         }
-
 
         public IActionResult CancelPoliticalOfficial()
         {
