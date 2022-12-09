@@ -14,22 +14,22 @@
                     <h5 class="modal-title text-center" id="exampleModalLongTitle">Ndrysho fjalëkalimin</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="container-fluid row text-align-center justify-content-center pt-2 ">
-                        <div class="col-12 col-md-8">
-                            <div class="pb-4">
+                    <div class="text-align-center justify-content-center pt-2 ">
+                        <div class="col-12">
+                            <div class="pb-2">
                                 <form>
                                 <div class="mb-3">
                                     <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
                                     <div class="d-flex align-items-center">
-                                         <input for="NewPassword" id="password" type="password" class="form-control" aria-describedby="emailHelp">
-                                         <i class="bi bi-eye-slash fs-5" id="togglePassword"></i>
+                                         <input for="NewPassword"  id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                         <i class="bi bi-eye-slash fs-5" id="newTogglePassword"></i>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
                                         <div class="d-flex align-items-center">
-                                            <input for="ConfirmPassword" id="password2" type="password" class="form-control" aria-describedby="emailHelp">
-                                            <i class="bi bi-eye-slash fs-5" id="togglePassword2"></i>
+                                            <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
+                                            <i class="bi bi-eye-slash fs-5" id="confirmTogglePassword"></i>
                                     </div>
                                     <small id="response-text" class="text-danger"></small>
                                 </div>
@@ -56,7 +56,7 @@
             </div>
             @if (User.IsInRole(roles.KryetarIPartise))
             {
-                <div class="ps-2 position-absolute end-0 me-1">
+                <div class="ps-2 position-absolute end-0 me-2 manualResponzive">
                     <partial name="_ManualiAdminDashboardPartial"></partial>
                 </div>
             }
@@ -104,9 +104,8 @@
         </div>
     </div>
 </div>
-<script src="~/js/security_stamp.js"></script>
 <style>
-        #togglePassword, #togglePassword2{
+        #newTogglePassword, #confirmTogglePassword{
             margin-left: -30px;
             cursor: pointer;
         }
@@ -118,6 +117,11 @@
                 width: 100% !important;
             }
         }
+         @@media screen and (max-width:370px) {
+           .manualResponzive{
+                   position:relative !important;
+               }
+         }
         @@media screen and (max-width: 1800px){
             #testManuali{
                 max-width:70%;
@@ -129,18 +133,18 @@
             }
         }
 </style>
-
-<script src="~/js/change_password.js"></script>
+<script src="~/js/security_stamp_Dashboard.js"></script>
+<script src="~/js/change_password.js" asp-append-version="true"></script>
 @if (User.IsInRole(roles.KryetarIPartise))
 {
     @section Scripts {
-<script src="~/js/municipalities.js"></script>
-<script src="~/js/admin_graphs.js"></script>
+    <script src="~/js/municipalities.js" asp-append-version="true"></script>
+    <script src="~/js/admin_graphs.js" asp-append-version="true"></script>
     }
 }
 else
 {
     @section Scripts {
-<script src="~/js/muni_graphs.js"></script>
+    <script src="~/js/muni_graphs.js" asp-append-version="true"></script>
     }
 }

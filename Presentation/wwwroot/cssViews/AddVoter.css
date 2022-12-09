@@ -96,3 +96,7 @@
         max-width: 100%;
     }
 }
+#newTogglePassword, #confirmTogglePassword {
+    margin-left: -30px;
+    cursor: pointer;
+}

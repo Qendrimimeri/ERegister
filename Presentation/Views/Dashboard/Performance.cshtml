@@ -5,8 +5,9 @@
     Layout = "_DashboardLayout";
     var roles = _roles.Value;
 }
-<head><link rel="stylesheet" href="~/cssViews/Performance.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<head>
+    <link rel="stylesheet" href="~/cssViews/Performance.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
 
 </head>
@@ -31,68 +32,69 @@
             </div>
         }
         <div b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light pe-0 d-flex justify-content-between">
-                <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
-                    <a class="navbar-brand fw-semibold" href="/">
-                    </a>
-                    <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span b-fhvjq1vla1="" class="bi bi-three-dots-vertical noHover"></span>
-                    </button>
-                        <div class="testing collapse navbar-collapse justify-content-end align-items-center text-center text-sm-center pe-0" id="main-nav">
-                            <ul class="navbar-nav d-flex align-items-center justify-content-center">
-                                &nbsp;&nbsp;
-                                <li b-fhvjq1vla1="" class="nav-item btnwidth">
-                                    <div class="dropdown">
-                                        <a class="nav-link text-md-center hover-link dropdown-toggle butonitoggle btn btn-primary testli" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Shfaq/Largo kolonat nga lista </a>
-                                        <ul class="dropdown-menu ultest" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="toggle-vis text-decoration-none" data-column="0">Qyteti</a></li>
-                                            <li><a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a></li>
-                                            <li><a class="toggle-vis" data-column="2">Numri i votuesve</a> </li>
-                                            <li><a class="toggle-vis" data-column="3">Numri i telefonit</a> </li>
-                                            <li><a class="toggle-vis" data-column="4">Qendra e votimit</a> </li>
-                                            <li><a class="toggle-vis" data-column="5">Votues paraprak</a> </li>
-                                            <li><a class="toggle-vis" data-column="6">Votues i tanishëm</a> </li>
-                                            <li><a class="toggle-vis" data-column="7">Gjasat fillestare</a> </li>
-                                            <li><a class="toggle-vis" data-column="8">Gjasat aktuale</a> </li>
-                                            <li><a class="toggle-vis" data-column="9">Statusi aktual</a> </li>
-                                        </ul>
-                                    </div>
-                                </li>&nbsp;&nbsp;
-                                <li class="nav-item btnwidth ">
-                                    <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto ne excel</a>
-                                </li>&nbsp;&nbsp;
-                                <li class="nav-item btnwidth ">
-                                    <a class="nav-link text-md-center hover-link butonipdf btn btn-primary testli" role="button" onclick="demoFromHTML()"><span class="bi bi-file-pdf "></span> Eksporto ne pdf </a>
-                                </li>
-                            </ul>
-                        </div>
+            <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
+                <a class="navbar-brand fw-semibold" href="/">
+                </a>
+                <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span b-fhvjq1vla1="" class="bi bi-three-dots-vertical noHover"></span>
+                </button>
+                <div class="testing collapse navbar-collapse justify-content-end align-items-center text-center text-sm-center pe-0" id="main-nav">
+                    <ul class="navbar-nav d-flex align-items-center justify-content-center">
+                        &nbsp;&nbsp;
+                        <li b-fhvjq1vla1="" class="nav-item btnwidth">
+                            <div class="dropdown">
+                                <a class="nav-link text-md-center hover-link dropdown-toggle butonitoggle btn btn-primary testli" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Shfaq/Largo kolonat nga lista </a>
+                                <ul class="dropdown-menu ultest" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="toggle-vis text-decoration-none" data-column="0">Qyteti</a></li>
+                                    <li><a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a></li>
+                                    <li><a class="toggle-vis" data-column="2">Numri i votuesve</a> </li>
+                                    <li><a class="toggle-vis" data-column="3">Numri i telefonit</a> </li>
+                                    <li><a class="toggle-vis" data-column="4">Qendra e votimit</a> </li>
+                                    <li><a class="toggle-vis" data-column="5">Votues paraprak</a> </li>
+                                    <li><a class="toggle-vis" data-column="6">Votues i tanishëm</a> </li>
+                                    <li><a class="toggle-vis" data-column="7">Gjasat fillestare</a> </li>
+                                    <li><a class="toggle-vis" data-column="8">Gjasat aktuale</a> </li>
+                                    <li><a class="toggle-vis" data-column="9">Statusi aktual</a> </li>
+                                </ul>
+                            </div>
+                        </li>&nbsp;&nbsp;
+                        <li class="nav-item btnwidth ">
+                            <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto në excel</a>
+                        </li>&nbsp;&nbsp;
+                        <li class="nav-item btnwidth ">
+                            <a class="nav-link text-md-center hover-link butonipdf btn btn-primary testli" role="button" onclick="demoFromHTML()"><span class="bi bi-file-pdf "></span> Eksporto në pdf </a>
+                        </li>
+                    </ul>
                 </div>
+            </div>
         </div>
     </div>
     <div id="customers" class="table table-responsive">
         <table class="table table-striped table-hover small" id="example">
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
-                         @if (User.IsInRole("KryetarIFshatit")){
-                            <th scope="col"class="text-center pe-1">
-                              Fshati
-                            </th>
-                         }
-                        else
-                        {
-                              <th scope="col"class="text-center pe-1">
-                                  Qyteti
-                              </th>
+                    @if (User.IsInRole("KryetarIFshatit"))
+                    {
+                        <th scope="col" class="text-center pe-1">
+                            Fshati
+                        </th>
+                    }
+                    else
+                    {
+                        <th scope="col" class="text-center pe-1">
+                            Qyteti
+                        </th>
 
-                        }
+                    }
                     <th scope="col" class="text-center pe-1">Emri dhe Mbiemri</th>
-                    <th scope="col"class="text-center pe-1">Numri i votuesve </th>
-                    <th scope="col"class="text-center pe-1">Numri i telefonit</th>
-                    <th scope="col"class="text-center pe-1">Qendra votimit   </th>
-                    <th scope="col"class="text-center pe-1">Votues paraprak  </th>
-                    <th scope="col"class="text-center pe-1">Votues i tanishëm</th>
-                    <th scope="col"class="text-center pe-1">Gjasat fillestare</th>
-                    <th scope="col"class="text-center pe-1">Gjasat aktuale</th>
-                    <th scope="col"class="text-center pe-1">Statusi aktual</th>
+                    <th scope="col" class="text-center pe-1">Numri i votuesve </th>
+                    <th scope="col" class="text-center pe-1">Numri i telefonit</th>
+                    <th scope="col" class="text-center pe-1">Qendra votimit   </th>
+                    <th scope="col" class="text-center pe-1">Votues paraprak  </th>
+                    <th scope="col" class="text-center pe-1">Votues i tanishëm</th>
+                    <th scope="col" class="text-center pe-1">Gjasat fillestare</th>
+                    <th scope="col" class="text-center pe-1">Gjasat aktuale</th>
+                    <th scope="col" class="text-center pe-1">Statusi aktual</th>
                     <th class="no-export text-center pe-1" style="font-size:11px">Menaxho</th>
                 </tr>
             </thead>
@@ -105,9 +107,10 @@
                             {
                                 @voter.Village
                             }
-                            else{
-                               @voter.MunicipalityName 
-                            } 
+                            else
+                            {
+                                @voter.MunicipalityName
+                            }
                         </td>
                         <td class="text-center">@voter.FullName</td>
                         <td class="text-center">@voter.VotersNumber</td>
@@ -120,67 +123,68 @@
                         <td class="text-center">@voter.ActualStatus</td>
                         <td><a class="no-export text-center" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
                     </tr>
-                  
+
                 }
             </tbody>
         </table>
     </div>
 </div>
 <style>
-    @@media print { 
- /* All your print styles go here */
-  #noexport { display: none !important; } 
-
-}
+    @@media print {
+        /* All your print styles go here */
+        #noexport {
+            display: none !important;
+        }
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="~/datatable/datatables.css" />
 @section Scripts {
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-<script type="text/javascript" src="~/datatable/datatables.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/datatable/datatables.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
 
 
-<script>
+    <script asp-append-version="true">
 
-    $(document).ready(function () {
-        var table = $('#example').DataTable({
-            paging: false,
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                paging: false,
+            });
+
+            $('a.toggle-vis').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the column API object
+                var column = table.column($(this).attr('data-column'));
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+            });
         });
+    </script>
+    <script asp-append-version="true">
 
-        $('a.toggle-vis').on('click', function (e) {
-            e.preventDefault();
-
-            // Get the column API object
-            var column = table.column($(this).attr('data-column'));
-
-            // Toggle the visibility
-            column.visible(!column.visible());
+        $('#demoGrid').dataTable({
         });
-    });
-</script>
-<script>
+    </script>
+    <script asp-append-version="true">
+        function ExportToExcel(type, fn, dl) {
+            var elt = document.getElementById('example');
 
-    $('#demoGrid').dataTable({
-    });
-</script>
-<script>
-    function ExportToExcel(type, fn, dl) {
-           var elt = document.getElementById('example');
-
-           var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-           return dl ?
-             XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-             XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
         }
-       
+
         function demoFromHTML() {
             var pdf = new jsPDF('l', 'mm', [620, 440]);
             source = $('#customers')[0];
 
             specialElementHandlers = {
-                '#bypassme': function(element, renderer) {
+                '#bypassme': function (element, renderer) {
                     return true
                 }
             };
@@ -191,48 +195,48 @@
                 width: 1000
             };
 
-       
+
             pdf.fromHTML(
-                    source, // HTML string or DOM elem ref.
-                    margins.left, // x coord
-                    margins.top, {// y coord
-                        'width': margins.width, // max width of content on PDF
-                        'elementHandlers': specialElementHandlers
-                    },
-            function(dispose) {
-                pdf.save('Test.pdf');
-            }
-            , margins);
+                source, // HTML string or DOM elem ref.
+                margins.left, // x coord
+                margins.top, {// y coord
+                'width': margins.width, // max width of content on PDF
+                'elementHandlers': specialElementHandlers
+            },
+                function (dispose) {
+                    pdf.save('Test.pdf');
+                }
+                , margins);
         }
-    
-      //function demoFromHTML() {
-      //       let tableClone = $('#example');
-      //              tableClone
-      //              .find(".no-export")
-      //              .each(function(){
-      //                  $(this).hide();
-      //              });
-      //              //$("body").html(tableClone);
-      //               html2canvas(document.getElementById('example'), {
-      //          onrendered: function (canvas) {
-      //              var data = canvas.toDataURL();
-      //              var docDefinition = {
-      //                  content: [{
-      //                      image: data,
-      //                      width: 500
-      //                  }]
-      //              };
-      //              pdfMake.createPdf(docDefinition).download("Table.pdf");
-      //              setTimeout(()=>{
-      //              location.reload();
 
-      //              },"1000");
-      //          }
-      //      });
-      //  }
+        //function demoFromHTML() {
+        //       let tableClone = $('#example');
+        //              tableClone
+        //              .find(".no-export")
+        //              .each(function(){
+        //                  $(this).hide();
+        //              });
+        //              //$("body").html(tableClone);
+        //               html2canvas(document.getElementById('example'), {
+        //          onrendered: function (canvas) {
+        //              var data = canvas.toDataURL();
+        //              var docDefinition = {
+        //                  content: [{
+        //                      image: data,
+        //                      width: 500
+        //                  }]
+        //              };
+        //              pdfMake.createPdf(docDefinition).download("Table.pdf");
+        //              setTimeout(()=>{
+        //              location.reload();
 
-</script>
-<script>
-    var dataTablesInfo = document.getElementById("dataTables_info");
-</script>
+        //              },"1000");
+        //          }
+        //      });
+        //  }
+
+    </script>
+    <script asp-append-version="true">
+        var dataTablesInfo = document.getElementById("dataTables_info");
+    </script>
 }

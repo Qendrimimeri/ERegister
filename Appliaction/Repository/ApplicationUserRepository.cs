@@ -404,9 +404,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             if (role.Name != _roles.SimpleRole)
                 roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
 
-        var orderedRoles = roles.OrderBy(x => x.Value);
-        roles.Remove(roles[roles.Count - 1]);
+        if (roles[0].Key == _roles.AnetarIThjeshte) roles.Remove(roles[0]);
         roles.Add(new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anetarë i thjeshte" });
+        var orderedRoles = roles.OrderBy(x => x.Value);
         return roles;
     }
 
@@ -445,7 +445,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     public async Task<bool> IsEmailConfirmed(LoginVM model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user.EmailConfirmed == true) return true;
+        if (user == null || user.EmailConfirmed == true ) return true;
         return false;
     }
 

@@ -35,25 +35,25 @@ CenterTitle" aria-hidden="true">
                         <h5 class="modal-title text-center" id="exampleModalLongTitle">Ndrysho fjalëkalimin</h5>
                     </div>
                     <div class="modal-body">
-                        <div class="container-fluid pt-2 ">
+                        <div class="text-align-center justify-content-center pt-2 ">
                             <div class="col-12">
-                                <div class="p-2">
+                                <div class="pb-2">
                                     <form>
                                         <div class="mb-3">
                                             <label for="NewPassword" class="form-label">Fjalëkalimi i ri</label>
                                             <div class="d-flex align-items-center">
                                                 <input for="NewPassword" id="newPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                                <i class="bi bi-eye-slash fs-5" id="newTogglePassword"></i>
+                                                <i class="bi bi-eye-slash fs-5" id="newTogglePassword" ></i>
                                             </div>
-                                          
+
                                         </div>
                                         <div class="mb-3">
                                             <label for="ConfirmPassword" class="form-label">Konfirmo fjalëkalimin</label>
-                                           <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center">
                                                 <input for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" aria-describedby="emailHelp">
-                                              <i class="bi bi-eye-slash fs-5" id="confirmtogglePassword"></i>
+                                                <i class="bi bi-eye-slash fs-5" id="confirmTogglePassword" ></i>
 
-                                           </div>
+                                            </div>
                                             <small id="response-text" class="text-danger"></small>
                                         </div>
                                         <button type="submit" id="change-password" class="btn btn-primary btn-lg btn-block mt-3 w-100 py-0"> Ndrysho </button>
@@ -68,16 +68,17 @@ CenterTitle" aria-hidden="true">
     }
 }
 <head>
-<link rel="stylesheet" href="~/cssViews/AddVoter.css">
+    <link rel="stylesheet" href="~/cssViews/AddVoter.css">
 </head>
-<script src="~/js/security_stamp.js"></script>
 
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11" asp-append-version="true"></script>
+
 <section class="section">
-    <input hidden asp-for="@userMuniId" id="get-user-muniId"/>
-    <input hidden asp-for="@userVillageId" id="get-user-villageId"/>
-    <input hidden asp-for="@userNeigborhoodId" id="get-user-neighborhoodId"/>
+    <input hidden asp-for="@userMuniId" id="get-user-muniId" />
+    <input hidden asp-for="@userVillageId" id="get-user-villageId" />
+    <input hidden asp-for="@userNeigborhoodId" id="get-user-neighborhoodId" />
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -86,29 +87,32 @@ CenterTitle" aria-hidden="true">
                         <div>
                             <h2 class="card-title ">Regjistro të dhënat për votuesin</h2>
                         </div>
-                       @if (User.IsInRole(roles.KryetarIPartise))
-                        { 
+                        @if (User.IsInRole(roles.KryetarIPartise))
+                        {
                             <div>
                                 <partial name="_ManualiAdminAddsAdminPartial"></partial>
                             </div>
                         }
-                        @if(User.IsInRole(roles.KryetarIKomunes)){
+                        @if (User.IsInRole(roles.KryetarIKomunes))
+                        {
                             <div>
                                 <partial name="_ManualiKryetarKomunesAddVoterPartial"></partial>
                             </div>
                         }
-                        @if(User.IsInRole(roles.KryetarIFshatit)){
+                        @if (User.IsInRole(roles.KryetarIFshatit))
+                        {
                             <div>
                                 <partial name="_ManualiKryetarFshatiAddVoterPartial"></partial>
                             </div>
                         }
-                        @if(User.IsInRole(roles.AnetarIThjeshte)){
+                        @if (User.IsInRole(roles.AnetarIThjeshte))
+                        {
                             <div>
                                 <partial name="_ManualiAntarThjeshtAddVoterPartial"></partial>
                             </div>
                         }
                     </div>
-                   
+
 
                     <form asp-action="Register" asp-controller="AddsAdmin" method="post" id="listform">
                         <h6 class="pt-4">I - Të dhënat përsonale</h6>
@@ -116,7 +120,7 @@ CenterTitle" aria-hidden="true">
                         <div class="pb-3 d-flex pe-2 justify-content-between">
                             <div class="col-12 p">
                                 <label asp-for="FullName" class="">Emri dhe mbiemri</label>
-                                <input class="form-control" asp-for="FullName" placeholder="Shkruaj emrin dhe mbiemrin" >
+                                <input class="form-control" asp-for="FullName" placeholder="Shkruaj emrin dhe mbiemrin">
                                 <span asp-validation-for="FullName" class="text-danger"></span>
                             </div>
                         </div>
@@ -127,7 +131,7 @@ CenterTitle" aria-hidden="true">
                                     <input asp-for="PrefixPhoneNo" type="text" class="form-control" id="prefix" value="+383">
                                 </div>
                                 <div class="col-8 ps-2 col-sm-10">
-                                    <input class="form-control" asp-for="PhoneNumber" type="number" min="0" placeholder=""  >
+                                    <input class="form-control" asp-for="PhoneNumber" type="number" min="0" placeholder="">
                                 </div>
                             </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
@@ -135,7 +139,7 @@ CenterTitle" aria-hidden="true">
                         </div>
                         <div class="form-group pb-3 pe-2">
                             <label for="exampleInputEmail1">Email adresa</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email"  placeholder="Shkruaj email adresen">
+                            <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email" placeholder="Shkruaj email adresen">
                             <span asp-validation-for="Email" class="text-danger"></span>
                             @if (ViewBag.UserExist == "Email i dhënë ekziston në sistem!")
                             {
@@ -144,7 +148,7 @@ CenterTitle" aria-hidden="true">
                         </div>
                         <div class="form-group pb-3 pe-2">
                             <label for="InputFacebook">Shkruaj linkun e facebook-ut të personit</label>
-                            <input type="text" class="form-control" asp-for="Facebook"  id="InputFacebook">
+                            <input type="text" class="form-control" asp-for="Facebook" id="InputFacebook">
                         </div>
                         <div class="d-flex justify-content-between flex-md-row flex-column">
                             @if (User.IsInRole(roles.KryetarIPartise))
@@ -186,7 +190,7 @@ CenterTitle" aria-hidden="true">
                                     <select class="form-select fshati-selected option-select" asp-for="Village" id="villages">
                                         <option value=" " disabled selected selectcard>Zgjedh fshatin...</option>
                                     </select>
-                                   <span asp-validation-for="Village" class="text-danger"></span>
+                                    <span asp-validation-for="Village" class="text-danger"></span>
 
                                 </div>
                                 <div id="neigborhoods-container" class="col-md-6 mb-3 pe-2">
@@ -194,7 +198,7 @@ CenterTitle" aria-hidden="true">
                                     <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
-                                  <span asp-validation-for="Neigborhood" class="text-danger"></span>
+                                    <span asp-validation-for="Neigborhood" class="text-danger"></span>
 
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-3 pe-2">
@@ -232,7 +236,7 @@ CenterTitle" aria-hidden="true">
                                 </div>
                                 <div class="col-md-4 mb-3 pe-2">
                                     <label class="">Numri i shtëpisë</label>
-                                    <input class="form-control" placeholder="opsionale" min="0" asp-for="HouseNo" >
+                                    <input class="form-control" placeholder="opsionale" min="0" asp-for="HouseNo">
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -269,10 +273,10 @@ CenterTitle" aria-hidden="true">
                         <div class=" mb-4 d-flex justify-content-between flex-md-row flex-column">
                             <div class="col-md-4 mb-3 pe-2">
                                 <label class="">Vendi i punës</label>
-                                <input asp-for="WorkPlace" class="form-control" >
+                                <input asp-for="WorkPlace" class="form-control">
 
-                            <span asp-validation-for="WorkPlace" class="text-danger"></span>
-                                
+                                <span asp-validation-for="WorkPlace" class="text-danger"></span>
+
                             </div>
                             <div class="col-md-4 mb-2 pe-2 ">
                                 <label>Sektori</label>
@@ -283,8 +287,8 @@ CenterTitle" aria-hidden="true">
                             <div class="col-md-4 mb-3 pe-2">
                                 <label class="l">Detyra</label>
                                 <input asp-for="Duty" class="form-control">
-                            <span asp-validation-for="Duty" class="text-danger"></span>
-                                
+                                <span asp-validation-for="Duty" class="text-danger"></span>
+
                             </div>
                         </div>
                         <h6 class="pt-4">III - Të dhënat partiake<hr></h6>
@@ -326,9 +330,10 @@ CenterTitle" aria-hidden="true">
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
                         </div>
-                        @if(User.IsInRole(roles.AnetarIThjeshte)){
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
-                            <a href='javascript:
+                        @if (User.IsInRole(roles.AnetarIThjeshte))
+                        {
+                            <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
+                                <a href='javascript:
                                swal({
                                title: "A jeni të sigurtë?" ,
                                icon: "warning" ,
@@ -356,6 +361,7 @@ CenterTitle" aria-hidden="true">
                                 }
                                 });'
                                 class = "btnanulo btn btn-danger">Anulo
+<<<<<<< HEAD
                             </a>&nbsp &nbsp
                             <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" id="BtnRuajDheHapRast" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
                             </div>
@@ -435,14 +441,56 @@ CenterTitle" aria-hidden="true">
 
                         </div>
                         
+=======
+                                </a>&nbsp &nbsp
+                                <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
+                            </div>
                         }
-                       
+                        else
+                        {
+                            <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive">
+                                <a href='javascript:
+                               swal({
+                               title: "A jeni të sigurtë?" ,
+                               icon: "warning" ,
+                               buttons: {
+                               cancel:"Jo",
+                               confirm:{
+                               text:"Po",
+                               className:"test",
+                               } }
+                               })
+                               .then((willDelete)=>
+                                {
+                                if (willDelete) {
+                                swal({ title: "U anulua me sukses!",
+                                icon: "success"}).then(okay => {
+                                if (okay) {
+                                window.location.href = "/AddsAdmin/AddVoter";
+                                }
+                                });
+                                } else {
+                                swal({
+                                title: "Te dhënat nuk janë anuluar!",
+                                icon: "error",
+                                });
+                                }
+                                });'
+                                class = "btnanulo btn btn-danger">Anulo
+                                </a>&nbsp &nbsp
+                                <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
+                                <button type="submit" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
+                            </div>
+>>>>>>> 97a9df611af902bd65af2df76064815422b97bc4
+                        }
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<<<<<<< HEAD
 <script>
     //window.addEventListener("load", function(){
     //    setTimeout(
@@ -476,23 +524,36 @@ CenterTitle" aria-hidden="true">
         }
 </style>
 <script src="~/js/change_password.js"></script>
+=======
+
+<script src="~/js/security_stamp_AddVoter.js"></script>
+<script src="~/js/change_password.js" asp-append-version="true"></script>
+>>>>>>> 97a9df611af902bd65af2df76064815422b97bc4
 @if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
-    { <script src="~/js/add_votter_kryetari_komunes.js"> </script> }
+    {
+    <script src="~/js/add_votter_kryetari_komunes.js" asp-append-version="true"> </script>
+ }
 }
 else if (User.IsInRole("KryetarIFshatit"))
 {
     @section Scripts
-    { <script src="~/js/add_votter_kryetari_fshatit.js"> </script> }
+    {
+    <script src="~/js/add_votter_kryetari_fshatit.js" asp-append-version="true"> </script>
+ }
 }
 else if (User.IsInRole("AnetarIThjeshte"))
 {
     @section Scripts
-    { <script src="~/js/add_votter_antari_thjesht.js"> </script> }
+    {
+    <script src="~/js/add_votter_antari_thjesht.js " asp-append-version="true"> </script>
+ }
 }
 else
 {
     @section Scripts
-    { <script src="~/js/add_votter_admin.js">  </script>}
+    {
+    <script src="~/js/add_votter_admin.js" asp-append-version="true">  </script>
+}
 }

@@ -211,7 +211,7 @@
 </style>
 
 <section class="section">
-    <div class="somediv">
+   @* <div class="somediv">
         <ul class="nav nav-tabs ttest">
             <li class="nav-item tabs">
                 <a class="nav-link active link-secondary tabs" onclick="BoldText(this);" id="klasa1" aria-current="page" style="background-color:#fff">Regjistro Zyrtarë</a>
@@ -220,7 +220,7 @@
                 <a class="nav-link link-secondary tabs" onclick="BoldText(this);" id="klasa2" aria-current="page" style="background-color:#fff"> Rezultatet e KQZ</a>
             </li>
         </ul>
-    </div>
+    </div>*@
     <div class="row">
         <div class="col-lg-12">
             <div class="card ">
@@ -420,56 +420,26 @@
                                 <small class="text-danger" id="response-village"></small>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
                             </div>
+
                             @*ME HJEK*@
                             <hr />
                         </div>
-                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
-                            <a href='javascript:
-                               swal({
-                               title: "A jeni të sigurtë?" ,
-                               icon: "warning" ,
-                               buttons: {
-                               cancel:"Jo",
-                               confirm:{
-                               text:"Po",
-                               className:"test",
-                               } }
-                               })
-                               .then((willDelete)=>
-                                {
-                                if (willDelete) {
-                                swal({ title: "U anulua me sukses!",
-                                icon: "success"}).then(okay => {
-                                if (okay) {
-                                window.location.href = "/AddsAdmin/PoliticalOffical";
-                                }
-                                });
-                                } else {
-                                swal({
-                                title: "Te dhënat nuk janë anuluar!",
-                                icon: "error",
-                                });
-                                }
-                                });' class = "btn btn-danger button-responsive">Anulo
-                            </a>&nbsp&nbsp
-                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp&nbsp
-                            <button type="submit" id="second-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
-                        </div>
-                    </form>
-                    <div class="" id="table">
-                        <div class="d-flex flex-row justify-content-around divi">
-                            <div class="col-4 pt-4 zgjedhje">
+                        <h6 class="pt-4">III - Të dhënat e zgjedhjeve</h6>
+                        <hr />
+                        <div class="mb-4 d-flex justify-content-between flex-md-row flex-column">
+                        @*<div class="d-flex flex-row justify-content-around divi">*@
+                            <div class="col-md-6 mb-2 pe-2 zgjedhje">
                                 <label class="">Lloji i zgjedhjeve</label>
-                                <select class="form-select" id="inputGroupSelect03" name="zgjedhjet" required>
+                                <select class="form-select option-select" id="inputGroupSelect03" name="zgjedhjet" required>
                                     <option value="0" disabled selected>Zgjedh llojin e zgjedhjeve...</option>
                                     <option>Zgjedhjet Nacionale</option>
                                     <option>Zgjedhjet Lokale</option>
                                 </select>
                                 @*<span class="text-danger validation-message" >Ju lutem zgjedhni llojin e zgjedhjeve!</span>*@
                             </div>
-                            <div class="col-4 pt-4 pb-4 data">
+                            <div class="col-md-6 mb-2 pe-2 data">
                                 <label class="">Data e zgjedhjeve</label>
-                                <input type="date" id="year" class="form-control" required>
+                                <input type="date" id="year" class="form-control option-select" required>
                                 @*<span class="text-danger validation-message">Ju lutem zgjedhni datën e zgjedhjeve!</span>*@
                             </div>
                         </div>
@@ -479,8 +449,8 @@
                                 <table class="table table-responsive align-center table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col" class="w-50">Partia Politike</th>
-                                            <th scope="col" class="w-50">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                            <th scope="col">Partia Politike</th>
+                                            <th scope="col">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -520,7 +490,43 @@
                                 </table>
                             </div>
                         </div>
-                        <div class=" pt-4 d-flex justify-content-start">
+                        <div class="d-flex flex-row justify-content-end pe-2 pt-3 ">
+                            <a href='javascript:
+                               swal({
+                               title: "A jeni të sigurtë?" ,
+                               icon: "warning" ,
+                               buttons: {
+                               cancel:"Jo",
+                               confirm:{
+                               text:"Po",
+                               className:"test",
+                               } }
+                               })
+                               .then((willDelete)=>
+                                {
+                                if (willDelete) {
+                                swal({ title: "U anulua me sukses!",
+                                icon: "success"}).then(okay => {
+                                if (okay) {
+                                window.location.href = "/AddsAdmin/PoliticalOffical";
+                                }
+                                });
+                                } else {
+                                swal({
+                                title: "Te dhënat nuk janë anuluar!",
+                                icon: "error",
+                                });
+                                }
+                                });' class = "btn btn-danger button-responsive">Anulo
+                            </a>&nbsp&nbsp
+                            <button type="submit" asp-action="SaveAndOpenCasePoliticalOfficial" asp-controller="AddsAdmin" id="main-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp&nbsp
+                            <button type="submit" id="second-button" class="btn btn-primary pe-2 button-responsive">Ruaj dhe mbyll</button>
+                        </div>
+                    </form>
+                    <div class="" id="table">
+                        
+             
+                      @*  <div class=" pt-4 d-flex justify-content-start">
                             <button type="button" class="btn btn-primary politika" data-toggle="modal" data-target="#exampleModalCenter">
                                 Shto një subjekt politik
                             </button>
@@ -528,7 +534,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <form>
+                                        @*    <form>
                                                 <div class="form-group">
                                                     <label for="subjekti-politik" class="py-2">Emri i subjektit politik</label>
                                                     <input type="text" class="form-control" id="subjekti-politik">
@@ -542,14 +548,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<script>
+<script asp-append-version="true">
           var currElem = null;
            function BoldText(elem) {
 
@@ -566,8 +572,8 @@
 {
     @section Scripts
     {
-<script src="~/js/kqz_validation_for_admin.js"></script>
-<script language="javascript">
+<script src="~/js/kqz_validation_for_admin.js" asp-append-version="true"></script>
+<script language="javascript" asp-append-version="true">
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -575,7 +581,7 @@
     today = yyyy + '-' + mm + '-' + dd;
     $('#year').attr('max',today);
 </script>
-<script>
+<script asp-append-version="true">
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
     const forma = document.querySelector("#forma");
@@ -589,16 +595,6 @@
                         //text: "You clicked the button!",
                         icon: "warning",
                         button: "Plotëso rezultatet!",
-                    }).then(okay => {
-                        if (okay) {
-                            const linku1 = document.getElementById('klasa1');
-                            const linku2 = document.getElementById('klasa2');
-                            linku1.classList.remove('active');
-                            linku2.classList.add('active');
-                            $('#table').show();
-                            $('#forma').hide();
-                            $('#titulli').hide();
-                        }
                     });
                     e.preventDefault();
                 }
@@ -608,7 +604,7 @@
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
     $('#table').hide();
     $('#neigborhoodsVillage-container').hide();
     $('#villages').change(function () {
@@ -656,7 +652,7 @@
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
         const url = "/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
@@ -1087,29 +1083,7 @@
             }));
     }
 </script>
-<script>
-    $('#table').hide();
-    const linku1 = document.getElementById('klasa1');
-    const linku2 = document.getElementById('klasa2');
-    linku1.addEventListener('click', event => {
-        //console.log('u thirr 1');
-        event.preventDefault();
-        $('#table').hide();
-        $('#forma').show();
-        $('#titulli').show();
-        linku2.classList.remove('active');
-        linku1.classList.add('active');
-        //linku1.setAttribute('style','background-color: white' );
-    });
-    linku2.addEventListener('click', event => {
-        //console.log('u thirr 2');
-        event.preventDefault();
-        $('#forma').hide();
-        $('#table').show();
-        $('#titulli').hide();
-        linku1.classList.remove('active');
-        linku2.classList.add('active');
-    });
+    <script asp-append-version="true">
     const button = document.getElementById('main-button');
     const butoni = document.getElementById('second-button');
     const votes = document.getElementsByClassName("votat");
@@ -1294,8 +1268,8 @@ else if (User.IsInRole(roles.KryetarIFshatit))
 {
     @section Scripts
     {
-<script src="~/js/kqz_validations.js"></script>
-<script language="javascript">
+<script src="~/js/kqz_validations.js" asp-append-version="true"></script>
+<script language="javascript" asp-append-version="true">
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -1303,7 +1277,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
     today = yyyy + '-' + mm + '-' + dd;
     $('#year').attr('max',today);
 </script>
-<script>
+<script asp-append-version="true">
     $('#table').hide();
     $('#streetByNeighborhood').hide();
     //$('#villages').change(function () {
@@ -1336,7 +1310,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
     const forma = document.querySelector("#forma");
@@ -1350,16 +1324,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                         //text: "You clicked the button!",
                         icon: "warning",
                         button: "Plotëso rezultatet!",
-                    }).then(okay => {
-                        if (okay) {
-                            const linku1 = document.getElementById('klasa1');
-                            const linku2 = document.getElementById('klasa2');
-                            linku1.classList.remove('active');
-                            linku2.classList.add('active');
-                            $('#table').show();
-                            $('#forma').hide();
-                            $('#titulli').hide();
-                        }
                     });
                     e.preventDefault();
                 }
@@ -1369,7 +1333,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         }
     });
 </script>
-<script>
+    <script asp-append-version="true">
     const url = "/api/service/";
     if (document.querySelector("#villages") != undefined) {
         getVillages();
@@ -1612,28 +1576,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 pollNeighborhood.appendChild(item);
             }));
     }
-     $('#table').hide();
-    const linku1 = document.getElementById('klasa1');
-    const linku2 = document.getElementById('klasa2');
-    linku1.addEventListener('click', event => {
-        //console.log('u thirr 1');
-        event.preventDefault();
-        $('#table').hide();
-        $('#forma').show();
-        $('#titulli').show();
-        linku2.classList.remove('active');
-        linku1.classList.add('active');
-        //linku1.setAttribute('style','background-color: white' );
-    });
-    linku2.addEventListener('click', event => {
-        //console.log('u thirr 2');
-        event.preventDefault();
-        $('#forma').hide();
-        $('#table').show();
-        $('#titulli').hide();
-        linku1.classList.remove('active');
-        linku2.classList.add('active');
-    });
+   
 
     const button = document.getElementById('main-button');
     const butoni = document.getElementById('second-button');
@@ -1813,8 +1756,8 @@ else
 {
     @section Scripts
     {
-<script src="~/js/kqz_validation_for_admin.js"></script>
-<script language="javascript">
+<script src="~/js/kqz_validation_for_admin.js" asp-append-version="true"></script>
+<script language="javascript" asp-append-version="true">
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -1822,7 +1765,7 @@ else
     today = yyyy + '-' + mm + '-' + dd;
     $('#year').attr('max',today);
 </script>
-<script>
+<script asp-append-version="true">
     $('#neigborhoodsVillage-container').hide();
     $('#table').hide();
     $('#villages').change(function () {
@@ -1870,7 +1813,7 @@ else
         }
     });
 </script>
-<script>
+<script asp-append-version="true">
     const poll1 = document.getElementById('pollNeighborhood');
     const poll2 = document.getElementById('poll');
     poll1.addEventListener('change', event => {
@@ -1938,27 +1881,7 @@ else
                 }
             });
     }
-    const linku1 = document.getElementById('klasa1');
-    const linku2 = document.getElementById('klasa2');
-    linku1.addEventListener('click', event => {
-        //console.log('u thirr 1');
-        event.preventDefault();
-        $('#table').hide();
-        $('#forma').show();
-        $('#titulli').show();
-        linku2.classList.remove('active');
-        linku1.classList.add('active');
-        //linku1.setAttribute('style','background-color: white' );
-    });
-    linku2.addEventListener('click', event => {
-        //console.log('u thirr 2');
-        event.preventDefault();
-        $('#forma').hide();
-        $('#table').show();
-        $('#titulli').hide();
-        linku1.classList.remove('active');
-        linku2.classList.add('active');
-    });
+    
     const munis = document.querySelector('#munis');
     const villages = document.querySelector('#villages');
     const url = "/api/service/";
@@ -2741,7 +2664,7 @@ else
             }));
     }
 </script>
-<script>
+<script asp-append-version="true">
     $('#table').hide();
     const button = document.getElementById('main-button');
     const butoni = document.getElementById('second-button');
@@ -2856,8 +2779,8 @@ else
         }
     }
 </script>
-<script src="~/js/add_political_subject.js"></script>
-<script>
+    <script src="~/js/add_political_subject.js" asp-append-version="true"></script>
+<script asp-append-version="true">
     document.querySelector(".validation-message").style.display = "none";
     const BreakException = {};
     const forma = document.querySelector("#forma");
@@ -2871,16 +2794,6 @@ else
                         //text: "You clicked the button!",
                         icon: "warning",
                         button: "Plotëso rezultatet!",
-                    }).then(okay => {
-                        if (okay) {
-                            const linku1 = document.getElementById('klasa1');
-                            const linku2 = document.getElementById('klasa2');
-                            linku1.classList.remove('active');
-                            linku2.classList.add('active');
-                            $('#table').show();
-                            $('#forma').hide();
-                            $('#titulli').hide();
-                        }
                     });
                     e.preventDefault();
                 }
