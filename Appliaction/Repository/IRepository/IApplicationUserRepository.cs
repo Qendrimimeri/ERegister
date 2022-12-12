@@ -172,7 +172,7 @@ namespace Application.Repository.IRepository
         /// </summary>
         /// <param name="model"></param>
         /// <returns>True or False</returns>
-        Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model);
+        Task<Response> AddPoliticalOfficialAsync(PoliticalOfficalVM model);
 
         /// <summary>
         /// Changes user's password based on their specified email

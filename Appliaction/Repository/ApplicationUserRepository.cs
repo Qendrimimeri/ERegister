@@ -398,14 +398,11 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
     public async Task<List<KeyValueModel>> GetAllRolesAsync()
     {
-        var res = await _roleManager.Roles.ToListAsync();
         var roles = new List<KeyValueModel>();
-        foreach (var role in res)
-            if (role.Name != _roles.SimpleRole)
-                roles.Add(new KeyValueModel { Key = role.Name, Value = role.Name.Replace("I", " i ").ToLower().Capitalize() });
-
-        if (roles[0].Key == _roles.AnetarIThjeshte) roles.Remove(roles[0]);
         roles.Add(new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anetarë i thjeshte" });
+        roles.Add(new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i fshatit" });
+        roles.Add(new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i komunës" });
+        roles.Add(new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" });
         var orderedRoles = roles.OrderBy(x => x.Value);
         return roles;
     }
@@ -523,71 +520,18 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     }
 
 
-    public async Task<bool> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
+    public async Task<Response> AddPoliticalOfficialAsync(PoliticalOfficalVM model)
     {
-        string email = model.Email.ToLower();
         var userExist = await _userManager.FindByEmailAsync(model.Email);
-        if (!(userExist == null)) return false;
+        if (!(userExist == null)) return new Response(false, "Ky email Egziston");
 
-        EncryptionService encrypt = new(_encrypt);
-
-        string addressId = Guid.NewGuid().ToString();
-        var address = new Address()
-        {
-            Id = addressId,
-            MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
-            HouseNo = model.HouseNo,
-            VillageId = model.Village,
-            BlockId = model.Block,
-            StreetId = model.Street,
-            NeighborhoodId = model.Neigborhood,
-            PollCenterId = int.Parse(model.PollCenter),
-        };
-
-        await _context.Addresses.AddAsync(address);
-        await _context.SaveChangesAsync();
-
-        string workId = Guid.NewGuid().ToString();
-        var work = new Work()
-        {
-            Id = workId,
-            WorkPlace = "VV",
-            AdministrativeUnit = "Sherbimi Publik",
-            Duty = model.Role,
-        };
-
-
-        await _context.Works.Where(x => x.WorkPlace == "").FirstOrDefaultAsync();
-        await _context.Works.AddAsync(work);
-        await _context.SaveChangesAsync();
-
-
-
-        var simpleUser = new ApplicationUser()
-        {
-            FullName = model.FullName.Trim(),
-            Email = email,
-            UserName = email,
-            CreatedAt = DateTime.Now,
-            WorkId = workId,
-            AddressId = addressId,
-            ActualStatus = "Unset",
-            ImgPath = "default.png",
-            PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
-        };
-
-        // Use this for Development env.
-        var password = CreateRandomPassword(8);
-
-        var result = await _userManager.CreateAsync(simpleUser, password);
-        await _context.SaveChangesAsync();
+       
 
         var getPoliticalSubjectsId = _context.PoliticalSubjects.Select(x => x.Id).ToList();
         var pollCenterId = _context.PollCenters.Where(x => x.Id == int.Parse(model.PollCenter)).Select(x => x.Id).FirstOrDefault();
         var hasData = await _context.Kqzregisters.Where(x => x.ElectionType == model.ElectionType && x.PollCenterId == pollCenterId).ToListAsync();
         var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId).Select(x => x.NoOfvotes).ToListAsync();
-        
-        
+
         var noOfVotes = new List<int?>()
         {
             model.VV,
@@ -599,63 +543,67 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             model.PartitSerbe,
             model.PartitJoSerbe
         };
-        if (hasData.Count <= 0)
+
+        if (hasPollCenterData.Count <= 9)
         {
-            for (int i = 0; i < noOfVotes.Count; i++)
+            foreach (var item in noOfVotes)
+                if (item == null || model.ElectionDate == null || model.ElectionType == null)
+                    return new Response(false, "Ju lutem plotsoni rezultate lidhur me KQZ-n");
+
+            if (hasData.Count <= 0)
             {
-                var election = new Kqzregister()
+
+                var result = await AddPolitical(model);
+                if (result.Status)
                 {
-                    ElectionType = model.ElectionType,
-                    PollCenterId = pollCenterId,
-                    NoOfvotes = noOfVotes[i],
-                    MunicipalityId = model.Municipality,
-                    VillageId = model.Village,
-                    NeighborhoodId = model.Neigborhood,
-                    PoliticialSubjectId = getPoliticalSubjectsId[i],
-                    DataCreated = model.ElectionDate.ToString(),
-                };
-                await _context.Kqzregisters.AddAsync(election);
+                    for (int i = 0; i < noOfVotes.Count; i++)
+                    {
+                        var election = new Kqzregister()
+                        {
+                            ElectionType = model.ElectionType,
+                            PollCenterId = pollCenterId,
+                            NoOfvotes = noOfVotes[i],
+                            MunicipalityId = model.Municipality,
+                            VillageId = model.Village,
+                            NeighborhoodId = model.Neigborhood,
+                            PoliticialSubjectId = getPoliticalSubjectsId[i],
+                            DataCreated = model.ElectionDate.ToString(),
+                        };
+                        await _context.Kqzregisters.AddAsync(election);
+                    }
+                    if (await _context.SaveChangesAsync() <= 0)
+                    {
+                        _context.ApplicationUsers.Remove(await _context.ApplicationUsers.Where(x => x.Email == model.Email).FirstOrDefaultAsync());
+                        await _context.SaveChangesAsync();
+                        return new Response(false, "Diqka ka shkuar keq");
+                    }
+                }
+                return result;
             }
-            await _context.SaveChangesAsync();
+            else
+            {
+                var result = await AddPolitical(model);
+                for (int i = 0; i < hasData.Count; i++)
+                    hasData[i].NoOfvotes = noOfVotes[i];
+
+                await _context.SaveChangesAsync();
+            }
+            return new Response(true, "U regjistrua me sukses");
         }
         else
         {
-            for (int i = 0; i < hasData.Count; i++)
-                hasData[i].NoOfvotes = noOfVotes[i];
-
-            await _context.SaveChangesAsync();
-        }
-
-
-
-        if (result.Succeeded)
-        {
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(simpleUser);
-            string domainApp = "https://vota.live";
-
-            var confimrEmailUrs = $"{domainApp}/Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
-
-            var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
-            string domainName = "https://vota.live";
-            var emailReques = new MailRequestModel
+            var res = await AddPolitical(model);
+            if ( model.ElectionDate != null && model.ElectionType != null )
             {
-                Subject = "E-Vota: Konfirmimi i llogarisë.",
-                Body =
-                "Përshëndetje!" +
-                $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën e-Vota" +
-                $"<br>Klikoni <a href={confimrEmailUrs}>këtu</a> për të verifikuar adresen tuaj elektronike, ju lutem." +
-                $"<br>Fjalëkalimi juaj është <strong>{password}</strong> ju lusim ta ndërroni fjalëkalimin tuaj në platformën e-Vota <br> Fjalëkalimin mund të ndërroni duke klikuar mbi Profile => Ndrysho fjalëkalimin" +
-                $"<br>Suksese në punën tuaj, i'u priftë e mbara!" +
-                $"<br><br>Me respekt," +
-                $"<br>Personeli i <a href={domainName}>Vota.live</a>",
-                ToEmail = simpleUser.Email
-            };
-
-            await _mail.SendEmailAsync(emailReques);
+                for (int i = 0; i < hasData.Count; i++)
+                {
+                    hasData[i].NoOfvotes = noOfVotes[i];
+                    hasData[i].DataCreated = model.ElectionDate.ToString();
+                }
+                await _context.SaveChangesAsync();
+            }
         }
-        await _userManager.AddToRoleAsync(simpleUser, model.Role);
-
-        return true;
+        return new Response(true, "U regjistrua me sukses");
     }
 
 
@@ -764,6 +712,97 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         if (res == null || res == 0) return false;
         return true;
     }
+
+    #region Add Political
+
+    private async Task<Response> AddPolitical(PoliticalOfficalVM model)
+    {
+        string email = model.Email.ToLower();
+        EncryptionService encrypt = new(_encrypt);
+
+        string addressId = Guid.NewGuid().ToString();
+        var address = new Address()
+        {
+            Id = addressId,
+            MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
+            HouseNo = model.HouseNo,
+            VillageId = model.Village,
+            BlockId = model.Block,
+            StreetId = model.Street,
+            NeighborhoodId = model.Neigborhood,
+            PollCenterId = int.Parse(model.PollCenter),
+        };
+
+        await _context.Addresses.AddAsync(address);
+        await _context.SaveChangesAsync();
+
+        string workId = Guid.NewGuid().ToString();
+        var work = new Work()
+        {
+            Id = workId,
+            WorkPlace = "VV",
+            AdministrativeUnit = "Sherbimi Publik",
+            Duty = model.Role,
+        };
+
+
+        await _context.Works.Where(x => x.WorkPlace == "").FirstOrDefaultAsync();
+        await _context.Works.AddAsync(work);
+        await _context.SaveChangesAsync();
+
+
+
+        var simpleUser = new ApplicationUser()
+        {
+            FullName = model.FullName.Trim(),
+            Email = email,
+            UserName = email,
+            CreatedAt = DateTime.Now,
+            WorkId = workId,
+            AddressId = addressId,
+            ActualStatus = "Unset",
+            ImgPath = "default.png",
+            PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
+        };
+
+        // Use this for Development env.
+        var password = CreateRandomPassword(8);
+
+        var result = await _userManager.CreateAsync(simpleUser, password);
+        await _context.SaveChangesAsync();
+
+        if (result.Succeeded)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(simpleUser);
+            string domainApp = "https://vota.live";
+
+            var confimrEmailUrs = $"{domainApp}/Account/ConfirmEmail?userId={simpleUser.Id}&token={token}";
+
+            var domain = model.Email[(model.Email.IndexOf('@') + 1)..].ToLower();
+            string domainName = "https://vota.live";
+            var emailReques = new MailRequestModel
+            {
+                Subject = "E-Vota: Konfirmimi i llogarisë.",
+                Body =
+                "Përshëndetje!" +
+                $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën e-Vota" +
+                $"<br>Klikoni <a href={confimrEmailUrs}>këtu</a> për të verifikuar adresen tuaj elektronike, ju lutem." +
+                $"<br>Fjalëkalimi juaj është <strong>{password}</strong> ju lusim ta ndërroni fjalëkalimin tuaj në platformën e-Vota <br> Fjalëkalimin mund të ndërroni duke klikuar mbi Profile => Ndrysho fjalëkalimin" +
+                $"<br>Suksese në punën tuaj, i'u priftë e mbara!" +
+                $"<br><br>Me respekt," +
+                $"<br>Personeli i <a href={domainName}>Vota.live</a>",
+                ToEmail = simpleUser.Email
+            };
+
+            await _mail.SendEmailAsync(emailReques);
+        }
+        await _userManager.AddToRoleAsync(simpleUser, model.Role);
+
+        return new Response(true, "U regjistrua me sukses");
+    }
+
+    #endregion
+
 
     #region
 

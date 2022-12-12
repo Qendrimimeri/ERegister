@@ -425,51 +425,50 @@
                             </div>
                             <div class="col-md-6 mb-2 pe-2 data">
                                 <label class="">Data e zgjedhjeve</label>
-                                <input asp-for="ElectionDate" type="date" id="year" class="form-control" required>
+                                <input asp-for="ElectionDate" type="date" id="year" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6 w-100 ">
                             <div class="table-responsive">
-                                <span class="text-danger validation-message">Ju lutem plotësoni tabelën me të dhëna!</span>
                                 <table class="table table-responsive align-center table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col">Partia Politike</th>
-                                            <th scope="col">Totali i votave : <span id="span" class="float-end"></span></th>@*Me bo nje formule per me i mbledh te gjitha votat e partive politike*@
+                                            <th scope="col">Totali i votave : <span id="span" class="float-end"></span>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th scope="row" class="parti" value="1">VV</th>
-                                            <td><input asp-for="VV" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input asp-for="VV" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="2">LDK</th>
-                                            <td><input asp-for="LDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input asp-for="LDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="3">PDK</th>
-                                            <td><input asp-for="PDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 " required /></td>
+                                            <td><input asp-for="PDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 " /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="4">AAK</th>
-                                            <td><input asp-for="AAK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input asp-for="AAK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="5">AKR</th>
-                                            <td><input asp-for="AKR" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input asp-for="AKR" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="6">Nisma</th>
-                                            <td><input asp-for="NISMA" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input asp-for="NISMA" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="7">Partite serbe</th>
-                                            <td><input asp-for="PartitSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" required /></td>
+                                            <td><input asp-for="PartitSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="parti" value="8">Partite joserbe</th>
-                                            <td><input asp-for="PartitJoSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" required /></td>
+                                            <td><input asp-for="PartitJoSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2453,28 +2452,5 @@ else
     }
 </script>
 <script src="~/js/add_political_subject.js" asp-append-version="true"></script>
-<script asp-append-version="true">
-    document.querySelector(".validation-message").style.display = "none";
-    const BreakException = {};
-    const forma = document.querySelector("#forma");
-    forma.addEventListener("submit", function (e) {
-        const parties = document.querySelectorAll(".partyNumber");
-        try {
-            parties.forEach(el => {
-                if (el.value === "") {
-                    swal({
-                        title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
-                        //text: "You clicked the button!",
-                        icon: "warning",
-                        button: "Plotëso rezultatet!",
-                    });
-                    e.preventDefault();
-                }
-            });
-        } catch (err) {
-            if (err !== BreakException) throw err;
-        }
-    });
-</script>
     }
 }

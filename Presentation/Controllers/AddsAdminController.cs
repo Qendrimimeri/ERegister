@@ -120,7 +120,7 @@ namespace Presentation.Controllers
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
-                    if (res)
+                    if (res.Status)
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
                     else
                     {
@@ -223,7 +223,7 @@ namespace Presentation.Controllers
                 {
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
 
-                    if (res)
+                    if (res.Status)
                     {
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
                         return RedirectToAction("PoliticalOffical", "AddsAdmin");
