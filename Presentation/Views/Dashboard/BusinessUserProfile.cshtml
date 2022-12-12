@@ -103,8 +103,11 @@
                             <div>
                                 <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
                                 <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
+                                @if (ViewBag.NotAllowedFormat == true)
+                                {
+                                        <span class="text-danger"> Ju lutem ngarkoni fotografi te formatit jpg ose png</span>      
+                                }
                             </div>
-                            <img id="frame" src="" class="img-fluid" />
                         </div>
                         <span>Numri i telefonit</span>
                         <div class=" pe-2 pb-4">
@@ -127,10 +130,6 @@
                             </div>
                         
                     </form>
-                    @if (TempData["NotCorrectFormat"] == "wow")
-                    {
-                        <small class="text-danger">Ju lutëm ngrakoni një file të formatit jpg ose png</small>
-                    }
                 </div>
             </div>
         </div>
