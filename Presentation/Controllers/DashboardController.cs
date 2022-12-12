@@ -223,6 +223,11 @@ namespace Presentation.Controllers
                     }
                     else if (editUser.Image != null)
                     {
+                        if (!editUser.Image.ContentType.Contains("image"))
+                        {
+                            TempData["NotCorrectFormat"] = "wow";
+                            return RedirectToAction("BusinessUserProfile");
+                        }
                         var rootFilePath = _env.WebRootPath;
                         string filePath = Path.Combine(rootFilePath, "Document");
                         if (!Directory.Exists(filePath))

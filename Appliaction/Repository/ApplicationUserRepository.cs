@@ -398,11 +398,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
     public async Task<List<KeyValueModel>> GetAllRolesAsync()
     {
-        var roles = new List<KeyValueModel>();
-        roles.Add(new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anetarë i thjeshte" });
-        roles.Add(new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i fshatit" });
-        roles.Add(new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i komunës" });
-        roles.Add(new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" });
+        List<KeyValueModel> roles = new ()
+        {
+            new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anëtar i thjeshte" },
+            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i fshatit" },
+            new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i komunës" },
+            new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" }
+        };
         var orderedRoles = roles.OrderBy(x => x.Value);
         return roles;
     }
