@@ -225,7 +225,8 @@ namespace Presentation.Controllers
                     {
                         if (!editUser.Image.ContentType.Contains("image"))
                         {
-                            TempData["NotCorrectFormat"] = "wow";
+                            TempData["error"] = "Formati duhet te jetë png ose jpg";
+                            ViewBag.NotAllowedFormat = true;
                             return RedirectToAction("BusinessUserProfile");
                         }
                         var rootFilePath = _env.WebRootPath;

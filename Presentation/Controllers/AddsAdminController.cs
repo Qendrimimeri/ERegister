@@ -115,14 +115,24 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> PoliticalOffical(PoliticalOfficalVM model)
         {
+            try
+            {
                 if (ModelState.IsValid)
                 {
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res.Status)
+                    {
                         TempData[_toaster.Success] = "U regjistrua me sukses!";
-                    else
+                    }
+                    else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
+                    {
+                        PoliticalOfficialAddress();
+                        ViewBag.KqzValidation = true;
+                        return View();
+                    }
+                    else 
                     {
                         ModelState.AddModelError("", "Ky email ekziston!");
                         ViewBag.EmailExist = "nuk ka email";
@@ -136,6 +146,13 @@ namespace Presentation.Controllers
 
                 PoliticalOfficialAddress();
                 return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+
         }
 
         public IActionResult Cancel()
