@@ -585,8 +585,10 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var getPoliticalSubjectsId = _context.PoliticalSubjects.Select(x => x.Id).ToList();
         var pollCenterId = _context.PollCenters.Where(x => x.Id == int.Parse(model.PollCenter)).Select(x => x.Id).FirstOrDefault();
         var hasData = await _context.Kqzregisters.Where(x => x.ElectionType == model.ElectionType && x.PollCenterId == pollCenterId).ToListAsync();
-
-        var noOfVotes = new List<int>()
+        var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId).Select(x => x.NoOfvotes).ToListAsync();
+        
+        
+        var noOfVotes = new List<int?>()
         {
             model.VV,
             model.LDK,

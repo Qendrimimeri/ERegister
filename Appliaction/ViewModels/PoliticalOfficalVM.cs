@@ -42,24 +42,24 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Ju lutem zgjedhni qendrën e votimit!")]
         public string? PollCenter { get; set; }
 
-        public string ElectionType { get; set; } 
+        public string? ElectionType { get; set; } 
 
-        public DateTime ElectionDate { get; set; }
+        public DateTime? ElectionDate { get; set; }
 
-        public int AAK { get; set; }
+        public int? AAK { get; set; }
 
-        public int AKR { get; set; }
+        public int? AKR { get; set; }
 
-        public int LDK { get; set; }
+        public int? LDK { get; set; }
 
-        public int NISMA { get; set; }
+        public int? NISMA { get; set; }
 
-        public int PDK { get; set; }
+        public int? PDK { get; set; }
 
-        public int VV { get; set; }
+        public int? VV { get; set; }
 
-        public int PartitJoSerbe { get; set; }
+        public int? PartitJoSerbe { get; set; }
 
-        public int PartitSerbe { get; set; }
+        public int? PartitSerbe { get; set; }
     }
 }
