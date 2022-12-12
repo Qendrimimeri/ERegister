@@ -21,6 +21,7 @@ namespace Application.ViewModels
         public string ? Neighborhood { get; set; }
 
         [DataType(DataType.Upload)]
+        [AllowedExtensions(new string[] { ".jpg", ".png" })]
         public IFormFile? Image { get; set; }
 
         public string? ProfileImage { get; set; }

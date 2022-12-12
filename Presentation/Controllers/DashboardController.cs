@@ -223,12 +223,17 @@ namespace Presentation.Controllers
                     }
                     else if (editUser.Image != null)
                     {
+                        //string[] extensionsAllowed = { "jpg", "png" };
+                        //if (editUser.Image.ContentType == "text/javascript")
+                        //{
+                        //    return View();
+                        //}
                         var rootFilePath = _env.WebRootPath;
                         string filePath = Path.Combine(rootFilePath, "Document");
                         if (!Directory.Exists(filePath))
                             Directory.CreateDirectory(filePath);
-
                         var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+                        var fileExt=System.IO.Path.GetExtension(fileName).Substring(1);
                         var fullPath = Path.Combine(filePath, fileName);
                         var getUser = await _userManager.GetUserAsync(User);
                         if (getUser.ImgPath != null && getUser.ImgPath != "default.png")
