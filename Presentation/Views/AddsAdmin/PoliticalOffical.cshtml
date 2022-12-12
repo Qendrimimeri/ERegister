@@ -550,29 +550,6 @@
         $('#year').attr('max', today);
     </script>
     <script asp-append-version="true">
-        document.querySelector(".validation-message").style.display = "none";
-        const BreakException = {};
-        const forma = document.querySelector("#forma");
-        forma.addEventListener("submit", function (e) {
-            const parties = document.querySelectorAll(".partyNumber");
-            try {
-                parties.forEach(el => {
-                    if (el.value === "") {
-                        swal({
-                            title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
-                            //text: "You clicked the button!",
-                            icon: "warning",
-                            button: "Plotëso rezultatet!",
-                        });
-                        e.preventDefault();
-                    }
-                });
-            } catch (err) {
-                if (err !== BreakException) throw err;
-            }
-        });
-    </script>
-    <script asp-append-version="true">
         $('#table').hide();
         $('#neigborhoodsVillage-container').hide();
         $('#villages').change(function () {
@@ -1086,29 +1063,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
         });
     </script>
     <script asp-append-version="true">
-        document.querySelector(".validation-message").style.display = "none";
-        const BreakException = {};
-        const forma = document.querySelector("#forma");
-        forma.addEventListener("submit", function (e) {
-            const parties = document.querySelectorAll(".partyNumber");
-            try {
-                parties.forEach(el => {
-                    if (el.value === "") {
-                        swal({
-                            title: "Ju lutem plotësoni tabelën me rezultatet e KQZ!",
-                            //text: "You clicked the button!",
-                            icon: "warning",
-                            button: "Plotëso rezultatet!",
-                        });
-                        e.preventDefault();
-                    }
-                });
-            } catch (err) {
-                if (err !== BreakException) throw err;
-            }
-        });
-    </script>
-    <script asp-append-version="true">
         const url = "/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
@@ -1370,7 +1324,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             votes[i].addEventListener('blur', e => {
                 e.preventDefault();
                 input = parseInt(votes[i].value);
-                //console.log("Inputi"+input);
                 if (!isNaN(input)) {
                     if (vlera !== 0) {
                         shuma = shuma - vlera;
@@ -1385,14 +1338,10 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             });
         }
         button.addEventListener('click', event => {
-            //event.preventDefault();
             addDataToDb();
-            //location.reload();
         });
         butoni.addEventListener('click', event => {
-            //event.preventDefault();
             addDataToDb();
-            //location.reload();
         });
         function addDataToDb() {
             let endpoint = url + "addkqzresult";
@@ -1400,25 +1349,14 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             const villages = document.getElementById('villages');
             const election = document.getElementById("inputGroupSelect03").value;
             const year = document.getElementById('year');
-            //const poll = document.getElementById('poll');
             const neighborhoodVillage = document.getElementById('neigborhoodsVillage');
             console.log(neighborhoodVillage);
             const neigboorhood = document.getElementById('neigborhoods');
             console.log(neigboorhood);
             var neighbors;
             const poll = document.getElementById('poll');
-            //console.log(poll);
             const pollNeighborhood = document.getElementById('pollNeighborhood');
-            //console.log(pollNeighborhood);
             var polls;
-            //var villagess;
-            //if (villages.selectedIndex !== 0) {
-            //    villagess = villages.options[villages.selectedIndex].value;
-            //}
-            //else {
-            //    villagess = null;
-            //}
-            //var neighbors;
             if (neighborhoodVillage.selectedIndex !== 0) {
                 neighbors = neighborhoodVillage.options[neighborhoodVillage.selectedIndex].value;
             }
@@ -1466,7 +1404,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             }
         });
         function addPollToDb() {
-            //console.log(neigborhoods.value);
             let endpoint = url + "addpollcenter";
             let input = swal("Emri i qendrës së votimit 1:", {
                 content: "input",
@@ -1481,15 +1418,10 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                 .then((value) => {
 
                     if (value) {
-                        //let sm1 = document.querySelector("#neigborhoods");
-                        //console.log(sm1);
                         let sm2 = document.querySelector("#neigborhoodsVillage");
                         console.log(sm2);
                         var sm;
                         console.log(sm)
-                        //if (sm1.selectedIndex !== 0) {
-                        //    sm = sm1.options[sm1.selectedIndex].value;
-                        //} else
                         if (sm2.selectedIndex !== 0) {
                             sm = sm2.options[sm2.selectedIndex].value;
                         }
@@ -1497,12 +1429,6 @@ else if (User.IsInRole(roles.KryetarIFshatit))
                             sm = null;
                         }
                         console.log(sm)
-                        //let munis = document.getElementById('munis');
-                        //let villages = document.getElementById('villages');
-                        //var villagess;
-                        //if (villages.selectedIndex !== 0) {
-                        //    villagess = villages.options[villages.selectedIndex].value;
-                        //}
                         fetch(endpoint, {
                             headers: {
                                 'Accept': 'application/json',
