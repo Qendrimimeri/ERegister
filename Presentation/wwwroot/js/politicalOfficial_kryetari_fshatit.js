@@ -321,7 +321,7 @@ poll2.addEventListener('change', event => {
 });
 function addPollToDb() {
     let endpoint = url + "addpollcenter";
-    let input = swal("Emri i qendrës së votimit 1:", {
+    let input = swal("Emri i qendrës së votimit:", {
         content: "input",
         buttons: {
             cancel: "Anulo",
