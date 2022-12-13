@@ -130,3 +130,20 @@
         </div>
     </div>
 </section>
+@section Scripts{
+    <script>
+       
+        
+         var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: strValue,
+                timer: 2000,
+                showCancelButton: false,
+                showConfirmButton: false
+            })
+        }
+    
+    </script>
+}

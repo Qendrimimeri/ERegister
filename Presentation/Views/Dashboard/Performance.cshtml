@@ -142,7 +142,18 @@
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
 
-
+     <script>
+        var strValue = "@((string)ViewBag.SaveAndCloseManage)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: strValue,
+                timer: 2000,
+                showCancelButton: false,
+                showConfirmButton: false
+            })
+        }
+    </script>
     <script src="~/js/Performance.js"></script>
     <script asp-append-version="true">
         var dataTablesInfo = document.getElementById("dataTables_info");

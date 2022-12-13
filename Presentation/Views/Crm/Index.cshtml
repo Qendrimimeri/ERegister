@@ -130,6 +130,18 @@
     {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+        var strValue = "@((string)ViewBag.SaveAndOpenCaseCRM)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: strValue,
+                timer: 2000,
+                showCancelButton: false,
+                showConfirmButton: false
+            })
+        }
+    </script>
+    <script>
         $(function () {
             $("#SearchBtn").autocomplete({
                 source: function (request, response) {

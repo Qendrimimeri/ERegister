@@ -39,6 +39,7 @@ public class CrmController : Controller
         try
         {
             ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
+            ViewBag.SaveAndOpenCaseCRM = TempData["SaveAndOpenCaseCRM"] as string;
             return View();
         }
         catch (Exception err)
@@ -80,10 +81,14 @@ public class CrmController : Controller
             ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
             ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
             ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
-            TempData[_toaster.Success] = "U ruajt me sukses!";
+            TempData["SaveAndCloseCRM"] = "U ruajt me sukses!";
 
             if (userInRoleKryetarIFshatit)
+            {
+                TempData["SaveAndCloseCRM"] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Crm");
+            }
+            TempData["SaveAndCloseCRM"] = "U ruajt me sukses!";
             return RedirectToAction("Index", "dashboard");
         }
         catch (Exception err)
@@ -178,8 +183,8 @@ public class CrmController : Controller
         {
                 Data();
                 await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
-                TempData[_toaster.Success] = "U ruajt me sukses!";
-                return RedirectToAction("Index", "Crm");
+            TempData["SaveAndOpenCaseCRM"] = "U ruajt me sukses!";
+            return RedirectToAction("Index", "Crm");
         }
         catch (Exception err)
         {

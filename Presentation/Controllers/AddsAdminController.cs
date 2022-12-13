@@ -45,6 +45,7 @@ namespace Presentation.Controllers
             {
                 ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
                 VoterAddress();
+                ViewBag.SaveAndOpenAdd = TempData["SaveAndOpenAdd"] as string;
                 return View();
             }
             catch (Exception err)
@@ -70,9 +71,17 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData[_toaster.Success] = "U regjistrua me sukses!";
+                        TempData["mssg"] = "U regjistrua me sukses!";
+
                         if (userInRoleKryetarIFshatit)
+                        {
+                            TempData["mssg"] = "Të dhënat u ndryshuan me sukses!";
                             return RedirectToAction("Index", "Crm");
+
+
+                        }
+                        TempData["mssg"] = "\"Të dhënat u ndryshuan me sukses!";
+
                         return RedirectToAction("Index", "dashboard");
                     }
                     else
@@ -102,6 +111,7 @@ namespace Presentation.Controllers
             try
             {
                 PoliticalOfficialAddress();
+                ViewBag.SaveAndOpenPolitical = TempData["SaveAndOpenPolitical"] as string;
                 return View();
             }
             catch (Exception err)
@@ -124,7 +134,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res.Status)
                     {
-                        TempData[_toaster.Success] = "U regjistrua me sukses!";
+                        TempData["AddPoliticalSaveAndClose"] = "U regjistrua me sukses!";
                     }
                     else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
                     {
@@ -157,7 +167,7 @@ namespace Presentation.Controllers
 
         public IActionResult Cancel()
         {
-            TempData[_toaster.Success] = "U anulua!";
+           
             return RedirectToAction("Index","Dashboard");
         }
 
@@ -190,7 +200,7 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData[_toaster.Success] = "U ruajt me sukses!";
+                        TempData["SaveAndOpenAdd"] = "U regjistrua me sukses!";
                         return RedirectToAction("AddVoter", "AddsAdmin");
                     }
 
@@ -208,7 +218,8 @@ namespace Presentation.Controllers
 
         public IActionResult CancelPoliticalOfficial()
         {
-            TempData[_toaster.Success] = "U anulua!";
+            TempData["UAnuluaPolitical"] = "U anulua!";
+
             return RedirectToAction("PoliticalOffical");
         }
 
@@ -220,7 +231,7 @@ namespace Presentation.Controllers
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
 
-                TempData[_toaster.Success] = "U ruajt me sukses!";
+               
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)
@@ -242,7 +253,7 @@ namespace Presentation.Controllers
 
                     if (res.Status)
                     {
-                        TempData[_toaster.Success] = "U regjistrua me sukses!";
+                        TempData["SaveAndOpenPolitical"] = "U regjistrua me sukses!";
                         return RedirectToAction("PoliticalOffical", "AddsAdmin");
                     }
                 }

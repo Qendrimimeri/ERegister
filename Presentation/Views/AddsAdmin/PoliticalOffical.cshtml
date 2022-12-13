@@ -343,6 +343,18 @@
     {
         <script src="~/js/kqz_validations.js" asp-append-version="true"></script>
         <script src ="~/js/politicalOfficial_kryetar_komunes.js"></script>
+    <script>
+        var strValue = "@((string)ViewBag.SaveAndOpenPolitical)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
     }
 }
 else if (User.IsInRole(roles.KryetarIFshatit))
@@ -351,12 +363,36 @@ else if (User.IsInRole(roles.KryetarIFshatit))
     {
         <script src="~/js/kqz_validations.js" asp-append-version="true"></script>
         <script src ="~/js/politicalOfficial_kryetari_fshatit.js"></script>
+    <script>
+        var strValue = "@((string)ViewBag.SaveAndOpenPolitical)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
     }
 }
 else
 {
     @section Scripts
     {
+    <script>
+        var strValue = "@((string)ViewBag.SaveAndOpenPolitical)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
         <script src="~/js/kqz_validation_for_admin.js" asp-append-version="true"></script>
         <script src ="~/js/politicalOfficial_admin.js"></script>
         <script src="~/js/add_political_subject.js" asp-append-version="true"></script>

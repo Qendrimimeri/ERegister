@@ -19,7 +19,6 @@ newTogglePassword.addEventListener('click', () => {
         document.querySelector('#newTogglePassword').classList.remove('bi-eye');
         document.querySelector('#newTogglePassword').classList.add('bi-eye-slash');
     }
-
 });
 
 //AddVoter Fjalekalimi ToggleEye

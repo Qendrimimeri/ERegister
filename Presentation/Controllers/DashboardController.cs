@@ -60,6 +60,13 @@ namespace Presentation.Controllers
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
 
                 }
+                ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
+
+                ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
+                ViewBag.ChangePassword = TempData["ChangePassword"] as string;
+
+                ViewBag.AddPoliticalSaveAndClose = TempData["AddPoliticalSaveAndClose"] as string;
+                ViewBag.mssg = TempData["mssg"] as string;
                 return View();
             } 
             catch (Exception err)
@@ -76,7 +83,7 @@ namespace Presentation.Controllers
             try
             {
                 var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
-
+                ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
                 return View(users);
             }
             catch (Exception err)
@@ -115,7 +122,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData[_toaster.Success] = "U ndryshua me sukses!";
+                    TempData["SaveAndCloseManage"] = "U ndryshua me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
@@ -190,7 +197,7 @@ namespace Presentation.Controllers
             {
                 var res = await _userManager.GetUserAsync(User);
                 var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Email);
-
+                ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 return View(user);
             }
             catch (Exception err)
@@ -215,9 +222,9 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+                            TempData["SaveAndCloseProfile"] = "Të dhënat u ndryshuan me sukses!";
 
-                            return View(user);
+                            return RedirectToAction("Index", "Dashboard");
                         }
 
                     }
@@ -248,9 +255,9 @@ namespace Presentation.Controllers
                         if (result)
                         {
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
-                            TempData[_toaster.Success] = "Të dhënat u ndryshuan me sukses!";
+                            TempData["SaveAndCloseProfile"] = "Të dhënat u ndryshuan me sukses!";
 
-                            return View(user);
+                            return RedirectToAction("Index", "Dashboard");
                         }
                     }
                 }
@@ -302,7 +309,7 @@ namespace Presentation.Controllers
                         return View();
                     }
                     await _signInManager.RefreshSignInAsync(user);
-                    TempData[_toaster.Success] = "Fjalëkalimi juaj u ndryshua me sukses!";
+                    TempData["ChangePassword"] = "Fjalëkalimi juaj u ndryshua me sukses!";
 
                     return RedirectToAction("Index", "Dashboard");
                 }

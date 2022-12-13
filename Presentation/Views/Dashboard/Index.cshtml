@@ -145,11 +145,119 @@
     @section Scripts {
     <script src="~/js/municipalities.js" asp-append-version="true"></script>
     <script src="~/js/admin_graphs.js" asp-append-version="true"></script>
+    <script>
+        var strValue = "@((string)ViewBag.mssg)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.ChangePassword)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndCloseCRM)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
     }
 }
 else
 {
     @section Scripts {
     <script src="~/js/muni_graphs.js" asp-append-version="true"></script>
+    <script>
+        var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.ChangePassword)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndCloseCRM)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
     }
 }

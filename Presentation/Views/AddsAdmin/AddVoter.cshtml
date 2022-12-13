@@ -356,78 +356,40 @@
                             </div>
                         } else {
                         <div class="d-flex flex-row justify-content-end pe-2 pt-3 button-responsive ">
-                                <div class="pe-2">
-                                    <button type="button" class="btn btn-danger pe-2 button-responsive" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Anulo
-                                    </button>
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-
-                                                    <div class="form-group">
-                                                        <h4>A jeni i sigurtë? </h4>
-                                                        <br>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">PO</button>&nbsp &nbsp
-                                                        <a href="/AddsAdmin/AddVoter" class="btn btn-secondary pe-2 button-responsive">JO</a>&nbsp &nbsp
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pe-2">
-                                    <button type="button" class="btn btn-primary pe-2 button-responsive" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Ruaj dhe mbyll
-                                    </button>
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-
-                                                    <div class="text" >
-                                                        <h4 style="color: blue; font-size: 30px; line-height: 20px; text-align: center; width: 100%; font-family: inherit; font-weight: 500;">A jeni i sigurtë? </h4>
-                                                        
-                                                    </div>
-                                                    <div class="">
-                                                        <button asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">PO</button>&nbsp &nbsp
-                                                        <a href="/AddsAdmin/AddVoter" class="btn btn-secondary pe-2 button-responsive">JO</a>&nbsp &nbsp
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href='javascript:
+                               swal({
+                               title: "A jeni të sigurtë?" ,
+                               icon: "warning" ,
+                               buttons: {
+                               cancel:"Jo",
+                               confirm:{
+                               text:"Po",
+                               className:"test",
+                               }}
+                               })
+                               .then((willDelete)=>
+                                {
+                                if (willDelete) {
+                                swal({ title: "U anulua me sukses!",
+                                icon: "success"}).then(okay => {
+                                if (okay) {
+                                window.location.href = "/AddsAdmin/AddVoter";
+                                }
+                                });
+                                } else {
+                                swal({
+                                title: "Te dhënat nuk janë anuluar!",
+                                icon: "error",
+                                });
+                                }
+                                });'
+                                class ="btnanulo btn btn-danger">Anulo
+                                </a>&nbsp &nbsp
                                 
-                                <div>
-                                    <button type="button" class="btn btn-primary pe-2 button-responsive" asp-controller="AddsAdmin" asp-action="AddVoter" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Ruaj dhe hap rast
-                                    </button>
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
+                                    <button type="submit" asp-action="SaveAndOpenCase" asp-controller="AddsAdmin" class="btn btn-primary pe-2 button-responsive">Ruaj dhe hap rast</button>&nbsp &nbsp
 
-                                                    <div class="form-group">
-                                                        
-                                                        
-                                                        <p>Të dhënat jane regjistruar me sukses!</p>
-
-                                                    </div>
-                                                   
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-
+                                    <button type="submit" class="btn btn-primary pe-2 button-responsive ">Ruaj dhe mbyll</button>
+                              
                         </div>
                         
                         }
@@ -461,20 +423,73 @@
 @if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
-    { <script src="~/js/add_votter_kryetari_komunes.js"> </script> }
+    {
+      <script>
+                   var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
+                   if (strValue !== null && strValue !== "") {
+                       swal({
+                           icon: "success",
+                           text: strValue,
+                           timer: 2000,
+                           showCancelButton: false,
+                           showConfirmButton: false
+                       })
+                   }
+        </script>
+        <script src="~/js/add_votter_kryetari_komunes.js"> </script> }
 }
 else if (User.IsInRole("KryetarIFshatit"))
 {
     @section Scripts
-    { <script src="~/js/add_votter_kryetari_fshatit.js"> </script> }
+    {
+     <script>
+              var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
+                  if (strValue !== null && strValue !== "") {
+                      swal({
+                          icon: "success",
+                          text: strValue,
+                          timer: 2000,
+                          showCancelButton: false,
+                          showConfirmButton: false
+                      })
+                  }
+        </script>
+        <script src="~/js/add_votter_kryetari_fshatit.js"> </script> }
 }
 else if (User.IsInRole("AnetarIThjeshte"))
 {
     @section Scripts
-    { <script src="~/js/add_votter_antari_thjesht.js"> </script> }
+    { <script>
+        var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
+        </script>
+        <script src="~/js/add_votter_antari_thjesht.js"> </script> 
+    }
 }
 else
 {
     @section Scripts
-    { <script src="~/js/add_votter_admin.js">  </script>}
+    {
+       <script>
+                var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
+                    if (strValue !== null && strValue !== "") {
+                        swal({
+                            icon: "success",
+                            text: strValue,
+                            timer: 2000,
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        })
+                    }
+        </script>
+        <script src="~/js/add_votter_admin.js">  </script>
+    }
 }
