@@ -295,12 +295,12 @@ namespace Presentation.Controllers
                 {
                     if (komunes)
                     {
-                        if (!(item.Value == "Kryetar i partise"))
+                        if (!(item.Key == _roles.KryetarIPartise))
                             roles.Add(item);
                     }
                     else
                     {
-                        if (!((item.Value == "Kryetar i partise") || (item.Value == "Kryetar i komunes")))
+                        if (!((item.Key == _roles.KryetarIPartise) || (item.Key == _roles.KryetarIKomunes)))
                             roles.Add(item);
                     }
                 }
