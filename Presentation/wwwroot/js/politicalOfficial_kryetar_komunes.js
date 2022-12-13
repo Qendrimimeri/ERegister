@@ -50,14 +50,17 @@
                 $('#pollcenter-neighborhood-container').hide();
             }
         });
+        var userMuniId = document.getElementById("get-user-muniId").value
+        var userVillageId = document.getElementById("get-user-villageId").value
+
         const url = "/api/service/";
         if (document.querySelector("#munis") != undefined) {
             getMunis();
         }
         else {
-            addVillagesToList(@userMuniId);
-            addNeigborhoodToList(@userMuniId);
-            addBlockToList(@userMuniId);
+            addVillagesToList(userMuniId);
+            addNeigborhoodToList(userMuniId);
+            addBlockToList(userMuniId);
         }
         villages.addEventListener('change', event => {
             if (event.target.value !== "shto") {
@@ -79,19 +82,19 @@
         villages.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto') {
-                addVillageToDb(@userMuniId);
+                addVillageToDb(userMuniId);
             }
         });
         neigborhoods.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto') {
-                addNeigborhoodToDb(@userMuniId);
+                addNeigborhoodToDb(userMuniId);
             }
         });
         blocks.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto') {
-                addBlockToDb(@userMuniId);
+                addBlockToDb(userMuniId);
             }
         });
         streets.addEventListener('change', event => {
@@ -436,7 +439,7 @@
                 });
         }
         //poll center by village
-        function addPollCenterToList(villId) {
+        function addPollCenterToList(userVillageId) {
             poll.innerHTML = '';
             let chooseOption = document.createElement("option");
             chooseOption.innerText = "Zgjedh qendren e votimit...";
@@ -447,7 +450,7 @@
             addOption.innerText = "Shto qendren e re...";
             addOption.value = "shto";
             poll.appendChild(addOption);
-            let endpoint = url + "getpollcenterbyvillage?villId=" + villId;
+            let endpoint = url + "getpollcenterbyvillage?villId=" + userVillageId;
             let result = fetch(endpoint)
                 .then(res => res.json())
                 .then(data => data.forEach(x => {
@@ -478,4 +481,101 @@
                     item.innerText = x.centerNumber;
                     pollNeighborhood.appendChild(item);
                 }));
+}
+
+const button = document.getElementById('main-button');
+const butoni = document.getElementById('second-button');
+const votes = document.getElementsByClassName("votat");
+var shuma = 0;
+var input;
+var vlera;
+for (let i = 0; i < votes.length; i++) {
+    votes[i].addEventListener('focus', e => {
+        e.preventDefault();
+        vlera = 0;
+        if (votes[i].value !== '') {
+            vlera = parseInt(votes[i].value);
         }
+    });
+    votes[i].addEventListener('blur', e => {
+        e.preventDefault();
+        input = parseInt(votes[i].value);
+        if (!isNaN(input)) {
+            if (vlera !== 0) {
+                shuma = shuma - vlera;
+            }
+            shuma += input;
+            span.innerHTML = shuma;
+        }
+        else if (isNaN(input)) {
+            shuma = shuma - vlera;
+            span.innerHTML = shuma;
+        }
+    });
+}
+button.addEventListener('click', event => {
+    addDataToDb();
+});
+butoni.addEventListener('click', event => {
+    addDataToDb();
+});
+const poll1 = document.getElementById('pollNeighborhood');
+const poll2 = document.getElementById('poll');
+poll1.addEventListener('change', event => {
+    event.preventDefault();
+    if (event.target.value == 'shto') {
+        addPollToDb();
+    }
+});
+poll2.addEventListener('change', event => {
+    event.preventDefault();
+    if (event.target.value == 'shto') {
+        addPollToDb();
+    }
+});
+function addPollToDb() {
+    let endpoint = url + "addpollcenter";
+    let input = swal("Emri i qendrës së votimit:", {
+        content: "input",
+        buttons: {
+            cancel: "Anulo",
+            confirm: {
+                text: "Shto",
+                className: "test",
+            }
+        }
+    })
+        .then((value) => {
+
+            if (value) {
+                let sm2 = document.querySelector("#neigborhoodsVillage");
+                console.log(sm2);
+                var sm;
+                console.log(sm)
+                if (sm2.selectedIndex !== 0) {
+                    sm = sm2.options[sm2.selectedIndex].value;
+                }
+                else {
+                    sm = null;
+                }
+                console.log(sm)
+                fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'post',
+                    body: JSON.stringify({
+                        centerNumber: value,
+                        centerName: "", municipalitydId: userMuniId, neighborhoodId: sm, villageId: userVillageId
+                    })
+                })
+                    .then(() => addPollCenterNeighborhoodToList(sm))
+                    .then(() => addPollCenterToList(userVillageId));
+
+            }
+
+
+
+        });
+}
