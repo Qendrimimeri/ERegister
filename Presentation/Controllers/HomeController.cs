@@ -53,10 +53,11 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(LoginVM login)
         {
-
+            try
+            {
                 if (ModelState.IsValid)
                 {
-                    if (!(await _unitOfWork.ApplicationUser.IsEmailConfirmed(login))) 
+                    if (!(await _unitOfWork.ApplicationUser.IsEmailConfirmed(login)))
                     {
                         ViewBag.NotConfirmed = true;
                         return View("../home/index", login);
@@ -74,7 +75,7 @@ namespace Presentation.Controllers
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
                             TempData["success"] = "Jeni kyçur në  llogarinë tuaj!";
-                            isLogIn = true;
+                            ViewBag.Login = true;
                             return RedirectToAction("AddVoter", "AddsAdmin");
                         }
 
@@ -94,6 +95,7 @@ namespace Presentation.Controllers
                         if (await _unitOfWork.ApplicationUser.LoginAsync(login))
                         {
                             TempData["success"] = "Jeni kyçur në  llogarinë tuaj!";
+                            ViewBag.Login = true;
                             isLogIn = true;
                             return RedirectToAction("Index", "Dashboard");
                         }
@@ -105,6 +107,13 @@ namespace Presentation.Controllers
                     }
                 }
                 return View("../Home/Index", login);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+                
         }
 
 

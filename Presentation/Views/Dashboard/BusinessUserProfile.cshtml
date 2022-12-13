@@ -99,36 +99,31 @@
                         <h6 class="pt-4">Ndrysho të dhënat</h6>
                         <hr>
 
-                        <div class="pe-2">
+                        <div class="pe-2 pb-3">
                             <div>
                                 <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
                                 <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
                                 @if (ViewBag.NotAllowedFormat == true)
                                 {
-                                        <span class="text-danger"> Ju lutem ngarkoni fotografi te formatit jpg ose png</span>      
+                                    <span class="text-danger"> Ju lutem ngarkoni fotografi te formatit jpg ose png</span>
                                 }
                             </div>
                         </div>
-                        <span>Numri i telefonit</span>
-                        <div class=" pe-2 pb-4">
+                        <span >Numri i telefonit</span>
+                        <div class=" pe-2">
                             <div class=" d-flex align-items-center ">
-                                 <div class="col-4 col-sm-2">
+                                <div class="col-4 col-sm-2">
                                     <input asp-for="PhoneNo" type="text" class="form-control" id="prefix" value="+383">
                                 </div>
-                               <div class="col-8 ps-2 col-sm-10">
-                                    <input class="form-control" asp-for="PhoneNo" type="number" min="0" placeholder=""  >
+                                <div class="col-8 ps-2 col-sm-10">
+                                    <input class="form-control" asp-for="PhoneNo" type="number" min="0" placeholder="">
                                 </div>
                             </div>
                             <span class="text-danger"></span>
                         </div>
-                        <div class="form-group pb-3 pe-2">
-                            <label for="exampleInputEmail1">Email adresa</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" asp-for="Email" placeholder="Shkruaj email adresen">
+                        <div class="d-flex flex-row justify-content-end pe-2 pt-4">
+                            <button type="submit" class="btn btn-primary button-responsive">Ruaj ndryshimet</button>&nbsp;
                         </div>
-                           <div class = "d-flex flex-row justify-content-end pe-2 pt-4 ">
-                                <button type="submit" class="btn btn-primary button-responsive">Ruaj ndryshimet</button>&nbsp;
-                            </div>
-                        
                     </form>
                 </div>
             </div>

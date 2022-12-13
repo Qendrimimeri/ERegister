@@ -350,11 +350,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var getUser = await _context.Users.Where(x => x.Id == userId.Value)
                                           .FirstOrDefaultAsync();
         getUser.ImgPath = fullPath;
-        getUser.Email = user.Email;
-        getUser.NormalizedEmail = user.Email.ToUpper();
         getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
         await _context.SaveChangesAsync();
-
         return true;
     }
 
@@ -364,18 +361,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var userId = Profile();
         var getUser = await _context.Users.Where(x => x.Id == userId.Value)
                                           .FirstOrDefaultAsync();
-        getUser.Email = user.Email;
-        getUser.NormalizedEmail = user.Email.ToUpper();
-
-
-        getUser.PhoneNumber = user.PhoneNo;
-
         getUser.PhoneNumber = encrypt.Encrypt(user.PhoneNo);
-
         await _context.SaveChangesAsync();
         return true;
-
-
     }
 
 
