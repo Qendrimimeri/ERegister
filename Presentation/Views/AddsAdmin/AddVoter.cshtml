@@ -404,15 +404,7 @@
     
 </script>
 <script src="~/js/security_stamp.js"></script>
-<script>
-    document.getElementById("BtnRuajDheHapRAst").click{
-        swal({
-                               title: "U regjistrua me sukses!" ,
-                               icon: "warning" ,
-                               className:"test",
-    }
-    
-</script>
+
 <style>
         #togglePassword, #togglePassword2{
             margin-left: -30px;
@@ -424,17 +416,18 @@
 {
     @section Scripts
     {
-      <script>
-                   var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
-                   if (strValue !== null && strValue !== "") {
-                       swal({
-                           icon: "success",
-                           text: strValue,
-                           timer: 2000,
-                           showCancelButton: false,
-                           showConfirmButton: false
-                       })
-                   }
+
+    <script>
+                    var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: strValue,
+                    timer: 2000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+            }
         </script>
         <script src="~/js/add_votter_kryetari_komunes.js"> </script> }
 }

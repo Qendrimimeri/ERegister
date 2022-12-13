@@ -71,8 +71,6 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData["mssg"] = "U regjistuan me sukses!";
-
                         if (userInRoleKryetarIFshatit)
                         {
                             TempData["mssg"] = "U regjistruan me sukses!";
@@ -80,8 +78,7 @@ namespace Presentation.Controllers
 
 
                         }
-                        TempData["mssg"] = "U regjistruan me sukses!";
-
+                        TempData["mssg"] = "U regjistuan me sukses!";
                         return RedirectToAction("Index", "dashboard");
                     }
                     else
@@ -150,7 +147,13 @@ namespace Presentation.Controllers
                         return View();
                     }
                     if (userInRoleKryetarIFshatit)
+                    {
+                        TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
                         return RedirectToAction("Index", "Crm");
+
+                    }
+                    
+                    TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
                     return RedirectToAction("Index", "dashboard");
                 }
 

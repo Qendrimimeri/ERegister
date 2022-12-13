@@ -307,7 +307,7 @@ namespace Presentation.Controllers
                         return View();
                     }
                     await _signInManager.RefreshSignInAsync(user);
-                    TempData["ChangePassword"] = "Fjalëkalimi juaj u ndryshua me sukses!";
+                    TempData["ChangePassword"] = "U ndryshua me sukses!";
 
                     return RedirectToAction("Index", "Dashboard");
                 }
