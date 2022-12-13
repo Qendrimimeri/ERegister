@@ -71,16 +71,16 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData["mssg"] = "Të dhënat u regjistruan me sukses!";
+                        TempData["mssg"] = "U regjistuan me sukses!";
 
                         if (userInRoleKryetarIFshatit)
                         {
-                            TempData["mssg"] = "Të dhënat u ndryshuan me sukses!";
+                            TempData["mssg"] = "U regjistruan me sukses!";
                             return RedirectToAction("Index", "Crm");
 
 
                         }
-                        TempData["mssg"] = "Të dhënat u regjistruan me sukses!";
+                        TempData["mssg"] = "U regjistruan me sukses!";
 
                         return RedirectToAction("Index", "dashboard");
                     }
@@ -134,7 +134,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res.Status)
                     {
-                        TempData["AddPoliticalSaveAndClose"] = "Të dhënat u regjistruan me sukses!";
+                        TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
                     }
                     else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
                     {
@@ -178,7 +178,6 @@ namespace Presentation.Controllers
             {
                 await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
 
-                TempData[_toaster.Success] = "U ruajt me sukses!";
 
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -200,7 +199,7 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData["SaveAndOpenAdd"] = "Të dhënat u regjistruan me sukses!";
+                        TempData["SaveAndOpenAdd"] = "U regjistruan me sukses!";
                         return RedirectToAction("AddVoter", "AddsAdmin");
                     }
 
@@ -253,7 +252,7 @@ namespace Presentation.Controllers
 
                     if (res.Status)
                     {
-                        TempData["SaveAndOpenPolitical"] = "Të dhënat u regjistruan me sukses!";
+                        TempData["SaveAndOpenPolitical"] = "U regjistruan me sukses!";
                         return RedirectToAction("PoliticalOffical", "AddsAdmin");
                     }
                 }

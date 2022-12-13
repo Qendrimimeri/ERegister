@@ -81,14 +81,14 @@ public class CrmController : Controller
             ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
             ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
             ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
-            TempData["SaveAndCloseCRM"] = "Të dhënat u regjistruan me sukses!";
+            TempData["SaveAndCloseCRM"] = "U regjistruan me sukses!";
 
             if (userInRoleKryetarIFshatit)
             {
-                TempData["SaveAndCloseCRM"] = "Të dhënat u regjistruan me sukses!";
+                TempData["SaveAndCloseCRM"] = "U regjistruan me sukses!";
                 return RedirectToAction("Index", "Crm");
             }
-            TempData["SaveAndCloseCRM"] = "Të dhënat u regjistruan me sukses!";
+            TempData["SaveAndCloseCRM"] = "U regjistruan me sukses!";
             return RedirectToAction("Index", "dashboard");
         }
         catch (Exception err)
@@ -183,7 +183,7 @@ public class CrmController : Controller
         {
                 Data();
                 await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
-            TempData["SaveAndOpenCaseCRM"] = "Të dhënat u regjistruan me sukses!";
+            TempData["SaveAndOpenCaseCRM"] = "U regjistruan me sukses!";
             return RedirectToAction("Index", "Crm");
         }
         catch (Exception err)

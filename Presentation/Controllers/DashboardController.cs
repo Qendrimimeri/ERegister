@@ -122,7 +122,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData["SaveAndCloseManage"] = "Të dhënat u regjistruan me sukses!";
+                    TempData["SaveAndCloseManage"] = "U ndryshuan me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
@@ -163,7 +163,6 @@ namespace Presentation.Controllers
             try
             {
                 _unitOfWork.KqzRegister.Update(appuser);
-                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception err)
@@ -179,7 +178,6 @@ namespace Presentation.Controllers
             try
             {
                 _unitOfWork.KqzRegister.Update(appuser);
-                TempData[_toaster.Success] = "U ruajt me sukses!";
                 return RedirectToAction("KqzResult");
             }
             catch (Exception err)
@@ -222,7 +220,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData["SaveAndCloseProfile"] = "Të dhënat u ndryshuan me sukses!";
+                            TempData["SaveAndCloseProfile"] = "U ndryshuan me sukses me sukses!";
 
                             return RedirectToAction("Index", "Dashboard");
                         }
