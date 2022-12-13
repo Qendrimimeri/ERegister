@@ -71,7 +71,7 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData["mssg"] = "U regjistrua me sukses!";
+                        TempData["mssg"] = "Të dhënat u regjistruan me sukses!";
 
                         if (userInRoleKryetarIFshatit)
                         {
@@ -80,7 +80,7 @@ namespace Presentation.Controllers
 
 
                         }
-                        TempData["mssg"] = "\"Të dhënat u ndryshuan me sukses!";
+                        TempData["mssg"] = "Të dhënat u regjistruan me sukses!";
 
                         return RedirectToAction("Index", "dashboard");
                     }
@@ -134,7 +134,7 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res.Status)
                     {
-                        TempData["AddPoliticalSaveAndClose"] = "U regjistrua me sukses!";
+                        TempData["AddPoliticalSaveAndClose"] = "Të dhënat u regjistruan me sukses!";
                     }
                     else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
                     {
@@ -200,7 +200,7 @@ namespace Presentation.Controllers
 
                     if (res)
                     {
-                        TempData["SaveAndOpenAdd"] = "U regjistrua me sukses!";
+                        TempData["SaveAndOpenAdd"] = "Të dhënat u regjistruan me sukses!";
                         return RedirectToAction("AddVoter", "AddsAdmin");
                     }
 
@@ -253,7 +253,7 @@ namespace Presentation.Controllers
 
                     if (res.Status)
                     {
-                        TempData["SaveAndOpenPolitical"] = "U regjistrua me sukses!";
+                        TempData["SaveAndOpenPolitical"] = "Të dhënat u regjistruan me sukses!";
                         return RedirectToAction("PoliticalOffical", "AddsAdmin");
                     }
                 }

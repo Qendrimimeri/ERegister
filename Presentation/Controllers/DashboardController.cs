@@ -122,7 +122,7 @@ namespace Presentation.Controllers
                 if (ModelState.IsValid)
                 {
                     var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData["SaveAndCloseManage"] = "U ndryshua me sukses!";
+                    TempData["SaveAndCloseManage"] = "Të dhënat u regjistruan me sukses!";
                     return RedirectToAction("Performance", "Dashboard");
                 }
                 return View();
