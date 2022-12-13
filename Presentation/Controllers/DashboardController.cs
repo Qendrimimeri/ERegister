@@ -220,7 +220,7 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData["SaveAndCloseProfile"] = "U ndryshuan me sukses me sukses!";
+                            TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
                             return RedirectToAction("Index", "Dashboard");
                         }
@@ -253,7 +253,7 @@ namespace Presentation.Controllers
                         if (result)
                         {
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
-                            TempData["SaveAndCloseProfile"] = "Të dhënat u ndryshuan me sukses!";
+                            TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
                             return RedirectToAction("Index", "Dashboard");
                         }
