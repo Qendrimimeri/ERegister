@@ -345,7 +345,7 @@
                     },
                     method: 'post',
                     body: JSON.stringify({
-                        municipalityId: @userMuniId, villageId: @userVillageId, neighborhoodId: neighbors,
+                        municipalityId: userMuniId, villageId: userVillageId, neighborhoodId: neighbors,
                         electionType: election, dataCreated: year.value, pollCenterId: polls, politicialSubjectId: i, noOfvotes: votat[i - 1].value
                     })
                 });
@@ -399,11 +399,11 @@
                             method: 'post',
                             body: JSON.stringify({
                                 centerNumber: value,
-                                centerName: "", municipalitydId: @userMuniId, neighborhoodId: sm, villageId: @userVillageId
+                                centerName: "", municipalitydId: userMuniId, neighborhoodId: sm, villageId: userVillageId
                                 })
                         })
                             .then(() => addPollCenterNeighborhoodToList(sm))
-                            .then(() => addPollCenterToList(@userVillageId));
+                            .then(() => addPollCenterToList(userVillageId));
 
                     }
 
