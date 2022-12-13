@@ -527,13 +527,20 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var userExist = await _userManager.FindByEmailAsync(model.Email);
         if (!(userExist == null)) return new Response(false, "Ky email Egziston");
 
-       
-
         var getPoliticalSubjectsId = _context.PoliticalSubjects.Select(x => x.Id).ToList();
-        var pollCenterId = _context.PollCenters.Where(x => x.Id == int.Parse(model.PollCenter)).Select(x => x.Id).FirstOrDefault();
-        var hasData = await _context.Kqzregisters.Where(x => x.ElectionType == model.ElectionType && x.PollCenterId == pollCenterId).ToListAsync();
-        var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId).Select(x => x.NoOfvotes).ToListAsync();
+        var pollCenterId = _context.PollCenters.Where(x => x.Id == int.Parse(model.PollCenter))
+                                               .Select(x => x.Id)
+                                               .FirstOrDefault();
 
+        var hasData = await _context.Kqzregisters
+                      .Where(x => x.ElectionType == model.ElectionType && x.PollCenterId == pollCenterId)
+                      .ToListAsync();
+
+        var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId)
+                                                           .Select(x => x.NoOfvotes)
+                                                           .ToListAsync();
+
+        // krijo nje list me votat qe vin nga forma
         var noOfVotes = new List<int?>()
         {
             model.VV,
@@ -546,18 +553,30 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             model.PartitJoSerbe
         };
 
+
+        // bane check nese ki vota per qet poll center ne databaze
+        //duke e dit qe jane 8 parti jane 8 rreshata per ni tip te zgjedhjev
+        // pra nese jan ma shume se 8 rresha ateher e din qe per qat qender 
+        // te votimit jan te regjistruara votat
         if (hasPollCenterData.Count <= 9)
         {
+            // kqyr nese votat qe vin prej formes kan vlera apo jan null
+            // nese jan null kthe kerkesen mbrapa mos e lejo me vazhdu pa shenu vota
             foreach (var item in noOfVotes)
                 if (item == null || model.ElectionDate == null || model.ElectionType == null)
                     return new Response(false, "Ju lutem plotsoni rezultate lidhur me KQZ-n");
 
+            // hasData osht per 1 qender votimi edhe per 1 tip  te zgjedhjev
+            // edhe kqyr nese ka te dhana per qat qender t votimit per qat electtion Type.
             if (hasData.Count <= 0)
             {
 
+                // shto ni zyrtar politik pik spari
                 var result = await AddPolitical(model);
                 if (result.Status)
                 {
+                    // itero ne listen qe e kem ndertu ma lart edhe shto vota
+                    // per at qender te votimit
                     for (int i = 0; i < noOfVotes.Count; i++)
                     {
                         var election = new Kqzregister()
@@ -573,6 +592,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                         };
                         await _context.Kqzregisters.AddAsync(election);
                     }
+
+                    // nese osht 0 ose ma e vogel eteher e dim qe rrezultatet nuk jan ruajtur kshtu
+                    // qe mos e ruaj as zyrtarin poltik
                     if (await _context.SaveChangesAsync() <= 0)
                     {
                         _context.ApplicationUsers.Remove(await _context.ApplicationUsers.Where(x => x.Email == model.Email).FirstOrDefaultAsync());
@@ -584,6 +606,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             }
             else
             {
+                // ky else osht nese ka vota per qat qener te votimit edhe doni me i bo update votat perkatse
+                // psh Id=2 ElectionType="Zgjedhje Nacionale" ateher me ket else i bon update vetem nr. e votav
+                // edhe e regjistron zyrtarin perkats
                 var result = await AddPolitical(model);
                 for (int i = 0; i < hasData.Count; i++)
                     hasData[i].NoOfvotes = noOfVotes[i];
@@ -594,9 +619,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         }
         else
         {
+            // ky else esht nese nuk  deshiron te shtoni  vota per at qender te votimit
+            // po deshironi vetem te shtoni  nje zyrtar
             var res = await AddPolitical(model);
             if ( model.ElectionDate != null && model.ElectionType != null )
             {
+                // po ne qoft se ju plotsoni tabelen qe osht opsionale
+                // ateher votat to te behen update
                 for (int i = 0; i < hasData.Count; i++)
                 {
                     hasData[i].NoOfvotes = noOfVotes[i];
@@ -715,6 +744,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         return true;
     }
 
+
     #region Add Political
 
     private async Task<Response> AddPolitical(PoliticalOfficalVM model)
@@ -768,7 +798,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         };
 
         // Use this for Development env.
-        var password = CreateRandomPassword(8);
+        var password = CreateRandomPassword(10);
 
         var result = await _userManager.CreateAsync(simpleUser, password);
         await _context.SaveChangesAsync();
@@ -797,9 +827,15 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             };
 
             await _mail.SendEmailAsync(emailReques);
+            await _userManager.AddToRoleAsync(simpleUser, model.Role);
         }
-        await _userManager.AddToRoleAsync(simpleUser, model.Role);
-
+        else if (!result.Succeeded)
+        {
+            _context.Addresses.Remove(await _context.Addresses.Where(x => x.Id == addressId).FirstOrDefaultAsync());
+            _context.Works.Remove(await _context.Works.Where(x => x.Id == workId).FirstOrDefaultAsync());
+            await _context.SaveChangesAsync();
+            return new Response(false, "Nuk u regjistrua me sukses");
+        }
         return new Response(true, "U regjistrua me sukses");
     }
 
