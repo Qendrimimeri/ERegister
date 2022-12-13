@@ -21,14 +21,18 @@
                 $('#pollcenter-villages-container').hide();
             }
         });
+
+        var userVillageId = document.getElementById("get-user-villageId").value
+        var userMuniId = document.getElementById("get-user-muniId").value
+
         const url = "/api/service/";
         if (document.querySelector("#villages") != undefined) {
             getVillages();
         }
         else {
-            addNeigborhoodVillageToList(@userVillageId);
-            addStreetToList(@userVillageId);
-            addPollCenterToList(@userVillageId)
+            addNeigborhoodVillageToList(userVillageId);
+            addStreetToList(userVillageId);
+            addPollCenterToList(userVillageId)
         }
         neigborhoodsVillage.addEventListener('change', event => {
             if (event.target.value !== "shto") {
@@ -41,13 +45,13 @@
         neigborhoodsVillage.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == "shto") {
-                addNeigborhoodVillageToDb(@userVillageId);
+                addNeigborhoodVillageToDb(userVillageId);
             }
         });
         streets.addEventListener('change', event => {
             event.preventDefault()
             if (event.target.value == 'shto') {
-                addStreetToDb(@userVillageId);
+                addStreetToDb(userVillageId);
             }
         });
         streetsNeighborhood.addEventListener('change', event => {
