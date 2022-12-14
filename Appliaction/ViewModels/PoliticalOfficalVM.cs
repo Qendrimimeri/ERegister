@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace Application.ViewModels
         [Required(ErrorMessage = "Ju lutem zgjedhni lagjen!")]
         public int? Neigborhood { get; set; }
 
+        [ValidateNever]
         public int? Street { get; set; }
 
         public int? Block { get; set; }

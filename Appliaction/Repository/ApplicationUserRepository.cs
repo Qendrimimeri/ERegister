@@ -383,7 +383,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         List<KeyValueModel> roles = new ()
         {
             new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anëtar i thjeshtë" },
-            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i nën degës" },
+            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i nëndegës" },
             new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i degës" },
             new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" }
         };
