@@ -20,12 +20,9 @@ namespace Application.ViewModels
 
         public string? PrefixPhoneNo { get; set; }
 
-       // [Required(ErrorMessage = "Numri i telefonit nuk është valid!"), DataType(DataType.PhoneNumber),MinLength(8,ErrorMessage ="Ju lutem shkruani minimuni 8 numra!")]
         public string? PhoneNumber { get; set; }
 
 
-        //[Required(ErrorMessage = "Email adresa nuk eshte valide!"),]
-        //[Required(ErrorMessage = "Email adresa nuk është valide!"), DataType(DataType.EmailAddress, ErrorMessage = "Ju lutem shkruani email adresen valide!")]
         public string? Email { get; set; }
 
         public string? Facebook { get; set; }
@@ -40,6 +37,8 @@ namespace Application.ViewModels
         [ValidateNever]
         public int? Neigborhood { get; set; }
 
+
+        [ValidateNever]
         public int? Street { get; set; }
 
         public int? Block { get; set; }

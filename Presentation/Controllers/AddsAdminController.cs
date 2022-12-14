@@ -23,10 +23,10 @@ namespace Presentation.Controllers
         private readonly Toaster _toaster;
         private readonly Roles _roles;
 
-        public AddsAdminController( IUnitOfWork unitOfWork, 
+        public AddsAdminController(IUnitOfWork unitOfWork,
                                     IHttpContextAccessor httpContext,
                                     ILogger<AddsAdminController> logger,
-                                    IOptionsSnapshot<Roles> roles, 
+                                    IOptionsSnapshot<Roles> roles,
                                     IOptionsSnapshot<Toaster> toaster)
         {
             _unitOfWork = unitOfWork;
@@ -37,10 +37,10 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpGet, Authorize(Roles= "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
+        [HttpGet, Authorize(Roles = "KryetarIPartise, KryetarIKomunes, KryetarIFshatit,AnetarIThjeshte")]
         public async Task<IActionResult> AddVoter()
         {
-            
+
             try
             {
                 ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
@@ -55,7 +55,7 @@ namespace Presentation.Controllers
             }
 
         }
-      
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM register)
@@ -116,7 +116,7 @@ namespace Presentation.Controllers
                 _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
-}
+        }
 
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -139,7 +139,7 @@ namespace Presentation.Controllers
                         ViewBag.KqzValidation = true;
                         return View();
                     }
-                    else 
+                    else
                     {
                         ModelState.AddModelError("", "Ky email ekziston!");
                         ViewBag.EmailExist = "nuk ka email";
@@ -168,31 +168,13 @@ namespace Presentation.Controllers
 
         }
 
-        public IActionResult Cancel()
-        {
-           
-            return RedirectToAction("Index","Dashboard");
-        }
+        public IActionResult Cancel() =>
+            RedirectToAction("Index", "Dashboard");
+
+
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult>SaveAndClose(ApplicationUser appuser)
-        {
-            try
-            {
-                await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-
-
-                return RedirectToAction("Index", "Dashboard");
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult>SaveAndOpenCase(RegisterVM register)
+        public async Task<IActionResult> SaveAndOpenCase(RegisterVM register)
         {
             try
             {
@@ -206,16 +188,17 @@ namespace Presentation.Controllers
                         return RedirectToAction("AddVoter", "AddsAdmin");
                     }
 
+                    VoterAddress();
+                    return View("AddVoter", register);
                 }
                 VoterAddress();
                 return View("AddVoter", register);
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured" ,err);
+                _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
-
         }
 
         public IActionResult CancelPoliticalOfficial()
@@ -226,22 +209,6 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAndClosePoliticalOfficial(ApplicationUser appuser)
-        {
-            try
-            {
-                await _unitOfWork.ApplicationUser.AddUserAsync(appuser);
-
-               
-                return RedirectToAction("Index", "Dashboard");
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
-        }
 
 
         [HttpPost, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit,AnetarIThjeshte")]
@@ -273,28 +240,28 @@ namespace Presentation.Controllers
 
         #region
 
-        private async void VoterAddress()
+        private void VoterAddress()
         {
 
-            ViewBag.PS = new SelectList( _unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
-            ViewBag.municipalities = new SelectList( _unitOfWork.Municipality.GetAll(), "Id", "Name");
-            ViewBag.villages = new SelectList( _unitOfWork.Village.GetAll(), "Id", "Name");
-            ViewBag.neigborhoods = new SelectList( _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
-            ViewBag.pollCenters = new SelectList( _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
-            ViewBag.blocks = new SelectList( _unitOfWork.Block.GetAll(), "Id", "Name");
-            ViewBag.streets = new SelectList( _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+            ViewBag.municipalities = new SelectList(_unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.villages = new SelectList(_unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = new SelectList(_unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.pollCenters = new SelectList(_unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.blocks = new SelectList(_unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.streets = new SelectList(_unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
             ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
         }
 
         private async void PoliticalOfficialAddress()
         {
-            ViewBag.municipalities = new SelectList( _unitOfWork.Municipality.GetAll(), "Id", "Name");
-            ViewBag.villages = new SelectList( _unitOfWork.Village.GetAll(), "Id", "Name");
-            ViewBag.neigborhoods = new SelectList( _unitOfWork.Neighborhood.GetAll(), "Id", "Name");
-            ViewBag.pollCenters = new SelectList( _unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
-            ViewBag.blocks = new SelectList( _unitOfWork.Block.GetAll(), "Id", "Name");
-            ViewBag.streets = new SelectList( _unitOfWork.Street.GetAll(), "Id", "Name");
+            ViewBag.municipalities = new SelectList(_unitOfWork.Municipality.GetAll(), "Id", "Name");
+            ViewBag.villages = new SelectList(_unitOfWork.Village.GetAll(), "Id", "Name");
+            ViewBag.neigborhoods = new SelectList(_unitOfWork.Neighborhood.GetAll(), "Id", "Name");
+            ViewBag.pollCenters = new SelectList(_unitOfWork.PollCenter.GetAll(), "Id", "CenterNumber");
+            ViewBag.blocks = new SelectList(_unitOfWork.Block.GetAll(), "Id", "Name");
+            ViewBag.streets = new SelectList(_unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.electionType = new SelectList(StaticData.ElectionType(), "Key", "Value");
             var roles = new List<Application.Models.KeyValueModel>();
 

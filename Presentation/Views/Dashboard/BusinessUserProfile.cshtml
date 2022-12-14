@@ -8,6 +8,7 @@
 
 }
 <link rel="stylesheet" href="~/cssViews/UserProfile.css">
+
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -101,8 +102,17 @@
 
                         <div class="pe-2 pb-3">
                             <div>
-                                <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
-                                <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
+                               @* <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
+                                <input asp-for="Image" class="form-control" accept="image/png, image/jpeg" type="file" id="formFile" onchange="preview()">*@
+                                <div>
+                                    <label asp-for="Image" class="form-label">Ngarko foton e profilit</label><br />
+                                    <div class="border rounded">
+                                        <input id="choose-file" asp-for="Image" class="form-control" accept="image/*" />
+                                        <label id="choose-label">Nuk keni ngarkuar foto</label>
+                                        <span asp-validation-for="Image" class="text-danger"></span> <br />
+                                 
+                                    </div>
+                                </div>
                                 @if (ViewBag.NotAllowedFormat == true)
                                 {
                                     <span class="text-danger"> Ju lutem ngarkoni fotografi te formatit jpg ose png</span>
@@ -110,7 +120,7 @@
                             </div>
                         </div>
                         <span>Numri i telefonit</span>
-                        <div class=" pe-2">
+                        <div class="pe-2">
                             <div class="col-12">
                                 <input class="form-control" asp-for="PhoneNo" type="number" min="0" placeholder="">
                             </div>
@@ -125,3 +135,25 @@
         </div>
     </div>
 </section>
+<<<<<<< HEAD
+=======
+@section Scripts{
+    <script>
+       
+        
+        var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: strValue,
+                timer: 2000,
+                showCancelButton: false,
+                showConfirmButton: false
+            })
+        }
+    
+    </script>
+
+    <script src="~/js/function_image.js"></script>
+}
+>>>>>>> 7a9d05329f4323fc21883cdd41e5f352848646f7
