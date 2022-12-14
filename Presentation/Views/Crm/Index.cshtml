@@ -227,6 +227,7 @@
                         type: "POST",
                         success: function (data) {
                             response($.map(data, function (item) {
+                                console.log(item)
                                 return item;
                             }))
                         },
@@ -239,6 +240,7 @@
                     });
                 },
                 select: function (e, i) {
+                    console.log(i.item.val)
                     $("#SearchBtn").val(i.item.val);
                 },
                 minLength: 1
