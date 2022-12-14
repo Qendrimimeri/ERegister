@@ -73,7 +73,7 @@ namespace Presentation.Controllers
                     {
                         if (userInRoleKryetarIFshatit)
                         {
-                            TempData["mssg"] = "U regjistruan me sukses!";
+                            TempData["mssgVillage"] = "U regjistruan me sukses!";
                             return RedirectToAction("Index", "Crm");
 
 
@@ -148,7 +148,7 @@ namespace Presentation.Controllers
                     }
                     if (userInRoleKryetarIFshatit)
                     {
-                        TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
+                        TempData["AddPoliticalSaveAndCloseVillage"] = "U regjistruan me sukses!";
                         return RedirectToAction("Index", "Crm");
 
                     }
