@@ -43,7 +43,9 @@ public class CrmController : Controller
             ViewBag.mssg = TempData["mssg"] as string;
             ViewBag.SaveAndCloseCRMVillage = TempData["SaveAndCloseCRMVillage"] as string;
             ViewBag.mssgVillage = TempData["mssgVillage"] as string; 
-            ViewBag.SaveAndCloseCRMVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
+            ViewBag.SaveAndClosePoliticalVillage = TempData["SaveAndClosePoliticalVillage"] as string;
+            
+            ViewBag.SaveAndCloseProfileVillage = TempData["SaveAndCloseProfileVillage"] as string;
 
 
             return View();
