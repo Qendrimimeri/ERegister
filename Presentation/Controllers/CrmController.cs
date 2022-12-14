@@ -40,6 +40,7 @@ public class CrmController : Controller
         {
             ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
             ViewBag.SaveAndOpenCaseCRM = TempData["SaveAndOpenCaseCRM"] as string;
+            ViewBag.mssg = TempData["mssg"] as string;
             return View();
         }
         catch (Exception err)
@@ -61,6 +62,7 @@ public class CrmController : Controller
                 ViewBag.UserNull = "nuk ka te dhena";
             }
             var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
+            
             return PartialView("_Voters", res);
         }
         catch (Exception err)

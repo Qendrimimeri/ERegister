@@ -133,10 +133,20 @@
         if (strValue !== null && strValue !== "") {
             swal({
                 icon: "success",
-                text: strValue,
+                text: "Të dhënat janë ruajtur me sukses!",
                 timer: 2000,
-                showCancelButton: false,
-                showConfirmButton: false
+                buttons: false,
+            })
+        }
+    </script>
+    <script>
+        var strValue = "@((string)ViewBag.mssg)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë ruajtur me sukses!",
+                timer: 2000,
+                buttons: false,
             })
         }
     </script>
