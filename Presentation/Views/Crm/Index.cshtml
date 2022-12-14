@@ -140,6 +140,18 @@
         }
     </script>
     <script>
+        var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë regjistruar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+       
+    <script>
         var strValue = "@((string)ViewBag.SaveAndCloseCRMVillage)";
         if (strValue !== null && strValue !== "") {
             swal({
@@ -184,6 +196,28 @@
         }
     </script>
     <script>
+        var strValue = "@((string)ViewBag.SaveAndClosePoliticalVillage)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë regjistruar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+       <script>
+        var strValue = "@((string)ViewBag.SaveAndCloseProfileVillage)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat janë regjistruar me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+    <script>
         $(function () {
             $("#SearchBtn").autocomplete({
                 source: function (request, response) {
@@ -193,6 +227,7 @@
                         type: "POST",
                         success: function (data) {
                             response($.map(data, function (item) {
+                                console.log(item)
                                 return item;
                             }))
                         },
@@ -205,6 +240,7 @@
                     });
                 },
                 select: function (e, i) {
+                    console.log(i.item.val)
                     $("#SearchBtn").val(i.item.val);
                 },
                 minLength: 1

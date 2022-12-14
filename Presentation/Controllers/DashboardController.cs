@@ -60,12 +60,14 @@ namespace Presentation.Controllers
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
 
                 }
+                ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
+
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
 
                 ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 ViewBag.ChangePassword = TempData["ChangePassword"] as string;
-
-                ViewBag.AddPoliticalSaveAndClose = TempData["AddPoliticalSaveAndClose"] as string;
+             
+                ViewBag.SaveAndClosePoliticalAdmin = TempData["SaveAndClosePoliticalAdmin"] as string;
                 ViewBag.mssg = TempData["mssg"] as string;
                 return View();
             } 
@@ -213,6 +215,7 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     if (editUser.Image == null)
                     {
                         var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
@@ -220,9 +223,9 @@ namespace Presentation.Controllers
                         {
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
+                            TempData["SaveAndCloseProfileVillage"] = "U regjistruan me sukses!";
 
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("Index", "Crm");
                         }
 
                     }
@@ -253,6 +256,7 @@ namespace Presentation.Controllers
                         if (result)
                         {
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
+
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
                             return RedirectToAction("Index", "Dashboard");
@@ -308,7 +312,6 @@ namespace Presentation.Controllers
                     }
                     await _signInManager.RefreshSignInAsync(user);
                     TempData["ChangePassword"] = "U ndryshua me sukses!";
-
                     return RedirectToAction("Index", "Dashboard");
                 }
                 return View(model);
