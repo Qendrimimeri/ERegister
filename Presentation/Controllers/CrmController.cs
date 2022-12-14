@@ -112,12 +112,10 @@ public class CrmController : Controller
         try
         {
 
-
             if (role == "KryetarIPartise")
             {
 
                 var users = (from a in this._context.ApplicationUsers
-
                              from d in this._context.Roles
                              from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
                                                                            && x.RoleId == d.Id
@@ -126,8 +124,8 @@ public class CrmController : Controller
 
                              select new
                              {
-                                 label = a.FullName,
-                                 val = a.Id
+                                 label = $"{a.FullName} {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} '{a.Address.PollCenter.CenterNumber}'",
+                                 val = a.Id,
                              }).ToList();
 
                 return Json(users);
@@ -149,8 +147,8 @@ public class CrmController : Controller
                                                                            )
                              select new
                              {
-                                 label = a.FullName,
-                                 val = a.Id
+                                 label = $"<b>{a.FullName}</b> {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} {a.Address.PollCenter.CenterNumber}",
+                                 val = a.Id,
                              }).ToList();
 
                 return Json(users);
