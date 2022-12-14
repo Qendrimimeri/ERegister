@@ -88,7 +88,7 @@ public class CrmController : Controller
                 TempData["SaveAndCloseCRM"] = "U regjistruan me sukses!";
                 return RedirectToAction("Index", "Crm");
             }
-            TempData["SaveAndCloseCRM"] = "U regjistruan me sukses!";
+            
             return RedirectToAction("Index", "dashboard");
         }
         catch (Exception err)

@@ -8,6 +8,7 @@
 
 }
 <link rel="stylesheet" href="~/cssViews/UserProfile.css">
+<script src="~/js/function_image.js"></script>
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -101,8 +102,17 @@
 
                         <div class="pe-2 pb-3">
                             <div>
-                                <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
-                                <input asp-for="Image" class="form-control" type="file" id="formFile" onchange="preview()">
+                               @* <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
+                                <input asp-for="Image" class="form-control" accept="image/png, image/jpeg" type="file" id="formFile" onchange="preview()">*@
+                                <div>
+                                    <label asp-for="Image" class="form-label">Ngarko foton e produktit</label><br />
+                                    <div class="border rounded6">
+                                        <input id="choose-file" asp-for="Image" class="form-control" accept="image/*" />
+                                        <label id="choose-label">Nuk keni ngarkuar foto</label>
+                                        <span asp-validation-for="Image" class="text-danger"></span> <br />
+                                        <span class="text-danger">@ViewBag.ErrorImg</span>
+                                    </div>
+                                </div>
                                 @if (ViewBag.NotAllowedFormat == true)
                                 {
                                     <span class="text-danger"> Ju lutem ngarkoni fotografi te formatit jpg ose png</span>
@@ -110,7 +120,7 @@
                             </div>
                         </div>
                         <span>Numri i telefonit</span>
-                        <div class=" pe-2">
+                        <div class="pe-2">
                             <div class="col-12">
                                 <input class="form-control" asp-for="PhoneNo" type="number" min="0" placeholder="">
                             </div>
