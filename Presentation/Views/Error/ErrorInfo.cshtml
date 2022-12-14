@@ -25,7 +25,7 @@
 </head>
 <body>
     <div class="container d-flex justify-content-center text-center pt-5">
-        <img src="~/images/ErrorInfo.svg" class="d-block img-fluid rounded" alt="ErrorInfo image"style = "height:500px"loading="lazy">
+        <img src="~/images/ErrorInfo.svg" class="d-block img-fluid rounded failed" alt="ErrorInfo image"style = "height:500px"loading="lazy">
     </div>
 
     <div class="container d-flex justify-content-center text-center flex-column pt-5">
@@ -40,3 +40,11 @@
 
 </body>
 </html>
+
+<style>
+       @@media only screen and (max-width:375px){
+        .failed{
+            height:320px !important
+        }
+    }
+</style>
