@@ -217,6 +217,17 @@
                 })
             }
         </script>
+        <script>
+        var strValue = "@((string)ViewBag.ChangePassword)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat janë regjistruar me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
     <script>
         $(function () {
             $("#SearchBtn").autocomplete({

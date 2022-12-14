@@ -44,7 +44,9 @@ public class CrmController : Controller
             ViewBag.SaveAndCloseCRMVillage = TempData["SaveAndCloseCRMVillage"] as string;
             ViewBag.mssgVillage = TempData["mssgVillage"] as string; 
             ViewBag.SaveAndClosePoliticalVillage = TempData["SaveAndClosePoliticalVillage"] as string;
-            
+            ViewBag.ChangePassword = TempData["ChangePassword"] as string;
+
+
             ViewBag.SaveAndCloseProfileVillage = TempData["SaveAndCloseProfileVillage"] as string;
 
 
@@ -149,7 +151,7 @@ public class CrmController : Controller
                                                                            )
                              select new
                              {
-                                 label = $"<b>{a.FullName}</b> {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} {a.Address.PollCenter.CenterNumber}",
+                                 label = $"{a.FullName} {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} {a.Address.PollCenter.CenterNumber}",
                                  val = a.Id,
                              }).ToList();
 

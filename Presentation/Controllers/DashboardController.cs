@@ -49,7 +49,9 @@ namespace Presentation.Controllers
         {
             try
             {
+
                 ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
+
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
                 {
                     var user = _httpContext.HttpContext.User.Identity;
@@ -61,12 +63,9 @@ namespace Presentation.Controllers
 
                 }
                 ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
-
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
-
                 ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 ViewBag.ChangePassword = TempData["ChangePassword"] as string;
-             
                 ViewBag.SaveAndClosePoliticalAdmin = TempData["SaveAndClosePoliticalAdmin"] as string;
                 ViewBag.mssg = TempData["mssg"] as string;
                 return View();
