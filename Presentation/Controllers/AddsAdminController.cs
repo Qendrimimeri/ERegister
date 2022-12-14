@@ -131,7 +131,15 @@ namespace Presentation.Controllers
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
                     if (res.Status)
                     {
-                        TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
+                        if (userInRoleKryetarIFshatit)
+                        {
+                            TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
+                            return RedirectToAction("Index", "Crm");
+                        }
+                        else
+                        {
+                            TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
+                        }
                     }
                     else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
                     {
@@ -145,12 +153,6 @@ namespace Presentation.Controllers
                         ViewBag.EmailExist = "nuk ka email";
                         PoliticalOfficialAddress();
                         return View();
-                    }
-                    if (userInRoleKryetarIFshatit)
-                    {
-                        TempData["AddPoliticalSaveAndCloseVillage"] = "U regjistruan me sukses!";
-                        return RedirectToAction("Index", "Crm");
-
                     }
                     
                     TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
