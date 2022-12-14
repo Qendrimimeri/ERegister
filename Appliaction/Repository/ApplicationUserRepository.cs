@@ -370,12 +370,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     public async Task<Microsoft.AspNetCore.Identity.IdentityResult> ConfirmEmailAsync(ApplicationUser userIdentity, string token)
         => await _userManager.ConfirmEmailAsync(userIdentity, token);
 
-    public async Task<IdentityResult> AddUserAsync(ApplicationUser user)
-    {
-        var res = await _userManager.CreateAsync(user);
-        await _context.SaveChangesAsync();
-        return res;
-    }
 
     public async Task<IdentityResult> UpdateUserAsync(ApplicationUser user)
     {
@@ -388,9 +382,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     {
         List<KeyValueModel> roles = new ()
         {
-            new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anëtar i thjeshte" },
-            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i fshatit" },
-            new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i komunës" },
+            new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anëtar i thjeshtë" },
+            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i nën degës" },
+            new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i degës" },
             new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" }
         };
         var orderedRoles = roles.OrderBy(x => x.Value);
@@ -448,12 +442,12 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var address = new Address()
         {
             Id = addressId,
-            MunicipalityId = (model.Municipality == null ? await AdminMunicipalityId() : model.Municipality),
+            MunicipalityId = model.Municipality ?? await AdminMunicipalityId(),
             HouseNo = model.HouseNo,
-            VillageId = (model.Village == null ? await AdminVillageId() : model.Village),
+            VillageId = model.Village ?? await AdminVillageId(),
             BlockId = model.Block,
             StreetId = model.Street,
-            NeighborhoodId = model.Neigborhood,
+            NeighborhoodId = model.Neigborhood ?? await AdminNeigboorhoodId(),
             PollCenterId = int.Parse(model.PollCenter),
         };
         await _context.Addresses.AddAsync(address);
@@ -658,15 +652,34 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
 
 
-    public async Task<int> AdminMunicipalityId() =>
-        ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                                  .Select(x => x.Address.MunicipalityId)
-                                  .FirstOrDefaultAsync());
+    public async Task<int> AdminMunicipalityId()
+    {
+        var res = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var r = ((int)await _context.ApplicationUsers.Where(x => x.Id == res).Include(x => x.Address)
+                          .Select(x => x.Address.MunicipalityId)
+                          .FirstOrDefaultAsync());
+        return r;
+    }
 
-    public async Task<int> AdminVillageId() =>
-        ((int)await _context.Users.Where(x => x.Id == (_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                                  .Select(x => x.Address.VillageId)
-                                  .FirstOrDefaultAsync());
+
+    public async Task<int?> AdminVillageId()
+    {
+        var res = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var r = await _context.ApplicationUsers.Where(x => x.Id == res).Include(x => x.Address)
+                          .Select(x => x.Address.VillageId)
+                          .FirstOrDefaultAsync();
+        return r;
+    }
+
+    public async Task<int> AdminNeigboorhoodId()
+    {
+        var res = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        var r = (int)await _context.ApplicationUsers.Where(x => x.Id == res.Value).Include(x => x.Address)
+                                  .Select(x => x.Address.NeighborhoodId)
+                                  .FirstOrDefaultAsync();
+        return r;
+    }
+
 
     private static string CreateRandomPassword(int passwordLength)
     {
@@ -782,14 +795,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             AddressId = addressId,
             ActualStatus = "Unset",
             ImgPath = "default.png",
-            EmailConfirmed = true,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
         // Use this for Development env.
         var password = CreateRandomPassword(10);
 
-        var result = await _userManager.CreateAsync(simpleUser, "qendrimi");
+        var result = await _userManager.CreateAsync(simpleUser, password);
         await _context.SaveChangesAsync();
 
         if (result.Succeeded)

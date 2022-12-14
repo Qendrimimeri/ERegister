@@ -21,7 +21,7 @@
 }
 @if (User.IsInRole(roles.AnetarIThjeshte))
 {
-    @if (!ViewBag.HasPasswordChange)
+    @if (ViewBag.HasPasswordChange == false)
     {
      <div class="modal fade hide" id="change-password" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -271,7 +271,7 @@
                             </div>
                             <div class="col-md-4 mb-2 pe-2 ">
                                 <label>Sektori</label>
-                                <select class="form-select " asp-for="AdministrativeUnit" id="inputGroupSelect04" asp-items="@ViewBag.administrativeUnits">
+                                <select class="form-select " asp-for="AdministrativeUnit"  asp-items="@ViewBag.administrativeUnits">
                                     <option disabled selected>Zgjedh sektorin...</option>
                                 </select>
                             </div>
@@ -411,6 +411,7 @@
                                icon: "warning" ,
                                className:"test",
     }
+    }
     
 </script>
 <style>
@@ -419,7 +420,6 @@
             cursor: pointer;
         }
 </style>
-<script src="~/js/change_password.js"></script>
 @if (User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts
