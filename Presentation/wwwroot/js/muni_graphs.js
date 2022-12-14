@@ -13,7 +13,7 @@ let rez = response.then((values) => {
     let lokale = Object.keys(lastYear).length;
     let nacionale = Object.keys(nacionaleData).length
 
-    if (lokale <= 3 && nacionale <= 3) {
+    if (lokale <= 0 && nacionale <= 0) {
         new ApexCharts(document.querySelector("#columnChart"), {
             series: [{
                 name: 'Viti 2021',

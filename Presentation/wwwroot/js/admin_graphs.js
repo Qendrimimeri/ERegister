@@ -27,7 +27,7 @@ async function getId() {
     console.log(lokale)
     console.log(nacionale)
 
-    if (lokale <= 3 && nacionale <= 3) {
+    if (lokale <= 0 && nacionale <= 0) {
         const nacionaleOptions = {
             series: [{
                 name: 'Viti 2021',
@@ -134,7 +134,7 @@ async function getId() {
         this.lokaleChart.render()
 
     }
-    else if (lokale <= 3) {
+    else if (lokale <= 0) {
         const nacionaleOptions = {
             series: [{
                 name: 'Viti 2021',
@@ -240,7 +240,7 @@ async function getId() {
         this.lokaleChart.render();
 
     }
-    else if (nacionale <= 3) {
+    else if (nacionale <= 0) {
         const nacionaleOptions = {
             series: [{
                 name: 'Viti 2021',

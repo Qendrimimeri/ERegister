@@ -100,12 +100,6 @@ namespace Application.Repository.IRepository
         /// <returns>User of type PersonVM</returns>
         Task<PersonVM> GetUserByIdAsync(string id);
 
-        /// <summary>
-        /// Adds a specific user based on  specified model of ApplicationUser
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns>Identity Result</returns>
-        Task<IdentityResult> AddUserAsync(ApplicationUser user);
 
         /// <summary>
         /// Updates specific user based on specified model of ApplicationUser
