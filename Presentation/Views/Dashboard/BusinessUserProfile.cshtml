@@ -8,7 +8,7 @@
 
 }
 <link rel="stylesheet" href="~/cssViews/UserProfile.css">
-<script src="~/js/function_image.js"></script>
+
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -105,12 +105,12 @@
                                @* <label asp-for="Image" class="form-label">Ngarko foton e profilit</label>
                                 <input asp-for="Image" class="form-control" accept="image/png, image/jpeg" type="file" id="formFile" onchange="preview()">*@
                                 <div>
-                                    <label asp-for="Image" class="form-label">Ngarko foton e produktit</label><br />
-                                    <div class="border rounded6">
-                                        <input id="choose-file" asp-for="Image" class="form-control" accept="image/*" />
+                                    <label asp-for="Image" class="form-label">Ngarko foton e profilit</label><br />
+                                    <div class="border rounded">
+                                        <input id="choose-file" asp-for="Image" class="form-control" accept="image/png, image/jpeg" />
                                         <label id="choose-label">Nuk keni ngarkuar foto</label>
                                         <span asp-validation-for="Image" class="text-danger"></span> <br />
-                                        <span class="text-danger">@ViewBag.ErrorImg</span>
+                                 
                                     </div>
                                 </div>
                                 @if (ViewBag.NotAllowedFormat == true)
@@ -135,6 +135,7 @@
         </div>
     </div>
 </section>
+
 @section Scripts{
     <script>
        
@@ -151,4 +152,6 @@
         }
     
     </script>
+
+    <script src="~/js/function_image.js"></script>
 }
