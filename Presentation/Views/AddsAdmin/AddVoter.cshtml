@@ -410,17 +410,8 @@
 
 </script>
 <script src="~/js/security_stamp.js"></script>
-<<<<<<< HEAD
-<script>
-    document.getElementById("BtnRuajDheHapRAst").click{
-        swal({
-            title: "U regjistrua me sukses!",
-            icon: "warning",
-            className: "test",
-        }
-    }
 
-</script>
+
 <style>
     #togglePassword, #togglePassword2 {
         margin-left: -30px;
@@ -460,7 +451,8 @@ else if (User.IsInRole("KryetarIFshatit"))
                     buttons: false,
                 })
             }
-        </script>
+     </script>
+
         <script src="~/js/add_votter_kryetari_fshatit.js"> </script>
  }
 }
@@ -479,6 +471,28 @@ else if (User.IsInRole("AnetarIThjeshte"))
                       })
                   }
         </script>
+          <script>
+            var strValue = "@((string)ViewBag.SaveAndCloseProfileSimple)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat janë ndryshuar me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.ChangePassword)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Fjalëkalimi juaj u ndryshua me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
         <script src="~/js/add_votter_antari_thjesht.js"> </script>
     }
 }
@@ -486,6 +500,7 @@ else
 {
     @section Scripts
     {
+
     <script>
         var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
             if (strValue !== null && strValue !== "") {

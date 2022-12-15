@@ -195,7 +195,7 @@ namespace Application.Repository.IRepository
         /// <returns>True or False</returns>
         bool GetEmail(string email);
 
-
+        Task<bool> IsInRoleAnetarIThjeshtWithId(string id);
         Task<bool> CheckUser(string email, string password);
 
         Task<bool> IsInSimpleRole(string email);
