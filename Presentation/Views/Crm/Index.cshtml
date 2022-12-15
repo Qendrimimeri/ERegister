@@ -267,6 +267,7 @@
 
         function SetVoters() {
             let name = $('#SearchBtn').val();
+            console.log(name)
             let table = $("#Tables");
             $.ajax({
                 url: "/Crm/Voters?name=" + name,

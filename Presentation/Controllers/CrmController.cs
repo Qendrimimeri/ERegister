@@ -128,7 +128,7 @@ public class CrmController : Controller
 
                              select new
                              {
-                                 label = $"{a.FullName} {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} '{a.Address.PollCenter.CenterNumber}'",
+                                 label = $"{a.FullName} - Komuna:{a.Address.Municipality.Name}",
                                  val = a.Id,
                              }).ToList();
 
