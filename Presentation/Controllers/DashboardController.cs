@@ -82,9 +82,9 @@ namespace Presentation.Controllers
         {
             try
             {
-                var users = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+                var voters = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
                 ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
-                return View(users);
+                return View(voters);
             }
             catch (Exception err)
             {
@@ -115,7 +115,7 @@ namespace Presentation.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reports(PersonVM editVoter)
+        public async Task<IActionResult> Reports(VoterVM editVoter)
         {
             try
             {

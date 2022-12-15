@@ -9,15 +9,15 @@ namespace Infrastructure.Services
 
     public class StaticData
     {
-        private readonly GeneralDemands _demands;
-        private readonly GeneralReasons _reasons;
+        private readonly Demands _demands;
+        private readonly Reasons _reasons;
         private readonly ActualStatus _status;
         private readonly AdministrativeUnits _unit;
         private readonly SuccessChances _chances;
         private readonly YesNo _yesNo;
 
-        public StaticData(IOptionsSnapshot<GeneralDemands> demands,
-                          IOptionsSnapshot<GeneralReasons> reasons,
+        public StaticData(IOptionsSnapshot<Demands> demands,
+                          IOptionsSnapshot<Reasons> reasons,
                           IOptionsSnapshot<ActualStatus> status,
                           IOptionsSnapshot<AdministrativeUnits> unit,
                           IOptionsSnapshot<SuccessChances> chances,
@@ -50,7 +50,7 @@ namespace Infrastructure.Services
             return electionType;
         }
 
-        public static IEnumerable<KeyValueModel> GeneralDemands()
+        public static IEnumerable<KeyValueModel> Demands()
         {
             var generalDemand = new List<KeyValueModel>() {
                 new KeyValueModel { Key = "Infrastruktura", Value = "Infrastruktura" },
@@ -60,7 +60,7 @@ namespace Infrastructure.Services
             return generalDemand;
         }
 
-        public static IEnumerable<KeyValueModel> GeneralReason()
+        public static IEnumerable<KeyValueModel> Reasons()
         {
             var generalReason = new List<KeyValueModel>() {
                 new KeyValueModel { Key = "Familja", Value = "Familja" },

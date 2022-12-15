@@ -37,7 +37,7 @@ namespace Application.Repository.IRepository
         /// Gets information of voters
         /// </summary>
         /// <returns>A list of information for voters of type PersonVM</returns>
-        Task<List<PersonVM>> GetPersonInfoAsync();
+        Task<List<VoterVM>> GetPersonInfoAsync();
 
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Application.Repository.IRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns>User of type PersonVM</returns>
-        Task<PersonVM> GetUserByIdAsync(string id);
+        Task<VoterVM> GetUserByIdAsync(string id);
 
 
         /// <summary>
@@ -211,5 +211,7 @@ namespace Application.Repository.IRepository
        Task<bool?> HasPasswordChange();
 
         Task<bool> IsEmailConfirmed(LoginVM model);
+
+        Task<List<SuggetVoters>> GetVotersSuggest(string suggest, int muniId);
     }
 }

@@ -23,8 +23,8 @@ public static class OptionPatterns
         services.Configure<AdministrativeUnits>(builder.Configuration.GetSection(AdministrativeUnits.SectionName));
         services.Configure<AppDomain>(builder.Configuration.GetSection(AppDomain.SectionName));
         services.Configure<ExceptionHandler>(builder.Configuration.GetSection(ExceptionHandler.SectionName));
-        services.Configure<GeneralDemands>(builder.Configuration.GetSection(GeneralDemands.SectionName));
-        services.Configure<GeneralReasons>(builder.Configuration.GetSection(GeneralReasons.SectionName));
+        services.Configure<Demands>(builder.Configuration.GetSection(Demands.SectionName));
+        services.Configure<Reasons>(builder.Configuration.GetSection(Reasons.SectionName));
         services.Configure<Roles>(builder.Configuration.GetSection(Roles.SectionName));
         services.Configure<SuccessChances>(builder.Configuration.GetSection(SuccessChances.SectionName));
         services.Configure<Toaster>(builder.Configuration.GetSection(Toaster.SectionName));

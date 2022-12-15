@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Models.Services
 {
-    public class GeneralReasons
+    public class Reasons
     {
         public static string SectionName { get; set; } = "GeneralReasons";
 

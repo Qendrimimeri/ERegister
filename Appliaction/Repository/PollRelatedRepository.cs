@@ -22,36 +22,27 @@ namespace Application.Repository
             _appUser = appUser;
         }
 
-        public async Task<bool> AddPollRelated(PersonVM editPerson)
+        public async Task<bool> AddPollRelated(VoterVM editPerson)
         {
-            var pollId =  _db.PollRelateds.Where(x => x.UserId == editPerson.Id).FirstOrDefault();
+            var pollId =  _db.PollRelateds.Where(x => x.VoterId == editPerson.Id).FirstOrDefault();
             var pollRelated = new PollRelated()
             {
-                UserId = editPerson.Id,
+                VoterId = editPerson.Id,
                 SuccessChances = editPerson.ActualChances,
                 PoliticialSubjectId = (editPerson.CurrentVoter == null ? pollId.PoliticialSubjectId : int.Parse(editPerson.CurrentVoter)),
                 FamMembers =pollId.FamMembers,
-                GeneralDemand=pollId.GeneralDemand,
-                SpecificDemand=pollId.SpecificDemand,
-                GeneralReason=pollId.GeneralReason,
-                SpecificReason=pollId.SpecificReason,
+                Demand=pollId.Demand,
+                Reason=pollId.Reason,
                 HelpId=pollId.HelpId,
                 Date = DateTime.Now,
-                GeneralDescription=editPerson.GeneralDescription
+                Description=editPerson.Description
             };
 
              _db.PollRelateds.Add(pollRelated);
-             _db.SaveChanges();
 
-
-            var getUser = await _appUser.FindUserByIdAsync(pollRelated.UserId);
-            getUser.ActualStatus = (editPerson.ActualStatus == null? getUser.ActualStatus : editPerson.ActualStatus);
- 
-
-
-            
-  
-            var res = await _appUser.UpdateUserAsync(getUser);
+            var getUser = await _db.Voters.Where(x => x.Id == editPerson.Id).FirstOrDefaultAsync();
+            getUser.ActualStatus = (editPerson.ActualStatus ?? getUser.ActualStatus);
+            await _db.SaveChangesAsync();
             return true;
 
         }
@@ -70,33 +61,15 @@ namespace Application.Repository
             await _db.Helps.AddAsync(helpTable);
             await _db.SaveChangesAsync();
 
-            var res = await _db.PollRelateds.Where(x => x.UserId == model.Id).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
+            var res = await _db.PollRelateds.Where(x => x.VoterId == model.Id).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
 
-            res.GeneralDemand = (model.GeneralDemands == "shto" ? res.GeneralDemand : model.GeneralDemands);
-            res.GeneralReason = (model.GeneralReason == "shto" ? res.GeneralReason : model.GeneralReason);
-            res.GeneralDescription = (model.GeneralDescription == null ? res.GeneralDescription : model.GeneralDescription) ;
+            res.Demand = (model.Demands == "shto" ? res.Demand : model.Demands);
+            res.Reason = (model.Reason == "shto" ? res.Reason : model.Reason);
+            res.Description = (model.Description == null ? res.Description : model.Description) ;
             res.HelpId = helpId;
             await _db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> updateSpecificReasonAsync(string? reason, string userId)
-        {
-            var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
-            pollRelated.SpecificReason = reason;
-            var res = await _db.SaveChangesAsync();   
-            return true;
-        }
-        public async Task<bool> updateSpecificDemandAsync(string? reason, string userId)
-        {
-            var pollRelated = await _db.PollRelateds.Where(x => x.UserId == userId).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
-            pollRelated.SpecificDemand = reason;
-            var res = await _db.SaveChangesAsync();
-            return true;
-        }
 
-        //public async Task<bool> ReplacePreviousVoter (string userId)
-        //{
-        //    var pollRelated=await _db.PollRelateds.Where(x=>x.User==userId).
-        //}
     }
 }

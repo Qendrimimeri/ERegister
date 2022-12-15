@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Domain.Migrations
+namespace Domain.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -72,10 +72,6 @@ namespace Domain.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("ActualStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AddressId")
                         .IsRequired()
@@ -141,7 +137,6 @@ namespace Domain.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WorkId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -381,7 +376,7 @@ namespace Domain.Migrations
                     b.Property<string>("SuccessChances")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("VoterId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -390,7 +385,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("PoliticialSubjectId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("VoterId");
 
                     b.ToTable("PollRelateds");
                 });
@@ -448,6 +443,47 @@ namespace Domain.Migrations
                     b.HasIndex("MunicipalityId");
 
                     b.ToTable("Villages");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.Voter", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ActualStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AddressId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialNetwork")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("WorkId");
+
+                    b.ToTable("Voters");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
@@ -649,15 +685,11 @@ namespace Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Data.Entities.Work", "Work")
+                    b.HasOne("Domain.Data.Entities.Work", null)
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("WorkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkId");
 
                     b.Navigation("Address");
-
-                    b.Navigation("Work");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
@@ -748,15 +780,15 @@ namespace Domain.Migrations
                         .WithMany("PollRelateds")
                         .HasForeignKey("PoliticialSubjectId");
 
-                    b.HasOne("Domain.Data.Entities.ApplicationUser", "User")
+                    b.HasOne("Domain.Data.Entities.Voter", "Voter")
                         .WithMany("PollRelateds")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("VoterId");
 
                     b.Navigation("Help");
 
                     b.Navigation("PoliticialSubject");
 
-                    b.Navigation("User");
+                    b.Navigation("Voter");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Street", b =>
@@ -787,6 +819,25 @@ namespace Domain.Migrations
                         .HasForeignKey("MunicipalityId");
 
                     b.Navigation("Municipality");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.Voter", b =>
+                {
+                    b.HasOne("Domain.Data.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Data.Entities.Work", "Work")
+                        .WithMany()
+                        .HasForeignKey("WorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Work");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -843,11 +894,6 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Data.Entities.Address", b =>
                 {
                     b.Navigation("ApplicationUsers");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Block", b =>
@@ -918,6 +964,11 @@ namespace Domain.Migrations
                     b.Navigation("PollCenters");
 
                     b.Navigation("Streets");
+                });
+
+            modelBuilder.Entity("Domain.Data.Entities.Voter", b =>
+                {
+                    b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>

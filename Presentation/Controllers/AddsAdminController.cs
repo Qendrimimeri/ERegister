@@ -60,8 +60,8 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM register)
         {
-            try
-            {
+            //try
+            //{
                 if (ModelState.IsValid)
                 {
 
@@ -91,12 +91,12 @@ namespace Presentation.Controllers
 
                 VoterAddress();
                 return View("AddVoter", register);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
+            //}
+            //catch (Exception err)
+            //{
+            //    _logger.LogError("An error has occured", err);
+            //    return View(errorView);
+            //}
 
         }
 

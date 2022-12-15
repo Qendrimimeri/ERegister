@@ -85,8 +85,8 @@ public class CrmController : Controller
             var userId = _unitOfWork.ApplicationUser.GetLoginUser();
             var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
             var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
-            ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-            ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+            ViewBag.ArysjetPercaktues = new SelectList(StaticData.Reasons(), "Key", "Value");
+            ViewBag.NdihmaNevojshme = new SelectList(StaticData.Demands(), "Key", "Value");
             ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
             TempData["SaveAndCloseCRM"] = "U regjistruan me sukses!";
 
@@ -107,7 +107,7 @@ public class CrmController : Controller
 
 
 
-    public IActionResult AutoComplete(string prefix, int id, string role)
+    public async Task<IActionResult> AutoComplete(string prefix, int id, string role)
     {
         try
         {
@@ -115,16 +115,11 @@ public class CrmController : Controller
             if (role == "KryetarIPartise")
             {
 
-                var users = (from a in this._context.ApplicationUsers
-                             from d in this._context.Roles
-                             from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
-                                                                           && x.RoleId == d.Id
-                                                                           && a.FullName.Contains(prefix)
-                                                                           && a.Id == x.UserId)
+                var users = (from a in _context.Voters.Where(x =>  x.FullName.Contains(prefix))
 
                              select new
                              {
-                                 label = $"{a.FullName} {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} '{a.Address.PollCenter.CenterNumber}'",
+                                 label = a.FullName,
                                  val = a.Id,
                              }).ToList();
 
@@ -133,25 +128,8 @@ public class CrmController : Controller
             }
             else
             {
-
-
-                var users = (from a in this._context.ApplicationUsers
-                             from c in this._context.Addresses
-                             from d in this._context.Roles
-                             from b in this._context.UserRoles.Where(x => d.Name == "SimpleRole"
-                                                                           && x.RoleId == d.Id
-                                                                           && a.FullName.StartsWith(prefix)
-                                                                           && a.Id == x.UserId
-                                                                           && c.Id == a.AddressId
-                                                                           && c.MunicipalityId == id
-                                                                           )
-                             select new
-                             {
-                                 label = $"<b>{a.FullName}</b> {a.Address.Municipality.Name} {a.Address.Neighborhood.Name} {a.Address.PollCenter.CenterNumber}",
-                                 val = a.Id,
-                             }).ToList();
-
-                return Json(users);
+                var res = await _unitOfWork.ApplicationUser.GetVotersSuggest(prefix, id);
+                return Json(res);
             }
 
 
@@ -199,30 +177,12 @@ public class CrmController : Controller
     }
 
 
-    public IActionResult GeneralReasons() => View();
-
-
-    public IActionResult AddHelper() => View();
-
-
-    public IActionResult OpenCases() => View();
-
-
-    #region API CALL
-
-
-    public async Task<bool> SpecificDemand([FromQuery] string reason, string userId)
-        => await _unitOfWork.PollRelated.updateSpecificDemandAsync(reason, userId);
-
-    #endregion
-
-
     #region ViewBag Data
 
     private void Data()
     {
-        ViewBag.ArysjetPercaktues = new SelectList(StaticData.GeneralReason(), "Key", "Value");
-        ViewBag.NdihmaNevojshme = new SelectList(StaticData.GeneralDemands(), "Key", "Value");
+        ViewBag.ArysjetPercaktues = new SelectList(StaticData.Reasons(), "Key", "Value");
+        ViewBag.NdihmaNevojshme = new SelectList(StaticData.Demands(), "Key", "Value");
         ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
     }
 

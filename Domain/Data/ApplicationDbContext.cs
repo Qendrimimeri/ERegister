@@ -13,13 +13,11 @@ namespace Domain.Data
         {
         }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
+        public virtual DbSet<Voter> Voters { get; set; } = null!;
         public virtual DbSet<Block> Blocks { get; set; } = null!;
         public virtual DbSet<Help> Helps { get; set; } = null!;
         public virtual DbSet<Kqzregister> Kqzregisters { get; set; } = null!;

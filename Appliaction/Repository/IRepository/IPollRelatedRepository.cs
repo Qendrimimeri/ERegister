@@ -15,7 +15,7 @@ namespace Application.Repository.IRepository
         /// </summary>
         /// <param name="editPerson"></param>
         /// <returns>True or False</returns>
-        Task<bool> AddPollRelated(PersonVM editPerson);
+        Task<bool> AddPollRelated(VoterVM editPerson);
 
         /// <summary>
         /// Updates Crm information about specific voter based on the user of type VoterDetailsVM
@@ -24,19 +24,5 @@ namespace Application.Repository.IRepository
         /// <returns>True or False</returns>
         Task<bool> UpdateCrmRelatedAsync(VoterDetailsVM model);
 
-        /// <summary>
-        /// Updates voters specific reason based on their inputed reason and specified userId
-        /// </summary>
-        /// <param name="demand"></param>
-        /// <param name="userId"></param>
-        /// <returns>True or False</returns>
-        Task<bool> updateSpecificReasonAsync(string reason, string userId);
-        /// <summary>
-        /// Updates voters specific demand based on their inputed demand and specified userId
-        /// </summary>
-        /// <param name="demand"></param>
-        /// <param name="userId"></param>
-        /// <returns>True or False</returns>
-        Task<bool> updateSpecificDemandAsync(string demand, string userId);
     }
 }

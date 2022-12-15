@@ -209,79 +209,6 @@ namespace Presentation.Controllers
         }
 
 
-        [Route("getgeneraldemand")]
-        public ActionResult GetGeneralDemand()
-        {
-            try
-            {
-                var users = _context.PollRelateds.ToList();
-                var usersViewModel = _mapper.Map<List<PollRelated>>(users);
-                return Ok(usersViewModel);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
-
-        [HttpPost, Route("addgeneraldemand")]
-        public ActionResult AddGeneralDemand([FromBody] GeneralDemandVM model)
-        {
-            try
-            {
-                var test = _mapper.Map<PollRelated>(model);
-
-                _context.PollRelateds.Add(test);
-                _context.SaveChanges();
-                return Ok();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
-
-        //get help  // specific demand
-        [Route("gethelp")]
-        public ActionResult GetNeedHelp()
-        {
-            try
-            {
-                var users = _context.PollRelateds.ToList();
-                var usersViewModel = _mapper.Map<List<PollRelated>>(users);
-                return Ok(usersViewModel);
-               
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
-        //add help
-        [HttpPost, Route("GetNeedHelp")]
-        public ActionResult AddHelp([FromBody] GeneralDemandVM model)
-        {
-            try
-            {
-                var test = _mapper.Map<PollRelated>(model);
-
-                _context.PollRelateds.Add(test);
-                _context.SaveChanges();
-                return Ok();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
 
         [HttpPost, Route("addkqzresult")]
         public async Task<ActionResult> AddKqzResult([FromBody] KqzRegisterVM model)
@@ -403,14 +330,14 @@ namespace Presentation.Controllers
 
 
                         var rez = _context.PollRelateds
-                            .Where(x => x.User.Address.Municipality.Name == city.Name)
+                            .Where(x => x.Voter.Address.Municipality.Name == city.Name)
                             .OrderBy(x => x.PoliticialSubjectId)
                             .ToList();
 
                         var removeDuplicated = new List<PollRelated>();
 
                         foreach (var user in rez.OrderByDescending(x => x.Date))
-                            if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                            if (!removeDuplicated.Any(x => x.VoterId == user.VoterId))
                                 removeDuplicated.Add(user);
 
                         var voters = new List<CurrentVoters>();
@@ -505,11 +432,11 @@ namespace Presentation.Controllers
                         }
 
 
-                    var rez = _context.PollRelateds.Where(x => x.User.Address.MunicipalityId == municipality.Id).OrderBy(x => x.PoliticialSubjectId).ToList();
+                    var rez = _context.PollRelateds.Where(x => x.Voter.Address.MunicipalityId == municipality.Id).OrderBy(x => x.PoliticialSubjectId).ToList();
                     var removeDuplicated = new List<PollRelated>();
 
                     foreach (var user in rez.OrderByDescending(x => x.Date))
-                        if (!removeDuplicated.Any(x => x.UserId == user.UserId))
+                        if (!removeDuplicated.Any(x => x.VoterId == user.VoterId))
                             removeDuplicated.Add(user);
 
                     var voters = new List<CurrentVoters>();

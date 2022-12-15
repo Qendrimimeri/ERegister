@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Domain.Migrations
+namespace Domain.Data.Migrations
 {
     public partial class Init : Migration
     {
@@ -27,8 +27,7 @@ namespace Domain.Migrations
                 name: "Helps",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     CanYouManage = table.Column<bool>(type: "bit", nullable: true),
                     ActivitiesYouPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NeedHelp = table.Column<bool>(type: "bit", nullable: true)
@@ -328,10 +327,9 @@ namespace Domain.Migrations
                     SocialNetwork = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AddressId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ActualStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ImgPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HasPasswordChange = table.Column<int>(type: "int", nullable: true),
+                    WorkId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -358,6 +356,36 @@ namespace Domain.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Works_WorkId",
+                        column: x => x.WorkId,
+                        principalTable: "Works",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Voters",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SocialNetwork = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AddressId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ActualStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Voters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Voters_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Voters_Works_WorkId",
                         column: x => x.WorkId,
                         principalTable: "Works",
                         principalColumn: "Id",
@@ -457,7 +485,7 @@ namespace Domain.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FamMembers = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    VoterId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PoliticialSubjectId = table.Column<int>(type: "int", nullable: true),
                     SuccessChances = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GeneralReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -471,11 +499,6 @@ namespace Domain.Migrations
                 {
                     table.PrimaryKey("PK_PollRelateds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PollRelateds_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_PollRelateds_Helps_HelpId",
                         column: x => x.HelpId,
                         principalTable: "Helps",
@@ -484,6 +507,11 @@ namespace Domain.Migrations
                         name: "FK_PollRelateds_PoliticalSubjects_PoliticialSubjectId",
                         column: x => x.PoliticialSubjectId,
                         principalTable: "PoliticalSubjects",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PollRelateds_Voters_VoterId",
+                        column: x => x.VoterId,
+                        principalTable: "Voters",
                         principalColumn: "Id");
                 });
 
@@ -632,9 +660,9 @@ namespace Domain.Migrations
                 column: "PoliticialSubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PollRelateds_UserId",
+                name: "IX_PollRelateds_VoterId",
                 table: "PollRelateds",
-                column: "UserId");
+                column: "VoterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Streets_MunicipalityId",
@@ -655,6 +683,16 @@ namespace Domain.Migrations
                 name: "IX_Villages_MunicipalityId",
                 table: "Villages",
                 column: "MunicipalityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Voters_AddressId",
+                table: "Voters",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Voters_WorkId",
+                table: "Voters",
+                column: "WorkId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -691,6 +729,9 @@ namespace Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "PoliticalSubjects");
+
+            migrationBuilder.DropTable(
+                name: "Voters");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
