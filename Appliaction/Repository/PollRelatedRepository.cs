@@ -61,6 +61,25 @@ namespace Application.Repository
             await _db.Helps.AddAsync(helpTable);
             await _db.SaveChangesAsync();
 
+            var pollId = _db.PollRelateds.Where(x => x.VoterId == model.Id).FirstOrDefault();
+            var pollRelated = new PollRelated()
+            {
+                VoterId = model.Id,
+                SuccessChances = model.ActualChances,
+                PoliticialSubjectNational = (model.CurrentVoter ?? pollId.PoliticialSubjectNational),
+                FamMembers = pollId.FamMembers,
+                Demand = pollId.Demand,
+                Reason = pollId.Reason,
+                HelpId = pollId.HelpId,
+                Date = DateTime.Now,
+                Description = model.Description
+            };
+            _db.PollRelateds.Add(pollRelated);
+            var getUser = await _db.Voters.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+            getUser.ActualStatus = (model.ActualStatus ?? getUser.ActualStatus);
+            await _db.SaveChangesAsync();
+
+
             var res = await _db.PollRelateds.Where(x => x.VoterId == model.Id).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
 
             res.Demand = model.Demands == "shto" ? res.Demand : model.Demands;

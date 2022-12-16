@@ -83,7 +83,7 @@ public class CrmController : Controller
         try
         {
             var userId = _unitOfWork.ApplicationUser.GetLoginUser();
-            var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
+             var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
             var res = await _unitOfWork.PollRelated.UpdateCrmRelatedAsync(model);
             ViewBag.ArysjetPercaktues = new SelectList(StaticData.Reasons(), "Key", "Value");
             ViewBag.NdihmaNevojshme = new SelectList(StaticData.Demands(), "Key", "Value");

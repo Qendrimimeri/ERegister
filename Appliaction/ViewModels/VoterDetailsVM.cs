@@ -53,6 +53,7 @@ namespace Application.ViewModels
         public string? ActualChances { get; set; }
         public string? ActualStatus { get; set; }
 
+        public string CurrentVoter { get; set; }
 
         [ValidateNever]
         public string? PSLocal { get; set; }
