@@ -97,7 +97,6 @@
                     <th scope="col" class="text-center pe-1">Gjasat fillestare</th>
                     <th scope="col" class="text-center pe-1">Gjasat aktuale</th>
                     <th scope="col" class="text-center pe-1">Statusi aktual</th>
-                    <th class="no-export text-center pe-1" style="font-size:11px">Menaxho</th>
                 </tr>
             </thead>
             <tbody>
@@ -123,7 +122,6 @@
                         <td class="text-center">@voter.InitialChances</td>
                         <td class="text-center">@voter.ActualChances</td>
                         <td class="text-center">@voter.ActualStatus</td>
-                        <td><a class="no-export text-center" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
                     </tr>
 
                 }
