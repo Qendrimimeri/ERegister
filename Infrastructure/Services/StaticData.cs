@@ -30,9 +30,25 @@ namespace Infrastructure.Services
             _chances = chances.Value;
             _yesNo = yesNo.Value;
         }
+        public static IEnumerable<KeyValueModel> PoliticalSubjects()
+        {
+
+            var politicalSubjects = new List<KeyValueModel>() {
+                new KeyValueModel { Key = "VV", Value = "VV" },
+                new KeyValueModel { Key = "LDK", Value = "LDK" },
+                new KeyValueModel { Key = "PDK", Value = "PDK" },
+                new KeyValueModel { Key = "AAK", Value = "AAK" },
+                new KeyValueModel { Key = "AKR", Value = "AKR" },
+                new KeyValueModel { Key = "Nisma", Value = "Nisma" },
+                new KeyValueModel { Key = "Partit minoriatre serbe", Value = "Partit minoriatre serbe" },
+                new KeyValueModel { Key = "Partit minoriatre jo serbe", Value = "Partit minoriatre jo serbe" },
+            };
+            return politicalSubjects;
+        }
+
         public static IEnumerable<KeyValueModel> AdministrativeUnits()
         {
-            
+
             var administrativeUnit = new List<KeyValueModel>() {
                 new KeyValueModel { Key = "Sektori privat", Value = "Sektori  privat" },
                 new KeyValueModel { Key = "Sektori  publik", Value = "Sektori  publik" },
@@ -74,7 +90,7 @@ namespace Infrastructure.Services
 
         public static IEnumerable<YesNoModel> YesNo()
         {
-            var yesNo = new List<YesNoModel>() 
+            var yesNo = new List<YesNoModel>()
             {
                 new YesNoModel { Key = 1, Value = "Po" },
                 new YesNoModel { Key = 0, Value = "Jo" },

@@ -222,8 +222,8 @@ namespace Domain.Data.Migrations
                     b.Property<int?>("NoOfvotes")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PoliticialSubjectId")
-                        .HasColumnType("int");
+                    b.Property<string>("PoliticialSubject")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PollCenterId")
                         .HasColumnType("int");
@@ -236,8 +236,6 @@ namespace Domain.Data.Migrations
                     b.HasIndex("MunicipalityId");
 
                     b.HasIndex("NeighborhoodId");
-
-                    b.HasIndex("PoliticialSubjectId");
 
                     b.HasIndex("PollCenterId");
 
@@ -288,22 +286,6 @@ namespace Domain.Data.Migrations
                     b.ToTable("Neighborhoods");
                 });
 
-            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PoliticalSubjects");
-                });
-
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
                 {
                     b.Property<int>("Id")
@@ -349,28 +331,25 @@ namespace Domain.Data.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Demand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("FamMembers")
                         .HasColumnType("int");
-
-                    b.Property<string>("GeneralDemand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GeneralDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GeneralReason")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("HelpId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PoliticialSubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SpecificDemand")
+                    b.Property<string>("PoliticialSubjectLocal")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SpecificReason")
+                    b.Property<string>("PoliticialSubjectNational")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SuccessChances")
@@ -382,8 +361,6 @@ namespace Domain.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("HelpId");
-
-                    b.HasIndex("PoliticialSubjectId");
 
                     b.HasIndex("VoterId");
 
@@ -711,10 +688,6 @@ namespace Domain.Data.Migrations
                         .WithMany("Kqzregisters")
                         .HasForeignKey("NeighborhoodId");
 
-                    b.HasOne("Domain.Data.Entities.PoliticalSubject", "PoliticialSubject")
-                        .WithMany("Kqzregisters")
-                        .HasForeignKey("PoliticialSubjectId");
-
                     b.HasOne("Domain.Data.Entities.PollCenter", "PollCenter")
                         .WithMany("Kqzregisters")
                         .HasForeignKey("PollCenterId");
@@ -726,8 +699,6 @@ namespace Domain.Data.Migrations
                     b.Navigation("Municipality");
 
                     b.Navigation("Neighborhood");
-
-                    b.Navigation("PoliticialSubject");
 
                     b.Navigation("PollCenter");
 
@@ -776,17 +747,11 @@ namespace Domain.Data.Migrations
                         .WithMany("PollRelateds")
                         .HasForeignKey("HelpId");
 
-                    b.HasOne("Domain.Data.Entities.PoliticalSubject", "PoliticialSubject")
-                        .WithMany("PollRelateds")
-                        .HasForeignKey("PoliticialSubjectId");
-
                     b.HasOne("Domain.Data.Entities.Voter", "Voter")
                         .WithMany("PollRelateds")
                         .HasForeignKey("VoterId");
 
                     b.Navigation("Help");
-
-                    b.Navigation("PoliticialSubject");
 
                     b.Navigation("Voter");
                 });
@@ -932,13 +897,6 @@ namespace Domain.Data.Migrations
                     b.Navigation("PollCenters");
 
                     b.Navigation("Streets");
-                });
-
-            modelBuilder.Entity("Domain.Data.Entities.PoliticalSubject", b =>
-                {
-                    b.Navigation("Kqzregisters");
-
-                    b.Navigation("PollRelateds");
                 });
 
             modelBuilder.Entity("Domain.Data.Entities.PollCenter", b =>
