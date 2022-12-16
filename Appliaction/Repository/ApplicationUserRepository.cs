@@ -417,7 +417,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             PollCenterId = int.Parse(model.PollCenter),
         };
         await _context.Addresses.AddAsync(address);
-        await _context.SaveChangesAsync();
 
         string workId = Guid.NewGuid().ToString();
         var work = new Work()
@@ -428,9 +427,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             Duty = model.Duty,
         };
 
-
-        await _context.Works.Where(x => x.WorkPlace == model.WorkPlace)
-                            .FirstOrDefaultAsync();
         await _context.Works.AddAsync(work);
         await _context.SaveChangesAsync();
 
@@ -442,7 +438,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             Email = model.Email,
             WorkId = workId,
             AddressId = addressId,
-            ActualStatus = "Në proces",
             SocialNetwork = model.Facebook,
             CreatedAt = DateTime.Now,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
