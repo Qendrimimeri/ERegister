@@ -173,6 +173,7 @@ namespace Presentation.Controllers
                 var userId = GetUser();
                 var isUserAdmin = User.IsInRole("KryetarIPartise");
                 var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
+                string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partit minoritare jo serbe", "Partit minoritare serbe", "PDK", "VV" };
 
                 if (isUserAdmin)
                 {
@@ -224,6 +225,8 @@ namespace Presentation.Controllers
                             }
 
 
+
+
                         var rez = _context.PollRelateds
                             .Where(x => x.Voter.Address.Municipality.Name == city.Name)
                             .OrderBy(x => x.PoliticialSubjectNational)
@@ -242,7 +245,7 @@ namespace Presentation.Controllers
                             {
                                 Municipality = city.Name,
                                 NumberOfVotes = user.FamMembers,
-                                PoliticalSubject = " "
+                                PoliticalSubject = user.PoliticialSubjectNational
                             });
 
                         var gruping = new Dictionary<string, int>();
@@ -257,10 +260,47 @@ namespace Presentation.Controllers
                             }
 
 
+
+
+                        var rezLocal = _context.PollRelateds
+                            .Where(x => x.Voter.Address.Municipality.Name == city.Name)
+                            .OrderBy(x => x.PoliticialSubjectLocal)
+                            .ToList();
+
+                        var removeDuplicatedLocal = new List<PollRelated>();
+
+                        foreach (var user in rezLocal.OrderByDescending(x => x.Date))
+                            if (!removeDuplicatedLocal.Any(x => x.VoterId == user.VoterId))
+                                removeDuplicatedLocal.Add(user);
+
+                        var votersLocal = new List<CurrentVoters>();
+                        foreach (var user in removeDuplicatedLocal.OrderBy(x => x.PoliticialSubjectLocal))
+
+                            votersLocal.Add(new CurrentVoters()
+                            {
+                                Municipality = city.Name,
+                                NumberOfVotes = user.FamMembers,
+                                PoliticalSubject = user.PoliticialSubjectLocal
+                            });
+
+                        var grupingLocal = new Dictionary<string, int>();
+
+                        foreach (var voter in votersLocal)
+                            if (!grupingLocal.Any(x => x.Key == voter.PoliticalSubject))
+                                grupingLocal.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                            else if (grupingLocal.Any(x => x.Key == voter.PoliticalSubject))
+                            {
+                                var value = gruping.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                                grupingLocal[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                            }
+
+
+
+
                         var nacionale = new KqzResultsByCity()
                         {
                             CityName = city.Name,
-                            PoliticSubjects = new List<string>(),
+                            PoliticSubjects = politicalSubjects,
                             LastYear = zgjedhjetNacionale,
                             ThisYear = gruping
                         };
@@ -268,9 +308,9 @@ namespace Presentation.Controllers
                         var lokale = new KqzResultsByCity()
                         {
                             CityName = city.Name,
-                            PoliticSubjects = new List<string>(),
+                            PoliticSubjects = politicalSubjects,
                             LastYear = zgjedhjetLokale,
-                            ThisYear = gruping
+                            ThisYear = grupingLocal
                         };
 
                         var zgjedhjet = new Dictionary<string, KqzResultsByCity>
@@ -325,7 +365,8 @@ namespace Presentation.Controllers
                         }
 
 
-                    var rez = _context.PollRelateds.Where(x => x.Voter.Address.MunicipalityId == municipality.Id).OrderBy(x => x.PoliticialSubjectNational).ToList();
+                    var rez = _context.PollRelateds.Where(x => x.Voter.Address.MunicipalityId == municipality.Id)
+                                                   .OrderBy(x => x.PoliticialSubjectNational).ToList();
                     var removeDuplicated = new List<PollRelated>();
 
                     foreach (var user in rez.OrderByDescending(x => x.Date))
@@ -339,7 +380,7 @@ namespace Presentation.Controllers
                         {
                             Municipality = municipality.Name,
                             NumberOfVotes = user.FamMembers,
-                            PoliticalSubject = ""
+                            PoliticalSubject = user.PoliticialSubjectNational
                         });
 
                     var gruping = new Dictionary<string, int>();
@@ -354,10 +395,42 @@ namespace Presentation.Controllers
                         }
 
 
+
+
+                    var rezLocal = _context.PollRelateds.Where(x => x.Voter.Address.MunicipalityId == municipality.Id)
+                               .OrderBy(x => x.PoliticialSubjectLocal).ToList();
+                    var removeDuplicatedLocal = new List<PollRelated>();
+
+                    foreach (var user in rez.OrderByDescending(x => x.Date))
+                        if (!removeDuplicatedLocal.Any(x => x.VoterId == user.VoterId))
+                            removeDuplicatedLocal.Add(user);
+
+                    var votersLocal = new List<CurrentVoters>();
+                    foreach (var user in removeDuplicatedLocal.OrderBy(x => x.PoliticialSubjectLocal))
+
+                        votersLocal.Add(new CurrentVoters()
+                        {
+                            Municipality = municipality.Name,
+                            NumberOfVotes = user.FamMembers,
+                            PoliticalSubject = user.PoliticialSubjectLocal
+                        });
+
+                    var grupingLocal = new Dictionary<string, int>();
+
+                    foreach (var voter in votersLocal)
+                        if (!grupingLocal.Any(x => x.Key == voter.PoliticalSubject))
+                            grupingLocal.Add(voter.PoliticalSubject, voter.NumberOfVotes);
+                        else if (grupingLocal.Any(x => x.Key == voter.PoliticalSubject))
+                        {
+                            var value = grupingLocal.Where(x => x.Key == voter.PoliticalSubject).FirstOrDefault().Value;
+                            grupingLocal[voter.PoliticalSubject] = voter.NumberOfVotes + value;
+                        }
+
+
                     var nacionale = new KqzResultsByCity()
                     {
                         CityName = municipality.Name,
-                        PoliticSubjects = new List<string>(),
+                        PoliticSubjects = politicalSubjects,
                         LastYear = zgjedhjetNacionale,
                         ThisYear = gruping
                     };
@@ -365,9 +438,9 @@ namespace Presentation.Controllers
                     var lokale = new KqzResultsByCity()
                     {
                         CityName = municipality.Name,
-                        PoliticSubjects = new List<string>(),
+                        PoliticSubjects = politicalSubjects,
                         LastYear = zgjedhjetLokale,
-                        ThisYear = gruping
+                        ThisYear = grupingLocal
                     };
 
                     var zgjedhjet = new Dictionary<string, KqzResultsByCity>

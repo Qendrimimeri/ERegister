@@ -222,7 +222,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         //if (isThisUserVillageAdmin) return await GetOnlyVillagePerson(userVillage, userMuni, user, name);
         else if (isThisUserMunicipalityAdmin)
         {
-            var voters = await _context.Voters.Include(x => x.Address)
+            var voters = await _context.Voters.Include(x => x.Address).Include(x => x.Work)
                 .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni).Select(person => new VoterDetailsVM()
                 {
                     Id = person.Id,
@@ -245,8 +245,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
                     InitialChance = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                    PSLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
-                    PSNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
+                    PoliticalSubjectLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                    PoliticalSubjectNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
 
                 }).FirstOrDefaultAsync();
 
@@ -255,7 +255,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         }
         else
         {
-            var voters = await _context.Voters.Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
+            var voters = await _context.Voters.Include(x => x.Work).Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
@@ -277,8 +277,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
                 InitialChance = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                PSLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
-                PSNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
+                PoliticalSubjectLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                PoliticalSubjectNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
             }).FirstOrDefaultAsync();
 
             return voters;
@@ -906,8 +906,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             PollCenter = person.Address.PollCenter.CenterNumber,
             VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
             InitialChance = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-            PSLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
-            PSNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
+            PoliticalSubjectLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+            PoliticalSubjectNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
 
         }).FirstOrDefaultAsync();
 

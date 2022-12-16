@@ -67,8 +67,8 @@ namespace Application.Repository
             res.Reason = model.Reason == "shto" ? res.Reason : model.Reason;
             res.Description = model.Description ?? res.Description ;
             res.HelpId = helpId;
-            res.PoliticialSubjectNational = model.PSNational ?? res.PoliticialSubjectNational;
-            res.PoliticialSubjectLocal= model.PSLocal ?? res.PoliticialSubjectLocal;
+            res.PoliticialSubjectNational = model.PoliticalSubjectNational ?? res.PoliticialSubjectNational;
+            res.PoliticialSubjectLocal= model.PoliticalSubjectLocal ?? res.PoliticialSubjectLocal;
             await _db.SaveChangesAsync();
             return true;
         }

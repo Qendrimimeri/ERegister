@@ -60,13 +60,14 @@ public class CrmController : Controller
     {
         try
         {
+            var result = name[..name.IndexOf("-")];
             Data();
-            if (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name) == null)
+            if (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(result.Trim()) == null)
             {
                 ViewBag.Name = name;
                 ViewBag.UserNull = "nuk ka te dhena";
             }
-            var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
+            var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(result.Trim());
 
             return PartialView("_Voters", res);
         }
@@ -119,7 +120,7 @@ public class CrmController : Controller
 
                              select new
                              {
-                                 label = a.FullName,
+                                 label = $"{a.FullName} - Komuna: {a.Address.Municipality.Name}",
                                  val = a.Id,
                              }).ToList();
 

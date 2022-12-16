@@ -51,20 +51,13 @@ namespace Application.ViewModels
         public string? InitialChance { get; set; }
 
         public string? ActualChances { get; set; }
+
         public string? ActualStatus { get; set; }
-
-
-        [ValidateNever]
-        public string? PSLocal { get; set; }
-
-        [ValidateNever]
-        public string? PSNational { get; set; }
 
         [ValidateNever]
         public int? VotersNumber { get; set; }
 
         [ValidateNever]
         public string? FacebookLink { get; set; }
-        //public int? FamMembersNumber { get; set; }
     }
 }
