@@ -97,7 +97,6 @@
                     <th scope="col" class="text-center pe-1">Gjasat fillestare</th>
                     <th scope="col" class="text-center pe-1">Gjasat aktuale</th>
                     <th scope="col" class="text-center pe-1">Statusi aktual</th>
-                    <th class="no-export text-center pe-1" style="font-size:11px">Menaxho</th>
                 </tr>
             </thead>
             <tbody>
@@ -123,7 +122,6 @@
                         <td class="text-center">@voter.InitialChances</td>
                         <td class="text-center">@voter.ActualChances</td>
                         <td class="text-center">@voter.ActualStatus</td>
-                        <td><a class="no-export text-center" asp-controller="Dashboard" asp-action="Reports" asp-route-id="@voter.Id"><i class="fas fa-edit"></i></a></td>
                     </tr>
 
                 }
@@ -139,12 +137,12 @@
         }
     }
 </style>
-<link rel="stylesheet" type="text/css" href="~/datatable/datatables.css" />
-@*<link rel="stylesheet" type="text/css" href="DataTablesTest/datatables.css" />*@
+@*<link rel="stylesheet" type="text/css" href="~/datatable/datatables.css" />*@
+<link rel="stylesheet" type="text/css" href="DataTablesTest/datatables.css" />
 @section Scripts {
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/datatable/datatables.js"></script>
-    @*<script type="text/javascript" src="DataTablesTest/datatables.js"></script>*@
+    @*<script type="text/javascript" src="~/datatable/datatables.js"></script>*@
+    <script type="text/javascript" src="DataTablesTest/datatables.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
