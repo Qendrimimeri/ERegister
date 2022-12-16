@@ -72,7 +72,7 @@
         </div>
     </div>
     <div id="customers" class="table table-responsive">
-        <table class="table table-striped table-hover small" id="example">
+        <table class="table table-border table-striped table-hover small" id="example">
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
                     @if (User.IsInRole("KryetarIFshatit"))
@@ -146,24 +146,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
-
-    <script>
-    $(function () {
-      $(#customers).DataTable({
-        responsive true, lengthChange false, autoWidth false,
-        buttons [copy, csv, excel, pdf, print, colvis]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6eq(0)');
-      $('#customers').DataTable({
-        paging true,
-        lengthChange false,
-        searching false,
-        ordering true,
-        info true,
-        autoWidth false,
-        responsive true,
-      });
-    });
-</script>
 
     <script>
         var strValue = "@((string)ViewBag.SaveAndCloseManage)";
