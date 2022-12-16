@@ -11,7 +11,7 @@
 <div class="bg-white">
     <div class="d-flex justify-content-between p-2">
         <div>
-            <h2 class="card-title ">Performanca & Raporti - Zgjedhjet lokale</h2>
+            <h2 class="card-title ">Performanca & Raporti - Zgjedhjet nacionale</h2>
         </div>
         @if (User.IsInRole(roles.KryetarIPartise))
         {
@@ -33,7 +33,7 @@
         }
     </div>
     <div class="d-flex justify-content-between">
-       
+
         <div b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light pe-0 d-flex justify-content-between">
             <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
                 <a class="navbar-brand fw-semibold" href="/"></a>
@@ -149,7 +149,7 @@
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
 
-     <script>
+    <script>
         var strValue = "@((string)ViewBag.SaveAndCloseManage)";
         if (strValue !== null && strValue !== "") {
             swal({
