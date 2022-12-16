@@ -185,6 +185,5 @@ public class CrmController : Controller
         ViewBag.NdihmaNevojshme = new SelectList(StaticData.Demands(), "Key", "Value");
         ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
     }
-
     #endregion
 }
