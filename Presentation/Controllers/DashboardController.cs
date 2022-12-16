@@ -60,12 +60,11 @@ namespace Presentation.Controllers
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
 
                 }
+                ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
-
                 ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 ViewBag.ChangePassword = TempData["ChangePassword"] as string;
-
-                ViewBag.AddPoliticalSaveAndClose = TempData["AddPoliticalSaveAndClose"] as string;
+                ViewBag.SaveAndClosePoliticalAdmin = TempData["SaveAndClosePoliticalAdmin"] as string;
                 ViewBag.mssg = TempData["mssg"] as string;
                 return View();
             } 
@@ -213,51 +212,162 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (editUser.Image == null)
-                    {
-                        var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
-                        if (result)
-                        {
-                            var res = _userManager.GetUserAsync(User);
-                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
-                            TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
+                    var userId = _unitOfWork.ApplicationUser.GetLoginUser();
 
-                            return RedirectToAction("Index", "Dashboard");
+                    var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
+                    var userInRoleAnetarIThjeshte = await _unitOfWork.ApplicationUser.IsInRoleAnetarIThjeshtWithId(userId);
+                    if (userInRoleKryetarIFshatit)
+                    {
+                        if (editUser.Image == null)
+                        {
+                            var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                            if (result)
+                            {
+                                var res = _userManager.GetUserAsync(User);
+                                var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+                                TempData["SaveAndCloseProfileVillage"] = "U regjistruan me sukses!";
+
+                                return RedirectToAction("Index", "Crm");
+                            }
+
+                        }
+                        else if (editUser.Image != null)
+                        {
+                            if (!editUser.Image.ContentType.Contains("image"))
+                            {
+                                TempData["error"] = "Formati duhet te jetë png ose jpg";
+                                ViewBag.NotAllowedFormat = true;
+                                return RedirectToAction("BusinessUserProfile");
+                            }
+                            var rootFilePath = _env.WebRootPath;
+                            string filePath = Path.Combine(rootFilePath, "Document");
+                            if (!Directory.Exists(filePath))
+                                Directory.CreateDirectory(filePath);
+
+                            var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+                            var fullPath = Path.Combine(filePath, fileName);
+                            var getUser = await _userManager.GetUserAsync(User);
+                            if (getUser.ImgPath != null && getUser.ImgPath != "default.png")
+                                if (System.IO.File.Exists(Path.Combine(filePath, getUser.ImgPath)))
+                                    System.IO.File.Delete(Path.Combine(filePath, getUser.ImgPath));
+
+                            using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                                editUser.Image.CopyTo(fileStream);
+
+                            var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                            if (result)
+                            {
+                                var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
+
+                                TempData["SaveAndCloseProfileVillage"] = "U regjistruan me sukses!";
+                                return RedirectToAction("Index", "Crm");
+                            }
+                        }
+                    }
+                    else if (userInRoleAnetarIThjeshte)
+                    {
+                        {
+                            if (editUser.Image == null)
+                            {
+                                var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                                if (result)
+                                {
+                                    var res = _userManager.GetUserAsync(User);
+                                    var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+                                    TempData["SaveAndCloseProfileSimple"] = "U regjistruan me sukses!";
+                                    return RedirectToAction("AddVoter", "AddsAdmin");
+                                }
+
+                            }
+                            else if (editUser.Image != null)
+                            {
+                                if (!editUser.Image.ContentType.Contains("image"))
+                                {
+                                    TempData["error"] = "Formati duhet te jetë png ose jpg";
+                                    ViewBag.NotAllowedFormat = true;
+                                    return RedirectToAction("BusinessUserProfile");
+                                }
+                                var rootFilePath = _env.WebRootPath;
+                                string filePath = Path.Combine(rootFilePath, "Document");
+                                if (!Directory.Exists(filePath))
+                                    Directory.CreateDirectory(filePath);
+
+                                var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+                                var fullPath = Path.Combine(filePath, fileName);
+                                var getUser = await _userManager.GetUserAsync(User);
+                                if (getUser.ImgPath != null && getUser.ImgPath != "default.png")
+                                    if (System.IO.File.Exists(Path.Combine(filePath, getUser.ImgPath)))
+                                        System.IO.File.Delete(Path.Combine(filePath, getUser.ImgPath));
+
+                                using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                                    editUser.Image.CopyTo(fileStream);
+
+                                var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                                if (result)
+                                {
+                                    var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
+
+                                    TempData["SaveAndCloseProfileSimple"] = "U regjistruan me sukses!";
+                                    return RedirectToAction("AddVoter", "AddsAdmin");
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (editUser.Image == null)
+                        {
+                            var result = await _unitOfWork.ApplicationUser.EditUserProfile(editUser);
+                            if (result)
+                            {
+                                var res = _userManager.GetUserAsync(User);
+                                var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
+
+                                TempData["SaveAndCloseProfile"] = "Të dhënat u ndryshuan me sukses!";
+
+                                return RedirectToAction("Index", "Dashboard");
+                            }
+
+                        }
+                        else if (editUser.Image != null)
+                        {
+                            if (!editUser.Image.ContentType.Contains("image"))
+                            {
+                                TempData["error"] = "Formati duhet te jetë png ose jpg";
+                                ViewBag.NotAllowedFormat = true;
+                                return RedirectToAction("BusinessUserProfile");
+                            }
+                            var rootFilePath = _env.WebRootPath;
+                            string filePath = Path.Combine(rootFilePath, "Document");
+                            if (!Directory.Exists(filePath))
+                                Directory.CreateDirectory(filePath);
+
+                            var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
+                            var fullPath = Path.Combine(filePath, fileName);
+                            var getUser = await _userManager.GetUserAsync(User);
+                            if (getUser.ImgPath != null && getUser.ImgPath != "default.png")
+                                if (System.IO.File.Exists(Path.Combine(filePath, getUser.ImgPath)))
+                                    System.IO.File.Delete(Path.Combine(filePath, getUser.ImgPath));
+
+                            using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                                editUser.Image.CopyTo(fileStream);
+
+                            var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
+                            if (result)
+                            {
+                                var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
+
+                                TempData["SaveAndCloseProfile"] = "Të dhënat u ndryshuan me sukses!";
+
+                                return RedirectToAction("Index", "Dashboard");
+                            }
                         }
 
                     }
-                    else if (editUser.Image != null)
-                    {
-                        if (!editUser.Image.ContentType.Contains("image"))
-                        {
-                            TempData["error"] = "Formati duhet te jetë png ose jpg";
-                            ViewBag.NotAllowedFormat = true;
-                            return RedirectToAction("BusinessUserProfile");
-                        }
-                        var rootFilePath = _env.WebRootPath;
-                        string filePath = Path.Combine(rootFilePath, "Document");
-                        if (!Directory.Exists(filePath))
-                            Directory.CreateDirectory(filePath);
 
-                        var fileName = $"{Guid.NewGuid()}_{editUser.Image.FileName}";
-                        var fullPath = Path.Combine(filePath, fileName);
-                        var getUser = await _userManager.GetUserAsync(User);
-                        if (getUser.ImgPath != null && getUser.ImgPath != "default.png")
-                            if (System.IO.File.Exists(Path.Combine(filePath, getUser.ImgPath)))
-                                System.IO.File.Delete(Path.Combine(filePath, getUser.ImgPath));
 
-                        using (var fileStream = new FileStream(fullPath, FileMode.Create))
-                            editUser.Image.CopyTo(fileStream);
-
-                        var result = await _unitOfWork.ApplicationUser.EditProfileDetails(editUser, fileName);
-                        if (result)
-                        {
-                            var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
-                            TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
-
-                            return RedirectToAction("Index", "Dashboard");
-                        }
-                    }
                 }
                 return View();
             }
@@ -267,7 +377,6 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
-
 
         [HttpGet]
         public IActionResult ChangePassWord()
@@ -308,7 +417,6 @@ namespace Presentation.Controllers
                     }
                     await _signInManager.RefreshSignInAsync(user);
                     TempData["ChangePassword"] = "U ndryshua me sukses!";
-
                     return RedirectToAction("Index", "Dashboard");
                 }
                 return View(model);

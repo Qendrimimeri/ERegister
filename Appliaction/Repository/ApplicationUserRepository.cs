@@ -717,6 +717,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
 
     #region Add Political
+    public async Task<bool> IsInRoleAnetarIThjeshtWithId(string id) =>
+        await _userManager.IsInRoleAsync((await _userManager.FindByIdAsync(id)), _roles.AnetarIThjeshte);
 
     private async Task<Response> AddPolitical(PoliticalOfficalVM model)
     {
