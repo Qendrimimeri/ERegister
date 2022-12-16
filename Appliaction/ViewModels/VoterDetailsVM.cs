@@ -19,15 +19,13 @@ namespace Application.ViewModels
 
 
         [ValidateNever]
-        public string? GeneralReason { get; set; }
+        public string? Reason { get; set; }
 
 
         [ValidateNever]
         public string? MunicipalityName { get; set; }
         public string? PollCenter { get; set; }
 
-        [ValidateNever]
-        public string? SpecificReason { get; set; }
 
         [ValidateNever]
         public int? CanYouManage { get; set; }
@@ -38,14 +36,12 @@ namespace Application.ViewModels
         [ValidateNever]
         public int? NeedHelp { get; set; }
 
-        [ValidateNever]
-        public string? SpecificDemand { get; set; }
 
         [ValidateNever]
-        public string? GeneralDemands { get; set; }
+        public string? Demands { get; set; }
 
         [ValidateNever]
-        public string? GeneralDescription { get; set; }
+        public string? Description { get; set; }
 
         [ValidateNever]
         public string? PoliticalSubjects { get; set; }

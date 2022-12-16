@@ -111,15 +111,15 @@ else
         <div class="d-flex flex-row align-content-around flex-md-row flex-column">
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">Zgjedh/Shto arsyen që percakton votën tuaj</label>
-                <select asp-for="GeneralReason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
-                    @if (Model.GeneralReason == null || Model.GeneralReason == "Unset")
+                <select asp-for="Reason" class="form-select" id="general-demand" asp-items="@ViewBag.ArysjetPercaktues">
+                    @if (Model.Reason == null || Model.Reason == "Unset")
                     {
                         <option disabled selected>Zgjedhni opsionet...</option>
                         <option value="shto">Shto +</option>
                     }
                     else
                     {
-                        <option selected>@Model.GeneralReason</option>
+                        <option selected>@Model.Reason</option>
                         <option value="shto">Shto +</option>
                     }
                 </select>
@@ -145,15 +145,15 @@ else
             </div>
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-                <select asp-for="GeneralDemands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
-                    @if (Model.GeneralDemands == null || Model.GeneralDemands == "Unset")
+                <select asp-for="Demands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
+                    @if (Model.Demands == null || Model.Demands == "Unset")
                     {
                         <option disabled selected>Zgjedhni opsionet...</option>
                         <option value="shto">Shto +</option>
                     }
                     else
                     {
-                        <option selected>@Model.GeneralDemands</option>
+                        <option selected>@Model.Demands</option>
                         <option value="shto">Shto +</option>
                     }
                 </select>
@@ -161,7 +161,7 @@ else
         </div>
         <div class="form-group pe-2 pb-3 ">
             <label class="pt-3" for="NdihmaEKerkuar">Përshkruani arsyeshmërinë e ndihmës së kërkuar dhe ndikimin në sukses: </label>
-            <textarea asp-for="GeneralDescription" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
+            <textarea asp-for="Description" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
         </div>
 
          <div class="d-flex justify-content-between flex-md-row flex-column">
@@ -190,7 +190,7 @@ else
                                 </div>
                                   <div class="mb-2 ml-5 ps-2 pe-2">
                             <label for="exampleFormControlTextarea1" class="form-label">Përshkruaj gjendjen ekzistuese dhe mundësit ose barrierat e suksesit:</label>
-                            <textarea asp-for="GeneralDescription" class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea asp-for="Description" class="form-control ml-4" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
         <div class="btntest d-flex flex-row justify-content-end pt-3 pe-2 pb-4 ">
             <a href='javascript:
