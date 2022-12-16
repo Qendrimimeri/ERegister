@@ -9,7 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
 <div class="bg-white">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between p-2">
+        <div>
+            <h2 class="card-title ">Performanca & Raporti - Zgjedhjet lokale</h2>
+        </div>
         @if (User.IsInRole(roles.KryetarIPartise))
         {
             <div class="ps-2">
@@ -24,14 +27,16 @@
         }
         @if (User.IsInRole(roles.KryetarIFshatit))
         {
-            <div class="ps-2">
+            <div class="">
                 <partial name="_ManualiKryetarFshatitPerformancePartial"></partial>
             </div>
         }
+    </div>
+    <div class="d-flex justify-content-between">
+
         <div b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light pe-0 d-flex justify-content-between">
             <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
-                <a class="navbar-brand fw-semibold" href="/">
-                </a>
+                <a class="navbar-brand fw-semibold" href="/"></a>
                 <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span b-fhvjq1vla1="" class="bi bi-three-dots-vertical noHover"></span>
                 </button>
@@ -135,14 +140,16 @@
     }
 </style>
 <link rel="stylesheet" type="text/css" href="~/datatable/datatables.css" />
+@*<link rel="stylesheet" type="text/css" href="DataTablesTest/datatables.css" />*@
 @section Scripts {
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/datatable/datatables.js"></script>
+    @*<script type="text/javascript" src="DataTablesTest/datatables.js"></script>*@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
 
-     <script>
+    <script>
         var strValue = "@((string)ViewBag.SaveAndCloseManage)";
         if (strValue !== null && strValue !== "") {
             swal({
@@ -158,3 +165,4 @@
         var dataTablesInfo = document.getElementById("dataTables_info");
     </script>
 }
+

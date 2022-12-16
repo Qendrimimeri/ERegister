@@ -153,11 +153,28 @@
                         <span>CRM</span>
                     </a>
                 </li>
-                <li class="nav-item">
+              @*  <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Dashboard" asp-action="Performance">
                         <i class="bi bi-graph-up"></i>
                         <span>Performanca & Raporti</span>
                     </a>
+                </li>*@
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-performance">
+                        <i class="bi bi-graph-up"></i> <span>Performanca & Raporti</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-performance" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a asp-controller="Dashboard" asp-action="PerformanceLocal">
+                                <i class="bi bi-circle"></i><span>Zgjedhjet lokale</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Dashboard" asp-action="PerformanceNational">
+                                <i class="bi bi-circle"></i><span>Zgjedhjet nacionale</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-toggle="collapse" href="#" data-bs-target="#components-addsadmin">

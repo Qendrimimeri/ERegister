@@ -78,7 +78,22 @@ namespace Presentation.Controllers
 
 
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
-        public async Task<IActionResult> Performance()
+        public async Task<IActionResult> PerformanceLocal()
+        {
+            try
+            {
+                var voters = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+                ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
+                return View(voters);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+        }
+        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
+        public async Task<IActionResult> PerformanceNational()
         {
             try
             {
