@@ -126,7 +126,7 @@ else
             </div>
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">A mund ta menaxhoni personin?</label>
-                <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" asp-items="ViewBag.YesNo">
+                <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" onchange=" disableOption1()"asp-items="ViewBag.YesNo">
                     <option disabled selected>Zgjedhni opsionet...</option>
                 </select>
             </div>
@@ -138,14 +138,13 @@ else
         <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">A keni nevojë për ndihmë?</label>
-                <select asp-for="NeedHelp" class="form-select" id="gethelp" asp-items="ViewBag.YesNo">
-                    <option disabled selected>Zgjedhni opsionet... </option>
-
+                <select asp-for="NeedHelp" class="form-select  listat" onchange="disableOption2()" id="gethelp" asp-items="ViewBag.YesNo">
+                    <option disabled selected>Zgjedhni opsionet...</option>
                 </select>
             </div>
-            <div class="col-md-6 mb-2 pe-2">
+            <div class="col-md-6 mb-2 pe-2" >
                 <label class="pt-3">Zgjedh/Shto ndihmën e nevojshme</label>
-                <select asp-for="Demands" class="form-select" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme">
+                <select asp-for="Demands" class="form-select listat" id="specific-reason" asp-items="@ViewBag.NdihmaNevojshme" >
                     @if (Model.Demands == null || Model.Demands == "Unset")
                     {
                         <option disabled selected>Zgjedhni opsionet...</option>
@@ -223,84 +222,130 @@ else
         visibility: visible;
     }
 </style>
-
 <script asp-append-version="true">
-    const Specificreasons = document.querySelector('#general-demand');
-    Specificreasons.addEventListener('change', event => {
-        var data = document.getElementById("general-demand").value;
-        if (event.target.value === "shto") {
-            var userId = document.getElementById("userId").value;
-            //if (data === "shto") {
+    function disableOption2() {
+       
+        let gethelp = document.getElementById("gethelp").value;
+        let specificreason = document.getElementById("specific-reason")
+        let NdihmaEKerkuar = document.getElementById("NdihmaEKerkuar")
 
-            var input = swal("Arsyeja përcaktuese:", {
-                content: "input",
-                buttons: {
-                    cancel: "Anulo",
-
-                    confirm: {
-                        text: "Shto",
-                        className: "test",
-                    }
-                }
-            }).then((value) => {
-                if (value == "") {
-
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-
-                }
-                else if (value !== null) {
-
-                    console.log(value);
-
-                    let item = document.createElement("option");
-                    item.value = value;
-                    item.innerText = value;
-                    Specificreasons.appendChild(item);
-                    Specificreasons.value = value;
-
-                }
-            });
-
+        if (gethelp != "Zgjedhni opsionet..." && gethelp != "1"){
+            
+            specificreason.disabled = true;
+            NdihmaEKerkuar.disabled = true;
 
         }
-    });
-   
+    }
+    function disableOption1(){
+
+        let CanYouManage = document.getElementById("inputGroupSelect02").value;
+        let AktivitetePerNdryshim = document.getElementById("AktivitetePerNdryshim")
+
+        if (CanYouManage != "Zgjedhni opsionet..." && CanYouManage != "1") {
+
+            AktivitetePerNdryshim.disabled = true;
+
+        }
+    }
+
 
     
- 
-    const Specificdemands = document.querySelector('#specific-reason');
-    Specificdemands.addEventListener('change', event => {
-        var data = document.getElementById("specific-reason").value;
-        if (event.target.value === "shto") {
-            var userId = document.getElementById("userId").value;
-            var input = swal("Ndihma e nevojshme:", {
-                content: "input",
-                buttons: {
-                    cancel: "Anulo",
-
-                    confirm: {
-                        text: "Shto",
-                        className: "test",
-                    }
-                }
-            }).then((value) => {
-                if (value == "") {
-
-                    console.log(value);
-                    swal("Ju lutem shkruani të dhëna valide!");
-                    return false;
-
-                }
-                else if (value !== null) {
-                    let item = document.createElement("option");
-                    item.value = value;
-                    item.innerText = value;
-                    Specificdemands.appendChild(item);
-                    Specificdemands.value = value;
-                }
-            });
-        }
-    });
 </script>
+@section Scripts{
+    <script asp-append-version="true">
+
+
+        //const Specificreasons = document.querySelector('#general-demand');
+        //Specificreasons.addEventListener('change', event => {
+        //    var data = document.getElementById("general-demand").value;
+        //    if (event.target.value === "shto") {
+        //        var userId = document.getElementById("userId").value;
+        //        //if (data === "shto") {
+
+        //        var input = swal("Arsyeja përcaktuese:", {
+        //            content: "input",
+        //            buttons: {
+        //                cancel: "Anulo",
+
+        //                confirm: {
+        //                    text: "Shto",
+        //                    className: "test",
+        //                }
+        //            }
+        //        }).then((value) => {
+        //            if (value == "") {
+
+        //                console.log(value);
+        //                swal("Ju lutem shkruani të dhëna valide!");
+        //                return false;
+
+        //            }
+        //            else if (value !== null) {
+
+        //                console.log(value);
+
+        //                let item = document.createElement("option");
+        //                item.value = value;
+        //                item.innerText = value;
+        //                Specificreasons.appendChild(item);
+        //                Specificreasons.value = value;
+
+        //            }
+        //        });
+
+
+        //    }
+        //});
+
+
+        //$(document).ready(function() {
+        //    $('#specific-reason').attr('disabled', false);
+
+        //    $('.listat').on('change', function() {
+        //        var alldata = $('.listat');
+        //        if (alldata[0].value != "" && alldata[1].value != "" && alldata[2].value != "") {
+        //            $('#specific-reason').removeAttr("disabled");
+        //        } else {
+        //            $('#specific-reason').attr('disabled', false);
+
+        //        }
+        //    });
+        //});
+
+
+        //const Specificdemands = document.querySelector('#specific-reason');
+        //Specificdemands.addEventListener('change', event => {
+        //    var data = document.getElementById("specific-reason").value;
+        //    if (event.target.value === "shto") {
+        //        var userId = document.getElementById("userId").value;
+        //        var input = swal("Ndihma e nevojshme:", {
+        //            content: "input",
+        //            buttons: {
+        //                cancel: "Anulo",
+
+        //                confirm: {
+        //                    text: "Shto",
+        //                    className: "test",
+        //                }
+        //            }
+        //        }).then((value) => {
+        //            if (value == "") {
+
+        //                console.log(value);
+        //                swal("Ju lutem shkruani të dhëna valide!");
+        //                return false;
+
+        //            }
+        //            else if (value !== null) {
+        //                let item = document.createElement("option");
+        //                item.value = value;
+        //                item.innerText = value;
+        //                Specificdemands.appendChild(item);
+        //                Specificdemands.value = value;
+        //            }
+        //        });
+        //    }
+        //});
+    </script>
+}
+

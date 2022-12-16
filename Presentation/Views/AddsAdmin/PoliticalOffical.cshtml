@@ -335,15 +335,16 @@
         </div>
     </div>
 </section>
-@*
-<script asp-append-version="true">
+
+@*<script asp-append-version="true">
 
     function disableOption() {
         let neigboor = document.getElementById("neigborhoods").value;
-        let data = document.getElementById("role-id")
+        let data = document.getElementById("role-id");
 
         if (neigboor != "Zgjedh lagjen...") {
             if (data[3].value === "KryetarIFshatit") {
+
                 data[3].disabled = true;
             }
         }
