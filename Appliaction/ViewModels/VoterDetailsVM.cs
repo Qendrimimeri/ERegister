@@ -51,8 +51,12 @@ namespace Application.ViewModels
         public string? InitialChance { get; set; }
 
         public string? ActualChances { get; set; }
+
         public string? ActualStatus { get; set; }
 
+<<<<<<< HEAD
+=======
+        public string CurrentVoter { get; set; }
 
         [ValidateNever]
         public string? PSLocal { get; set; }
@@ -60,11 +64,11 @@ namespace Application.ViewModels
         [ValidateNever]
         public string? PSNational { get; set; }
 
+>>>>>>> 6b3a7b6cf0954b65116da1cf39a29e2d607d77fd
         [ValidateNever]
         public int? VotersNumber { get; set; }
 
         [ValidateNever]
         public string? FacebookLink { get; set; }
-        //public int? FamMembersNumber { get; set; }
     }
 }
