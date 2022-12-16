@@ -66,7 +66,8 @@ namespace Application.Repository
             {
                 VoterId = model.Id,
                 SuccessChances = model.ActualChances,
-                PoliticialSubjectNational = (model.CurrentVoter ?? pollId.PoliticialSubjectNational),
+                PoliticialSubjectNational = model.PoliticalSubjectNational ?? pollId.PoliticialSubjectNational,
+                PoliticialSubjectLocal = model.PoliticalSubjectLocal ?? pollId.PoliticialSubjectLocal,
                 FamMembers = pollId.FamMembers,
                 Demand = pollId.Demand,
                 Reason = pollId.Reason,
