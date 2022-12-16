@@ -287,28 +287,17 @@
                         </div>
                         <h6 class="pt-4">III - Të dhënat partiake<hr></h6>
                         <div class="d-flex justify-content-between flex-sm-row flex-column">
-                            <div class="col-sm-6 mb-2 pe-2">
+                            <div class="col-md-4 mb-3 pe-2">
                                 <label for="FamilyMember" class="">Numri i anëtarëve</label>
                                 <input asp-for="FamMembers" type="number" class="form-control" id="FamilyMember" value="1" min="0">
                                 <span asp-validation-for="FamMembers" class="text-danger"></span>
                             </div>
-                            <div class="col-sm-6 mb-3 pe-2">
+                            <div class="col-md-4 mb-3 pe-2">
                                 <label>Gjasat e suksesit fillestar</label>
                                 <select class="form-select" id="inputGroupSelect05" asp-for="SuccessChance" placeorder="Zgjedh gjasat..." asp-items="@ViewBag.successChances">
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
-                            <div class="col-sm-6 mb-3 pe-2">
-                                <label>Votues i tanishëm</label>
-                                <select class="form-select option-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
-                                    <option disabled selected>Zgjedh partinë...</option>
-                                </select>
-                                <span asp-validation-for="PoliticalSubject" class="text-danger"></span>
-
-                            </div>
-                            <div class="col-sm-6 mb-3 pe-2" id="pollcenter-villages-container">
+                            <div class="col-md-4 mb-3 pe-2" id="pollcenter-villages-container">
                                 <label>Qendra e votimit</label>
                                 <select class="form-select option-select" id="poll" asp-for="PollCenter">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
@@ -316,12 +305,31 @@
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
 
                             </div>
-                            <div class="col-sm-6 mb-3 pe-2" id="pollcenter-neighborhood-container">
+                            <div class="col-md-4 mb-3 pe-2" id="pollcenter-neighborhood-container">
                                 <label>Qendra e votimit</label>
                                 <select class="form-select option-select" id="pollNeighborhood" asp-for="PollCenter">
                                     <option disabled selected>Zgjedh qendren e votimit...</option>
                                 </select>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
+                            <div class="col-sm-6 mb-3 pe-2">
+                                <label>Partia ne zgjedhje nacionale</label>
+                                <select class="form-select option-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
+                                    <option disabled selected>Zgjedh partinë...</option>
+                                </select>
+                                <span asp-validation-for="PoliticalSubject" class="text-danger"></span>
+
+                            </div>
+                            <div class="col-sm-6 mb-3 pe-2">
+                                <label>Partia ne zgjedhje lokale</label>
+                                <select class="form-select option-select" id="inputGroupSelect04" asp-for="PoliticalSubject" asp-items="@ViewBag.PS" required>
+                                    <option disabled selected>Zgjedh partinë...</option>
+                                </select>
+                                <span asp-validation-for="PoliticalSubject" class="text-danger"></span>
+
                             </div>
                         </div>
                         @if (User.IsInRole(roles.AnetarIThjeshte))
@@ -410,7 +418,6 @@
 
 </script>
 <script src="~/js/security_stamp.js"></script>
-<<<<<<< HEAD
 <script>
     document.getElementById("BtnRuajDheHapRAst").click{
         swal({
