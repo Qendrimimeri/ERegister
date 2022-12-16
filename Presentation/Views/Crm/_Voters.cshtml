@@ -74,12 +74,12 @@ else
                         <td width="50%" id="DataSearching">@Model.VotersNumber</td>
                     </tr>
                     <tr>
-                        <td>Votues paraprak</td>
-                        <td id="DataSearching">@Model.PreviousVoter</td>
+                        <td>Në zgjedhje lokale</td>
+                        <td id="DataSearching">@Model.PSLocal</td>
                     </tr>
                     <tr>
-                        <td>Votues i tanishëm</td>
-                        <td id="DataSearching">@Model.CurrentVoter</td>
+                        <td>Në zgjedhje nacionale</td>
+                        <td id="DataSearching">@Model.PSNational</td>
                     </tr>
                     <tr>
                         <td>Gjasat e suksesit</td>
@@ -166,8 +166,8 @@ else
 
          <div class="d-flex justify-content-between flex-md-row flex-column">
                            <div class="col-md-4 mb-3 pe-2">
-                                    <label asp-for="CurrentVoter">Votues i tanishëm</label>
-                                    <select class="form-select option-select" asp-for="CurrentVoter" asp-items="@ViewBag.PS" >
+                                    <label asp-for="PSLocal">Votues i tanishëm</label>
+                                    <select class="form-select option-select" asp-for="PSLocal" asp-items="@ViewBag.PS" >
                                         <option disabled selected class="option-select">Zgjedh partinë...</option>
                                     </select>
                  

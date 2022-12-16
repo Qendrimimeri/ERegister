@@ -245,8 +245,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                     PollCenter = person.Address.PollCenter.CenterNumber,
                     VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
                     InitialChance = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                    PreviousVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().PoliticialSubjectNational,
-                    CurrentVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
+                    PSLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                    PSNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
 
                 }).FirstOrDefaultAsync();
 
@@ -277,8 +277,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 PollCenter = person.Address.PollCenter.CenterNumber,
                 VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
                 InitialChance = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-                PreviousVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().PoliticialSubjectNational,
-                CurrentVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
+                PSLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                PSNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
             }).FirstOrDefaultAsync();
 
             return voters;
@@ -905,8 +905,8 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             PollCenter = person.Address.PollCenter.CenterNumber,
             VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
             InitialChance = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderBy(x => x.Date).FirstOrDefault().SuccessChances,
-            PreviousVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().PoliticialSubjectNational,
-            CurrentVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
+            PSLocal = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+            PSNational = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectNational,
 
         }).FirstOrDefaultAsync();
 

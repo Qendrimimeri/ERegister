@@ -34,14 +34,14 @@ namespace Infrastructure.Services
         {
 
             var politicalSubjects = new List<KeyValueModel>() {
-                new KeyValueModel { Key = "VV", Value = "VV" },
-                new KeyValueModel { Key = "LDK", Value = "LDK" },
-                new KeyValueModel { Key = "PDK", Value = "PDK" },
                 new KeyValueModel { Key = "AAK", Value = "AAK" },
                 new KeyValueModel { Key = "AKR", Value = "AKR" },
+                new KeyValueModel { Key = "LDK", Value = "LDK" },
                 new KeyValueModel { Key = "Nisma", Value = "Nisma" },
-                new KeyValueModel { Key = "Partit minoriatre serbe", Value = "Partit minoriatre serbe" },
                 new KeyValueModel { Key = "Partit minoriatre jo serbe", Value = "Partit minoriatre jo serbe" },
+                new KeyValueModel { Key = "Partit minoriatre serbe", Value = "Partit minoriatre serbe" },
+                new KeyValueModel { Key = "PDK", Value = "PDK" },
+                new KeyValueModel { Key = "VV", Value = "VV" },
             };
             return politicalSubjects;
         }

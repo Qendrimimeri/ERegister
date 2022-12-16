@@ -24,6 +24,7 @@ namespace Application.ViewModels
 
         [ValidateNever]
         public string? MunicipalityName { get; set; }
+
         public string? PollCenter { get; set; }
 
 
@@ -54,10 +55,10 @@ namespace Application.ViewModels
 
 
         [ValidateNever]
-        public string? CurrentVoter { get; set; }
+        public string? PSLocal { get; set; }
 
         [ValidateNever]
-        public string? PreviousVoter { get; set; }
+        public string? PSNational { get; set; }
 
         [ValidateNever]
         public int? VotersNumber { get; set; }
