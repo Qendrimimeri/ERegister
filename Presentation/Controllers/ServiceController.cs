@@ -194,60 +194,6 @@ namespace Presentation.Controllers
             }
         }
 
-        [Route("getpoliticalsubjectbyname")]
-        public ActionResult GetPoliticalSubjectByName([FromQuery] string name)
-        {
-            try
-            {
-                return Ok(_context.PoliticalSubjects.Where(v => v.Name == name));
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
-
-
-        [HttpPost, Route("addkqzresult")]
-        public async Task<ActionResult> AddKqzResult([FromBody] KqzRegisterVM model)
-         {
-            try
-            {
-                var hasData = _context.Kqzregisters
-                    .Where(x => x.PollCenterId == model.PollCenterId && x.ElectionType == model.ElectionType).ToList();
-
-                if (hasData.Count == 0)
-                {
-                    var test = _mapper.Map<Kqzregister>(model);
-                    await _context.Kqzregisters.AddAsync(test);
-                    await _context.SaveChangesAsync();
-                    return Ok();
-                } 
-                else if(hasData.Count >= 8)
-                {
-                    var kqz = _context.Kqzregisters.Where(x => x.PollCenterId == model.PollCenterId && 
-                                                                x.PoliticialSubjectId == model.PoliticialSubjectId && 
-                                                                x.ElectionType == model.ElectionType).FirstOrDefault();
-                    if (kqz != null)
-                    {
-                        kqz.NoOfvotes = model.NoOfvotes;
-                    }
-
-                    await _context.SaveChangesAsync();
-                    return Ok();
-                }
-                return Ok();
-
-
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
 
 
         [Route("getmunis")]
@@ -286,11 +232,11 @@ namespace Presentation.Controllers
                     {
                         var zgjedhjetNacionaleDB = _context.Kqzregisters
                             .Include(x => x.Municipality)
-                            .OrderBy(x => x.PoliticialSubjectId)
+                            .OrderBy(x => x.PoliticialSubject)
                             .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.Municipality.Name == city.Name)
                             .Select(x => new KqzLastYear()
                             {
-                                PoliticalSubject = x.PoliticialSubject.Name,
+                                PoliticalSubject = x.PoliticialSubject,
                                 NumberOfVotes = (int)x.NoOfvotes,
                             }).ToList();
 
@@ -309,11 +255,11 @@ namespace Presentation.Controllers
                         // zgjedhjet Lokale te vitit 2021 
                         var zgjedhjetLokaleDB = _context.Kqzregisters
                             .Include(x => x.Municipality)
-                            .OrderBy(x => x.PoliticialSubjectId)
+                            .OrderBy(x => x.PoliticialSubject)
                             .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.Municipality.Name == city.Name)
                             .Select(x => new KqzLastYear()
                             {
-                                PoliticalSubject = x.PoliticialSubject.Name,
+                                PoliticalSubject = x.PoliticialSubject,
                                 NumberOfVotes = (int)x.NoOfvotes,
                             }).ToList();
 
@@ -331,7 +277,7 @@ namespace Presentation.Controllers
 
                         var rez = _context.PollRelateds
                             .Where(x => x.Voter.Address.Municipality.Name == city.Name)
-                            .OrderBy(x => x.PoliticialSubjectId)
+                            .OrderBy(x => x.PoliticialSubjectNational)
                             .ToList();
 
                         var removeDuplicated = new List<PollRelated>();
@@ -341,14 +287,13 @@ namespace Presentation.Controllers
                                 removeDuplicated.Add(user);
 
                         var voters = new List<CurrentVoters>();
-                        foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectId))
+                        foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectNational))
 
                             voters.Add(new CurrentVoters()
                             {
                                 Municipality = city.Name,
                                 NumberOfVotes = user.FamMembers,
-                                PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
-                                                                             .FirstOrDefault().Name
+                                PoliticalSubject = " "
                             });
 
                         var gruping = new Dictionary<string, int>();
@@ -362,12 +307,11 @@ namespace Presentation.Controllers
                                 gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
                             }
 
-                        var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
 
                         var nacionale = new KqzResultsByCity()
                         {
                             CityName = city.Name,
-                            PoliticSubjects = politicSubjects,
+                            PoliticSubjects = new List<string>(),
                             LastYear = zgjedhjetNacionale,
                             ThisYear = gruping
                         };
@@ -375,7 +319,7 @@ namespace Presentation.Controllers
                         var lokale = new KqzResultsByCity()
                         {
                             CityName = city.Name,
-                            PoliticSubjects = politicSubjects,
+                            PoliticSubjects = new List<string>(),
                             LastYear = zgjedhjetLokale,
                             ThisYear = gruping
                         };
@@ -393,10 +337,10 @@ namespace Presentation.Controllers
                 {
 
                     // zgjedhjet nacionale te vitit 2021 
-                    var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
+                    var zgjedhjetNacionaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubject)
                     .Where(x => x.ElectionType == "Zgjedhjet Nacionale" && x.MunicipalityId == municipality.Id).Select(x => new KqzLastYear()
                     {
-                        PoliticalSubject = x.PoliticialSubject.Name,
+                        PoliticalSubject = x.PoliticialSubject,
                         NumberOfVotes = (int)x.NoOfvotes,
                     }).ToList();
 
@@ -413,10 +357,10 @@ namespace Presentation.Controllers
 
 
                     // zgjedhjet Lokale te vitit 2021 
-                    var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubjectId)
+                    var zgjedhjetLokaleDB = _context.Kqzregisters.OrderBy(x => x.PoliticialSubject)
                     .Where(x => x.ElectionType == "Zgjedhjet Lokale" && x.MunicipalityId == municipality.Id).Select(x => new KqzLastYear()
                     {
-                        PoliticalSubject = x.PoliticialSubject.Name,
+                        PoliticalSubject = x.PoliticialSubject,
                         NumberOfVotes = (int)x.NoOfvotes,
                     }).ToList();
 
@@ -432,7 +376,7 @@ namespace Presentation.Controllers
                         }
 
 
-                    var rez = _context.PollRelateds.Where(x => x.Voter.Address.MunicipalityId == municipality.Id).OrderBy(x => x.PoliticialSubjectId).ToList();
+                    var rez = _context.PollRelateds.Where(x => x.Voter.Address.MunicipalityId == municipality.Id).OrderBy(x => x.PoliticialSubjectNational).ToList();
                     var removeDuplicated = new List<PollRelated>();
 
                     foreach (var user in rez.OrderByDescending(x => x.Date))
@@ -440,14 +384,13 @@ namespace Presentation.Controllers
                             removeDuplicated.Add(user);
 
                     var voters = new List<CurrentVoters>();
-                    foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectId))
+                    foreach (var user in removeDuplicated.OrderBy(x => x.PoliticialSubjectNational))
 
                         voters.Add(new CurrentVoters()
                         {
                             Municipality = municipality.Name,
                             NumberOfVotes = user.FamMembers,
-                            PoliticalSubject = _context.PoliticalSubjects.Where(x => x.Id == user.PoliticialSubjectId)
-                                                                         .FirstOrDefault().Name
+                            PoliticalSubject = ""
                         });
 
                     var gruping = new Dictionary<string, int>();
@@ -461,12 +404,11 @@ namespace Presentation.Controllers
                             gruping[voter.PoliticalSubject] = voter.NumberOfVotes + value;
                         }
 
-                    var politicSubjects = await _context.PoliticalSubjects.Select(x => x.Name).ToListAsync();
 
                     var nacionale = new KqzResultsByCity()
                     {
                         CityName = municipality.Name,
-                        PoliticSubjects = politicSubjects,
+                        PoliticSubjects = new List<string>(),
                         LastYear = zgjedhjetNacionale,
                         ThisYear = gruping
                     };
@@ -474,7 +416,7 @@ namespace Presentation.Controllers
                     var lokale = new KqzResultsByCity()
                     {
                         CityName = municipality.Name,
-                        PoliticSubjects = politicSubjects,
+                        PoliticSubjects = new List<string>(),
                         LastYear = zgjedhjetLokale,
                         ThisYear = gruping
                     };
@@ -838,38 +780,7 @@ namespace Presentation.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("addpoliticalsubject")]
-        public async Task<IActionResult> AddPoliticalSubject([FromBody] Name model)
-        {
-            try
-            {
-                var res = _context.PoliticalSubjects.Add(new PoliticalSubject
-                {
-                    Name = model.Text
-                });
-                await _context.SaveChangesAsync();
-                return Ok();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-        [Route("getpolitical")]
-        public ActionResult GetPolitical()
-        {
-            try
-            {
-                return Ok(_context.PoliticalSubjects.ToList());
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
+
         private string GetUser()
             => _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 

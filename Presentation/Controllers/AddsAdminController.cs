@@ -245,7 +245,7 @@ namespace Presentation.Controllers
         private void VoterAddress()
         {
 
-            ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+            //ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
             ViewBag.municipalities = new SelectList(_unitOfWork.Municipality.GetAll(), "Id", "Name");
             ViewBag.villages = new SelectList(_unitOfWork.Village.GetAll(), "Id", "Name");
             ViewBag.neigborhoods = new SelectList(_unitOfWork.Neighborhood.GetAll(), "Id", "Name");

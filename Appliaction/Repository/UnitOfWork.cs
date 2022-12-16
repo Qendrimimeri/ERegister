@@ -44,7 +44,6 @@ namespace Application.Repository
             Municipality = new MunicipalityRepository(_dbContext);
             KqzRegister = new KqzRegisterRepository(_dbContext);
             Neighborhood = new NeighborhoodRepository(_dbContext);
-            PoliticalSubject = new PoliticalSubjectRepository(_dbContext);
             PollCenter = new PollCenterRepository(_dbContext);
             PollRelated = new PollRelatedRepository(_dbContext, ApplicationUser);
             Street = new StreetRepository(_dbContext);
@@ -61,7 +60,6 @@ namespace Application.Repository
         public IKqzRegisterRepository KqzRegister { get; }
         public IMunicipalityRepository Municipality { get; }
         public INeighborhoodRepository Neighborhood { get; }
-        public IPoliticalSubjectRepository PoliticalSubject { get; }
         public IPollCenterRepository PollCenter { get; }
         public IPollRelatedRepository PollRelated { get; }
         public IStreetRepository Street { get; }

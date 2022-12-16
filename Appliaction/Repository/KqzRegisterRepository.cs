@@ -35,7 +35,7 @@ namespace Application.Repository
             await _db.AddAsync(new Kqzregister
             {
                 Id = model.Id,
-                PoliticialSubjectId = model.PoliticialSubjectId,
+                PoliticialSubject = model.PoliticialSubject,
                 MunicipalityId = model.MunicipalityId,
                 NoOfvotes = model.NoOfvotes,
                 PollCenterId = model.PollCenterId,

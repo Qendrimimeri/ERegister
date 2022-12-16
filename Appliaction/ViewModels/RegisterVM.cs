@@ -61,7 +61,10 @@ namespace Application.ViewModels
         public string? SuccessChance { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni partinë politike!")]
-        public int? PoliticalSubject { get; set; }
+        public string? PoliticalSubjectNational { get; set; }
+
+        [Required(ErrorMessage = "Ju lutem zgjedhni partinë politike!")]
+        public string? PoliticalSubjectLocal { get; set; }
 
         [Required(ErrorMessage = "Ju lutem zgjedhni qendrën e votimit!")]
         public string? PollCenter { get; set; }

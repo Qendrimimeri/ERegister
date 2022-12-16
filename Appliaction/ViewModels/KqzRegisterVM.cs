@@ -11,7 +11,7 @@ namespace Application.ViewModels
     {
         public int Id { get; set; }
 
-        public int? PoliticialSubjectId { get; set; }
+        public string? PoliticialSubject { get; set; }
 
         public int? NoOfvotes { get; set; }
 

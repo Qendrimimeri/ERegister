@@ -29,7 +29,7 @@ namespace Application.Repository
             {
                 VoterId = editPerson.Id,
                 SuccessChances = editPerson.ActualChances,
-                PoliticialSubjectId = (editPerson.CurrentVoter == null ? pollId.PoliticialSubjectId : int.Parse(editPerson.CurrentVoter)),
+                PoliticialSubjectNational = (editPerson.CurrentVoter ?? pollId.PoliticialSubjectNational),
                 FamMembers =pollId.FamMembers,
                 Demand=pollId.Demand,
                 Reason=pollId.Reason,

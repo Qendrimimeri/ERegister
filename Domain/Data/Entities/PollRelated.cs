@@ -9,7 +9,8 @@ namespace Domain.Data.Entities
         public int FamMembers { get; set; }
         public DateTime? Date { get; set; }
         public string? VoterId { get; set; }
-        public int? PoliticialSubjectId { get; set; }
+        public string? PoliticialSubjectNational { get; set; }
+        public string? PoliticialSubjectLocal { get; set; }
         public string? SuccessChances { get; set; }
         public string? Reason { get; set; }
         public string? Demand { get; set; }
@@ -18,7 +19,6 @@ namespace Domain.Data.Entities
 
 
         public virtual Help? Help { get; set; }
-        public virtual PoliticalSubject? PoliticialSubject { get; set; }
         public virtual Voter? Voter { get; set; }
     }
 }

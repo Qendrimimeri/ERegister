@@ -16,7 +16,6 @@ namespace Application.Repository
         IKqzRegisterRepository KqzRegister { get; }
         IMunicipalityRepository Municipality { get; }
         INeighborhoodRepository Neighborhood { get; }
-        IPoliticalSubjectRepository PoliticalSubject { get; }
         IPollCenterRepository PollCenter { get; }
         IPollRelatedRepository PollRelated { get; }
         IStreetRepository Street { get; }
