@@ -514,7 +514,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             AddressId = addressId,
             SocialNetwork = model.Facebook,
             CreatedAt = DateTime.Now,
-            ActualStatus = "Në proces",
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 

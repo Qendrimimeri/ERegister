@@ -109,45 +109,45 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Reports(string id)
-        {
-            try
-            {
-                var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
-                //ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
-                ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
-                ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
+        //[HttpGet]
+        //public async Task<IActionResult> Reports(string id)
+        //{
+        //    try
+        //    {
+        //        var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
+        //        //ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+        //        ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+        //        ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
 
-                return View(users);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
-        }
+        //        return View(users);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occured", err);
+        //        return View(errorView);
+        //    }
+        //}
 
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reports(VoterVM editVoter)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-                    TempData["SaveAndCloseManage"] = "Të dhënat u ndryshuan me sukses!";
-                    return RedirectToAction("Performance", "Dashboard");
-                }
-                return View();
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occured", err);
-                return View(errorView);
-            }
-        }
+        //[HttpPost, ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Reports(VoterVM editVoter)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
+        //            TempData["SaveAndCloseManage"] = "Të dhënat u ndryshuan me sukses!";
+        //            return RedirectToAction("Performance", "Dashboard");
+        //        }
+        //        return View();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occured", err);
+        //        return View(errorView);
+        //    }
+        //}
 
 
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
