@@ -7,7 +7,7 @@ namespace Domain.Data.Entities
     {
         public Work()
         {
-            ApplicationUsers = new HashSet<ApplicationUser>();
+            Voters = new HashSet<Voter>();
         }
 
         public string Id { get; set; } = null!;
@@ -15,6 +15,6 @@ namespace Domain.Data.Entities
         public string? Duty { get; set; }
         public string? AdministrativeUnit { get; set; }
 
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual ICollection<Voter> Voters { get; set; }
     }
 }

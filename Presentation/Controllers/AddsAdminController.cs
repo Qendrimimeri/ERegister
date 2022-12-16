@@ -244,8 +244,7 @@ namespace Presentation.Controllers
 
         private void VoterAddress()
         {
-
-            ViewBag.PS = new SelectList(StaticData.PoliticalSubjects(), "Key", "Value");
+            ViewBag.PS = new SelectList(StaticData.PoliticalSubjects().OrderBy(x => x.Value), "Key", "Value");
             ViewBag.municipalities = new SelectList(_unitOfWork.Municipality.GetAll(), "Id", "Name");
             ViewBag.villages = new SelectList(_unitOfWork.Village.GetAll(), "Id", "Name");
             ViewBag.neigborhoods = new SelectList(_unitOfWork.Neighborhood.GetAll(), "Id", "Name");
@@ -254,6 +253,8 @@ namespace Presentation.Controllers
             ViewBag.streets = new SelectList(_unitOfWork.Street.GetAll(), "Id", "Name");
             ViewBag.administrativeUnits = new SelectList(StaticData.AdministrativeUnits(), "Key", "Value");
             ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+
+            var data = ViewBag.PS;
         }
 
         private async void PoliticalOfficialAddress()
