@@ -514,7 +514,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             AddressId = addressId,
             SocialNetwork = model.Facebook,
             CreatedAt = DateTime.Now,
-            ActualStatus = "Në proces",
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
@@ -554,18 +553,19 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId)
                                                            .Select(x => x.NoOfvotes)
                                                            .ToListAsync();
+        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partit minoritare jo serbe", "Partit minoritare serbe", "PDK", "VV" };
 
         // krijo nje list me votat qe vin nga forma
         var noOfVotes = new List<int?>()
         {
-            model.VV,
-            model.LDK,
-            model.PDK,
             model.AAK,
             model.AKR,
+            model.LDK,
             model.NISMA,
+            model.PartitJoSerbe,
             model.PartitSerbe,
-            model.PartitJoSerbe
+            model.PDK,
+            model.VV,
         };
 
 
@@ -602,7 +602,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                             MunicipalityId = model.Municipality ?? await AdminMunicipalityId(),
                             VillageId = model.Village ?? await AdminVillageId(),
                             NeighborhoodId = model.Neigborhood,
-                            PoliticialSubject = " ",
+                            PoliticialSubject = politicalSubjects[i],
                             DataCreated = model.ElectionDate.ToString(),
                         };
                         await _context.Kqzregisters.AddAsync(election);

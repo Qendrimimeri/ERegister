@@ -143,57 +143,6 @@ namespace Presentation.Controllers
         }
 
 
-        [Route("getkqzresult")]
-        public ActionResult GetKqzResult([FromQuery] int muniId)
-        {
-            try
-            {
-
-                var testing = _context.Kqzregisters.Where(v => v.MunicipalityId == muniId).FirstOrDefault();
-                var test = _mapper.Map<KqzRegisterVM>(testing);
-                return Ok(test);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
-
-        [Route("getkqzresultbyvillage")]
-        public ActionResult GetKqzResultByVillage([FromQuery] int muniId)
-        {
-            try
-            {
-
-                var testing = _context.Kqzregisters.Where(v => v.VillageId == muniId && v.ElectionType == "Zgjedhjet Nacionale").FirstOrDefault();
-                var test = _mapper.Map<KqzRegisterVM>(testing);
-                return Ok(test);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
-        [Route("getkqzresultbyneighborhood")]
-        public ActionResult GetKqzResultByNeighborhood([FromQuery] int muniId)
-        {
-            try
-            {
-                var testing = _context.Kqzregisters.Where(v => v.NeighborhoodId == muniId).FirstOrDefault();
-                var test = _mapper.Map<KqzRegisterVM>(testing);
-                return Ok(test);
-            }
-            catch (Exception err)
-            {
-                _logger.LogError("An error has occurred", err);
-                return View(errorView);
-            }
-        }
-
 
 
         [Route("getmunis")]

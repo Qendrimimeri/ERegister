@@ -67,7 +67,7 @@ public class CrmController : Controller
                 ViewBag.UserNull = "nuk ka te dhena";
             }
             var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(name);
-            
+
             return PartialView("_Voters", res);
         }
         catch (Exception err)
@@ -184,6 +184,9 @@ public class CrmController : Controller
         ViewBag.ArysjetPercaktues = new SelectList(StaticData.Reasons(), "Key", "Value");
         ViewBag.NdihmaNevojshme = new SelectList(StaticData.Demands(), "Key", "Value");
         ViewBag.YesNo = new SelectList(StaticData.YesNo(), "Key", "Value");
+        ViewBag.PS = new SelectList(StaticData.PoliticalSubjects().OrderBy(x => x.Value), "Key", "Value");
+        ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+        ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
     }
     #endregion
 }

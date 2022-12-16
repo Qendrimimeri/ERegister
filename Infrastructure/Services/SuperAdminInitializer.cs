@@ -38,7 +38,6 @@ public class SuperAdminInitializer
                 _roles.KryetarIKomunes,
                 _roles.KryetarIFshatit,
                 _roles.AnetarIThjeshte,
-                "SimpleRole"
             };
 
         foreach (var role in roles)

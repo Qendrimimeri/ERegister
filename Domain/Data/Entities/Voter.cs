@@ -20,7 +20,7 @@ public class Voter
     public string? SocialNetwork { get; set; }
     public DateTime CreatedAt { get; set; }
     public string AddressId { get; set; } = null!;
-    public string ActualStatus { get; set; } = null!;
+    public string? ActualStatus { get; set; } = null!;
     public string WorkId { get; set; } = null!;
 
 

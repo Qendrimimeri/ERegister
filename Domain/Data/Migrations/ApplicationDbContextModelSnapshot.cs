@@ -136,9 +136,6 @@ namespace Domain.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("WorkId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -150,8 +147,6 @@ namespace Domain.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("WorkId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -662,10 +657,6 @@ namespace Domain.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Data.Entities.Work", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("WorkId");
-
                     b.Navigation("Address");
                 });
 
@@ -795,7 +786,7 @@ namespace Domain.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Data.Entities.Work", "Work")
-                        .WithMany()
+                        .WithMany("Voters")
                         .HasForeignKey("WorkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -931,7 +922,7 @@ namespace Domain.Data.Migrations
 
             modelBuilder.Entity("Domain.Data.Entities.Work", b =>
                 {
-                    b.Navigation("ApplicationUsers");
+                    b.Navigation("Voters");
                 });
 #pragma warning restore 612, 618
         }

@@ -311,7 +311,6 @@ namespace Domain.Data.Migrations
                     AddressId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ImgPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HasPasswordChange = table.Column<int>(type: "int", nullable: true),
-                    WorkId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -336,11 +335,6 @@ namespace Domain.Data.Migrations
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Works_WorkId",
-                        column: x => x.WorkId,
-                        principalTable: "Works",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -354,7 +348,7 @@ namespace Domain.Data.Migrations
                     SocialNetwork = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AddressId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ActualStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActualStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WorkId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -557,11 +551,6 @@ namespace Domain.Data.Migrations
                 name: "IX_AspNetUsers_AddressId",
                 table: "AspNetUsers",
                 column: "AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_WorkId",
-                table: "AspNetUsers",
-                column: "WorkId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
