@@ -6,7 +6,8 @@ namespace Application.ViewModels
     {
         [ValidateNever]
         public string Id { get; set; }
-
+        public string? FullName { get; set; }
+        public string? PhoneNumber { get; set; }
         [ValidateNever]
         public string? Neigborhood { get; set; }
 
@@ -18,12 +19,15 @@ namespace Application.ViewModels
 
 
         [ValidateNever]
-        public string? Reason { get; set; }
+        public string? GeneralReason { get; set; }
 
 
         [ValidateNever]
         public string? MunicipalityName { get; set; }
+        public string? PollCenter { get; set; }
 
+        [ValidateNever]
+        public string? SpecificReason { get; set; }
 
         [ValidateNever]
         public int? CanYouManage { get; set; }
@@ -34,18 +38,24 @@ namespace Application.ViewModels
         [ValidateNever]
         public int? NeedHelp { get; set; }
 
+        [ValidateNever]
+        public string? SpecificDemand { get; set; }
 
         [ValidateNever]
-        public string? Demands { get; set; }
+        public string? GeneralDemands { get; set; }
 
         [ValidateNever]
-        public string? Description { get; set; }
+        public string? GeneralDescription { get; set; }
 
         [ValidateNever]
         public string? PoliticalSubjects { get; set; }
 
         [ValidateNever]
         public string? InitialChance { get; set; }
+
+        public string? ActualChances { get; set; }
+        public string? ActualStatus { get; set; }
+
 
         [ValidateNever]
         public string? CurrentVoter { get; set; }
