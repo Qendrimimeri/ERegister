@@ -12,7 +12,9 @@
 
 else
 {
+    <h6 class="pt-4">I - Të dhënat e regjistruara<hr></h6>
     <div class="d-flex flex-row justify-content-between flex-lg-row flex-column">
+        
         <div class="col-lg-6 pe-2">
             <div class="table-responsive">
                 <table class="table table-bordered"
@@ -107,6 +109,7 @@ else
         </div>
     </div>
     <form asp-controller="Crm" asp-action="Voters" method="post">
+        <h6 class="pt-4">II - Përcaktimi i votes<hr></h6>
         <input hidden asp-for="Id" id="userId" />
         <div class="d-flex flex-row align-content-around flex-md-row flex-column">
             <div class="col-md-6 mb-2 pe-2">
@@ -135,7 +138,8 @@ else
             <label class="pt-3" for="AktivitetePerNdryshim">Aktivitetet që planifikoni të ndërmerrni për të menaxhuar ndryshimet: </label>
             <textarea type="text" asp-for="ActivitiesYourPlan" class="form-control" id="AktivitetePerNdryshim"> </textarea>
         </div>
-        <div class="d-flex flex-row align-content-around pt-2 flex-md-row flex-column">
+        <h6 class="pt-4">III - Ndihmë nga partia<hr></h6>
+        <div class="d-flex flex-row align-content-around flex-md-row flex-column">
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">A keni nevojë për ndihmë?</label>
                 <select asp-for="NeedHelp" class="form-select" id="gethelp" asp-items="ViewBag.YesNo">
@@ -164,7 +168,7 @@ else
             <textarea asp-for="Description" type="text" class="form-control" id="NdihmaEKerkuar"> </textarea>
         </div>
 
-        <h6 class="pt-4">II - Menaxho<hr></h6>
+        <h6 class="pt-4">IV - Menaxho<hr></h6>
         <div class="mb-4 d-flex justify-content-between flex-sm-row flex-column">
             <div class="col-sm-6 mb-3 pe-2">
                 <label>Partia ne zgjedhjet lokale</label>
