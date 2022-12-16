@@ -60,7 +60,6 @@ namespace Presentation.Controllers
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
 
                 }
-                ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
                 ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 ViewBag.ChangePassword = TempData["ChangePassword"] as string;
@@ -92,9 +91,8 @@ namespace Presentation.Controllers
             //}
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> Reports(string id)
+        public async Task <IActionResult> Reports(string id)
         {
             try
             {
@@ -400,25 +398,141 @@ namespace Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var user = await _userManager.GetUserAsync(User);
-                    if (user == null)
+                    var userId = _unitOfWork.ApplicationUser.GetLoginUser();
+
+                    var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
+                    var userInRoleAnetarIThjeshte = await _unitOfWork.ApplicationUser.IsInRoleAnetarIThjeshtWithId(userId);
+                    if (userInRoleKryetarIFshatit)
                     {
-                        return RedirectToAction("Index", "Home");
+                        var user = await _userManager.GetUserAsync(User);
+                        if (user == null)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                            return View();
+                        }
+                        await _signInManager.RefreshSignInAsync(user);
+                        TempData["ChangePassword"] = "U ndryshua me sukses!";
+                        return RedirectToAction("Index", "Crm");
+
+                    }
+                    else if (userInRoleAnetarIThjeshte)
+                    {
+                        var user = await _userManager.GetUserAsync(User);
+                        if (user == null)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                            return View();
+                        }
+                        await _signInManager.RefreshSignInAsync(user);
+                        TempData["ChangePassword"] = "U ndryshua me sukses!";
+                        return RedirectToAction("AddVoter", "AddsAdmin");
+
+                    }
+                    else
+                    {
+
+                        var user = await _userManager.GetUserAsync(User);
+                        if (user == null)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                            return View();
+                        }
+                        await _signInManager.RefreshSignInAsync(user);
+                        TempData["ChangePassword"] = "U ndryshua me sukses!";
+                        return RedirectToAction("Index", "Dashboard");
+
+
+
                     }
 
-                    var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                    if (!result.Succeeded)
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                        return View();
-                    }
-                    await _signInManager.RefreshSignInAsync(user);
-                    TempData["ChangePassword"] = "U ndryshua me sukses!";
-                    return RedirectToAction("Index", "Dashboard");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 return View(model);
             }
             catch (Exception err)

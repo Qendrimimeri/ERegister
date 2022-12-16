@@ -139,7 +139,7 @@
         }
 </style>
 <script src="~/js/security_stamp_Dashboard.js"></script>
-@if (User.IsInRole(roles.KryetarIPartise))
+@if (User.IsInRole(roles.KryetarIPartise) || User.IsInRole(roles.KryetarIKomunes))
 {
     @section Scripts {
     <script src="~/js/municipalities.js" asp-append-version="true"></script>
@@ -151,6 +151,17 @@
                     icon: "success",
                     text: strValue,
                     timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndClosePoliticalAdmin)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat për zyrtarin janë regjistruar me sukses!",
+                                timer: 2000,
                     buttons: false,
                 })
             }
@@ -216,8 +227,7 @@ else
                 })
             }
         </script>
-    
-    
+        
     <script>
         var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
             if (strValue !== null && strValue !== "") {

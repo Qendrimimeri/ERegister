@@ -140,6 +140,17 @@
         }
     </script>
     <script>
+        var strValue = "@((string)ViewBag.SaveAndCloseProfileVillage)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë regjistruar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+    <script>
         var strValue = "@((string)ViewBag.SaveAndCloseCRMVillage)";
         if (strValue !== null && strValue !== "") {
             swal({
@@ -161,17 +172,7 @@
             })
         }
     </script>
-    <script>
-        var strValue = "@((string)ViewBag.AddPoliticalSaveAndCloseVillage)";
-        if (strValue !== null && strValue !== "") {
-            swal({
-                icon: "success",
-                text: "Të dhënat janë regjistruar me sukses!",
-                timer: 2000,
-                buttons: false,
-            })
-        }
-    </script>
+   
     <script>
         var strValue = "@((string)ViewBag.mssgVillage)";
         if (strValue !== null && strValue !== "") {
@@ -183,6 +184,30 @@
             })
         }
     </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndClosePoliticalVillage)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat janë regjistruar me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+          </script>
+        <script>
+            var strValue = "@((string)ViewBag.ChangePassword)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Fjalëkalimi juaj u ndryshua me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+
     <script>
         $(function () {
             $("#SearchBtn").autocomplete({
