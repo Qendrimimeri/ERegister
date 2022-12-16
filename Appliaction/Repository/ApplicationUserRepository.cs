@@ -54,7 +54,80 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
 
 
-    public async Task<List<VoterVM>> GetPersonInfoAsync()
+    public async Task<List<VoterVM>> GetPerformanceLocalVoter()
+    {
+        EncryptionService encrypt = new(_encrypt);
+        var loginUserId = GetLoginUser();
+        var userMuni = await GetMunicipalityIdOfUser(loginUserId);
+        var userVillage = await GetVillageIdOfUser(loginUserId);
+
+        var appUser = await _context.ApplicationUsers.Where(x => x.Id == loginUserId).FirstOrDefaultAsync();
+
+        var isThisUserSuperAdmin = await _userManager.IsInRoleAsync(appUser, _roles.KryetarIPartise);
+        var isThisMunicipalityAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
+                             .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIKomunes);
+        if (isThisUserSuperAdmin)
+        {
+            var voters = await _context.Voters.Select(person => new VoterVM()
+            {
+                Id = person.Id,
+                FullName = person.FullName,
+                PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                MunicipalityName = person.Address.Municipality.Name,
+                PollCenter = person.Address.PollCenter.CenterNumber,
+                VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
+                PreviousVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubjectLocal,
+                CurrentVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                InitialChances = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().SuccessChances,
+                ActualChances = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+                ActualStatus = person.ActualStatus
+            }).ToListAsync();
+
+            return voters;
+        }
+        else if (isThisMunicipalityAdmin)
+        {
+            var voters = await _context.Voters.Include(x => x.Address)
+                .Where(x => x.Address.MunicipalityId == userMuni).Select(person => new VoterVM()
+                {
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                    MunicipalityName = person.Address.Municipality.Name,
+                    PollCenter = person.Address.PollCenter.CenterNumber,
+                    VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
+                    PreviousVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubjectLocal,
+                    CurrentVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                    InitialChances = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().SuccessChances,
+                    ActualChances = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+                    ActualStatus = person.ActualStatus
+                }).ToListAsync();
+
+            return voters;
+        }
+        else
+        {
+            var voters = await _context.Voters.Include(x => x.Address) //krejt users qe kane id te fshatit
+              .Where(x => x.Address.MunicipalityId == userMuni && x.Address.VillageId == userVillage).Select(person => new VoterVM()
+              {
+                  Id = person.Id,
+                  FullName = person.FullName,
+                  PhoneNumber = encrypt.Decrypt(person.PhoneNumber),
+                  Village = person.Address.Village.Name,
+                  PollCenter = person.Address.PollCenter.CenterNumber,
+                  VotersNumber = _context.PollRelateds.Where(x => x.VoterId == person.Id).FirstOrDefault().FamMembers,
+                  PreviousVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().PoliticialSubjectLocal,
+                  CurrentVoter = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().PoliticialSubjectLocal,
+                  InitialChances = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).Skip(1).FirstOrDefault().SuccessChances,
+                  ActualChances = _context.PollRelateds.Where(x => x.VoterId == person.Id).OrderByDescending(x => x.Date).FirstOrDefault().SuccessChances,
+                  ActualStatus = person.ActualStatus
+              }).ToListAsync();
+
+            return voters;
+        }
+    }
+
+    public async Task<List<VoterVM>> GetPerformanceNationalVoter()
     {
         EncryptionService encrypt = new(_encrypt);
         var loginUserId = GetLoginUser();
@@ -126,6 +199,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             return voters;
         }
     }
+
 
     //VoterDetails
     public async Task<VoterDetailsVM> GetVoterInfoAsync(string name)

@@ -37,7 +37,13 @@ namespace Application.Repository.IRepository
         /// Gets information of voters
         /// </summary>
         /// <returns>A list of information for voters of type PersonVM</returns>
-        Task<List<VoterVM>> GetPersonInfoAsync();
+        Task<List<VoterVM>> GetPerformanceLocalVoter();
+
+        /// <summary>
+        /// Gets information of voters
+        /// </summary>
+        /// <returns>A list of information for voters of type PersonVM</returns>
+        Task<List<VoterVM>> GetPerformanceNationalVoter();
 
 
         /// <summary>

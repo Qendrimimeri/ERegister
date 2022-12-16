@@ -82,7 +82,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var voters = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+                var voters = await _unitOfWork.ApplicationUser.GetPerformanceLocalVoter();
                 ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
                 return View(voters);
             }
@@ -97,7 +97,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                var voters = await _unitOfWork.ApplicationUser.GetPersonInfoAsync();
+                var voters = await _unitOfWork.ApplicationUser.GetPerformanceNationalVoter();
                 ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
                 return View(voters);
             }
