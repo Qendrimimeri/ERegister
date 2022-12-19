@@ -155,23 +155,18 @@
             })
         }
 
-        //$(document).ready(function () {
-        //    $('#example').DataTable();
-        //});
-
         $(document).ready(function () {
-            $('#example').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ]
-            });
+            $('#example').DataTable();
         });
-        const auth = undefined;
 
-        console.log(auth);
-
-        console.log(auth?.user?.name);
+        //$(document).ready(function () {
+        //    $('#example').DataTable({
+        //        dom: 'Bfrtip',
+        //        buttons: [
+        //            'copy', 'csv', 'excel', 'pdf', 'print'
+        //        ]
+        //    });
+        //});
     </script>
     <script src="~/js/Performance.js"></script>
     <script asp-append-version="true">
