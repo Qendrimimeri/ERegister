@@ -212,9 +212,9 @@ namespace Application.Repository.IRepository
 
         Task<bool> IsInRoleAnetarIThjeshtWithEmail(string email);
 
-        Task<IdentityResult> ChangePassword(string password);
+        Task<IdentityResult> ChangePasswordImmediately(ChangePasswordImmediatelyVM model);
 
-       Task<bool?> HasPasswordChange();
+        Task<bool> HasPasswordChange();
 
         Task<bool> IsEmailConfirmed(LoginVM model);
 

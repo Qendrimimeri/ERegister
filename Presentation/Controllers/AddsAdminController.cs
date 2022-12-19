@@ -43,7 +43,6 @@ namespace Presentation.Controllers
 
             try
             {
-                ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
                 VoterAddress();
                 ViewBag.SaveAndOpenAdd = TempData["SaveAndOpenAdd"] as string;
                 return View();

@@ -757,10 +757,10 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         await _userManager.IsInRoleAsync((await _userManager.FindByEmailAsync(email)), _roles.AnetarIThjeshte);
 
 
-    public async Task<IdentityResult> ChangePassword(string password)
+    public async Task<IdentityResult> ChangePasswordImmediately(ChangePasswordImmediatelyVM model)
     {
         var user = await _userManager.FindByIdAsync(GetLoginUser());
-        var result = await _userManager.ResetPasswordAsync(user, (await _userManager.GeneratePasswordResetTokenAsync(user)), password);
+        var result = await _userManager.ResetPasswordAsync(user, (await _userManager.GeneratePasswordResetTokenAsync(user)), model.ConfirmPassword);
         if (result.Succeeded)
         {
             user.HasPasswordChange = 1;
@@ -770,7 +770,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         return result;
     }
 
-    public async Task<bool?> HasPasswordChange()
+    public async Task<bool> HasPasswordChange()
     {
         var user = await _userManager.FindByIdAsync(GetLoginUser());
         var res = user.HasPasswordChange;

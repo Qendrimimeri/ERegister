@@ -838,14 +838,6 @@ namespace Presentation.Controllers
             });
         }
 
-        [HttpPost]
-        [Route("changepasswordasync")]
-        public async Task<IActionResult> ChangePasswordAsync([FromQuery] string password)
-        {
-            await _unitOfWork.ApplicationUser.ChangePassword(password);
-            return RedirectToAction("index", "dashboard");
-        }
-
     }
 
 

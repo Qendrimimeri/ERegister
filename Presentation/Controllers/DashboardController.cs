@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Application.Models.Services;
+using NuGet.Protocol;
 
 namespace Presentation.Controllers
 {
@@ -49,7 +50,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
+                if (!await _unitOfWork.ApplicationUser.HasPasswordChange())return RedirectToAction("ChangePassword", "Home");
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
                 {
                     var user = _httpContext.HttpContext.User.Identity;
@@ -71,7 +72,7 @@ namespace Presentation.Controllers
             } 
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
         }
