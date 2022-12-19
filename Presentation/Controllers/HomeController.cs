@@ -1,6 +1,7 @@
 ﻿using Application.Models.Services;
 using Application.Repository;
 using Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -146,7 +147,7 @@ namespace Presentation.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult ChangePassword()
         {
             try
