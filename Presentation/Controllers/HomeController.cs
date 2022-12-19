@@ -1,6 +1,7 @@
 ﻿using Application.Models.Services;
 using Application.Repository;
 using Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -141,6 +142,43 @@ namespace Presentation.Controllers
             catch (Exception err)
             {
                 _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+        }
+
+
+        [HttpGet, Authorize]
+        public IActionResult ChangePassword()
+        {
+            try
+            {
+                return View("changePassword");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordImmediatelyVM model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var res = await _unitOfWork.ApplicationUser.ChangePasswordImmediately(model);
+                    if (res.Succeeded) return RedirectToAction("Index", "Dashboard");
+                    return View();
+                }
+                ViewBag.PassDoesntMatch = true;
+                return View(model);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
         }

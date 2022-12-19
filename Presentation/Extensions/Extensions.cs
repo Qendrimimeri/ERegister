@@ -45,12 +45,11 @@ public static class Identity
     {
         services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         {
-            options.SignIn.RequireConfirmedEmail = false;
             options.Password.RequiredLength = 4;
             options.Password.RequireDigit = false;
             options.Password.RequireUppercase = false;
             options.Password.RequireNonAlphanumeric = false;
-
+            options.Password.RequireLowercase= false;
         })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
