@@ -213,7 +213,7 @@
                             <div class="col-md-6 mb-2 pe-2" id="pollcenter-villages-container">
                                 <label asp-for="PollCenter">Qendra e votimit</label>
                                 <select asp-for="PollCenter" onchange="getPollCenterId()" class="form-select option-select" id="poll">
-                                    <option disabled selected>Zgjedh qendren e votimit...</option>
+                                    <option disabled selected>Zgjedh qendrën e votimit...</option>
                                 </select>
                                 <small class="text-danger" id="response-city"></small>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
@@ -221,7 +221,7 @@
                             <div class="col-md-6 mb-2 pe-2" id="pollcenter-neighborhood-container">
                                 <label asp-for="PollCenter">Qendra e votimit</label>
                                 <select asp-for="PollCenter" onchange="getPollCenterId()" class="form-select option-select" id="pollNeighborhood">
-                                    <option disabled selected>Zgjedh qendren e votimit...</option>
+                                    <option disabled selected>Zgjedh qendrën e votimit...</option>
                                 </select>
                                 <small class="text-danger" id="response-village"></small>
                                 <span asp-validation-for="PollCenter" class="text-danger"></span>
@@ -256,36 +256,36 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row" class="parti" value="1">VV</th>
-                                            <td><input asp-for="VV" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
+                                            <th scope="row" class="parti" value="1">AAK</th>
+                                            <td><input asp-for="AAK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="2">LDK</th>
-                                            <td><input asp-for="LDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
+                                            <th scope="row" class="parti" value="2">AKR</th>
+                                            <td><input asp-for="AKR" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="3">PDK</th>
-                                            <td><input asp-for="PDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 " /></td>
+                                            <th scope="row" class="parti" value="3">LDK</th>
+                                            <td><input asp-for="LDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 " /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="4">AAK</th>
-                                            <td><input asp-for="AAK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="5">AKR</th>
-                                            <td><input asp-for="AKR" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="parti" value="6">Nisma</th>
+                                            <th scope="row" class="parti" value="4">Nisma</th>
                                             <td><input asp-for="NISMA" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="7">Partite serbe</th>
-                                            <td><input asp-for="PartitSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
+                                            <th scope="row" class="parti" value="5">Partitë minoritare joserbe</th>
+                                            <td><input asp-for="PartitJoSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="8">Partite joserbe</th>
-                                            <td><input asp-for="PartitJoSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
+                                            <th scope="row" class="parti" value="6">Partitë minoritare serbe</th>
+                                            <td><input asp-for="PartitSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="7">PDK</th>
+                                            <td><input asp-for="PDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="parti" value="8">VV</th>
+                                            <td><input asp-for="VV" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -515,6 +515,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             SocialNetwork = model.Facebook,
             CreatedAt = DateTime.Now,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
+            ActualStatus="Në proces"
         };
 
         await _context.Voters.AddAsync(voter);
