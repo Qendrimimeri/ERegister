@@ -227,12 +227,12 @@ function addStreetNeighborhoodToDb() {
 function addPollCenterToList(userVillageId) {
     poll.innerHTML = '';
     let chooseOption = document.createElement("option");
-    chooseOption.innerText = "Zgjedh qendren e votimit...";
+    chooseOption.innerText = "Zgjedh qendrën e votimit...";
     chooseOption.selected = true;
     chooseOption.disabled = true;
     poll.appendChild(chooseOption);
     let addOption = document.createElement("option");
-    addOption.innerText = "Shto qendren e re...";
+    addOption.innerText = "Shto qendrën e re...";
     addOption.value = "shto";
     poll.appendChild(addOption);
     let endpoint = url + "getpollcenterbyvillage?villId=" + userVillageId;
@@ -249,12 +249,12 @@ function addPollCenterToList(userVillageId) {
 function addPollCenterNeighborhoodToList(neighId) {
     pollNeighborhood.innerHTML = '';
     let chooseOption = document.createElement("option");
-    chooseOption.innerText = "Zgjedh qendren e votimit...";
+    chooseOption.innerText = "Zgjedh qendrën e votimit...";
     chooseOption.selected = true;
     chooseOption.disabled = true;
     pollNeighborhood.appendChild(chooseOption);
     let addOption = document.createElement("option");
-    addOption.innerText = "Shto qendren e re...";
+    addOption.innerText = "Shto qendrën e re...";
     addOption.value = "shto";
     pollNeighborhood.appendChild(addOption);
     let endpoint = url + "getpollcenterbyneigborhood?neighId=" + neighId;   ///////neigh?????

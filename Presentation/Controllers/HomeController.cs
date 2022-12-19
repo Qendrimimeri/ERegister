@@ -144,6 +144,43 @@ namespace Presentation.Controllers
                 return View(errorView);
             }
         }
+
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            try
+            {
+                return View("changePassword");
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordImmediatelyVM model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var res = await _unitOfWork.ApplicationUser.ChangePasswordImmediately(model);
+                    if (res.Succeeded) return RedirectToAction("Index", "Dashboard");
+                    return View();
+                }
+                ViewBag.PassDoesntMatch = true;
+                return View(model);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occurred", err);
+                return View(errorView);
+            }
+        }
     }
 
     

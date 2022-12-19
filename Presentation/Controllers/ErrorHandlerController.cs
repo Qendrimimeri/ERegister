@@ -7,7 +7,7 @@ namespace Presentation.Controllers
     {
         [Route("/ErrorHandler/Error/{code:int}")]
         public IActionResult Error(int code)
-            => View( "../Error/Error", 
-                   ( new ErrorModel { ErrorMessage = $"Error Occurred. Error Code is{code}" }));
+            => View("../Error/Error",
+                   (new ErrorModel { ErrorMessage = $"Error Occurred. Error Code is{code}" }));
     }
 }
