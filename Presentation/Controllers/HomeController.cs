@@ -47,7 +47,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
         }

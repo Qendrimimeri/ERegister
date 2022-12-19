@@ -45,7 +45,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -61,7 +61,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -89,7 +89,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An Error has occured", err);
+                _logger.LogError("An Error has occured", err.Message);
                 return View(errorView);
             }
         }
@@ -112,7 +112,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured in Forgot password ", err);
+                _logger.LogError("An error has occured in Forgot password ", err.Message);
                 return View(errorView);
             }
         }
@@ -130,7 +130,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured in Reset Password", err);
+                _logger.LogError("An error has occured in Reset Password", err.Message);
                 return View(errorView);
             }
         }
@@ -157,7 +157,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured in {Reset Password} method", err);
+                _logger.LogError("An error has occured in {Reset Password} method", err.Message);
                 return View(errorView);
             }
         }
@@ -172,7 +172,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured in {Logout}", err);
+                _logger.LogError("An error has occured in {Logout}", err.Message);
                 return View(errorView);
             }
         }
