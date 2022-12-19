@@ -38,8 +38,8 @@ namespace Infrastructure.Services
                 new KeyValueModel { Key = "AKR", Value = "AKR" },
                 new KeyValueModel { Key = "LDK", Value = "LDK" },
                 new KeyValueModel { Key = "Nisma", Value = "Nisma" },
-                new KeyValueModel { Key = "Partit minoriatre jo serbe", Value = "Partit minoriatre jo serbe" },
-                new KeyValueModel { Key = "Partit minoriatre serbe", Value = "Partit minoriatre serbe" },
+                new KeyValueModel { Key = "Partitë minoritare jo serbe", Value = "Partitë minoritare jo serbe" },
+                new KeyValueModel { Key = "Partitë minoritare serbe", Value = "Partitë minoritare serbe" },
                 new KeyValueModel { Key = "PDK", Value = "PDK" },
                 new KeyValueModel { Key = "VV", Value = "VV" },
             };
