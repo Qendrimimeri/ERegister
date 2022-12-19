@@ -833,13 +833,14 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             CreatedAt = DateTime.Now,
             AddressId = addressId,
             ImgPath = "default.png",
+            EmailConfirmed = true,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
         // Use this for Development env.
         var password = CreateRandomPassword(10);
 
-        var result = await _userManager.CreateAsync(simpleUser, password);
+        var result = await _userManager.CreateAsync(simpleUser, "nora");
         await _context.SaveChangesAsync();
 
         if (result.Succeeded)
