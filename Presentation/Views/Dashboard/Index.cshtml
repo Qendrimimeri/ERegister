@@ -117,23 +117,13 @@
                 })
             }
         </script>
-        <script>
-            var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
-            if (strValue !== null && strValue !== "") {
-                swal({
-                    icon: "success",
-                    text: "Të dhënat për zyrtarin janë regjistruar me sukses!,
-                    timer: 2000,
-                    buttons: false,
-                })
-            }
-        </script>
+
         <script>
             var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
             if (strValue !== null && strValue !== "") {
                 swal({
                     icon: "success",
-                    text: "Të dhënat janë ndryshuar me sukses!",
+                    text: "Të dhënat tuaja janë ndryshuar me sukses!",
                     timer: 2000,
                     buttons: false,
                 })
@@ -161,6 +151,18 @@
                 })
             }
         </script>
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndClosePoliticalAdmin)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat janë ruajtur me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+
     }
 }
 else
@@ -178,15 +180,26 @@ else
                 })
             }
         </script>
-    
-    
-    <script>
-        var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
+        <script>
+            var strValue = "@((string)ViewBag.SaveAndClosePoliticalAdmin)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat janë ruajtur me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
+
+
+        <script>
+            var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
             if (strValue !== null && strValue !== "") {
                 swal({
                     icon: "success",
                     text: "Të dhënat për zyrtarin janë ruajtur me sukses!,
-                    timer: 2000,
+                                timer: 2000,
                     buttons: false,
                 })
             }

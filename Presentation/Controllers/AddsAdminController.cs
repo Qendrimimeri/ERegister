@@ -49,7 +49,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
 
@@ -59,8 +59,8 @@ namespace Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM register)
         {
-            //try
-            //{
+            try
+            {
                 if (ModelState.IsValid)
                 {
 
@@ -90,13 +90,13 @@ namespace Presentation.Controllers
 
                 VoterAddress();
                 return View("AddVoter", register);
-            //}
-            //catch (Exception err)
-            //{
-            //    _logger.LogError("An error has occured", err);
-            //    return View(errorView);
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err.Message);
+                return View(errorView);
 
-            //}
+            }
 
         }
 
@@ -113,7 +113,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
         }
@@ -129,34 +129,52 @@ namespace Presentation.Controllers
                     var userId = _unitOfWork.ApplicationUser.GetLoginUser();
                     var userInRoleKryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatit(userId);
                     var res = await _unitOfWork.ApplicationUser.AddPoliticalOfficialAsync(model);
-                    if (res.Status)
+                    if (!userInRoleKryetarIFshatit)
                     {
-                        if (userInRoleKryetarIFshatit)
+                        if (res.Status)
                         {
-                            TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
-                            return RedirectToAction("Index", "Crm");
+                            TempData["SaveAndClosePoliticalAdmin"] = "Te dhenat u ruajten me sukses!";
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+                        else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
+                        {
+                            PoliticalOfficialAddress();
+                            ViewBag.KqzValidation = true;
+                            return View();
                         }
                         else
                         {
-                            TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
+                            ModelState.AddModelError("", "Ky email ekziston!");
+                            ViewBag.EmailExist = "nuk ka email";
+                            PoliticalOfficialAddress();
+                            return View();
                         }
-                    }
-                    else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
-                    {
-                        PoliticalOfficialAddress();
-                        ViewBag.KqzValidation = true;
-                        return View();
+
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Ky email ekziston!");
-                        ViewBag.EmailExist = "nuk ka email";
-                        PoliticalOfficialAddress();
-                        return View();
+                        if (res.Status)
+                        {
+                            TempData["SaveAndClosePoliticalVillage"] = "Te dhenat u ruajten me sukses!";
+
+
+                            return RedirectToAction("Index", "Crm");
+                        }
+                        else if (res.Message == "Ju lutem plotsoni rezultate lidhur me KQZ-n")
+                        {
+                            PoliticalOfficialAddress();
+                            ViewBag.KqzValidation = true;
+                            return View();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Ky email ekziston!");
+                            ViewBag.EmailExist = "nuk ka email";
+                            PoliticalOfficialAddress();
+                            return View();
+                        }
                     }
 
-                    TempData["AddPoliticalSaveAndClose"] = "U regjistruan me sukses!";
-                    return RedirectToAction("Index", "dashboard");
                 }
 
                 PoliticalOfficialAddress();
@@ -164,11 +182,15 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
 
         }
+
+
+
+
 
         public IActionResult Cancel() =>
             RedirectToAction("Index", "Dashboard");
@@ -198,7 +220,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
         }
@@ -233,7 +255,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err);
+                _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
         }

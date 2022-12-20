@@ -64,7 +64,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -82,7 +82,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -100,7 +100,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
 
@@ -118,7 +118,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -137,7 +137,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -156,7 +156,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -454,7 +454,7 @@ namespace Presentation.Controllers
 
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -471,7 +471,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -495,7 +495,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             } 
         }
@@ -514,7 +514,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -537,7 +537,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -553,7 +553,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -573,7 +573,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -591,7 +591,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -610,7 +610,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -627,7 +627,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -647,7 +647,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -664,7 +664,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -687,7 +687,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -704,7 +704,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -726,7 +726,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -742,7 +742,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -762,7 +762,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -778,7 +778,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }
@@ -797,7 +797,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err);
+                _logger.LogError("An error has occurred", err.Message);
                 return View(errorView);
             }
         }

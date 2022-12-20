@@ -81,3 +81,13 @@
         //      });
         //  }
 
+        //var strValue = "@((string)ViewBag.SaveAndCloseManage)";
+        //if (strValue !== null && strValue !== "") {
+        //    swal({
+        //        icon: "success",
+        //        text: "Të dhënat u ndryshuan me sukses!",
+        //        timer: 2000,
+        //        buttons: false,
+        //    })
+        //}
+

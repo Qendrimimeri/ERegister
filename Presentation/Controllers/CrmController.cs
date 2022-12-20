@@ -49,7 +49,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
@@ -71,7 +71,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
@@ -99,7 +99,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
@@ -137,7 +137,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return BadRequest();
         }
 
@@ -153,7 +153,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
 
@@ -170,7 +170,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
