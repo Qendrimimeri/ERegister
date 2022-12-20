@@ -34,7 +34,7 @@ public class CrmController : Controller
 
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task <IActionResult> Index()
     {
         try
         {
