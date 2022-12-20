@@ -38,7 +38,6 @@ public class CrmController : Controller
     {
         try
         {
-            ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
             ViewBag.SaveAndOpenCaseCRM = TempData["SaveAndOpenCaseCRM"] as string;
             ViewBag.mssg = TempData["mssg"] as string;
             ViewBag.SaveAndCloseCRMVillage = TempData["SaveAndCloseCRMVillage"] as string;
