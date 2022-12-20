@@ -858,7 +858,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 Subject = "E-Vota: Konfirmimi i llogarisë.",
                 Body =
                 "Përshëndetje!" +
-                $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën e-Vota" +
+                $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën e-Vota." +
                 $"<br>Ju lutemi klikoni <a href={confimrEmailUrs}>këtu</a> për të verifikuar adresën tuaj elektronike." +
                 $"<br>Fjalëkalimi juaj është <strong>{password}</strong> dhe do të keni mundësinë të ndërroni sapo të kyçeni në platformën e-Vota." +
                 $"<br>Suksese në punën tuaj, i'u priftë e mbara!" +
