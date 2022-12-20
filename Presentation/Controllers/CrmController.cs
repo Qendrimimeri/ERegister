@@ -34,7 +34,7 @@ public class CrmController : Controller
 
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
         try
         {
@@ -53,30 +53,29 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
 
 
-    public async Task<IActionResult> Voters(string name)
+    public async Task<IActionResult> Voters(string userId)
     {
         try
         {
-            var result = name[..name.IndexOf("-")];
             Data();
-            if (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(result.Trim()) == null)
+            if (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(userId) == null)
             {
-                ViewBag.Name = name;
+                ViewBag.Name = userId;
                 ViewBag.UserNull = "nuk ka te dhena";
             }
-            var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(result.Trim());
+            var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(userId);
 
             return PartialView("_Voters", res);
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
@@ -104,7 +103,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }
@@ -142,7 +141,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return BadRequest();
         }
 
@@ -158,7 +157,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
 
@@ -175,7 +174,7 @@ public class CrmController : Controller
         }
         catch (Exception err)
         {
-            _logger.LogError("An error has occured", err);
+            _logger.LogError("An error has occured", err.Message);
             return View(errorView);
         }
     }

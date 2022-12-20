@@ -202,7 +202,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
 
     //VoterDetails
-    public async Task<VoterDetailsVM> GetVoterInfoAsync(string name)
+    public async Task<VoterDetailsVM> GetVoterInfoAsync(string userId)
     {
         EncryptionService encrypt = new(_encrypt);
         var loginUserId = GetLoginUser();
@@ -215,7 +215,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var isThisUserVillageAdmin = await _userManager.IsInRoleAsync((await _context.ApplicationUsers
                  .Where(x => x.Id == loginUserId).FirstOrDefaultAsync()), _roles.KryetarIFshatit);
 
-        var userFromDb = await _context.Voters.Where(x => x.FullName == name).FirstOrDefaultAsync();
+        var userFromDb = await _context.Voters.Where(x => x.Id == userId).FirstOrDefaultAsync();
         if (userFromDb == null) return null;
 
 
@@ -223,7 +223,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         else if (isThisUserMunicipalityAdmin)
         {
             var voters = await _context.Voters.Include(x => x.Address).Include(x => x.Work)
-                .Where(x => x.FullName == name && x.Address.MunicipalityId == userMuni).Select(person => new VoterDetailsVM()
+                .Where(x => x.Id == userId && x.Address.MunicipalityId == userMuni).Select(person => new VoterDetailsVM()
                 {
                     Id = person.Id,
                     FullName = person.FullName,
@@ -255,7 +255,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         }
         else
         {
-            var voters = await _context.Voters.Include(x => x.Work).Where(x => x.FullName == name).Select(person => new VoterDetailsVM()
+            var voters = await _context.Voters.Include(x => x.Work).Where(x => x.Id == userId).Select(person => new VoterDetailsVM()
             {
                 Id = person.Id,
                 FullName = person.FullName,
@@ -834,14 +834,13 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             CreatedAt = DateTime.Now,
             AddressId = addressId,
             ImgPath = "default.png",
-            EmailConfirmed = true,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
         // Use this for Development env.
         var password = CreateRandomPassword(10);
 
-        var result = await _userManager.CreateAsync(simpleUser, "nora");
+        var result = await _userManager.CreateAsync(simpleUser, password);
         await _context.SaveChangesAsync();
 
         if (result.Succeeded)
