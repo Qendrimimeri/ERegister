@@ -318,6 +318,23 @@ namespace Presentation.Controllers
                    th{
                       background-color:#dee2e3 !important;
                     }
+                    ul {
+                      list-style-type: none;
+                    }
+                     li {
+                          display: none;
+                       }
+                        .form-select:focus {
+                          outline: none;
+                        }
+                       .form-select{ 
+                          display:none !important;
+                          border: none !important;
+                        }
+                       .dataTables_info{ 
+                          display:none !important;
+                          border: none !important;
+                        }
                   </style>
                 ";
             string path = @"C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png";
