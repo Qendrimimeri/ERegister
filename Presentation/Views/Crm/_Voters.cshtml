@@ -129,7 +129,7 @@ else
             </div>
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">A mund ta menaxhoni personin?</label>
-                <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" asp-items="ViewBag.YesNo">
+                <select asp-for="CanYouManage" class="form-select" id="inputGroupSelect02" onchange="disableOption1()" asp-items="ViewBag.YesNo">
                     <option disabled selected>Zgjedhni opsionet...</option>
                 </select>
             </div>
@@ -142,7 +142,7 @@ else
         <div class="d-flex flex-row align-content-around flex-md-row flex-column">
             <div class="col-md-6 mb-2 pe-2">
                 <label class="pt-3">A keni nevojë për ndihmë?</label>
-                <select asp-for="NeedHelp" class="form-select" id="gethelp" asp-items="ViewBag.YesNo">
+                <select asp-for="NeedHelp" class="form-select" id="gethelp" onchange="disableOption2()" asp-items="ViewBag.YesNo">
                     <option disabled selected>Zgjedhni opsionet... </option>
 
                 </select>
@@ -272,6 +272,45 @@ else
 </style>
 
 <script asp-append-version="true">
+
+
+    function disableOption2() {
+
+        let gethelp = document.getElementById("gethelp").value;
+        let specificreason = document.getElementById("specific-reason")
+        let NdihmaEKerkuar = document.getElementById("NdihmaEKerkuar")
+
+        if (gethelp != "Zgjedhni opsionet..." && gethelp != "1") {
+
+            specificreason.disabled = true;
+            NdihmaEKerkuar.disabled = true;
+
+        }
+    }
+    function disableOption1() {
+
+        let CanYouManage = document.getElementById("inputGroupSelect02").value;
+        let AktivitetePerNdryshim = document.getElementById("AktivitetePerNdryshim")
+
+        if (CanYouManage != "Zgjedhni opsionet..." && CanYouManage != "1") {
+
+            AktivitetePerNdryshim.disabled = true;
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     const Specificreasons = document.querySelector('#general-demand');
     Specificreasons.addEventListener('change', event => {
         var data = document.getElementById("general-demand").value;
