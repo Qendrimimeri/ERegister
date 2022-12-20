@@ -1,17 +1,21 @@
-using Microsoft.Extensions.Hosting.Internal;
 using Presentation.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.CustomIdentity();
 builder.Services.OptionPattern();
-builder.Logging.CustomLogger();
 builder.Services.CustomExtension();
 
 builder.Services.CustomDataBase();
 
 builder.Services.AddAutoMapper();
 
-
+var loggerVar = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(loggerVar);
 
 var app = builder.Build();
 
