@@ -1,17 +1,12 @@
 using Application.Repository;
 using Application.ViewModels;
 using Domain.Data.Entities;
-using Infrastructure.Services;
-
 using Microsoft.AspNetCore.Identity;
-
 using Microsoft.AspNetCore.Authorization;
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Application.Models.Services;
-using NuGet.Protocol;
+using iText.Html2pdf;
 
 namespace Presentation.Controllers
 {
@@ -50,28 +45,29 @@ namespace Presentation.Controllers
         {
             try
             {
-                if (!await _unitOfWork.ApplicationUser.HasPasswordChange())return RedirectToAction("ChangePassword", "Home");
+                ViewBag.HasPasswordChange = await _unitOfWork.ApplicationUser.HasPasswordChange();
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
                 {
                     var user = _httpContext.HttpContext.User.Identity;
                     var kryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatitWithEmail(user.Name);
                     var anetarIThjesht = await _unitOfWork.ApplicationUser.IsInRoleAnetarIThjeshtWithEmail(user.Name);
 
-                    if (kryetarIFshatit)  return RedirectToAction("Index", "Crm");
+                    if (kryetarIFshatit) return RedirectToAction("Index", "Crm");
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
-                    
+
                 }
-                ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
+
                 ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 ViewBag.ChangePassword = TempData["ChangePassword"] as string;
-                ViewBag.SaveAndClosePoliticalAdmin = TempData["SaveAndClosePoliticalAdmin"] as string;
+
+                ViewBag.AddPoliticalSaveAndClose = TempData["AddPoliticalSaveAndClose"] as string;
                 ViewBag.mssg = TempData["mssg"] as string;
                 return View();
-            } 
-            catch (Exception err)     
+            }
+            catch (Exception err)
             {
-                _logger.LogError("An error has occured", err.Message);
+                _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
         }
@@ -88,7 +84,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err.Message);
+                _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
         }
@@ -103,12 +99,66 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err.Message);
+                _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
         }
 
- 
+
+        //[HttpGet]
+        //public async Task<IActionResult> Reports(string id)
+        //{
+        //    try
+        //    {
+        //        var users = await _unitOfWork.ApplicationUser.GetUserByIdAsync(id);
+        //        //ViewBag.PS = new SelectList(_unitOfWork.PoliticalSubject.GetAll(), "Id", "Name");
+        //        ViewBag.successChances = new SelectList(StaticData.SuccessChances(), "Key", "Value");
+        //        ViewBag.actualStatus = new SelectList(StaticData.ActualStatus(), "Key", "Value");
+
+        //        return View(users);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occured", err);
+        //        return View(errorView);
+        //    }
+        //}
+
+
+        //[HttpPost, ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Reports(VoterVM editVoter)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
+        //            TempData["SaveAndCloseManage"] = "Të dhënat u ndryshuan me sukses!";
+        //            return RedirectToAction("Performance", "Dashboard");
+        //        }
+        //        return View();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.LogError("An error has occured", err);
+        //        return View(errorView);
+        //    }
+        //}
+
+
+        [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes")]
+        public IActionResult KqzResult()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error has occured", err);
+                return View(errorView);
+            }
+        }
 
 
         public IActionResult Cancel()
@@ -128,7 +178,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occured", err.Message);
+                _logger.LogError("An error has occured", err);
                 return View(errorView);
             }
         }
@@ -143,7 +193,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err.Message);
+                _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
         }
@@ -161,7 +211,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err.Message);
+                _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
         }
@@ -183,7 +233,7 @@ namespace Presentation.Controllers
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
-                            return RedirectToAction("Index", "Crm");
+                            return RedirectToAction("Index", "Dashboard");
                         }
 
                     }
@@ -224,7 +274,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err.Message);
+                _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
         }
@@ -239,11 +289,49 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err.Message);
+                _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
         }
 
+        [HttpPost]
+        public ActionResult Export(string GridHtml)
+        {
+            string style = @"
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      font-size: 14px;
+                    }
+                    table {
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+                    th, td {
+                      border: 1px solid #dddddd;
+                      text-align: middle;
+                      padding: 8px;
+                    }
+                    //tr:nth-child(even) {
+                    //  background-color:#e9f0f2;
+                    //}
+                   th{
+                      background-color:#dee2e3 !important;
+                    }
+                  </style>
+                ";
+            string path = @"C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png";
+            Path.GetDirectoryName(path);
+            string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
+            string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
+            string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Të dhënat për votuesit <br><br>";
+            GridHtml = GridHtml.Replace("entries", "rekorde ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
+            using (MemoryStream stream = new MemoryStream())
+            {
+                HtmlConverter.ConvertToPdf(GridHtml, stream);
+                return File(stream.ToArray(), "application/pdf", "Performanca&Raporti.pdf");
+            }
+        }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
@@ -276,7 +364,7 @@ namespace Presentation.Controllers
             }
             catch (Exception err)
             {
-                _logger.LogError("An error has occurred", err.Message);
+                _logger.LogError("An error has occurred", err);
                 return View(errorView);
             }
         }
