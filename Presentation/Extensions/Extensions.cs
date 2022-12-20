@@ -32,6 +32,7 @@ public static class OptionPatterns
         services.Configure<Encrypt>(builder.Configuration.GetSection(Encrypt.SectionName));
         services.Configure<Admin>(builder.Configuration.GetSection(Admin.SectionName));
         services.Configure<Mail>(builder.Configuration.GetSection(Mail.SectionName));
+
         return services;
     }
 
@@ -59,23 +60,6 @@ public static class Identity
     }
 }
 
-
-
-
-public static class Logger
-{
-    public static ILoggingBuilder CustomLogger(this ILoggingBuilder logger)
-    {
-        var builder = WebApplication.CreateBuilder();
-        var loggerVar = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .Enrich.FromLogContext()
-            .CreateLogger();
-        builder.Logging.ClearProviders();
-        builder.Logging.AddSerilog(loggerVar);
-        return logger;
-    }
-}
 
 public static class DataBase
 {
