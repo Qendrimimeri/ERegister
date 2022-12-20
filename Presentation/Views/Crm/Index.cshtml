@@ -95,6 +95,33 @@
         }
     </script>
     <script>
+
+
+        var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: strValue,
+                timer: 2000,
+                showCancelButton: false,
+                showConfirmButton: false
+            })
+        }
+
+    </script>
+    <script>
+        var strValue = "@((string)ViewBag.AddPoliticalSaveAndClose)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë regjistruar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+
+    <script>
         var strValue = "@((string)ViewBag.SaveAndCloseCRMVillage)";
         if (strValue !== null && strValue !== "") {
             swal({
@@ -133,6 +160,39 @@
             swal({
                 icon: "success",
                 text: "Të dhënat janë regjistruar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+    <script>
+        var strValue = "@((string)ViewBag.SaveAndClosePoliticalVillage)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë regjistruar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+    <script>
+        var strValue = "@((string)ViewBag.SaveAndCloseProfileVillage)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat tuaja janë ndryshuar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+    <script>
+        var strValue = "@((string)ViewBag.ChangePassword)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Fjalëkalimi juaj u ndryshua me sukses!",
                 timer: 2000,
                 buttons: false,
             })
@@ -186,6 +246,7 @@
 
         function SetVoters() {
             let name = $('#SearchBtn').val();
+            console.log(name)
             let table = $("#Tables");
             $.ajax({
                 url: "/Crm/Voters?name=" + name,
@@ -224,4 +285,3 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/jquerycrm/jquery-ui.js" asp-append-version="true"></script>
 }
- 
