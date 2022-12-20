@@ -59,18 +59,17 @@ namespace Presentation.Controllers
 
                     if (kryetarIFshatit)  return RedirectToAction("Index", "Crm");
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
-
+                    
                 }
+                ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
-
                 ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
                 ViewBag.ChangePassword = TempData["ChangePassword"] as string;
-
-                ViewBag.AddPoliticalSaveAndClose = TempData["AddPoliticalSaveAndClose"] as string;
+                ViewBag.SaveAndClosePoliticalAdmin = TempData["SaveAndClosePoliticalAdmin"] as string;
                 ViewBag.mssg = TempData["mssg"] as string;
                 return View();
             } 
-            catch (Exception err)
+            catch (Exception err)     
             {
                 _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
