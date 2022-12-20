@@ -444,6 +444,17 @@ else if (User.IsInRole("AnetarIThjeshte"))
                       })
                   }
         </script>
+        <script>
+            var strValue = "@((string)ViewBag.ChangePassword)";
+            if (strValue !== null && strValue !== "") {
+                swal({
+                    icon: "success",
+                    text: "Të dhënat u regjistruan me sukses!",
+                    timer: 2000,
+                    buttons: false,
+                })
+            }
+        </script>
         <script src="~/js/add_votter_antari_thjesht.js"> </script>
     }
 }
@@ -451,6 +462,8 @@ else
 {
     @section Scripts
     {
+   
+
     <script>
         var strValue = "@((string)ViewBag.SaveAndOpenAdd)";
             if (strValue !== null && strValue !== "") {

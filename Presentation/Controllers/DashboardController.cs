@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Application.Models.Services;
 using NuGet.Protocol;
+using Microsoft.Win32;
 
 namespace Presentation.Controllers
 {
@@ -172,6 +173,10 @@ namespace Presentation.Controllers
         {
             try
             {
+
+
+
+
                 if (ModelState.IsValid)
                 {
                     if (editUser.Image == null)
@@ -183,7 +188,7 @@ namespace Presentation.Controllers
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
-                            return RedirectToAction("Index", "Crm");
+                            return RedirectToAction("BusinessUserProfile", "Dashboard");
                         }
 
                     }
@@ -216,7 +221,7 @@ namespace Presentation.Controllers
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("BusinessUserProfile", "Dashboard");
                         }
                     }
                 }
@@ -250,6 +255,36 @@ namespace Presentation.Controllers
         {
             try
             {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 if (ModelState.IsValid)
                 {
                     var user = await _userManager.GetUserAsync(User);
