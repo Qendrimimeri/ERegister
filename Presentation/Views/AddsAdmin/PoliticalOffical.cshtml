@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="col-md-4 mb-2 pe-2">
                                     <label asp-for="Village">Fshati</label>
-                                    <select asp-for="Village" id="villages" class="form-select option-select">
+                                    <select asp-for="Village" id="villages" class="form-select option-select" onchange="VillageValue()">
                                         <option disabled selected>Zgjedh fshatin...</option>
                                     </select>
                                 </div>
@@ -341,15 +341,27 @@
     function disableOption() {
         let neigboor = document.getElementById("neigborhoods").value;
         let data = document.getElementById("role-id")
-
+        let options = document.querySelector("#role-id")
         if (neigboor != "Zgjedh lagjen...") {
-            if (data[3].value === "KryetarIFshatit") {
-                data[3].disabled = true;
+            for(i = 0; i < data.length; i++){
+                if (data[i].value === "KryetarIFshatit") {
+                    data[i].disabled = true;
+                }
             }
         }
     }
-    let data = document.getElementById("role-id")
-    data[3].disabled = false;
+
+    function VillageValue() {
+        let village = document.getElementById("villages").value;
+        let data = document.getElementById("role-id")
+        if (village != "Zgjedh fshatin...") {
+            for (i = 0; i < data.length; i++) {
+                if (data[3].value === "KryetarIFshatit") {
+                    data[3].disabled = false;
+                }
+            }
+        }
+    }
 </script>
 
 @if (User.IsInRole(roles.KryetarIKomunes))

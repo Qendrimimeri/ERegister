@@ -34,7 +34,7 @@ public class CrmController : Controller
 
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
         try
         {
@@ -55,18 +55,17 @@ public class CrmController : Controller
     }
 
 
-    public async Task<IActionResult> Voters(string name)
+    public async Task<IActionResult> Voters(string userId)
     {
         try
         {
-            var result = name[..name.IndexOf("-")];
             Data();
-            if (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(result.Trim()) == null)
+            if (await _unitOfWork.ApplicationUser.GetVoterInfoAsync(userId) == null)
             {
-                ViewBag.Name = name;
+                ViewBag.Name = userId;
                 ViewBag.UserNull = "nuk ka te dhena";
             }
-            var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(result.Trim());
+            var res = await _unitOfWork.ApplicationUser.GetVoterInfoAsync(userId);
 
             return PartialView("_Voters", res);
         }
