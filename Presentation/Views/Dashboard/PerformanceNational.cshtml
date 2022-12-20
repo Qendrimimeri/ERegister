@@ -135,11 +135,11 @@
     }
 </style>
 @*<link rel="stylesheet" type="text/css" href="~/datatable/datatables.css" />*@
-<link rel="stylesheet" type="text/css" href="~/DataTablesTest/datatables.css" />
+<link rel="stylesheet" type="text/css" href="~/DataTablesTestM/datatables.css" />
 @section Scripts {
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     @*<script type="text/javascript" src="~/datatable/datatables.js"></script>*@
-    <script type="text/javascript" src="~/DataTablesTest/datatables.js"></script>
+    <script type="text/javascript" src="~/DataTablesTestM/datatables.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
@@ -154,19 +154,11 @@
                 buttons: false,
             })
         }
-
         $(document).ready(function () {
             $('#example').DataTable();
+               
+            });
         });
-
-        //$(document).ready(function () {
-        //    $('#example').DataTable({
-        //        dom: 'Bfrtip',
-        //        buttons: [
-        //            'copy', 'csv', 'excel', 'pdf', 'print'
-        //        ]
-        //    });
-        //});
     </script>
     <script src="~/js/Performance.js"></script>
     <script asp-append-version="true">
