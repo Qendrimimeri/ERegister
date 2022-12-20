@@ -183,7 +183,7 @@ namespace Presentation.Controllers
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("Index", "Crm");
                         }
 
                     }

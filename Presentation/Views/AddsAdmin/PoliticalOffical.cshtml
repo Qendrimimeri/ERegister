@@ -115,7 +115,7 @@
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-4 mb-2 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage" onchange="disableOptionMuni()">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
@@ -125,19 +125,19 @@
                             {
                                 <div class="col-md-6 mb-2 pe-2">
                                     <label asp-for="Village">Fshati</label>
-                                    <select asp-for="Village" id="villages" class="form-select option-select">
+                                    <select asp-for="Village" id="villages" class="form-select option-select" onchange="VillageValue()">
                                         <option disabled selected>Zgjedh fshatin...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoods-container" class="col-md-6 mb-2 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoods" onchange="disableOption()">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
                                 <div id="neigborhoodsVillage-container" class="col-md-6 mb-2 pe-2">
                                     <label>Lagja</label>
-                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage">
+                                    <select class="form-select option-select" asp-for="Neigborhood" id="neigborhoodsVillage" onchange="disableOptionMuni()">
                                         <option disabled selected>Zgjedh lagjen...</option>
                                     </select>
                                 </div>
@@ -338,6 +338,19 @@
 
 <script asp-append-version="true">
 
+    function disableOptionMuni() {
+        let neigboor = document.getElementById("neigborhoodsVillage").value;
+        let data = document.getElementById("role-id")
+        let options = document.querySelector("#role-id")
+        if (neigboor != "Zgjedh lagjen...") {
+            for (i = 0; i < data.length; i++) {
+                if (data[i].value === "KryetarIFshatit") {
+                    data[i].disabled = true;
+                }
+            }
+        }
+    }
+
     function disableOption() {
         let neigboor = document.getElementById("neigborhoods").value;
         let data = document.getElementById("role-id")
@@ -350,18 +363,20 @@
             }
         }
     }
-
     function VillageValue() {
         let village = document.getElementById("villages").value;
         let data = document.getElementById("role-id")
         if (village != "Zgjedh fshatin...") {
             for (i = 0; i < data.length; i++) {
-                if (data[3].value === "KryetarIFshatit") {
-                    data[3].disabled = false;
+                if (data[i].value === "KryetarIFshatit") {
+                    data[i].disabled = false;
                 }
             }
         }
     }
+
+
+    
 </script>
 
 @if (User.IsInRole(roles.KryetarIKomunes))
