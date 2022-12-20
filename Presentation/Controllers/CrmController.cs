@@ -38,6 +38,7 @@ public class CrmController : Controller
     {
         try
         {
+            ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
             ViewBag.SaveAndOpenCaseCRM = TempData["SaveAndOpenCaseCRM"] as string;
             ViewBag.mssg = TempData["mssg"] as string;
             ViewBag.SaveAndCloseCRMVillage = TempData["SaveAndCloseCRMVillage"] as string;

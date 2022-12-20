@@ -350,14 +350,13 @@
             }
         }
     }
-
     function VillageValue() {
         let village = document.getElementById("villages").value;
         let data = document.getElementById("role-id")
         if (village != "Zgjedh fshatin...") {
             for (i = 0; i < data.length; i++) {
-                if (data[3].value === "KryetarIFshatit") {
-                    data[3].disabled = false;
+                if (data[i].value === "KryetarIFshatit") {
+                    data[i].disabled = false;
                 }
             }
         }
