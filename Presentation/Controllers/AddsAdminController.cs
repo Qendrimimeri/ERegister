@@ -44,6 +44,9 @@ namespace Presentation.Controllers
             try
             {
                 VoterAddress();
+
+                ViewBag.ChangePassword = TempData["ChangePassword"] as string;
+
                 ViewBag.SaveAndOpenAdd = TempData["SaveAndOpenAdd"] as string;
                 return View();
             }

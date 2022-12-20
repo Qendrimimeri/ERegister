@@ -137,7 +137,22 @@
 </section>
 
 @section Scripts{
-  
 
+    <script>
+        var strValue = "@((string)ViewBag.SaveAndCloseProfile)";
+        if (strValue !== null && strValue !== "") {
+            swal({
+                icon: "success",
+                text: "Të dhënat janë ndryshuar me sukses!",
+                timer: 2000,
+                buttons: false,
+            })
+        }
+    </script>
+
+
+
+
+        SaveAndCloseProfile
     <script src="~/js/function_image.js"></script>
 }
