@@ -291,7 +291,7 @@ namespace Presentation.Controllers
 
             bool komunes = User.IsInRole("KryetarIKomunes");
             bool fshatit = User.IsInRole("KryetarIFshatit");
-            var rolesFromDb = await _unitOfWork.ApplicationUser.GetAllRolesAsync();
+            var rolesFromDb = _unitOfWork.ApplicationUser.GetAllRoles();
 
             if (komunes || fshatit)
             {
@@ -309,7 +309,7 @@ namespace Presentation.Controllers
                     }
                 }
             }
-            ViewBag.roles = (new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value")).OrderBy(x => x.Text);
+            ViewBag.roles = new SelectList((roles.Count <= 0 ? rolesFromDb : roles), "Key", "Value");
         }
 
         #endregion
