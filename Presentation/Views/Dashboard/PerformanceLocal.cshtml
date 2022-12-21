@@ -62,10 +62,13 @@
                         <li class="nav-item btnwidth ">
                             <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto në excel</a>
                         </li>&nbsp;&nbsp;
-                        <form asp-action="Export" asp-controller="Dashboard" method = "post">
+                        <li class="btnwidth">
+                        <form asp-action="Export" asp-controller="Dashboard" method = "post" >
                              <input type="hidden" name="GridHtml" />
-                             <input class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" type="submit" id="btnSubmit" value="Eksporto në pdf" />
+                                <input class=" btnwidth nav-link text-sm-center hover-link butonixls btn btn-primary testli" type="submit" id="btnSubmit" value="Eksporto në pdf" />
                         </form>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -169,15 +172,7 @@
         });
     </script>
     <script>
-        var strValue = "@((string)ViewBag.SaveAndCloseManage)";
-        if (strValue !== null && strValue !== "") {
-            swal({
-                icon: "success",
-                text: "Të dhënat janë ndryshuar me sukses!",
-                timer: 2000,
-                buttons: false,
-            })
-        }
+       
         $(document).ready(function () {
             $('#exampleTest1').DataTable();
 
