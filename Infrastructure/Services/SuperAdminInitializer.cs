@@ -62,6 +62,7 @@ public class SuperAdminInitializer
             UserName = _admin.Email,
             NormalizedUserName = _admin.Email.ToUpper(),
             CreatedAt = DateTime.Now,
+            ImgPath = "default.png",
             SocialNetwork = "http://www.facebook.com/eregister",
             AddressId = "18cd24f9-e8f2-4bff-89e7-4864860454aa",
             PhoneNumber = encrypt.Encrypt("213123123")
