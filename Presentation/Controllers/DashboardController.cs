@@ -196,7 +196,7 @@ namespace Presentation.Controllers
                     {
                         if (!editUser.Image.ContentType.Contains("image"))
                         {
-                            TempData["error"] = "Formati duhet te jetë png ose jpg";
+                            TempData["error"] = "Formati duhet te jetÃ« png ose jpg";
                             ViewBag.NotAllowedFormat = true;
                             return RedirectToAction("BusinessUserProfile");
                         }
@@ -255,13 +255,6 @@ namespace Presentation.Controllers
         {
             try
             {
-
-
-
-
-
-
-
                 if (ModelState.IsValid)
                 {
                     var user = await _userManager.GetUserAsync(User);
