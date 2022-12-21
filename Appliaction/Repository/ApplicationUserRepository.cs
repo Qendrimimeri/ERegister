@@ -418,14 +418,14 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         return res;
     }
 
-    public async Task<List<KeyValueModel>> GetAllRolesAsync()
+    public List<KeyValueModel> GetAllRoles()
     {
         List<KeyValueModel> roles = new ()
         {
-            new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anëtar i thjeshtë" },
-            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i nëndegës" },
+            new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" },
             new KeyValueModel { Key = _roles.KryetarIKomunes, Value = "Kryetar i degës" },
-            new KeyValueModel { Key = _roles.KryetarIPartise, Value = "Kryetar i partisë" }
+            new KeyValueModel { Key = _roles.KryetarIFshatit, Value = "Kryetar i nëndegës" },
+            new KeyValueModel { Key = _roles.AnetarIThjeshte, Value = "Anëtar i thjeshtë" }
         };
         var orderedRoles = roles.OrderBy(x => x.Value);
         return roles;
@@ -458,7 +458,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var user = await _userManager.FindByEmailAsync(login.Email);
         if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, login.Password)))
             return false;
-        var res = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
+        var res = await _signInManager.PasswordSignInAsync(user, login.Password, true, false);
         if (res.Succeeded) return true;
         return false;
     }
@@ -550,7 +550,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId)
                                                            .Select(x => x.NoOfvotes)
                                                            .ToListAsync();
-        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partitë minoritare jo serbe", "Partitë minoritare serbe", "PDK", "VV" };
+        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partit minoritare jo serbe", "Partit minoritare serbe", "PDK", "VV" };
 
         // krijo nje list me votat qe vin nga forma
         var noOfVotes = new List<int?>()

@@ -147,7 +147,7 @@ namespace Application.Repository.IRepository
         /// Gets all user roles except for the 'Simple Role'
         /// </summary>
         /// <returns>A generic type of collection of user roles</returns>
-        Task<List<KeyValueModel>> GetAllRolesAsync();
+        List<KeyValueModel> GetAllRoles();
 
         /// <summary>
         /// Checks login information for specficid user based on 

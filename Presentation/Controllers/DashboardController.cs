@@ -290,24 +290,14 @@ namespace Presentation.Controllers
 
                   </style>
                 ";
-            //C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png
-            //string path = "~/images/E-Vota.png";
-            //Path.GetDirectoryName(path);
-            //string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
-            //string imagePath = Path.Combine(Path.GetDirectoryName(
-            //    Assembly.GetExecutingAssembly().Location), @"images\E-Vota.png");
-            const string baseDir = @"..\..\ERegister\Presentation\wwwroot\images\";
-            string fileName = "E-Vota.png";
-            string fullyQualifiedFileName = Path.Combine(baseDir, fileName);
+            string fullyQualifiedFileName = Path.Combine(_env.WebRootPath, "images", "E-Vota.png");
             string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(fullyQualifiedFileName));
             string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
             string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Të dhënat për votuesit <br><br>";
             GridHtml = GridHtml.Replace("rekorde", " ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
-            using (MemoryStream stream = new MemoryStream())
-            {
-                HtmlConverter.ConvertToPdf(GridHtml, stream);
-                return File(stream.ToArray(), "application/pdf", "Performanca&Raporti.pdf");
-            }
+            using MemoryStream stream = new();
+            HtmlConverter.ConvertToPdf(GridHtml, stream);
+            return File(stream.ToArray(), "application/pdf", "Performanca&Raporti.pdf");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
