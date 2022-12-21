@@ -10,6 +10,8 @@
     }
 }
 
+
+
 @media screen and (max-width:472px) {
     .button-responsive {
         font-size: 12px;
@@ -23,6 +25,7 @@
         font-size: 13px;
     }
 }
+
 
 @media screen and (max-width:432px) {
     .button-responsive {
