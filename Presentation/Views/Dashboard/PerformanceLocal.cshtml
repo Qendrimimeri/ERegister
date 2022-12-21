@@ -62,9 +62,10 @@
                         <li class="nav-item btnwidth ">
                             <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto në excel</a>
                         </li>&nbsp;&nbsp;
-                        <li class="nav-item btnwidth ">
-                            <a class="nav-link text-md-center hover-link butonipdf btn btn-primary testli" role="button" onclick="demoFromHTML()"><span class="bi bi-file-pdf "></span> Eksporto në pdf </a>
-                        </li>
+                        <form asp-action="Export" asp-controller="Dashboard" method = "post">
+                             <input type="hidden" name="GridHtml" />
+                             <input class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" type="submit" id="btnSubmit" value="Eksporto në pdf" />
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -132,6 +133,15 @@
                 }
             </tbody>
         </table>
+         <br />
+        <br />
+         <footer id="footer" class="footer d-none">
+        <div class="copyright" style="display:flex; justify-content:center;">
+           <p>&copy; <strong>Vota.live</strong> &nbsp;Të  gjitha të drejtat e rezervuara</p>
+        </div>
+      @*  <div class="credits">
+        </div>*@
+    </footer><!-- End Footer -->
     </div>
 </div>
 <style>
@@ -151,7 +161,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js" asp-append-version="true"></script>
-
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($(".Grid").html());
+            });
+        });
+    </script>
     <script>
         var strValue = "@((string)ViewBag.SaveAndCloseManage)";
         if (strValue !== null && strValue !== "") {
