@@ -474,10 +474,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     {
         EncryptionService encrypt = new(_encrypt);
 
-        string email = model.Email.ToLower();
-        var userExist = await _context.Voters.Where(x => x.Email == model.Email).FirstOrDefaultAsync();
-        if (!(userExist == null)) return false;
-
         string addressId = Guid.NewGuid().ToString();
         var address = new Address()
         {
@@ -554,7 +550,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId)
                                                            .Select(x => x.NoOfvotes)
                                                            .ToListAsync();
-        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partit minoritare jo serbe", "Partit minoritare serbe", "PDK", "VV" };
+        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partitë minoritare jo serbe", "Partitë minoritare serbe", "PDK", "VV" };
 
         // krijo nje list me votat qe vin nga forma
         var noOfVotes = new List<int?>()

@@ -53,16 +53,16 @@ namespace Presentation.Controllers
         {
             try
             {
-                if (!await _unitOfWork.ApplicationUser.HasPasswordChange())return RedirectToAction("ChangePassword", "Home");
+                if (!await _unitOfWork.ApplicationUser.HasPasswordChange()) return RedirectToAction("ChangePassword", "Home");
                 if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
                 {
                     var user = _httpContext.HttpContext.User.Identity;
                     var kryetarIFshatit = await _unitOfWork.ApplicationUser.IsInRoleKryetarIFshatitWithEmail(user.Name);
                     var anetarIThjesht = await _unitOfWork.ApplicationUser.IsInRoleAnetarIThjeshtWithEmail(user.Name);
 
-                    if (kryetarIFshatit)  return RedirectToAction("Index", "Crm");
+                    if (kryetarIFshatit) return RedirectToAction("Index", "Crm");
                     if (anetarIThjesht) return RedirectToAction("AddVoter", "AddsAdmin");
-                    
+
                 }
                 ViewBag.AddPoliticalSaveAndCloseVillage = TempData["AddPoliticalSaveAndCloseVillage"] as string;
                 ViewBag.SaveAndCloseCRM = TempData["SaveAndCloseCRM"] as string;
@@ -71,14 +71,13 @@ namespace Presentation.Controllers
                 ViewBag.SaveAndClosePoliticalAdmin = TempData["SaveAndClosePoliticalAdmin"] as string;
                 ViewBag.mssg = TempData["mssg"] as string;
                 return View();
-            } 
-            catch (Exception err)     
+            }
+            catch (Exception err)
             {
                 _logger.LogError("An error has occured", err.Message);
                 return View(errorView);
             }
         }
-
 
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> PerformanceLocal()
@@ -86,7 +85,6 @@ namespace Presentation.Controllers
             try
             {
                 var voters = await _unitOfWork.ApplicationUser.GetPerformanceLocalVoter();
-                ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
                 return View(voters);
             }
             catch (Exception err)
@@ -101,7 +99,6 @@ namespace Presentation.Controllers
             try
             {
                 var voters = await _unitOfWork.ApplicationUser.GetPerformanceNationalVoter();
-                ViewBag.SaveAndCloseManage = TempData["SaveAndCloseManage"] as string;
                 return View(voters);
             }
             catch (Exception err)
@@ -111,7 +108,7 @@ namespace Presentation.Controllers
             }
         }
 
- 
+
 
 
         public IActionResult Cancel()
@@ -169,15 +166,11 @@ namespace Presentation.Controllers
             }
         }
 
-
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
         {
             try
             {
-
-
-
 
                 if (ModelState.IsValid)
                 {
@@ -288,10 +281,13 @@ namespace Presentation.Controllers
                           display:none !important;
                           border: none !important;
                         }
-                       .dataTables_info{ 
-                          display:none !important;
-                          border: none !important;
-                        }
+                              .dataTables_info{ 
+                                  display:none !important;
+                                  border: none !important;
+                                }
+                       
+                        
+
                   </style>
                 ";
             //C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png

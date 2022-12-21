@@ -27,8 +27,9 @@
     }
 
     .btnwidth {
-        width: 100%;
+        width: 100% !important;
     }
+    
 
     .butonipdf {
         background-color: #2A7EEC;
