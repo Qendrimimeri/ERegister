@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Application.Models.Services;
 using NuGet.Protocol;
 using Microsoft.Win32;
+using System.Reflection;
+using iText.Html2pdf;
 
 namespace Presentation.Controllers
 {
@@ -249,6 +251,68 @@ namespace Presentation.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Export(string GridHtml)
+        {
+            string style = @"
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      font-size: 14px;
+                    }
+                    table {
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+                    th, td {
+                      border: 1px solid #dddddd;
+                      text-align: middle;
+                      padding: 8px;
+                    }
+                    //tr:nth-child(even) {
+                    //  background-color:#e9f0f2;
+                    //}
+                   th{
+                      background-color:#dee2e3 !important;
+                    }
+                    ul {
+                      list-style-type: none;
+                    }
+                     li {
+                          display: none;
+                       }
+                        .form-select:focus {
+                          outline: none;
+                        }
+                       .form-select{ 
+                          display:none !important;
+                          border: none !important;
+                        }
+                       .dataTables_info{ 
+                          display:none !important;
+                          border: none !important;
+                        }
+                  </style>
+                ";
+            //C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png
+            //string path = "~/images/E-Vota.png";
+            //Path.GetDirectoryName(path);
+            //string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
+            //string imagePath = Path.Combine(Path.GetDirectoryName(
+            //    Assembly.GetExecutingAssembly().Location), @"images\E-Vota.png");
+            const string baseDir = @"..\..\..\ERegister\Presentation\wwwroot\images\";
+            string fileName = "E-Vota.png";
+            string fullyQualifiedFileName = Path.Combine(baseDir, fileName);
+            string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(fullyQualifiedFileName));
+            string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
+            string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Të dhënat për votuesit <br><br>";
+            GridHtml = GridHtml.Replace("entries", "rekorde ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
+            using (MemoryStream stream = new MemoryStream())
+            {
+                HtmlConverter.ConvertToPdf(GridHtml, stream);
+                return File(stream.ToArray(), "application/pdf", "Performanca&Raporti.pdf");
+            }
+        }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
