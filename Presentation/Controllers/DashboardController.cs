@@ -306,7 +306,7 @@ namespace Presentation.Controllers
             string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(fullyQualifiedFileName));
             string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
             string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Të dhënat për votuesit <br><br>";
-            GridHtml = GridHtml.Replace("entries", "rekorde ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
+            GridHtml = GridHtml.Replace("rekorde", " ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
             using (MemoryStream stream = new MemoryStream())
             {
                 HtmlConverter.ConvertToPdf(GridHtml, stream);
