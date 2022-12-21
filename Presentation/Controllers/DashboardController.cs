@@ -257,34 +257,6 @@ namespace Presentation.Controllers
             {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 if (ModelState.IsValid)
                 {
                     var user = await _userManager.GetUserAsync(User);
