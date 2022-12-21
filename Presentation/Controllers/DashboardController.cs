@@ -14,6 +14,7 @@ using Application.Models.Services;
 using NuGet.Protocol;
 using Microsoft.Win32;
 using System.Reflection;
+using iText.Html2pdf;
 
 namespace Presentation.Controllers
 {
