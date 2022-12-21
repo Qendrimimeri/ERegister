@@ -18,15 +18,7 @@ $(function () {
         $("input[name='GridHtml']").val($(".Grid").html());
     });
 });
-var strValue = "@((string)ViewBag.SaveAndCloseManage)";
-if (strValue !== null && strValue !== "") {
-    swal({
-        icon: "success",
-        text: "Të dhënat janë ndryshuan me sukses!",
-        timer: 2000,
-        buttons: false,
-    })
-}
+
 $(document).ready(function () {
     $('#exampleTest2').DataTable();
 
