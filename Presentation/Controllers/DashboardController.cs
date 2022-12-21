@@ -300,7 +300,7 @@ namespace Presentation.Controllers
             //string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
             //string imagePath = Path.Combine(Path.GetDirectoryName(
             //    Assembly.GetExecutingAssembly().Location), @"images\E-Vota.png");
-            const string baseDir = @"..\..\..\ERegister\Presentation\wwwroot\images\";
+            const string baseDir = @"..\..\ERegister\Presentation\wwwroot\images\";
             string fileName = "E-Vota.png";
             string fullyQualifiedFileName = Path.Combine(baseDir, fileName);
             string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(fullyQualifiedFileName));

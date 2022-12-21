@@ -30,11 +30,11 @@
                 }
                 <div class="ps-3 pe-3">
                     <div class="row justify-content-between flex-sm-row flex-md-row flex-column">
-                        <div class=' aa col-sm-10 pt-4 pb-4'>
-                            <input type="text" class=" form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
+                        <div class=' aa col-sm-10 pt-4 pb-4 btncrm'>
+                            <input type="text" class=" form-control border-2 " placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
                                    aria-describedby="button-addon1" id="SearchBtn">
                         </div>
-                        <div class="col-sm-2 mb-3 pt-4 pb-2">
+                        <div class="col-sm-2 mb-3 pt-4 pb-2 btncrm">
                             <button class="btn btn-primary w-100 text-white test" id="butoni"  >Kërko   </button>
                         </div>
                         @if (ViewBag.UserNull == "Nuk ka te dhena")
@@ -63,6 +63,9 @@
 <script src="~/js/security_stamp_Crm.js"></script>
 
 <style>
+
+
+
    #newTogglePassword, #confirmTogglePassword {
     margin-left: -30px;
     cursor: pointer;
@@ -113,7 +116,7 @@
         if (strValue !== null && strValue !== "") {
             swal({
                 icon: "success",
-                text: "Të dhënat për votuesin janë regjistruar me sukses!",
+                text: "Zyrtari partiak është regjistruar me sukses!",
                 timer: 2000,
                 buttons: false,
             })
@@ -147,7 +150,7 @@
         if (strValue !== null && strValue !== "") {
             swal({
                 icon: "success",
-                text: "Të dhënat për zyrtarin partiak janë regjistruar me sukses!",
+                    text: "Zyrtari partiak është regjistruar me sukses!",
                 timer: 2000,
                 buttons: false,
             })
@@ -158,7 +161,7 @@
         if (strValue !== null && strValue !== "") {
             swal({
                 icon: "success",
-                text: "Të dhënat për votuesin janë regjistruar me sukses!",
+                text: "Votuesi është regjistruar me sukses!",
                 timer: 2000,
                 buttons: false,
             })
@@ -169,7 +172,7 @@
         if (strValue !== null && strValue !== "") {
             swal({
                 icon: "success",
-                text: "Të dhënat për zyrtarin partiak janë regjistruar me sukses!",
+                text: "Zyrtari partiak është regjistruar me sukses!",
                 timer: 2000,
                 buttons: false,
             })
