@@ -388,3 +388,4 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,visualstudio
 /Appliaction/ViewModels
+/Presentation/wwwroot/images/E-Vota.png.svg

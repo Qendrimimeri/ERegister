@@ -43,7 +43,12 @@ namespace Presentation.Controllers
 
             try
             {
+
+                if (!await _unitOfWork.ApplicationUser.HasPasswordChange()) return RedirectToAction("ChangePassword", "Home");
                 VoterAddress();
+
+                ViewBag.ChangePassword = TempData["ChangePassword"] as string;
+
                 ViewBag.SaveAndOpenAdd = TempData["SaveAndOpenAdd"] as string;
                 return View();
             }

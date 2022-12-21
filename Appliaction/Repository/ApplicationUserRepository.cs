@@ -834,13 +834,14 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
             CreatedAt = DateTime.Now,
             AddressId = addressId,
             ImgPath = "default.png",
+            EmailConfirmed = true,
             PhoneNumber = encrypt.Encrypt($"{model.PrefixPhoneNo}{model.PhoneNumber}"),
         };
 
         // Use this for Development env.
         var password = CreateRandomPassword(10);
 
-        var result = await _userManager.CreateAsync(simpleUser, password);
+        var result = await _userManager.CreateAsync(simpleUser, "imeri");
         await _context.SaveChangesAsync();
 
         if (result.Succeeded)
@@ -857,9 +858,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
                 Subject = "E-Vota: Konfirmimi i llogarisë.",
                 Body =
                 "Përshëndetje!" +
-                $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën e-Vota" +
-                $"<br>Klikoni <a href={confimrEmailUrs}>këtu</a> për të verifikuar adresen tuaj elektronike, ju lutem." +
-                $"<br>Fjalëkalimi juaj është <strong>{password}</strong> ju lusim ta ndërroni fjalëkalimin tuaj në platformën e-Vota <br> Fjalëkalimin mund të ndërroni duke klikuar mbi Profile => Ndrysho fjalëkalimin" +
+                $"<br><br>Urime! Sapo është krijuar llogaria juaj në platformën e-Vota." +
+                $"<br>Ju lutemi klikoni <a href={confimrEmailUrs}>këtu</a> për të verifikuar adresën tuaj elektronike." +
+                $"<br>Fjalëkalimi juaj është <strong>{password}</strong> dhe do të keni mundësinë të ndërroni sapo të kyçeni në platformën e-Vota." +
                 $"<br>Suksese në punën tuaj, i'u priftë e mbara!" +
                 $"<br><br>Me respekt," +
                 $"<br>Personeli i <a href={domainName}>Vota.live</a>",

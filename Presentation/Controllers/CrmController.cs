@@ -34,10 +34,12 @@ public class CrmController : Controller
 
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
+
     {
         try
         {
+            if (!await _unitOfWork.ApplicationUser.HasPasswordChange()) return RedirectToAction("ChangePassword", "Home");
             ViewBag.SaveAndCloseProfile = TempData["SaveAndCloseProfile"] as string;
             ViewBag.SaveAndOpenCaseCRM = TempData["SaveAndOpenCaseCRM"] as string;
             ViewBag.mssg = TempData["mssg"] as string;

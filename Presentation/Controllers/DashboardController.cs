@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Application.Models.Services;
 using iText.Html2pdf;
+using NuGet.Protocol;
+using Microsoft.Win32;
 
 namespace Presentation.Controllers
 {
@@ -133,7 +135,7 @@ namespace Presentation.Controllers
         //        if (ModelState.IsValid)
         //        {
         //            var users = await _unitOfWork.PollRelated.AddPollRelated(editVoter);
-        //            TempData["SaveAndCloseManage"] = "Të dhënat u ndryshuan me sukses!";
+        //            TempData["SaveAndCloseManage"] = "TÃ« dhÃ«nat u ndryshuan me sukses!";
         //            return RedirectToAction("Performance", "Dashboard");
         //        }
         //        return View();
@@ -222,6 +224,10 @@ namespace Presentation.Controllers
         {
             try
             {
+
+
+
+
                 if (ModelState.IsValid)
                 {
                     if (editUser.Image == null)
@@ -232,8 +238,7 @@ namespace Presentation.Controllers
                             var res = _userManager.GetUserAsync(User);
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(res.Result.Email);
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
-
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("BusinessUserProfile", "Dashboard");
                         }
 
                     }
@@ -241,7 +246,7 @@ namespace Presentation.Controllers
                     {
                         if (!editUser.Image.ContentType.Contains("image"))
                         {
-                            TempData["error"] = "Formati duhet te jetë png ose jpg";
+                            TempData["error"] = "Formati duhet te jetÃ« png ose jpg";
                             ViewBag.NotAllowedFormat = true;
                             return RedirectToAction("BusinessUserProfile");
                         }
@@ -266,7 +271,7 @@ namespace Presentation.Controllers
                             var user = await _unitOfWork.ApplicationUser.GetProfileDetails(getUser.Email);
                             TempData["SaveAndCloseProfile"] = "U regjistruan me sukses!";
 
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("BusinessUserProfile", "Dashboard");
                         }
                     }
                 }
@@ -341,8 +346,8 @@ namespace Presentation.Controllers
             Path.GetDirectoryName(path);
             string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
             string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
-            string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Të dhënat për votuesit <br><br>";
-            GridHtml = GridHtml.Replace("entries", "rekorde ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
+            string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TÃ« dhÃ«nat pÃ«r votuesit <br><br>";
+            GridHtml = GridHtml.Replace("entries", "rekorde ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("KÃ«rko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("tÃ«", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
             using (MemoryStream stream = new MemoryStream())
             {
                 HtmlConverter.ConvertToPdf(GridHtml, stream);
@@ -355,6 +360,36 @@ namespace Presentation.Controllers
         {
             try
             {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 if (ModelState.IsValid)
                 {
                     var user = await _userManager.GetUserAsync(User);

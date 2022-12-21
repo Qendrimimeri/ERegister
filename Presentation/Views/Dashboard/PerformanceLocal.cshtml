@@ -95,14 +95,15 @@ background-color: #ddd;
             </div>
         </div>
     </div>
-    <div class="table table-responsive Grid">
-          <style>
 
+    <hr />
+    <div id="customers" class="table table-responsive">
+        <style>
         </style>
         <!--IMG-->  <!--paragraf-->
-        <div class="testtest" style="display:none !important;">
-        </div>
-        <table class="table table-striped table-hover small" id="exampleTest">
+          <div class="testtest" style="display:none !important;">
+          </div>
+        <table class="table table-border table-striped table-hover small" id="exampleTest">
             <thead>
                 <tr style="font-size:12px;" class="align-middle">
                     @if (User.IsInRole("KryetarIFshatit"))
@@ -197,6 +198,7 @@ background-color: #ddd;
         }
         $(document).ready(function () {
             $('#exampleTest').DataTable();
+
         });
     </script>
     <script src="~/js/Performance.js"></script>
