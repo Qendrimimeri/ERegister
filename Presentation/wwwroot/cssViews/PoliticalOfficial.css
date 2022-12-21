@@ -82,9 +82,21 @@ tr:nth-child(even) {
         width: 100%;
     }
 }
+@media screen and (max-width:600px) {
+   
 
+    .partyNumber {
+        font-size: 12px;
+        -o-object-fit: fill;
+    }
 
-@media screen and (max-width:502px) {
+    .responsivePolitical {
+        font-size: 14px;
+        -o-object-fit: fill;
+    }
+}
+
+@media screen and (max-width:510px) {
     .button-responsive {
         font-size: 14px;
     }
@@ -95,6 +107,23 @@ tr:nth-child(even) {
 
     .partyNumber {
         font-size: 10px;
+        -o-object-fit: fill;
+    }
+    .responsivePolitical {
+        font-size: 14px;
+        -o-object-fit: fill;
+    }
+}
+@media screen and (max-width:470px) {
+
+
+    .partyNumber {
+        font-size: 9px;
+        -o-object-fit: fill;
+    }
+
+    .responsivePolitical {
+        font-size: 12px;
         -o-object-fit: fill;
     }
 }
@@ -183,7 +212,7 @@ tr:nth-child(even) {
     }
 }
 
-@media screen and (max-width:377px) {
+@media screen and (max-width:385px) {
     .button-responsive {
         font-size: 8px;
     }
@@ -205,7 +234,7 @@ tr:nth-child(even) {
     }
 
     .partyNumber {
-        font-size: 10px;
+        font-size: 9px!important;
         -o-object-fit: fill;
     }
 }
