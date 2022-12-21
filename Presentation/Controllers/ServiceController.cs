@@ -173,7 +173,7 @@ namespace Presentation.Controllers
                 var userId = GetUser();
                 var isUserAdmin = User.IsInRole("KryetarIPartise");
                 var municipality = _unitOfWork.Municipality.GetMuniOfUser(userId).Result;
-                string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partit minoritare jo serbe", "Partit minoritare serbe", "PDK", "VV" };
+                string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partitë minoritare jo serbe", "Partitë minoritare serbe", "PDK", "VV" };
 
                 if (isUserAdmin)
                 {
