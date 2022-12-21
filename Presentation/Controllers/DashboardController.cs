@@ -9,6 +9,7 @@ using Application.Models.Services;
 using iText.Html2pdf;
 using NuGet.Protocol;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace Presentation.Controllers
 {
@@ -342,9 +343,16 @@ namespace Presentation.Controllers
                         }
                   </style>
                 ";
-            string path = @"C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png";
-            Path.GetDirectoryName(path);
-            string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
+            //C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png
+            //string path = "~/images/E-Vota.png";
+            //Path.GetDirectoryName(path);
+            //string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
+            //string imagePath = Path.Combine(Path.GetDirectoryName(
+            //    Assembly.GetExecutingAssembly().Location), @"images\E-Vota.png");
+            const string baseDir = @"..\..\..\ERegister\Presentation\wwwroot\images\";
+            string fileName = "E-Vota.png";
+            string fullyQualifiedFileName = Path.Combine(baseDir, fileName);
+            string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(fullyQualifiedFileName));
             string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
             string paragraf = "   &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Të dhënat për votuesit <br><br>";
             GridHtml = GridHtml.Replace("entries", "rekorde ").Replace("to", "deri").Replace("of", "nga").Replace("<!--IMG-->", foto + " " + paragraf).Replace("</style>", style + " </style>").Replace("Kërko:", " ").Replace("Showing", "Shfaqja e ").Replace("Shfaq", " ").Replace("të", " ").Replace("regjistruar", " ").Replace("10", " ").Replace("Kthehu1", " ").Replace("Vazhdo", " ");
