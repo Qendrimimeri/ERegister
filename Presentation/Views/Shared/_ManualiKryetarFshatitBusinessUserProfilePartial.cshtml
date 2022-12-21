@@ -9,6 +9,8 @@
                     <h1 class="modal-title fs-5" id="exampleModalToggleLabel" style="color:#012970">CRM</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <div class="modal-body ">
                 <p>
                     Faqja CRM (Costumer Relationship Management) ju shërben për të mbushur formularin e pyetjeve për votuesin e cilësuar si kryefamiljar, i cili është regjistruar paraprakisht. Votuesin e kërkoni përmes emrit dhe mbiemrit.
                 </p>
@@ -75,9 +77,9 @@
                     -“Ruaj dhe hap rast” ruan ndryshimet dhe hap një faqe të re të CRM-it.<br />
                     -“Ruaj dhe mbyll” ruan ndryshimet dhe mbyll faqen.<br />
                 </p>
+                </div>
 
-
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
 
                     <div>
                         <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Vazhdo</button>
@@ -181,7 +183,7 @@
                             <br />-“Qendra e votimit” caktohet qendra e cila i përket lokacionit të zyrtarit të cilin jemi duke e regjistruar.
 
                         </p>
-                        <img src="~/images/kqzvota.png" style="width:100%" id="tedhenatpersonalevotuesi" class="w-100" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" />
+                        <img src="~/images/kqzvota.png"  id="tedhenatpersonalevotuesi" class="w-100" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" />
                         <p>
                             -“Të dhënat e zgjedhjeve” regjistroni të dhënat e votave për secilën parti politike të
                             lokacionit të cilit jemi duke i regjistruar zyrtarin përkatës me rezultate të marrura nga KQZ.<br />
@@ -204,12 +206,12 @@
         </div>
     </div>
 
-    @*Profili im*@
-    <div class="modal fade" id="exampleModalToggle5" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+      @*Profili im*@
+    <div class="modal fade" id="exampleModalToggle6" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="testManuali">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel" style="color:#012970">Manuali - Profili im</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel" style="color:#012970">Profili im</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -217,20 +219,22 @@
                         -Tek “Profili im” gjejmë të dhënat tona personale, poashtu mund t'i ndryshojmë ato.”
                     </p>
                     <img src="~/images/Profile.png" style="width:100%;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" />
+                    <br />
+                    <br />
                     <p>
                         -"Ngarko foton e profilit" mund të ngarkoni/ndryshoni foton tuaj të profilit,<br />
-                        -"Numri i telefonit" mund të ndryshoni numrin tuaj të telefonit,<br />
-                        -"Email adresa" mund të ndryshoni email adresen tuaj.
+                        -"Numri i telefonit" mund të ndryshoni numrin tuaj të telefonit.<br />
+                
                     </p>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Kthehu</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle5" data-bs-toggle="modal">Kthehu</button>
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
-    <a class="btn btn-primary bi bi-info-lg" data-bs-toggle="modal" href="#exampleModalToggle5" role="button"></a>
+    <a class="btn btn-primary bi bi-info-lg" data-bs-toggle="modal" href="#exampleModalToggle6" role="button"></a>
 </div>

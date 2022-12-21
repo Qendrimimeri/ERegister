@@ -244,47 +244,47 @@
                                 <input asp-for="ElectionDate" type="date" id="year" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-6 w-100 ">
+                        <div class="col-md-6 w-100 pe-2">
 
                             <div class="table-responsive">
                                 <table class="table table-responsive align-center table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Partia Politike</th>
-                                            <th scope="col">Totali i votave : <span id="span" class="float-end"></span>
+                                            <td class="responsivePolitical w-50" scope="col">Partia Politike</td>
+                                            <td class="responsivePolitical w-50" scope="col">Totali i votave : <span id="span" class="float-end"></span>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row" class="parti" value="1">AAK</th>
+                                            <td scope="row" class="parti responsivePolitical" value="1">AAK</td>
                                             <td><input asp-for="AAK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="2">AKR</th>
+                                            <td scope="row" class="parti responsivePolitical" value="2">AKR</td>
                                             <td><input asp-for="AKR" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="3">LDK</th>
+                                            <td scope="row" class="parti responsivePolitical" value="3">LDK</td>
                                             <td><input asp-for="LDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 " /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="4">Nisma</th>
+                                            <td scope="row" class="parti responsivePolitical" value="4">Nisma</td>
                                             <td><input asp-for="NISMA" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="5">Partitë minoritare joserbe</th>
+                                            <td scope="row" class="parti responsivePolitical" value="5">Partitë minoritare joserbe</th>
                                             <td><input asp-for="PartitJoSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="6">Partitë minoritare serbe</th>
+                                            <td scope="row" class="parti responsivePolitical" value="6">Partitë minoritare serbe</td>
                                             <td><input asp-for="PartitSerbe" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="7">PDK</th>
+                                            <td scope="row" class="parti responsivePolitical" value="7">PDK</td>
                                             <td><input asp-for="PDK" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100" /></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="parti" value="8">VV</th>
+                                            <td scope="row" class="parti responsivePolitical" value="8">VV</td>
                                             <td><input asp-for="VV" placeholder="Shkruaj numrin e votave..." min="0" type="number" class="partyNumber border-0 votat w-100 c" /></td>
                                         </tr>
                                     </tbody>
@@ -390,7 +390,7 @@
             if (strValue !== null && strValue !== "") {
                 swal({
                     icon: "success",
-                    text: "Të dhënat janë regjistruar me sukses!",
+                    text: "Zyrtari partiak është regjistruar me sukses!",
                     timer: 2000,
                     buttons: false,
                 })
@@ -409,7 +409,7 @@ else if (User.IsInRole(roles.KryetarIFshatit))
             if (strValue !== null && strValue !== "") {
                 swal({
                     icon: "success",
-                    text: "Të dhënat janë regjistruar me sukses!",
+                    text: "Zyrtari partiak është regjistruar me sukses!",
                     timer: 2000,
                     buttons: false,
                 })
@@ -426,7 +426,7 @@ else
             if (strValue !== null && strValue !== "") {
                 swal({
                     icon: "success",
-                    text: "Të dhënat janë regjistruar me sukses!",
+                    text: "Zyrtari partiak është regjistruar me sukses!",
                     timer: 2000,
                     buttons: false,
                 })
