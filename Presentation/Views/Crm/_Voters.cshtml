@@ -1,6 +1,8 @@
 ﻿@model VoterDetailsVM
 <link rel="stylesheet" href="~/cssViews/_Voters.css">
-
+@{
+    var fbLink = "https://www.facebook.com/" + Model.FacebookLink;
+}
 @if (ViewBag.UserNull == "nuk ka te dhena")
 {
     if (string.IsNullOrWhiteSpace(ViewBag.Name)) { } 
@@ -52,7 +54,7 @@ else
                     </tr>
                     <tr>
                         <td>Facebook</td>
-                        <td id="DataSearching"><a href="@Model.FacebookLink" target="_blank">@Model.FullName </a></td>
+                        <td id="DataSearching"><a href="@fbLink" target="_blank">@Model.FullName </a></td>
                     </tr>
                 </table>
             </div>
