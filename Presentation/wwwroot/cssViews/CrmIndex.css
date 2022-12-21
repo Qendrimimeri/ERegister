@@ -1,5 +1,10 @@
 ﻿@media screen and (max-width:600px) {
-    .test {
+    .test{
+        width: 100%;
+    }
+}
+@media screen and (max-width:625px) {
+    .btncrm {
         width: 100%;
     }
 }
@@ -9,9 +14,6 @@
         font-size: 15px;
     }
 }
-
-
-
 @media screen and (max-width:472px) {
     .button-responsive {
         font-size: 12px;
@@ -25,8 +27,6 @@
         font-size: 13px;
     }
 }
-
-
 @media screen and (max-width:432px) {
     .button-responsive {
         font-size: 10px;
