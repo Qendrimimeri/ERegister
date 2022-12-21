@@ -554,7 +554,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         var hasPollCenterData = await _context.Kqzregisters.Where(x => x.PollCenterId == pollCenterId)
                                                            .Select(x => x.NoOfvotes)
                                                            .ToListAsync();
-        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partit minoritare jo serbe", "Partit minoritare serbe", "PDK", "VV" };
+        string[] politicalSubjects = { "AAK", "AKR", "LDK", "Nisma", "Partitë minoritare jo serbe", "Partitë minoritare serbe", "PDK", "VV" };
 
         // krijo nje list me votat qe vin nga forma
         var noOfVotes = new List<int?>()
