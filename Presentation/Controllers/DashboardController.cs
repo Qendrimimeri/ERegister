@@ -79,7 +79,6 @@ namespace Presentation.Controllers
             }
         }
 
-
         [HttpGet, Authorize(Roles = "KryetarIPartise,KryetarIKomunes,KryetarIFshatit")]
         public async Task<IActionResult> PerformanceLocal()
         {
@@ -167,15 +166,11 @@ namespace Presentation.Controllers
             }
         }
 
-
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> BusinessUserProfile(ProfileVM editUser)
         {
             try
             {
-
-
-
 
                 if (ModelState.IsValid)
                 {
@@ -286,10 +281,11 @@ namespace Presentation.Controllers
                           display:none !important;
                           border: none !important;
                         }
-                       .dataTables_info{ 
-                          display:none !important;
-                          border: none !important;
-                        }
+                              .dataTables_info{ 
+                                  display:none !important;
+                                  border: none !important;
+                                }
+                       
                         
 
                   </style>
