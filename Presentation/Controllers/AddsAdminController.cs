@@ -85,12 +85,6 @@ namespace Presentation.Controllers
                         TempData["mssg"] = "U regjistuan me sukses!";
                         return RedirectToAction("Index", "dashboard");
                     }
-                    else
-                    {
-                        ViewBag.UserExist = "Email i dhënë ekziston në sistem!";
-                        VoterAddress();
-                        return View("AddVoter", register);
-                    }
                 }
 
                 VoterAddress();

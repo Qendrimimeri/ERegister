@@ -474,10 +474,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     {
         EncryptionService encrypt = new(_encrypt);
 
-        string email = model.Email.ToLower();
-        var userExist = await _context.Voters.Where(x => x.Email == model.Email).FirstOrDefaultAsync();
-        if (!(userExist == null)) return false;
-
         string addressId = Guid.NewGuid().ToString();
         var address = new Address()
         {
