@@ -342,7 +342,7 @@ namespace Presentation.Controllers
                         }
                   </style>
                 ";
-            string path = @"C:\Users\LB\Desktop\vota\ERegister\Presentation\wwwroot\images\E-Vota.png";
+            string path = @"C:\Users\Zana\Desktop\evota\ERegister\Presentation\wwwroot\images\E-Vota.png";
             Path.GetDirectoryName(path);
             string imageData = Convert.ToBase64String(System.IO.File.ReadAllBytes(path));
             string foto = "<img src='data:image/png;base64," + imageData + "' style='height:65px;width:90px;display:inline;'>";
