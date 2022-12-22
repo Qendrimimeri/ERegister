@@ -1,19 +1,19 @@
 ﻿@media screen and (max-width:600px) {
-    .test{
+    .test {
         width: 100%;
     }
+    
 }
+
 @media screen and (max-width:640px) {
     .btncrm {
         width: 100%;
-    }
-}
-@media screen and (max-width:625px) {
-    .testcrm {
-        padding-top: 5px !important;
-    }
-}
 
+    }
+    /*.testcrm {
+        padding-top: 0px !important;
+    }*/
+}
 
 @media screen and (max-width:500px) {
     input:: placeholder {

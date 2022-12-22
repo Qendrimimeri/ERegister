@@ -21,43 +21,48 @@
         font-size: 8px !important;
     }
 }
-
-
-.test {
-    background-color: #0d6efd;
+@media screen and (max-width:372px) {
+    .btncrm {
+        width: 100%;
+    }
 }
 
-    .test:hover {
+
+    .test {
+        background-color: #0d6efd;
+    }
+
+        .test:hover {
+            background-color: #0b5ed7;
+        }
+
+    .swal-button--catch:hover {
+        background-color: #0d6efd;
+    }
+
+    .swal-button:not([disabled]):hover {
         background-color: #0b5ed7;
     }
 
-.swal-button--catch:hover {
-    background-color: #0d6efd;
-}
-
-.swal-button:not([disabled]):hover {
-    background-color: #0b5ed7;
-}
-
-.swal-button--cancel {
-    background-color: #dc3545;
-    color: white;
-}
-
-    .swal-button--cancel:not([disabled]):hover {
-        background-color: #bb2d3b;
+    .swal-button--cancel {
+        background-color: #dc3545;
+        color: white;
     }
 
-.swal-content__input:focus {
-    border-color: #ced4da;
-    border-bottom: 3px solid #ced4da;
-}
+        .swal-button--cancel:not([disabled]):hover {
+            background-color: #bb2d3b;
+        }
 
-.swal-text {
-    font-weight: 500;
-    font-size: 20px;
-}
+    .swal-content__input:focus {
+        border-color: #ced4da;
+        border-bottom: 3px solid #ced4da;
+    }
 
-.swal-button--confirm {
-    background-color: #0d6efd;
-}
+    .swal-text {
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    .swal-button--confirm {
+        background-color: #0d6efd;
+    }
