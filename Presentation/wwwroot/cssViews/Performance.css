@@ -70,7 +70,8 @@
     }
     .centerbtns{
         display:flex !important;
-        justify-content:center !important;
+        justify-content:end !important;
+       
     }
 
     li {
