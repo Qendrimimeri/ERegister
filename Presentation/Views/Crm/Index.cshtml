@@ -18,7 +18,7 @@
             <div class="card">
                 @if (User.IsInRole(roles.KryetarIPartise))
                 {
-                    <div class="ps-3"><partial name="_ManualiAdminCrmPartial"></partial></div>
+                    <div class="pe-3 d-flex justify-content-end "><partial name="_ManualiAdminCrmPartial"></partial></div>
                 }
                 @if (User.IsInRole(roles.KryetarIKomunes))
                 {
@@ -30,11 +30,11 @@
                 }
                 <div class="ps-3 pe-3">
                     <div class="row justify-content-between flex-sm-row flex-md-row flex-column">
-                        <div class=' aa col-sm-10 pt-4 pb-4 btncrm'>
+                        <div class=' aa col-sm-10 pt-4 pb-4 btncrm '>
                             <input type="text" class=" form-control border-2 " placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
                                    aria-describedby="button-addon1" id="SearchBtn">
                         </div>
-                        <div class="col-sm-2 mb-3 pt-4 pb-2 btncrm">
+                        <div class="col-sm-2 mb-3 pt-4 pb-2 btncrm testcrm">
                             <button class="btn btn-primary w-100 text-white test" id="butoni"  >Kërko   </button>
                         </div>
                         @if (ViewBag.UserNull == "Nuk ka te dhena")
