@@ -3,14 +3,20 @@
         width: 100%;
     }
 }
-@media screen and (max-width:625px) {
+@media screen and (max-width:640px) {
     .btncrm {
         width: 100%;
     }
 }
+@media screen and (max-width:625px) {
+    .testcrm {
+        padding-top: 5px !important;
+    }
+}
+
 
 @media screen and (max-width:500px) {
-    input::placeholder {
+    input:: placeholder {
         font-size: 15px;
     }
 }
