@@ -108,6 +108,11 @@
         color: white !important;
         font-weight: 200 !important;
     }
+    .show {
+        width: 100%;
+        text-align: center;
+    }
+
 }
 
 @media only screen and (min-width: 771px) {
