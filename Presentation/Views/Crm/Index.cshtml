@@ -18,7 +18,7 @@
             <div class="card">
                 @if (User.IsInRole(roles.KryetarIPartise))
                 {
-                    <div class="pe-3 d-flex justify-content-end "><partial name="_ManualiAdminCrmPartial"></partial></div>
+                    <div class="pe-3 d-flex justify-content-start ps-3 "><partial name="_ManualiAdminCrmPartial"></partial></div>
                 }
                 @if (User.IsInRole(roles.KryetarIKomunes))
                 {
@@ -28,9 +28,9 @@
                 {
                     <div class="ps-3"> <partial name="_ManualiKryetarFshatitCrmPartial"> </partial> </div>
                 }
-                <div class="ps-3 pe-3">
+                <div class="ps-3 pe-3 ">
                     <div class="row justify-content-between flex-sm-row flex-md-row flex-column">
-                        <div class=' aa col-sm-10 pt-4 pb-4 btncrm '>
+                        <div class=' aa col-sm-10 pt-4  btncrm '>
                             <input type="text" class=" form-control border-2" placeholder="Kërko sipas emrit dhe mbiemrit të kryefamiljarit"
                                    aria-describedby="button-addon1" id="SearchBtn">
                         </div>
