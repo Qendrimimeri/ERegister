@@ -9,43 +9,41 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
 <div class="bg-white">
-    <div class="d-flex justify-content-between p-2">
+    <div class="d-flex justify-content-between pt-2 pe-2 ps-2">
         <div>
             <h2 class="card-title ">Performanca & Raporti - Zgjedhjet lokale</h2>
         </div>
         @if (User.IsInRole(roles.KryetarIPartise))
         {
-            <div class="ps-2">
+            <div class="ps-2"style="padding-right: 11px;">
                 <partial name="_ManualiAdminPerformancePartial"></partial>
             </div>
         }
         @if (User.IsInRole(roles.KryetarIKomunes))
         {
-            <div class="ps-2">
+            <div class="ps-2"style="padding-right: 11px;">
                 <partial name="_ManualiKryetarKomunesPerformancePartial"></partial>
             </div>
         }
         @if (User.IsInRole(roles.KryetarIFshatit))
         {
-            <div class="">
+            <div class="ps-2"style="padding-right: 11px;">
                 <partial name="_ManualiKryetarFshatitPerformancePartial"></partial>
             </div>
         }
     </div>
-    <div class="d-flex justify-content-center"style="display: flex !important;justify-content: right !important;margin-right: 16px;">
+    <div class = "d-flex justify-content-center pe-2 centerbtns"style="padding-right: 19px !important;">
         <div b-fhvjq1vla1="" class="navbar navbar-expand-md navbar-light pe-0 d-flex justify-content-between">
-            <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0">
+            <div b-fhvjq1vla1="" class="container-fluid d-flex pe-0" style="padding-left: 0px;">
                 <a class="navbar-brand fw-semibold" href="/"></a>
-                <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <button b-fhvjq1vla1="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation"style="margin-bottom: 13px;">
                     <span b-fhvjq1vla1="" class="bi bi-three-dots-vertical noHover"></span>
                 </button>
-                <div class="testing collapse navbar-collapse justify-content-end align-items-center text-center text-sm-center pe-0" id="main-nav">
-                    <ul class="navbar-nav d-flex align-items-center justify-content-center">
-                        &nbsp;&nbsp;
-                        <li b-fhvjq1vla1="" class="nav-item btnwidth">
+                <div class="testing collapse navbar-collapse justify-content-center align-items-center text-center text-sm-center pe-0" id="main-nav">
+                        <div b-fhvjq1vla1="" class="nav-item btnwidth">
                             <div class="dropdown">
                                 <a class="nav-link text-md-center hover-link dropdown-toggle butonitoggle btn btn-primary testli" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Shfaq/Largo kolonat nga lista </a>
-                                <ul class="dropdown-menu ultest" aria-labelledby="dropdownMenuLink">
+                                <ul class="dropdown-menu ultest W-auto" aria-labelledby="dropdownMenuLink">
                                     <li><a class="toggle-vis text-decoration-none" data-column="0">Qyteti</a></li>
                                     <li><a class="toggle-vis" data-column="1">Emri dhe Mbiemri</a></li>
                                     <li><a class="toggle-vis" data-column="2">Numri i votuesve</a> </li>
@@ -58,18 +56,14 @@
                                     <li><a class="toggle-vis" data-column="9">Statusi aktual</a> </li>
                                 </ul>
                             </div>
-                        </li>&nbsp;&nbsp;
-                        <li class="nav-item btnwidth ">
-                            <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel()"><span class="bi bi-file-excel"></span> Eksporto në excel</a>
-                        </li>&nbsp;&nbsp;
-                        <li class="btnwidth">
-                        <form asp-action="Export" asp-controller="Dashboard" method = "post" >
+                        </div>&nbsp;&nbsp;
+                        <div class="nav-item btnwidth ">
+                            <a class="nav-link text-sm-center hover-link butonixls btn btn-primary testli" role="button" onclick="ExportToExcel('xlsx')"><span class="bi bi-file-excel"></span> Eksporto në excel</a>
+                        </div>&nbsp;&nbsp;
+                        <form asp-action="Export" asp-controller="Dashboard" method = "post">
                              <input type="hidden" name="GridHtml" />
-                                <input class=" btnwidth nav-link text-sm-center hover-link butonixls btn btn-primary testli" type="submit" id="btnSubmit" value="Eksporto në pdf" />
+                        <input class="btnwidth nav-link text-sm-center hover-link butonixls btn btn-primary testli" type="submit" id="btnSubmit" value="Eksporto në pdf" />
                         </form>
-                        </li>
-
-                    </ul>
                 </div>
             </div>
         </div>

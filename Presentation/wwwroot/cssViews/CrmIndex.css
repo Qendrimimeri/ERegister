@@ -1,16 +1,20 @@
 ﻿@media screen and (max-width:600px) {
-    .test{
+    .test {
         width: 100%;
     }
+    
 }
-@media screen and (max-width:625px) {
+
+@media screen and (max-width:640px) {
     .btncrm {
         width: 100%;
+
     }
+   
 }
 
 @media screen and (max-width:500px) {
-    input::placeholder {
+    input:: placeholder {
         font-size: 15px;
     }
 }

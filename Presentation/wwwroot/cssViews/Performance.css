@@ -50,7 +50,7 @@
     }
 }
 
-@media only screen and (max-width: 765px) {
+@media only screen and (max-width: 770px) {
     #noHover {
         pointer-events: none !important;
     }
@@ -58,6 +58,20 @@
     li a {
         color: black;
         cursor: pointer;
+        font-size: 14px !important;
+        white-space: nowrap;
+        text-align: center;
+    }
+    .bi-file-excel {
+        display: none !important;
+    }
+    li input {
+        font-size: 14px !important;
+    }
+    .centerbtns{
+        display:flex !important;
+        justify-content:end !important;
+       
     }
 
     li {
@@ -94,14 +108,21 @@
         color: white !important;
         font-weight: 200 !important;
     }
+    .show {
+        width: 100%;
+        text-align: center;
+    }
+
 }
 
-@media only screen and (min-width: 775px) {
+@media only screen and (min-width: 771px) {
     .testing {
         display: flex !important;
         justify-content: end !important;
     }
-
+    .bi-file-excel {
+        display: none !important;
+    }
     .butonixls {
         box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
         cursor: pointer;
