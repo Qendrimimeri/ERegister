@@ -3,6 +3,7 @@
 
 @model ProfileVM
 @{
+    var num = Model.PhoneNo;
     Layout = "_DashboardLayout";
     Roles roles = _roles.Value;
 
@@ -122,7 +123,7 @@
                         <span>Numri i telefonit</span>
                         <div class="pe-2">
                             <div class="col-12">
-                                <input class="form-control" asp-for="PhoneNo" type="number" min="0" placeholder="">
+                                <input class="form-control" asp-for="@Model.PhoneNo">
                             </div>
                             <span class="text-danger"></span>
                         </div>
