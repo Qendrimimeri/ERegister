@@ -507,9 +507,18 @@ namespace Presentation.Controllers
             try
             {
                 var test = _mapper.Map<Village>(model);
+                if (_context.Villages.Any(v => v.Name == model.VillageName))
+                {
 
-                _context.Villages.Add(test);
-                _context.SaveChanges();
+                    return BadRequest(new { message = "A village with the same name already exists" });
+
+                }
+                else
+                {
+                    _context.Villages.Add(test);
+                    _context.SaveChanges();
+                    return Ok();
+                }
                 return Ok();
             }
             catch (Exception err)
