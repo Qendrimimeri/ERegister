@@ -12,6 +12,8 @@ namespace Application.ViewModels
     {
         public string? Id { get; set; }
         public string? FullName { get; set; }
+        [Required(ErrorMessage = "Ju lutem jepni një numer telefoni!")]
+
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
         public string? Municipality { get; set; }
