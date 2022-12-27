@@ -189,12 +189,13 @@ namespace Presentation.Controllers
                     }
                     else if (editUser.Image != null)
                     {
-                        if (!editUser.Image.ContentType.Contains("image"))
+                        if (!editUser.Image.ContentType.Contains("image") || editUser.Image.ContentType.Contains("image/svg+xml"))
                         {
                             TempData["error"] = "Formati duhet te jetë png ose jpg";
                             ViewBag.NotAllowedFormat = true;
                             return RedirectToAction("BusinessUserProfile");
                         }
+                        
                         var rootFilePath = _env.WebRootPath;
                         string filePath = Path.Combine(rootFilePath, "Document");
                         if (!Directory.Exists(filePath))
