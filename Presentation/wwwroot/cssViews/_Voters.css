@@ -1,4 +1,13 @@
-﻿@media screen and (max-width:488px) {
+﻿@media screen and (max-width:648px) {
+    .btncrm {
+        width: 100%;
+    }
+}
+
+
+
+
+@media screen and (max-width:488px) {
     .btn {
         font-size: 14px !important;
     }
@@ -32,7 +41,7 @@
         background-color: #0d6efd;
     }
 
-        .test:hover {
+    .test:hover {
             background-color: #0b5ed7;
         }
 

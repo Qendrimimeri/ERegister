@@ -17,30 +17,30 @@
                     <input type="email" class="form-control font-mobile" asp-for="Email" aria-describedby="emailHelp">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                    
-                <div >
+
+                <div>
                     <label asp-for="Password" class="form-label">Fjalëkalimi</label>
                     <div class="d-flex align-items-center">
-                        <input asp-for="Password" type="password" class="form-control font-mobile" id="password"  aria-describedby="passwordHelp">
+                        <input asp-for="Password" type="password" class="form-control font-mobile" id="password" aria-describedby="passwordHelp">
                         <i class="bi bi-eye-slash fs-5" id="togglePassword"></i>
                     </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
-                @if (ViewBag.NotAuth == true)
+                @if (ViewBag.NotConfirmed == true)
                 {
-                    if (ViewBag.NotConfirmed == true)
-                    {
-                        <span class="text-danger">Ju lutemi konfirmoni llogarinë tuaj!</span>
-                    }
+                <span class="text-danger">Ju lutemi konfirmoni llogarinë tuaj!</span>
+                }
+                else if (ViewBag.NotAuth == true)
+                {
                     <span class="text-danger">Kredencialet e gabuara</span>
                 }
-                
+
                 <div class="d-flex form-check mt-2 ml-20 mr-20 justify-content-between">
                     <div class="">
-                        <label  asp-for="RememberMe"class="rememberme form-check-label pr-3 mr-3">
+                        <label asp-for="RememberMe" class="rememberme form-check-label pr-3 mr-3">
                             Më mbaj mend
-                        <input asp-for="RememberMe" class="form-check-input">
+                            <input asp-for="RememberMe" class="form-check-input">
                             <span asp-validation-for="RememberMe" class="text-danger"></span>
                         </label>
                     </div>
@@ -56,25 +56,25 @@
 </div>
 <script src="~/js/security_stamp.js"></script>
 <style>
-    #togglePassword{
+    #togglePassword {
         margin-left: -30px;
         cursor: pointer;
     }
-    @@media screen and (max-width:550px) {
+    @@media screen and (max-width:488px) {
         .test {
             display: flex;
             flex-flow: row wrap;
             justify-content: center;
             width: 100% !important;
         }
-        .responziveMobile{
-            padding:10px !important;
-        }
+
         .font-mobile{
             font-size:16px;
             padding-top:9px !important;
             padding-bottom:9px !important;
-
+        }
+        .responziveMobile {
+            padding: 10px !important;
         }
 
         .font-mobilekyqu {
@@ -95,12 +95,12 @@
             max-width: 100%;
         }
     }
-    @@media screen and (max-width:1240px) {
-    .homeindex{
-       /* margin-top:2px !important;*/
-       padding-top:1px !important;
-       padding-bottom:1px !important;
 
+    @@media screen and (max-width:1240px) {
+        .homeindex {
+            /* margin-top:2px !important;*/
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+        }
     }
-}
 </style>
