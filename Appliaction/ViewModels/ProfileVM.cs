@@ -12,6 +12,10 @@ namespace Application.ViewModels
     {
         public string? Id { get; set; }
         public string? FullName { get; set; }
+        [Required(ErrorMessage = "Ju lutem jepni një numer telefoni!"),
+              MinLength(9, ErrorMessage = "Ju lutem shkruani së paku 9 numra!"),
+              MaxLength(20, ErrorMessage = "Ju lutem mos shkruani me shumë se 220 numra!")]
+
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
         public string? Municipality { get; set; }
